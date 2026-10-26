@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2027年カレンダー（祝日入り）｜えりまき工房</title>
+<meta name="description" content="祝日と振替休日入りの2027年（令和9年）カレンダー。月曜はじまり・日曜はじまりを選んで、A4横に月ごと、またはA4縦の1枚に12か月で印刷できる無料の道具。">
+<meta property="og:title" content="2027年カレンダー（祝日入り）｜えりまき工房">
+<meta property="og:description" content="祝日と振替休日入りの2027年（令和9年）カレンダー。月曜はじまり・日曜はじまりを選んで、A4横に月ごと、またはA4縦の1枚に12か月で印刷できる無料の道具。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="えりまき工房">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Shippori+Mincho+B1:wght@500;700&display=swap">
+<style>
+/* Layout: one reading column for articles (46rem); tools split into form and preview from 860px. */
+:root {
+  --bg:#f4f5f3; --surface:#ffffff; --ink:#1f2328; --muted:#5b636d; --line:#d7dbde;
+  --accent:#2f4b6c; --accent-soft:#e3e9f0; --sun:#b4343c; --sat:#2d5c9e;
+  --font-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP","Noto Serif CJK JP",serif;
+  --font-body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#14171b; --surface:#1b1f24; --ink:#e4e7ea; --muted:#9aa3ad; --line:#2e343b;
+  --accent:#a3bddb; --accent-soft:#223040; --sun:#ef7f86; --sat:#86aee6; color-scheme:dark; } }
+:root[data-theme="dark"] {
+  --bg:#14171b; --surface:#1b1f24; --ink:#e4e7ea; --muted:#9aa3ad; --line:#2e343b;
+  --accent:#a3bddb; --accent-soft:#223040; --sun:#ef7f86; --sat:#86aee6; color-scheme:dark; }
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.85 var(--font-body);
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0 48px; }
+.wrap { max-width:46rem; margin:0 auto; }
+.wide { max-width:68rem; margin:0 auto; }
+header.site { border-bottom:1px solid var(--line); padding-block:18px 14px; margin-bottom:28px; }
+header.site .bar { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:8px 20px; }
+.brand { font-family:var(--font-display); font-weight:700; font-size:1.3rem; color:var(--ink); text-decoration:none; letter-spacing:.08em; line-height:1.3; }
+.brand small { display:block; font-family:var(--font-body); font-weight:400; font-size:.76rem; color:var(--muted); letter-spacing:.04em; }
+nav.site { display:flex; flex-wrap:wrap; gap:4px 18px; font-size:.92rem; }
+nav.site a { color:var(--muted); text-decoration:none; padding-block:2px; }
+nav.site a:hover, nav.site a[aria-current="page"] { color:var(--accent); }
+h1 { font-family:var(--font-display); font-weight:700; font-size:clamp(1.5rem,4.6vw,2.05rem); line-height:1.45; margin:0 0 12px; text-wrap:balance; letter-spacing:.03em; }
+h2 { font-family:var(--font-display); font-weight:700; font-size:1.28rem; line-height:1.5; margin:44px 0 14px; padding-bottom:6px; border-bottom:1px solid var(--line); text-wrap:balance; }
+h3 { font-size:1rem; margin:22px 0 6px; }
+p { margin:0 0 14px; }
+ul { margin:0 0 16px; padding-left:1.3em; }
+li { margin-bottom:4px; }
+a { color:var(--accent); text-underline-offset:3px; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.lead { color:var(--muted); font-size:1.02rem; }
+.meta { color:var(--muted); font-size:.82rem; margin-bottom:22px; }
+.note { color:var(--muted); font-size:.86rem; }
+.scroll { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-size:.92rem; }
+th, td { text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--line); }
+th { font-weight:700; color:var(--muted); font-size:.82rem; letter-spacing:.04em; }
+td.when { white-space:nowrap; font-variant-numeric:tabular-nums; font-weight:700; }
+@media (max-width:560px) {
+  table.stack thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  table.stack, table.stack tbody, table.stack tr, table.stack td { display:block; width:100%; }
+  table.stack tr { border-bottom:1px solid var(--line); padding:10px 0; }
+  table.stack td { border:none; padding:1px 0; }
+  table.stack td.when { white-space:normal; }
+  table.stack td.src { font-size:.84rem; color:var(--muted); }
+}
+.cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+.card { background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:18px 18px 16px; display:grid; gap:6px; align-content:start; min-width:0; }
+.card h3 { font-family:var(--font-display); font-size:1.12rem; margin:0; }
+.card h3 a { color:var(--ink); text-decoration:none; }
+.card h3 a:hover { color:var(--accent); }
+.card p { margin:0; font-size:.92rem; color:var(--muted); }
+.card .go { font-size:.88rem; }
+.list { list-style:none; padding:0; margin:0; display:grid; gap:0; }
+.list li { border-bottom:1px solid var(--line); padding-block:12px; margin:0; }
+.list a { font-weight:700; text-decoration:none; }
+.list a:hover { text-decoration:underline; }
+.list span { display:block; color:var(--muted); font-size:.88rem; }
+.bunrei { display:grid; gap:8px; margin:10px 0 24px; }
+.bunrei .head { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+.bunrei .label { font-weight:700; font-size:.95rem; }
+.postcard { overflow-x:auto; direction:rtl; background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:20px 18px; }
+.postcard .v { direction:ltr; display:inline-block; writing-mode:vertical-rl; font-family:var(--font-display); font-size:1.02rem; line-height:2.1; letter-spacing:.12em; height:19em; white-space:pre-wrap; }
+.postcard .ln { display:block; }
+.postcard .v .ln.end { text-align:end; }
+.postcard.yoko { direction:ltr; text-align:center; padding:22px 18px; }
+.postcard .h { font-family:var(--font-display); font-size:1.02rem; line-height:1.95; letter-spacing:.03em; white-space:pre-wrap; overflow-wrap:anywhere; }
+.postcard .h .ln.en { font-family:"Cormorant Garamond",var(--font-display); font-size:1.14rem; font-weight:500; }
+.postcard .h .ln.big { font-size:1.3rem; font-weight:700; margin-bottom:8px; }
+.postcard .h .ln.big.en { font-size:1.6rem; font-style:italic; font-weight:600; line-height:1.35; }
+button { font:inherit; cursor:pointer; }
+.btn { font-size:.92rem; padding:8px 16px; border-radius:4px; border:1px solid var(--accent); background:var(--accent); color:var(--surface); }
+.btn.sub { background:var(--surface); color:var(--accent); }
+.btn.small { font-size:.8rem; padding:3px 10px; }
+.msg { font-size:.8rem; color:var(--muted); min-height:1.2em; }
+.tool { display:grid; gap:20px; }
+@media (min-width:860px) { .tool { grid-template-columns:minmax(0, 23rem) minmax(0, 1fr); align-items:start; } }
+.panel { background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:16px; display:grid; gap:12px; min-width:0; }
+.field label { display:block; font-size:.82rem; color:var(--muted); margin-bottom:2px; }
+.field select, .field input, .field textarea { width:100%; font:inherit; font-size:.95rem; padding:7px 9px; border:1px solid var(--line); border-radius:4px; background:var(--surface); color:var(--ink); }
+.field textarea { min-height:12em; font-family:var(--font-display); line-height:1.7; }
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:end; }
+.btns { display:flex; flex-wrap:wrap; gap:8px; }
+.warn { font-size:.86rem; color:var(--sun); min-height:1.2em; margin:0; }
+.preview { background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:16px; display:grid; justify-items:center; gap:8px; min-width:0; }
+.preview canvas, .preview img { max-width:100%; height:auto; max-height:78vh; border:1px solid var(--line); background:#fff; }
+.seg { display:inline-flex; border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+.seg button { border:none; background:var(--surface); color:var(--muted); padding:6px 12px; font-size:.9rem; }
+.seg button[aria-pressed="true"] { background:var(--accent-soft); color:var(--accent); font-weight:700; }
+.cal-controls { display:flex; flex-wrap:wrap; gap:12px 20px; align-items:end; margin-bottom:16px; }
+.cal-sheet { background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:18px; margin-bottom:16px; }
+.cal-title { display:flex; align-items:baseline; gap:12px; margin-bottom:10px; }
+.cal-title b { font-family:var(--font-display); font-size:1.7rem; font-variant-numeric:tabular-nums; }
+.cal-title span { color:var(--muted); font-size:.9rem; }
+.cal-grid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.cal-grid div { border-right:1px solid var(--line); border-bottom:1px solid var(--line); min-height:4.6rem; padding:4px 6px; font-variant-numeric:tabular-nums; min-width:0; }
+.cal-grid .wd { min-height:auto; text-align:center; font-size:.8rem; color:var(--muted); font-weight:700; padding:3px; }
+.cal-grid .d { font-size:1.05rem; font-weight:700; line-height:1.3; }
+.cal-grid .h { display:block; font-size:.68rem; line-height:1.3; overflow-wrap:anywhere; }
+.cal-grid .sun, .cal-grid .hol { color:var(--sun); }
+.cal-grid .sat { color:var(--sat); }
+.cal-grid .blank { background:var(--bg); }
+footer.site { border-top:1px solid var(--line); margin-top:56px; padding-top:18px; font-size:.84rem; color:var(--muted); }
+footer.site nav { display:flex; flex-wrap:wrap; gap:6px 18px; margin-bottom:8px; }
+@media print {
+  :root { --bg:#fff; --surface:#fff; --ink:#222; --muted:#555; --line:#999; --sun:#c0303a; --sat:#2d5c9e; color-scheme:light; }
+  body { padding:0; }
+  header.site, footer.site, .no-print { display:none !important; }
+}
+</style>
+<style id="pageStyle">@page { size: A4 landscape; margin: 10mm; }</style>
+<style>
+.year-sheet { background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:18px; margin-bottom:16px; }
+.year-title { display:flex; align-items:baseline; gap:12px; margin-bottom:12px; }
+.year-title b { font-family:var(--font-display); font-size:1.7rem; font-variant-numeric:tabular-nums; }
+.year-title span { color:var(--muted); font-size:.9rem; }
+.year-grid { display:grid; gap:18px 26px; grid-template-columns:repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+.mini h3 { font-family:var(--font-display); font-size:1.08rem; margin:0 0 4px; }
+.mgrid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); text-align:center; font-variant-numeric:tabular-nums; font-size:.88rem; line-height:1.9; }
+.mgrid .wd { font-size:.72rem; color:var(--muted); font-weight:700; }
+.mgrid .sun, .mgrid .hol { color:var(--sun); }
+.mgrid .sat { color:var(--sat); }
+.mgrid .hol { font-weight:700; }
+.hol-list { font-size:.8rem; color:var(--muted); margin:16px 0 0; line-height:1.7; }
+@media print {
+  h1, .lead, .cal-controls, .holidays, h2 { display:none !important; }
+  .cal-sheet { border:none; padding:0; margin:0; break-after:page; }
+  .cal-sheet:last-of-type { break-after:auto; }
+  .cal-title b { font-size:22pt; }
+  .cal-grid div { min-height:27mm; }
+  .cal-grid .d { font-size:15pt; }
+  .cal-grid .h { font-size:8pt; }
+  .cal-grid .blank { background:#f2f2f2; }
+  .year-sheet { border:none; padding:0; margin:0; }
+  .year-title { margin-bottom:6mm; }
+  .year-title b { font-size:24pt; }
+  .year-title span { font-size:11pt; }
+  .year-grid { grid-template-columns:repeat(3, 1fr); gap:6mm 10mm; }
+  .mini { break-inside:avoid; }
+  .mini h3 { font-size:13pt; margin-bottom:1mm; }
+  .mgrid { font-size:11pt; line-height:1.7; }
+  .mgrid .wd { font-size:8pt; }
+  .hol-list { font-size:8pt; color:#333; margin-top:6mm; }
+}
+</style>
+<link rel="canonical" href="https://erimaki-kobo.github.io/tools/calendar-2027.html">
+<meta property="og:url" content="https://erimaki-kobo.github.io/tools/calendar-2027.html">
+</head>
+<body>
+<header class="site"><div class="bar wide">
+<a class="brand" href="../index.html">えりまき工房<small>はがきと手帳の、無料の道具</small></a>
+<nav class="site" aria-label="サイト内"><a href="../index.html">トップ</a><a href="../index.html#tools">道具</a><a href="../index.html#reads">読みもの</a><a href="../about.html">このサイトについて</a></nav>
+</div></header>
+<main class="wide">
+<h1>2027年カレンダー（祝日入り）</h1><p class="lead">2027年（令和9年）のカレンダーです。祝日と振替休日は名前入りで、日曜・祝日は赤、土曜は青で表示します。月曜はじまりと日曜はじまりを選べて、A4横に1か月1枚、またはA4縦の1枚に12か月で印刷できます。</p><div class="cal-controls no-print"><div class="field"><label id="viewLabel">表示</label><div class="seg" id="view" role="group" aria-labelledby="viewLabel"><button type="button" data-view="month" aria-pressed="true">1か月ずつ</button><button type="button" data-view="year" aria-pressed="false">1枚に12か月</button></div></div><div class="field" id="monthField"><label for="month">表示する月</label><select id="month"></select></div><div class="field"><label id="startLabel">週のはじまり</label><div class="seg" id="start" role="group" aria-labelledby="startLabel"><button type="button" data-mon="1" aria-pressed="true">月曜</button><button type="button" data-mon="0" aria-pressed="false">日曜</button></div></div><button type="button" class="btn" id="print">表示中の月を印刷する</button></div><p class="note no-print">表示している画面によっては、印刷ボタンが効かないことがあります。</p><div id="sheets"></div><section class="holidays"><h2>2027年の祝日と休日（17日）</h2><div class="scroll"><table><thead><tr><th scope="col">日付</th><th scope="col">名前</th></tr></thead><tbody><tr><td class="when">1月1日</td><td>元日</td></tr><tr><td class="when">1月11日</td><td>成人の日</td></tr><tr><td class="when">2月11日</td><td>建国記念の日</td></tr><tr><td class="when">2月23日</td><td>天皇誕生日</td></tr><tr><td class="when">3月21日</td><td>春分の日</td></tr><tr><td class="when">3月22日</td><td>振替休日</td></tr><tr><td class="when">4月29日</td><td>昭和の日</td></tr><tr><td class="when">5月3日</td><td>憲法記念日</td></tr><tr><td class="when">5月4日</td><td>みどりの日</td></tr><tr><td class="when">5月5日</td><td>こどもの日</td></tr><tr><td class="when">7月19日</td><td>海の日</td></tr><tr><td class="when">8月11日</td><td>山の日</td></tr><tr><td class="when">9月20日</td><td>敬老の日</td></tr><tr><td class="when">9月23日</td><td>秋分の日</td></tr><tr><td class="when">10月11日</td><td>スポーツの日</td></tr><tr><td class="when">11月3日</td><td>文化の日</td></tr><tr><td class="when">11月23日</td><td>勤労感謝の日</td></tr></tbody></table></div><p class="note">内閣府「<a href="https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html">国民の祝日について</a>」の令和9年（2027年）の表にもとづいています（2026年10月に確認）。3月22日は、祝日法第3条第2項による休日（振替休日）です。</p></section>
+</main>
+<footer class="site"><div class="wide">
+<nav aria-label="サイトについて"><a href="../index.html">トップ</a><a href="../about.html">このサイトについて</a></nav>
+<p>道具と記事は、AI（Anthropic社のClaude）が作っています。日付と祝日は、日本郵便・国立天文台・内閣府の発表で確かめています。道具に入力した内容は送信されず、お使いのブラウザの中だけで使われます。</p>
+<p>© えりまき工房</p>
+</div></footer>
+<script>
+(function () {
+  var HOL = {"01-01": "元日", "01-11": "成人の日", "02-11": "建国記念の日", "02-23": "天皇誕生日", "03-21": "春分の日", "03-22": "振替休日", "04-29": "昭和の日", "05-03": "憲法記念日", "05-04": "みどりの日", "05-05": "こどもの日", "07-19": "海の日", "08-11": "山の日", "09-20": "敬老の日", "09-23": "秋分の日", "10-11": "スポーツの日", "11-03": "文化の日", "11-23": "勤労感謝の日"};
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { month: new Date().getFullYear() === 2027 ? new Date().getMonth() + 1 : 1, mon: true, view: "month" };
+  var WD = ["日", "月", "火", "水", "木", "金", "土"];
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function sheet(m) {
+    var el = document.createElement("section"); el.className = "cal-sheet"; el.dataset.month = m;
+    var t = document.createElement("div"); t.className = "cal-title";
+    var b = document.createElement("b"); b.textContent = "2027年 " + m + "月"; t.appendChild(b);
+    var s = document.createElement("span"); s.textContent = "令和9年"; t.appendChild(s);
+    el.appendChild(t);
+    var g = document.createElement("div"); g.className = "cal-grid";
+    var order = state.mon ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
+    order.forEach(function (w) { var c = document.createElement("div"); c.className = "wd" + (w === 0 ? " sun" : w === 6 ? " sat" : ""); c.textContent = WD[w]; g.appendChild(c); });
+    var first = new Date(2027, m - 1, 1).getDay(), lead = order.indexOf(first), days = new Date(2027, m, 0).getDate();
+    for (var i = 0; i < lead; i++) { var e = document.createElement("div"); e.className = "blank"; g.appendChild(e); }
+    for (var d = 1; d <= days; d++) {
+      var w = new Date(2027, m - 1, d).getDay(), key = pad(m) + "-" + pad(d), hol = HOL[key];
+      var c = document.createElement("div"); c.className = hol ? "hol" : w === 0 ? "sun" : w === 6 ? "sat" : "";
+      var n = document.createElement("span"); n.className = "d"; n.textContent = d; c.appendChild(n);
+      if (hol) { var h = document.createElement("span"); h.className = "h"; h.textContent = hol; c.appendChild(h); }
+      g.appendChild(c);
+    }
+    var rest = (7 - (lead + days) % 7) % 7;
+    for (var j = 0; j < rest; j++) { var f = document.createElement("div"); f.className = "blank"; g.appendChild(f); }
+    el.appendChild(g);
+    return el;
+  }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function yearSheet() {
+    var box = el("section", "year-sheet");
+    var t = el("div", "year-title"); t.appendChild(el("b", null, "2027年")); t.appendChild(el("span", null, "令和9年")); box.appendChild(t);
+    var grid = el("div", "year-grid");
+    var order = state.mon ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
+    for (var m = 1; m <= 12; m++) {
+      var mini = el("div", "mini"); mini.appendChild(el("h3", null, m + "月"));
+      var g = el("div", "mgrid");
+      order.forEach(function (w) { g.appendChild(el("span", "wd" + (w === 0 ? " sun" : w === 6 ? " sat" : ""), WD[w])); });
+      var first = new Date(2027, m - 1, 1).getDay(), lead = order.indexOf(first), days = new Date(2027, m, 0).getDate();
+      for (var i = 0; i < lead; i++) g.appendChild(el("span"));
+      for (var d = 1; d <= days; d++) {
+        var w = new Date(2027, m - 1, d).getDay(), hol = HOL[pad(m) + "-" + pad(d)];
+        var c = el("span", hol ? "hol" : w === 0 ? "sun" : w === 6 ? "sat" : "", String(d));
+        if (hol) c.title = hol;
+        g.appendChild(c);
+      }
+      mini.appendChild(g); grid.appendChild(mini);
+    }
+    box.appendChild(grid);
+    box.appendChild(el("p", "hol-list", "祝日・休日（赤）：" + Object.keys(HOL).sort().map(function (k) { return Number(k.slice(0, 2)) + "/" + Number(k.slice(3)) + " " + HOL[k]; }).join("　")));
+    return box;
+  }
+  function render() {
+    var box = $("sheets"); box.replaceChildren();
+    if (state.view === "year") box.appendChild(yearSheet());
+    else for (var m = 1; m <= 12; m++) { var s = sheet(m); s.hidden = state.month !== 0 && state.month !== m; box.appendChild(s); }
+    $("monthField").hidden = state.view === "year";
+    $("pageStyle").textContent = "@page { size: A4 " + (state.view === "year" ? "portrait" : "landscape") + "; margin: 10mm; }";
+    $("print").textContent = state.view === "year" ? "1枚に12か月を印刷する" : "表示中の月を印刷する";
+    document.querySelectorAll("#start button").forEach(function (b) { b.setAttribute("aria-pressed", (b.dataset.mon === "1") === state.mon ? "true" : "false"); });
+    document.querySelectorAll("#view button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.view === state.view ? "true" : "false"); });
+  }
+  var sel = $("month");
+  var all = document.createElement("option"); all.value = "0"; all.textContent = "12か月すべて"; sel.appendChild(all);
+  for (var m = 1; m <= 12; m++) { var o = document.createElement("option"); o.value = String(m); o.textContent = m + "月"; sel.appendChild(o); }
+  sel.value = String(state.month);
+  sel.addEventListener("change", function () { state.month = Number(sel.value); render(); });
+  document.querySelectorAll("#start button").forEach(function (b) { b.addEventListener("click", function () { state.mon = b.dataset.mon === "1"; render(); }); });
+  document.querySelectorAll("#view button").forEach(function (b) { b.addEventListener("click", function () { state.view = b.dataset.view; render(); }); });
+  $("print").addEventListener("click", function () { window.print(); });
+  render();
+})();
+</script>
+</body>
+</html>

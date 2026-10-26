@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://erimaki-kobo.github.io/sitemap.xml
