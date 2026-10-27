@@ -1,4 +1,784 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>えりまきビックリ（準備中）｜えりまき工房</title>
-<style>body{font-family:system-ui,sans-serif;max-width:40rem;margin:3rem auto;padding:0 1rem;line-height:1.7}</style></head>
-<body><h1>えりまきビックリは、作り直し中です</h1><p>次の版の準備のため、いったん公開をやめています。できたらまた置きます。</p><p><a href="../index.html">← えりまき工房の無料の道具へ</a></p></body></html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>えりまきビックリ（試作 v2.0α）｜えりまき工房</title>
+<meta name="description" content="曲に合わせて、えりまきトカゲのえりを広げて天敵を追い返すリズムゲーム。ゆるく遊ぶモードと音ゲーモード。ブラウザだけで動き、インストールは要りません。">
+<meta property="og:title" content="えりまきビックリ（試作 v2.0α）｜えりまき工房">
+<meta property="og:description" content="曲に合わせて、えりまきトカゲのえりを広げて天敵を追い返すリズムゲーム。ゆるく遊ぶモードと音ゲーモード。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="えりまき工房">
+<link rel="canonical" href="https://erimaki-kobo.github.io/play/erimaki-bikkuri.html">
+<style>
+/* Layout: the stage (16:9 canvas) fills the width; touch pads sit under it; notes below. */
+:root {
+  --bg:#f4f5f3; --surface:#ffffff; --ink:#1f2328; --muted:#5b636d; --line:#d7dbde; --accent:#2f4b6c; --accent-soft:#e3e9f0;
+  --orange:#E8873A; --red:#C8452E;
+  --font-body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#14171b; --surface:#1b1f24; --ink:#e4e7ea; --muted:#9aa3ad; --line:#2e343b; --accent:#a3bddb; --accent-soft:#223040; color-scheme:dark; } }
+:root[data-theme="dark"] { --bg:#14171b; --surface:#1b1f24; --ink:#e4e7ea; --muted:#9aa3ad; --line:#2e343b; --accent:#a3bddb; --accent-soft:#223040; color-scheme:dark; }
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+html { -webkit-text-size-adjust:100%; }
+body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.75 var(--font-body);
+  padding-left:max(12px, env(safe-area-inset-left, 0px)); padding-right:max(12px, env(safe-area-inset-right, 0px)); padding-block:0 40px; }
+.wrap { max-width:62rem; margin:0 auto; }
+header.site { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 16px; padding:12px 0 10px; font-size:.9rem; }
+header.site a { color:var(--muted); text-decoration:none; }
+header.site a:hover { color:var(--accent); }
+header.site .ver { color:var(--muted); font-size:.82rem; }
+#stage { position:relative; width:100%; aspect-ratio:16/9; background:#0e1016; border-radius:8px; overflow:hidden; box-shadow:0 2px 14px rgba(0,0,0,.25); user-select:none; -webkit-user-select:none; touch-action:none; }
+#cv { display:block; width:100%; height:100%; }
+.screen { position:absolute; inset:0; display:grid; place-content:center; text-align:center; gap:10px; padding:16px; color:#f3eee4; background:rgba(10,12,20,.72); }
+.screen h2 { margin:0; font-size:clamp(1.6rem, 5vw, 2.8rem); letter-spacing:.08em; font-weight:700; line-height:1.3; }
+.screen p { margin:0; font-size:clamp(.78rem, 2.2vw, .98rem); color:#d8d3c8; }
+.screen .btns { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:6px; }
+.screen button { font:inherit; font-size:clamp(.88rem, 2.6vw, 1.05rem); padding:9px 20px; border-radius:6px; border:1px solid var(--orange); background:var(--orange); color:#1a1310; cursor:pointer; font-weight:700; }
+.screen button.sub { background:transparent; color:#f3eee4; border-color:#8a8378; font-weight:400; }
+.screen button:focus-visible { outline:2px solid #fff; outline-offset:2px; }
+.screen .modes { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(13rem, 1fr)); margin-top:6px; }
+.screen .mode { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.18); border-radius:8px; padding:12px 14px; text-align:left; cursor:pointer; color:#f3eee4; font:inherit; }
+.screen .mode b { display:block; font-size:1.08rem; margin-bottom:2px; }
+.screen .mode span { font-size:.82rem; color:#cfc9bd; }
+.screen .mode:hover, .screen .mode:focus-visible { border-color:var(--orange); outline:none; }
+.screen .small { font-size:.78rem; color:#a9a397; }
+#result .rank { font-size:clamp(3rem, 12vw, 6rem); line-height:1; font-weight:700; color:var(--orange); letter-spacing:.05em; }
+#result table { margin:0 auto; border-collapse:collapse; font-size:clamp(.82rem, 2.4vw, 1rem); }
+#result td { padding:2px 12px; text-align:left; }
+#result td:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+#pads { display:grid; grid-template-columns:1fr 1.3fr 1fr; gap:10px; margin-top:10px; }
+#pads button { font:inherit; font-size:1rem; padding:16px 6px; border-radius:10px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; touch-action:none; -webkit-user-select:none; user-select:none; line-height:1.3; }
+#pads button small { display:block; font-size:.72rem; color:var(--muted); }
+#pads button.on { background:var(--orange); color:#1a1310; border-color:var(--orange); }
+#pads button.on small { color:#4a2e17; }
+.panel { background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-top:18px; }
+.panel h3 { margin:0 0 8px; font-size:1rem; }
+.panel p { margin:0 0 8px; }
+.panel ul { margin:0 0 8px; padding-left:1.3em; }
+.panel li { margin-bottom:2px; }
+.note { color:var(--muted); font-size:.86rem; }
+details { margin-top:10px; }
+summary { cursor:pointer; color:var(--accent); }
+.set { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(14rem, 1fr)); margin-top:10px; }
+.set label { display:block; font-size:.82rem; color:var(--muted); }
+.set input[type=range] { width:100%; }
+.set .keys { display:flex; flex-wrap:wrap; gap:8px; }
+.set .keys button { font:inherit; font-size:.88rem; padding:5px 10px; border-radius:4px; border:1px solid var(--line); background:var(--bg); color:var(--ink); cursor:pointer; }
+.set .keys button.listen { border-color:var(--orange); color:var(--orange); }
+kbd { font:inherit; font-size:.86em; padding:1px 6px; border:1px solid var(--line); border-radius:4px; background:var(--bg); }
+table.rules { border-collapse:collapse; font-size:.92rem; width:100%; }
+table.rules th, table.rules td { text-align:left; padding:5px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+table.rules th { color:var(--muted); font-weight:700; font-size:.82rem; }
+footer.site { border-top:1px solid var(--line); margin-top:36px; padding-top:14px; font-size:.84rem; color:var(--muted); }
+footer.site nav { display:flex; flex-wrap:wrap; gap:6px 18px; margin-bottom:6px; }
+footer.site a { color:var(--accent); }
+@media (max-width:480px) { body { font-size:15px; } #pads button { padding:14px 4px; font-size:.95rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <a href="../index.html">← えりまき工房</a>
+  <span class="ver">えりまきビックリ　試作 v2.0α（2026-10-27）</span>
+</header>
+
+<div id="stage">
+  <canvas id="cv" width="960" height="540" aria-label="ゲーム画面"></canvas>
+  <div id="title" class="screen">
+    <h2>えりまきビックリ</h2>
+    <p>曲に合わせて、来たものを「えり」で追い返す。空のものは左のキー、地のものは右のキー。</p>
+    <div class="modes">
+      <button type="button" class="mode" data-mode="yuru"><b>ゆるく遊ぶ</b><span>ゆるい曲。のんびり追い返す。判定もゆるめ</span></button>
+      <button type="button" class="mode" data-mode="gamer"><b>音ゲー</b><span>速いビート。連打、同時押し、長押しあり</span></button>
+    </div>
+    <div class="btns"><button type="button" class="sub" id="demo">デモを見る（自動で遊ぶ）</button></div>
+    <p class="small">PC：<kbd id="kAir">F</kbd> 空のもの　<kbd id="kGround">J</kbd> 地のもの　<kbd>F</kbd>+<kbd>J</kbd> 大きいもの　<kbd id="kBig">スペース</kbd>長押し 特大<br>スマホ：下の3つのボタン。横向きがおすすめ</p>
+  </div>
+  <div id="result" class="screen" hidden>
+    <div class="rank" id="rank">S</div>
+    <table><tbody>
+      <tr><td>スコア</td><td id="rScore">0</td></tr>
+      <tr><td>最大コンボ</td><td id="rCombo">0</td></tr>
+      <tr><td>ピタリ／よし／ミス</td><td id="rCounts">0 / 0 / 0</td></tr>
+      <tr><td>正確さ</td><td id="rAcc">0%</td></tr>
+      <tr><td>自己ベスト</td><td id="rBest">—</td></tr>
+    </tbody></table>
+    <div class="btns"><button type="button" id="again">もう一度</button><button type="button" class="sub" id="toTitle">タイトルへ</button></div>
+  </div>
+</div>
+
+<div id="pads" aria-label="タッチ操作">
+  <button type="button" data-k="air">空<small>小鳥・ヘリ・UFO・ドローン</small></button>
+  <button type="button" data-k="big">特大（長押し）<small>ゴリラ</small></button>
+  <button type="button" data-k="ground">地<small>蛇</small></button>
+</div>
+<p class="note" style="margin:6px 0 0">大きいもの（ライオン）は「空」と「地」を同時に押します。</p>
+
+<section class="panel">
+  <h3>遊び方</h3>
+  <p>右から来るものが、トカゲの前の帯（判定ライン）に重なった瞬間にキーを押すと、えりを広げて追い返します。来るタイミングは曲の拍に合わせて決まっているので、覚えるほど上手になります。</p>
+  <table class="rules"><thead><tr><th>来るもの</th><th>操作</th><th>やられ方</th></tr></thead><tbody>
+    <tr><td>小鳥・ヘリコプター・UFO・ドローン（空）</td><td>左のキー（<span class="kAir">F</span>）</td><td>飛んで逃げる／部品が散る</td></tr>
+    <tr><td>蛇（地）</td><td>右のキー（<span class="kGround">J</span>）</td><td>丸まって転がる</td></tr>
+    <tr><td>ライオン（大）</td><td>左右同時</td><td>吹っ飛ぶ</td></tr>
+    <tr><td>ゴリラ（特大）</td><td><span class="kBig">スペース</span>を長押し（止まるまで）</td><td>威嚇だけで爆発する</td></tr>
+  </tbody></table>
+  <p class="note" style="margin-top:8px">判定：ピタリ／よし／ミス。ミスしても止まりません。曲の最後にランク（S〜C）が出ます。</p>
+  <details>
+    <summary>設定（キー・タイミング・音量）</summary>
+    <div class="set">
+      <div><label>キー（押して変える）</label><div class="keys"><button type="button" data-set="air">空：F</button><button type="button" data-set="ground">地：J</button><button type="button" data-set="big">特大：スペース</button></div></div>
+      <div><label for="offset">タイミング調整（<span id="offsetV">0</span> ms。音が遅れて聞こえるときはプラス）</label><input id="offset" type="range" min="-150" max="150" step="5" value="0"></div>
+      <div><label for="vol">音量（<span id="volV">60</span>%）</label><input id="vol" type="range" min="0" max="100" step="5" value="60"></div>
+    </div>
+  </details>
+  <p class="note" style="margin-top:10px">音はブラウザの中で合成して鳴らしています（音のファイルはありません）。試作版なので、遊びにくいところがあれば<a href="https://forms.gle/64AWbRFPJy57Srpu9" target="_blank" rel="noopener">募集フォーム</a>から教えてください。</p>
+</section>
+
+<footer class="site">
+  <nav><a href="../index.html">トップ</a><a href="../about.html">このサイトについて</a></nav>
+  <p>えりまき工房　企画：分かり合えないとかげ　ver 2.0α</p>
+</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var VERSION = "2.0α";
+  var W = 960, H = 540, GROUND = 440, LINE_X = 300, AIR_Y = 330, LIZ_X = 205;
+  var INK = "#15141a", ORANGE = "#E8873A", RED = "#C8452E";
+  var $ = function (id) { return document.getElementById(id); };
+  var q = new URLSearchParams(location.search);
+  var MODES = {
+    yuru: { name: "ゆるく遊ぶ", bpm: 100, bars: 26, approach: 2.3, win: [0.06, 0.12], sky: "sunset", seed: 20261027 },
+    gamer: { name: "音ゲー", bpm: 160, bars: 52, approach: 1.35, win: [0.04, 0.09], sky: "night", seed: 1226 }
+  };
+  var KINDS = {
+    bird: { lane: "air", key: "air", label: "小鳥" },
+    heli: { lane: "air", key: "air", label: "ヘリ", gag: true },
+    ufo: { lane: "air", key: "air", label: "UFO", gag: true },
+    drone: { lane: "air", key: "air", label: "ドローン", gag: true },
+    snake: { lane: "ground", key: "ground", label: "蛇" },
+    lion: { lane: "ground", key: "both", label: "ライオン" },
+    gorilla: { lane: "ground", key: "big", label: "ゴリラ", hold: true }
+  };
+
+  // ---------- 保存（使えなくても動く）
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem("erimaki2." + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem("erimaki2." + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  var settings = store.get("settings", {}) || {};
+  settings.keys = settings.keys || { air: "KeyF", ground: "KeyJ", big: "Space" };
+  settings.offset = typeof settings.offset === "number" ? settings.offset : 0;
+  settings.volume = typeof settings.volume === "number" ? settings.volume : 60;
+  function saveSettings() { store.set("settings", settings); }
+  function keyLabel(code) {
+    if (code === "Space") return "スペース";
+    if (code.indexOf("Key") === 0) return code.slice(3);
+    if (code.indexOf("Digit") === 0) return code.slice(5);
+    return { ArrowLeft: "←", ArrowRight: "→", ArrowUp: "↑", ArrowDown: "↓", ShiftLeft: "左Shift", ShiftRight: "右Shift", Enter: "Enter" }[code] || code;
+  }
+
+  // ---------- 乱数
+  function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+
+  // ---------- 譜面
+  function makeChart(mk, seed) {
+    var m = MODES[mk], spb = 60 / m.bpm, rnd = mulberry32(seed), notes = [], intro = 2;
+    var add = function (bar, beat, kind, extra) { var n = { t: (intro + bar) * 4 * spb + beat * spb, kind: kind }; if (extra) for (var k in extra) n[k] = extra[k]; notes.push(n); };
+    var gag = ["heli", "ufo", "drone"];
+    var pickAir = function (b) { return (b >= 4 && rnd() < 0.16) ? gag[Math.floor(rnd() * 3)] : "bird"; };
+    var bars = m.bars - intro - 1;
+    var gorillaBars = mk === "yuru" ? [11, 19] : [9, 21, 33, 45];
+    for (var b = 0; b < bars; b++) {
+      if (gorillaBars.indexOf(b) >= 0) { add(b, 0, "gorilla", { hold: 2 * spb }); if (mk === "gamer") add(b, 3, "snake"); continue; }
+      var beats = [], i, alt;
+      if (mk === "yuru") {
+        beats = b < 8 ? [0, 2] : [0, 1, 2, 3];
+        if (b >= 8) beats = beats.filter(function (x) { return x % 2 === 0 || rnd() < 0.7; });
+        if (b >= 16 && rnd() < 0.35) beats.push(rnd() < 0.5 ? 0.5 : 2.5);
+        beats.sort(function (a, c) { return a - c; });
+        for (i = 0; i < beats.length; i++) {
+          if (beats[i] === 0 && b >= 6 && rnd() < 0.25) { add(b, 0, "lion"); continue; }
+          add(b, beats[i], rnd() < 0.5 ? pickAir(b) : "snake");
+        }
+      } else {
+        if (b < 4) { for (i = 0; i < 8; i++) add(b, i / 2, i % 2 ? "snake" : "bird"); continue; }
+        var r = rnd();
+        if (r < 0.2) beats = [0, 0.5, 1, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.5];
+        else if (r < 0.35) beats = [0, 1, 1 + 1 / 3, 1 + 2 / 3, 2, 3, 3 + 1 / 3, 3 + 2 / 3];
+        else { for (i = 0; i < 8; i++) if (i % 2 === 0 || rnd() < 0.7) beats.push(i / 2); }
+        alt = rnd() < 0.5;
+        for (i = 0; i < beats.length; i++) {
+          if (beats[i] === 0 && rnd() < 0.3) { add(b, 0, "lion"); alt = !alt; continue; }
+          alt = !alt;
+          add(b, beats[i], alt ? pickAir(b) : "snake");
+        }
+      }
+    }
+    return sanitize(notes);
+  }
+  // 無理な並びを消す：近すぎる音、同じキーの連打、同時押しと長押しのまわり
+  function sanitize(notes) {
+    notes.sort(function (a, b) { return a.t - b.t; });
+    var out = [], i, j, n;
+    for (i = 0; i < notes.length; i++) {
+      n = notes[i];
+      var last = out[out.length - 1], ok = true;
+      if (last) {
+        var gap = n.t - last.t, k1 = KINDS[n.kind].key, k2 = KINDS[last.kind].key;
+        if (gap < 0.09) ok = false;
+        else if (k1 === k2 && gap < 0.14) ok = false;
+        else if ((k1 === "both" || k2 === "both") && gap < 0.25) ok = false;
+      }
+      if (ok) out.push(n);
+    }
+    // ゴリラの前後は空ける
+    var res = [];
+    for (i = 0; i < out.length; i++) {
+      n = out[i]; ok = true;
+      for (j = 0; j < out.length; j++) {
+        var g = out[j]; if (g === n || g.kind !== "gorilla") continue;
+        if (n.t > g.t - 0.3 && n.t < g.t + g.hold + 0.35) { ok = false; break; }
+      }
+      if (ok) res.push(n);
+    }
+    res.forEach(function (x, idx) { x.id = idx; });
+    return res;
+  }
+
+  // ---------- 音（合成）
+  var audio = { ctx: null, master: null, noise: null, ok: false };
+  var clock = { useAudio: false, base: 0, perf0: 0, now: function () { return this.useAudio ? audio.ctx.currentTime : this.base + performance.now() / 1000 - this.perf0; } };
+  function initAudio() {
+    if (audio.ctx) return;
+    try {
+      var C = window.AudioContext || window.webkitAudioContext; if (!C) throw new Error("no audio");
+      var ctx = new C(); var comp = ctx.createDynamicsCompressor(); var master = ctx.createGain();
+      master.gain.value = settings.volume / 100 * 0.6; master.connect(comp); comp.connect(ctx.destination);
+      var len = ctx.sampleRate, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      audio.ctx = ctx; audio.master = master; audio.noise = buf; audio.ok = true; clock.useAudio = true;
+    } catch (e) { audio.ok = false; clock.useAudio = false; clock.base = 0; clock.perf0 = performance.now() / 1000; }
+  }
+  function setVolume() { if (audio.master) audio.master.gain.value = settings.volume / 100 * 0.6; }
+  function env(g, t, a, d, s, r, dur, peak) {
+    var p = g.gain; p.cancelScheduledValues(t); p.setValueAtTime(0.0001, t);
+    p.linearRampToValueAtTime(peak, t + a); p.linearRampToValueAtTime(Math.max(0.0001, peak * s), t + a + d);
+    p.setValueAtTime(Math.max(0.0001, peak * s), Math.max(t + a + d, t + dur)); p.linearRampToValueAtTime(0.0001, Math.max(t + a + d, t + dur) + r);
+  }
+  function tone(t, freq, dur, o) {
+    o = o || {}; var ctx = audio.ctx, osc = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    osc.type = o.type || "triangle"; osc.frequency.value = freq; osc.detune.value = o.detune || 0;
+    f.type = "lowpass"; f.frequency.value = o.cut || 3000; f.Q.value = o.q || 0.5;
+    osc.connect(f); f.connect(g); g.connect(audio.master);
+    env(g, t, o.a || 0.01, o.d || 0.08, o.s === undefined ? 0.7 : o.s, o.r || 0.08, dur, o.v || 0.2);
+    osc.start(t); osc.stop(t + dur + (o.r || 0.08) + 0.3);
+  }
+  function kick(t, v) {
+    var ctx = audio.ctx, o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "sine"; o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.11);
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+    o.connect(g); g.connect(audio.master); o.start(t); o.stop(t + 0.3);
+  }
+  function noise(t, dur, v, type, freq, Q) {
+    var ctx = audio.ctx, s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = audio.noise; s.loop = true; f.type = type; f.frequency.value = freq; f.Q.value = Q || 0.8;
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    s.connect(f); f.connect(g); g.connect(audio.master); s.start(t); s.stop(t + dur + 0.02);
+  }
+  function snare(t, v) { noise(t, 0.16, v, "bandpass", 1900, 0.7); tone(t, 185, 0.07, { type: "sine", v: v * 0.7, a: 0.001, d: 0.05, s: 0.1, r: 0.04, cut: 2500 }); }
+  function hat(t, open, v) { noise(t, open ? 0.22 : 0.045, v, "highpass", 7500, 0.5); }
+  function crash(t, v) { noise(t, 1.4, v, "highpass", 4500, 0.4); }
+  function pad(t, midis, dur, v, type, cut) {
+    midis.forEach(function (m) { [-5, 5].forEach(function (dt) { tone(t, mtof(m), dur, { type: type, v: v, a: 0.25, d: 0.3, s: 0.8, r: 0.35, cut: cut, detune: dt }); }); });
+  }
+  var MUSIC = {
+    yuru: { chords: [[60, 64, 67, 71], [57, 60, 64, 67], [53, 57, 60, 64], [55, 59, 62, 65]], bass: [36, 45, 41, 43], scale: [60, 62, 64, 67, 69, 72, 74, 76, 79, 81] },
+    gamer: { chords: [[52, 55, 59, 64], [48, 52, 55, 60], [55, 59, 62, 67], [50, 54, 57, 62]], bass: [40, 36, 43, 38], scale: [64, 66, 67, 69, 71, 72, 74, 76, 78, 79] }
+  };
+  // 曲のイベント（曲の頭からの秒）
+  function makeMusic(mk, seed) {
+    var m = MODES[mk], mu = MUSIC[mk], spb = 60 / m.bpm, rnd = mulberry32(seed + 7), ev = [];
+    var E = function (t, f) { ev.push({ t: t, f: f }); };
+    var mel = 4;
+    for (var b = 0; b < m.bars; b++) {
+      var t0 = b * 4 * spb, ch = mu.chords[b % 4], bass = mu.bass[b % 4], last = b === m.bars - 1, i;
+      if (mk === "yuru") {
+        if (!last) E(t0, (function (c) { return function (t) { pad(t, c, 4 * spb - 0.1, 0.045, "triangle", 1100); }; })(ch));
+        E(t0, (function (bm) { return function (t) { tone(t, mtof(bm), 1.4 * spb, { type: "sine", v: 0.3, a: 0.01, d: 0.2, s: 0.6, r: 0.15, cut: 500 }); }; })(bass));
+        E(t0 + 2 * spb, (function (bm) { return function (t) { tone(t, mtof(bm + 7), 0.9 * spb, { type: "sine", v: 0.22, a: 0.01, d: 0.2, s: 0.6, r: 0.15, cut: 500 }); }; })(bass));
+        if (b % 2 === 1) E(t0 + 3.5 * spb, (function (bm) { return function (t) { tone(t, mtof(bm + 12), 0.4 * spb, { type: "sine", v: 0.18, cut: 600 }); }; })(bass));
+        E(t0, function (t) { kick(t, 0.5); }); E(t0 + 2 * spb, function (t) { kick(t, 0.45); });
+        E(t0 + spb, function (t) { snare(t, 0.16); }); E(t0 + 3 * spb, function (t) { snare(t, 0.16); });
+        for (i = 0; i < 8; i++) E(t0 + i * spb / 2, function (t) { hat(t, false, 0.07); });
+        if (b >= 2 && !last) for (i = 0; i < 8; i++) if (rnd() < 0.42) {
+          mel = Math.max(0, Math.min(mu.scale.length - 1, mel + Math.floor(rnd() * 5) - 2));
+          E(t0 + i * spb / 2, (function (mm) { return function (t) { tone(t, mtof(mm), 0.45 * spb, { type: "triangle", v: 0.13, a: 0.01, d: 0.1, s: 0.5, r: 0.12, cut: 2200 }); }; })(mu.scale[mel]));
+        }
+      } else {
+        if (b >= 2 && !last) E(t0, (function (c) { return function (t) { pad(t, c, 4 * spb - 0.05, 0.03, "sawtooth", 900); }; })(ch));
+        if (b % 4 === 0 && b >= 2) E(t0, function (t) { crash(t, 0.18); });
+        for (i = 0; i < 4; i++) E(t0 + i * spb, function (t) { kick(t, 0.75); });
+        E(t0 + spb, function (t) { snare(t, 0.4); }); E(t0 + 3 * spb, function (t) { snare(t, 0.4); });
+        for (i = 0; i < 8; i++) E(t0 + i * spb / 2, (function (open) { return function (t) { hat(t, open, open ? 0.12 : 0.1); }; })(i === 7));
+        if (b >= 1) for (i = 0; i < 8; i++) {
+          var bm = (i % 4 === 2) ? bass + 7 : (i % 4 === 3 ? bass + 12 : bass);
+          E(t0 + i * spb / 2, (function (mm) { return function (t) { tone(t, mtof(mm), 0.42 * spb, { type: "sawtooth", v: 0.2, a: 0.005, d: 0.08, s: 0.5, r: 0.05, cut: 700 }); }; })(bm));
+        }
+        if (b >= 2 && !last) for (i = 0; i < 16; i++) {
+          var note = ch[(i % 4 === 3) ? 1 : i % 4] + (i >= 8 ? 12 : 12) + ((i % 8) >= 4 ? 7 : 0);
+          E(t0 + i * spb / 4, (function (mm) { return function (t) { tone(t, mtof(mm), 0.2 * spb, { type: "square", v: 0.06, a: 0.003, d: 0.05, s: 0.4, r: 0.04, cut: 2600 }); }; })(note));
+        }
+        if (b >= 6 && !last) for (i = 0; i < 4; i++) if (rnd() < 0.5) {
+          mel = Math.max(0, Math.min(mu.scale.length - 1, mel + Math.floor(rnd() * 5) - 2));
+          E(t0 + i * spb, (function (mm) { return function (t) { tone(t, mtof(mm + 12), 0.8 * spb, { type: "square", v: 0.09, a: 0.005, d: 0.1, s: 0.5, r: 0.1, cut: 3200 }); }; })(mu.scale[mel]));
+        }
+      }
+    }
+    ev.sort(function (a, c) { return a.t - c.t; });
+    return ev;
+  }
+  // 効果音
+  var SFX = {
+    flare: function () { if (!audio.ok) return; var t = audio.ctx.currentTime; noise(t, 0.12, 0.12, "bandpass", 2600, 1.2); tone(t, 520, 0.08, { type: "triangle", v: 0.12, cut: 3000 }); },
+    perfect: function () { if (!audio.ok) return; var t = audio.ctx.currentTime; tone(t, 1320, 0.07, { type: "sine", v: 0.1, a: 0.002, cut: 5000 }); tone(t + 0.04, 1760, 0.08, { type: "sine", v: 0.08, a: 0.002, cut: 5000 }); },
+    miss: function () { if (!audio.ok) return; var t = audio.ctx.currentTime; tone(t, 160, 0.18, { type: "sawtooth", v: 0.12, cut: 900, s: 0.3 }); },
+    boom: function () { if (!audio.ok) return; var t = audio.ctx.currentTime; kick(t, 1); noise(t, 0.6, 0.35, "lowpass", 900, 0.5); noise(t + 0.05, 0.4, 0.15, "highpass", 3000, 0.5); },
+    crack: function () { if (!audio.ok) return; var t = audio.ctx.currentTime; noise(t, 0.2, 0.2, "bandpass", 1200, 1.5); tone(t, 220, 0.1, { type: "square", v: 0.06, cut: 1500 }); },
+    tick: function (hi) { if (!audio.ok) return; var t = audio.ctx.currentTime; tone(t, hi ? 1200 : 800, 0.05, { type: "sine", v: 0.15, a: 0.002, cut: 4000 }); }
+  };
+
+  // ---------- 状態
+  var state = "title", modeKey = "yuru", mode = MODES.yuru, chart = [], music = [], musicIdx = 0, songStart = 0, songLen = 0;
+  var auto = q.get("auto") || null, shortSec = parseFloat(q.get("short")) || 0;
+  var score = 0, combo = 0, maxCombo = 0, counts = { perfect: 0, good: 0, miss: 0 }, holding = null;
+  var fx = { texts: [], pieces: [], shakeUntil: 0, flashUntil: 0, flareT: -9, missT: -9, beatT: 0, lastBeat: -1 };
+  var pressed = { air: false, ground: false, big: false };
+  var autoDone = {};
+
+  function start(mk) {
+    modeKey = mk; mode = MODES[mk];
+    initAudio();
+    var go = function () {
+      chart = makeChart(mk, mode.seed); music = makeMusic(mk, mode.seed); musicIdx = 0;
+      songLen = mode.bars * 4 * 60 / mode.bpm;
+      if (shortSec > 0) { chart = chart.filter(function (n) { return n.t < shortSec; }); music = music.filter(function (e) { return e.t < shortSec; }); songLen = shortSec; }
+      score = 0; combo = 0; maxCombo = 0; counts = { perfect: 0, good: 0, miss: 0 }; holding = null; autoDone = {};
+      fx = { texts: [], pieces: [], shakeUntil: 0, flashUntil: 0, flareT: -9, missT: -9, beatT: 0, lastBeat: -1 };
+      pressed = { air: false, ground: false, big: false };
+      chart.forEach(function (n) { n.done = false; n.result = null; n.parts = null; n.deathT = 0; });
+      songStart = clock.now() + 0.6;
+      $("title").hidden = true; $("result").hidden = true;
+      state = "play";
+      watchClock();
+    };
+    if (audio.ok) audio.ctx.resume().then(go, go); else go();
+  }
+  // 音の時計が進まないときは、ふつうの時計に切りかえる
+  function watchClock() {
+    if (!clock.useAudio) return;
+    var t0 = audio.ctx.currentTime, p0 = performance.now();
+    setTimeout(function () {
+      if (state !== "play") return;
+      if (audio.ctx.currentTime - t0 < 0.1 && performance.now() - p0 > 400) {
+        clock.base = audio.ctx.currentTime; clock.perf0 = performance.now() / 1000; clock.useAudio = false; audio.ok = false;
+      }
+    }, 600);
+  }
+  function finish() {
+    state = "result";
+    var total = chart.length, acc = total ? (counts.perfect + counts.good * 0.6) / total : 0;
+    var rank = acc >= 0.95 ? "S" : acc >= 0.85 ? "A" : acc >= 0.7 ? "B" : "C";
+    $("rank").textContent = rank; $("rScore").textContent = score.toLocaleString("ja-JP");
+    $("rCombo").textContent = maxCombo; $("rCounts").textContent = counts.perfect + " / " + counts.good + " / " + counts.miss;
+    $("rAcc").textContent = Math.round(acc * 1000) / 10 + "%";
+    var bestKey = "best." + modeKey, best = store.get(bestKey, null);
+    if (!auto && (!best || score > best.score)) { best = { score: score, rank: rank }; store.set(bestKey, best); }
+    $("rBest").textContent = best ? best.score.toLocaleString("ja-JP") + "（" + best.rank + "）" : "—";
+    $("result").hidden = false;
+    lastResult = { mode: modeKey, score: score, rank: rank, acc: acc, counts: counts, maxCombo: maxCombo, total: total };
+  }
+  var lastResult = null;
+
+  // ---------- 入力と判定
+  function input(key, time, down) {
+    if (state !== "play") return;
+    if (down) { if (pressed[key]) return; pressed[key] = true; } else { pressed[key] = false; }
+    var gt = time - songStart, off = settings.offset / 1000;
+    if (!down) {
+      if (key === "big" && holding) { var h = holding; holding = null; if (!h.done) miss(h, gt); }
+      return;
+    }
+    var tol = mode.win[1], best = null, bestD = 1e9, i, n, d, need;
+    for (i = 0; i < chart.length; i++) {
+      n = chart[i]; if (n.done) continue;
+      if (n.t + off - gt > tol) break;
+      d = Math.abs(n.t + off - gt); if (d > tol) continue;
+      need = KINDS[n.kind].key;
+      if (!(need === key || (need === "both" && key !== "big"))) continue;
+      if (need === "both" && n.parts && n.parts[key] !== undefined) continue;
+      if (d < bestD) { bestD = d; best = n; }
+    }
+    if (!best) { fx.flareT = gt; return; }
+    need = KINDS[best.kind].key;
+    if (need === "both") {
+      best.parts = best.parts || {};
+      best.parts[key] = gt;
+      var other = key === "air" ? "ground" : "air";
+      if (best.parts[other] !== undefined) hit(best, Math.abs(Math.min(best.parts.air, best.parts.ground) - (best.t + off)), gt);
+      else best.partDeadline = gt + 0.09;
+      return;
+    }
+    if (need === "big") { best.holdStart = gt; best.holdD = bestD; holding = best; fx.flareT = gt; SFX.flare(); return; }
+    hit(best, bestD, gt);
+  }
+  function hit(n, d, gt) {
+    n.done = true; n.deathT = gt; n.result = d <= mode.win[0] ? "perfect" : "good";
+    counts[n.result]++; combo++; maxCombo = Math.max(maxCombo, combo);
+    score += (n.result === "perfect" ? 100 : 60) + Math.floor(combo / 10) * 5;
+    fx.flareT = gt; fx.texts.push({ t: gt, txt: n.result === "perfect" ? "ピタリ!" : "よし", col: n.result === "perfect" ? "#ffd27a" : "#cfe8ff" });
+    var k = KINDS[n.kind];
+    if (n.kind === "gorilla") { explode(n, gt); fx.shakeUntil = gt + 0.45; fx.flashUntil = gt + 0.12; SFX.boom(); }
+    else if (k.gag) { breakApart(n, gt); SFX.crack(); SFX.flare(); }
+    else { SFX.flare(); if (n.result === "perfect") SFX.perfect(); }
+    if (n.kind === "lion") fx.shakeUntil = Math.max(fx.shakeUntil, gt + 0.15);
+  }
+  function miss(n, gt) {
+    if (n.done) return;
+    n.done = true; n.result = "miss"; n.missT = gt; counts.miss++; combo = 0;
+    fx.missT = gt; fx.texts.push({ t: gt, txt: "ミス", col: "#ff8a8a" }); SFX.miss();
+    if (holding === n) holding = null;
+  }
+  function explode(n, gt) {
+    var rnd = mulberry32(n.id + 1);
+    for (var i = 0; i < 26; i++) {
+      var a = rnd() * Math.PI * 2, sp = 260 + rnd() * 520;
+      fx.pieces.push({ x: LINE_X + 10, y: GROUND - 70 - rnd() * 90, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 260, rot: rnd() * 6, vr: (rnd() - 0.5) * 16, s: 10 + rnd() * 22, born: gt, life: 1.6, col: INK, kind: 3 });
+    }
+    for (i = 0; i < 40; i++) {
+      a = rnd() * Math.PI * 2; sp = 150 + rnd() * 500;
+      fx.pieces.push({ x: LINE_X + 10, y: GROUND - 110, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 300, rot: rnd() * 6, vr: (rnd() - 0.5) * 20, s: 5 + rnd() * 7, born: gt, life: 2.2, col: [ORANGE, RED, "#ffd27a", "#8fd3ff", "#fff"][i % 5], kind: 4 });
+    }
+    fx.pieces.push({ ring: true, x: LINE_X + 10, y: GROUND - 90, born: gt, life: 0.5 });
+  }
+  function breakApart(n, gt) {
+    var rnd = mulberry32(n.id + 99);
+    for (var i = 0; i < 9; i++) {
+      var a = -Math.PI + rnd() * Math.PI, sp = 120 + rnd() * 320;
+      fx.pieces.push({ x: LINE_X + 8, y: AIR_Y, vx: Math.cos(a) * sp + 60, vy: Math.sin(a) * sp - 80, rot: rnd() * 6, vr: (rnd() - 0.5) * 14, s: 7 + rnd() * 16, born: gt, life: 1.6, col: INK, kind: 3 });
+    }
+  }
+
+  // ---------- 進行
+  function update(gt) {
+    var off = settings.offset / 1000, tol = mode.win[1], i, n;
+    // 自動（デモ・検査用）
+    if (auto === "perfect") {
+      for (i = 0; i < chart.length; i++) {
+        n = chart[i]; if (n.done || autoDone[n.id]) continue;
+        if (gt >= n.t + off - 0.002) {
+          autoDone[n.id] = true; var tm = songStart + n.t + off, k = KINDS[n.kind].key;
+          if (k === "both") { input("air", tm, true); input("ground", tm, true); pressed.air = pressed.ground = false; }
+          else { input(k, tm, true); if (k !== "big") pressed[k] = false; }
+        }
+      }
+      if (holding && gt >= holding.t + off + holding.hold + 0.03) { input("big", songStart + gt, false); }
+    }
+    // 長押しの完了
+    if (holding && !holding.done && gt >= holding.t + off + holding.hold) { hit(holding, holding.holdD, gt); holding = null; pressed.big = false; }
+    // 見逃し
+    for (i = 0; i < chart.length; i++) {
+      n = chart[i]; if (n.done) continue;
+      if (n.t + off - gt > tol) break;
+      if (KINDS[n.kind].key === "both" && n.parts && n.partDeadline !== undefined && gt > n.partDeadline) { miss(n, gt); continue; }
+      if (holding === n) continue;
+      if (gt > n.t + off + tol) miss(n, gt);
+    }
+    // 拍
+    var spb = 60 / mode.bpm, beat = Math.floor(gt / spb);
+    if (beat !== fx.lastBeat) { fx.lastBeat = beat; fx.beatT = gt; if (gt < 0 || (beat >= 4 && beat < 8 && modeKey)) { if (beat >= 4 && beat < 8) SFX.tick(beat === 7); } }
+    if (gt > songLen + 1.6) finish();
+  }
+  function scheduleMusic() {
+    if (!audio.ok || state !== "play") return;
+    var ahead = audio.ctx.currentTime + 0.25;
+    while (musicIdx < music.length && songStart + music[musicIdx].t < ahead) {
+      var e = music[musicIdx++]; var t = songStart + e.t;
+      if (t > audio.ctx.currentTime - 0.05) { try { e.f(Math.max(t, audio.ctx.currentTime + 0.001)); } catch (err) {} }
+    }
+  }
+  setInterval(scheduleMusic, 40);
+
+  // ---------- 描画
+  var cv = $("cv"), ctx = cv.getContext("2d");
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), r = cv.getBoundingClientRect();
+    var w = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+  }
+  window.addEventListener("resize", resize);
+  function P(pts) { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]); ctx.closePath(); ctx.fill(); }
+  function E(x, y, rx, ry, rot) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, rot || 0, 0, Math.PI * 2); ctx.fill(); }
+  function C(x, y, r) { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); }
+  function S(pts, w) { ctx.lineWidth = w; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]); ctx.stroke(); }
+  function bez(p0, p1, p2, p3, u) { var v = 1 - u; return [v * v * v * p0[0] + 3 * v * v * u * p1[0] + 3 * v * u * u * p2[0] + u * u * u * p3[0], v * v * v * p0[1] + 3 * v * v * u * p1[1] + 3 * v * u * u * p2[1] + u * u * u * p3[1]]; }
+
+  function drawSky(gt) {
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    if (mode.sky === "sunset") { g.addColorStop(0, "#2b2140"); g.addColorStop(0.45, "#b8494f"); g.addColorStop(0.8, "#f0a05a"); g.addColorStop(1, "#f6c78a"); }
+    else { g.addColorStop(0, "#070a16"); g.addColorStop(0.5, "#1b2b4f"); g.addColorStop(0.85, "#3b5684"); g.addColorStop(1, "#6a86b4"); }
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    if (mode.sky === "sunset") { ctx.fillStyle = "rgba(255,230,170,0.9)"; C(690, 300, 64); }
+    else {
+      var rnd = mulberry32(5); ctx.fillStyle = "#fff";
+      for (var i = 0; i < 70; i++) { var sx = rnd() * W, sy = rnd() * 300, tw = 0.5 + 0.5 * Math.sin(gt * 3 + i); ctx.globalAlpha = 0.3 + 0.6 * tw; C(sx, sy, 0.8 + rnd() * 1.2); }
+      ctx.globalAlpha = 1; ctx.fillStyle = "#f3f0dc"; C(760, 110, 34); ctx.fillStyle = "#101a33"; C(776, 100, 28);
+    }
+    // 遠景
+    ctx.fillStyle = mode.sky === "sunset" ? "#5a3a4e" : "#243356";
+    if (mode.sky === "sunset") {
+      ctx.beginPath(); ctx.moveTo(0, 380); for (var x = 0; x <= W; x += 40) ctx.lineTo(x, 372 - 30 * Math.sin(x / 110) - 18 * Math.sin(x / 47 + 1)); ctx.lineTo(W, GROUND); ctx.lineTo(0, GROUND); ctx.closePath(); ctx.fill();
+    } else {
+      var r2 = mulberry32(9), bx = 0;
+      while (bx < W) { var bw = 24 + r2() * 50, bh = 40 + r2() * 110; ctx.fillRect(bx, GROUND - bh, bw, bh); ctx.fillStyle = "rgba(255,230,150,0.35)"; for (var wy = GROUND - bh + 8; wy < GROUND - 10; wy += 14) for (var wx = bx + 5; wx < bx + bw - 6; wx += 11) if (r2() < 0.4) ctx.fillRect(wx, wy, 4, 6); ctx.fillStyle = "#243356"; bx += bw + 6 + r2() * 20; }
+    }
+    // 地面
+    ctx.fillStyle = mode.sky === "sunset" ? "#3a2a33" : "#262c3a"; ctx.fillRect(0, GROUND, W, H - GROUND);
+    // 判定の帯
+    var pulse = 0.5 + 0.5 * Math.max(0, 1 - (gt - fx.beatT) / (60 / mode.bpm));
+    ctx.fillStyle = "rgba(255,210,120," + (0.18 + 0.22 * pulse) + ")"; ctx.fillRect(LINE_X - 14, GROUND - 2, 28, 10);
+    ctx.fillStyle = "rgba(255,255,255," + (0.08 + 0.1 * pulse) + ")"; ctx.fillRect(LINE_X - 1, AIR_Y - 60, 2, GROUND - AIR_Y + 60);
+    ctx.fillStyle = "rgba(255,210,120,0.55)"; C(LINE_X, AIR_Y, 5); C(LINE_X, GROUND - 30, 5);
+  }
+  function drawFrill(open, shake) {
+    if (open <= 0.01) return;
+    var cx = 34, cy = -42, RX = 50 * open, RY = 60 * open, i, a;
+    ctx.save(); ctx.translate(cx, cy); if (shake) ctx.rotate((Math.random() - 0.5) * 0.08);
+    ctx.beginPath();
+    for (i = 0; i <= 60; i++) { a = -Math.PI * 0.88 + i / 60 * Math.PI * 1.76; var r = 1 + 0.07 * Math.sin(i * 1.1); var px = Math.cos(a) * RX * r, py = Math.sin(a) * RY * r; if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); }
+    ctx.closePath(); ctx.fillStyle = ORANGE; ctx.fill(); ctx.strokeStyle = RED; ctx.lineWidth = 3; ctx.stroke();
+    ctx.strokeStyle = "rgba(120,40,20,0.45)"; ctx.lineWidth = 1.5;
+    for (i = 0; i < 14; i++) { a = -Math.PI * 0.84 + i / 13 * Math.PI * 1.68; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * RX * 0.95, Math.sin(a) * RY * 0.95); ctx.stroke(); }
+    ctx.restore();
+  }
+  function drawLizard(x, y, s, open, pose) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    if (pose.jump) ctx.translate(0, -pose.jump);
+    drawFrill(open, pose.shake);
+    ctx.fillStyle = INK; ctx.strokeStyle = INK;
+    // しっぽ
+    var p0 = [-30, -28], p1 = [-85, -36], p2 = [-115, -70 + pose.wag], p3 = [-150, -30 + pose.wag * 2];
+    for (var k = 0; k <= 26; k++) { var p = bez(p0, p1, p2, p3, k / 26); C(p[0], p[1], 12 * (1 - k / 26) + 1.4); }
+    // 後ろの脚
+    S([[-16, -26], [-38, -12], [-30, 0]], 7); S([[-30, 0], [-44, 1]], 4); S([[-30, 0], [-34, 3]], 3);
+    // 胴
+    E(2, -31, 46, 14, -0.04);
+    // 前の脚
+    S([[24, -26], [46, -12], [40, 0]], 7); S([[40, 0], [56, 1]], 4); S([[40, 0], [46, 3]], 3);
+    // 首と頭
+    E(30, -34, 22, 12, -0.3);
+    E(52, -41, 24, 13, -0.12);
+    P([[62, -50], [90, -41], [62, -33]]);
+    if (open > 0.3) { ctx.save(); ctx.translate(62, -36); ctx.rotate(0.35 * open); P([[0, -3], [26, 2], [0, 6]]); ctx.restore(); ctx.fillStyle = RED; P([[64, -38], [78, -36], [64, -31]]); ctx.fillStyle = INK; }
+    // 目
+    ctx.fillStyle = open > 0.3 ? "#fff" : "#6a6a74"; C(58, -45, 2.2);
+    ctx.restore();
+  }
+  function drawBird(x, y, s, ph, dead) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = INK;
+    var w = Math.sin(ph) * 0.8 + 0.25;
+    E(0, 0, 17, 6.5, 0.1); C(-16, -4, 6); P([[-21, -5], [-32, -2], [-21, -1]]); P([[12, -1], [30, -10], [26, 0], [31, 8]]);
+    ctx.beginPath(); ctx.moveTo(-6, -3); ctx.quadraticCurveTo(6, -6 - 18 * w, 34, -14 - 30 * w); ctx.quadraticCurveTo(18, -2 - 6 * w, 10, 0); ctx.closePath(); ctx.fill();
+    ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.moveTo(-8, -1); ctx.quadraticCurveTo(0, 4 + 14 * w, 24, 10 + 24 * w); ctx.quadraticCurveTo(12, 2 + 4 * w, 6, 1); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function drawSnake(x, y, s, ph, curl) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = INK; ctx.strokeStyle = INK;
+    if (curl > 0) {
+      ctx.rotate(ph); ctx.lineWidth = 10; ctx.lineCap = "round"; ctx.beginPath();
+      for (var i = 0; i <= 40; i++) { var a = i / 40 * Math.PI * 3.6, r = 6 + i * 0.55; var px = Math.cos(a) * r, py = -16 + Math.sin(a) * r; if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); }
+      ctx.stroke(); ctx.restore(); return;
+    }
+    var pts = []; for (i = 0; i <= 12; i++) pts.push([-40 + i * 7, -8 + Math.sin(i * 0.95 + ph) * 5.5]);
+    S(pts, 11); E(-46, -11, 13, 6.5, -0.1); S([[-58, -11], [-67, -14]], 1.6); S([[-58, -11], [-67, -9]], 1.6);
+    ctx.restore();
+  }
+  function drawLion(x, y, s, ph) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = INK; ctx.strokeStyle = INK;
+    var st = Math.sin(ph) * 7;
+    S([[28, -30], [40 + st, -12], [36 + st, 0]], 12); S([[14, -30], [16 - st, -12], [18 - st, 0]], 11);
+    E(0, -38, 50, 23, 0.02);
+    S([[-30, -30], [-38 - st, -12], [-34 - st, 0]], 12); S([[-16, -30], [-18 + st, -12], [-20 + st, 0]], 11);
+    ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(46, -44); ctx.quadraticCurveTo(84, -56, 94, -22 + st * 0.6); ctx.stroke(); C(94, -22 + st * 0.6, 8);
+    ctx.beginPath(); for (var i = 0; i < 22; i++) { var a = i / 22 * Math.PI * 2, r = (i % 2 ? 36 : 27); var px = -52 + Math.cos(a) * r, py = -58 + Math.sin(a) * r; if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); } ctx.closePath(); ctx.fill();
+    C(-58, -58, 19); P([[-76, -58], [-86, -52], [-76, -50]]);
+    ctx.restore();
+  }
+  function drawGorilla(x, y, s, ph, shake) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); if (shake) ctx.translate((Math.random() - 0.5) * shake, (Math.random() - 0.5) * shake); ctx.fillStyle = INK; ctx.strokeStyle = INK;
+    var st = Math.sin(ph) * 5;
+    S([[-10, -84], [-44 + st, -42], [-50 + st, -6]], 22); C(-50 + st, -8, 15);
+    E(4, -66, 54, 48, -0.35);
+    S([[14, -34], [24 - st, 0]], 20); S([[-6, -30], [-2 + st, 0]], 18);
+    S([[-30, -86], [-64 - st, -40], [-70 - st, -6]], 24); C(-70 - st, -8, 16);
+    C(-34, -108, 25); E(-50, -104, 16, 12, 0.1); P([[-60, -116], [-28, -122], [-24, -112]]);
+    ctx.restore();
+  }
+  function drawHeli(x, y, s, ph) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = INK; ctx.strokeStyle = INK;
+    P([[28, -8], [98, -17], [98, -6], [28, 7]]); P([[90, -17], [100, -44], [106, -14]]);
+    ctx.save(); ctx.translate(103, -30); ctx.scale(1, 0.35 + 0.65 * Math.abs(Math.sin(ph * 2))); C(0, 0, 11); ctx.restore();
+    E(0, 0, 42, 18); E(-28, -2, 24, 16); ctx.fillRect(-4, -34, 8, 16);
+    var c = Math.cos(ph), sn = Math.sin(ph);
+    ctx.globalAlpha = 0.28; E(0, -32, 84, 4); ctx.globalAlpha = 1;
+    S([[-82 * c, -32], [82 * c, -32]], 4); S([[-82 * sn, -32], [82 * sn, -32]], 4);
+    S([[-42, 28], [38, 28]], 4); S([[-26, 16], [-30, 28]], 3); S([[18, 16], [22, 28]], 3);
+    ctx.restore();
+  }
+  function drawUfo(x, y, s, ph) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = INK;
+    ctx.beginPath(); ctx.arc(0, -8, 27, Math.PI, 0); ctx.closePath(); ctx.fill();
+    E(0, 0, 60, 15);
+    for (var i = -2; i <= 2; i++) { ctx.fillStyle = (Math.floor(ph * 3) + i) % 2 ? "#8fe3ff" : "#3a6a80"; C(i * 22, 7, 3.2); }
+    ctx.restore();
+  }
+  function drawDrone(x, y, s, ph) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = INK; ctx.strokeStyle = INK;
+    S([[-38, -6], [38, -6]], 5); C(-38, -6, 5); C(38, -6, 5);
+    ctx.globalAlpha = 0.35 + 0.3 * Math.abs(Math.sin(ph * 4)); E(-38, -12, 22, 3); E(38, -12, 22, 3); ctx.globalAlpha = 1;
+    ctx.beginPath(); ctx.roundRect ? (ctx.roundRect(-15, -9, 30, 18, 4), ctx.fill()) : ctx.fillRect(-15, -9, 30, 18);
+    S([[-9, 9], [-14, 22]], 3); S([[9, 9], [14, 22]], 3); C(0, 14, 6); ctx.fillStyle = "#8fe3ff"; C(-2, 14, 2.2);
+    ctx.restore();
+  }
+  function drawEnemy(n, gt) {
+    var off = settings.offset / 1000, k = KINDS[n.kind], ph = gt * 10 + n.id;
+    var travel = W + 140 - LINE_X, x = LINE_X + (n.t + off - gt) / mode.approach * travel;
+    var base = k.lane === "air" ? AIR_Y + Math.sin(gt * 4 + n.id) * 6 : GROUND;
+    if (!n.done) { if (x > W + 160) return; draw(n.kind, x, base, ph, 0, 0); return; }
+    if (n.result === "miss") { var mx = LINE_X + (n.t + off - gt) / mode.approach * travel; if (mx < -200) return; draw(n.kind, mx, base, ph, 0, 0); return; }
+    var dt = gt - n.deathT; if (dt > 1.6) return;
+    if (n.kind === "bird") { if (dt < 1.0) draw("bird", LINE_X + 20 + dt * 620, AIR_Y - dt * 460, ph * 3, 0, 0); }
+    else if (n.kind === "snake") { if (dt < 1.0) { ctx.globalAlpha = Math.min(1, (1.0 - dt) * 3); draw("snake", LINE_X + 20 + dt * 620, GROUND - Math.abs(Math.sin(dt * 12)) * 16, dt * 14, 1, 0); ctx.globalAlpha = 1; } }
+    else if (n.kind === "lion") { ctx.save(); ctx.translate(LINE_X + 30 + dt * 720, GROUND - 40 - dt * 420 + dt * dt * 560); ctx.rotate(dt * 9); drawLion(0, 40, 1, 0); ctx.restore(); }
+    else if (n.kind === "gorilla") { if (dt < 0.08) { ctx.globalAlpha = 1 - dt / 0.08; drawGorilla(LINE_X + 10, GROUND, 1.15, 0, 10); ctx.globalAlpha = 1; } }
+    else if (k.gag) { if (dt < 1.2) { ctx.save(); var gy = AIR_Y + dt * dt * 700, bounce = gy > GROUND - 10 ? GROUND - 10 - Math.abs(Math.sin(dt * 9)) * 18 * Math.max(0, 1 - dt) : gy; ctx.translate(LINE_X + 14 + dt * 90, Math.min(bounce, GROUND - 10)); ctx.rotate(dt * 2.4); draw(n.kind, 0, 0, 0, 0, 1); ctx.restore(); } }
+  }
+  function draw(kind, x, y, ph, curl, broken) {
+    if (kind === "bird") drawBird(x, y, 1, ph, 0);
+    else if (kind === "snake") drawSnake(x, y, 1.25, ph, curl);
+    else if (kind === "lion") drawLion(x, y, 1, ph);
+    else if (kind === "gorilla") drawGorilla(x, y, 1.15, ph, holding && holding.kind === "gorilla" ? 6 : 0);
+    else if (kind === "heli") drawHeli(x, y, 0.85, broken ? 0 : ph * 1.3);
+    else if (kind === "ufo") drawUfo(x, y, 0.85, ph * 0.2);
+    else if (kind === "drone") drawDrone(x, y, 0.95, ph);
+  }
+  function drawPieces(gt) {
+    for (var i = fx.pieces.length - 1; i >= 0; i--) {
+      var p = fx.pieces[i], dt = gt - p.born; if (dt > p.life) { fx.pieces.splice(i, 1); continue; }
+      if (p.ring) { ctx.strokeStyle = "rgba(255,230,170," + (1 - dt / p.life) + ")"; ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(p.x, p.y, 30 + dt * 900, 0, Math.PI * 2); ctx.stroke(); continue; }
+      var x = p.x + p.vx * dt, y = p.y + p.vy * dt + 900 * dt * dt / 2, r = p.rot + p.vr * dt;
+      if (y > GROUND - 2) { y = GROUND - 2; }
+      ctx.save(); ctx.translate(x, y); ctx.rotate(r); ctx.globalAlpha = Math.min(1, (p.life - dt) * 2); ctx.fillStyle = p.col;
+      if (p.kind === 4) ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); else P([[-p.s / 2, p.s / 3], [p.s / 2, p.s / 4], [p.s * 0.1, -p.s / 2]]);
+      ctx.restore();
+    }
+  }
+  function drawHUD(gt) {
+    ctx.fillStyle = "rgba(255,255,255,0.92)"; ctx.font = "700 22px " + FONT; ctx.textAlign = "left"; ctx.textBaseline = "top";
+    ctx.fillText(score.toLocaleString("ja-JP"), 18, 14);
+    ctx.font = "13px " + FONT; ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.fillText(mode.name + "　" + (auto === "perfect" ? "デモ" : ""), 18, 42);
+    var prog = Math.max(0, Math.min(1, gt / songLen)); ctx.fillStyle = "rgba(255,255,255,0.25)"; ctx.fillRect(W - 218, 22, 200, 6); ctx.fillStyle = "rgba(255,210,120,0.9)"; ctx.fillRect(W - 218, 22, 200 * prog, 6);
+    if (combo >= 5) { ctx.textAlign = "center"; ctx.font = "700 40px " + FONT; ctx.fillStyle = "rgba(255,255,255,0.9)"; ctx.fillText(combo, W / 2, 50); ctx.font = "14px " + FONT; ctx.fillText("コンボ", W / 2, 96); }
+    if (gt < 0.2 && gt > -1) { ctx.textAlign = "center"; ctx.font = "700 30px " + FONT; ctx.fillStyle = "#fff"; ctx.fillText("ようい", W / 2, 180); }
+    var spb = 60 / mode.bpm, beat = Math.floor(gt / spb);
+    if (beat >= 4 && beat < 8 && chart.length && gt < chart[0].t - 0.2) { ctx.textAlign = "center"; ctx.font = "700 64px " + FONT; ctx.fillStyle = "rgba(255,255,255,0.85)"; ctx.fillText(String(8 - beat), W / 2, 150); }
+    for (var i = fx.texts.length - 1; i >= 0; i--) { var t = fx.texts[i], dt = gt - t.t; if (dt > 0.7) { fx.texts.splice(i, 1); continue; } ctx.globalAlpha = 1 - dt / 0.7; ctx.fillStyle = t.col; ctx.font = "700 28px " + FONT; ctx.textAlign = "center"; ctx.fillText(t.txt, LINE_X + 60, AIR_Y - 90 - dt * 60); ctx.globalAlpha = 1; }
+    if (holding) { ctx.fillStyle = "rgba(255,255,255,0.85)"; ctx.font = "700 20px " + FONT; ctx.textAlign = "center"; ctx.fillText("おさえて…", LINE_X + 60, GROUND - 190); }
+  }
+  var FONT = '"BIZ UDPGothic","Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif';
+  function render(gt) {
+    resize();
+    var sx = cv.width / W, sy = cv.height / H;
+    ctx.setTransform(sx, 0, 0, sy, 0, 0);
+    var shake = fx.shakeUntil > gt ? (fx.shakeUntil - gt) * 30 : 0;
+    if (shake) ctx.translate((Math.random() - 0.5) * shake, (Math.random() - 0.5) * shake);
+    drawSky(gt);
+    var i;
+    for (i = chart.length - 1; i >= 0; i--) if (KINDS[chart[i].kind].lane === "ground") drawEnemy(chart[i], gt);
+    for (i = chart.length - 1; i >= 0; i--) if (KINDS[chart[i].kind].lane === "air") drawEnemy(chart[i], gt);
+    var ft = gt - fx.flareT, open = holding ? 1 : (ft < 0.07 ? ft / 0.07 : ft < 0.32 ? 1 : ft < 0.46 ? 1 - (ft - 0.32) / 0.14 : 0);
+    var mt = gt - fx.missT, jump = mt < 0.3 ? Math.sin(mt / 0.3 * Math.PI) * 34 : 0;
+    drawLizard(LIZ_X, GROUND, 1.25, open, { jump: jump, wag: Math.sin(gt * 2.2) * 8 + Math.sin(gt * 11) * (open ? 4 : 0), shake: !!holding });
+    drawPieces(gt);
+    if (fx.flashUntil > gt) { ctx.fillStyle = "rgba(255,245,220," + ((fx.flashUntil - gt) / 0.12) * 0.8 + ")"; ctx.fillRect(-50, -50, W + 100, H + 100); }
+    if (state === "play") drawHUD(gt);
+  }
+  function gallery(t) {
+    resize(); ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0); drawSky(t);
+    drawLizard(120, GROUND, 1.25, 0, { jump: 0, wag: 0, shake: false }); drawLizard(340, GROUND, 1.25, 1, { jump: 0, wag: 0, shake: false });
+    drawSnake(520, GROUND, 1, t * 8, 0); drawLion(700, GROUND, 1, t * 8); drawGorilla(880, GROUND, 1.15, t * 8, 0);
+    drawBird(120, 200, 1, t * 8, 0); drawHeli(360, 200, 0.85, t * 10); drawUfo(600, 200, 0.85, t * 2); drawDrone(820, 200, 0.95, t * 8);
+  }
+  function frame() {
+    var now = clock.now(), gt = state === "play" ? now - songStart : now;
+    if (q.get("gallery")) { $("title").hidden = true; gallery(performance.now() / 1000); requestAnimationFrame(frame); return; }
+    if (state === "play") update(gt);
+    if (state === "play" || state === "result") render(gt);
+    else { var t = (performance.now() / 1000) % 1000; resize(); ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0); drawSky(t); drawLizard(LIZ_X, GROUND, 1.25, 0.5 + 0.5 * Math.sin(t * 1.3), { jump: 0, wag: Math.sin(t * 2) * 8, shake: false }); drawBird(700, 300 + Math.sin(t * 2) * 10, 1, t * 8, 0); drawSnake(600, GROUND, 1, t * 8, 0); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // ---------- 入力の配線
+  var padEls = {};
+  Array.prototype.forEach.call(document.querySelectorAll("#pads button"), function (b) {
+    var k = b.getAttribute("data-k"); padEls[k] = b;
+    var down = function (e) { e.preventDefault(); b.classList.add("on"); if (b.setPointerCapture) try { b.setPointerCapture(e.pointerId); } catch (x) {} input(k, clock.now(), true); };
+    var up = function (e) { e.preventDefault(); b.classList.remove("on"); input(k, clock.now(), false); };
+    b.addEventListener("pointerdown", down); b.addEventListener("pointerup", up); b.addEventListener("pointercancel", up); b.addEventListener("lostpointercapture", function () { b.classList.remove("on"); });
+    b.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  });
+  var listening = null;
+  document.addEventListener("keydown", function (e) {
+    if (listening) { e.preventDefault(); settings.keys[listening] = e.code; saveSettings(); updateKeyLabels(); listening = null; return; }
+    if (e.repeat) return;
+    var k = null; for (var name in settings.keys) if (settings.keys[name] === e.code) k = name;
+    if (!k) return;
+    if (state === "play") { e.preventDefault(); input(k, clock.now(), true); if (padEls[k]) padEls[k].classList.add("on"); }
+  });
+  document.addEventListener("keyup", function (e) {
+    var k = null; for (var name in settings.keys) if (settings.keys[name] === e.code) k = name;
+    if (!k) return; if (padEls[k]) padEls[k].classList.remove("on");
+    if (state === "play") input(k, clock.now(), false);
+  });
+  function updateKeyLabels() {
+    var L = { air: keyLabel(settings.keys.air), ground: keyLabel(settings.keys.ground), big: keyLabel(settings.keys.big) };
+    $("kAir").textContent = L.air; $("kGround").textContent = L.ground; $("kBig").textContent = L.big;
+    Array.prototype.forEach.call(document.querySelectorAll(".kAir"), function (e) { e.textContent = L.air; });
+    Array.prototype.forEach.call(document.querySelectorAll(".kGround"), function (e) { e.textContent = L.ground; });
+    Array.prototype.forEach.call(document.querySelectorAll(".kBig"), function (e) { e.textContent = L.big; });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-set]"), function (b) { var k = b.getAttribute("data-set"); b.textContent = { air: "空", ground: "地", big: "特大" }[k] + "：" + (listening === k ? "キーを押してください" : L[k]); b.classList.toggle("listen", listening === k); });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-set]"), function (b) { b.addEventListener("click", function () { listening = listening === b.getAttribute("data-set") ? null : b.getAttribute("data-set"); updateKeyLabels(); }); });
+  $("offset").value = settings.offset; $("offsetV").textContent = settings.offset;
+  $("offset").addEventListener("input", function () { settings.offset = parseInt(this.value, 10) || 0; $("offsetV").textContent = settings.offset; saveSettings(); });
+  $("vol").value = settings.volume; $("volV").textContent = settings.volume;
+  $("vol").addEventListener("input", function () { settings.volume = parseInt(this.value, 10) || 0; $("volV").textContent = settings.volume; saveSettings(); setVolume(); });
+  updateKeyLabels();
+  Array.prototype.forEach.call(document.querySelectorAll(".mode"), function (b) { b.addEventListener("click", function () { auto = q.get("auto") || null; start(b.getAttribute("data-mode")); }); });
+  $("demo").addEventListener("click", function () { auto = "perfect"; start("gamer"); });
+  $("again").addEventListener("click", function () { start(modeKey); });
+  $("toTitle").addEventListener("click", function () { state = "title"; $("result").hidden = true; $("title").hidden = false; });
+  // 検査用
+  window.__erimaki = { version: VERSION, chart: function (mk) { return makeChart(mk, MODES[mk].seed); }, modes: MODES, state: function () { return state; }, result: function () { return lastResult; } };
+  if (q.get("mode") && q.get("autostart")) { start(q.get("mode")); }
+})();
+</script>
+</body>
+</html>
