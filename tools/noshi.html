@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>のし紙の印刷用テンプレート（表書き・名前入り）｜えりまき工房</title>
-<meta name="description" content="用途を選んで名前を入れると、水引とのしの入ったのし紙ができる無料の道具。御祝・御礼・御歳暮・内祝・志など。A4に1枚か2枚で印刷できます。">
+<meta name="description" content="用途を選んで名前を入れると、水引とのしの入ったのし紙ができる無料ツール。御祝・御礼・御歳暮・内祝・志など。A4に1枚か2枚で印刷できます。">
 <meta property="og:title" content="のし紙の印刷用テンプレート（表書き・名前入り）｜えりまき工房">
-<meta property="og:description" content="用途を選んで名前を入れると、水引とのしの入ったのし紙ができる無料の道具。御祝・御礼・御歳暮・内祝・志など。A4に1枚か2枚で印刷できます。">
+<meta property="og:description" content="用途を選んで名前を入れると、水引とのしの入ったのし紙ができる無料ツール。御祝・御礼・御歳暮・内祝・志など。A4に1枚か2枚で印刷できます。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="えりまき工房">
 
@@ -137,17 +137,17 @@ footer.site nav { display:flex; flex-wrap:wrap; gap:6px 18px; margin-bottom:8px;
 </head>
 <body>
 <header class="site"><div class="bar wide">
-<a class="brand" href="../index.html">えりまき工房<small>はがきと手帳の、無料の道具</small></a>
-<nav class="site" aria-label="サイト内"><a href="../index.html">トップ</a><a href="../index.html#tools">道具</a><a href="../index.html#reads">読みもの</a><a href="../about.html">このサイトについて</a></nav>
+<a class="brand" href="../index.html">えりまき工房<small>無料ツール・素材置き場</small></a>
+<nav class="site" aria-label="サイト内"><a href="../index.html">トップ</a><a href="../index.html#tools">ツール</a><a href="../index.html#reads">読みもの</a><a href="../about.html">このサイトについて</a></nav>
 </div></header>
 <main class="wide">
 <h1>のし紙の印刷用テンプレート（表書き・名前入り）</h1><p class="lead">蝶結びは何度あってもよいお祝いやお礼に、結び切りは一度きりがよいこと（結婚・お見舞い・弔事）に使います。用途を選んで名前を入れると、水引とのしの入ったのし紙の画像ができます。A4の紙に1枚（大きめの箱）か、2枚（小さめの箱）で印刷できます。</p><div class="tool"><section class="panel no-print" aria-label="入力"><div class="field"><label for="use">用途（表書き）</label><select id="use"></select></div><div class="field" id="freeBox" hidden><label for="free">表書きを入力</label><input id="free" maxlength="8" placeholder="例：御餞別"></div><div class="row2"><div class="field"><label for="tie">水引の結び方</label><select id="tie"><option value="cho">蝶結び</option><option value="kiri">結び切り</option></select></div><div class="field"><label for="col">水引の色</label><select id="col"><option value="kohaku">紅白</option><option value="kokubyaku">黒白</option><option value="kibyaku">黄白</option></select></div></div><div class="row2"><div class="field"><label for="mark">のし（右上の飾り）</label><select id="mark"><option value="1">つける</option><option value="0">つけない</option></select></div><div class="field"><label for="size">大きさ</label><select id="size"><option value="a4">A4に1枚</option><option value="a5">A4に2枚（A5）</option></select></div></div><div class="field"><label for="names">名前（1行に1人。3人まで。1行目が中央に入ります）</label><textarea id="names" rows="3" style="min-height:5.5em" placeholder="例：山田太郎"></textarea></div><p class="warn" id="hint"></p><div class="btns"><button type="button" class="btn" id="save">画像を保存（PNG）</button><button type="button" class="btn sub" id="print">印刷する</button></div><p class="note">印刷は「A4・縦」「実際のサイズ（100%）」で。名前は空のままでもかまいません。手で書くこともできます。</p></section><section class="preview" aria-label="できあがり"><canvas id="cv" hidden></canvas><img id="out" alt="のし紙の画像"><p class="note">300dpi・A4実寸の画像です。</p></section></div>
 <h2>用途と水引の選び方（一般的な例）</h2><p>用途を選ぶと、結び方・色・のしの有無は下の表のとおりに切りかわります。地域や家の習わしで違うこともあるので、迷ったら贈る先の習わしに合わせて、上の入力で変えてください。</p><div class="scroll"><table class="stack"><thead><tr><th scope="col">表書き</th><th scope="col">使う場面</th><th scope="col">水引</th><th scope="col">のし</th></tr></thead><tbody id="tbl"></tbody></table></div>
-<h2>のし紙の使い方</h2><ul><li>名前は、水引の下の中央に書きます。連名は3人までが目安で、目上の方を中央にして左へ順に並べます（この道具も、1行目の名前が中央に入ります）。4人以上なら代表者の名前の左に小さく「外一同」とします</li><li>手渡しなら包装紙の上にかける「外のし」、配送なら包装紙の下にかける「内のし」が一般的です</li><li>お見舞いと弔事（志・御供など）は、のしをつけません</li><li>関西の一部では、法要のあとのお返しに黄白の水引を使います</li></ul><p class="note">参考：<a href="https://www.mistore.jp/gifts/knowledge/noshigami">三越伊勢丹（のし紙の基礎知識）</a></p>
+<h2>のし紙の使い方</h2><ul><li>名前は、水引の下の中央に書きます。連名は3人までが目安で、目上の方を中央にして左へ順に並べます（このツールも、1行目の名前が中央に入ります）。4人以上なら代表者の名前の左に小さく「外一同」とします</li><li>手渡しなら包装紙の上にかける「外のし」、配送なら包装紙の下にかける「内のし」が一般的です</li><li>お見舞いと弔事（志・御供など）は、のしをつけません</li><li>関西の一部では、法要のあとのお返しに黄白の水引を使います</li></ul><p class="note">参考：<a href="https://www.mistore.jp/gifts/knowledge/noshigami">三越伊勢丹（のし紙の基礎知識）</a></p>
 <!-- booth-guide --><h2>贈りものに添えて</h2><ul class="list"><li><a href="https://erimaki-kobo.booth.pm/items/9053358">一筆箋・ひとこと添え書きの文例集 240</a><span>500円（BOOTH）。12の場面×20文例。印刷して使う一筆箋6柄つき。</span></li><li><a href="https://erimaki-kobo.booth.pm/items/9053350">ギフトボックス展開図 5種類×4柄</a><span>400円（BOOTH）。キャラメル箱・ピロー箱・かぶせ箱など。印刷して組み立てます。</span></li></ul></main>
 <footer class="site"><div class="wide">
 <nav aria-label="サイトについて"><a href="../index.html">トップ</a><a href="../about.html">このサイトについて</a></nav>
-<p>日付と祝日は、日本郵便・国立天文台・内閣府の発表で確かめています。道具に入力した内容は送信されず、お使いのブラウザの中だけで使われます。</p>
+<p>日付と祝日は、日本郵便・国立天文台・内閣府の発表で確かめています。ツールに入力した内容は送信されず、お使いのブラウザの中だけで使われます。</p>
 <p>© えりまき工房</p>
 </div></footer>
 <div id="printArea" hidden><img id="printImg" alt=""></div>
