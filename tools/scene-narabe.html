@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>シーンならべ 体験版（Web版）｜ココフォリアの部屋を台本から一括作成｜えりまき工房</title>
+<meta name="description" content="背景の画像と台本（シナリオのPDFも可）から、ココフォリアの部屋のZIPをまとめて作るツールの体験版。シーン・シナリオテキスト・NPCのチャットパレットを一度に。ブラウザで開くだけで、画像も文章もどこにも送りません。">
+<meta property="og:title" content="シーンならべ 体験版（Web版）｜えりまき工房">
+<meta property="og:description" content="背景の画像と台本（シナリオのPDFも可）から、ココフォリアの部屋のZIPをまとめて作るツールの体験版。シーン・シナリオテキスト・NPCのチャットパレットを一度に。ブラウザで開くだけで、画像も文章もどこにも送りません。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="えりまき工房">
+<meta property="og:url" content="https://erimaki-kobo.github.io/tools/scene-narabe.html">
+<meta property="og:image" content="https://erimaki-kobo.github.io/img/goods/scene-narabe/01_title.png">
+<link rel="canonical" href="https://erimaki-kobo.github.io/tools/scene-narabe.html">
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#222;--sub:#666;--line:#ddd6c8;--accent:#8a3b2e;--accent2:#2e5a8a;--ok:#2f7a3f;--warn:#b35a00}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;font-size:15px;line-height:1.6}
+header{background:#2b2622;color:#f6f4ef;padding:16px 20px}
+header h1{margin:0;font-size:20px;letter-spacing:.04em}
+header h1 small{font-size:12px;background:var(--accent);padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle}
+header p{margin:4px 0 0;font-size:13px;color:#cfc7bb}
+main{max-width:1100px;margin:0 auto;padding:16px}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+h2{font-size:16px;margin:0 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+h2 .n{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;align-items:center;justify-content:center}
+h2 .n.b{background:var(--accent2)}
+h3{font-size:14px;margin:14px 0 6px;color:var(--accent2)}
+.drop{border:2px dashed #b9ad98;border-radius:10px;padding:22px;text-align:center;color:var(--sub);background:#fbfaf7;cursor:pointer;transition:.15s}
+.drop.on{border-color:var(--accent2);background:#eef4fb;color:var(--accent2)}
+.drop b{color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tools{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#faf8f4;margin-bottom:10px;font-size:14px}
+.tools .grp{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tools .grp>span:first-child{color:var(--sub);font-size:12px}
+button{font:inherit;border:1px solid #bdb3a3;background:#fff;border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover{background:#f3efe8}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:bold;padding:10px 22px;font-size:16px}
+button.primary:hover{background:#73301f}
+button.small{padding:2px 8px;font-size:13px}
+button:disabled{opacity:.4;cursor:default}
+input[type=text],input[type=number],textarea,select{font:inherit;border:1px solid #c9bfae;border-radius:6px;padding:5px 8px;background:#fff}
+input[type=color]{width:34px;height:28px;padding:0;border:1px solid #c9bfae;border-radius:6px;background:#fff;cursor:pointer}
+textarea{width:100%;resize:vertical;min-height:38px}
+.hint{font-size:13px;color:var(--sub)}
+.ex{font-size:13px;color:var(--sub);background:#f3f0ea;border-radius:6px;padding:8px 10px;white-space:pre-wrap;font-family:inherit;margin:6px 0 0}
+#list,#noteList,#npcList{display:flex;flex-direction:column;gap:10px}
+.scene{display:grid;grid-template-columns:34px 150px 1fr 118px;gap:10px;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fdfcfa}
+.scene.dragover,.card.dragover{outline:2px dashed var(--accent2);outline-offset:2px}
+.scene.dragging,.card.dragging{opacity:.4}
+.scene[hidden],.card[hidden]{display:none}
+.scene .no,.card .no{font-weight:bold;color:var(--accent);font-size:18px;text-align:center;padding-top:4px;cursor:grab;user-select:none}
+.card .no{color:var(--accent2)}
+.scene .no small,.card .no small{display:block;font-size:10px;color:#b0a593;font-weight:normal;line-height:1.2}
+.thumbs{display:flex;flex-direction:column;gap:6px}
+.thumb{position:relative;width:150px;height:84px;border-radius:6px;background:#e9e4da center/cover no-repeat;border:1px solid #d8cfbf;cursor:pointer;display:flex;align-items:flex-end;justify-content:flex-start}
+.thumb span{font-size:11px;background:rgba(0,0,0,.55);color:#fff;padding:1px 6px;border-radius:0 6px 0 6px}
+.thumb.empty{display:flex;align-items:center;justify-content:center;color:#998d7a;font-size:12px}
+.thumb.empty span{display:none}
+.thumb .sz{position:absolute;right:0;top:0;font-size:10px;background:rgba(0,0,0,.45);color:#fff;padding:0 5px;border-radius:0 6px 0 6px}
+.fields{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fields label{font-size:12px;color:var(--sub)}
+.fields input[type=text]{width:100%}
+.fgsel{display:flex;gap:6px;align-items:center;font-size:13px}
+.ops{display:flex;flex-direction:column;gap:4px}
+.card{display:grid;grid-template-columns:34px 1fr 118px;gap:10px;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fdfcfa}
+.card .fields .inl{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card .fields .inl input[type=text]{width:auto;flex:1;min-width:8em}
+.badge{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:#efe9df;color:#5a5144}
+.badge.loaded{background:#e3eef8;color:#2e5a8a}
+.badge.keep{background:#e6f1e8;color:#2f7a3f}
+#msg{margin-top:10px;font-size:14px;min-height:1.6em}
+#msg.ok{color:var(--ok)} #msg.err{color:#b00020} #msg.warn{color:var(--warn)}
+.smsg{font-size:13px;min-height:1.4em;margin-top:6px}
+.smsg.ok{color:var(--ok)} .smsg.err{color:#b00020} .smsg.warn{color:var(--warn)}
+ol.howto{margin:0;padding-left:1.4em}
+ol.howto li{margin:2px 0}
+details summary{cursor:pointer;color:var(--accent2)}
+label.chk{display:inline-flex;gap:4px;align-items:center}
+footer{max-width:1100px;margin:0 auto;padding:0 16px 30px;font-size:12px;color:var(--sub)}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;border:1px solid #0002}
+@media (max-width:720px){.scene{grid-template-columns:28px 1fr}.thumbs{grid-column:2}.fields{grid-column:1/3}.ops{grid-column:1/3;flex-direction:row;flex-wrap:wrap}.card{grid-template-columns:28px 1fr}.card .ops{grid-column:1/3}}
+</style>
+</head>
+<body>
+<header>
+  <h1>シーンならべ<small>体験版 v1.2</small></h1>
+  <p>画像や文章をまとめて入れると、ココフォリアに取り込めるルームデータ（ZIP）を作ります。シーン、セッション中に1クリックで送るシナリオテキスト、NPCのチャットパレットまで一度に。画像も文章もこのパソコンの中だけで処理し、どこにも送りません。シナリオのPDFからも台本を取り出せます。<br>体験版はシーン10・シナリオテキスト10・NPC3人までです。上限のない本体（500円）と、ダウンロードして使える体験版は <a href="https://erimaki-kobo.booth.pm/items/9087072" target="_blank" rel="noopener" style="color:#f6d7a7">BOOTH「えりまき工房」</a>で。<br>このページは体験版をそのまま開いたものです。入れた画像や台本はこのページの中だけで処理され、サーバーには送られません。</p>
+</header>
+<main>
+
+<section>
+  <h2><span class="n">1</span>画像を入れる</h2>
+  <div class="drop" id="drop" tabindex="0">
+    <b>シーンに使う画像を、ここにまとめてドロップ</b><br>
+    （またはクリックして選ぶ）　1枚が1シーンになります。ファイル名の順に並び、ファイル名がシーン名になります。
+  </div>
+  <input type="file" id="pick" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
+  <div class="row" style="margin-top:10px">
+    <button id="btnSample">見本の画像で試す</button>
+    <button id="btnLoad">作ったZIPを読み込んで続きから</button>
+    <input type="file" id="pickZip" accept=".zip,application/zip" hidden>
+    <span id="loadedInfo"></span>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">2</span>文章からシーンを入れる <span class="hint">（シナリオのメモから、シーン名と切り替え文をまとめて入れる）</span></h2>
+  <textarea id="bulk" rows="7" placeholder="ここに貼る。空行で区切ると1シーン。1行目がシーン名、2行目からが切り替え文（何行でも）。1行だけのときは「シーン名｜切り替え文」とも書けます。"></textarea>
+  <div class="row" style="margin-top:8px">
+    <button id="btnBulkFill">上から順にシーンに当てはめる</button>
+    <button id="btnBulkAdd">新しいシーンとして足す</button>
+    <button class="small" id="btnBulkFrom">いまのシーンを文章にする</button>
+    <span class="hint">「当てはめる」は、1番目の文章を1番目のシーンに、2番目を2番目に…と入れます（画像を入れたあとに使うと、名前と文を一度に付けられます）。シーンが足りない分は、画像なしのシーンとして足します。</span>
+  </div>
+  <div id="bulkMsg" class="smsg"></div>
+  <details><summary>書き方の例</summary>
+<pre class="ex">01 玄関
+重い扉の向こうは、しんと静まりかえっている。
+床には埃が積もり、足跡はひとつもない。
+
+02 廊下
+長い廊下が奥へ続く。壁の肖像画がこちらを見ている。
+
+03 書斎｜本棚に囲まれた部屋。机の上に日記が開かれている。</pre>
+  </details>
+</section>
+
+<section>
+  <h2><span class="n">3</span>シーンを整える <span class="badge" id="count">0シーン</span></h2>
+  <div class="tools">
+    <div class="grp"><span>切り替え文のひな形</span>
+      <input type="text" id="tpl" value="▼{名前}" style="width:12em">
+      <button class="small" id="btnTpl">空欄のシーンに入れる</button>
+      <button class="small" id="btnTplAll">全部に入れ直す</button>
+    </div>
+    <div class="grp"><span>シーン名の番号</span>
+      <button class="small" id="btnNum">01, 02… を付ける</button>
+      <button class="small" id="btnUnnum">番号を外す</button>
+    </div>
+    <div class="grp"><span>前景をそろえる</span>
+      <button class="small" id="btnFgSame">全部「背景と同じ」</button>
+      <button class="small" id="btnFgNone">全部「なし」</button>
+    </div>
+    <div class="grp"><span>絞り込み</span>
+      <input type="text" id="filter" placeholder="シーン名・文で探す" style="width:12em">
+    </div>
+  </div>
+  <p class="hint" style="margin:0 0 8px">{名前} はシーン名、{番号} は順番に置きかわります。切り替え文はシーンを切り替えたときにチャットに出ます。左の番号をドラッグすると並べ替えられます。</p>
+  <div id="list"></div>
+  <p class="hint" id="emptyHint">まだシーンがありません。上で画像か文章を入れてください。</p>
+  <div class="row" style="margin-top:8px"><button id="btnAddEmpty">＋ 画像なしのシーンを足す</button><button id="btnClear">全部消す</button></div>
+</section>
+
+<section>
+  <h2><span class="n b">4</span>台本をシナリオテキストにする <span class="badge" id="noteCount">0件</span></h2>
+  <p class="hint" style="margin:0 0 8px">ココフォリアの「シナリオテキスト一覧」に入る文章です。セッション中は一覧から1クリックでチャットに送れて、送るときの名前にはタイトルが出ます。描写文・情報の開示・HOの配布など、長い文を打ち込まずに済みます。</p>
+  <textarea id="script" rows="8" placeholder="ここに台本を貼る。空行で区切ると1件。行の頭に【村長】や「村長｜」「村長：」と書くと、その名前がタイトル（送るときの名前）になります。名前のない文は、下の「名前のない文のタイトル」になります。"></textarea>
+  <div class="row" style="margin-top:8px">
+    <label>名前のない文のタイトル <input type="text" id="narrator" value="ナレーション" style="width:10em"></label>
+    <button id="btnScriptAdd">シナリオテキストにする</button>
+    <button class="small" id="btnScriptFrom">いまのシナリオテキストを台本にする</button>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <button id="btnPdf">PDFから台本を読み込む</button>
+    <input type="file" id="pickPdf" accept="application/pdf,.pdf" hidden>
+    <label class="chk"><input type="checkbox" id="optSpeaker" checked> 「村長「…」」のような行を【村長】の形に直す</label>
+  </div>
+  <p class="hint" style="margin:4px 0 0">シナリオのPDF（横書き）から文章を取り出し、上の欄に台本として入れます。PDFを欄にドロップしても読み込めます。改行のくずれを直し、ページ番号やくり返しのヘッダーは外します。取り出した文は、欄で確かめてから「シナリオテキストにする」を押してください。PDFを読むときだけ、読み込み部品（pdf.js）をインターネットから取ってきます。PDFの中身はどこにも送りません。</p>
+  <div id="scriptMsg" class="smsg"></div>
+  <details><summary>書き方の例</summary>
+<pre class="ex">あなたたちは古い洋館の前に立っている。
+雨はやんだばかりで、石畳が濡れて光る。
+
+【村長】よく来てくださった。話は……長くなる。
+
+【HO1（秘匿）】
+あなたは昨夜、この館の窓に灯りを見た。
+誰にも話していない。
+
+村長：それ以上は言えん。帰ってくれ。</pre>
+  </details>
+  <div class="tools" style="margin-top:10px">
+    <div class="grp"><span>タイトルの番号</span>
+      <button class="small" id="btnNoteNum">01, 02… を付ける</button>
+      <button class="small" id="btnNoteUnnum">番号を外す</button>
+      <span class="hint">（番号は送るときの名前にも出ます。順番が分かりやすい代わりに、名前の頭に数字が付きます）</span>
+    </div>
+    <div class="grp"><span>絞り込み</span>
+      <input type="text" id="noteFilter" placeholder="タイトル・文で探す" style="width:12em">
+    </div>
+  </div>
+  <div id="noteList"></div>
+  <p class="hint" id="noteEmpty">まだシナリオテキストがありません。上に台本を貼って「シナリオテキストにする」を押してください。</p>
+  <div class="row" style="margin-top:8px"><button id="btnNoteAdd">＋ 空のシナリオテキストを足す</button><button id="btnNoteClear">全部消す</button></div>
+</section>
+
+<section>
+  <h2><span class="n b">5</span>NPCとチャットパレット <span class="badge" id="npcCount">0人</span></h2>
+  <p class="hint" style="margin:0 0 8px">NPCのコマを作り、セリフをチャットパレットに入れておきます。セッション中はキャラクター選択でNPCを選ぶと、パレットのセリフを1クリック（ダブルクリックで即送信）で出せます。チャット欄にセリフの一部を打っても候補に出ます。</p>
+  <div class="row">
+    <button id="btnNpcFromScript">台本の話し手をNPCにする</button>
+    <button id="btnNpcAdd">＋ NPCを足す</button>
+    <span class="hint">「台本の話し手をNPCにする」は、4の台本で【名前】の付いた文を、その名前のNPCのパレットに1行ずつ入れます（名前のない文と、【HO1】【KP】【PC1】のような配布物・進行役の文は入れません）。</span>
+  </div>
+  <div id="npcMsg" class="smsg"></div>
+  <div id="npcList" style="margin-top:8px"></div>
+  <p class="hint" id="npcEmpty">まだNPCがいません。</p>
+</section>
+
+<section>
+  <h2><span class="n">6</span>ZIPを作る</h2>
+  <div class="row">
+    <label>盤面の横幅 <input type="number" id="fieldW" value="32" min="4" max="200" style="width:5em"> マス</label>
+    <span class="hint">高さは前景の画像の縦横比から自動で決めます（画像がないシーンは18マス）。</span>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <label class="chk"><input type="checkbox" id="optShrink" checked> 大きい画像は長辺 <input type="number" id="maxSide" value="1920" min="320" max="8000" step="10" style="width:6em"> px に縮める</label>
+    <label class="chk"><input type="checkbox" id="optJpeg"> PNG・WebP も JPEG にまとめる（透過が消えます）</label>
+    <span class="hint">ZIPが重いと取り込みに失敗しやすいので、縮めるのがおすすめです。GIFはそのまま入れます。</span>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <label class="chk"><input type="checkbox" id="optNpcActive" checked> NPCのコマを盤面に出す（アクティブ）</label>
+    <span class="hint">外すと、コマは一覧にだけ入り、盤面には出ません。</span>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <label>ファイル名 <input type="text" id="fname" value="room" style="width:12em">.zip</label>
+    <button class="primary" id="btnMake">ZIPを作る</button>
+  </div>
+  <div id="msg"></div>
+</section>
+
+<section>
+  <h2><span class="n">7</span>ココフォリアに取り込む</h2>
+  <ol class="howto">
+    <li>ココフォリアで<b>新しい部屋</b>を作って入る（いまある部屋に取り込むと、シーン・シナリオテキスト・コマは<b>足され</b>、背景などの部屋の設定は上書きされます）</li>
+    <li>作ったZIPを、部屋の画面にドラッグする<br><span class="hint">または 部屋名の右の「∨」→ ルーム設定 → ルームデータ → インポート</span></li>
+    <li>上のメニューの「シーン一覧」にシーンが並びます。切り替えは、一覧の<b>左の小さな画像</b>を押す（名前の文字を押すと編集画面が開きます）</li>
+    <li>「シナリオテキスト一覧」を開き、タイトルを押して「送信」を押すと、その文がチャットに出ます（名前はタイトル）</li>
+    <li>NPCのセリフは、チャット欄の「キャラクター選択」でNPCを選び、チャットパレットから送ります。コマを右クリック →「チャットパレット」でも送れます</li>
+  </ol>
+  <details style="margin-top:8px"><summary>うまくいかないとき</summary>
+    <ul class="hint">
+      <li>取り込めない：ZIPを解凍せずにそのまま入れてください。ZIPの中身を書きかえると取り込めません。</li>
+      <li>画像が大きすぎる：ココフォリアにはファイルの大きさの上限があります。「大きい画像は縮める」にチェックを入れてZIPを作り直してください。</li>
+      <li>作った部屋にシーンやテキストを足したい：その部屋のZIPを書き出し（ココフォリアのPROプランの機能）、「作ったZIPを読み込んで続きから」で開くと、キャラやカットインを残したまま直せます。PROでない場合は、足したい分だけでZIPを作り、同じ部屋に取り込むと足されます（部屋の背景は上書きされるので、必要ならシーンで戻してください）。</li>
+      <li>PDFが読めない：画像だけのPDF（スキャンしたもの）、縦書き、パスワード付きのPDFは読めません。PDFを読むときはインターネットにつながっている必要があります（読み込み部品を取ってくるため）。読めないときは、PDFビューアで文章をコピーして台本の欄に貼ってください。</li>
+      <li>このツールはココフォリアの公式ツールではありません。ココフォリアの仕様が変わると、取り込めなくなることがあります。</li>
+    </ul>
+  </details>
+</section>
+</main>
+<footer><a href="../index.html">えりまき工房の無料ツール・素材置き場</a>｜シーンならべ 体験版 v1.2（えりまき工房）｜本ツールは非公式です。ココフォリアの運営とは関係ありません。</footer>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const enc = new TextEncoder(), dec = new TextDecoder();
+const LIMIT = {scenes: 10, notes: 10, npcs: 3}; // 体験版は {scenes:10, notes:10, npcs:3}
+
+// ---------- 状態 ----------
+let scenes = [];        // {id, key, name, text, bg: img|null, fg: 'same'|'none'|img, extra:{}}
+let notes = [];         // {id, key, name, text, extra}
+let npcs = [];          // {id, key, name, color, memo, commands, status(文字列), extra, loaded}
+let base = null;        // 読み込んだZIPの __data.json（シーン・ノート・キャラ以外を保つ）
+let baseFiles = {};     // 読み込んだZIPの画像 name -> Uint8Array
+let seq = 0;
+let dragFrom = -1, dragList = '';
+// img = {name(hash.ext), bytes, type, url, w, h, _out}
+
+// ---------- 小道具 ----------
+const crcT = new Uint32Array(256).map((_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
+const crc32 = b => { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = crcT[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+const sha256hex = async b => [...new Uint8Array(await crypto.subtle.digest('SHA-256', b))].map(x => x.toString(16).padStart(2, '0')).join('');
+const rid = () => { const a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; const r = crypto.getRandomValues(new Uint8Array(20)); return [...r].map(x => a[x % 62]).join(''); };
+const EXT = {'image/png': 'png', 'image/jpeg': 'jpeg', 'image/gif': 'gif', 'image/webp': 'webp'};
+const TYPE = {png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp'};
+const natural = new Intl.Collator('ja', {numeric: true, sensitivity: 'base'});
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const kb = n => n < 1048576 ? Math.round(n / 1024) + 'KB' : (n / 1048576).toFixed(1) + 'MB';
+const COLORS = ['#8a3b2e', '#2e5a8a', '#2f7a3f', '#b35a00', '#6b3fa0', '#1f8a8a', '#a0325f', '#5a5144'];
+
+function sniff(b) {
+  if (b[0] === 0x89 && b[1] === 0x50) return 'image/png';
+  if (b[0] === 0xFF && b[1] === 0xD8) return 'image/jpeg';
+  if (b[0] === 0x47 && b[1] === 0x49) return 'image/gif';
+  if (b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50) return 'image/webp';
+  return null;
+}
+async function makeImg(bytes, type) {
+  type = sniff(bytes) || type;
+  if (!EXT[type]) throw new Error('対応していない画像の形式です（PNG・JPEG・GIF・WebPが使えます）');
+  const name = (await sha256hex(bytes)) + '.' + EXT[type];
+  const blob = new Blob([bytes], {type});
+  const url = URL.createObjectURL(blob);
+  let w = 16, h = 9;
+  try { const bm = await createImageBitmap(blob); w = bm.width; h = bm.height; bm.close && bm.close(); } catch (e) {}
+  return {name, bytes, type, url, w, h, _out: null};
+}
+const stem = f => f.replace(/\.[^.]+$/, '');
+const newScene = (p) => Object.assign({id: rid(), key: ++seq, name: '', text: '', bg: null, fg: 'none', extra: null}, p);
+const newNote = (p) => Object.assign({id: rid(), key: ++seq, name: '', text: '', extra: null}, p);
+const newNpc = (p) => Object.assign({id: rid(), key: ++seq, name: '', color: COLORS[npcs.length % COLORS.length], memo: '', commands: '', status: '', extra: null, loaded: false}, p);
+const overLimit = (kind, n) => n > LIMIT[kind];
+const limitMsg = kind => ({scenes: 'シーン', notes: 'シナリオテキスト', npcs: 'NPC'}[kind]) + 'は体験版では' + LIMIT[kind] + 'まで';
+
+// ---------- ZIP ----------
+function zipStore(files) { // [[name, Uint8Array]]
+  const parts = [], cd = []; let off = 0;
+  for (const [name, data] of files) {
+    const nb = enc.encode(name), c = crc32(data);
+    const h = new DataView(new ArrayBuffer(30));
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x800, true);
+    h.setUint32(14, c, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, nb.length, true);
+    parts.push(new Uint8Array(h.buffer), nb, data);
+    const e = new DataView(new ArrayBuffer(46));
+    e.setUint32(0, 0x02014b50, true); e.setUint16(4, 20, true); e.setUint16(6, 20, true); e.setUint16(8, 0x800, true);
+    e.setUint32(16, c, true); e.setUint32(20, data.length, true); e.setUint32(24, data.length, true); e.setUint16(28, nb.length, true); e.setUint32(42, off, true);
+    cd.push(new Uint8Array(e.buffer), nb);
+    off += 30 + nb.length + data.length;
+  }
+  const cdLen = cd.reduce((a, b) => a + b.length, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, cdLen, true); end.setUint32(16, off, true);
+  return new Blob([...parts, ...cd, new Uint8Array(end.buffer)], {type: 'application/zip'});
+}
+async function unzip(b) {
+  const dv = new DataView(b.buffer, b.byteOffset, b.byteLength);
+  let e = b.length - 22; while (e >= 0 && dv.getUint32(e, true) !== 0x06054b50) e--;
+  if (e < 0) throw new Error('ZIPファイルではないようです');
+  const n = dv.getUint16(e + 10, true); let p = dv.getUint32(e + 16, true); const out = {};
+  for (let i = 0; i < n; i++) {
+    const meth = dv.getUint16(p + 10, true), csz = dv.getUint32(p + 20, true);
+    const fl = dv.getUint16(p + 28, true), xl = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), off = dv.getUint32(p + 42, true);
+    const name = dec.decode(b.slice(p + 46, p + 46 + fl));
+    const lfl = dv.getUint16(off + 26, true), lxl = dv.getUint16(off + 28, true);
+    const s = off + 30 + lfl + lxl; let d = b.slice(s, s + csz);
+    if (meth === 8) d = new Uint8Array(await new Response(new Blob([d]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer());
+    else if (meth !== 0) throw new Error('この圧縮方式のZIPは読めません');
+    out[name] = d; p += 46 + fl + xl + cl;
+  }
+  return out;
+}
+
+// ---------- 画像を入れる ----------
+async function addFiles(fileList) {
+  const files = [...fileList].filter(f => /^image\//.test(f.type) || /\.(png|jpe?g|gif|webp)$/i.test(f.name));
+  if (!files.length) { say('画像ファイルが見つかりませんでした', 'err'); return; }
+  files.sort((a, b) => natural.compare(a.name, b.name));
+  if (overLimit('scenes', scenes.length + files.length)) { say(limitMsg('scenes') + 'です（いま' + scenes.length + '、足そうとしたのは' + files.length + '）', 'err'); return; }
+  say('画像を読み込んでいます…');
+  let bad = 0;
+  for (const f of files) {
+    try {
+      const img = await makeImg(new Uint8Array(await f.arrayBuffer()), f.type || TYPE[(f.name.split('.').pop() || '').toLowerCase()]);
+      scenes.push(newScene({name: stem(f.name), bg: img, fg: 'same'}));
+    } catch (e) { bad++; }
+  }
+  render();
+  say(files.length - bad + '枚をシーンにしました' + (bad ? '（' + bad + '枚は読めませんでした）' : ''), bad ? 'warn' : 'ok');
+}
+async function sample() {
+  const L = [['01 玄関', '#2b4a6f'], ['02 廊下', '#4a2b6f'], ['03 書斎', '#2f5a3a'], ['04 地下室', '#6f2b2b']];
+  if (overLimit('scenes', scenes.length + L.length)) { say(limitMsg('scenes') + 'です', 'err'); return; }
+  for (const [t, col] of L) {
+    const c = document.createElement('canvas'); c.width = 1280; c.height = 720;
+    const g = c.getContext('2d'); g.fillStyle = col; g.fillRect(0, 0, 1280, 720);
+    g.strokeStyle = 'rgba(255,255,255,.25)'; g.lineWidth = 6; g.strokeRect(40, 40, 1200, 640);
+    g.fillStyle = '#fff'; g.font = 'bold 96px sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(t, 640, 360);
+    const bl = await new Promise(r => c.toBlob(r, 'image/png'));
+    const img = await makeImg(new Uint8Array(await bl.arrayBuffer()), 'image/png');
+    scenes.push(newScene({name: t, bg: img, fg: 'same'}));
+  }
+  render(); say('見本のシーンを4つ足しました', 'ok');
+}
+
+// ---------- 文章からシーン ----------
+function parseBulk(txt) {
+  const blocks = String(txt || '').replace(/\r\n?/g, '\n').split(/\n[ \t　]*\n+/).map(b => b.trim()).filter(Boolean);
+  return blocks.map(b => {
+    const lines = b.split('\n');
+    let first = lines[0], rest = lines.slice(1);
+    const m = first.match(/^(.*?)[\t｜|](.*)$/);
+    let name = first.trim(), head = '';
+    if (m) { name = m[1].trim(); head = m[2].trim(); }
+    const text = (head ? [head, ...rest] : rest).join('\n').trim();
+    return {name, text};
+  });
+}
+function applyBulk(mode) {
+  const items = parseBulk($('#bulk').value);
+  if (!items.length) { smsg('#bulkMsg', '文章がありません。空行で区切って貼ってください', 'err'); return; }
+  const willAdd = mode === 'fill' ? Math.max(0, items.length - scenes.length) : items.length;
+  if (overLimit('scenes', scenes.length + willAdd)) { smsg('#bulkMsg', limitMsg('scenes') + 'です', 'err'); return; }
+  let filled = 0, added = 0;
+  if (mode === 'fill') {
+    items.forEach((it, i) => {
+      if (scenes[i]) { if (it.name) scenes[i].name = it.name; scenes[i].text = it.text; filled++; }
+      else { scenes.push(newScene({name: it.name, text: it.text})); added++; }
+    });
+  } else {
+    items.forEach(it => { scenes.push(newScene({name: it.name, text: it.text})); added++; });
+  }
+  render();
+  const parts = []; if (filled) parts.push(filled + 'シーンに当てはめ'); if (added) parts.push(added + 'シーンを足し');
+  smsg('#bulkMsg', parts.length ? parts.join('、') + 'ました' : '何も変わりませんでした', 'ok');
+}
+function bulkFromScenes() {
+  $('#bulk').value = scenes.map(s => s.name + (s.text ? '\n' + s.text : '')).join('\n\n');
+  smsg('#bulkMsg', 'いまのシーンを文章にしました（直して「当てはめる」を押すと戻せます）', 'ok');
+}
+function smsg(sel, t, cls) { const m = $(sel); m.textContent = t; m.className = 'smsg ' + (cls || ''); }
+
+// ---------- 台本 → シナリオテキスト ----------
+// 1行目の「【名前】文」「名前｜文」「名前：文」「名前<TAB>文」を話し手として読む
+function splitSpeaker(line) {
+  let m = line.match(/^【(.+?)】[ 　]*(.*)$/); if (m) return {name: m[1].trim(), rest: m[2]};
+  m = line.match(/^([^\t｜|]{1,20}?)[\t｜|][ 　]*(.*)$/); if (m) return {name: m[1].trim(), rest: m[2]};
+  m = line.match(/^([^：:\s　]{1,12})[：:][ 　]*(.*)$/); if (m && !/^(https?|\d+)$/i.test(m[1])) return {name: m[1].trim(), rest: m[2]};
+  return null;
+}
+function parseScript(txt, narrator) {
+  const blocks = String(txt || '').replace(/\r\n?/g, '\n').split(/\n[ \t　]*\n+/).map(b => b.trim()).filter(Boolean);
+  return blocks.map(b => {
+    const lines = b.split('\n');
+    const sp = splitSpeaker(lines[0]);
+    if (!sp) return {name: narrator, text: b, named: false};
+    const text = [sp.rest, ...lines.slice(1)].join('\n').trim();
+    return {name: sp.name || narrator, text, named: !!sp.name};
+  });
+}
+function applyScript() {
+  const items = parseScript($('#script').value, $('#narrator').value.trim() || 'ナレーション');
+  if (!items.length) { smsg('#scriptMsg', '台本がありません。空行で区切って貼ってください', 'err'); return; }
+  if (overLimit('notes', notes.length + items.length)) { smsg('#scriptMsg', limitMsg('notes') + 'です（いま' + notes.length + '、足そうとしたのは' + items.length + '）', 'err'); return; }
+  items.forEach(it => notes.push(newNote({name: it.name, text: it.text})));
+  renderNotes();
+  smsg('#scriptMsg', items.length + '件のシナリオテキストを足しました（名前つき' + items.filter(i => i.named).length + '件）', 'ok');
+}
+function scriptFromNotes() {
+  const nar = $('#narrator').value.trim() || 'ナレーション';
+  $('#script').value = notes.map(n => (n.name && n.name !== nar ? '【' + n.name + '】\n' : '') + n.text).join('\n\n');
+  smsg('#scriptMsg', 'いまのシナリオテキストを台本にしました（直して「シナリオテキストにする」を押すと、新しく足されます。元の分は「全部消す」で消せます）', 'ok');
+}
+const stripNum = n => n.replace(/^[\d０-９]+[\s　_\-－.．、:：)）]*/, '');
+function numberNotes(on) {
+  const d = Math.max(2, String(notes.length).length);
+  notes.forEach((n, i) => { n.name = on ? String(i + 1).padStart(d, '0') + ' ' + stripNum(n.name) : stripNum(n.name); });
+  renderNotes(); smsg('#scriptMsg', on ? 'タイトルに番号を付けました' : 'タイトルの番号を外しました', 'ok');
+}
+
+// ---------- PDF → 台本（v1.2） ----------
+const PDFJS = {base: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/',
+  main: ['legacy/build/pdf.min.mjs', '44ec6f011027ee77791386b66c14876a5fc29e20bf0433c07c6726fff7212b72'], worker: ['legacy/build/pdf.worker.min.mjs', 'bd88805178a26c729db8c0107a5b630cb900ec070f4d8c7529a3e45530afd41d']};
+let pdfLib = null;
+async function loadPdfLib() {
+  if (pdfLib) return pdfLib;
+  const get = async ([path, hash]) => {
+    let r;
+    try { r = await fetch(PDFJS.base + path); } catch (e) { throw new Error('PDFの読み込み部品を取ってこられませんでした。インターネットにつながっているか確かめてください'); }
+    if (!r.ok) throw new Error('PDFの読み込み部品を取ってこられませんでした（' + r.status + '）');
+    const b = new Uint8Array(await r.arrayBuffer());
+    if (await sha256hex(b) !== hash) throw new Error('PDFの読み込み部品の中身が想定と違ったので、使いませんでした');
+    return URL.createObjectURL(new Blob([b], {type: 'text/javascript'}));
+  };
+  const [mu, wu] = await Promise.all([get(PDFJS.main), get(PDFJS.worker)]);
+  const lib = await import(mu);
+  lib.GlobalWorkerOptions.workerSrc = wu;
+  pdfLib = lib; return lib;
+}
+const PAGE_NO = /^[\s\-–—―ー－‐(（\[［]*(p\.?|P\.?|ページ)?\s*[\d０-９]+\s*([\/／]\s*[\d０-９]+)?\s*(ページ|頁)?[\s\-–—―ー－‐)）\]］]*$/;
+const SPEAKER_START = /^(【[^】]{1,20}】|[^\s「」『』【】：:。、]{1,12}[ 　]*[「『]|[^：:\s　「」]{1,12}[：:])/;
+const PARTICLE_END = /[はがをにもとでへやの]$/;
+// 一部のフォントは漢字を部首の文字（⻑・⽴など）で出すので、普通の漢字に戻す（全角の記号などは変えない）
+const RAD = {'⺟': '母', '⺠': '民', '⻁': '虎', '⻄': '西', '⻆': '角', '⻑': '長', '⻘': '青', '⻝': '食', '⻤': '鬼', '⻩': '黄', '⻭': '歯', '⻨': '麦', '⻲': '亀', '⻣': '骨', '⻫': '斉', '⻯': '竜', '⻰': '竜', '⻱': '亀', '⻜': '飛', '⻢': '馬', '⻧': '鹵', '⻪': '黒', '⻮': '歯', '⻦': '鳥'};
+const fixRad = s => s.replace(/[\u2F00-\u2FDF]/g, c => c.normalize('NFKC')).replace(/[\u2E80-\u2EFF]/g, c => RAD[c] || c).replace(/\u2329/g, '\u3008').replace(/\u232A/g, '\u3009');
+function median(a) { if (!a.length) return 0; const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; }
+function pageLines(items) {
+  // 横書きの文字の塊を、y の近いものどうしで1行にまとめる
+  const its = items.filter(i => i.str && i.str.trim()).map(i => {
+    const size = Math.hypot(i.transform[2], i.transform[3]) || i.height || 10;
+    return {s: fixRad(i.str), x: i.transform[4], y: i.transform[5], w: i.width, size};
+  }).sort((a, b) => (b.y - a.y) || (a.x - b.x));
+  const lines = [];
+  for (const it of its) {
+    const L = lines.find(l => Math.abs(l.y - it.y) < Math.min(l.size, it.size) * 0.5);
+    if (L) { L.parts.push(it); L.size = Math.max(L.size, it.size); } else lines.push({y: it.y, size: it.size, parts: [it]});
+  }
+  for (const L of lines) {
+    L.parts.sort((a, b) => a.x - b.x);
+    let t = '', end = null;
+    for (const p of L.parts) {
+      if (end != null && p.x - end > L.size * 1.2) t += ' ';
+      t += p.s; end = p.x + p.w;
+    }
+    L.text = t.replace(/\s+$/, '').replace(/^\s+/, '');
+    L.x0 = L.parts[0].x; L.x1 = Math.max(...L.parts.map(p => p.x + p.w));
+  }
+  return lines.filter(l => l.text).sort((a, b) => b.y - a.y);
+}
+function linesToParas(pages, opt) {
+  // くり返すヘッダー・フッター（数字を除いて同じ文が半分以上のページの上下にある行）を外す
+  const key = l => l.text.replace(/[\d０-９]+/g, '#');
+  const edge = new Map();
+  if (pages.length >= 3) for (const pg of pages) {
+    const seen = new Set();
+    for (const l of pg.lines) if (l.y > pg.h * 0.9 || l.y < pg.h * 0.1) seen.add(key(l));
+    for (const k of seen) edge.set(k, (edge.get(k) || 0) + 1);
+  }
+  const paras = []; let cur = null, prevFull = false;
+  const flush = () => { if (cur && cur.trim()) paras.push(cur.trim()); cur = null; };
+  for (const pg of pages) {
+    const lines = pg.lines.filter(l => !PAGE_NO.test(l.text) && !((edge.get(key(l)) || 0) >= Math.max(2, pages.length / 2) && (l.y > pg.h * 0.9 || l.y < pg.h * 0.1)));
+    const gaps = []; for (let i = 1; i < lines.length; i++) gaps.push(lines[i - 1].y - lines[i].y);
+    const g2 = gaps.filter(g => lines[0] && g > lines[0].size * 0.9).sort((a, b) => a - b);
+    const step = (g2.length ? g2[Math.floor(g2.length * 0.2)] : 0) || (lines[0] ? lines[0].size * 1.6 : 16);
+    const right = lines.length ? median(lines.map(l => l.x1).filter(x => x >= Math.max(...lines.map(l => l.x1)) - 30)) : 0;
+    const left = lines.length ? Math.min(...lines.map(l => l.x0)) : 0;
+    lines.forEach((l, i) => {
+      const gap = i ? lines[i - 1].y - l.y : 0;
+      const speaker = SPEAKER_START.test(l.text);
+      const newPara = !cur || (i ? gap > step * 1.45 : !prevFull) || speaker;
+      if (newPara) { flush(); cur = l.text; }
+      else {
+        const p = cur.slice(-1), q = l.text[0];
+        cur += prevFull ? (/[A-Za-z0-9,.]/.test(p) && /[A-Za-z0-9]/.test(q) ? ' ' : '') : '\n';
+        cur += l.text;
+      }
+      // 右端まで届いている行は、折り返しで切れた行として次の行とつなぐ
+      prevFull = right - l.x1 < l.size * 1.5 && !/[。」』！？!?）)]$/.test(l.text);
+      void left;
+    });
+  }
+  flush();
+  return paras.map(p => {
+    if (!opt.speaker) return p;
+    const m = p.match(/^([^\s「」『』【】：:。、]{1,12})[ 　]*([「『][\s\S]*[」』])\s*$/);
+    if (m && !PARTICLE_END.test(m[1])) return '【' + m[1] + '】' + m[2];
+    return p;
+  });
+}
+async function readPdf(file) {
+  smsg('#scriptMsg', 'PDFを読んでいます…（初回は読み込み部品を取ってくるので数秒かかります）');
+  try {
+    const lib = await loadPdfLib();
+    const doc = await lib.getDocument({data: new Uint8Array(await file.arrayBuffer()), cMapUrl: PDFJS.base + 'cmaps/', cMapPacked: true,
+      standardFontDataUrl: PDFJS.base + 'standard_fonts/', useWorkerFetch: false, isEvalSupported: false}).promise;
+    const pages = []; let vert = 0, all = 0;
+    for (let n = 1; n <= doc.numPages; n++) {
+      const pg = await doc.getPage(n); const vp = pg.getViewport({scale: 1}); const tc = await pg.getTextContent();
+      for (const it of tc.items) if (it.str && it.str.trim()) { all++; if (tc.styles[it.fontName] && tc.styles[it.fontName].vertical) vert++; }
+      pages.push({h: vp.height, lines: pageLines(tc.items)});
+    }
+    if (!all) { smsg('#scriptMsg', '文字を取り出せませんでした。画像だけのPDF（スキャンしたもの）は読めません', 'err'); return; }
+    if (vert > all / 2) { smsg('#scriptMsg', '縦書きのPDFはまだ読めません。横書きのPDFか、文章を貼り付けて使ってください', 'err'); return; }
+    const paras = linesToParas(pages, {speaker: $('#optSpeaker').checked});
+    const ta = $('#script');
+    ta.value = (ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n\n' : '') + paras.join('\n\n');
+    const named = paras.filter(p => SPEAKER_START.test(p)).length;
+    smsg('#scriptMsg', 'PDF ' + doc.numPages + 'ページから ' + paras.length + '件の文を取り出し、台本の欄に入れました（話し手つき ' + named + '件）。欄で確かめてから「シナリオテキストにする」を押してください', 'ok');
+  } catch (e) {
+    if (e && e.name === 'PasswordException') smsg('#scriptMsg', 'パスワード付きのPDFは読めません', 'err');
+    else smsg('#scriptMsg', 'PDFを読めませんでした：' + (e && e.message || e), 'err');
+  }
+}
+
+// ---------- NPC ----------
+// HO・PC・PL・KP・GM・秘匿・ハンドアウトは話し手ではなく配布物や進行役なので、NPCにしない
+const NOT_NPC = /^(HO|ＨＯ|PC|ＰＣ|PL|ＰＬ|KP|ＫＰ|GM|ＧＭ)\s*[\d０-９]*(\s*[（(].*)?$|秘匿|ハンドアウト/i;
+function npcsFromScript() {
+  const nar = $('#narrator').value.trim() || 'ナレーション';
+  const named = parseScript($('#script').value, nar).filter(i => i.named && i.name !== nar);
+  const items = named.filter(i => !NOT_NPC.test(i.name));
+  const skipped = [...new Set(named.filter(i => NOT_NPC.test(i.name)).map(i => i.name))];
+  if (!items.length) { smsg('#npcMsg', '台本に【名前】の付いた文がありません' + (skipped.length ? '（' + skipped.join('・') + ' はHOや進行役なので入れません）' : ''), 'err'); return; }
+  const byName = new Map(npcs.map(n => [n.name, n]));
+  let made = 0, lines = 0;
+  for (const it of items) {
+    let n = byName.get(it.name);
+    if (!n) {
+      if (overLimit('npcs', npcs.length + 1)) { smsg('#npcMsg', limitMsg('npcs') + 'です', 'err'); break; }
+      n = newNpc({name: it.name}); npcs.push(n); byName.set(it.name, n); made++;
+    }
+    const add = it.text.split('\n').map(s => s.trim()).filter(Boolean);
+    const have = new Set(n.commands.split('\n'));
+    const fresh = add.filter(s => !have.has(s));
+    n.commands = [n.commands, ...fresh].filter(Boolean).join('\n'); lines += fresh.length;
+  }
+  renderNpcs();
+  smsg('#npcMsg', 'NPCを' + made + '人足し、パレットに' + lines + '行入れました' + (skipped.length ? '（' + skipped.join('・') + ' はHOや進行役なので入れていません）' : ''), 'ok');
+}
+function parseStatus(s) { // "HP 10/10, SAN 60/99" → [{label,value,max}]
+  return String(s || '').split(/[,、\n]/).map(x => x.trim()).filter(Boolean).map(x => {
+    const m = x.match(/^(.+?)[\s　:：]+(-?\d+)(?:\s*\/\s*(-?\d+))?$/);
+    if (!m) return {label: x, value: 0, max: 0};
+    return {label: m[1].trim(), value: parseInt(m[2], 10), max: m[3] != null ? parseInt(m[3], 10) : parseInt(m[2], 10)};
+  });
+}
+const statusText = arr => (arr || []).map(s => s.label + ' ' + s.value + '/' + s.max).join(', ');
+
+// ---------- 読み込み ----------
+async function loadZip(file) {
+  try {
+    const files = await unzip(new Uint8Array(await file.arrayBuffer()));
+    baseFiles = {};
+    if (!files['__data.json']) throw new Error('ココフォリアのルームデータではないようです（__data.json がありません）');
+    const data = JSON.parse(dec.decode(files['__data.json']));
+    if (!data.entities || !data.entities.room) throw new Error('ルームデータの形が読めませんでした');
+    const imgs = {};
+    for (const [n, b] of Object.entries(files)) {
+      if (n === '__data.json' || n === '.token' || n.endsWith('/')) continue;
+      const t = (data.resources && data.resources[n] && data.resources[n].type) || TYPE[(n.split('.').pop() || '').toLowerCase()];
+      if (!t || !/^image\//.test(t)) { baseFiles[n] = b; continue; }
+      const blob = new Blob([b], {type: t});
+      let w = 16, h = 9; try { const bm = await createImageBitmap(blob); w = bm.width; h = bm.height; bm.close && bm.close(); } catch (e) {}
+      imgs[n] = {name: n, bytes: b, type: t, url: URL.createObjectURL(blob), w, h, _out: null};
+    }
+    base = data; baseFiles = Object.assign(baseFiles, Object.fromEntries(Object.entries(imgs).map(([k, v]) => [k, v.bytes])));
+    const byOrder = o => Object.entries(o || {}).sort((a, b) => ((a[1].order ?? 0) - (b[1].order ?? 0)) || ((a[1].createdAt ?? 0) - (b[1].createdAt ?? 0)));
+    scenes = byOrder(data.entities.scenes).map(([id, s]) => {
+      const bg = s.backgroundUrl && imgs[s.backgroundUrl] || null;
+      let fg = 'none';
+      if (s.foregroundUrl) fg = (bg && s.foregroundUrl === bg.name) ? 'same' : (imgs[s.foregroundUrl] || 'none');
+      return {id, key: ++seq, name: s.name || '', text: s.text || '', bg, fg, extra: s};
+    });
+    notes = byOrder(data.entities.notes).map(([id, n]) => ({id, key: ++seq, name: n.name || '', text: n.text || '', extra: n}));
+    npcs = byOrder(data.entities.characters).map(([id, c]) => ({id, key: ++seq, name: c.name || '', color: c.color || '#888888', memo: c.memo || '', commands: c.commands || '', status: statusText(c.status), extra: c, loaded: true}));
+    if (overLimit('scenes', scenes.length) || overLimit('notes', notes.length) || overLimit('npcs', npcs.length)) {
+      say('このZIPは体験版の上限（シーン' + LIMIT.scenes + '・シナリオテキスト' + LIMIT.notes + '・NPC' + LIMIT.npcs + '）を超えています。読み込みはしましたが、ZIPは作れません', 'warn');
+    } else say('ZIPを読み込みました。シーン' + scenes.length + '・シナリオテキスト' + notes.length + '・コマ' + npcs.length, 'ok');
+    $('#loadedInfo').innerHTML = '<span class="badge loaded">読み込み中：' + esc(file.name) + '（カットイン・パネルなど、ここに出ない中身もそのまま残します）</span>';
+    if (/\.zip$/i.test(file.name)) $('#fname').value = stem(file.name);
+    render(); renderNotes(); renderNpcs();
+  } catch (e) { say('読み込めませんでした：' + e.message, 'err'); }
+}
+
+// ---------- 表示 ----------
+function say(t, cls) { const m = $('#msg'); m.textContent = t; m.className = cls || ''; }
+function fgImg(s) { return s.fg === 'same' ? s.bg : (s.fg === 'none' ? null : s.fg); }
+function moveIn(arr, from, to) {
+  if (from === to || from < 0 || to < 0 || from >= arr.length || to >= arr.length) return;
+  const [s] = arr.splice(from, 1); arr.splice(to, 0, s);
+}
+function dragHandle(el, handle, listName, i, arr, rerender) {
+  handle.addEventListener('dragstart', ev => { dragFrom = i; dragList = listName; el.classList.add('dragging'); ev.dataTransfer.effectAllowed = 'move'; try { ev.dataTransfer.setData('text/plain', String(i)); } catch (e) {} });
+  handle.addEventListener('dragend', () => { dragFrom = -1; dragList = ''; el.classList.remove('dragging'); });
+  el.addEventListener('dragover', ev => { if (dragFrom < 0 || dragList !== listName) return; ev.preventDefault(); ev.dataTransfer.dropEffect = 'move'; el.classList.add('dragover'); });
+  el.addEventListener('dragleave', () => el.classList.remove('dragover'));
+  el.addEventListener('drop', ev => { if (dragFrom < 0 || dragList !== listName) return; ev.preventDefault(); ev.stopPropagation(); const from = dragFrom; dragFrom = -1; moveIn(arr, from, i); rerender(); });
+}
+function render() {
+  const list = $('#list'); list.innerHTML = '';
+  const q = $('#filter').value.trim().toLowerCase();
+  let shown = 0;
+  scenes.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'scene';
+    if (q && !(s.name.toLowerCase().includes(q) || s.text.toLowerCase().includes(q))) el.hidden = true; else shown++;
+    const fgSel = s.fg === 'same' ? 'same' : s.fg === 'none' ? 'none' : 'other';
+    const fi = fgImg(s);
+    const info = img => img ? `<em class="sz">${img.w}×${img.h}・${kb(img.bytes.length)}</em>` : '';
+    el.innerHTML = `
+      <div class="no" draggable="true" title="ドラッグで並べ替え">${i + 1}<small>⋮⋮</small></div>
+      <div class="thumbs">
+        <div class="thumb ${s.bg ? '' : 'empty'}" data-act="bg" title="クリックで背景の画像を変える" style="${s.bg ? `background-image:url(${s.bg.url})` : ''}">${s.bg ? info(s.bg) : '背景なし（クリックで選ぶ）'}<span>背景</span></div>
+        ${fgSel === 'other' ? `<div class="thumb" data-act="fg" title="クリックで前景の画像を変える" style="background-image:url(${fi.url})">${info(fi)}<span>前景</span></div>` : ''}
+      </div>
+      <div class="fields">
+        <label>シーン名</label>
+        <input type="text" data-f="name" value="${esc(s.name)}" placeholder="例：玄関">
+        <label>切り替え文（シーンを切り替えたときにチャットに出る文）</label>
+        <textarea data-f="text" rows="2" placeholder="例：▼玄関　重い扉の向こうは、しんと静まりかえっている。">${esc(s.text)}</textarea>
+        <div class="fgsel">前景（盤面に出す画像）：
+          <select data-f="fg">
+            <option value="same" ${fgSel === 'same' ? 'selected' : ''}>背景と同じ</option>
+            <option value="none" ${fgSel === 'none' ? 'selected' : ''}>なし</option>
+            <option value="other" ${fgSel === 'other' ? 'selected' : ''}>別の画像…</option>
+          </select>
+        </div>
+      </div>
+      <div class="ops">
+        <button class="small" data-act="up" ${i === 0 ? 'disabled' : ''}>↑ 上へ</button>
+        <button class="small" data-act="down" ${i === scenes.length - 1 ? 'disabled' : ''}>↓ 下へ</button>
+        <button class="small" data-act="dup">複製</button>
+        <button class="small" data-act="del">削除</button>
+      </div>`;
+    el.addEventListener('input', ev => {
+      const f = ev.target.dataset.f; if (f === 'name' || f === 'text') s[f] = ev.target.value;
+    });
+    el.addEventListener('change', ev => {
+      if (ev.target.dataset.f !== 'fg') return;
+      const v = ev.target.value;
+      if (v === 'other') pickImage(img => { s.fg = img; render(); }, () => render());
+      else { s.fg = v; render(); }
+    });
+    el.addEventListener('click', ev => {
+      const a = ev.target.closest('[data-act]'); if (!a) return;
+      const act = a.dataset.act;
+      if (act === 'up' && i > 0) { moveIn(scenes, i, i - 1); render(); }
+      if (act === 'down' && i < scenes.length - 1) { moveIn(scenes, i, i + 1); render(); }
+      if (act === 'dup') { if (overLimit('scenes', scenes.length + 1)) { say(limitMsg('scenes') + 'です', 'err'); return; } scenes.splice(i + 1, 0, {...s, id: rid(), key: ++seq, name: s.name + '（複製）', extra: s.extra ? {...s.extra, markers: {...(s.extra.markers || {})}} : null}); render(); }
+      if (act === 'del') { scenes.splice(i, 1); render(); }
+      if (act === 'bg') pickImage(img => { s.bg = img; render(); });
+      if (act === 'fg') pickImage(img => { s.fg = img; render(); });
+    });
+    dragHandle(el, el.querySelector('.no'), 'scenes', i, scenes, render);
+    list.appendChild(el);
+  });
+  $('#count').textContent = scenes.length + 'シーン' + (q ? '（' + shown + '件を表示）' : '');
+  $('#emptyHint').hidden = scenes.length > 0;
+}
+function renderNotes() {
+  const list = $('#noteList'); list.innerHTML = '';
+  const q = $('#noteFilter').value.trim().toLowerCase();
+  let shown = 0;
+  notes.forEach((n, i) => {
+    const el = document.createElement('div'); el.className = 'card';
+    if (q && !(n.name.toLowerCase().includes(q) || n.text.toLowerCase().includes(q))) el.hidden = true; else shown++;
+    el.innerHTML = `
+      <div class="no" draggable="true" title="ドラッグで並べ替え">${i + 1}<small>⋮⋮</small></div>
+      <div class="fields">
+        <label>タイトル（送るときの名前になります）</label>
+        <input type="text" data-f="name" value="${esc(n.name)}" placeholder="例：ナレーション">
+        <label>テキスト</label>
+        <textarea data-f="text" rows="3" placeholder="チャットに出る文">${esc(n.text)}</textarea>
+      </div>
+      <div class="ops">
+        <button class="small" data-act="up" ${i === 0 ? 'disabled' : ''}>↑ 上へ</button>
+        <button class="small" data-act="down" ${i === notes.length - 1 ? 'disabled' : ''}>↓ 下へ</button>
+        <button class="small" data-act="dup">複製</button>
+        <button class="small" data-act="del">削除</button>
+      </div>`;
+    el.addEventListener('input', ev => { const f = ev.target.dataset.f; if (f === 'name' || f === 'text') n[f] = ev.target.value; });
+    el.addEventListener('click', ev => {
+      const a = ev.target.closest('[data-act]'); if (!a) return;
+      const act = a.dataset.act;
+      if (act === 'up' && i > 0) { moveIn(notes, i, i - 1); renderNotes(); }
+      if (act === 'down' && i < notes.length - 1) { moveIn(notes, i, i + 1); renderNotes(); }
+      if (act === 'dup') { if (overLimit('notes', notes.length + 1)) { smsg('#scriptMsg', limitMsg('notes') + 'です', 'err'); return; } notes.splice(i + 1, 0, {...n, id: rid(), key: ++seq}); renderNotes(); }
+      if (act === 'del') { notes.splice(i, 1); renderNotes(); }
+    });
+    dragHandle(el, el.querySelector('.no'), 'notes', i, notes, renderNotes);
+    list.appendChild(el);
+  });
+  $('#noteCount').textContent = notes.length + '件' + (q ? '（' + shown + '件を表示）' : '');
+  $('#noteEmpty').hidden = notes.length > 0;
+}
+function renderNpcs() {
+  const list = $('#npcList'); list.innerHTML = '';
+  npcs.forEach((n, i) => {
+    const el = document.createElement('div'); el.className = 'card';
+    const lines = n.commands.split('\n').filter(s => s.trim()).length;
+    el.innerHTML = `
+      <div class="no" draggable="true" title="ドラッグで並べ替え">${i + 1}<small>⋮⋮</small></div>
+      <div class="fields">
+        <div class="inl">
+          <label>名前</label><input type="text" data-f="name" value="${esc(n.name)}" placeholder="例：村長">
+          <label>色</label><input type="color" data-f="color" value="${/^#[0-9a-f]{6}$/i.test(n.color) ? n.color : '#888888'}" title="チャットの名前と駒の色">
+          ${n.loaded ? '<span class="badge keep">読み込んだコマ（立ち絵・位置などは保ちます）</span>' : ''}
+        </div>
+        <div class="inl">
+          <label>ステータス</label><input type="text" data-f="status" value="${esc(n.status)}" placeholder="例：HP 10/10, SAN 60/99（空でもよい）">
+        </div>
+        <label>メモ（GMだけが見る欄ではありません。コマの説明として表示されます）</label>
+        <input type="text" data-f="memo" value="${esc(n.memo)}" placeholder="例：70代。足が悪い">
+        <label>チャットパレット（1行が1つのセリフ・コマンド） <span class="badge">${lines}行</span></label>
+        <textarea data-f="commands" rows="4" placeholder="「よく来てくださった」&#10;1d100<=50 【聞き耳】">${esc(n.commands)}</textarea>
+      </div>
+      <div class="ops">
+        <button class="small" data-act="up" ${i === 0 ? 'disabled' : ''}>↑ 上へ</button>
+        <button class="small" data-act="down" ${i === npcs.length - 1 ? 'disabled' : ''}>↓ 下へ</button>
+        <button class="small" data-act="del">削除</button>
+      </div>`;
+    el.addEventListener('input', ev => { const f = ev.target.dataset.f; if (f) n[f] = ev.target.value; });
+    el.addEventListener('click', ev => {
+      const a = ev.target.closest('[data-act]'); if (!a) return;
+      const act = a.dataset.act;
+      if (act === 'up' && i > 0) { moveIn(npcs, i, i - 1); renderNpcs(); }
+      if (act === 'down' && i < npcs.length - 1) { moveIn(npcs, i, i + 1); renderNpcs(); }
+      if (act === 'del') { npcs.splice(i, 1); renderNpcs(); }
+    });
+    dragHandle(el, el.querySelector('.no'), 'npcs', i, npcs, renderNpcs);
+    list.appendChild(el);
+  });
+  $('#npcCount').textContent = npcs.length + '人';
+  $('#npcEmpty').hidden = npcs.length > 0;
+}
+function pickImage(done, cancel) {
+  const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/png,image/jpeg,image/gif,image/webp';
+  inp.onchange = async () => {
+    const f = inp.files[0]; if (!f) { cancel && cancel(); return; }
+    try { done(await makeImg(new Uint8Array(await f.arrayBuffer()), f.type)); } catch (e) { say(e.message, 'err'); cancel && cancel(); }
+  };
+  inp.addEventListener('cancel', () => cancel && cancel());
+  inp.click();
+}
+function applyTpl(all) {
+  const t = $('#tpl').value;
+  let n = 0;
+  scenes.forEach((s, i) => { if (all || !s.text.trim()) { s.text = t.split('{名前}').join(s.name).split('{番号}').join(String(i + 1)); n++; } });
+  render(); say(n + 'シーンに切り替え文を入れました', 'ok');
+}
+function numberScenes(on) {
+  const d = Math.max(2, String(scenes.length).length);
+  scenes.forEach((s, i) => { s.name = on ? String(i + 1).padStart(d, '0') + ' ' + stripNum(s.name) : stripNum(s.name); });
+  render(); say(on ? 'シーン名に番号を付けました' : 'シーン名の番号を外しました', 'ok');
+}
+function setFgAll(v) { scenes.forEach(s => { if (v === 'same' && !s.bg) s.fg = 'none'; else s.fg = v; }); render(); say('全シーンの前景を「' + (v === 'same' ? '背景と同じ' : 'なし') + '」にしました', 'ok'); }
+
+// ---------- 画像の縮小 ----------
+async function outImg(img, opt) {
+  const key = (opt.shrink ? opt.maxSide : 0) + ':' + (opt.jpeg ? 1 : 0);
+  if (img._out && img._out.key === key) return img._out;
+  let bytes = img.bytes, type = img.type;
+  const needResize = opt.shrink && Math.max(img.w, img.h) > opt.maxSide;
+  const needJpeg = opt.jpeg && type !== 'image/jpeg';
+  if ((needResize || needJpeg) && type !== 'image/gif') {
+    try {
+      const bm = await createImageBitmap(new Blob([img.bytes], {type}));
+      const sc = needResize ? opt.maxSide / Math.max(bm.width, bm.height) : 1;
+      const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(bm.width * sc)); c.height = Math.max(1, Math.round(bm.height * sc));
+      const g = c.getContext('2d'); g.drawImage(bm, 0, 0, c.width, c.height); bm.close && bm.close();
+      const outType = opt.jpeg ? 'image/jpeg' : (type === 'image/png' ? 'image/png' : type === 'image/webp' ? 'image/webp' : 'image/jpeg');
+      const bl = await new Promise(r => c.toBlob(r, outType, 0.86));
+      if (bl) { bytes = new Uint8Array(await bl.arrayBuffer()); type = sniff(bytes) || bl.type || outType; }
+    } catch (e) { /* 縮められなければ元のまま */ }
+  }
+  const name = (await sha256hex(bytes)) + '.' + EXT[type];
+  img._out = {key, name, bytes, type}; return img._out;
+}
+
+// ---------- 書き出し ----------
+const ROOM_DEFAULT = {alignWithGrid: true, archived: false, backgroundColor: '', backgroundUrl: null, defaultAnonymousRole: null, displayGrid: false,
+  embedUrl: null, fieldHeight: 18, fieldObjectFit: 'fill', fieldWidth: 32, foregroundUrl: null, gridSize: 1, hidden3dDice: true,
+  initialSavedata: null, mapType: null, markers: {}, messageChannels: [], messageGroups: [], monitored: false, sceneId: null,
+  thumbnailUrl: null, underConstruction: false, variables: []};
+const ENT_KEYS = ['room', 'items', 'characters', 'decks', 'effects', 'notes', 'savedatas', 'scenes', 'snapshots'];
+const CHAR_DEFAULT = {name: '', playerName: '', memo: '', initiative: 0, externalUrl: '', status: [], params: [], iconUrl: null, faces: [],
+  x: 0, y: 0, z: 0, angle: 0, width: 4, height: 4, active: true, secret: false, invisible: false, hideStatus: false,
+  color: '#888888', commands: '', owner: null, speaking: false, order: 0};
+
+function buildEntities(sceneEnt, W) {
+  const noteEnt = {};
+  notes.forEach((n, i) => { noteEnt[n.id] = Object.assign({iconUrl: '', owner: ''}, n.extra || {}, {name: n.name || ('テキスト' + (i + 1)), text: n.text || '', order: i}); });
+  const charEnt = {};
+  const active = $('#optNpcActive').checked;
+  let placed = 0;
+  npcs.forEach((n, i) => {
+    const prev = n.extra || null;
+    const c = Object.assign({}, CHAR_DEFAULT, prev || {}, {name: n.name || ('NPC' + (i + 1)), color: n.color || '#888888', memo: n.memo || '', commands: n.commands || '', order: i});
+    if (!prev) {
+      c.active = active;
+      // 盤面の左上から横に並べる（はみ出したら次の行）
+      const per = Math.max(1, Math.floor((W - 2) / 5));
+      c.x = 1 + (placed % per) * 5; c.y = 1 + Math.floor(placed / per) * 5; placed++;
+      c.status = parseStatus(n.status);
+    } else if (statusText(prev.status) !== n.status) c.status = parseStatus(n.status);
+    charEnt[n.id] = c;
+  });
+  return {noteEnt, charEnt};
+}
+
+async function make() {
+  if (!scenes.length && !notes.length && !npcs.length) { say('中身がありません。先に画像か文章か台本を入れてください', 'err'); return null; }
+  if (overLimit('scenes', scenes.length) || overLimit('notes', notes.length) || overLimit('npcs', npcs.length)) { say('体験版の上限を超えています（シーン' + LIMIT.scenes + '・シナリオテキスト' + LIMIT.notes + '・NPC' + LIMIT.npcs + '）', 'err'); return null; }
+  const btn = $('#btnMake'); btn.disabled = true; say('ZIPを作っています…');
+  try {
+    const W = Math.max(4, Math.min(200, parseInt($('#fieldW').value, 10) || 32));
+    const opt = {shrink: $('#optShrink').checked, maxSide: Math.max(320, Math.min(8000, parseInt($('#maxSide').value, 10) || 1920)), jpeg: $('#optJpeg').checked};
+    const files = new Map();   // name -> bytes
+    const res = {};
+    const shrunk = new Set();
+    const use = async img => { if (!img) return null; const o = await outImg(img, opt); if (o.bytes !== img.bytes) shrunk.add(o.name); files.set(o.name, o.bytes); res[o.name] = {type: o.type}; return o.name; };
+
+    const sceneEnt = {};
+    for (let i = 0; i < scenes.length; i++) {
+      const s = scenes[i];
+      const fi = fgImg(s);
+      const bgName = await use(s.bg), fgName = await use(fi);
+      const ref = fi || s.bg;
+      const H = ref ? Math.max(2, Math.round(W * ref.h / ref.w)) : 18;
+      const prev = s.extra || {};
+      // 読み込んだシーンで画像を変えていなければ、盤面の大きさも元のまま
+      const same = s.extra && prev.backgroundUrl === bgName && prev.foregroundUrl === fgName && prev.fieldWidth && prev.fieldHeight;
+      sceneEnt[s.id] = Object.assign({displayGrid: false, gridSize: 1, locked: false, markers: {}, fieldObjectFit: 'fill'}, prev, {
+        name: s.name || ('シーン' + (i + 1)), text: s.text || '', order: i,
+        backgroundUrl: bgName, foregroundUrl: fgName,
+        fieldWidth: same ? prev.fieldWidth : W, fieldHeight: same ? prev.fieldHeight : H
+      });
+    }
+    const {noteEnt, charEnt} = buildEntities(sceneEnt, W);
+
+    let data;
+    if (base) {
+      data = JSON.parse(JSON.stringify(base));
+      data.entities.scenes = sceneEnt; data.entities.notes = noteEnt; data.entities.characters = charEnt;
+      // ここで出さない中身（カットイン・パネル・コマの立ち絵など）が使っている画像を残す
+      const keep = new Set();
+      const walk = o => { if (!o) return; if (typeof o === 'string') { if (baseFiles[o]) keep.add(o); return; } if (typeof o === 'object') for (const v of Object.values(o)) walk(v); };
+      for (const k of Object.keys(data.entities)) if (k !== 'scenes') walk(data.entities[k]);
+      for (const n of keep) { files.set(n, baseFiles[n]); res[n] = (base.resources && base.resources[n]) || {type: TYPE[(n.split('.').pop() || '').toLowerCase()] || 'application/octet-stream'}; }
+      data.resources = Object.assign({}, res);
+      if (data.entities.room.sceneId && !sceneEnt[data.entities.room.sceneId]) data.entities.room.sceneId = null;
+    } else {
+      const first = scenes[0];
+      const fe = first ? sceneEnt[first.id] : null;
+      const room = Object.assign({}, ROOM_DEFAULT, fe ? {
+        backgroundUrl: fe.backgroundUrl, foregroundUrl: fe.foregroundUrl,
+        fieldWidth: W, fieldHeight: fe.fieldHeight
+      } : {fieldWidth: W});
+      const ent = {}; for (const k of ENT_KEYS) ent[k] = {};
+      ent.room = room; ent.scenes = sceneEnt; ent.notes = noteEnt; ent.characters = charEnt;
+      data = {meta: {version: '1.1.0'}, entities: ent, resources: res};
+    }
+
+    const tb = enc.encode(JSON.stringify(data));
+    const list = [...files.entries()];
+    list.push(['__data.json', tb]);
+    list.push(['.token', enc.encode('0.' + await sha256hex(tb))]);
+    const blob = zipStore(list);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = ($('#fname').value.trim() || 'room').replace(/[\\/:*?"<>|]/g, '_') + '.zip';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+    say(`ZIPを作りました（シーン${scenes.length}・シナリオテキスト${notes.length}・コマ${npcs.length}・画像${files.size}枚・${kb(blob.size)}）。` + (shrunk.size ? `画像${shrunk.size}枚を縮めました。` : ''), 'ok');
+    window.__lastZip = blob;
+    return blob;
+  } finally { btn.disabled = false; }
+}
+
+// ---------- つなぐ ----------
+const drop = $('#drop');
+drop.addEventListener('click', () => $('#pick').click());
+drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') $('#pick').click(); });
+$('#pick').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { if (dragFrom >= 0) return; e.preventDefault(); drop.classList.add('on'); }));
+['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('on'); }));
+drop.addEventListener('drop', e => {
+  if (dragFrom >= 0) return;
+  const fs = [...e.dataTransfer.files];
+  const z = fs.find(f => /\.zip$/i.test(f.name));
+  if (z) loadZip(z); else addFiles(fs);
+});
+window.addEventListener('dragover', e => e.preventDefault());
+window.addEventListener('drop', e => e.preventDefault());
+$('#btnSample').addEventListener('click', sample);
+$('#btnLoad').addEventListener('click', () => $('#pickZip').click());
+$('#pickZip').addEventListener('change', e => { if (e.target.files[0]) loadZip(e.target.files[0]); e.target.value = ''; });
+$('#btnBulkFill').addEventListener('click', () => applyBulk('fill'));
+$('#btnBulkAdd').addEventListener('click', () => applyBulk('add'));
+$('#btnBulkFrom').addEventListener('click', bulkFromScenes);
+$('#btnTpl').addEventListener('click', () => applyTpl(false));
+$('#btnTplAll').addEventListener('click', () => applyTpl(true));
+$('#btnNum').addEventListener('click', () => numberScenes(true));
+$('#btnUnnum').addEventListener('click', () => numberScenes(false));
+$('#btnFgSame').addEventListener('click', () => setFgAll('same'));
+$('#btnFgNone').addEventListener('click', () => setFgAll('none'));
+$('#filter').addEventListener('input', render);
+$('#btnAddEmpty').addEventListener('click', () => { if (overLimit('scenes', scenes.length + 1)) { say(limitMsg('scenes') + 'です', 'err'); return; } scenes.push(newScene({name: 'シーン' + (scenes.length + 1)})); render(); });
+$('#btnClear').addEventListener('click', () => { if (!scenes.length || confirm('シーンを全部消します。よろしいですか？')) { scenes = []; render(); say('', ''); } });
+$('#btnScriptAdd').addEventListener('click', applyScript);
+$('#btnScriptFrom').addEventListener('click', scriptFromNotes);
+$('#btnNoteNum').addEventListener('click', () => numberNotes(true));
+$('#btnNoteUnnum').addEventListener('click', () => numberNotes(false));
+$('#noteFilter').addEventListener('input', renderNotes);
+$('#btnNoteAdd').addEventListener('click', () => { if (overLimit('notes', notes.length + 1)) { smsg('#scriptMsg', limitMsg('notes') + 'です', 'err'); return; } notes.push(newNote({name: $('#narrator').value.trim() || 'ナレーション'})); renderNotes(); });
+$('#btnNoteClear').addEventListener('click', () => { if (!notes.length || confirm('シナリオテキストを全部消します。よろしいですか？')) { notes = []; renderNotes(); smsg('#scriptMsg', '', ''); } });
+$('#btnPdf').addEventListener('click', () => $('#pickPdf').click());
+$('#pickPdf').addEventListener('change', e => { if (e.target.files[0]) readPdf(e.target.files[0]); e.target.value = ''; });
+$('#script').addEventListener('dragover', e => { if ([...e.dataTransfer.items].some(i => i.type === 'application/pdf')) e.preventDefault(); });
+$('#script').addEventListener('drop', e => { const f = [...e.dataTransfer.files].find(f => /\.pdf$/i.test(f.name) || f.type === 'application/pdf'); if (f) { e.preventDefault(); readPdf(f); } });
+$('#btnNpcFromScript').addEventListener('click', npcsFromScript);
+$('#btnNpcAdd').addEventListener('click', () => { if (overLimit('npcs', npcs.length + 1)) { smsg('#npcMsg', limitMsg('npcs') + 'です', 'err'); return; } npcs.push(newNpc({name: 'NPC' + (npcs.length + 1)})); renderNpcs(); });
+$('#btnMake').addEventListener('click', () => make().catch(e => say('作れませんでした：' + e.message, 'err')));
+window.addEventListener('beforeunload', e => { if (scenes.length || notes.length || npcs.length) { e.preventDefault(); e.returnValue = ''; } });
+render(); renderNotes(); renderNpcs();
+// テスト用
+window.__sn = {get scenes() { return scenes; }, get notes() { return notes; }, get npcs() { return npcs; }, LIMIT, addFiles, loadZip, make, unzip, sample, parseBulk, applyBulk, numberScenes, render, parseScript, splitSpeaker, applyScript, npcsFromScript, parseStatus, renderNotes, renderNpcs, readPdf, linesToParas, pageLines, loadPdfLib};
+})();
+</script>
+</body>
+</html>
