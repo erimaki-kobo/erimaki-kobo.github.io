@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="vllm-torch-cuda-driver-matrix/">vLLM compatibility matrix: which PyTorch, CUDA and NVIDIA driver each release needs</a></h2>
+<p>Every stable release from v0.8.0 to v0.33.0 with its PyTorch pin, the CUDA version its wheel links, the driver floor and the other CUDA wheels that exist, checked against the published wheels. Includes a lookup: enter your driver and GPU, get the newest release you can install and the command.</p>
+<p class="meta">Published 2026-11-11</p>
+</article>
+<article class="card">
 <h2><a href="llm-determinism-test/">vLLM batch invariance: what still breaks determinism, and how to test your endpoint</a></h2>
 <p>Where <code>VLLM_BATCH_INVARIANT=1</code> holds and where it breaks (MoE, speculative decoding, prefix cache, tensor parallel, AWQ), with issue numbers, plus a black-box test that runs in the browser or as one Python file.</p>
 <p class="meta">Published 2026-11-10</p>

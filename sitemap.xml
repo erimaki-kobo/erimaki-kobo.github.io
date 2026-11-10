@@ -38,10 +38,14 @@
 </url>
 <url>
 <loc>https://erimaki-kobo.github.io/en/</loc>
-<lastmod>2026-11-10</lastmod>
+<lastmod>2026-11-11</lastmod>
 </url>
 <url>
 <loc>https://erimaki-kobo.github.io/en/llm-determinism-test/</loc>
 <lastmod>2026-11-10</lastmod>
+</url>
+<url>
+<loc>https://erimaki-kobo.github.io/en/vllm-torch-cuda-driver-matrix/</loc>
+<lastmod>2026-11-11</lastmod>
 </url>
 </urlset>

@@ -1,0 +1,2414 @@
+{
+ "as_of": "2026-11-10",
+ "scope": "Linux x86_64 prebuilt wheels and vllm/vllm-openai images, vLLM v0.8.0 to v0.33.0",
+ "driver_min": {
+  "11": "450.80.02",
+  "12": "525.60.13",
+  "13": "580"
+ },
+ "torch": {
+  "2.6.0": {
+   "pypi_cuda": "12.4",
+   "released": "2025-01-29",
+   "index": [
+    "cu118",
+    "cu124",
+    "cu126"
+   ]
+  },
+  "2.7.0": {
+   "pypi_cuda": "12.6",
+   "released": "2025-04-23",
+   "index": [
+    "cu118",
+    "cu126",
+    "cu128"
+   ]
+  },
+  "2.7.1": {
+   "pypi_cuda": "12.6",
+   "released": "2025-06-04",
+   "index": [
+    "cu118",
+    "cu126",
+    "cu128"
+   ]
+  },
+  "2.8.0": {
+   "pypi_cuda": "12.8",
+   "released": "2025-08-06",
+   "index": [
+    "cu126",
+    "cu128",
+    "cu129"
+   ]
+  },
+  "2.9.0": {
+   "pypi_cuda": "12.8",
+   "released": "2025-10-15",
+   "index": [
+    "cu126",
+    "cu128",
+    "cu129",
+    "cu130"
+   ]
+  },
+  "2.9.1": {
+   "pypi_cuda": "12.8",
+   "released": "2025-11-12",
+   "index": [
+    "cu126",
+    "cu128",
+    "cu129",
+    "cu130"
+   ]
+  },
+  "2.10.0": {
+   "pypi_cuda": "12.8",
+   "released": "2026-01-21",
+   "index": [
+    "cu126",
+    "cu128",
+    "cu129",
+    "cu130"
+   ]
+  },
+  "2.11.0": {
+   "pypi_cuda": "13.0",
+   "released": "2026-03-23",
+   "index": [
+    "cu126",
+    "cu128",
+    "cu129",
+    "cu130"
+   ]
+  },
+  "2.13.0": {
+   "pypi_cuda": "13.0",
+   "released": "2026-07-08",
+   "index": [
+    "cu126",
+    "cu129",
+    "cu130",
+    "cu132"
+   ]
+  },
+  "2.14.0": {
+   "pypi_cuda": "13.0",
+   "released": "2026-09-02",
+   "index": [
+    "cu126",
+    "cu130",
+    "cu132"
+   ]
+  }
+ },
+ "releases": [
+  {
+   "v": "0.8.0",
+   "date": "2025-03-18",
+   "pypi_date": "2025-03-18",
+   "torch": "2.6.0",
+   "python": ">=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.4",
+   "torch_pypi_cuda": "12.4",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.4",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.0/vllm-0.8.0+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu121",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.0/vllm-0.8.0+cu121-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": false
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.8.1",
+   "date": "2025-03-19",
+   "pypi_date": "2025-03-19",
+   "torch": "2.6.0",
+   "python": ">=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.4",
+   "torch_pypi_cuda": "12.4",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.4",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.1/vllm-0.8.1+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu121",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.1/vllm-0.8.1+cu121-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": false
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.8.2",
+   "date": "2025-03-24",
+   "pypi_date": "2025-03-25",
+   "torch": "2.6.0",
+   "python": ">=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.4",
+   "torch_pypi_cuda": "12.4",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.4",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.2/vllm-0.8.2+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu121",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.2/vllm-0.8.2+cu121-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": false
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.8.3",
+   "date": "2025-04-05",
+   "pypi_date": "2025-04-06",
+   "torch": "2.6.0",
+   "python": ">=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.4",
+   "torch_pypi_cuda": "12.4",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.4",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.3/vllm-0.8.3+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu121",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.3/vllm-0.8.3+cu121-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": false
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.8.4",
+   "date": "2025-04-14",
+   "pypi_date": "2025-04-15",
+   "torch": "2.6.0",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.4",
+   "torch_pypi_cuda": "12.4",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.4",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.4/vllm-0.8.4+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu121",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.4/vllm-0.8.4+cu121-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": false
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.8.5",
+   "date": "2025-04-28",
+   "pypi_date": "2025-04-28",
+   "torch": "2.6.0",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.4",
+   "torch_pypi_cuda": "12.4",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.4",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.5/vllm-0.8.5+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu121",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.5/vllm-0.8.5+cu121-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": false
+    }
+   ],
+   "index_variants": [
+    "cu118",
+    "cu121"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.8.5.post1",
+   "date": "2025-05-02",
+   "pypi_date": "2025-05-02",
+   "torch": "2.6.0",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.4",
+   "torch_pypi_cuda": "12.4",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.4",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.5.post1/vllm-0.8.5.post1+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu121",
+     "torch": "2.6.0",
+     "soname": null,
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.8.5.post1/vllm-0.8.5.post1+cu121-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": false
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.9.0",
+   "date": "2025-05-27",
+   "pypi_date": "2025-05-28",
+   "torch": "2.7.0",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.6",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.7.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.0/vllm-0.9.0+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu126",
+     "torch": "2.7.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.0/vllm-0.9.0+cu126-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.9.0.1",
+   "date": "2025-05-30",
+   "pypi_date": "2025-05-30",
+   "torch": "2.7.0",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.6",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.7.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.0.1/vllm-0.9.0.1+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu126",
+     "torch": "2.7.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.0.1/vllm-0.9.0.1+cu126-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.9.1",
+   "date": "2025-06-10",
+   "pypi_date": "2025-06-10",
+   "torch": "2.7.0",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.6",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.7.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.1/vllm-0.9.1+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu126",
+     "torch": "2.7.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.1/vllm-0.9.1+cu126-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": null,
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.9.2",
+   "date": "2025-07-06",
+   "pypi_date": "2025-07-08",
+   "torch": "2.7.0",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.6",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.7.0",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.2/vllm-0.9.2+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu126",
+     "torch": "2.7.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.9.2/vllm-0.9.2+cu126-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu118",
+    "cu126"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.10.0",
+   "date": "2025-07-23",
+   "pypi_date": "2025-07-25",
+   "torch": "2.7.1",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.6",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.7.1",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.10.0/vllm-0.10.0+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu126",
+     "torch": "2.7.1",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.10.0/vllm-0.10.0+cu126-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu118",
+    "cu126"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.10.1",
+   "date": "2025-08-18",
+   "pypi_date": "2025-08-19",
+   "torch": "2.7.1",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.6",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.7.1",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.10.1/vllm-0.10.1+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu118"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.10.1.1",
+   "date": "2025-08-20",
+   "pypi_date": "2025-08-20",
+   "torch": "2.7.1",
+   "python": "<3.13,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.6",
+   "platform": "manylinux1",
+   "aarch64": false,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu118",
+     "torch": "2.7.1",
+     "soname": null,
+     "cuda_major": 11,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.10.1.1/vllm-0.10.1.1+cu118-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu118"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.10.2",
+   "date": "2025-10-07",
+   "pypi_date": "2025-09-13",
+   "torch": "2.8.0",
+   "python": "<3.14,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux1",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.8.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.10.2/vllm-0.10.2+cu129-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.11.0",
+   "date": "2025-10-10",
+   "pypi_date": "2025-10-04",
+   "torch": "2.8.0",
+   "python": "<3.14,>=3.9",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux1",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.8.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.11.0/vllm-0.11.0+cu129-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.11.1",
+   "date": "2025-11-18",
+   "pypi_date": "2025-11-19",
+   "torch": "2.9.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux1",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.9.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.11.1/vllm-0.11.1+cu129-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu130",
+     "torch": "2.9.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.11.1/vllm-0.11.1+cu130-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.11.2",
+   "date": "2025-11-19",
+   "pypi_date": "2025-11-20",
+   "torch": "2.9.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.8",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux1",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.8",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.9.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.11.2/vllm-0.11.2+cu129-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    },
+    {
+     "name": "cu130",
+     "torch": "2.9.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux1",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.11.2/vllm-0.11.2+cu130-cp38-abi3-manylinux1_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.12.0",
+   "date": "2025-12-02",
+   "pypi_date": "2025-12-03",
+   "torch": "2.9.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.9.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_31",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.12.0/vllm-0.12.0+cu130-cp38-abi3-manylinux_2_31_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.13.0",
+   "date": "2025-12-18",
+   "pypi_date": "2025-12-19",
+   "torch": "2.9.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.9.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.13.0/vllm-0.13.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "default"
+   ]
+  },
+  {
+   "v": "0.14.0",
+   "date": "2026-01-16",
+   "pypi_date": "2026-01-20",
+   "torch": "2.9.1",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.9.1",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.14.0/vllm-0.14.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.14.1",
+   "date": "2026-01-23",
+   "pypi_date": "2026-01-24",
+   "torch": "2.9.1",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.9.1",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.14.1/vllm-0.14.1+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.15.0",
+   "date": "2026-01-28",
+   "pypi_date": "2026-01-29",
+   "torch": "2.9.1",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.9.1",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.15.0/vllm-0.15.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.15.1",
+   "date": "2026-02-03",
+   "pypi_date": "2026-02-05",
+   "torch": "2.9.1",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.9.1",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.15.1/vllm-0.15.1+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.16.0",
+   "date": "2026-02-24",
+   "pypi_date": "2026-02-26",
+   "torch": "2.9.1",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.9.1",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.16.0/vllm-0.16.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.17.0",
+   "date": "2026-03-06",
+   "pypi_date": "2026-03-07",
+   "torch": "2.10.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.10.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.17.0/vllm-0.17.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.17.1",
+   "date": "2026-03-11",
+   "pypi_date": "2026-03-11",
+   "torch": "2.10.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.10.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.17.1/vllm-0.17.1+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.18.0",
+   "date": "2026-03-19",
+   "pypi_date": "2026-03-20",
+   "torch": "2.10.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.10.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.18.0/vllm-0.18.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.18.1",
+   "date": "2026-03-30",
+   "pypi_date": "2026-03-31",
+   "torch": "2.10.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.10.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.18.1/vllm-0.18.1+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "default"
+   ]
+  },
+  {
+   "v": "0.19.0",
+   "date": "2026-04-02",
+   "pypi_date": "2026-04-03",
+   "torch": "2.10.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.10.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.19.0/vllm-0.19.0+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "cu130-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.19.1",
+   "date": "2026-04-17",
+   "pypi_date": "2026-04-18",
+   "torch": "2.10.0",
+   "python": "<3.14,>=3.10",
+   "cuda_major": 12,
+   "soname": "libcudart.so.12",
+   "built_cuda": "12.9",
+   "torch_pypi_cuda": "12.8",
+   "platform": "manylinux_2_31",
+   "aarch64": true,
+   "archs": [
+    "7.0",
+    "7.5",
+    "8.0",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.0",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu130",
+     "torch": "2.10.0",
+     "soname": "libcudart.so.13",
+     "cuda_major": 13,
+     "platform": "manylinux_2_35",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.19.1/vllm-0.19.1+cu130-cp38-abi3-manylinux_2_35_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu130",
+    "cu130-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.20.0",
+   "date": "2026-04-27",
+   "pypi_date": "2026-04-27",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_35",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_31",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.20.0/vllm-0.20.0+cu129-cp38-abi3-manylinux_2_31_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "cu130",
+    "cu130-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.20.1",
+   "date": "2026-05-04",
+   "pypi_date": "2026-05-03",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_35",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_31",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.20.1/vllm-0.20.1+cu129-cp38-abi3-manylinux_2_31_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.20.2",
+   "date": "2026-05-07",
+   "pypi_date": "2026-05-10",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_35",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_31",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.20.2/vllm-0.20.2+cu129-cp38-abi3-manylinux_2_31_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.21.0",
+   "date": "2026-05-14",
+   "pypi_date": "2026-05-15",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_24",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_34",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.21.0/vllm-0.21.0+cu129-cp38-abi3-manylinux_2_34_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.22.0",
+   "date": "2026-05-29",
+   "pypi_date": "2026-05-29",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.22.0/vllm-0.22.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.22.1",
+   "date": "2026-06-03",
+   "pypi_date": "2026-06-05",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.22.1/vllm-0.22.1+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.23.0",
+   "date": "2026-06-14",
+   "pypi_date": "2026-06-13",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": true,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.23.0/vllm-0.23.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.24.0",
+   "date": "2026-06-28",
+   "pypi_date": "2026-06-30",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.24.0/vllm-0.24.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.25.0",
+   "date": "2026-07-11",
+   "pypi_date": "2026-07-11",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.25.0/vllm-0.25.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.25.1",
+   "date": "2026-07-12",
+   "pypi_date": "2026-07-14",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.25.1/vllm-0.25.1+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.26.0",
+   "date": "2026-07-26",
+   "pypi_date": "2026-07-25",
+   "torch": "2.11.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.11.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.26.0/vllm-0.26.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.27.0",
+   "date": "2026-08-10",
+   "pypi_date": "2026-08-10",
+   "torch": "2.13.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.13.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.27.0/vllm-0.27.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.27.1",
+   "date": "2026-08-11",
+   "pypi_date": "2026-08-11",
+   "torch": "2.13.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.13.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.27.1/vllm-0.27.1+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.28.0",
+   "date": "2026-08-24",
+   "pypi_date": "2026-08-26",
+   "torch": "2.13.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.13.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.28.0/vllm-0.28.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.29.0",
+   "date": "2026-09-08",
+   "pypi_date": "2026-09-09",
+   "torch": "2.13.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.13.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.29.0/vllm-0.29.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.30.0",
+   "date": "2026-09-21",
+   "pypi_date": "2026-09-22",
+   "torch": "2.13.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.13.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.30.0/vllm-0.30.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.31.0",
+   "date": "2026-10-02",
+   "pypi_date": "2026-10-05",
+   "torch": "2.13.0",
+   "python": "<3.15,>=3.10",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.13.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.31.0/vllm-0.31.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.32.0",
+   "date": "2026-10-17",
+   "pypi_date": "2026-10-18",
+   "torch": "2.13.0",
+   "python": "<3.15,>=3.11",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [
+    {
+     "name": "cu129",
+     "torch": "2.13.0",
+     "soname": "libcudart.so.12",
+     "cuda_major": 12,
+     "platform": "manylinux_2_28",
+     "url": "https://github.com/vllm-project/vllm/releases/download/v0.32.0/vllm-0.32.0+cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+     "torch_index_has": true
+    }
+   ],
+   "index_variants": [
+    "cu129",
+    "cu130"
+   ],
+   "docker": [
+    "cu129",
+    "cu129-ubuntu2404",
+    "default",
+    "ubuntu2404"
+   ]
+  },
+  {
+   "v": "0.33.0",
+   "date": "2026-11-01",
+   "pypi_date": "2026-11-02",
+   "torch": "2.14.0",
+   "python": "<3.15,>=3.11",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [],
+   "index_variants": [
+    "cu130"
+   ],
+   "docker": [
+    "default",
+    "efa"
+   ]
+  }
+ ],
+ "sources": {
+  "vllm_repo": "https://github.com/vllm-project/vllm (release tags; requirements/cuda.txt, pyproject.toml, CMakeLists.txt, vllm/envs.py, setup.py, docker/Dockerfile, .buildkite/release-pipeline.yaml, docs)",
+  "pypi": "https://pypi.org/pypi/vllm/<version>/json and https://pypi.org/pypi/torch/<version>/json",
+  "wheels": "ELF DT_NEEDED entries read from each published x86_64 wheel (PyPI and GitHub release assets)",
+  "github_releases": "https://api.github.com/repos/vllm-project/vllm/releases?per_page=100 (read 2026-11-10T09:06:37Z)",
+  "pytorch_index": "https://download.pytorch.org/whl/torch/ (read 2026-11-10T09:07:26Z)",
+  "wheels_vllm_ai": "https://wheels.vllm.ai/<version>/ (read 2026-11-10T09:15:37Z)",
+  "docker_hub": "https://hub.docker.com/v2/repositories/vllm/vllm-openai/tags (724 tags) (read 2026-11-10T09:16:01Z)",
+  "nvidia": "https://docs.nvidia.com/cuda/archive/13.0.0/cuda-toolkit-release-notes/index.html (driver ranges)"
+ }
+}
