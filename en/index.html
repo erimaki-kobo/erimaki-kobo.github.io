@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Answers for LLM Inference Engineers: Tools, Tables, Tests</title>
+<meta name="description" content="Practical answers for people who run LLM inference: status tables with issue numbers, browser tools and dependency-free scripts for vLLM and other OpenAI-compatible servers.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.6rem;line-height:1.25}
+a{color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.card h2{font-size:1.1rem;margin:0 0 .3em}
+.card p{margin:.3em 0}
+.meta{color:var(--mut);font-size:.85rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Answers for LLM inference engineers</h1>
+<p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
+<article class="card">
+<h2><a href="llm-determinism-test/">vLLM batch invariance: what still breaks determinism, and how to test your endpoint</a></h2>
+<p>Where <code>VLLM_BATCH_INVARIANT=1</code> holds and where it breaks (MoE, speculative decoding, prefix cache, tensor parallel, AWQ), with issue numbers, plus a black-box test that runs in the browser or as one Python file.</p>
+<p class="meta">Published 2026-11-10</p>
+</article>
+</main>
+</body>
+</html>

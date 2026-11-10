@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vLLM Batch Invariance: What Still Breaks Determinism + a Test</title>
+<meta name="description" content="Status table of where VLLM_BATCH_INVARIANT=1 holds and where it breaks (MoE, speculative decoding, prefix cache, TP, AWQ), plus a free test for your own endpoint.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/llm-determinism-test/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="vLLM Batch Invariance: What Still Breaks Determinism + a Test">
+<meta property="og:description" content="Where temperature-0 determinism holds and where it breaks on vLLM as of November 2026, with a black-box test that probes load, batch composition, prefix cache and A/B parity.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/llm-determinism-test/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/llm-determinism-test/#article", "headline": "vLLM batch invariance: what still breaks determinism, and how to test your endpoint", "description": "Status table of where VLLM_BATCH_INVARIANT=1 holds and where it breaks (MoE, speculative decoding, prefix cache, TP, AWQ), plus a free test for your own endpoint.", "url": "https://erimaki-kobo.github.io/en/llm-determinism-test/", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/llm-determinism-test/"}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/llm-determinism-test/#app", "name": "detcheck: LLM determinism test", "url": "https://erimaki-kobo.github.io/en/llm-determinism-test/", "description": "Black-box determinism test for OpenAI-compatible LLM endpoints: load, mixed traffic, prefix cache and A/B probes comparing tokens and logprobs.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "softwareVersion": "1.0.0", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/llm-determinism-test/#faq", "mainEntity": [{"@type": "Question", "name": "Does temperature 0 guarantee the same output every time?", "acceptedAnswer": {"@type": "Answer", "text": "No. Temperature 0 means the server picks the highest-scoring token. The scores can change by tiny amounts when the batch, the cache state or the decoding path changes, and a tiny change at a near-tie picks a different token."}}, {"@type": "Question", "name": "Is VLLM_BATCH_INVARIANT=1 enough to make vLLM deterministic?", "acceptedAnswer": {"@type": "Answer", "text": "For a validated dense model on one supported GPU, yes, on the same hardware and vLLM version. As of November 2026 it is not enough for speculative decoding, MoE experts quantized online to FP8, MLA models under chunked prefill, or AWQ models in compiled mode on the versions where those were reported, and some newer models refuse to start with the flag."}}, {"@type": "Question", "name": "Does speculative decoding change the output at temperature 0?", "acceptedAnswer": {"@type": "Answer", "text": "It can. The algorithm is lossless in exact arithmetic, but the verify pass processes several tokens at once while plain decoding processes one, and vLLM does not guarantee the two produce identical bits (issue #54506). Compare a server with speculative decoding against one without, using the A/B probe."}}, {"@type": "Question", "name": "Why does the first request after a restart differ from later identical requests?", "acceptedAnswer": {"@type": "Answer", "text": "Prefix caching. The first request computes the whole prompt; later ones reuse cached keys and values and compute only the tail, which is a different numeric path. Disabling prefix caching or enabling batch-invariant mode removed the difference in the reports cited above."}}, {"@type": "Question", "name": "How many requests do I need?", "acceptedAnswer": {"@type": "Answer", "text": "Start with the defaults: 32 per level and 200 tokens. If that is clean, raise max_tokens to 500 or 1,000 and set the top concurrency level to your real peak. Longer outputs matter more than more requests, because every generated token is another chance to hit a near-tie."}}, {"@type": "Question", "name": "Does this page see my API key or prompts?", "acceptedAnswer": {"@type": "Answer", "text": "No. The page is static. Requests go from your browser directly to the base URL you enter, and nothing is stored or sent anywhere else."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "vLLM batch invariance status and test", "item": "https://erimaki-kobo.github.io/en/llm-determinism-test/"}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.grid .wide{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+input[type=checkbox]{width:auto;margin-right:4px}
+.checks label{display:inline-block;margin-right:14px;color:var(--fg);font-size:.92rem}
+textarea{min-height:56px;resize:vertical}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+button.sec{background:transparent;color:var(--acc)}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+#out td:not(:first-child),#out th:not(:first-child){text-align:right}
+.tw{overflow-x:auto}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}.s.p{color:var(--warn)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86rem;white-space:pre-wrap;word-break:break-word;background:var(--code);padding:10px;border-radius:6px}
+.mono mark{background:transparent;color:var(--bad);font-weight:700;text-decoration:underline}
+.mono .pre{color:var(--mut)}
+#status{color:var(--mut);font-size:.88rem}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>vLLM batch invariance: what still breaks determinism, and how to test your endpoint</h1>
+<p class="lede"><strong><code>VLLM_BATCH_INVARIANT=1</code> makes a dense model on one GPU reproducible at temperature 0. It does not yet cover everything people run in production.</strong> As of November 2026, vLLM issues report divergence with the flag set for fused MoE experts with online FP8, MLA models under chunked prefill, AWQ models in compiled mode, and (on v0.29.0) tensor parallelism combined with sequence parallelism. Speculative decoding is outside the guarantee, and two newer model families refuse to start with the flag. The table below lists each case with its issue number. The tool underneath checks your own endpoint from the outside: it varies load, batch composition and prefix-cache state, and can compare two servers token by token.</p>
+<p class="meta">Published 2026-11-10 &middot; Status table as of 2026-11-10 &middot; Tool version 1.0.0</p>
+
+<h2 id="status">Where does batch invariance hold on vLLM, and where does it break?</h2>
+<p>Each row cites the public report it comes from. "Reported" means a user measured it on the version shown; it may be fixed on a later version, which is the reason to test your own build.</p>
+<div class="tw"><table>
+<thead><tr><th>Configuration</th><th>With <code>VLLM_BATCH_INVARIANT=1</code></th><th>Evidence</th><th>Probe</th></tr></thead>
+<tbody>
+<tr><td>Dense model, one GPU, bf16, on the validated list (Qwen3, Llama 3.1/3.2, Mistral-7B, Phi, Gemma 2 and others)</td><td><span class="s y">Holds</span></td><td>vLLM docs, Batch Invariance; CI tests. NVIDIA compute capability 8.0+, AMD Instinct, or Intel XPU with <code>TRITON_ATTN</code>.</td><td>load</td></tr>
+<tr><td>Tensor parallel, no sequence parallelism</td><td><span class="s y">Holds</span> with a condition</td><td>TP=4 bitwise clean in <a href="https://github.com/vllm-project/vllm/issues/56370">#56370</a>. Docs: all-reduce sizes must be a multiple of 16 bytes, which every validated model satisfies.</td><td>load, mixed</td></tr>
+<tr><td>Tensor parallel + sequence parallelism or async TP (<code>enable_sp</code>, <code>fuse_gemm_comms</code>)</td><td><span class="s n">Broke</span> on v0.29.0</td><td><a href="https://github.com/vllm-project/vllm/issues/56370">#56370</a>: Qwen3-1.7B, TP=4, batch 1 vs 64: greedy output changed for 17 of 64 prompts. Issue closed; fix proposed in PR #56377.</td><td>load</td></tr>
+<tr><td>Pipeline parallel</td><td><span class="s p">No statement</span></td><td>Not mentioned in the docs or the tracking issue <a href="https://github.com/vllm-project/vllm/issues/27433">#27433</a>. Data parallel is declared out of scope there.</td><td>load, mixed</td></tr>
+<tr><td>MoE with experts quantized online to FP8 (<code>--quantization fp8</code>, Triton fused-MoE)</td><td><span class="s n">Breaks</span>, no warning</td><td><a href="https://github.com/vllm-project/vllm/issues/57016">#57016</a>: granite-3.1-1b-a400m, Qwen1.5-MoE-A2.7B, DeepSeek-V2-Lite on RTX 4090, H100 and RTX 5090 (v0.27.1 and main). Output depends on the <em>content</em> of the other requests in the batch. A block-scaled FP8 checkpoint (Qwen3-30B-A3B-FP8) passed.</td><td>mixed, cache</td></tr>
+<tr><td>MoE with MXFP4 experts on Blackwell (DeepSeek-V4-Flash)</td><td><span class="s n">Refuses to start</span></td><td><a href="https://github.com/vllm-project/vllm/issues/53436">#53436</a>: <code>NotImplementedError: No MXFP4 MoE backend supports the deployment configuration</code>.</td><td>&ndash;</td></tr>
+<tr><td>Sparse MLA (GLM-5.3)</td><td><span class="s n">Refuses to start</span>; not invariant when forced</td><td><a href="https://github.com/vllm-project/vllm/issues/65278">#65278</a> (open, 2026-11-03): with the refusal bypassed, 32 of 32 prompts differ between batch 1 and batch N. Root cause not established.</td><td>load</td></tr>
+<tr><td>MLA with <code>TRITON_MLA</code> under chunked prefill (DeepSeek-V2-Lite, DeepSeek-V3.1)</td><td><span class="s n">Breaks</span></td><td><a href="https://github.com/vllm-project/vllm/issues/60007">#60007</a> (open, fix PR #60122 open): splitting one prompt's prefill into chunks moves logprobs by about 1e-3 and flips a token by decode step 9. <code>FLASHINFER_MLA</code> is not supported at all (#27433).</td><td>mixed, ab</td></tr>
+<tr><td>Speculative decoding (draft model, n-gram, MTP, EAGLE)</td><td><span class="s n">Not covered</span></td><td>Listed as an unchecked item in #27433 (feature request #52522). <a href="https://github.com/vllm-project/vllm/issues/54506">#54506</a>: the verify pass over k+1 tokens and plain one-token decode are not guaranteed to produce the same bits. The vLLM docs promise losslessness only up to floating-point precision.</td><td>ab</td></tr>
+<tr><td>Prefix caching</td><td><span class="s p">Mostly holds</span></td><td>Without the flag, a warm (cached) request and a cold one differ: up to 4.6e-2 in logprob on H100 in <a href="https://github.com/vllm-project/vllm/issues/40896">#40896</a>; with the flag, bit exact in that test. The flag disables prefix caching on <code>FLASHINFER</code> and <code>TRITON_MLA</code>. No CI test covers cold versus warm (#27433), and the MoE and AWQ rows here fail on it.</td><td>cache</td></tr>
+<tr><td>AWQ weights in the default compiled mode (Qwen3-8B-AWQ, sm8x)</td><td><span class="s n">Broke</span> on v0.27.1 and v0.29.0</td><td><a href="https://github.com/vllm-project/vllm/issues/59086">#59086</a> (opened 2026-09-28): a co-batched request flips the greedy token at position 4; <code>--enforce-eager</code> is clean. The tracking issue links fix PR #60479 for AWQ and GPTQ layers.</td><td>mixed, cache</td></tr>
+<tr><td>Many co-resident sequences (about 44 or more)</td><td><span class="s y">Fixed</span> in v0.27.0</td><td><a href="https://github.com/vllm-project/vllm/issues/51187">#51187</a>: on v0.26.0 logprobs changed between repeats of the same workload; RMSNorm fix #48391.</td><td>load</td></tr>
+<tr><td>Embedding and pooling models</td><td><span class="s p">Reported not invariant</span></td><td>User report in #27433; the only workaround given is <code>--max-num-seqs 1</code>.</td><td>&ndash;</td></tr>
+</tbody></table></div>
+<p><strong>Cost of the flag:</strong> a contributor measured about 30% lower throughput on an RTX 4090 D and 35% on an H20 in compiled mode (comment in #27433). The docs give no figure. It has not been measured for this page.</p>
+
+<h2 id="tool-h">Test your own endpoint</h2>
+<p>The test is black-box: it only needs the OpenAI-compatible API, so it works the same way whether the server runs TP, an MoE model or speculative decoding. Requests go straight from this page to the URL you enter.</p>
+<section class="card" id="tool" aria-label="Determinism test">
+<form id="f" class="grid" onsubmit="return false">
+  <div class="wide"><label for="base">Base URL (ends in /v1)</label><input id="base" value="http://localhost:8000/v1" spellcheck="false" autocomplete="off"></div>
+  <div><label for="model">Model <span class="note">(blank = first from /models)</span></label><input id="model" spellcheck="false" autocomplete="off"></div>
+  <div><label for="key">API key <span class="note">(optional, never stored)</span></label><input id="key" type="password" autocomplete="off"></div>
+  <div class="wide"><label for="against">Second endpoint for A/B <span class="note">(optional: same model with speculative decoding on, another TP degree, a new version...)</span></label><input id="against" placeholder="http://localhost:8001/v1" spellcheck="false" autocomplete="off"></div>
+  <div class="wide"><label for="prompt">Prompt</label><textarea id="prompt">Tell me about Richard Feynman</textarea></div>
+  <div><label for="runs">Requests per level</label><input id="runs" type="number" min="2" max="1000" value="32"></div>
+  <div><label for="conc">Concurrency levels <span class="note">(first = baseline)</span></label><input id="conc" value="1,8,32" spellcheck="false"></div>
+  <div><label for="maxtok">max_tokens</label><input id="maxtok" type="number" min="1" max="4096" value="200"></div>
+  <div><label for="seed">seed <span class="note">(blank = do not send)</span></label><input id="seed" value="0"></div>
+  <div><label for="api">API</label><select id="api"><option value="chat">/chat/completions</option><option value="comp">/completions</option></select></div>
+  <div><label for="lp">Logprobs</label><select id="lp"><option value="1">request (tokens + logprobs)</option><option value="0">do not request (text only)</option></select></div>
+  <div class="wide checks"><label><input type="checkbox" id="p_load" checked>load</label><label><input type="checkbox" id="p_mixed" checked>mixed traffic</label><label><input type="checkbox" id="p_cache" checked>prefix cache (cold vs warm)</label></div>
+</form>
+<div class="row"><button id="run">Run test</button><button id="stop" class="sec" disabled>Stop</button><button id="dl" class="sec" disabled>Download JSON</button><span id="status" role="status" aria-live="polite"></span></div>
+<div id="out"></div>
+</section>
+<p class="note">A network error means the server does not accept cross-origin requests from this page, or it is a plain <code>http://</code> host other than localhost (browsers block that from an HTTPS page). vLLM allows all origins by default. Otherwise use the <a href="#cli">command-line script</a>, which has no such limits.</p>
+
+<h2 id="how">What do the four probes measure?</h2>
+<table>
+<thead><tr><th>Probe</th><th>What it sends</th><th>What a difference means</th></tr></thead>
+<tbody>
+<tr><td><strong>baseline</strong></td><td>The prompt N times, one request at a time. The most common output becomes the reference.</td><td>Not reproducible even alone: shared endpoint, mixed replicas, or non-greedy decoding.</td></tr>
+<tr><td><strong>load</strong></td><td>The same prompt N times at each higher concurrency level.</td><td>The result depends on batch size.</td></tr>
+<tr><td><strong>mixed</strong></td><td>The same prompt N times, interleaved with three times as many other prompts of six different lengths.</td><td>The result depends on what else is in the batch, not only how much. This is the case behind the MoE FP8 and AWQ reports.</td></tr>
+<tr><td><strong>cache</strong></td><td>A prompt with a random session id, so its prefix cannot be cached, sent once cold and twice more warm. Eight such prompts.</td><td>A cache hit takes a different numeric path than a full prefill.</td></tr>
+<tr><td><strong>ab</strong></td><td>Four prompts (the default, a two-character one, a repetitive one and a long one) twice on each of two endpoints.</td><td>The two deployments are not interchangeable: speculative decoding on versus off, TP 1 versus TP 4, eval server versus production, old version versus new.</td></tr>
+</tbody></table>
+<p>Every comparison is made on tokens and, when the server returns them, on the logprob of each generated token. <strong>Identical tokens with different logprobs is a finding</strong>: the numerics already vary, and the text has not changed only because no near-tie was hit. Several of the issues above were first seen that way.</p>
+
+<h2 id="read">How do I read the verdict?</h2>
+<dl>
+<dt>No divergence observed</dt>
+<dd>Every completion matched the baseline in tokens and logprobs. That is evidence, not proof. In the Thinking Machines experiment the first 102 tokens of 1,000 completions were identical, so use long outputs and your real peak concurrency before relying on a clean result.</dd>
+<dt>Logprob drift</dt>
+<dd>Tokens matched but logprobs moved in at least one probe. The server is not invariant under that condition. Expect token flips on other prompts or longer outputs.</dd>
+<dt>Token divergence</dt>
+<dd>The generated text changed in the probes listed. The report shows the earliest split and the logprob gap between the top two candidates there. A gap of a few thousandths of a nat is a near-tie tipped by rounding. A large gap points at something structural, such as a different quantization scale or a different kernel.</dd>
+<dt>Nondeterministic at baseline</dt>
+<dd>Outputs differ for identical sequential requests. Fix or explain this first; the other probes cannot be interpreted until the baseline is stable.</dd>
+</dl>
+
+<h2 id="cli">Run it from the command line or in CI</h2>
+<p><a href="detcheck.py" download>detcheck.py</a> is the same test as one Python file with no dependencies (standard library, Python 3.8+). Exit status is 0 when nothing diverged, 1 when tokens diverged, 3 when only logprobs drifted and 2 when it could not run, so it can gate a deployment.</p>
+<pre><code>curl -O https://erimaki-kobo.github.io/en/llm-determinism-test/detcheck.py
+
+# all probes against a local server, model auto-detected
+python detcheck.py --base-url http://localhost:8000/v1
+
+# is the server with speculative decoding equivalent to the one without?
+python detcheck.py --base-url http://localhost:8000/v1 --against http://localhost:8001/v1
+
+# more thorough, with a JSON report
+python detcheck.py --base-url http://localhost:8000/v1 --runs 64 \
+  --concurrency 1,8,32,64 --max-tokens 500 --json report.json</code></pre>
+<p>Report format (from a mock server built to flip one near-tied token when different prompts share a batch; not a measurement of a real engine):</p>
+<pre><code>probe                    ok  err  unique  differ  shared prefix  max |dlogp|
+baseline c=1             24    0       1       0              -            0  identical
+load c=8                 24    0       1       0              -            0  identical
+mixed c=8                24    0       2       7       8 tokens            0  TOKENS DIFFER
+cache warm-vs-cold        8    0       1       0              -            0  identical
+
+VERDICT: TOKEN_DIVERGENCE
+Generated tokens changed in: mixed c=8.
+Earliest divergence (mixed c=8): the first 8 tokens are identical, then:
+  reference: ' Queens, New York.'
+  other:     ' New York City.'
+  reference top-2 there: ' Queens' (-0.6921) vs ' New' (-0.6942); gap 0.0021 nats</code></pre>
+
+<h2 id="why">Why does the same prompt give different outputs at temperature 0?</h2>
+<p>Temperature 0 makes token selection deterministic, not the logits. Floating-point addition is not associative, and GPU kernels for matrix multiplication, normalization and attention choose their reduction strategy from the tensor shape. The shape depends on the batch, and the server builds batches from whatever is in flight. Same request, different batch, slightly different logits. At a near-tie the argmax flips, and from that token on the two generations are different texts.</p>
+<p>Thinking Machines Lab measured this in September 2025: 1,000 completions of one prompt at temperature 0 on Qwen3-235B produced 80 distinct outputs, with the first 102 tokens identical in all of them. With batch-invariant kernels for RMSNorm, matrix multiplication and attention, all 1,000 were identical. vLLM shipped that idea as <code>VLLM_BATCH_INVARIANT=1</code>.</p>
+<p>Batch size is only one axis. The reports in the table add four more: the content of the neighbours (one activation scale shared by a whole batch), cache state (one-token prefill versus full prefill), how a prompt is chunked, and how many tokens the model verifies at once under speculative decoding. A fixed <code>seed</code> helps with none of them: at temperature 0 there is no sampling left for it to control.</p>
+
+<h2 id="fix">How do I make inference deterministic?</h2>
+<ol>
+<li><strong>Turn the flag on</strong>: <code>VLLM_BATCH_INVARIANT=1 vllm serve &lt;model&gt;</code>. For an online server this is the only supported route; <code>VLLM_ENABLE_V1_MULTIPROCESSING=0</code> applies to offline use. The feature is in beta, and reproducibility is promised only on the same hardware and the same vLLM version.</li>
+<li><strong>Check your configuration against the table.</strong> If you run online FP8 on an MoE model, AWQ in compiled mode, MLA with chunked prefill, or sequence parallelism, the flag alone was not enough on the versions reported.</li>
+<li><strong>Run the probes before and after.</strong> A clean dense-model result does not transfer to your MoE or TP deployment.</li>
+<li><strong>Treat speculative decoding as a different deployment.</strong> Run the A/B probe against a server without it. If the outputs differ, evals taken on one do not describe the other.</li>
+<li><strong>If you cannot get invariance</strong> (hosted API, unsupported model): compare outputs semantically instead of byte for byte, cache responses you need to replay, and report evals as a mean over several runs.</li>
+</ol>
+<p>Other engines: SGLang has <code>--enable-deterministic-inference</code>, which was bit exact in the cold-versus-warm test in #40896; the LLM-42 paper measured its overhead at up to 56%. A server that processes one request at a time has no batch to vary and should pass the load and mixed probes.</p>
+
+<h2 id="limits">What can this test not tell you?</h2>
+<ul>
+<li>It cannot prove determinism, only fail to find a counterexample.</li>
+<li>It cannot say which kernel is responsible. It tells you which condition (load, neighbours, cache, deployment) changes the output; the issue threads above show how to bisect from there.</li>
+<li>It measures the endpoint as deployed. Load balancers and replicas with different GPUs show up as baseline nondeterminism. A changing <code>system_fingerprint</code> is flagged when the server returns one.</li>
+<li>On a shared endpoint "one request at a time" is not a batch of one, because other tenants fill the batch.</li>
+<li>The cache probe assumes the server caches prefixes automatically. On a server without a prefix cache it simply passes.</li>
+<li>The tool has been verified against a mock OpenAI-compatible server with one mode per failure type (load, logprob drift, content-dependent batches, cold versus warm, random, a differing second endpoint, no logprobs). It has not yet been run against a GPU server for this page. If a real server's response format differs, you will see request errors, not a wrong verdict.</li>
+</ul>
+
+<h2 id="alt">Related tools</h2>
+<ul>
+<li><a href="https://github.com/NullPointerDepressiveDisorder/infer-check">infer-check</a>: pip-installable CLI with determinism and stress commands plus quantization sweeps and cross-backend diffs.</li>
+<li><a href="https://github.com/tommasocerruti/detllm">detLLM</a>: in-process run-to-run and batch-size checks for Hugging Face models, with a repro pack.</li>
+<li>vLLM's own suite under <code>tests/</code> (needle, <code>bs1_vs_bsN</code>, chunked prefill, decode versus prefill logprobs) is white-box and the right tool once you are bisecting inside the engine.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>Does temperature 0 guarantee the same output every time?</h3>
+<p>No. Temperature 0 means the server picks the highest-scoring token. The scores can change by tiny amounts when the batch, the cache state or the decoding path changes, and a tiny change at a near-tie picks a different token.</p>
+<h3>Is VLLM_BATCH_INVARIANT=1 enough to make vLLM deterministic?</h3>
+<p>For a validated dense model on one supported GPU, yes, on the same hardware and vLLM version. As of November 2026 it is not enough for speculative decoding, MoE experts quantized online to FP8, MLA models under chunked prefill, or AWQ models in compiled mode on the versions where those were reported, and some newer models refuse to start with the flag.</p>
+<h3>Does speculative decoding change the output at temperature 0?</h3>
+<p>It can. The algorithm is lossless in exact arithmetic, but the verify pass processes several tokens at once while plain decoding processes one, and vLLM does not guarantee the two produce identical bits (issue #54506). Compare a server with speculative decoding against one without, using the A/B probe.</p>
+<h3>Why does the first request after a restart differ from later identical requests?</h3>
+<p>Prefix caching. The first request computes the whole prompt; later ones reuse cached keys and values and compute only the tail, which is a different numeric path. Disabling prefix caching or enabling batch-invariant mode removed the difference in the reports cited above.</p>
+<h3>How many requests do I need?</h3>
+<p>Start with the defaults: 32 per level and 200 tokens. If that is clean, raise max_tokens to 500 or 1,000 and set the top concurrency level to your real peak. Longer outputs matter more than more requests, because every generated token is another chance to hit a near-tie.</p>
+<h3>Does this page see my API key or prompts?</h3>
+<p>No. The page is static. Requests go from your browser directly to the base URL you enter, and nothing is stored or sent anywhere else.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Horace He and Thinking Machines Lab, <a href="https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/">Defeating Nondeterminism in LLM Inference</a>, September 2025.</li>
+<li>vLLM documentation: <a href="https://docs.vllm.ai/en/latest/features/batch_invariance/">Batch Invariance</a> (page dated 2026-11-04), <a href="https://docs.vllm.ai/en/latest/usage/reproducibility/">Reproducibility</a>, <a href="https://docs.vllm.ai/en/v0.17.1/features/speculative_decoding/">Speculative Decoding</a>.</li>
+<li>vLLM tracking issue <a href="https://github.com/vllm-project/vllm/issues/27433">#27433</a>, Batch Invariant Feature and Performance Optimization.</li>
+<li>vLLM issues <a href="https://github.com/vllm-project/vllm/issues/56370">#56370</a> (sequence parallelism), <a href="https://github.com/vllm-project/vllm/issues/57016">#57016</a> (fused MoE), <a href="https://github.com/vllm-project/vllm/issues/53436">#53436</a> (MXFP4 MoE), <a href="https://github.com/vllm-project/vllm/issues/65278">#65278</a> (sparse MLA), <a href="https://github.com/vllm-project/vllm/issues/60007">#60007</a> (chunked prefill), <a href="https://github.com/vllm-project/vllm/issues/54506">#54506</a> and <a href="https://github.com/vllm-project/vllm/issues/41758">#41758</a> (speculative decoding), <a href="https://github.com/vllm-project/vllm/issues/40896">#40896</a> (prefix caching), <a href="https://github.com/vllm-project/vllm/issues/59086">#59086</a> (AWQ), <a href="https://github.com/vllm-project/vllm/issues/51187">#51187</a> (co-resident sequences).</li>
+<li>Gond et al., <a href="https://arxiv.org/abs/2601.17768">LLM-42: Enabling Determinism in LLM Inference with Verified Speculation</a>, 2026.</li>
+</ul>
+</main>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var ctrl=null,report=null;
+var PASSAGE="The harbour town of Velmar keeps a ledger of every ship that has entered its bay since the lighthouse was built. Each entry records the name of the vessel, the colour of its sails, the cargo it declared and the weather on the day it arrived. Clerks copy the ledger by hand every ten years, and the old copies are stored in a dry cellar under the customs house. Visitors may read them on market days if they bring their own lamp. ";
+var FILLERS=["Hi","List three prime numbers.","Explain in two sentences why the sky is blue.","Write a short product description for a steel water bottle aimed at hikers who travel light.",PASSAGE+"Who may read the old copies, and when?",PASSAGE+PASSAGE+PASSAGE+"Summarize the passage in one sentence."];
+function abPrompts(p){return [p,"Hi",new Array(49).join("serving "),PASSAGE+PASSAGE+"Summarize the passage in three sentences."]}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function mkClient(base,o){return {base:base.replace(/\/+$/,""),model:"",lp:o.lp,url:base.replace(/\/+$/,"")+(o.api==="comp"?"/completions":"/chat/completions")}}
+function headers(o){var h={"Content-Type":"application/json"};if(o.key)h.Authorization="Bearer "+o.key;return h}
+function payload(c,o,prompt){
+  var p;
+  if(o.api==="comp"){p={model:c.model,prompt:prompt};if(c.lp)p.logprobs=2}
+  else{p={model:c.model,messages:[{role:"user",content:prompt}]};if(c.lp){p.logprobs=true;p.top_logprobs=2}}
+  p.temperature=0;p.max_tokens=o.maxTokens;if(o.seed!==null)p.seed=o.seed;return p;
+}
+function parse(resp,api){
+  var ch=resp.choices[0],lp=ch.logprobs,out={text:"",tokens:null,lps:null,top:null,finish:ch.finish_reason,fp:resp.system_fingerprint||null};
+  if(api==="comp"){
+    out.text=ch.text||"";
+    if(lp&&lp.tokens&&lp.tokens.length){out.tokens=lp.tokens.slice();out.lps=(lp.token_logprobs||[]).slice();
+      out.top=(lp.top_logprobs||[]).map(function(d){return Object.keys(d||{}).map(function(k){return [k,d[k]]}).sort(function(a,b){return b[1]-a[1]})})}
+  }else{
+    out.text=(ch.message&&ch.message.content)||"";
+    if(lp&&lp.content&&lp.content.length){out.tokens=lp.content.map(function(t){return t.token||""});out.lps=lp.content.map(function(t){return t.logprob});
+      out.top=lp.content.map(function(t){return (t.top_logprobs||[]).map(function(a){return [a.token||"",a.logprob]}).sort(function(a,b){return b[1]-a[1]})})}
+  }
+  return out;
+}
+async function send(c,o,prompt){
+  try{
+    var r=await fetch(c.url,{method:"POST",headers:headers(o),body:JSON.stringify(payload(c,o,prompt)),signal:ctrl.signal});
+    if(!r.ok){var t=await r.text();return {error:"HTTP "+r.status+": "+t.slice(0,300)}}
+    return parse(await r.json(),o.api);
+  }catch(e){return {error:e.name+": "+e.message}}
+}
+function keyOf(r){return r.tokens!==null?JSON.stringify(r.tokens):r.text}
+function compare(ref,x){
+  var a,b,unit;
+  if(ref.tokens!==null&&x.tokens!==null){a=ref.tokens;b=x.tokens;unit="token"}else{a=ref.text;b=x.text;unit="char"}
+  var n=Math.min(a.length,b.length),pos=null;
+  for(var i=0;i<n;i++)if(a[i]!==b[i]){pos=i;break}
+  if(pos===null&&a.length!==b.length)pos=n;
+  var delta=null;
+  if(unit==="token"&&ref.lps&&x.lps&&ref.lps.length&&x.lps.length){
+    var m=Math.min(pos===null?n:pos,ref.lps.length,x.lps.length);delta=0;
+    for(var j=0;j<m;j++){if(typeof ref.lps[j]==="number"&&typeof x.lps[j]==="number")delta=Math.max(delta,Math.abs(ref.lps[j]-x.lps[j]))}
+  }
+  return {pos:pos,unit:unit,delta:delta};
+}
+function example(ref,x,pos,unit){
+  var ex={position:pos,unit:unit};
+  if(unit==="token"){
+    ex.prefix=ref.tokens.slice(Math.max(0,pos-40),pos).join("");ex.ref_next=ref.tokens.slice(pos,pos+12).join("");ex.other_next=x.tokens.slice(pos,pos+12).join("");
+    var top=(ref.top&&pos<ref.top.length)?ref.top[pos]:[];
+    if(top.length>=2){ex.ref_top2=[top[0],top[1]];ex.logprob_gap=top[0][1]-top[1][1]}
+  }else{ex.prefix=ref.text.slice(Math.max(0,pos-160),pos);ex.ref_next=ref.text.slice(pos,pos+60);ex.other_next=x.text.slice(pos,pos+60)}
+  return ex;
+}
+function blank(){return {ok:0,errors:0,unique:1,differ:0,shared_prefix:null,unit:null,max_logprob_delta:null,example:null}}
+function summarize(runs,ref){
+  var ok=runs.filter(function(r){return !r.error}),u={};ok.forEach(function(r){u[keyOf(r)]=1});
+  var s=blank();s.ok=ok.length;s.errors=runs.length-ok.length;s.unique=Object.keys(u).length;
+  if(!ref)return s;
+  ok.forEach(function(r){
+    var c=compare(ref,r);
+    if(c.delta!==null&&(s.max_logprob_delta===null||c.delta>s.max_logprob_delta))s.max_logprob_delta=c.delta;
+    if(c.pos===null)return;
+    s.differ++;
+    if(s.shared_prefix===null||c.pos<s.shared_prefix){s.shared_prefix=c.pos;s.unit=c.unit;s.example=example(ref,r,c.pos,c.unit)}
+  });
+  return s;
+}
+function merge(agg,s){
+  agg.ok+=s.ok;agg.errors+=s.errors;agg.differ+=s.differ;if(s.differ)agg.unique=2;
+  if(s.max_logprob_delta!==null)agg.max_logprob_delta=Math.max(agg.max_logprob_delta||0,s.max_logprob_delta);
+  if(s.shared_prefix!==null&&(agg.shared_prefix===null||s.shared_prefix<agg.shared_prefix)){agg.shared_prefix=s.shared_prefix;agg.unit=s.unit;agg.example=s.example}
+}
+function modal(runs){
+  var ok=runs.filter(function(r){return !r.error});if(!ok.length)return null;
+  var m={},best=null;ok.forEach(function(r){var k=keyOf(r);m[k]=(m[k]||0)+1;if(best===null||m[k]>m[best])best=k});
+  return ok.find(function(r){return keyOf(r)===best});
+}
+function stateOf(s){if(s.differ||s.unique>1)return "tokens";if(s.max_logprob_delta!==null&&s.max_logprob_delta>0)return "logprobs";return "same"}
+function fmtDelta(d){return d===null?"&ndash;":(d===0?"0":d.toExponential(3))}
+async function pool(c,o,prompts,workers,label){
+  var res=new Array(prompts.length),next=0,done=0;
+  async function w(){while(next<prompts.length&&!ctrl.signal.aborted){var i=next++;res[i]=await send(c,o,prompts[i]);done++;$("status").textContent=label+": "+done+"/"+prompts.length}}
+  var ws=[];for(var i=0;i<Math.min(workers,prompts.length);i++)ws.push(w());
+  await Promise.all(ws);return res;
+}
+function rep(x,n){var a=[];for(var i=0;i<n;i++)a.push(x);return a}
+function shuffle(a){var s=12345;for(var i=a.length-1;i>0;i--){s=(s*1103515245+12345)&0x7fffffff;var j=s%(i+1),t=a[i];a[i]=a[j];a[j]=t}return a}
+function nonce(){var b=new Uint8Array(6);crypto.getRandomValues(b);return Array.prototype.map.call(b,function(x){return ("0"+x.toString(16)).slice(-2)}).join("")}
+function render(names,results,extra){
+  var h='<div class="tw"><table><thead><tr><th>Probe</th><th>OK</th><th>Errors</th><th>Unique</th><th>Differ</th><th>Shared prefix</th><th>Max |&Delta;logprob|</th><th>Result</th></tr></thead><tbody>';
+  names.forEach(function(k){var s=results[k],st=stateOf(s);
+    h+="<tr><td>"+esc(k)+"</td><td>"+s.ok+"</td><td>"+s.errors+"</td><td>"+s.unique+"</td><td>"+s.differ+"</td><td>"+(s.shared_prefix===null?"&ndash;":s.shared_prefix+" "+s.unit+"s")+"</td><td>"+fmtDelta(s.max_logprob_delta)+'</td><td><span class="s '+(st==="same"?"y":st==="logprobs"?"p":"n")+'">'+(st==="same"?"identical":st==="logprobs"?"logprobs differ":"TOKENS DIFFER")+"</span></td></tr>"});
+  $("out").innerHTML=h+"</tbody></table></div>"+(extra||"");
+}
+async function connect(base,o,model){
+  var c=mkClient(base,o);c.model=model;
+  if(!c.model){var mr=await fetch(c.base+"/models",{headers:headers(o),signal:ctrl.signal});
+    if(!mr.ok)throw new Error("GET "+c.base+"/models returned HTTP "+mr.status+". Enter the model id.");
+    c.model=(await mr.json()).data[0].id}
+  var warm=await send(c,o,o.prompt);
+  if(warm.error&&c.lp){c.lp=false;var w2=await send(c,o,o.prompt);if(!w2.error)warm=w2}
+  if(warm.error)throw new Error("Warm-up request to "+c.base+" failed: "+warm.error);
+  c.warm=warm;return c;
+}
+async function run(){
+  var base=$("base").value.trim(),against=$("against").value.trim();
+  var order=$("conc").value.split(",").map(function(s){return parseInt(s,10)}).filter(function(n){return n>=1});
+  var runs=parseInt($("runs").value,10),seedS=$("seed").value.trim();
+  if(!base||!order.length||!(runs>=1)){$("status").textContent="Check the base URL, concurrency levels and request count.";return}
+  var o={api:$("api").value,key:$("key").value,prompt:$("prompt").value,maxTokens:parseInt($("maxtok").value,10)||200,seed:seedS===""?null:parseInt(seedS,10),lp:$("lp").value==="1"};
+  ctrl=new AbortController();report=null;$("run").disabled=true;$("stop").disabled=false;$("dl").disabled=true;$("out").innerHTML="";
+  var names=[],results={},errs=[],fps={},texts={};
+  function note(rs){rs.forEach(function(r){if(!r)return;if(r.error)errs.push(r.error);else if(r.fp)fps[r.fp]=1})}
+  function add(k,s){names.push(k);results[k]=s;render(names,results)}
+  try{
+    $("status").textContent="Connecting...";
+    var A=await connect(base,o,$("model").value.trim());$("model").value=A.model;
+    var B=against?await connect(against,o,""):null;
+    var bk="baseline c="+order[0];
+    var br=await pool(A,o,rep(o.prompt,runs),order[0],bk);note(br);
+    var ref=modal(br);if(!ref)throw new Error("Every baseline request failed: "+errs[0]);
+    add(bk,summarize(br,ref));texts[bk]=br.map(function(r){return r.error?null:r.text});
+    if($("p_load").checked)for(var i=1;i<order.length&&!ctrl.signal.aborted;i++){
+      var k="load c="+order[i],lr=await pool(A,o,rep(o.prompt,runs),order[i],k);note(lr);add(k,summarize(lr.filter(Boolean),ref))}
+    if($("p_mixed").checked&&!ctrl.signal.aborted){
+      var c=Math.max(Math.max.apply(null,order),4),jobs=rep(o.prompt,runs);
+      for(var f=0;f<3*runs;f++)jobs.push(FILLERS[f%FILLERS.length]);
+      shuffle(jobs);var mk="mixed c="+c,mr=await pool(A,o,jobs,c,mk);note(mr);
+      add(mk,summarize(mr.filter(function(r,ix){return r&&jobs[ix]===o.prompt}),ref))}
+    if($("p_cache").checked&&!ctrl.signal.aborted){
+      var agg=blank();
+      for(var t=0;t<8&&!ctrl.signal.aborted;t++){
+        $("status").textContent="cache: "+(t+1)+"/8";
+        var cp="Session "+nonce()+".\n"+PASSAGE+PASSAGE+PASSAGE+"\nSummarize the passage above in three sentences.";
+        var cold=await send(A,o,cp),w1=await send(A,o,cp),w2=await send(A,o,cp);note([cold,w1,w2]);
+        if(cold.error){agg.errors++;continue}
+        merge(agg,summarize([w1,w2],cold))}
+      add("cache warm-vs-cold",agg)}
+    var ab=null,aSelf=0;
+    if(B&&!ctrl.signal.aborted){
+      ab=blank();var ps=abPrompts(o.prompt);
+      for(var q=0;q<ps.length&&!ctrl.signal.aborted;q++){
+        $("status").textContent="A/B: "+(q+1)+"/"+ps.length;
+        var a1=await send(A,o,ps[q]),a2=await send(A,o,ps[q]),b1=await send(B,o,ps[q]),b2=await send(B,o,ps[q]);note([a1,a2,b1,b2]);
+        if(a1.error){ab.errors++;continue}
+        aSelf+=summarize([a2],a1).differ;merge(ab,summarize([b1,b2],a1))}
+      add("ab endpoint B vs A",ab)}
+    var own=names.filter(function(k){return k.indexOf("ab ")!==0});
+    var tok=own.filter(function(k){return stateOf(results[k])==="tokens"}),drift=own.filter(function(k){return stateOf(results[k])==="logprobs"});
+    var v;
+    if(stateOf(results[bk])==="tokens")v=["NONDETERMINISTIC_AT_BASELINE","v-bad","Nondeterministic at baseline","Outputs differ even for identical sequential requests. The endpoint is shared with other traffic, requests reach different replicas or hardware, or decoding is not greedy at temperature 0."];
+    else if(tok.length)v=["TOKEN_DIVERGENCE","v-bad","Token divergence","Generated tokens changed in: "+tok.join(", ")+". The output of a request depends on the conditions it is served under."];
+    else if(drift.length)v=["LOGPROB_DRIFT","v-load","Logprob drift","Tokens were identical but logprobs moved in: "+drift.join(", ")+". The numerics are not invariant; a token flip needs only a near-tie."];
+    else v=["NO_DIVERGENCE_OBSERVED","v-ok","No divergence observed","All "+own.reduce(function(s,k){return s+results[k].ok},0)+" completions matched the baseline"+(A.warm.lps?" in tokens and logprobs":"")+". This is evidence, not proof: use longer outputs and your real peak concurrency."];
+    var x='<div class="verdict '+v[1]+'">'+esc(v[2])+"<span>"+esc(v[3])+"</span></div>";
+    if(ab){var st=stateOf(ab);
+      x+="<p><strong>A/B:</strong> "+(st==="same"?"endpoint B matched endpoint A on every prompt.":st==="logprobs"?"same tokens on both endpoints, but logprobs differ (max "+fmtDelta(ab.max_logprob_delta)+").":"endpoint B produced different tokens on "+ab.differ+" of "+ab.ok+" comparisons.")+(aSelf?" Endpoint A also disagreed with itself on "+aSelf+" repeat(s); fix that first.":"")+"</p>"}
+    var best=null;names.forEach(function(k){var ex=results[k].example;if(ex&&(best===null||ex.position<best.ex.position))best={k:k,ex:ex}});
+    if(best){var ex=best.ex;
+      x+="<p><strong>Earliest divergence</strong> ("+esc(best.k)+"): the first "+ex.position+" "+ex.unit+"s are identical, then the outputs split.</p>";
+      x+='<div class="mono"><span class="pre">&hellip;'+esc(ex.prefix)+"</span><mark>"+esc(ex.ref_next)+'</mark> &nbsp;&larr; reference\n<span class="pre">&hellip;'+esc(ex.prefix)+"</span><mark>"+esc(ex.other_next)+"</mark> &nbsp;&larr; other</div>";
+      if(ex.logprob_gap!==undefined)x+="<p>Reference top-2 at that token: <code>"+esc(JSON.stringify(ex.ref_top2[0][0]))+"</code> ("+ex.ref_top2[0][1].toFixed(4)+") vs <code>"+esc(JSON.stringify(ex.ref_top2[1][0]))+"</code> ("+ex.ref_top2[1][1].toFixed(4)+"). <strong>Logprob gap: "+ex.logprob_gap.toFixed(4)+" nats.</strong></p>"}
+    if(Object.keys(fps).length>1)x+='<p class="note">'+Object.keys(fps).length+" different system_fingerprint values were returned: the backend changed between requests.</p>";
+    if(errs.length)x+='<p class="note">'+errs.length+" request(s) failed, e.g. "+esc(errs[0].slice(0,200))+"</p>";
+    if(ref.finish!=="length")x+='<p class="note">The baseline output ended before max_tokens. Longer outputs give divergence more chances to show.</p>';
+    if(ref.tokens===null)x+='<p class="note">The server returned no logprobs, so outputs were compared as text.</p>';
+    render(names,results,x);
+    report={tool:"detcheck-web",version:"1.0.0",endpoint:A.url,model:A.model,against:B?B.url:null,prompt:o.prompt,max_tokens:o.maxTokens,seed:o.seed,runs_per_level:runs,verdict:v[0],probes:results,reference_text:ref.text,outputs:texts};
+    $("dl").disabled=false;
+    $("status").textContent=ctrl.signal.aborted?"Stopped.":"Done.";
+  }catch(e){
+    var msg=e.message||String(e);
+    if(/Failed to fetch|NetworkError|Load failed/i.test(msg))msg+=" (the browser could not reach the endpoint: check the URL, CORS, and that it is HTTPS or localhost. The command-line script avoids these limits.)";
+    $("status").textContent=msg;
+  }finally{$("run").disabled=false;$("stop").disabled=true}
+}
+$("run").addEventListener("click",run);
+$("stop").addEventListener("click",function(){if(ctrl)ctrl.abort()});
+$("dl").addEventListener("click",function(){if(!report)return;var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:"application/json"}));a.download="determinism-report.json";a.click()});
+})();
+</script>
+</body>
+</html>
