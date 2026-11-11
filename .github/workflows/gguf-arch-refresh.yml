@@ -62,9 +62,3 @@ jobs:
           git push -q origin HEAD:main
           echo "pushed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Ask GitHub Pages to build
-        if: steps.push.outputs.pushed == 'true'
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/${{ github.repository }}/pages/builds"
