@@ -1,0 +1,70 @@
+name: Refresh GGUF architecture lookup
+
+# Rebuilds en/gguf-arch-min-build-lookup/ from the git history of llama.cpp and Ollama.
+# Publishes only when the tests pass and the tables changed (or the data is a week old).
+on:
+  schedule:
+    - cron: "23 20 * * *"   # UTC 20:23 = 05:23 JST
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Publish even if the tables did not change
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - ".github/gguf-arch/**"
+      - ".github/workflows/gguf-arch-refresh.yml"
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: gguf-arch-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild from upstream git history and test
+        run: |
+          export PAGE_MODIFIED="$(date -u +%F)"
+          bash .github/gguf-arch/run.sh "$RUNNER_TEMP/gguf-arch"
+
+      - name: Decide and copy into the site
+        id: fin
+        env:
+          EVENT: ${{ github.event_name }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          FLAG=""
+          if [ "$EVENT" = "push" ] || [ "$FORCE" = "true" ]; then FLAG="--force"; fi
+          python3 -I .github/gguf-arch/finish.py "$RUNNER_TEMP/gguf-arch/out" . $FLAG >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push
+        id: push
+        if: steps.fin.outputs.publish == 'true'
+        env:
+          MESSAGE: ${{ steps.fin.outputs.message }}
+        run: |
+          git config user.name "erimaki-kobo"
+          git config user.email "erimaki-kobo@users.noreply.github.com"
+          git add en/gguf-arch-min-build-lookup sitemap.xml
+          if git diff --cached --quiet; then echo "pushed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git commit -q -m "$MESSAGE"
+          git pull -q --rebase origin main
+          git push -q origin HEAD:main
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Ask GitHub Pages to build
+        if: steps.push.outputs.pushed == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds"
