@@ -230,7 +230,7 @@ th{color:var(--mut);font-weight:600;font-size:.8rem}
 #status{color:var(--bad);font-size:.88rem}
 dt{font-weight:600;margin-top:.8em}dd{margin:0}
 #filter{max-width:320px}
-#res .s{font-size:1em}
+#res .s{font-size:1em;white-space:normal}
 """
 
 JS = r"""
