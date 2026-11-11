@@ -140,7 +140,7 @@ for name, enum in sorted(head_archs.items(), key=lambda kv: kv[0]):
     rows.append(row)
 
 head = git("rev-parse", "HEAD").strip()
-head_tag = first_tag(head) or git("describe", "--tags", "--match", "b*", head).strip()
+head_tag = first_tag(head) or git("describe", "--tags", "--abbrev=0", "--match", "b*", head).strip()  # latest tag at or before HEAD
 out = {"source": "https://github.com/ggml-org/llama.cpp", "file": "src/llama-arch.cpp (LLM_ARCH_NAMES)",
        "head": head, "head_tag": head_tag, "head_date": git("log", "-1", "--format=%ad", "--date=short").strip(),
        "count": len(rows), "archs": rows}
