@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="vllm-consumer-multi-gpu-p2p-check/">vLLM tensor parallel hangs on two GPUs without NVLink: which flag fixes it</a></h2>
+<p>Why the same flag "works" for one RTX 5090 / 4090 / RTX PRO box and does nothing on the next: the two all-reduce paths vLLM v0.33.0 can use on PCIe GPUs, causes from missing P2P to IOMMU, ACS, VMs and a driver bug, and <code>p2pcheck.py</code>, which tests each path with a timeout and prints the flags to use.</p>
+<p class="meta">Published 2026-11-12</p>
+</article>
+<article class="card">
 <h2><a href="japanese-tokenizer-efficiency/">How many tokens does Japanese cost? Characters per token for 18 LLM tokenizers</a></h2>
 <p>Japanese Wikipedia, public-domain literature and the Python tutorial counted with the tokenizers of GPT-4o (o200k), GPT-4 (cl100k), Qwen3.5, Gemma, Llama, Mistral, DeepSeek, llm-jp and others, plus the Japanese-to-English token ratio on the same text. Includes a counter: paste Japanese, compare tokenizers.</p>
 <p class="meta">Published 2026-11-11</p>

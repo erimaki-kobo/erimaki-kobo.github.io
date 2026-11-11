@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vLLM Tensor Parallel Hangs on 2 GPUs: P2P Check Script</title>
+<meta name="description" content="Why vLLM hangs with tensor parallel on two RTX 5090, 4090 or RTX PRO GPUs without NVLink, which flag fixes which cause, and a script that tests P2P and NCCL.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vLLM Tensor Parallel Hangs on 2 GPUs: P2P Check Script">
+<meta property="og:description" content="--disable-custom-all-reduce, NCCL_P2P_DISABLE=1, iommu=pt or NCCL_CUMEM_HOST_ENABLE=0? p2pcheck.py tests each path with a timeout and prints the flags your box needs.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/#article", "headline": "vLLM hangs with tensor parallel on two GPUs without NVLink: which flag fixes it?", "description": "Why vLLM hangs with tensor parallel on two RTX 5090, 4090 or RTX PRO GPUs without NVLink, which flag fixes which cause, and a script that tests P2P and NCCL.", "url": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/", "datePublished": "2026-11-12", "dateModified": "2026-11-12", "inLanguage": "en", "about": ["vLLM", "tensor parallelism", "NCCL", "GPU peer-to-peer"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/"}, {"@type": "SoftwareApplication", "@id": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/#p2pcheck", "name": "p2pcheck: multi-GPU P2P and NCCL check for vLLM", "url": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/", "downloadUrl": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/p2pcheck.py", "description": "Tests the GPU-to-GPU paths vLLM tensor parallel uses (driver P2P report, CUDA IPC writes, verified copies, NCCL all-reduce with and without P2P, vLLM custom all-reduce) each with a timeout, checks IOMMU, ACS, VM and /dev/shm, and prints the vLLM flags to use.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Linux (Python 3.9+, PyTorch with CUDA)", "softwareVersion": "1.0.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/#faq", "mainEntity": [{"@type": "Question", "name": "What does 'No available shared memory broadcast block found in 60 seconds' mean in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "It is a symptom, not a cause. vLLM's main process writes each step into a shared-memory ring buffer that every worker reads. The warning is printed when a block has not been read by all workers for 60 seconds, so at least one worker is still stuck in an earlier step. With tensor parallel on PCIe GPUs that worker is usually waiting inside an all-reduce whose data never arrives."}}, {"@type": "Question", "name": "Do RTX 5090 and RTX 4090 support P2P?", "acceptedAnswer": {"@type": "Answer", "text": "Not with NVIDIA's drivers. NVIDIA has said that GeForce cards, including the RTX 40 and 50 series, do not support GPU-to-GPU P2P. On those cards torch.cuda.can_device_access_peer returns False, vLLM turns custom all-reduce off by itself, and NCCL moves data through shared host memory. That is slower than P2P but it is not a bug."}}, {"@type": "Question", "name": "Should I use --disable-custom-all-reduce or NCCL_P2P_DISABLE=1?", "acceptedAnswer": {"@type": "Answer", "text": "They turn off different things. --disable-custom-all-reduce stops vLLM's own all-reduce kernel, which needs working P2P between the GPUs. NCCL_P2P_DISABLE=1 stops NCCL's P2P transport, so NCCL uses shared memory instead. If the driver reports P2P but P2P does not actually work (often an IOMMU in translated mode), both paths can hang and you need both settings. If the GPUs report no P2P, neither changes anything except silencing a warning."}}, {"@type": "Question", "name": "Does iommu=pt fix vLLM hangs on multiple GPUs?", "acceptedAnswer": {"@type": "Answer", "text": "It fixes one cause: GPUs that support P2P but sit behind an IOMMU in translated (DMA) mode on bare metal. NVIDIA does not support PCIe P2P with IOMMU translation, and the transfers can hang or corrupt data. Booting with iommu=pt puts devices in passthrough mode. It does not help on GeForce cards without P2P, in virtual machines, or when the cause is ACS or a driver bug."}}, {"@type": "Question", "name": "What does NCCL WARN Cuda failure 217 'peer access is not supported between these two devices' mean?", "acceptedAnswer": {"@type": "Answer", "text": "On PCIe GPUs without P2P, drivers in the 560 to 575 branches had a bug in host memory sharing through cuMem that NCCL uses for its shared-memory transport. NVIDIA fixed it in the r580 drivers. Upgrade the driver, or set NCCL_CUMEM_HOST_ENABLE=0."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "vLLM multi-GPU P2P check", "item": "https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/"}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none;overflow-wrap:normal}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.s{font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}.s.p{color:var(--warn)}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+button{font:inherit;padding:6px 12px;border-radius:6px;border:1px solid var(--acc);background:transparent;color:var(--acc);cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>vLLM hangs with tensor parallel on two GPUs without NVLink: which flag fixes it?</h1>
+<p class="lede"><strong>It depends on whether your GPUs have P2P, and whether it actually works.</strong> GeForce cards such as the RTX 4090 and 5090 have no P2P with NVIDIA's drivers; vLLM then turns its custom all-reduce off by itself and NCCL uses shared memory, so <code>--disable-custom-all-reduce</code> and <code>NCCL_P2P_DISABLE=1</code> change nothing. Workstation and data-center cards such as the RTX PRO 6000 do report P2P, and when the IOMMU, ACS or a VM breaks it, <em>both</em> vLLM's custom all-reduce and NCCL's P2P transport can hang: you need both settings, or better, fix the host.</p>
+<p>The forum threads mix these cases, which is why the same flag "worked" for one person and "did nothing" for the next. <a href="#tool">p2pcheck.py</a> tests each path separately, with a timeout, and prints the command line for your machine.</p>
+<p class="meta">Published 2026-11-12 &middot; Code paths checked against vLLM v0.33.0 (2026-10-31) and NCCL 2.32.3 docs &middot; Tool version 1.0.0 &middot; <a href="#limits">not yet run on a real dual-GPU box by us</a></p>
+
+<h2 id="message">What "No available shared memory broadcast block found in 60 seconds" means</h2>
+<p><strong>A worker is stuck; the message does not say why.</strong> vLLM's main process writes each step into a shared-memory ring buffer that every worker reads. The writer logs this warning when a block has not been read by all workers after 60 seconds (<code>VLLM_RINGBUFFER_WARNING_INTERVAL</code>, default 60), and repeats it every 60 seconds (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/shm_broadcast.py">shm_broadcast.py</a>). The text itself suggests "hanging or doing some time-consuming work (e.g. compilation, weight/kv cache quantization)".</p>
+<p>With tensor parallel on PCIe GPUs, the usual stuck point is an all-reduce: one GPU waits for data that the other GPU wrote over a P2P path that does not deliver. That is the case this page is about. If every check below passes, look elsewhere: model loading, <code>torch.compile</code>, or one rank that crashed.</p>
+
+<h2 id="paths">Which all-reduce does vLLM use on your GPUs?</h2>
+<p>vLLM v0.33.0 has five all-reduce paths for tensor parallel on CUDA. On one node with consumer or workstation GPUs, only two of them can turn on:</p>
+<div class="tw"><table>
+<thead><tr><th>Path</th><th>On for RTX 3090 / 4090 / 5090, RTX PRO 6000 (sm 8.6, 8.9, 12.0)?</th><th>Condition in the v0.33.0 source</th></tr></thead>
+<tbody>
+<tr><td>Custom all-reduce (vLLM's own kernel over CUDA IPC + P2P)</td><td><span class="s p">only if the driver reports P2P</span>, 2 GPUs, messages under 8 MiB</td><td>World size in {2, 4, 6, 8, 16}; more than 2 PCIe-only GPUs are refused unless all pairs are NVLink; then P2P must be reported. <code>VLLM_SKIP_P2P_CHECK</code> defaults to <code>1</code>, so vLLM trusts <code>torch.cuda.can_device_access_peer</code> and does not run its real IPC test. Default max size 8 MiB when the GPU is not in its size table (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/custom_all_reduce.py">custom_all_reduce.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/envs.py">envs.py</a>)</td></tr>
+<tr><td>NCCL (PyNccl)</td><td><span class="s y">always</span>; carries everything custom all-reduce does not</td><td>NCCL picks P2P when the driver allows it, otherwise SHM (shared host memory). <code>NCCL_P2P_DISABLE=1</code> forces SHM.</td></tr>
+<tr><td>PyTorch symmetric memory</td><td><span class="s n">no</span></td><td>Size table has only sm 9.0, 10.0, 10.3, 10.7, and it needs multicast (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/symm_mem.py">symm_mem.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/all_reduce_utils.py">all_reduce_utils.py</a>)</td></tr>
+<tr><td>FlashInfer all-reduce</td><td><span class="s n">no</span></td><td>Size table has only sm 9.0, 10.0, 10.3, 10.7; otherwise "not supported for world_size" (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/flashinfer_all_reduce.py">flashinfer_all_reduce.py</a>)</td></tr>
+<tr><td>FlashInfer PCIe IPC all-reduce</td><td><span class="s n">off by default</span></td><td>Opt-in with <code>VLLM_ALLREDUCE_USE_FLASHINFER_PCIE_IPC=1</code></td></tr>
+</tbody></table></div>
+<p>So on two PCIe GPUs there are exactly two places a P2P problem can hang vLLM: the custom all-reduce, and NCCL's P2P transport. <code>--disable-custom-all-reduce</code> removes the first, <code>NCCL_P2P_DISABLE=1</code> the second. The log line <code>Custom allreduce is disabled because your platform lacks GPU P2P capability or P2P test failed</code> means the first was never on.</p>
+
+<h2 id="causes">Causes, how they show, and the fix</h2>
+<div class="tw"><table>
+<thead><tr><th>Cause</th><th>What you see</th><th>What p2pcheck.py shows</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td><strong>GeForce card, no P2P</strong> (normal, not a bug). NVIDIA: "p2p is not supported for GPU&lt;-&gt;GPU P2P" on RTX 50 series (<a href="https://forums.developer.nvidia.com/t/p2p-issue-using-two-rtx-5090-gpus/326776">NVIDIA forum, 2025-03-13</a>); same for RTX 4090 (<a href="https://www.tomshardware.com/news/nvidia-confirms-geforce-cards-lack-p2p-support">2023</a>)</td><td>The "lacks GPU P2P capability" warning; TP works but is slower than you hoped</td><td>peer report <code>no</code>; NCCL <code>via SHM</code>; everything PASS</td><td>Nothing to fix. The flags only silence the warning.</td></tr>
+<tr><td><strong>P2P reported, IOMMU translating</strong> (bare metal)</td><td>Hang at worker init or the first request, then the 60-second warning; sometimes wrong output</td><td>peer <code>yes</code>; IPC write or copy FAIL/HANG; IOMMU <code>translated (DMA)</code></td><td>Boot with <code>iommu=pt</code> or turn IOMMU / VT-d off in the BIOS. Until then: <code>--disable-custom-all-reduce</code> and <code>NCCL_P2P_DISABLE=1</code>. NVIDIA: the driver stack "do[es] not support IOMMU-enabled PCIe peer-to-peer memory transfer" (<a href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html">NCCL GPU troubleshooting</a>). The original reporter of <a href="https://github.com/vllm-project/vllm/issues/30682">vllm#30682</a> (2× RTX PRO 6000) fixed it with <code>iommu=pt</code>.</td></tr>
+<tr><td><strong>ACS on a PCIe bridge</strong></td><td>Very slow all-reduce or a hang</td><td>ACS <code>on</code> for a bridge above a GPU (needs root)</td><td>Disable ACS in the BIOS, or with <code>setpci</code> as NCCL's guide shows. Only on bare metal.</td></tr>
+<tr><td><strong>Virtual machine</strong> (Proxmox, ESXi passthrough)</td><td>As above; IOMMU cannot be turned off because passthrough needs it (<a href="https://discuss.vllm.ai/t/what-means-there-is-no-p2p-support/1928">forum, 2025-11</a>)</td><td>VM detected; P2P tests fail or peer <code>no</code></td><td>Keep <code>--disable-custom-all-reduce</code> and <code>NCCL_P2P_DISABLE=1</code>. NCCL: "Virtual machines require ACS to function, hence disabling ACS is not an option."</td></tr>
+<tr><td><strong>Driver bug in cuMem host memory</strong>, drivers 560&ndash;575 on GPUs without P2P</td><td><code>NCCL WARN Cuda failure 217 'peer access is not supported between these two devices'</code></td><td>NCCL default ERROR, <code>NCCL_CUMEM_HOST_ENABLE=0</code> PASS</td><td>Driver r580 or later, or <code>NCCL_CUMEM_HOST_ENABLE=0</code> (<a href="https://github.com/NVIDIA/nccl/issues/1838">NCCL#1838</a>; <a href="https://docs.vllm.ai/en/latest/usage/troubleshooting/">vLLM troubleshooting</a>)</td></tr>
+<tr><td><strong>Old GeForce driver that reported P2P falsely</strong> (RTX 4090, drivers before 525.105.17)</td><td>Hangs and crashes in multi-GPU jobs</td><td>peer <code>yes</code> on a GeForce card; IPC write fails</td><td>Update the driver; with 525.105.17 the CUDA samples "report that P2P is not supported" (<a href="https://forums.developer.nvidia.com/t/standard-nvidia-cuda-tests-fail-with-dual-rtx-4090-linux-box/233202/43">NVIDIA forum, 2023-03-31</a>)</td></tr>
+<tr><td><strong>Small /dev/shm in a container</strong></td><td>NCCL errors or hangs even with P2P off</td><td>All NCCL runs fail; <code>/dev/shm</code> under 1 GiB</td><td>Run with <code>--ipc=host</code> or <code>--shm-size</code> (<a href="https://docs.vllm.ai/en/latest/deployment/docker.html">vLLM's Docker docs</a>); NCCL suggests <code>--shm-size=1g --ulimit memlock=-1</code> because it "creates shared memory segments, traditionally in /dev/shm" (<a href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/runtime_and_mpi_issues.html">NCCL runtime issues</a>). One user in vllm#30682 reported a larger shm helped.</td></tr>
+<tr><td><strong>Custom all-reduce hangs, cause unknown</strong> (seen on 8× RTX PRO 6000 across two NUMA nodes, vLLM 0.17.0)</td><td>Init hang that goes away with <code>--disable-custom-all-reduce</code> (<a href="https://discuss.vllm.ai/t/vllm-hangs-during-worker-initialization-on-blackwell-pcie-gpus-unless-disable-custom-all-reduce-is-used/2540">forum, 2026-04-11</a>, no maintainer answer)</td><td>With <code>--vllm</code>: custom all-reduce on HANG, off PASS</td><td><code>--disable-custom-all-reduce</code></td></tr>
+</tbody></table></div>
+<p class="note">Patched open kernel modules that force P2P on GeForce cards exist. NVIDIA does not support them, and this page does not cover them.</p>
+
+<h2 id="tool">Check your machine with p2pcheck.py</h2>
+<p>One Python file, no packages beyond the PyTorch you already run vLLM with. Run it in the same venv or container as vLLM:</p>
+<pre><code>curl -O https://erimaki-kobo.github.io/en/vllm-consumer-multi-gpu-p2p-check/p2pcheck.py
+python3 p2pcheck.py                    # GPUs 0 and 1
+python3 p2pcheck.py --gpus 0,1,2,3     # more GPUs
+python3 p2pcheck.py --vllm             # also run vLLM's own TP all-reduce
+python3 p2pcheck.py --json report.json --verbose</code></pre>
+<p>Each check runs in its own process. A check that does not finish within <code>--timeout</code> seconds (default 60) is killed and reported as <strong>HANG</strong>, so the script never freezes your shell the way vLLM does.</p>
+<div class="tw"><table>
+<thead><tr><th>Check</th><th>What it does</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>host</td><td>IOMMU domain type of each GPU (<code>/sys/bus/pci/devices/&lt;gpu&gt;/iommu_group/type</code>: <code>DMA</code> = translated, <code>identity</code> = passthrough), <code>iommu=</code> kernel arguments, ACS on every bridge above each GPU (<code>lspci -vvv</code>, root), VM / WSL / container, <code>/dev/shm</code> size</td><td>Host causes in the table above</td></tr>
+<tr><td>topo</td><td><code>nvidia-smi topo -m</code> link type and <code>nvidia-smi topo -p2p r</code> / <code>w</code> for the pair</td><td>What the driver claims</td></tr>
+<tr><td>peer</td><td><code>torch.cuda.can_device_access_peer</code> for every pair; versions of PyTorch, CUDA, NCCL, vLLM</td><td>This is what vLLM's custom all-reduce decides on by default</td></tr>
+<tr><td>ipc</td><td>vLLM's real P2P test (the one <code>VLLM_SKIP_P2P_CHECK=0</code> turns on): process A allocates on GPU <em>i</em> and fills with 1, process B opens it via CUDA IPC from GPU <em>j</em> and writes 2, both read it back. Run at 1 KiB like vLLM, and again at 64 MiB</td><td>Custom all-reduce uses exactly this path; a broken IOMMU setup can pass a tiny test and fail a large one</td></tr>
+<tr><td>copy</td><td>256 MiB of random data GPU <em>i</em> &rarr; GPU <em>j</em>, compared byte for byte, plus GB/s</td><td>Catches silent corruption; the GB/s tells P2P from host staging</td></tr>
+<tr><td>nccl</td><td>All-reduce at 512 B, 64 KiB, 1 MiB, 8 MiB, 64 MiB with NCCL defaults, with <code>NCCL_P2P_DISABLE=1</code>, and with <code>NCCL_CUMEM_HOST_ENABLE=0</code> if the default failed; checks the result and reads the transport from <code>NCCL_DEBUG=INFO</code> (<code>via P2P/IPC</code>, <code>via P2P/CUMEM</code>, <code>via SHM</code>)</td><td>vLLM's own sanity script (<a href="https://docs.vllm.ai/en/latest/usage/troubleshooting/">troubleshooting</a>) reduces 128 floats with no timeout; larger messages and the A/B against P2P-off tell you which transport hangs</td></tr>
+<tr><td>vllm (opt.)</td><td>vLLM's <code>tensor_model_parallel_all_reduce</code> with custom all-reduce on and off; reports whether vLLM actually enabled it</td><td>The exact path <code>vllm serve</code> takes</td></tr>
+</tbody></table></div>
+<p>The script ends with a verdict and a command line, for example:</p>
+<pre><code>verdict:
+  CAUSE: the driver reports P2P between these GPUs, but a real P2P write or copy failed or hung. vLLM's custom all-reduce and NCCL's P2P transport both use this path, so either one can hang.
+    likely why: the GPUs sit in a translated IOMMU domain (type DMA). NVIDIA does not support PCIe P2P with the IOMMU translating on bare metal. Fix: boot with iommu=pt (or turn IOMMU / VT-d off in the BIOS), then rerun this script.
+    note: the 1 KiB test vLLM uses (VLLM_SKIP_P2P_CHECK=0) passed, so vLLM's own check would not catch this; only larger transfers fail.
+  CAUSE: NCCL all-reduce hangs with default settings and works with NCCL_P2P_DISABLE=1, so NCCL's P2P transport is the broken part.
+
+run vLLM as:
+  NCCL_P2P_DISABLE=1 vllm serve &lt;model&gt; --tensor-parallel-size 2 --disable-custom-all-reduce</code></pre>
+<p class="note">This is the script's verdict for a box where P2P is reported, the 1 KiB IPC test passes, the 64 MiB test and the copy hang, and the GPUs are in a translated IOMMU domain. The per-check lines above the verdict are left out.</p>
+<p><a href="p2pcheck.py">Download p2pcheck.py</a> (MIT).</p>
+
+<h2 id="read">How to read the result</h2>
+<dl>
+<dt>peer no, all PASS, NCCL via SHM</dt><dd>Normal for GeForce. Your TP speed is bounded by PCIe through host memory; flags will not make it faster.</dd>
+<dt>peer yes, ipc or copy FAIL / HANG</dt><dd>P2P is advertised but broken. Look at the IOMMU and ACS lines. Fix the host, rerun, and keep the two settings until every check passes.</dd>
+<dt>NCCL defaults HANG, NCCL_P2P_DISABLE=1 PASS</dt><dd>NCCL's P2P transport is the problem. Use <code>NCCL_P2P_DISABLE=1</code> (and <code>--disable-custom-all-reduce</code> if peer is yes).</dd>
+<dt>Every NCCL run fails</dt><dd>Below vLLM: driver, NCCL build or container. Use <code>--verbose</code> to see the last NCCL lines.</dd>
+<dt>Everything passes but vLLM still hangs</dt><dd>Run with <code>--vllm</code>. If that passes too, the hang is not in the collectives.</dd>
+</dl>
+
+<h2 id="cost">What do the workarounds cost?</h2>
+<p><code>NCCL_P2P_DISABLE=1</code> sends NCCL traffic through host memory. One user with two RTX 5090s (patched driver, custom all-reduce off in both runs) measured P2P on versus off at +2.7% mean output throughput over nine single-pass workloads, range &minus;1.9% to +4.7% (<a href="https://discuss.vllm.ai/t/dual-rtx-5090-tp-2-shm-vs-patched-bar1-p2p-cumem-single-pass-2-7-mean-point-estimate/2870">forum, 2026-08-11</a>). The cost of <code>--disable-custom-all-reduce</code> on a box where P2P works is not measured here. A box that hangs has no throughput to lose.</p>
+
+<h2 id="limits">What this does not tell you</h2>
+<ul>
+<li>We have not run p2pcheck.py on a dual-GPU machine yet. The parsers, verdict rules and the timeout path are tested without GPUs; the CUDA IPC, copy and NCCL checks follow vLLM's and PyTorch's code but are unverified on real hardware. Reports from your box are welcome.</li>
+<li>The <code>--vllm</code> check calls vLLM internals that change between releases; it was written against v0.33.0. If it reports "vLLM API may differ", the other checks still stand.</li>
+<li>Multi-node, NVLink, InfiniBand and ROCm are out of scope.</li>
+<li>ACS state needs root; without it the script reports "unknown".</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>What does "No available shared memory broadcast block found in 60 seconds" mean in vLLM?</h3>
+<p>It is a symptom, not a cause. vLLM's main process writes each step into a shared-memory ring buffer that every worker reads. The warning is printed when a block has not been read by all workers for 60 seconds, so at least one worker is still stuck in an earlier step. With tensor parallel on PCIe GPUs that worker is usually waiting inside an all-reduce whose data never arrives.</p>
+<h3>Do RTX 5090 and RTX 4090 support P2P?</h3>
+<p>Not with NVIDIA's drivers. NVIDIA has said that GeForce cards, including the RTX 40 and 50 series, do not support GPU-to-GPU P2P. On those cards <code>torch.cuda.can_device_access_peer</code> returns False, vLLM turns custom all-reduce off by itself, and NCCL moves data through shared host memory. That is slower than P2P but it is not a bug.</p>
+<h3>Should I use --disable-custom-all-reduce or NCCL_P2P_DISABLE=1?</h3>
+<p>They turn off different things. <code>--disable-custom-all-reduce</code> stops vLLM's own all-reduce kernel, which needs working P2P between the GPUs. <code>NCCL_P2P_DISABLE=1</code> stops NCCL's P2P transport, so NCCL uses shared memory instead. If the driver reports P2P but P2P does not actually work (often an IOMMU in translated mode), both paths can hang and you need both settings. If the GPUs report no P2P, neither changes anything except silencing a warning.</p>
+<h3>Does iommu=pt fix vLLM hangs on multiple GPUs?</h3>
+<p>It fixes one cause: GPUs that support P2P but sit behind an IOMMU in translated (DMA) mode on bare metal. NVIDIA does not support PCIe P2P with IOMMU translation, and the transfers can hang or corrupt data. Booting with <code>iommu=pt</code> puts devices in passthrough mode. It does not help on GeForce cards without P2P, in virtual machines, or when the cause is ACS or a driver bug.</p>
+<h3>What does NCCL WARN Cuda failure 217 'peer access is not supported between these two devices' mean?</h3>
+<p>On PCIe GPUs without P2P, drivers in the 560 to 575 branches had a bug in host memory sharing through cuMem that NCCL uses for its shared-memory transport. NVIDIA fixed it in the r580 drivers. Upgrade the driver, or set <code>NCCL_CUMEM_HOST_ENABLE=0</code>.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>vLLM v0.33.0 source: <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/custom_all_reduce.py">custom_all_reduce.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/all_reduce_utils.py">all_reduce_utils.py</a> (IPC P2P test, size tables), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/cuda_communicator.py">cuda_communicator.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/symm_mem.py">symm_mem.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/flashinfer_all_reduce.py">flashinfer_all_reduce.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/distributed/device_communicators/shm_broadcast.py">shm_broadcast.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/envs.py">envs.py</a>.</li>
+<li>vLLM docs: <a href="https://docs.vllm.ai/en/latest/usage/troubleshooting/">Troubleshooting</a> (sanity script, <code>NCCL_CUMEM_HOST_ENABLE=0</code>), <a href="https://docs.vllm.ai/en/latest/deployment/docker.html">Using Docker</a>.</li>
+<li>NCCL 2.32.3 docs: <a href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html">Environment variables</a> (<code>NCCL_P2P_DISABLE</code>, <code>NCCL_P2P_LEVEL</code>, <code>NCCL_CUMEM_HOST_ENABLE</code>), <a href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html">GPU troubleshooting</a> (IOMMU, ACS, VMs), <a href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/runtime_and_mpi_issues.html">Runtime and MPI issues</a> (shared memory in containers).</li>
+<li>NVIDIA NCCL issue <a href="https://github.com/NVIDIA/nccl/issues/1838">#1838</a>, Host memory sharing through CUMEM is broken in devices without p2p access (fixed in r580).</li>
+<li>NVIDIA developer forum: <a href="https://forums.developer.nvidia.com/t/p2p-issue-using-two-rtx-5090-gpus/326776">P2P issue using two RTX 5090 GPUs</a> (2025-03); <a href="https://forums.developer.nvidia.com/t/standard-nvidia-cuda-tests-fail-with-dual-rtx-4090-linux-box/233202/43">Standard CUDA tests fail with dual RTX 4090</a> (2023-03).</li>
+<li>Tom's Hardware, <a href="https://www.tomshardware.com/news/nvidia-confirms-geforce-cards-lack-p2p-support">Nvidia confirms GeForce cards lack P2P support</a>, 2023-02-22.</li>
+<li>vLLM GitHub issue <a href="https://github.com/vllm-project/vllm/issues/30682">#30682</a>, No available shared memory broadcast block found in 60 seconds (2025-12 to 2026-06).</li>
+<li>vLLM forum: <a href="https://discuss.vllm.ai/t/vllm-hangs-during-worker-initialization-on-blackwell-pcie-gpus-unless-disable-custom-all-reduce-is-used/2540">Hangs on Blackwell PCIe GPUs unless --disable-custom-all-reduce</a> (2026-04), <a href="https://discuss.vllm.ai/t/what-means-there-is-no-p2p-support/1928">What means there is no P2P support</a> (2025-11), <a href="https://discuss.vllm.ai/t/dual-rtx-5090-tp-2-shm-vs-patched-bar1-p2p-cumem-single-pass-2-7-mean-point-estimate/2870">Dual RTX 5090 TP=2: SHM vs patched P2P</a> (2026-08).</li>
+</ul>
+<p class="meta">On this site: <a href="/en/vllm-torch-cuda-driver-matrix/">which PyTorch, CUDA and driver each vLLM release needs</a> &middot; <a href="/en/llm-determinism-test/">determinism test for one endpoint</a> &middot; <a href="/en/engine-logprob-parity-check/">compare logprobs across engines</a></p>
+</main>
+</body>
+</html>
