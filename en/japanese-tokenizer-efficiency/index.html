@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Japanese Tokens per Character: 18 LLM Tokenizers Measured</title>
+<meta name="description" content="Japanese token cost on GPT-4o (o200k), GPT-4 (cl100k), Qwen3.5, Gemma, Llama, Mistral, DeepSeek and llm-jp, measured on three corpora, plus a counter.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/japanese-tokenizer-efficiency/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Japanese Tokens per Character: 18 LLM Tokenizers Measured">
+<meta property="og:description" content="Japanese token cost on GPT-4o (o200k), GPT-4 (cl100k), Qwen3.5, Gemma, Llama, Mistral, DeepSeek and llm-jp, measured on three corpora, plus a counter.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/japanese-tokenizer-efficiency/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/japanese-tokenizer-efficiency/#article", "headline": "How many tokens does Japanese cost? Characters per token for 18 LLM tokenizers", "description": "Japanese token cost on GPT-4o (o200k), GPT-4 (cl100k), Qwen3.5, Gemma, Llama, Mistral, DeepSeek and llm-jp, measured on three corpora, plus a counter.", "url": "https://erimaki-kobo.github.io/en/japanese-tokenizer-efficiency/", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo"}, "about": ["Japanese", "tokenizer", "LLM", "token count"]}, {"@type": "Dataset", "name": "Japanese characters per token for 18 LLM tokenizers", "url": "https://erimaki-kobo.github.io/en/japanese-tokenizer-efficiency/#table", "description": "Token counts for Japanese Wikipedia text, public-domain Japanese literature and the Japanese and English Python tutorial, measured with each model's Hugging Face tokenizer on 2026-11-11.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "temporalCoverage": "2026-11-11", "variableMeasured": ["characters per token", "token count"]}, {"@type": "WebApplication", "name": "Japanese token counter for LLM tokenizers", "url": "https://erimaki-kobo.github.io/en/japanese-tokenizer-efficiency/#count", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Paste Japanese text and count its tokens with several LLM tokenizers side by side, in the browser."}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How many tokens is one Japanese character?", "acceptedAnswer": {"@type": "Answer", "text": "With current tokenizers, about 0.54 to 0.79 tokens per character on encyclopedic Japanese (1.3 to 1.8 characters per token). GPT-4o's o200k gives about 0.79 tokens per character on Japanese Wikipedia text; GPT-4's older cl100k gives about 1.09, more tokens than characters."}}, {"@type": "Question", "name": "Which tokenizer is most efficient for Japanese?", "acceptedAnswer": {"@type": "Answer", "text": "Of the 18 measured, llm-jp-3.1 (a Japanese-first tokenizer) packs the most Japanese per token, 1.84 characters per token on Wikipedia text. Among multilingual models, Qwen3.5, Gemma 3/4 and Llama 4 are close behind at 1.55 to 1.60. GPT-4o's o200k and Mistral's Tekken are at 1.27."}}, {"@type": "Question", "name": "Is Japanese still 2 to 3 times more expensive than English in tokens?", "acceptedAnswer": {"@type": "Answer", "text": "Not with current tokenizers. On the Python tutorial, where the same text exists in both languages, the Japanese version needs 1.01x to 1.40x the English token count on every tokenizer measured except GPT-4's cl100k (1.74x). The documentation shares code and markup between the two languages, which narrows the gap; prose without code would show a larger one."}}, {"@type": "Question", "name": "Does Qwen3.5 use fewer tokens for Japanese than Qwen3?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Qwen3.5's new 248k vocabulary needs about 15% fewer tokens than Qwen3 on Japanese Wikipedia text (268,797 vs 317,354), while English stays almost the same."}}, {"@type": "Question", "name": "Can I count tokens for Claude here?", "acceptedAnswer": {"@type": "Answer", "text": "No. Anthropic does not publish its tokenizer; use the token counting endpoint of the Claude API for exact counts."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "Japanese tokens per character", "item": "https://erimaki-kobo.github.io/en/japanese-tokenizer-efficiency/"}]}]}</script>
+<style>:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+#main{min-width:960px}
+#main td:nth-child(n+3),#main th:nth-child(n+3){text-align:right;white-space:nowrap}
+#models{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px 12px;margin:8px 0}
+.ck{display:flex;gap:6px;align-items:baseline;font-size:.9rem;color:var(--fg)}
+.ck input{width:auto}
+.ex{background:none;color:var(--acc);border:1px solid var(--line);padding:5px 10px;font-size:.85rem}
+button:disabled{opacity:.6;cursor:wait}
+#status{color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>How many tokens does Japanese cost? Characters per token for 18 LLM tokenizers</h1>
+<p class="lede"><strong>On Japanese Wikipedia text, current tokenizers fit 1.27 to 1.84 Japanese characters into one token. llm-jp-3.1 packs the most (1.84 characters per token), then Qwen3.5 (1.60), Gemma 3/4 (1.59) and Llama 4 (1.55); GPT-4o's o200k gets 1.27. GPT-4's older cl100k, still used by phi-4 and Granite 4.0, gets only 0.92, more tokens than characters.</strong> The often-quoted rule that Japanese costs two to three times as many tokens as English is out of date: on the Python tutorial, which exists in both languages, the Japanese text needs 1.01x to 1.40x the English token count on every tokenizer here except cl100k (1.74x).</p>
+<p class="meta">Measured 2026-11-11 &middot; 18 tokenizers from Hugging Face, counted with transformers.js 4.3.2 &middot; the o200k and cl100k counts were checked against an independent implementation (gpt-tokenizer 4.1.2) and matched exactly &middot; 697,000 Japanese characters in three corpora</p>
+
+<h2 id="table">How many Japanese characters fit in one token, by tokenizer?</h2>
+<p><strong>Higher characters per token means fewer tokens, so lower cost and more text in the same context window.</strong> Rows are sorted by the Wikipedia column. Tokenizers that gave identical counts on all corpora share a row.</p>
+<div class="tw wide"><table id="main"><thead><tr><th>Tokenizer</th><th>Used by</th><th>Vocabulary</th><th>Wikipedia (ja)<br>chars/token</th><th>Literature (ja)<br>chars/token</th><th>Python docs (ja)<br>chars/token</th><th>Tokens per 1,000 chars<br>(Wikipedia)</th><th>Same docs, Japanese vs English<br>(token ratio)</th></tr></thead><tbody>
+<tr><td><strong>llm-jp-3.1</strong></td><td>llm-jp-3.1 models (Japanese-first, Unigram)</td><td>99,582</td><td>1.84</td><td>1.76</td><td>2.50</td><td>544</td><td>1.01x</td></tr>
+<tr><td><strong>Qwen3.5</strong></td><td>Qwen3.5 family</td><td>248,070</td><td>1.60</td><td>1.57</td><td>2.34</td><td>624</td><td>1.12x</td></tr>
+<tr><td><strong>Gemma 3 / Gemma 4</strong></td><td>Gemma 3, Gemma 4</td><td>262,168</td><td>1.59</td><td>1.50</td><td>2.34</td><td>629</td><td>1.10x</td></tr>
+<tr><td><strong>Llama 4</strong></td><td>Llama 4 Scout</td><td>201,135</td><td>1.55</td><td>1.36</td><td>2.33</td><td>646</td><td>1.16x</td></tr>
+<tr><td><strong>Falcon-H1</strong></td><td>Falcon-H1</td><td>131,085</td><td>1.49</td><td>1.41</td><td>2.06</td><td>669</td><td>1.17x</td></tr>
+<tr><td><strong>DeepSeek V3.2</strong></td><td>DeepSeek V3.2</td><td>128,818</td><td>1.45</td><td>1.31</td><td>2.08</td><td>688</td><td>1.27x</td></tr>
+<tr><td><strong>LFM2</strong></td><td>Liquid LFM2</td><td>64,907</td><td>1.41</td><td>1.33</td><td>2.06</td><td>709</td><td>1.23x</td></tr>
+<tr><td><strong>Llama 3</strong></td><td>Llama 3.1 / 3.3, and Japanese continued-pretraining models built on them (Swallow measured: identical)</td><td>128,256</td><td>1.37</td><td>1.30</td><td>2.01</td><td>729</td><td>1.35x</td></tr>
+<tr><td><strong>Qwen3</strong></td><td>Qwen3</td><td>151,669</td><td>1.36</td><td>1.37</td><td>2.03</td><td>737</td><td>1.29x</td></tr>
+<tr><td><strong>GLM-4.6</strong></td><td>GLM-4.6</td><td>151,365</td><td>1.35</td><td>1.27</td><td>2.00</td><td>740</td><td>1.35x</td></tr>
+<tr><td><strong>Mistral Tekken</strong></td><td>Mistral NeMo, NVIDIA Nemotron Nano 9B v2 (identical); Mistral Small 3.2 within 14 tokens of NeMo on every corpus</td><td>132,072</td><td>1.27</td><td>1.26</td><td>1.88</td><td>785</td><td>1.37x</td></tr>
+<tr><td><strong>o200k (GPT-4o)</strong></td><td>GPT-4o and o4-mini (OpenAI&#x27;s o200k), gpt-oss (o200k_harmony, same text encoding)</td><td>200,019</td><td>1.27</td><td>1.17</td><td>1.92</td><td>790</td><td>1.40x</td></tr>
+<tr><td><strong>cl100k (GPT-4)</strong></td><td>GPT-4 and GPT-3.5 (OpenAI&#x27;s cl100k); phi-4 and Granite 4.0 gave identical counts</td><td>100,448</td><td>0.92</td><td>0.88</td><td>1.55</td><td>1085</td><td>1.74x</td></tr>
+</tbody></table></div>
+<p class="note">Tokens per 1,000 characters is the inverse of the Wikipedia column, for budgeting: 1,000 Japanese characters of encyclopedic text cost that many input tokens. The last column divides the Japanese token count of the Python tutorial by the English token count of the same entries.</p>
+
+<h2 id="count">Count the tokens in your own Japanese text</h2>
+<div class="card">
+<label for="q">Japanese text</label>
+<textarea id="q" rows="7" spellcheck="false"></textarea>
+<div id="models"></div>
+<div class="row"><button id="go" type="button">Count tokens</button><button class="ex" id="sample" type="button">Example: opening of Botchan</button><span id="status" role="status"></span></div>
+<div id="res" aria-live="polite"></div>
+</div>
+<p class="note">Your text never leaves the browser. Each tokenizer's <code>tokenizer.json</code> is downloaded from Hugging Face the first time you use it (sizes shown), and the counting library is downloaded from jsDelivr and run only if its SHA-256 matches. Counts exclude special tokens such as BOS and chat-template markup, and each line is counted separately, as in the table.</p>
+
+<h2 id="corpora">What text was measured?</h2>
+<dl>
+<dt>Wikipedia (ja), 430,699 characters</dt><dd>Plain-text extracts of 12 Japanese Wikipedia articles (Tokyo, Japanese language, artificial intelligence, Mount Fuji, Edo period, Shinkansen, sushi, quantum computer, The Tale of Genji, earthquake, Bank of Japan, Internet), section headings removed. Revision IDs are listed below.</dd>
+<dt>Literature (ja), 106,924 characters</dt><dd>Four public-domain works from Aozora Bunko: Natsume Soseki's <i>Botchan</i>, Akutagawa Ryunosuke's <i>Rashomon</i> and <i>The Spider's Thread</i>, Dazai Osamu's <i>Run, Melos!</i>, with ruby readings and editor notes removed.</dd>
+<dt>Python docs (ja and en), 159,155 and 244,253 characters</dt><dd>All 1,324 translated entries of the Python 3.14 tutorial from the official Japanese translation, with the English original of each entry. This is the only parallel text, so it is where the Japanese-versus-English ratio comes from. It contains inline code and reStructuredText markup in both languages.</dd>
+</dl>
+
+<h2 id="why">Which tokenizers improved on Japanese, and by how much?</h2>
+<p><strong>cl100k is the only tokenizer here that needs more tokens than characters. The three best multilingual tokenizers all have 200,000 to 270,000 entries, but size alone does not decide it: o200k also has 200,000 and sits near the bottom.</strong> llm-jp-3.1 is the exception: a 100,000-entry Unigram vocabulary built for Japanese and English, which beats every multilingual tokenizer on Japanese while staying close to them on English (62,814 tokens for the English tutorial, against 58,759 to 66,339 for the others).</p>
+<ul>
+<li>Qwen3.5 moved from Qwen3's 152k vocabulary to 248k and needs 15% fewer tokens on Japanese Wikipedia text, with English almost unchanged.</li>
+<li>Llama 4 needs 11% fewer tokens than Llama 3 on the same text.</li>
+<li>Japanese models built by continued pretraining on Llama 3 keep its tokenizer: Llama-3.3-Swallow counts exactly like Llama 3.1.</li>
+<li>o200k (GPT-4o) needs 27% fewer tokens than cl100k (GPT-4) on Japanese Wikipedia text.</li>
+</ul>
+
+<h2 id="faq">FAQ</h2>
+<dl>
+<dt>How many tokens is one Japanese character?</dt><dd>With current tokenizers, about 0.54 to 0.79 tokens per character on encyclopedic Japanese (1.3 to 1.8 characters per token). GPT-4o&#x27;s o200k gives about 0.79 tokens per character on Japanese Wikipedia text; GPT-4&#x27;s older cl100k gives about 1.09, more tokens than characters.</dd>
+<dt>Which tokenizer is most efficient for Japanese?</dt><dd>Of the 18 measured, llm-jp-3.1 (a Japanese-first tokenizer) packs the most Japanese per token, 1.84 characters per token on Wikipedia text. Among multilingual models, Qwen3.5, Gemma 3/4 and Llama 4 are close behind at 1.55 to 1.60. GPT-4o&#x27;s o200k and Mistral&#x27;s Tekken are at 1.27.</dd>
+<dt>Is Japanese still 2 to 3 times more expensive than English in tokens?</dt><dd>Not with current tokenizers. On the Python tutorial, where the same text exists in both languages, the Japanese version needs 1.01x to 1.40x the English token count on every tokenizer measured except GPT-4&#x27;s cl100k (1.74x). The documentation shares code and markup between the two languages, which narrows the gap; prose without code would show a larger one.</dd>
+<dt>Does Qwen3.5 use fewer tokens for Japanese than Qwen3?</dt><dd>Yes. Qwen3.5&#x27;s new 248k vocabulary needs about 15% fewer tokens than Qwen3 on Japanese Wikipedia text (268,797 vs 317,354), while English stays almost the same.</dd>
+<dt>Can I count tokens for Claude here?</dt><dd>No. Anthropic does not publish its tokenizer; use the token counting endpoint of the Claude API for exact counts.</dd>
+</dl>
+
+<h2 id="method">How was this measured?</h2>
+<ol>
+<li>Each tokenizer was loaded from its Hugging Face repo with transformers.js 4.3.2 in Chrome on 2026-11-11.</li>
+<li>Each non-empty line of a corpus was encoded separately without special tokens, and the counts were summed. Characters are Unicode code points, newlines excluded.</li>
+<li>As a cross-check, the o200k and cl100k results were recomputed with gpt-tokenizer 4.1.2, an independent JavaScript implementation of OpenAI's tokenizers, and matched to the token on all four corpora. Three tokenizers were also recounted with transformers.js 3.8.1 on the Wikipedia corpus with identical results.</li>
+</ol>
+<div class="tw"><table><thead><tr><th>Hugging Face repo measured</th><th>Model type</th><th>Wikipedia tokens</th><th>Literature tokens</th><th>Python docs ja tokens</th><th>Python docs en tokens</th></tr></thead><tbody>
+<tr><td><code>llm-jp/llm-jp-3.1-13b-instruct4</code></td><td>Unigram</td><td>234,123</td><td>60,638</td><td>63,554</td><td>62,814</td></tr>
+<tr><td><code>Qwen/Qwen3.5-9B</code></td><td>BPE</td><td>268,797</td><td>68,235</td><td>67,892</td><td>60,470</td></tr>
+<tr><td><code>google/gemma-4-E4B-it</code></td><td>BPE</td><td>270,875</td><td>71,064</td><td>67,947</td><td>61,813</td></tr>
+<tr><td><code>unsloth/gemma-3-4b-it</code></td><td>BPE</td><td>270,875</td><td>71,064</td><td>67,947</td><td>61,813</td></tr>
+<tr><td><code>unsloth/Llama-4-Scout-17B-16E-Instruct</code></td><td>BPE</td><td>278,112</td><td>78,675</td><td>68,437</td><td>58,759</td></tr>
+<tr><td><code>tiiuae/Falcon-H1-7B-Instruct</code></td><td>BPE</td><td>288,132</td><td>75,587</td><td>77,311</td><td>66,339</td></tr>
+<tr><td><code>deepseek-ai/DeepSeek-V3.2</code></td><td>BPE</td><td>296,113</td><td>81,505</td><td>76,501</td><td>60,188</td></tr>
+<tr><td><code>LiquidAI/LFM2-8B-A1B</code></td><td>BPE</td><td>305,399</td><td>80,188</td><td>77,376</td><td>62,869</td></tr>
+<tr><td><code>unsloth/Llama-3.1-8B-Instruct</code></td><td>BPE</td><td>313,947</td><td>81,948</td><td>79,197</td><td>58,881</td></tr>
+<tr><td><code>tokyotech-llm/Llama-3.3-Swallow-70B-Instruct-v0.4</code></td><td>BPE</td><td>313,947</td><td>81,948</td><td>79,197</td><td>58,881</td></tr>
+<tr><td><code>Qwen/Qwen3-8B</code></td><td>BPE</td><td>317,354</td><td>78,065</td><td>78,317</td><td>60,503</td></tr>
+<tr><td><code>zai-org/GLM-4.6</code></td><td>BPE</td><td>318,507</td><td>84,287</td><td>79,582</td><td>59,159</td></tr>
+<tr><td><code>mistralai/Mistral-Nemo-Instruct-2407</code></td><td>BPE</td><td>338,215</td><td>85,097</td><td>84,584</td><td>61,722</td></tr>
+<tr><td><code>nvidia/NVIDIA-Nemotron-Nano-9B-v2</code></td><td>BPE</td><td>338,215</td><td>85,097</td><td>84,584</td><td>61,722</td></tr>
+<tr><td><code>unsloth/Mistral-Small-3.2-24B-Instruct-2506</code></td><td>BPE</td><td>338,216</td><td>85,097</td><td>84,586</td><td>61,736</td></tr>
+<tr><td><code>openai/gpt-oss-20b</code></td><td>BPE</td><td>340,391</td><td>91,463</td><td>82,847</td><td>59,023</td></tr>
+<tr><td><code>microsoft/phi-4</code></td><td>BPE</td><td>467,356</td><td>121,173</td><td>102,674</td><td>58,889</td></tr>
+<tr><td><code>ibm-granite/granite-4.0-h-small</code></td><td>BPE</td><td>467,356</td><td>121,173</td><td>102,674</td><td>58,889</td></tr>
+</tbody></table></div>
+
+<h2 id="limits">Limitations</h2>
+<ul>
+<li>Claude, Gemini and other closed models are not included because their tokenizers are not published.</li>
+<li>Counts depend on the text. Casual chat, legal text or text with many numbers will give different ratios; use the counter above on your own text.</li>
+<li>Chat templates add a fixed number of tokens per message that are not counted here.</li>
+<li>Tokenizers were loaded from each repo's current files on 2026-11-11. A repo that changes its tokenizer later will give different numbers.</li>
+</ul>
+
+<p class="note">Related: <a href="/en/gguf-arch-min-build-lookup/">Which llama.cpp build and Ollama version a GGUF needs</a> &middot; <a href="/en/engine-logprob-parity-check/">How much logprob difference between engines is normal</a></p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Python documentation Japanese translation: <a href="https://github.com/python/python-docs-ja/tree/a32bc6b173867aee97462f7b927480bc046cc6d0/tutorial">python/python-docs-ja</a> at commit a32bc6b (branch 3.14)</li>
+<li>Aozora Bunko texts: <a href="https://github.com/aozorahack/aozorabunko_text/tree/0984f7dc18a2270bdfd2ff99bf14fd1b3ebb4f65">aozorahack/aozorabunko_text</a> at commit 0984f7d (cards 752, 127, 92, 1567); <a href="https://www.aozora.gr.jp/">Aozora Bunko</a></li>
+<li>Japanese Wikipedia, revisions 111729510, 111626938, 111669618, 111697544, 111409767, 111141496, 111546205, 110594977, 111673174, 111667770, 111445403, 111419027 (CC BY-SA 4.0; only counts are published here)</li>
+<li>OpenAI, <a href="https://arxiv.org/abs/2508.10925">gpt-oss-120b &amp; gpt-oss-20b model card</a>, section 2.3: o200k_harmony extends the o200k tokenizer used for GPT-4o and o4-mini</li>
+<li>Libraries: <a href="https://github.com/huggingface/transformers.js">transformers.js</a> 4.3.2, <a href="https://github.com/niieani/gpt-tokenizer">gpt-tokenizer</a> 4.1.2</li>
+<li>Claude token counting: <a href="https://docs.claude.com/en/docs/build-with-claude/token-counting">Anthropic docs</a></li>
+</ul>
+</main>
+<script type="application/json" id="jt-data">{"lib": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.2/dist/transformers.min.js", "libsha": "8b5a3171f8876bab2b1820a7d65eb87628e3d30bb5ea85b9dd398e76eb34decb", "sample": "\u89aa\u8b72\u308a\u306e\u7121\u9244\u7832\u3067\u5c0f\u4f9b\u306e\u6642\u304b\u3089\u640d\u3070\u304b\u308a\u3057\u3066\u3044\u308b\u3002\u5c0f\u5b66\u6821\u306b\u5c45\u308b\u6642\u5206\u5b66\u6821\u306e\u4e8c\u968e\u304b\u3089\u98db\u3073\u964d\u308a\u3066\u4e00\u9031\u9593\u307b\u3069\u8170\u3092\u629c\u304b\u3057\u305f\u4e8b\u304c\u3042\u308b\u3002", "tools": [{"name": "o200k (GPT-4o, gpt-oss)", "repo": "Xenova/gpt-4o", "mb": "9.7", "on": true}, {"name": "cl100k (GPT-4, phi-4, Granite 4)", "repo": "Xenova/gpt-4", "mb": "4.2", "on": true}, {"name": "Qwen3.5", "repo": "Qwen/Qwen3.5-9B", "mb": "12.8", "on": true}, {"name": "llm-jp-3.1", "repo": "llm-jp/llm-jp-3.1-13b-instruct4", "mb": "6.4", "on": true}, {"name": "Qwen3", "repo": "Qwen/Qwen3-8B", "mb": "11.4", "on": false}, {"name": "Llama 3.x", "repo": "unsloth/Llama-3.1-8B-Instruct", "mb": "17.2", "on": false}, {"name": "Llama 4", "repo": "unsloth/Llama-4-Scout-17B-16E-Instruct", "mb": "27.9", "on": false}, {"name": "Gemma 3 / 4", "repo": "google/gemma-4-E4B-it", "mb": "32.2", "on": false}, {"name": "Mistral Tekken", "repo": "mistralai/Mistral-Nemo-Instruct-2407", "mb": "9.3", "on": false}, {"name": "DeepSeek V3.2", "repo": "deepseek-ai/DeepSeek-V3.2", "mb": "7.8", "on": false}, {"name": "GLM-4.6", "repo": "zai-org/GLM-4.6", "mb": "20.0", "on": false}, {"name": "Falcon-H1", "repo": "tiiuae/Falcon-H1-7B-Instruct", "mb": "10.5", "on": false}, {"name": "LFM2", "repo": "LiquidAI/LFM2-8B-A1B", "mb": "4.7", "on": false}]}</script>
+<script>(function () {
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var D = JSON.parse($("jt-data").textContent);
+  var LIB = D.lib, LIBSHA = D.libsha;
+  var box = $("models");
+  D.tools.forEach(function (t, i) {
+    var id = "m" + i;
+    var lab = document.createElement("label");
+    lab.className = "ck";
+    lab.innerHTML = '<input type="checkbox" id="' + id + '"' + (t.on ? " checked" : "") + "> " + esc(t.name) + ' <span class="note">(' + esc(t.mb) + " MB)</span>";
+    box.appendChild(lab);
+  });
+  var libPromise = null, cache = {};
+  function hex(b) { return Array.prototype.map.call(new Uint8Array(b), function (x) { return ("0" + x.toString(16)).slice(-2); }).join(""); }
+  function loadLib() {
+    if (libPromise) return libPromise;
+    libPromise = fetch(LIB).then(function (r) { if (!r.ok) throw new Error("could not download the tokenizer library (" + r.status + ")"); return r.text(); })
+      .then(function (t) {
+        return crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)).then(function (h) {
+          if (hex(h) !== LIBSHA) throw new Error("the tokenizer library did not match its expected SHA-256; not running it");
+          return import(URL.createObjectURL(new Blob([t], { type: "text/javascript" })));
+        });
+      }).then(function (m) { m.env.allowLocalModels = false; return m; });
+    libPromise.catch(function () { libPromise = null; });
+    return libPromise;
+  }
+  function count(tk, text) {
+    var n = 0, lines = text.split("\n");
+    for (var i = 0; i < lines.length; i++) if (lines[i]) n += tk.encode(lines[i], { add_special_tokens: false }).length;
+    return n;
+  }
+  function chars(text) { var n = 0; text.split("\n").forEach(function (l) { n += Array.from(l).length; }); return n; }
+  async function run() {
+    var text = $("q").value;
+    $("status").textContent = "";
+    if (!text.trim()) { $("status").textContent = "Paste some text first."; return; }
+    var picked = D.tools.filter(function (t, i) { return $("m" + i).checked; });
+    if (!picked.length) { $("status").textContent = "Pick at least one tokenizer."; return; }
+    $("go").disabled = true;
+    var nc = chars(text), rows = [];
+    try {
+      $("status").textContent = "Loading the tokenizer library...";
+      var m = await loadLib();
+      for (var i = 0; i < picked.length; i++) {
+        var t = picked[i];
+        $("status").textContent = "Loading " + t.name + " (" + t.mb + " MB, cached after the first time)...";
+        try {
+          if (!cache[t.repo]) cache[t.repo] = await m.AutoTokenizer.from_pretrained(t.repo);
+          rows.push({ t: t, n: count(cache[t.repo], text) });
+        } catch (e) { rows.push({ t: t, err: String(e && e.message || e).slice(0, 120) }); }
+        render(rows, nc);
+      }
+      $("status").textContent = "";
+    } catch (e) {
+      $("status").textContent = String(e && e.message || e);
+    }
+    $("go").disabled = false;
+  }
+  function render(rows, nc) {
+    var ok = rows.filter(function (r) { return r.n !== undefined; });
+    var min = Math.min.apply(null, ok.map(function (r) { return r.n; }).concat([Infinity]));
+    var h = "<p>" + nc.toLocaleString("en-US") + " characters (newlines not counted).</p><div class=\"tw\"><table><thead><tr><th>Tokenizer</th><th>Tokens</th><th>Characters per token</th><th>vs. fewest</th></tr></thead><tbody>";
+    rows.slice().sort(function (a, b) { return (a.n === undefined) - (b.n === undefined) || a.n - b.n; }).forEach(function (r) {
+      if (r.n === undefined) { h += "<tr><td>" + esc(r.t.name) + '</td><td colspan="3" class="note">' + esc(r.err) + "</td></tr>"; return; }
+      h += "<tr><td>" + esc(r.t.name) + "</td><td>" + r.n.toLocaleString("en-US") + "</td><td>" + (r.n ? (nc / r.n).toFixed(2) : "-") + "</td><td>" + (r.n === min ? "fewest" : "+" + Math.round((r.n / min - 1) * 100) + "%") + "</td></tr>";
+    });
+    $("res").innerHTML = h + "</tbody></table></div>";
+  }
+  $("go").addEventListener("click", run);
+  $("sample").addEventListener("click", function () { $("q").value = D.sample; });
+})();
+</script>
+</body>
+</html>
