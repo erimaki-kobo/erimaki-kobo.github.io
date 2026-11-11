@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="gguf-arch-min-build-lookup/">"unknown model architecture": which llama.cpp build and Ollama version a GGUF needs</a></h2>
+<p>All 172 GGUF architecture strings with the first llama.cpp build that knows each one and the first Ollama release that bundles it, read from git history, plus the llama.cpp build inside every Ollama release. Includes a lookup: paste the error, get the minimum build.</p>
+<p class="meta">Published 2026-11-11</p>
+</article>
+<article class="card">
 <h2><a href="engine-logprob-parity-check/">Why do vLLM or llama.cpp logprobs differ from Transformers, and how much is normal?</a></h2>
 <p>Measured logprob gaps for float32, fp16, bf16 and quantized weights against a float64 reference, what a logprob means on vLLM, SGLang, llama.cpp and Transformers, and <code>lpcheck.py</code>, which separates tokenization, logprob semantics and numerics for any OpenAI-compatible endpoint.</p>
 <p class="meta">Published 2026-11-11</p>
