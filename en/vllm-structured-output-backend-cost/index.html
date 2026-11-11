@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vLLM Structured Output: Which Backend Your Schema Uses</title>
+<meta name="description" content="vLLM fixes the structured output backend at startup, and auto silently falls back from xgrammar. Paste a JSON schema to see which backend runs it, by version.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/vllm-structured-output-backend-cost/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vLLM Structured Output: Which Backend Your Schema Uses">
+<meta property="og:description" content="vLLM fixes the structured output backend at startup, and auto silently falls back from xgrammar. Paste a JSON schema to see which backend runs it, by version.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/vllm-structured-output-backend-cost/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/vllm-structured-output-backend-cost/#article", "headline": "vLLM structured output: which backend runs your JSON schema, and why it is slow", "description": "vLLM fixes the structured output backend at startup, and auto silently falls back from xgrammar. Paste a JSON schema to see which backend runs it, by version.", "url": "https://erimaki-kobo.github.io/en/vllm-structured-output-backend-cost/", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo"}, "about": ["vLLM", "structured output", "xgrammar", "llguidance", "JSON Schema"]}, {"@type": "WebApplication", "name": "vLLM structured output backend checker", "url": "https://erimaki-kobo.github.io/en/vllm-structured-output-backend-cost/#check", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Paste a JSON schema or a request body to see which backend vLLM's auto mode uses for it in each release, and which keyword caused a fallback."}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I choose xgrammar or guidance per request in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "No. The backend is set once when the server starts, with --structured-outputs-config.backend (default auto). A request that names a different backend is rejected. To compare backends, start the server once per backend and run the same requests against each."}}, {"@type": "Question", "name": "Why is guided decoding slow in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "Usually one of four things: the first request with a new schema pays grammar compilation; the schema uses a keyword that sends auto mode from xgrammar to guidance or outlines; the model emits whitespace between JSON tokens until max_tokens; or the constraint is not applied at all because the request still uses guided_json, which vLLM removed in v0.12.0. The script on this page reports which of these you have."}}, {"@type": "Question", "name": "Does vLLM still accept guided_json?", "acceptedAnswer": {"@type": "Answer", "text": "Not since v0.12.0. guided_json, guided_regex, guided_choice, guided_grammar, guided_decoding_backend and guided_whitespace_pattern were deprecated in v0.11.0 and removed in v0.12.0. The server ignores them and returns unconstrained text. Use response_format with type json_schema, or structured_outputs with json."}}, {"@type": "Question", "name": "Which JSON Schema keywords make vLLM fall back from xgrammar?", "acceptedAnswer": {"@type": "Answer", "text": "In vLLM v0.32.0 and later: multipleOf on numbers; uniqueItems, contains, minContains or maxContains on arrays; a string format outside xgrammar's 14 formats; pattern or format together with minLength or maxLength; propertyNames together with properties or patternProperties; patternProperties together with properties or with two or more patterns; and allOf with two or more branches. The table on this page gives each version."}}, {"@type": "Question", "name": "How do I stop the model from generating endless whitespace in JSON mode?", "acceptedAnswer": {"@type": "Answer", "text": "Set disable_any_whitespace. In vLLM it can be set per request inside structured_outputs, or for the whole server with --structured-outputs-config.disable_any_whitespace true. It works with the xgrammar and guidance backends."}}, {"@type": "Question", "name": "Is lm-format-enforcer still supported in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "It still works in v0.33.0 but logs a deprecation warning; vLLM says it will be removed in v0.35.0. Use auto, xgrammar or guidance instead."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "vLLM structured output backends", "item": "https://erimaki-kobo.github.io/en/vllm-structured-output-backend-cost/"}]}]}</script>
+<style>:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+#kw{min-width:900px}
+#kw td:not(:first-child),#kw th:not(:first-child){white-space:nowrap;text-align:center}
+#kw td:first-child{min-width:300px}
+select{padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit;width:100%}
+.ex{background:none;color:var(--acc);border:1px solid var(--line);padding:5px 10px;font-size:.85rem}
+@media (prefers-color-scheme:dark){.ex{color:var(--acc)}}
+#res p{margin:.5em 0}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>vLLM structured output: which backend runs your JSON schema, and why it is slow</h1>
+<p class="lede"><strong>vLLM picks one structured output backend when the server starts, and a request cannot change it. With the default, <code>auto</code>, each JSON schema goes to xgrammar unless vLLM finds a keyword xgrammar is known to mishandle; then it silently goes to guidance (llguidance), or to outlines for <code>patternProperties</code>.</strong> So two schemas on the same server can run on different engines with different speed. Most &ldquo;guided decoding is slow&rdquo; reports come down to one of four causes: compiling a new schema, landing on the fallback backend, the model padding the JSON with whitespace until <code>max_tokens</code>, or a request that is not constrained at all because it still sends <code>guided_json</code>, which vLLM removed in v0.12.0. The checker below tells you which backend your schema gets; the script measures the other three on your own server.</p>
+<p class="meta">Published 2026-11-11 &middot; vLLM v0.8.5 to v0.33.0 (45 releases) &middot; read from vLLM's source at each release tag; the checker's rules were compared with vLLM's own code on 3,000 generated schemas for every release, with no differences &middot; speed was not measured for this page</p>
+
+<h2 id="check">Which backend will vLLM use for my schema?</h2>
+<p>Paste a JSON schema, or a whole request body (<code>response_format</code>, <code>structured_outputs</code> or the old <code>guided_json</code> are all read).</p>
+<div class="card">
+<label for="q">JSON schema or request body</label>
+<textarea id="q" rows="8" spellcheck="false" placeholder='{"type": "object", "properties": {"tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}}}'></textarea>
+<div class="grid">
+<div><label for="ver">vLLM version</label><select id="ver"></select></div>
+<div><label for="tok">Tokenizer</label><select id="tok"><option value="hf">Hugging Face tokenizer (almost every model)</option><option value="tekken">Mistral tokenizer, Tekken (--tokenizer-mode mistral, newer Mistral models)</option><option value="mistral">Mistral tokenizer, not Tekken (older Mistral models)</option></select></div>
+</div>
+<div class="row"><button id="go" type="button">Check</button>
+<button class="ex" type="button" data-ex="flat">Example: plain schema</button>
+<button class="ex" type="button" data-ex="unique">Example: uniqueItems</button>
+<button class="ex" type="button" data-ex="pattern">Example: patternProperties</button>
+<button class="ex" type="button" data-ex="old">Example: old guided_json</button>
+<span id="status" role="status"></span></div>
+<div id="res" aria-live="polite"></div>
+</div>
+<p class="note">Runs in your browser; nothing is sent anywhere. Your vLLM version: <code>vllm --version</code> or <code>pip show vllm</code>. This applies to <code>--structured-outputs-config.backend auto</code>, the default. If you set a backend explicitly, that backend is used for every request, and with <code>xgrammar</code> a schema that fails the check gets HTTP 400.</p>
+
+<h2 id="keywords">Which JSON Schema keywords send a schema off xgrammar?</h2>
+<p><strong>In auto mode, vLLM runs a pre-check on every schema before handing it to xgrammar. If any node in the schema matches a row marked &ldquo;falls back&rdquo; for your version, the request goes to guidance (or outlines, see the next table).</strong> The check walks the whole schema, including <code>$defs</code>, <code>anyOf</code> branches and array items, so one keyword deep inside is enough.</p>
+<div class="tw wide"><table id="kw"><thead><tr><th>Keyword in the schema (anywhere, at any depth)</th>
+<th>v0.8.5</th>
+<th>v0.9.0 &ndash; v0.11.0</th>
+<th>v0.11.1 &ndash; v0.12.x</th>
+<th>v0.13.0 &ndash; v0.28.x</th>
+<th>v0.29.0</th>
+<th>v0.30.0 &ndash; v0.31.0</th>
+<th>v0.32.0 &ndash; v0.33.0</th>
+</tr></thead><tbody>
+<tr><td><code>multipleOf</code> on a number or integer</td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td></tr>
+<tr><td><code>uniqueItems</code>, <code>contains</code>, <code>minContains</code> or <code>maxContains</code> on an array <a class="note" href="https://github.com/mlc-ai/xgrammar/issues/968">xgrammar #968</a></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td></tr>
+<tr><td><code>minItems</code> or <code>maxItems</code> on an array</td><td><span class="s n">falls back</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td></tr>
+<tr><td><code>format</code> on a string, one of xgrammar's 14 formats (email, date, time, date-time, duration, ipv4, ipv6, hostname, uuid, uri, uri-reference, uri-template, json-pointer, relative-json-pointer)</td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td></tr>
+<tr><td><code>format</code> on a string, any other value (for example <code>color</code>) <a class="note" href="https://github.com/mlc-ai/xgrammar/issues/967">xgrammar #967</a></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td></tr>
+<tr><td><code>pattern</code> or <code>format</code> together with <code>minLength</code> or <code>maxLength</code> on a string <a class="note" href="https://github.com/mlc-ai/xgrammar/issues/966">xgrammar #966</a></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td></tr>
+<tr><td><code>minProperties</code> or <code>maxProperties</code> on an object</td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td></tr>
+<tr><td><code>propertyNames</code> on an object with no <code>properties</code></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td></tr>
+<tr><td><code>propertyNames</code> together with <code>properties</code> <a class="note" href="https://github.com/mlc-ai/xgrammar/issues/958">xgrammar #958</a></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td></tr>
+<tr><td><code>propertyNames</code> together with an <code>additionalProperties</code> schema</td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s y">xgrammar</span></td></tr>
+<tr><td><code>patternProperties</code> with one pattern and no <code>properties</code></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td></tr>
+<tr><td><code>patternProperties</code> together with <code>properties</code>, or with two or more patterns <a class="note" href="https://github.com/mlc-ai/xgrammar/issues/964">xgrammar #964</a></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td><td><span class="s n">falls back</span></td></tr>
+<tr><td><code>allOf</code> with two or more branches <a class="note" href="https://github.com/mlc-ai/xgrammar/issues/937">xgrammar #937</a></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s y">xgrammar</span></td><td><span class="s n">falls back</span></td></tr>
+</tbody></table></div>
+<p class="note">Rows describe vLLM's pre-check (<code>has_xgrammar_unsupported_json_features</code> in <code>vllm/v1/structured_output/backend_xgrammar.py</code>). Before v0.31.0 the check only looked at nodes whose <code>type</code> is a single string, so a keyword under <code>"type": ["string", "null"]</code> did not trigger it; from v0.31.0 it does. After the pre-check, xgrammar compiles the schema; a schema it fails to compile also falls back, and that step is not in this table. Links point to the xgrammar issue vLLM cites for the rule.</p>
+
+<h2 id="fallback">Where does auto go when xgrammar is rejected?</h2>
+<p><strong>Usually to guidance. It goes to outlines instead when the schema contains <code>patternProperties</code> or the model uses an older, non-Tekken Mistral tokenizer, and from v0.32.0 the request fails with HTTP 400 if guidance cannot use the tokenizer.</strong></p>
+<div class="tw"><table><thead><tr><th>vLLM</th><th>What auto does after xgrammar is rejected</th></tr></thead><tbody>
+<tr><td>v0.8.4 &ndash; v0.11.x</td><td>Uses guidance. (<code>auto</code> became the default for the V1 engine in v0.8.4; before that the default was xgrammar.)</td></tr>
+<tr><td>v0.12.0 &ndash; v0.13.x</td><td>Uses outlines if the model uses a Mistral tokenizer; otherwise guidance.</td></tr>
+<tr><td>v0.14.0 &ndash; v0.19.x</td><td>Uses outlines if the tokenizer is a Mistral tokenizer or the schema contains <code>patternProperties</code> anywhere; otherwise guidance.</td></tr>
+<tr><td>v0.20.0 &ndash; v0.30.x</td><td>Same, but only non-Tekken Mistral tokenizers go to outlines; Tekken ones use guidance.</td></tr>
+<tr><td>v0.31.0</td><td>Adds: a Lark grammar request (not a JSON schema) with a Tekken Mistral tokenizer goes straight to guidance.</td></tr>
+<tr><td>v0.32.0 &ndash; v0.33.0</td><td>Adds: if xgrammar is rejected and the tokenizer is not one guidance supports (fast Hugging Face or Tekken), the request fails with HTTP 400 instead of being tried on guidance. v0.33.0 marks lm-format-enforcer deprecated; vLLM says it will be removed in v0.35.0.</td></tr>
+</tbody></table></div>
+<p class="note">The server log does not say which backend a request ended up on. The checker above repeats vLLM's decision for JSON schemas.</p>
+
+<h2 id="fields">Which request fields work in which vLLM version?</h2>
+<p><strong>Send the schema in <code>response_format</code> with <code>"type": "json_schema"</code>; that works in every version. The old <code>guided_json</code> field stopped working in v0.12.0 and is ignored without an error.</strong></p>
+<div class="tw"><table><thead><tr><th>vLLM</th><th>Request</th><th>Server flag</th></tr></thead><tbody>
+<tr><td>up to v0.10.x</td><td><code>guided_json</code>, <code>guided_regex</code>, <code>guided_choice</code>, <code>guided_grammar</code> in the body (<code>extra_body</code> in the OpenAI client), or <code>response_format</code></td><td><code>--guided-decoding-backend</code></td></tr>
+<tr><td>v0.11.0 &ndash; v0.11.x</td><td>New <code>structured_outputs</code> object (<code>json</code>, <code>regex</code>, <code>choice</code>, <code>grammar</code>, <code>disable_any_whitespace</code>, ...). <code>guided_*</code> still work but are deprecated.</td><td><code>--structured-outputs-config.backend</code> (old flag deprecated)</td></tr>
+<tr><td>v0.12.0 &ndash; v0.29.x</td><td><code>guided_*</code> removed. <strong>They are ignored and the output is unconstrained</strong>; the log only says that some fields &ldquo;were present in the request but ignored&rdquo;.</td><td><code>--structured-outputs-config.backend</code></td></tr>
+<tr><td>v0.30.0 &ndash; v0.33.0</td><td>Same, but the log now names the removed <code>guided_*</code> field and says the output will not be constrained.</td><td><code>--structured-outputs-config.backend</code></td></tr>
+</tbody></table></div>
+<p><code>response_format</code> with <code>"type": "json_schema"</code> works in every version on this page and on other OpenAI-compatible servers, so it is the safest way to send a schema. Use <code>structured_outputs</code> when you need a vLLM-only option such as <code>disable_any_whitespace</code>.</p>
+
+<h2 id="measure">How do I measure what structured output costs on my server?</h2>
+<p><strong><a href="sotime.py">sotime.py</a> sends the same prompt four ways and compares time to first token, time per token, output length and whether the output matches the schema.</strong> It needs only Python 3.8+ and works with any OpenAI-compatible endpoint (vLLM, SGLang, llama.cpp server).</p>
+<pre><code>curl -O https://erimaki-kobo.github.io/en/vllm-structured-output-backend-cost/sotime.py
+python sotime.py --base-url http://localhost:8000/v1 --model Qwen/Qwen3-8B --no-think
+python sotime.py --base-url http://localhost:8000/v1 --model Qwen/Qwen3-8B --schema my_schema.json -n 10</code></pre>
+<dl>
+<dt>free</dt><dd>No constraint. The baseline for speed and length; it also shows how often the model already follows the schema on its own.</dd>
+<dt>warm</dt><dd>The same schema every time via <code>response_format</code>. The first request is reported separately because it pays grammar compilation; the rest show the cached cost.</dd>
+<dt>cold</dt><dd>A schema that differs on every request (a random <code>description</code>), so no grammar cache helps. This is your cost if every request brings its own schema, as with tool calling or per-user forms.</dd>
+<dt>compact</dt><dd>vLLM only: the same schema with <code>disable_any_whitespace</code>. Compare it with warm to see whether whitespace is costing you tokens.</dd>
+</dl>
+<p>Built-in schemas: <code>flat</code> (a small record), <code>nested</code> (an invoice with an array of objects, an enum and a pattern) and <code>fallback</code>, which uses <code>uniqueItems</code> and <code>pattern</code> with <code>maxLength</code>, so on a default vLLM server it runs on guidance. Run <code>--builtin all</code> to see the xgrammar and guidance paths side by side on one server.</p>
+<p>To compare backends directly, start vLLM twice and label the runs:</p>
+<pre><code>vllm serve Qwen/Qwen3-8B --structured-outputs-config.backend xgrammar
+python sotime.py --base-url http://localhost:8000/v1 --model Qwen/Qwen3-8B --label xgrammar --json xg.json
+vllm serve Qwen/Qwen3-8B --structured-outputs-config.backend guidance
+python sotime.py --base-url http://localhost:8000/v1 --model Qwen/Qwen3-8B --label guidance --json gd.json</code></pre>
+<p>Exit codes: 0 constrained output looked fine; 1 the constraint was not applied or outputs broke the schema; 3 runaway whitespace; 2 could not run. Requests go one at a time by default so that TTFT shows compilation rather than queueing; add <code>--concurrency</code> to measure under load.</p>
+
+<h2 id="causes">What does each finding mean, and what fixes it?</h2>
+<div class="tw"><table><thead><tr><th>What the script shows</th><th>Cause</th><th>Fix</th></tr></thead><tbody>
+<tr><td>warm 1st and cold TTFT far above warm median</td><td>Grammar compilation for a schema the server has not seen</td><td>Reuse schemas so the cache hits. If schemas change per request, compare the cold numbers under xgrammar and guidance and pin the faster one.</td></tr>
+<tr><td>One built-in or your schema is slower than the others on the same server</td><td>The schema landed on a fallback backend</td><td>Check it above. Removing or rewriting the keyword (for example dropping <code>uniqueItems</code> and checking it in your code) keeps it on xgrammar.</td></tr>
+<tr><td>&ldquo;RUNAWAY WHITESPACE&rdquo;: outputs hit <code>max_tokens</code>, mostly spaces and newlines</td><td>The grammar allows whitespace between JSON tokens and the model keeps choosing it</td><td><code>disable_any_whitespace</code> (per request or server-wide). Also lower <code>max_tokens</code> so a bad run fails fast.</td></tr>
+<tr><td>&ldquo;CONSTRAINT NOT APPLIED&rdquo;: constrained outputs are prose</td><td>The server ignored the schema: <code>guided_json</code> on v0.12.0+, a proxy that drops <code>response_format</code>, or an engine without JSON-schema support</td><td>Send <code>response_format</code> json_schema; check the server log for &ldquo;ignored&rdquo;.</td></tr>
+<tr><td>&ldquo;SCHEMA MISMATCH&rdquo;: JSON, but it breaks the schema</td><td>The backend in use does not enforce some keyword</td><td>Check which backend the schema lands on; validate in your code for keywords the backend skips.</td></tr>
+<tr><td>Constrained ITL clearly above free ITL</td><td>Per-token mask computation on the CPU</td><td>Compare backends with <code>--label</code> runs; measure under your real <code>--concurrency</code>.</td></tr>
+</tbody></table></div>
+
+<h2 id="pins">Which xgrammar and llguidance versions does each vLLM release use?</h2>
+<p>From <code>requirements/common.txt</code> at each release tag. A range means vLLM accepts any version in it; the one you get depends on when you installed.</p>
+<div class="tw"><table id="pins"><thead><tr><th>vLLM</th><th>xgrammar</th><th>llguidance (guidance)</th><th>outlines_core</th><th>lm-format-enforcer</th></tr></thead><tbody>
+<tr><td>v0.32.0 &ndash; v0.33.0</td><td><code>0.2.8</code></td><td><code>&gt;=1.7.0,&lt;1.8.0</code></td><td><code>0.2.14</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.31.0</td><td><code>0.2.7</code></td><td><code>&gt;=1.7.0,&lt;1.8.0</code></td><td><code>0.2.14</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.24.0 &ndash; v0.30.0</td><td><code>&gt;=0.2.1,&lt;1.0.0</code></td><td><code>&gt;=1.7.0,&lt;1.8.0</code></td><td><code>0.2.14</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.22.0 &ndash; v0.23.0</td><td><code>&gt;=0.2.0,&lt;1.0.0</code></td><td><code>&gt;=1.7.0,&lt;1.8.0</code></td><td><code>0.2.14</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.21.0</td><td><code>&gt;=0.2.0,&lt;1.0.0</code></td><td><code>&gt;=1.3.0,&lt;1.4.0</code></td><td><code>0.2.14</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.20.0 &ndash; v0.20.2</td><td><code>&gt;=0.1.32,&lt;1.0.0</code></td><td><code>&gt;=1.3.0,&lt;1.4.0</code></td><td><code>0.2.14</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.18.0 &ndash; v0.19.1</td><td><code>&gt;=0.1.32,&lt;1.0.0</code></td><td><code>&gt;=1.3.0,&lt;1.4.0</code></td><td><code>0.2.11</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.14.0 &ndash; v0.17.1</td><td><code>0.1.29</code></td><td><code>&gt;=1.3.0,&lt;1.4.0</code></td><td><code>0.2.11</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.12.0 &ndash; v0.13.0</td><td><code>0.1.27</code></td><td><code>&gt;=1.3.0,&lt;1.4.0</code></td><td><code>0.2.11</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.11.1 &ndash; v0.11.2</td><td><code>0.1.25</code></td><td><code>&gt;=1.3.0,&lt;1.4.0</code></td><td><code>0.2.11</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.11.0</td><td><code>0.1.25</code></td><td><code>&gt;=0.7.11,&lt;0.8.0</code></td><td><code>0.2.11</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.10.2</td><td><code>0.1.23</code></td><td><code>&gt;=0.7.11,&lt;0.8.0</code></td><td><code>0.2.11</code></td><td><code>0.11.3</code></td></tr>
+<tr><td>v0.10.0 &ndash; v0.10.1.1</td><td><code>0.1.21</code></td><td><code>&gt;=0.7.11,&lt;0.8.0</code></td><td><code>0.2.10</code></td><td><code>&gt;=0.10.11,&lt;0.11</code></td></tr>
+<tr><td>v0.9.0 &ndash; v0.9.2</td><td><code>0.1.19</code></td><td><code>&gt;=0.7.11,&lt;0.8.0</code></td><td>&ndash;</td><td><code>&gt;=0.10.11,&lt;0.11</code></td></tr>
+<tr><td>v0.8.5 &ndash; v0.8.5.post1</td><td><code>0.1.18</code></td><td><code>&gt;=0.7.9,&lt;0.8.0</code></td><td>&ndash;</td><td><code>&gt;=0.10.11,&lt;0.11</code></td></tr>
+</tbody></table></div>
+
+<h2 id="faq">FAQ</h2>
+<dl>
+<dt>Can I choose xgrammar or guidance per request in vLLM?</dt><dd>No. The backend is set once when the server starts, with --structured-outputs-config.backend (default auto). A request that names a different backend is rejected. To compare backends, start the server once per backend and run the same requests against each.</dd>
+<dt>Why is guided decoding slow in vLLM?</dt><dd>Usually one of four things: the first request with a new schema pays grammar compilation; the schema uses a keyword that sends auto mode from xgrammar to guidance or outlines; the model emits whitespace between JSON tokens until max_tokens; or the constraint is not applied at all because the request still uses guided_json, which vLLM removed in v0.12.0. The script on this page reports which of these you have.</dd>
+<dt>Does vLLM still accept guided_json?</dt><dd>Not since v0.12.0. guided_json, guided_regex, guided_choice, guided_grammar, guided_decoding_backend and guided_whitespace_pattern were deprecated in v0.11.0 and removed in v0.12.0. The server ignores them and returns unconstrained text. Use response_format with type json_schema, or structured_outputs with json.</dd>
+<dt>Which JSON Schema keywords make vLLM fall back from xgrammar?</dt><dd>In vLLM v0.32.0 and later: multipleOf on numbers; uniqueItems, contains, minContains or maxContains on arrays; a string format outside xgrammar&#x27;s 14 formats; pattern or format together with minLength or maxLength; propertyNames together with properties or patternProperties; patternProperties together with properties or with two or more patterns; and allOf with two or more branches. The table on this page gives each version.</dd>
+<dt>How do I stop the model from generating endless whitespace in JSON mode?</dt><dd>Set disable_any_whitespace. In vLLM it can be set per request inside structured_outputs, or for the whole server with --structured-outputs-config.disable_any_whitespace true. It works with the xgrammar and guidance backends.</dd>
+<dt>Is lm-format-enforcer still supported in vLLM?</dt><dd>It still works in v0.33.0 but logs a deprecation warning; vLLM says it will be removed in v0.35.0. Use auto, xgrammar or guidance instead.</dd>
+</dl>
+
+<h2 id="limits">Limitations</h2>
+<ul>
+<li>The checker repeats vLLM's pre-check and fallback rules for JSON schemas. It does not run xgrammar's own compiler, so a schema the pre-check passes but xgrammar cannot compile will show xgrammar here and fall back on the server.</li>
+<li>Regex, choice, grammar and structural-tag requests are not checked; the fallback table still applies to them.</li>
+<li>No speed numbers are given on this page. Which backend is faster depends on the schema, the model's tokenizer and the load, and published comparisons disagree; sotime.py measures it on your setup. The script was tested against a mock server, not a GPU.</li>
+<li>Release dates are the dates of the tag commits.</li>
+</ul>
+
+<p class="note">Related: <a href="/en/llm-determinism-test/">vLLM batch invariance: what still breaks determinism</a> &middot; <a href="/en/engine-logprob-parity-check/">How much logprob difference between engines is normal</a> &middot; <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM compatibility matrix: PyTorch, CUDA and driver</a></p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>vLLM source at each release tag: <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/structured_output/backend_xgrammar.py">backend_xgrammar.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/structured_output/backend_guidance.py">backend_guidance.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/sampling_params.py">sampling_params.py</a> (auto selection), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/config/structured_outputs.py">config/structured_outputs.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/requirements/common.txt">requirements/common.txt</a></li>
+<li>Removal of the <code>guided_*</code> fields: vLLM PR <a href="https://github.com/vllm-project/vllm/pull/29326">#29326</a> (in v0.12.0)</li>
+<li>vLLM docs: <a href="https://docs.vllm.ai/en/latest/features/structured_outputs/">Structured Outputs</a></li>
+<li>xgrammar issues cited by vLLM: <a href="https://github.com/mlc-ai/xgrammar/issues/937">#937</a>, <a href="https://github.com/mlc-ai/xgrammar/issues/958">#958</a>, <a href="https://github.com/mlc-ai/xgrammar/issues/964">#964</a>, <a href="https://github.com/mlc-ai/xgrammar/issues/966">#966</a>, <a href="https://github.com/mlc-ai/xgrammar/issues/967">#967</a>, <a href="https://github.com/mlc-ai/xgrammar/issues/968">#968</a></li>
+<li>Questions this page answers: vLLM forum <a href="https://discuss.vllm.ai/t/as-of-july-2026-what-are-some-general-tips-in-improving-the-speed-of-guided-decoding-in-vllm/2845">tips for guided decoding speed (2026-07)</a>, <a href="https://discuss.vllm.ai/t/general-questions-on-structured-output-backend/1444">general questions on structured output backend</a>, <a href="https://discuss.vllm.ai/t/grammar-cpu-bound-performance/372">grammar CPU bound performance</a></li>
+</ul>
+</main>
+<script type="application/json" id="so-data">{"asof": "2026-11-11", "versions": [["v0.33.0", "2026-10-27"], ["v0.32.0", "2026-10-17"], ["v0.31.0", "2026-10-02"], ["v0.30.0", "2026-09-21"], ["v0.29.0", "2026-09-08"], ["v0.28.0", "2026-08-23"], ["v0.27.1", "2026-08-11"], ["v0.27.0", "2026-08-04"], ["v0.26.0", "2026-07-26"], ["v0.25.1", "2026-07-12"], ["v0.25.0", "2026-07-08"], ["v0.24.0", "2026-06-27"], ["v0.23.0", "2026-06-14"], ["v0.22.1", "2026-06-03"], ["v0.22.0", "2026-05-29"], ["v0.21.0", "2026-05-14"], ["v0.20.2", "2026-05-05"], ["v0.20.1", "2026-05-04"], ["v0.20.0", "2026-04-27"], ["v0.19.1", "2026-04-15"], ["v0.19.0", "2026-04-02"], ["v0.18.1", "2026-03-30"], ["v0.18.0", "2026-03-19"], ["v0.17.1", "2026-03-11"], ["v0.17.0", "2026-03-06"], ["v0.16.0", "2026-02-12"], ["v0.15.1", "2026-02-03"], ["v0.15.0", "2026-01-29"], ["v0.14.1", "2026-01-23"], ["v0.14.0", "2026-01-17"], ["v0.13.0", "2025-12-18"], ["v0.12.0", "2025-12-02"], ["v0.11.2", "2025-11-19"], ["v0.11.1", "2025-11-18"], ["v0.11.0", "2025-10-10"], ["v0.10.2", "2025-09-15"], ["v0.10.1.1", "2025-08-20"], ["v0.10.1", "2025-08-18"], ["v0.10.0", "2025-07-24"], ["v0.9.2", "2025-07-06"], ["v0.9.1", "2025-06-10"], ["v0.9.0.1", "2025-05-28"], ["v0.9.0", "2025-05-27"], ["v0.8.5.post1", "2025-05-02"], ["v0.8.5", "2025-04-28"]]}</script>
+<script>// Port of vLLM's structured-output backend selection for JSON schemas.
+// Source: vllm/v1/structured_output/backend_xgrammar.py (has_xgrammar_unsupported_json_features),
+// backend_guidance.py (has_guidance_unsupported_json_features), and the "auto" branch in
+// vllm/sampling_params.py (v0.20+), vllm/v1/engine/input_processor.py (v0.12-v0.19),
+// vllm/v1/engine/processor.py (v0.8.4-v0.11).
+var SO = (function () {
+  var FORMATS = ["email", "date", "time", "date-time", "duration", "ipv4", "ipv6", "hostname",
+    "uuid", "uri", "uri-reference", "uri-template", "json-pointer", "relative-json-pointer"];
+  var ISSUE = "https://github.com/mlc-ai/xgrammar/issues/";
+
+  function vt(v) { return v.replace(/^v/, "").split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function ge(v, w) {
+    var a = vt(v), b = vt(w);
+    for (var i = 0; i < Math.max(a.length, b.length); i++) {
+      var x = a[i] || 0, y = b[i] || 0;
+      if (x !== y) return x > y;
+    }
+    return true;
+  }
+  function isObj(o) { return o !== null && typeof o === "object" && !Array.isArray(o); }
+  function has(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+
+  // Which xgrammar pre-check rule set applies to a vLLM version.
+  function group(v) {
+    if (ge(v, "0.32.0")) return 8;
+    if (ge(v, "0.31.0")) return 7;
+    if (ge(v, "0.30.0")) return 6;
+    if (ge(v, "0.29.0")) return 5;
+    if (ge(v, "0.13.0")) return 4;
+    if (ge(v, "0.11.1")) return 3;
+    if (ge(v, "0.9.0")) return 2;
+    if (ge(v, "0.8.5")) return 1;
+    return 0;
+  }
+
+  function types(obj, g) {
+    if (g >= 7) {
+      var t = obj.type;
+      if (typeof t === "string") return [t];
+      if (Array.isArray(t)) return t.filter(function (x) { return typeof x === "string"; });
+      return [];
+    }
+    return [obj.type];
+  }
+  function patLen(s) { return (has(s, "pattern") || has(s, "format")) && (has(s, "minLength") || has(s, "maxLength")); }
+
+  // Returns null, or {path, rule, issue} for the first node vLLM's pre-check rejects.
+  function xgReject(schema, v) {
+    var g = group(v);
+    if (g === 0) return null;
+    function hit(path, rule, issue) { return { path: path, rule: rule, issue: issue ? ISSUE + issue : null }; }
+    function check(obj, path) {
+      if (!isObj(obj)) return null;
+      var ts = types(obj, g);
+      var isT = function (x) { return ts.indexOf(x) >= 0; };
+      if ((isT("integer") || isT("number")) && has(obj, "multipleOf"))
+        return hit(path, "multipleOf on a number/integer", null);
+      var arrKeys = g === 1 ? ["uniqueItems", "contains", "minContains", "maxContains", "minItems", "maxItems"]
+        : ["uniqueItems", "contains", "minContains", "maxContains"];
+      if (isT("array")) {
+        for (var i = 0; i < arrKeys.length; i++) if (has(obj, arrKeys[i]))
+          return hit(path, arrKeys[i] + " on an array", g >= 8 ? "968" : null);
+      }
+      if (isT("string") && has(obj, "format")) {
+        if (g <= 2) return hit(path, "format on a string (any format)", null);
+        if (FORMATS.indexOf(obj.format) < 0) return hit(path, 'format "' + obj.format + '" (not in xgrammar\'s list)', g >= 8 ? "967" : null);
+      }
+      if (g >= 5 && isT("string") && patLen(obj))
+        return hit(path, "pattern/format together with minLength/maxLength", g >= 8 ? "966" : null);
+      if (isT("object")) {
+        if (g <= 3) {
+          var ok = ["minProperties", "maxProperties", "propertyNames", "patternProperties"];
+          for (var j = 0; j < ok.length; j++) if (has(obj, ok[j])) return hit(path, ok[j] + " on an object", null);
+        } else if (g <= 5) {
+          if (has(obj, "patternProperties")) return hit(path, "patternProperties on an object", null);
+          if (has(obj, "propertyNames")) return hit(path, "propertyNames on an object", null);
+        } else if (g <= 7) {
+          if (isObj(obj.propertyNames) && patLen(obj.propertyNames))
+            return hit(path, "propertyNames with pattern/format and a length bound", null);
+          if (has(obj, "propertyNames") && (has(obj, "properties") || has(obj, "patternProperties") ||
+            isObj(obj.additionalProperties) || (has(obj, "unevaluatedProperties") && obj.unevaluatedProperties !== true)))
+            return hit(path, "propertyNames combined with properties / patternProperties / additionalProperties schema / unevaluatedProperties", null);
+          if (isObj(obj.patternProperties) && (has(obj, "properties") || Object.keys(obj.patternProperties).length > 1))
+            return hit(path, "patternProperties combined with properties, or more than one pattern", null);
+        } else {
+          if (has(obj, "propertyNames")) {
+            if (isObj(obj.propertyNames) && patLen(obj.propertyNames))
+              return hit(path, "propertyNames with pattern/format and a length bound", "960");
+            if (has(obj, "patternProperties")) return hit(path, "propertyNames + patternProperties", "959");
+            if (has(obj, "properties")) return hit(path, "propertyNames + properties", "958");
+            if (has(obj, "unevaluatedProperties") && obj.unevaluatedProperties !== true)
+              return hit(path, "propertyNames + unevaluatedProperties", "961");
+          }
+          if (isObj(obj.patternProperties)) {
+            if (has(obj, "properties")) return hit(path, "patternProperties + properties", "964");
+            if (Object.keys(obj.patternProperties).length > 1) return hit(path, "more than one patternProperties pattern", "965");
+          }
+        }
+      }
+      if (g >= 8 && Array.isArray(obj.allOf) && obj.allOf.length >= 2)
+        return hit(path, "allOf with two or more branches", "937");
+      var keys = Object.keys(obj);
+      for (var k = 0; k < keys.length; k++) {
+        var val = obj[keys[k]], p = path + "/" + keys[k];
+        if (isObj(val)) { var r = check(val, p); if (r) return r; }
+        else if (Array.isArray(val)) {
+          for (var m = 0; m < val.length; m++) if (isObj(val[m])) { var r2 = check(val[m], p + "/" + m); if (r2) return r2; }
+        }
+      }
+      return null;
+    }
+    return check(schema, "#");
+  }
+
+  function guidanceReject(schema) {
+    function check(obj, path) {
+      if (!isObj(obj)) return null;
+      if (has(obj, "patternProperties")) return path;
+      var keys = Object.keys(obj);
+      for (var k = 0; k < keys.length; k++) {
+        var val = obj[keys[k]], p = path + "/" + keys[k];
+        if (isObj(val)) { var r = check(val, p); if (r) return r; }
+        else if (Array.isArray(val)) {
+          for (var m = 0; m < val.length; m++) if (isObj(val[m])) { var r2 = check(val[m], p + "/" + m); if (r2) return r2; }
+        }
+      }
+      return null;
+    }
+    return check(schema, "#");
+  }
+
+  // tok: "hf" (Hugging Face tokenizer, the usual case), "tekken" (Mistral tokenizer, Tekken),
+  // "mistral" (Mistral tokenizer, not Tekken).
+  // Returns {backend, xg, why} for backend "auto".
+  function autoPick(schema, v, tok) {
+    var xg = xgReject(schema, v);
+    if (!xg) return { backend: "xgrammar", xg: null, why: "vLLM's pre-check found nothing xgrammar is known to mishandle." };
+    var mis = tok !== "hf";
+    var nonTekken = tok === "mistral";
+    if (ge(v, "0.20.0")) {
+      if (nonTekken) return { backend: "outlines", xg: xg, why: "xgrammar was rejected and the tokenizer is a non-Tekken Mistral tokenizer, which guidance does not take." };
+      var gp = guidanceReject(schema);
+      if (gp) return { backend: "outlines", xg: xg, why: "xgrammar was rejected and the schema uses patternProperties (at " + gp + "), which vLLM treats as unsupported by guidance." };
+      return { backend: "guidance", xg: xg, why: "xgrammar was rejected; guidance is the default fallback." };
+    }
+    if (ge(v, "0.14.0")) {
+      if (mis) return { backend: "outlines", xg: xg, why: "xgrammar was rejected and the tokenizer is a Mistral tokenizer." };
+      var gp2 = guidanceReject(schema);
+      if (gp2) return { backend: "outlines", xg: xg, why: "xgrammar was rejected and the schema uses patternProperties (at " + gp2 + ")." };
+      return { backend: "guidance", xg: xg, why: "xgrammar was rejected; guidance is the default fallback." };
+    }
+    if (ge(v, "0.12.0")) {
+      if (mis) return { backend: "outlines", xg: xg, why: "xgrammar was rejected and the tokenizer is a Mistral tokenizer." };
+      return { backend: "guidance", xg: xg, why: "xgrammar was rejected; guidance is the fallback." };
+    }
+    return { backend: "guidance", xg: xg, why: "xgrammar was rejected; guidance is the only fallback in this version." };
+  }
+
+  // Pull a JSON schema out of whatever the user pasted: a bare schema or a request body.
+  var OLD = ["guided_json", "guided_regex", "guided_choice", "guided_grammar", "guided_decoding_backend", "guided_whitespace_pattern"];
+  function extract(obj) {
+    var notes = [], schema = null, src = null;
+    if (!isObj(obj)) return { schema: null, src: null, notes: ["The pasted JSON is not an object."], old: [] };
+    var body = isObj(obj.extra_body) ? obj.extra_body : obj;
+    var old = OLD.filter(function (k) { return has(body, k) || has(obj, k); });
+    var rf = obj.response_format;
+    if (isObj(rf) && rf.type === "json_schema" && isObj(rf.json_schema) && isObj(rf.json_schema.schema)) { schema = rf.json_schema.schema; src = "response_format.json_schema.schema"; }
+    else if (isObj(body.structured_outputs) && body.structured_outputs.json !== undefined) {
+      var j = body.structured_outputs.json; src = "structured_outputs.json";
+      if (typeof j === "string") { try { j = JSON.parse(j); } catch (e) { j = null; notes.push("structured_outputs.json is a string that does not parse as JSON."); } }
+      schema = isObj(j) ? j : null;
+    } else if (has(body, "guided_json")) {
+      var gj = body.guided_json; src = "guided_json";
+      if (typeof gj === "string") { try { gj = JSON.parse(gj); } catch (e) { gj = null; } }
+      schema = isObj(gj) ? gj : null;
+    } else if (has(obj, "messages") || has(obj, "prompt") || has(obj, "model")) {
+      notes.push("This looks like a request body, but it carries no JSON schema (response_format json_schema or structured_outputs.json).");
+    } else { schema = obj; src = "the pasted schema"; }
+    return { schema: schema, src: src, notes: notes, old: old };
+  }
+
+  return { xgReject: xgReject, guidanceReject: guidanceReject, autoPick: autoPick, extract: extract, ge: ge, group: group, OLD: OLD };
+})();
+if (typeof module !== "undefined") module.exports = SO;
+
+(function () {
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var VERS = JSON.parse($("so-data").textContent).versions;
+  var sel = $("ver");
+  VERS.forEach(function (v) { var o = document.createElement("option"); o.value = v[0]; o.textContent = v[0] + " (" + v[1] + ")"; sel.appendChild(o); });
+  // One representative version per rule set, oldest first, for the "across versions" line.
+  var SPANS = [["v0.8.5", "v0.8.5"], ["v0.9.0", "v0.11.0"], ["v0.11.1", "v0.11.2"], ["v0.12.0", "v0.12.0"], ["v0.13.0", "v0.13.0"],
+    ["v0.14.0", "v0.19.1"], ["v0.20.0", "v0.28.0"], ["v0.29.0", "v0.29.0"], ["v0.30.0", "v0.30.0"], ["v0.31.0", "v0.31.0"], ["v0.32.0", VERS[0][0]]];
+  var EX = {
+    flat: '{\n  "type": "object",\n  "properties": {\n    "name": {"type": "string"},\n    "email": {"type": "string", "format": "email"},\n    "tags": {"type": "array", "items": {"type": "string"}, "maxItems": 5}\n  },\n  "required": ["name", "email"]\n}',
+    unique: '{\n  "type": "object",\n  "properties": {\n    "slug": {"type": "string", "pattern": "^[a-z-]+$", "maxLength": 24},\n    "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}\n  },\n  "required": ["slug", "tags"]\n}',
+    pattern: '{\n  "type": "object",\n  "properties": {"id": {"type": "string"}},\n  "patternProperties": {"^x-": {"type": "string"}}\n}',
+    old: '{\n  "model": "my-model",\n  "messages": [{"role": "user", "content": "Give me a user record"}],\n  "guided_json": {"type": "object", "properties": {"name": {"type": "string"}}, "required": ["name"]}\n}'
+  };
+  function cls(b) { return b === "xgrammar" ? "v-ok" : (b === "guidance" ? "v-load" : "v-bad"); }
+  function run() {
+    $("status").textContent = "";
+    var txt = $("q").value.trim();
+    if (!txt) { $("status").textContent = "Paste a JSON schema or a request body first."; $("res").innerHTML = ""; return; }
+    var obj;
+    try { obj = JSON.parse(txt); } catch (e) { $("status").textContent = "That is not valid JSON: " + e.message; $("res").innerHTML = ""; return; }
+    var ex = SO.extract(obj), v = sel.value, tok = $("tok").value, x = "";
+    if (ex.old.length) {
+      x += '<div class="verdict v-bad">' + (SO.ge(v, "0.12.0") ? "This request would not be constrained on " + esc(v) + "." : "This request uses fields that were removed in v0.12.0.") +
+        "<span>It uses <code>" + ex.old.map(esc).join("</code>, <code>") + "</code>. These were deprecated in v0.11.0 and removed in v0.12.0. From v0.12.0 the server ignores them and generates free text" +
+        (SO.ge(v, "0.30.0") ? " (with a warning in the server log)" : ", with only a generic &ldquo;fields were present in the request but ignored&rdquo; line in the server log") +
+        '. Use <code>response_format</code> with <code>json_schema</code>, or <code>"structured_outputs": {"json": ...}</code>.</span></div>';
+    }
+    ex.notes.forEach(function (n) { x += '<p class="note">' + esc(n) + "</p>"; });
+    if (!ex.schema) { $("res").innerHTML = x || '<p class="note">No JSON schema found.</p>'; return; }
+    var r = SO.autoPick(ex.schema, v, tok);
+    var ignored = ex.src === "guided_json" && SO.ge(v, "0.12.0");
+    x += '<div class="verdict ' + cls(r.backend) + '">' + (ignored ? "Once moved to response_format, this schema would run on " + esc(r.backend) + " (auto, vLLM " + esc(v) + ")."
+      : "With the default backend (auto), vLLM " + esc(v) + " runs this schema on " + esc(r.backend) + ".") + "<span>" + esc(r.why) + "</span></div>";
+    if (r.xg) {
+      x += "<p><strong>What sent it off xgrammar:</strong> " + esc(r.xg.rule) + " at <code>" + esc(r.xg.path) + "</code>" +
+        (r.xg.issue ? ' (<a href="' + esc(r.xg.issue) + '">xgrammar issue</a>)' : "") + ".</p>";
+      x += "<p>If the server was started with <code>--structured-outputs-config.backend xgrammar</code>, this request is rejected with HTTP 400 instead. " +
+        "With <code>guidance</code> pinned it runs on guidance" + (SO.guidanceReject(ex.schema) ? ", although vLLM's auto mode avoids guidance for <code>patternProperties</code>" : "") + ".</p>";
+    } else {
+      x += '<p class="note">xgrammar compiles the schema itself after this check. A schema it cannot compile also falls back; this page cannot run that step.</p>';
+    }
+    if (ex.src) x += '<p class="note">Schema read from ' + esc(ex.src) + ".</p>";
+    var line = [], prev = null;
+    SPANS.forEach(function (s) {
+      var b = SO.autoPick(ex.schema, s[0], tok).backend, lo = s[0], hi = s[1];
+      if (prev && prev.b === b) prev.hi = hi; else { prev = { lo: lo, hi: hi, b: b }; line.push(prev); }
+    });
+    x += "<p><strong>Across versions (auto):</strong> " + line.map(function (p) {
+      return esc(p.lo === p.hi ? p.lo : p.lo + "&ndash;" + p.hi).replace(/&amp;ndash;/g, "&ndash;") + " " + esc(p.b);
+    }).join("; ") + ".</p>";
+    $("res").innerHTML = x;
+  }
+  $("go").addEventListener("click", run);
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = EX[b.getAttribute("data-ex")]; run(); });
+  });
+})();
+</script>
+</body>
+</html>
