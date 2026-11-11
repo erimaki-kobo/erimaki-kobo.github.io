@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vLLM Logprobs vs Hugging Face: What's Normal + Parity Test</title>
+<meta name="description" content="How far vLLM, llama.cpp and SGLang logprobs normally sit from Hugging Face Transformers, the settings that cause larger gaps, and a script that finds which one.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/engine-logprob-parity-check/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="vLLM Logprobs vs Hugging Face: What's Normal + Parity Test">
+<meta property="og:description" content="Measured logprob gaps for float32, fp16, bf16 and quantized weights, what a logprob means on each engine, and lpcheck.py, a parity check for any OpenAI-compatible endpoint.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/engine-logprob-parity-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/#article", "headline": "Why do vLLM or llama.cpp logprobs differ from Transformers, and how much is normal?", "description": "How far vLLM, llama.cpp and SGLang logprobs normally sit from Hugging Face Transformers, the settings that cause larger gaps, and a script that finds which one.", "url": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/"}, {"@type": "SoftwareApplication", "@id": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/#lpcheck", "name": "lpcheck: logprob parity check", "url": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/", "downloadUrl": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/lpcheck.py", "description": "Compares per-token logprobs of an OpenAI-compatible endpoint (vLLM, llama.cpp, SGLang) or a Hugging Face model against a reference, and separates tokenization, logprob semantics and numeric differences.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (Python 3.8+)", "softwareVersion": "1.0.0", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/#faq", "mainEntity": [{"@type": "Question", "name": "Is it normal for vLLM logprobs to differ from Hugging Face Transformers?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, within the precision of the run. Different kernels round differently, so two correct implementations of the same model do not return identical floats. In float32 the gap is around 1e-6 to 1e-5 nats per token; in fp16 around 1e-3; in bf16 around 1e-2 with occasional tokens off by 0.1 or more. A gap well beyond the row for your precision points at a setting or at different weights."}}, {"@type": "Question", "name": "How much logprob difference is acceptable?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on what you do with the numbers. For evaluation and ranking, gaps of the size your precision explains are fine, because token gaps move far less than absolute values. NVIDIA NeMo RL treats a mean exp(|difference|) up to 1.05 between Hugging Face and vLLM as acceptable at equal precision. For reinforcement learning, where a ratio of probabilities multiplies every gradient, a few tokens with large ratios matter more than the mean."}}, {"@type": "Question", "name": "Why does vLLM give different text than Transformers at temperature 0?", "acceptedAnswer": {"@type": "Answer", "text": "Usually for one of four reasons: the prompt became different token ids (BOS, chat template); vLLM applied sampling defaults from generation_config.json, such as a repetition penalty, that your Transformers call did not; the two ran in different dtypes (vLLM runs float32 checkpoints in fp16 by default); or the logits differ by rounding and a near-tie tipped the other way. Greedy decoding amplifies the last one: after the first different token the two texts are different continuations."}}, {"@type": "Question", "name": "Are vLLM logprobs computed before or after temperature and top-p?", "acceptedAnswer": {"@type": "Answer", "text": "Before, by default. The V1 engine returns log_softmax of the raw logits, taken before penalties, temperature and top-k/top-p. Start the server with --logprobs-mode processed_logprobs to get the values after all processors. The older V0 engine returned processed values, which is why numbers changed for some users after upgrading."}}, {"@type": "Question", "name": "Why are llama.cpp logprobs off by the same amount for every token at a position?", "acceptedAnswer": {"@type": "Answer", "text": "The server converts logits to probabilities with a float32 running sum over the whole vocabulary. The sum is slightly off, so every token at that position shifts by one constant: up to about 1e-3 nats in the measurement on this page. Differences between tokens at the same position are unaffected."}}, {"@type": "Question", "name": "Does this page see my prompts, reports or API key?", "acceptedAnswer": {"@type": "Answer", "text": "No. The page is static. The report viewer reads the file in your browser, and the probe sends requests from your browser directly to the base URL you enter. Nothing is stored or sent anywhere else."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "Logprob parity between inference engines", "item": "https://erimaki-kobo.github.io/en/engine-logprob-parity-check/"}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9;--heat:196,98,16}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521;--heat:232,150,60}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none;overflow-wrap:normal}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.grid .wide{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+input[type=file]{padding:6px}
+textarea{min-height:56px;resize:vertical}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+button.sec{background:transparent;color:var(--acc);padding:7px 12px}
+button.sec[aria-pressed=true]{background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){button.sec[aria-pressed=true]{color:#10201d}}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+table.num td:not(:first-child),table.num th:not(:first-child){text-align:right;white-space:nowrap}
+table.num td.l,table.num th.l{text-align:left;white-space:normal}
+.tw{overflow-x:auto}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}.s.p{color:var(--warn)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-warn{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+.strip{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.84rem;line-height:1.9;white-space:pre-wrap;word-break:break-word;margin:4px 0 14px}
+.strip .pt{color:var(--mut)}
+.tk{background:rgba(var(--heat),var(--a,0));border-radius:3px;padding:1px 0;cursor:pointer}
+.tk.fl{outline:2px solid var(--bad);outline-offset:-1px}
+.tk.on{box-shadow:0 0 0 2px var(--acc)}
+.legend{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--mut);margin:8px 0}
+.legend i{display:inline-block;width:160px;height:12px;border-radius:3px;background:linear-gradient(90deg,rgba(var(--heat),0),rgba(var(--heat),1));border:1px solid var(--line)}
+#det{min-height:2.6em;font-size:.88rem}
+#pstatus,#vstatus{color:var(--mut);font-size:.88rem}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>Why do vLLM or llama.cpp logprobs differ from Transformers, and how much is normal?</h1>
+<p class="lede"><strong>Two implementations that both run float32 agree to about 1e-5 nats per token. With fp16 on one side the gap is about 1e-3 on average and 1e-2 at worst; with bf16 it is about 1e-2 on average, and single tokens can be off by 0.1 or more.</strong> Those figures come from the measurements on this page and line up with what users have reported for vLLM on GPUs.</p>
+<p>A gap larger than the precision explains is usually a setting, not arithmetic. The two sides tokenize the prompt differently, or one returns processed logprobs and the other raw ones, or a server default applies a repetition penalty, or half precision enters through a default: vLLM loads float32 checkpoints as fp16, and llama.cpp's flash attention casts keys and values to F16 even for an F32 model. The tables below list each cause with the version it was verified on, and <a href="#tool">lpcheck.py</a> tells you which one you have.</p>
+<p class="meta">Published 2026-11-11 &middot; Measured 2026-11-11 &middot; Verified against vLLM v0.33.0, SGLang v0.5.23, llama.cpp b12270 and Transformers 5.22.2 &middot; Tool version 1.0.0</p>
+
+<h2 id="normal">How much logprob difference is normal?</h2>
+<p><strong>About 1e-6 to 1e-5 nats per token in float32, about 1e-3 in fp16 and about 1e-2 in bf16.</strong> The numbers are the absolute difference in the log-probability of the same token given the same token ids, in nats. The measured rows compare one set of weights against a float64 reference over 512 token positions (<a href="#measured">method</a>).</p>
+<div class="tw"><table class="num">
+<thead><tr><th>Least precise side</th><th>Mean</th><th>99th pct.</th><th>Worst</th><th class="l">Where the number comes from</th></tr></thead>
+<tbody>
+<tr><td>float32</td><td>1.5e-6</td><td>6.7e-6</td><td>1.6e-5</td><td class="l">Measured here: Transformers in float32.</td></tr>
+<tr><td>fp16</td><td>1.8e-3</td><td>9.9e-3</td><td>0.02</td><td class="l">Measured here: Transformers in fp16. A vLLM user comparing opt-125m in fp16 on one GPU saw 2e-5 to 6.5e-3 over 28 tokens (<a href="https://discuss.vllm.ai/t/difference-in-log-probabilities-between-vllm-and-hf-model-in-identical-environment/183">forum #183</a>).</td></tr>
+<tr><td>bf16</td><td>0.016</td><td>0.079</td><td>0.23</td><td class="l">Measured here: Transformers in bf16. A vLLM user with a 1.5B model in bf16 reported one token at &minus;0.668 against &minus;0.602 and a mean relative error near 5% (<a href="https://discuss.vllm.ai/t/numerical-difference-between-vllm-logprobs-and-huggingface-logprobs/151">forum #151</a>).</td></tr>
+<tr><td>8-bit weights (GGUF Q8_0)</td><td>0.028</td><td>0.22</td><td>0.79</td><td class="l">Measured here on a 15M-parameter model. Small models lose more to quantization than large ones, so read this as an upper range.</td></tr>
+<tr><td>4-bit weights (GGUF Q4_0)</td><td>0.23</td><td>1.2</td><td>1.7</td><td class="l">Same model, same caveat.</td></tr>
+</tbody></table></div>
+<p>A second yardstick comes from NVIDIA's NeMo RL, which accepts a new model when the mean of exp(|&Delta;logprob|) between Hugging Face and vLLM stays at or below 1.05 at equal precision, and reports 1.01 to 1.04 for its own runs. On the measurements here that statistic is 1.000001 for float32, 1.002 for fp16, 1.017 for bf16 and 1.030 for Q8_0.</p>
+<p>fp16 keeps 10 mantissa bits and bf16 keeps 7, which is why bf16 comes out about nine times worse here. Qi et al. measured the same direction in RL fine-tuning of a 1.5B model, where fp16 made the mismatch between training and inference engines roughly 24 times smaller than bf16, and vLLM's own FAQ suggests float16 over bfloat16 when stable logprobs matter.</p>
+<p>Small gaps still change text. Against the float64 reference, float32 reproduced all 64 greedy tokens on 8 of 8 prompts, fp16 on 7 of 8 and bf16 on 1 of 8. The fp16 flips all sat where the reference's top two candidates were within 0.010 nats of each other. In bf16 the largest margin that flipped was 0.24 nats, about three times the 99th-percentile gap. So "the outputs differ at temperature 0" is not by itself evidence of a bug. A flip where the reference separates its top two tokens by much more than the noise on neighbouring tokens is.</p>
+
+<h2 id="meaning">What does "logprob" mean on each engine?</h2>
+<p><strong>vLLM and llama.cpp return raw model log-probabilities by default. SGLang returns them after penalties and, when sampling, after temperature. Transformers gives either, depending on the field you read.</strong> Before comparing numbers, check that both sides compute the same quantity. Each row was read in the source of the version shown.</p>
+<div class="tw"><table>
+<thead><tr><th>Engine</th><th>Returned by default</th><th>Switch</th></tr></thead>
+<tbody>
+<tr><td>vLLM v0.33.0</td><td><strong>Raw.</strong> <code>log_softmax</code> of the model's logits, taken before penalties, logit bias, temperature and top-k/top-p. The model produces the logits in its own dtype; the softmax is taken in float32.</td><td><code>--logprobs-mode raw_logprobs | processed_logprobs | raw_logits | processed_logits</code>. Processed means after every processor, including temperature and top-k/top-p. The older V0 engine returned processed values.</td></tr>
+<tr><td>SGLang v0.5.23</td><td><strong>Processed.</strong> Logit bias and penalties are applied to the logits first. With greedy decoding the result is <code>log_softmax(logits)</code>; with sampling it is the log of <code>softmax(logits / temperature)</code>.</td><td>Environment variable <code>SGLANG_RETURN_ORIGINAL_LOGPROB</code> returns the values before temperature scaling.</td></tr>
+<tr><td>llama.cpp server b12270</td><td><strong>Raw.</strong> Softmax of the logits over the whole vocabulary, without the sampler chain. The normalizing sum is accumulated in float32 (see <a href="#measured">below</a>).</td><td>Request field <code>post_sampling_probs: true</code> returns probabilities (not logs) after the sampler chain, in <code>prob</code> and <code>top_probs</code>.</td></tr>
+<tr><td>Transformers 5.22.2</td><td><code>model(ids).logits</code> is raw. In <code>generate()</code>, <code>output_logits=True</code> returns raw logits and <code>output_scores=True</code> returns the processed scores.</td><td><code>compute_transition_scores()</code> works on the processed scores.</td></tr>
+</tbody></table></div>
+<p>The practical consequence: a logprob from vLLM at temperature 0.7 is comparable with <code>log_softmax(logits)</code> from Transformers. The same request to SGLang returns <code>log_softmax(logits / 0.7)</code>, so the reference has to divide by the temperature too.</p>
+<p>The difference has cost real pipelines time. When ServiceNow moved an RL pipeline from vLLM 0.8.5 (V0 engine) to 0.18.1 (V1), the first fix needed to match the old training curves was <code>logprobs-mode: processed_logprobs</code>; turning prefix caching and async scheduling off came next, and computing the output head in float32 closed the last gap.</p>
+
+<h2 id="causes">Which settings change logprobs before rounding does?</h2>
+<p><strong>Tokenization, sampling defaults read from the model repo, the logprob mode, the dtype default, half-precision paths that are on by default, and the path a number was computed on.</strong> The last column is the step of <a href="#tool">lpcheck.py</a> that exposes each one.</p>
+<div class="tw"><table>
+<thead><tr><th>Cause</th><th>Verified behaviour</th><th>Fix</th><th>Step</th></tr></thead>
+<tbody>
+<tr><td>Different tokens in</td><td>A doubled or missing BOS, a chat template rendered differently, or a tokenizer that splits whitespace differently. In a test for this page, llama.cpp added BOS in front of a ChatML prompt that the Transformers chat template rendered without one. Transformers 5.22.2, building its tokenizer from a SentencePiece <code>tokenizer.model</code>, encoded <code>"Hello&nbsp;&nbsp;world"</code> (two spaces) as <code>[15043, 259, 11526]</code> where SentencePiece and llama.cpp give <code>[15043, 29871, 3186]</code>.</td><td>Send token ids, not text, when testing numerics. Fix the template or the BOS flag for production.</td><td>T</td></tr>
+<tr><td>Sampling defaults taken from the model repo</td><td>Since v0.8.0, vLLM uses <code>repetition_penalty</code>, <code>temperature</code>, <code>top_k</code>, <code>top_p</code> and <code>min_p</code> from the model's <code>generation_config.json</code> whenever the request omits them. A repetition penalty still acts at temperature 0. Transformers' <code>generate()</code> applies the same file; a bare forward pass does not.</td><td><code>vllm serve --generation-config vllm</code>, or send every sampling parameter explicitly.</td><td>G</td></tr>
+<tr><td>Processed against raw logprobs</td><td>See the table above.</td><td>Make both sides raw, or apply the same processing to the reference.</td><td>P</td></tr>
+<tr><td>dtype defaults</td><td>vLLM's <code>--dtype auto</code> runs float32 and fp16 checkpoints in fp16 and bf16 checkpoints in bf16. Transformers 5 loads the dtype the checkpoint was saved in; Transformers 4 loaded float32 unless told otherwise. vLLM computes the output head in the model dtype unless started with <code>--hf-overrides '{"head_dtype": "float32"}'</code>.</td><td>For a strict test run both in float32: <code>vllm serve --dtype float32</code>.</td><td>S</td></tr>
+<tr><td>Half precision inside an F32 llama.cpp run</td><td>With flash attention on (the default, <code>auto</code>), llama.cpp casts K and V to F16 before attention even when the KV cache is stored as F32. The KV cache type itself defaults to F16.</td><td><code>llama-server -fa off -ctk f32 -ctv f32</code></td><td>S, C</td></tr>
+<tr><td>Normalizer precision in llama.cpp</td><td>The server normalizes with a float32 running sum over the vocabulary. Every token at a position shifts by the same constant, up to 1.0e-3 nats here, while the gaps between tokens stay accurate to 2.6e-5.</td><td>Compare gaps between tokens, or subtract the shared offset. lpcheck reports the two parts separately.</td><td>S</td></tr>
+<tr><td>Decode path against scoring path</td><td>Generated-token logprobs come from incremental decoding with a KV cache. Prompt logprobs come from one prefill pass; vLLM recomputes that pass and ignores the prefix cache when prompt logprobs are requested. The two paths differ by 1.4e-5 at most in float32 Transformers, 0.097 in bf16, and 0.025 on llama.cpp with default flags.</td><td>Compare like with like. For RL, score with the path that produced the rollout.</td><td>C</td></tr>
+<tr><td>Values attached to the wrong token</td><td>A llama-cpp-python user found per-token logprobs lined up with Transformers only after shifting by one position (<a href="https://github.com/abetlen/llama-cpp-python/issues/1983">issue #1983</a>).</td><td>Check alignment before reading magnitudes.</td><td>S</td></tr>
+<tr><td>Batch and cache effects</td><td>The same request can return different logprobs under load or after a cache hit.</td><td>See <a href="/en/llm-determinism-test/">vLLM batch invariance: what still breaks determinism</a>.</td><td>&ndash;</td></tr>
+</tbody></table></div>
+
+<h2 id="measured">Measured: the same weights in three implementations</h2>
+<p>The model is TinyStories 15M (<code>stories15M.bin</code> from llama2.c, sha256 <code>cd590644&hellip;f49a</code>), a 6-layer Llama-architecture model with a 32,000-token vocabulary. It is small enough to run in float64. The reference is a NumPy forward pass in float64 written from the architecture alone (<a href="repro/np_ref.py">np_ref.py</a>), so it does not share code with any engine. The same weights were loaded into Transformers 5.22.2 (torch 2.15.0, CPU) and converted with llama.cpp's <code>convert_hf_to_gguf.py</code> for <code>llama-server</code> b12270 (official Linux x64 build, CPU with AVX-512, 2 threads). Eight prompts, 64 greedy tokens each, top-5 logprobs at every position, all fed as token ids.</p>
+<h3>Transformers against float64</h3>
+<div class="tw"><table class="num"><thead><tr><th>dtype</th><th>Mean</th><th>99th pct.</th><th>Worst</th><th>Mean exp(|&Delta;|)</th><th>Top-1 agreement</th><th>Greedy prompts identical</th><th>Decode vs full forward, worst</th></tr></thead><tbody><tr><td>float64 (<code>.double()</code>)</td><td>2.8e-7</td><td>2.1e-6</td><td>6.6e-6</td><td>1.000000</td><td>512 of 512</td><td>8 of 8</td><td>1.5e-14</td></tr><tr><td>float32</td><td>1.5e-6</td><td>6.7e-6</td><td>1.6e-5</td><td>1.000001</td><td>512 of 512</td><td>8 of 8</td><td>1.4e-5</td></tr><tr><td>fp16</td><td>1.8e-3</td><td>9.9e-3</td><td>0.02</td><td>1.002</td><td>509 of 512</td><td>7 of 8</td><td>0.022</td></tr><tr><td>bf16</td><td>0.016</td><td>0.079</td><td>0.23</td><td>1.017</td><td>501 of 512</td><td>1 of 8</td><td>0.097</td></tr></tbody></table></div>
+<p class="note">float64 is the model after <code>.double()</code>. It is not exact, because Transformers computes the rotary position angles in float32 whatever the model dtype.</p>
+<h3>llama.cpp server against float64</h3>
+<div class="tw"><table class="num"><thead><tr><th>GGUF</th><th class="l">Server flags</th><th>Mean</th><th>99th pct.</th><th>Worst</th><th>Shared offset, worst</th><th>Shape spread, worst</th><th>Top-1 agreement</th><th>Greedy prompts identical</th><th>Decode vs scoring, worst</th></tr></thead><tbody><tr><td>F32</td><td class="l"><code>-fa off -ctk f32 -ctv f32</code></td><td>1.5e-4</td><td>7.9e-4</td><td>1.0e-3</td><td>1.0e-3</td><td>2.6e-5</td><td>512 of 512</td><td>8 of 8</td><td>5.0e-6</td></tr><tr><td>F32</td><td class="l">default</td><td>8.9e-4</td><td>6.4e-3</td><td>0.031</td><td>0.024</td><td>0.028</td><td>512 of 512</td><td>8 of 8</td><td>0.025</td></tr><tr><td>F16</td><td class="l"><code>-fa off -ctk f32 -ctv f32</code></td><td>6.6e-4</td><td>3.6e-3</td><td>9.4e-3</td><td>5.5e-3</td><td>0.012</td><td>512 of 512</td><td>8 of 8</td><td>5.2e-6</td></tr><tr><td>F16</td><td class="l">default</td><td>1.2e-3</td><td>7.7e-3</td><td>0.019</td><td>0.026</td><td>0.028</td><td>511 of 512</td><td>7 of 8</td><td>0.024</td></tr><tr><td>BF16</td><td class="l"><code>-fa off -ctk f32 -ctv f32</code></td><td>7.2e-3</td><td>0.047</td><td>0.054</td><td>0.05</td><td>0.1</td><td>510 of 512</td><td>6 of 8</td><td>0.056</td></tr><tr><td>BF16</td><td class="l">default</td><td>7.4e-3</td><td>0.045</td><td>0.084</td><td>0.13</td><td>0.13</td><td>508 of 512</td><td>4 of 8</td><td>0.036</td></tr><tr><td>Q8_0</td><td class="l"><code>-fa off -ctk f32 -ctv f32</code></td><td>0.028</td><td>0.22</td><td>0.79</td><td>0.37</td><td>0.84</td><td>493 of 512</td><td>1 of 8</td><td>0</td></tr><tr><td>Q8_0</td><td class="l">default</td><td>0.027</td><td>0.2</td><td>0.76</td><td>0.31</td><td>0.9</td><td>497 of 512</td><td>1 of 8</td><td>0.11</td></tr><tr><td>Q4_0</td><td class="l"><code>-fa off -ctk f32 -ctv f32</code></td><td>0.23</td><td>1.2</td><td>1.7</td><td>2.8</td><td>2.8</td><td>427 of 512</td><td>0 of 8</td><td>0</td></tr><tr><td>Q4_0</td><td class="l">default</td><td>0.23</td><td>1.3</td><td>2.1</td><td>2.7</td><td>2.7</td><td>426 of 512</td><td>0 of 8</td><td>0.014</td></tr></tbody></table></div>
+<p>Three things stand out.</p>
+<ol>
+<li><strong>An F32 GGUF is not a float32 run by default.</strong> With default flags the F32 model lands in the same range as the F16 model. Switching attention to F32 (<code>-fa off -ctk f32 -ctv f32</code>) brings the shape of the distribution within 2.6e-5 of float64. Changing only the cache type has no effect, because flash attention casts K and V to F16 on its own (<code>src/llama-graph.cpp</code>); the two configurations gave identical numbers.</li>
+<li><strong>What remains is a constant per position.</strong> In the all-F32 run, the whole 1.0e-3 gap is an offset shared by the five top tokens at a position. Summing the probabilities the server returned for all 32,000 tokens gave 0.99904 at one position and 1.00018 at another, the same amounts as the offsets there. The server accumulates its normalizer in a <code>float</code> (<code>get_token_probabilities()</code> in <code>tools/server/server-common.cpp</code>), and thousands of the terms are near or below the rounding step of the running sum. Re-adding the same terms with a float32 running sum in NumPy reproduced the offsets at three positions to three digits (&minus;9.65e-4, &minus;6.87e-4, +1.84e-4). Token ranking and gaps between tokens are unaffected.</li>
+<li><strong>The engine disagrees with itself along two paths.</strong> With default flags, the logprob of a token produced during generation and the logprob of the same token when the same prefix is sent as a prompt differ by up to 0.025 nats. With attention in F32 the two paths agree to 5.0e-6. The llama.cpp README says as much about <code>cache_prompt</code>: logits are not guaranteed to be identical between prompt processing and token generation.</li>
+</ol>
+<p class="note">Not measured here: vLLM and SGLang (no GPU on the test machine), and models larger than 15M parameters. K-quants are missing because <code>llama-quantize</code> falls back from them when the hidden size (288 here) is not a multiple of 256. The rows are also available as <a href="samples/measured-rows.json">JSON</a>, and the viewer below shows four reports from the same setup taken against the Transformers float32 reference.</p>
+
+<h2 id="tool">Check your own setup with lpcheck.py</h2>
+<p><a href="lpcheck.py" download>lpcheck.py</a> is one Python file. Against an endpoint it needs only the standard library; with a Hugging Face reference it needs <code>torch</code> and <code>transformers</code>. It sends token ids, so tokenization cannot leak into the numeric comparison, and it has the candidate score the reference's own continuation, so every position is compared on identical context even after greedy outputs split.</p>
+<pre><code>curl -O https://erimaki-kobo.github.io/en/engine-logprob-parity-check/lpcheck.py
+
+# Transformers (float32) as the reference, a running server as the candidate
+python lpcheck.py --ref-hf Qwen/Qwen3-0.6B --base-url http://localhost:8000/v1
+
+# build the reference where the GPU is, test somewhere else
+python lpcheck.py --ref-hf ./model --save-ref ref.json
+python lpcheck.py --ref-file ref.json --base-url http://localhost:8080/v1 --json report.json
+
+# two servers: old version against new, or vLLM against llama.cpp
+python lpcheck.py --ref-url http://localhost:8000/v1 --base-url http://localhost:8001/v1
+
+# no server at all: what does bf16 cost this model?
+python lpcheck.py --ref-hf ./model --cand-hf ./model --cand-dtype bfloat16</code></pre>
+<p>Output from a real run: Transformers 5.22.2 in float32 as the reference, <code>llama-server</code> b12270 with default flags and the F32 GGUF of the same weights as the candidate.</p>
+<pre><code>lpcheck 1.0.0
+reference: hf:./stories15M  dtype=float32  model=./stories15M
+candidate: http://localhost:8080/v1/completions  model=stories15M-f32.gguf  api=llamacpp
+prompts=8  tokens per prompt=32  top-k=5
+
+[T] tokens in      7 of 8 prompts tokenize to the reference ids
+      code      first difference at token 9: reference [1125, 13, 268, 15945, 29908, 11609] (25 tokens), candidate [1125, 13, 1678, 9995, 11609, 278] (24 tokens)
+[P] meaning        returned logprobs vs temperature: unchanged | top_p: unchanged | repetition penalty: unchanged | greedy vs sampling: unchanged
+      the endpoint returns raw model logprobs: sampling parameters do not change them.
+[G] greedy         8 of 8 prompts give the reference tokens for all 32 steps
+      while the tokens agree (256 steps): |dlogprob| mean 7.40e-04  p99 4.78e-03  max 5.08e-03
+[S] same tokens    256 positions scored on identical context (stepwise)
+      |dlogprob| of the reference token   mean 9.51e-04  p50 5.12e-04  p99 6.88e-03  max 1.38e-02
+        offset shared by the top-5 at a position (normalizer)   mean 1.08e-03  max 1.03e-02
+        spread left after removing it (shape)                  mean 3.59e-03  max 1.45e-02
+      mean exp(|dlogprob|)                1.00095   (tolerance 1.050)
+      top-1 agreement                     256 of 256 (100.0%); flips: 0 at near-ties, 0 with a clear reference margin
+      KL(reference || candidate), top-5 + rest   mean 1.48e-06  max 1.61e-05 nats
+[C] self           candidate decode path vs its stepwise path, same tokens (256 steps): mean 1.02e-03  max 8.70e-03
+                   reference KV-cache decode vs full forward, same tokens (256 steps): mean 1.40e-06  max 7.35e-06
+
+VERDICT: NOT_THE_SAME_COMPUTATION
+The two sides differ before numerics come into it:
+  - TOKENS_IN: the candidate turns the same prompt text into different token ids, so a text prompt is not the same input on both sides. Steps G and S send token ids, so their numbers are not affected by this.
+With token ids pinned, the numbers themselves are within tolerance: mean exp(|dlogprob|) 1.00095, largest gap 1.38e-02 nats.
+Scale (mean |dlogprob|, one 15M model on CPU against float64, see the page): float32 1.5e-06, fp16 1.8e-03, bf16 1.6e-02, Q8_0 2.8e-02, Q4_0 2.3e-01. Here: 9.51e-04.
+
+report written to report.json</code></pre>
+<p>The run found a tokenizer difference on one prompt (step T) and nothing wrong with the numbers once ids were pinned. Exit status is 0 for identical or within tolerance, 1 for a numeric gap beyond tolerance, 3 when the two sides are not computing the same thing, and 2 when the check could not run, so it can gate an engine upgrade in CI. If production sends token ids too, add <code>--no-tokens-check</code> so a tokenizer difference does not fail the gate.</p>
+<div class="tw"><table>
+<thead><tr><th>Step</th><th>What it does</th><th>What a finding means</th></tr></thead>
+<tbody>
+<tr><td><strong>T</strong> tokens in</td><td>Tokenizes each prompt on the candidate (<code>/tokenize</code>; with <code>--chat</code>, the rendered chat prompt) and compares ids with the reference.</td><td>Text prompts are not the same input. Everything after this step uses ids.</td></tr>
+<tr><td><strong>P</strong> meaning</td><td>Requests one token at temperature 1 and 0.5, top_p 1 and 0.2, repetition penalty 1 and 1.5, and compares the returned top-k.</td><td>If the values move, the endpoint returns processed logprobs.</td></tr>
+<tr><td><strong>G</strong> greedy</td><td>Generates from the reference's prompt ids at temperature 0.</td><td>Where outputs split, and how close the reference's top two tokens were there. Also flags a token that is not the top-1 of the logprobs returned with it, the mark of a penalty or bias applied by the server.</td></tr>
+<tr><td><strong>S</strong> same tokens</td><td>Scores the reference's continuation on the candidate: one request with <code>prompt_logprobs</code> on vLLM, one request per token elsewhere.</td><td>The gap on identical context, split into an offset shared by all top-k tokens at a position and the spread that is left. Also checks for unnormalized values, a temperature-like slope, a penalty on tokens already in the context, and a one-position shift.</td></tr>
+<tr><td><strong>C</strong> self</td><td>Compares the candidate's logprobs from step G with its own from step S.</td><td>The candidate's noise floor. A gap to the reference of the same size is not the reference's fault.</td></tr>
+</tbody></table></div>
+
+<h2 id="viewer">Read a report token by token</h2>
+<p>Open a report written with <code>--json</code>, or one of the reports behind the tables above. Each token is shaded by its gap to the reference on a log scale; outlined tokens are top-1 flips. Nothing is uploaded.</p>
+<section class="card" aria-label="Report viewer">
+<div class="row" style="margin-top:0">
+<button class="sec" data-src="samples/llamacpp-f32-default.json">llama.cpp F32, default flags</button>
+<button class="sec" data-src="samples/llamacpp-f32-f32attn.json">llama.cpp F32, attention in F32</button>
+<button class="sec" data-src="samples/transformers-bf16.json">Transformers bf16</button>
+<button class="sec" data-src="samples/llamacpp-q8-default.json">llama.cpp Q8_0</button>
+</div>
+<div class="grid" style="margin-top:12px">
+<div><label for="vfile">Your report.json</label><input id="vfile" type="file" accept=".json,application/json"></div>
+<div><label for="vmode">Shade tokens by</label><select id="vmode"><option value="delta">gap on the reference token</option><option value="offset">offset shared by the top-k (normalizer)</option><option value="spread">spread after removing the offset (shape)</option></select></div>
+</div>
+<p id="vstatus" role="status" aria-live="polite"></p>
+<div id="vout"></div>
+</section>
+
+<h2 id="probe">Are my endpoint's logprobs raw or processed?</h2>
+<p>This runs step P from the browser: seven one-token requests to <code>/completions</code>. Requests go straight from this page to the URL you enter.</p>
+<section class="card" aria-label="Logprob meaning probe">
+<form class="grid" onsubmit="return false">
+<div class="wide"><label for="pbase">Base URL (ends in /v1)</label><input id="pbase" value="http://localhost:8080/v1" spellcheck="false" autocomplete="off"></div>
+<div><label for="pmodel">Model <span class="note">(blank = first from /models)</span></label><input id="pmodel" spellcheck="false" autocomplete="off"></div>
+<div><label for="pkey">API key <span class="note">(optional, never stored)</span></label><input id="pkey" type="password" autocomplete="off"></div>
+<div class="wide"><label for="pprompt">Prompt</label><textarea id="pprompt">one two three four five six one two three four five six one two three</textarea></div>
+</form>
+<div class="row"><button id="prun">Probe</button><span id="pstatus" role="status" aria-live="polite"></span></div>
+<div id="pout"></div>
+</section>
+<p class="note">A network error means the server refused a cross-origin request or is a plain <code>http://</code> host other than localhost. llama.cpp accepts any origin by default. vLLM v0.32.0 and later refuse cross-origin requests unless started with <code>--allowed-origins '["https://erimaki-kobo.github.io"]'</code>; v0.31 and earlier accepted them. The command-line script has no such limit.</p>
+
+<h2 id="read">How do I read the verdict?</h2>
+<dl>
+<dt>IDENTICAL</dt>
+<dd>Every compared logprob matched to the last printed digit. Expect this only between two instances of the same build on the same hardware.</dd>
+<dt>WITHIN_TOLERANCE</dt>
+<dd>Same tokens in, same meaning, mean exp(|&Delta;logprob|) at or below the tolerance (1.05 unless you change <code>--max-mult-err</code>), and every top-1 flip at a near-tie. Compare the printed mean with the table at the top to see which precision the gap corresponds to. For a float32-against-float32 check, tighten the tolerance: <code>--max-mult-err 1.0001</code>.</dd>
+<dt>NUMERIC_GAP</dt>
+<dd>The inputs and the meaning match, and the numbers still disagree by more than the tolerance, or a token flipped where the reference's margin was more than four times the 99th-percentile gap. Look at the weights first (quantization, revision, an adapter left on), then at the dtype of each side, then at the engine version.</dd>
+<dt>NOT_THE_SAME_COMPUTATION</dt>
+<dd>One or more of: different token ids for the same text, values that are not log-probabilities, a temperature-like slope, a penalty inside the logprobs, a token chosen at temperature 0 that is not the top-1, or a one-position shift. Each is a setting. The report still prints the numeric gap with ids pinned, so you can see whether anything is left after the setting is fixed.</dd>
+</dl>
+
+<h2 id="fix">How do I make two engines agree?</h2>
+<ol>
+<li><strong>Pin the input.</strong> Send token ids. If production sends text, fix the BOS flag and the chat template until step T passes.</li>
+<li><strong>Neutralize the sampler.</strong> Temperature 0, repetition penalty 1, no logit bias. On vLLM start with <code>--generation-config vllm</code> so the model repo cannot add defaults.</li>
+<li><strong>Make the meaning match.</strong> vLLM returns raw logprobs unless <code>--logprobs-mode</code> says otherwise. For SGLang at a temperature other than 1, divide the reference logits by the temperature or set <code>SGLANG_RETURN_ORIGINAL_LOGPROB</code>. On llama.cpp leave <code>post_sampling_probs</code> off. In Transformers use the logits, not the scores.</li>
+<li><strong>Match the precision.</strong> Load both sides in the same dtype. For a strict test use float32 on both: <code>--dtype float32</code> on vLLM, <code>-fa off -ctk f32 -ctv f32</code> on llama.cpp.</li>
+<li><strong>Compare the same path.</strong> Scoring-path numbers against a full forward pass, decode-path numbers against cached generation.</li>
+<li><strong>Accept the floor.</strong> After all of that, 1e-5 in float32, 1e-2 in fp16 and 1e-1 in bf16 on single tokens are what the arithmetic leaves. Exact agreement needs the two sides to share kernels: the vLLM team reports bitwise-identical rollout and training logprobs after making the training forward pass call vLLM's own inference kernels.</li>
+</ol>
+
+<h2 id="limits">What can this not tell you?</h2>
+<ul>
+<li>The measured table is one 15M-parameter model on one CPU. GPU kernels, deeper models and MoE routing change the magnitudes. Run the tool on your own model for your own floor.</li>
+<li>The llama.cpp and Transformers paths of lpcheck were run against the real software. The vLLM path (<code>prompt_logprobs</code>, <code>return_tokens_as_token_ids</code>, <code>/tokenize</code>) and the SGLang path were written from the v0.33.0 and v0.5.23 source and tested against a mock server that mimics their response shapes. They have not been run against a live vLLM or SGLang server. If a real response differs, the tool reports request errors or falls back to step-by-step scoring.</li>
+<li>Servers that return token text without ids (SGLang's OpenAI-compatible API) are matched by text, which can miss byte-fragment tokens. Those positions are counted and reported.</li>
+<li>The KL figure uses the top-k tokens plus one bucket for the rest, so it is a lower bound on the true divergence.</li>
+<li>Step-by-step scoring on a server with a prefix cache measures the cached path. That is the reason step C exists.</li>
+<li>The 1.05 tolerance is a convention borrowed from NeMo RL, not a property of floating point. For RL, where a ratio of probabilities multiplies every gradient, the tail matters more than the mean.</li>
+</ul>
+
+<h2 id="alt">Related tools</h2>
+<ul>
+<li>llama.cpp ships <a href="https://github.com/ggml-org/llama.cpp/blob/master/scripts/compare-logprobs.py">scripts/compare-logprobs.py</a>, which dumps the top-1 logprob for a growing text prompt from two endpoints and diffs them. It uses text prompts and does not separate tokenization, meaning and numerics.</li>
+<li><code>llama-perplexity --kl-divergence</code> compares a quantized GGUF against saved logits of a base GGUF inside llama.cpp.</li>
+<li>NVIDIA NeMo RL has <a href="https://docs.nvidia.com/nemo/rl/0.7.0/adding-new-models.html">model diagnostics</a> for Hugging Face against vLLM inside its training stack, including a decode-versus-prefill check.</li>
+<li><a href="https://github.com/Robby955/logprobe">logprobe</a> validates and compares saved logprob files (normalization, entropy, perplexity).</li>
+<li><a href="https://pypi.org/project/token-difr/">token-difr</a> audits hosted providers by re-scoring their outputs on a reference provider.</li>
+<li>On this site: <a href="/en/llm-determinism-test/">a determinism test</a> for one endpoint under load, cache hits and mixed batches, and <a href="/en/vllm-torch-cuda-driver-matrix/">the PyTorch and CUDA build behind every vLLM release</a>, for when two vLLM versions disagree.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>Is it normal for vLLM logprobs to differ from Hugging Face Transformers?</h3>
+<p>Yes, within the precision of the run. Different kernels round differently, so two correct implementations of the same model do not return identical floats. In float32 the gap is around 1e-6 to 1e-5 nats per token; in fp16 around 1e-3; in bf16 around 1e-2 with occasional tokens off by 0.1 or more. A gap well beyond the row for your precision points at a setting or at different weights.</p>
+<h3>How much logprob difference is acceptable?</h3>
+<p>It depends on what you do with the numbers. For evaluation and ranking, gaps of the size your precision explains are fine, because token gaps move far less than absolute values. NVIDIA NeMo RL treats a mean exp(|difference|) up to 1.05 between Hugging Face and vLLM as acceptable at equal precision. For reinforcement learning, where a ratio of probabilities multiplies every gradient, a few tokens with large ratios matter more than the mean.</p>
+<h3>Why does vLLM give different text than Transformers at temperature 0?</h3>
+<p>Usually for one of four reasons: the prompt became different token ids (BOS, chat template); vLLM applied sampling defaults from generation_config.json, such as a repetition penalty, that your Transformers call did not; the two ran in different dtypes (vLLM runs float32 checkpoints in fp16 by default); or the logits differ by rounding and a near-tie tipped the other way. Greedy decoding amplifies the last one: after the first different token the two texts are different continuations.</p>
+<h3>Are vLLM logprobs computed before or after temperature and top-p?</h3>
+<p>Before, by default. The V1 engine returns log_softmax of the raw logits, taken before penalties, temperature and top-k/top-p. Start the server with --logprobs-mode processed_logprobs to get the values after all processors. The older V0 engine returned processed values, which is why numbers changed for some users after upgrading.</p>
+<h3>Why are llama.cpp logprobs off by the same amount for every token at a position?</h3>
+<p>The server converts logits to probabilities with a float32 running sum over the whole vocabulary. The sum is slightly off, so every token at that position shifts by one constant: up to about 1e-3 nats in the measurement on this page. Differences between tokens at the same position are unaffected.</p>
+<h3>Does this page see my prompts, reports or API key?</h3>
+<p>No. The page is static. The report viewer reads the file in your browser, and the probe sends requests from your browser directly to the base URL you enter. Nothing is stored or sent anywhere else.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>vLLM v0.33.0 source: <code>vllm/v1/sample/sampler.py</code> (logprobs modes), <code>vllm/config/model.py</code> (<code>dtype</code>, <code>head_dtype</code>, <code>generation_config</code>), <code>vllm/entrypoints/openai/completion/protocol.py</code>; docs <a href="https://docs.vllm.ai/en/latest/usage/v1_guide/">vLLM V1 guide</a> (semantic changes to logprobs), <a href="https://docs.vllm.ai/en/latest/usage/troubleshooting/">Troubleshooting</a> (generation quality changed in v0.8.0) and <a href="https://docs.vllm.ai/en/latest/usage/faq/">FAQ</a> (float32 and float16 for stable logprobs).</li>
+<li>SGLang v0.5.23 source: <code>python/sglang/srt/layers/sampler.py</code>, <code>python/sglang/srt/sampling/sampling_batch_info.py</code>.</li>
+<li>llama.cpp b12270 source: <code>tools/server/server-common.cpp</code> (<code>get_token_probabilities</code>), <code>src/llama-graph.cpp</code> (flash attention casts), <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md">tools/server/README.md</a> (<code>n_probs</code>, <code>post_sampling_probs</code>, <code>cache_prompt</code>).</li>
+<li>Transformers 5.22.2 source: <code>modeling_utils.py</code> (<code>dtype</code> default), <code>generation/configuration_utils.py</code> (<code>output_scores</code>, <code>output_logits</code>), <code>models/llama/modeling_llama.py</code> (rotary embedding).</li>
+<li>vLLM forum: <a href="https://discuss.vllm.ai/t/numerical-difference-between-vllm-logprobs-and-huggingface-logprobs/151">Numerical difference between vLLM logprobs and huggingface logprobs</a> (2025-03), <a href="https://discuss.vllm.ai/t/difference-in-log-probabilities-between-vllm-and-hf-model-in-identical-environment/183">Difference in log probabilities between vLLM and HF model</a> (2025-03), <a href="https://discuss.vllm.ai/t/transformers-do-sample-false-vs-samplingparms-temperature-0-gives-different-results/1926">Transformers do_sample=False vs temperature=0</a> (2025-11).</li>
+<li>NVIDIA NeMo RL, <a href="https://docs.nvidia.com/nemo/rl/0.7.0/adding-new-models.html">Add New Models</a> (error metric and the 1.05 threshold).</li>
+<li>vLLM blog, <a href="https://vllm.ai/blog/2026-10-14-train-inference-consistency">Finish RL Training Faster: Bitwise-Consistent, High-Performance, Agent-Driven</a>, 2026-10-14.</li>
+<li>ServiceNow AI, <a href="https://huggingface.co/blog/ServiceNow-AI/correctness-before-corrections">vLLM V0 to V1: Correctness Before Corrections in RL</a>, 2026-05-06.</li>
+<li>Qi et al., <a href="https://arxiv.org/abs/2510.26788">Defeating the Training-Inference Mismatch via FP16</a>, 2025.</li>
+<li>Andrej Karpathy, <a href="https://github.com/karpathy/llama2.c">llama2.c</a> (model format and tokenizer).</li>
+</ul>
+</main>
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fmt(x){if(x===null||x===undefined)return "&ndash;";if(x===0)return "0";return Number(x).toExponential(2)}
+function num(x){return typeof x==="number"&&isFinite(x)}
+
+/* ---------------- report viewer ---------------- */
+var cur=null,sel=null;
+function shade(x){if(!num(x))return 0;x=Math.abs(x);if(x<=1e-7)return 0;return Math.max(0,Math.min(1,(Math.log(x)/Math.LN10+6)/6))}
+function showTok(t){return t===""||t===null||t===undefined?"\u2205":String(t).replace(/\n/g,"\u21b5\n")}
+function vrender(){
+  var r=cur,mode=$("vmode").value;if(!r)return;
+  var st=r.same_tokens||{},d=st.delta||{},g=r.greedy||{},ref=r.reference||{},cand=r.candidate||{};
+  var cls=r.verdict==="NUMERIC_GAP"?"v-bad":r.verdict==="NOT_THE_SAME_COMPUTATION"?"v-warn":"v-ok";
+  var h='<p><strong>Reference:</strong> '+esc(ref.label||ref.source||"")+(ref.dtype?" ("+esc(ref.dtype)+")":"")+'<br><strong>Candidate:</strong> '+esc(cand.label||cand.url||"")+"</p>";
+  h+='<div class="verdict '+cls+'">'+esc(r.verdict||"")+"<span>"+((r.reasons||[]).length?esc(r.reasons.map(function(x){return x.split(":")[0]}).join(", "))+": see the report text for details. ":"")+"Numbers with token ids pinned are below.</span></div>";
+  h+='<div class="tw"><table class="num"><thead><tr><th>Statistic</th><th>Mean</th><th>Median</th><th>99th pct.</th><th>Worst</th></tr></thead><tbody>';
+  h+="<tr><td>|&Delta;logprob| of the reference token</td><td>"+fmt(d.mean)+"</td><td>"+fmt(d.p50)+"</td><td>"+fmt(d.p99)+"</td><td>"+fmt(d.max)+"</td></tr>";
+  if(st.offset)h+="<tr><td>Offset shared by the top-k (normalizer)</td><td>"+fmt(st.offset.mean)+"</td><td>"+fmt(st.offset.p50)+"</td><td>"+fmt(st.offset.p99)+"</td><td>"+fmt(st.offset.max)+"</td></tr>";
+  if(st.spread)h+="<tr><td>Spread after removing it (shape)</td><td>"+fmt(st.spread.mean)+"</td><td>"+fmt(st.spread.p50)+"</td><td>"+fmt(st.spread.p99)+"</td><td>"+fmt(st.spread.max)+"</td></tr>";
+  if(r.self)h+="<tr><td>Candidate decode path vs its scoring path</td><td>"+fmt(r.self.mean)+"</td><td>"+fmt(r.self.p50)+"</td><td>"+fmt(r.self.p99)+"</td><td>"+fmt(r.self.max)+"</td></tr>";
+  h+="</tbody></table></div>";
+  var flips=(r.rows||[]).filter(function(x){return x.top1_same===false}).length;
+  h+="<p>"+(st.n||0)+" positions scored ("+esc(st.method||"generated prefix")+"). Mean exp(|&Delta;logprob|) "+(num(st.mult_err)?st.mult_err.toFixed(5):"&ndash;")+". Top-1 agreement "+(st.agree||0)+" of "+(st.n||0)+" ("+flips+" flips). Greedy generation matched the reference on "+(g.identical||0)+" of "+(g.prompts||0)+" prompts."+(r.tokens_in&&r.tokens_in.checked?" Tokenization matched on "+r.tokens_in.same+" of "+r.tokens_in.checked+" prompts.":"")+"</p>";
+  h+='<div class="legend"><span>1e-6</span><i></i><span>1 nat</span><span>&nbsp;&middot; outlined = top-1 flip &middot; select a token for its numbers</span></div><div id="det" class="note" role="status" aria-live="polite"></div>';
+  var by={};(r.rows||[]).forEach(function(x,i){(by[x.prompt]=by[x.prompt]||[]).push(i)});
+  var names=(r.prompts||[]).map(function(p){return p.name});Object.keys(by).forEach(function(n){if(names.indexOf(n)<0)names.push(n)});
+  names.forEach(function(n){
+    if(!by[n])return;
+    var p=(r.prompts||[]).filter(function(q){return q.name===n})[0];
+    h+='<div class="strip"><span class="pt">'+esc(n)+" &middot; "+esc(p&&p.text?showTok(p.text):"")+"</span>";
+    by[n].forEach(function(i){var x=r.rows[i],v=mode==="delta"?x.delta:x[mode];
+      h+='<span class="tk'+(x.top1_same===false?" fl":"")+'" tabindex="0" data-i="'+i+'" style="--a:'+shade(v).toFixed(3)+'">'+esc(showTok(x.tok))+"</span>"});
+    h+="</div>"});
+  $("vout").innerHTML=h;sel=null;
+}
+function vdetail(el){
+  if(!cur||!el||!el.classList||!el.classList.contains("tk"))return;
+  if(sel)sel.classList.remove("on");sel=el;el.classList.add("on");
+  var x=cur.rows[+el.getAttribute("data-i")];
+  $("det").innerHTML="<strong>"+esc(JSON.stringify(x.tok))+"</strong> ("+esc(x.prompt)+", step "+x.pos+"): reference logprob "+(num(x.ref_lp)?x.ref_lp.toFixed(6):"&ndash;")+", gap "+(num(x.delta)?x.delta.toExponential(2):"not in the candidate's top-k")+", shared offset "+fmt(x.offset)+", spread "+fmt(x.spread)+", reference top-2 margin "+(num(x.ref_margin)?x.ref_margin.toFixed(4):"&ndash;")+" nats"+(x.top1_same===false?". <strong>Top-1 flip</strong>: the candidate prefers "+esc(JSON.stringify(x.cand_top1)):"")+".";
+}
+function vload(r,label){
+  if(!r||!Array.isArray(r.rows)||!r.same_tokens){$("vstatus").textContent="That file is not an lpcheck report (run lpcheck.py with --json).";return}
+  cur=r;$("vstatus").textContent=label;vrender();
+}
+Array.prototype.forEach.call(document.querySelectorAll("button[data-src]"),function(b){
+  b.addEventListener("click",function(){
+    Array.prototype.forEach.call(document.querySelectorAll("button[data-src]"),function(o){o.setAttribute("aria-pressed","false")});
+    b.setAttribute("aria-pressed","true");$("vstatus").textContent="Loading...";
+    fetch(b.getAttribute("data-src")).then(function(x){if(!x.ok)throw new Error("HTTP "+x.status);return x.json()})
+      .then(function(r){vload(r,b.textContent+" (measured for this page)")})
+      .catch(function(e){$("vstatus").textContent="Could not load the sample: "+e.message})});
+});
+$("vfile").addEventListener("change",function(){
+  var f=this.files&&this.files[0];if(!f)return;var rd=new FileReader();
+  rd.onload=function(){try{vload(JSON.parse(rd.result),f.name)}catch(e){$("vstatus").textContent="Could not parse that file as JSON."}};rd.readAsText(f);
+});
+$("vmode").addEventListener("change",vrender);
+$("vout").addEventListener("click",function(e){vdetail(e.target)});
+$("vout").addEventListener("focusin",function(e){vdetail(e.target)});
+
+/* ---------------- step P in the browser ---------------- */
+function safeLog(p){return typeof p!=="number"?null:(p>0?Math.log(p):-9999)}
+function entry(tok,lp,id){var m=/^token_id:(\d+)$/.exec(typeof tok==="string"?tok:"");if(m&&id===undefined)return [parseInt(m[1],10),"",lp];return [id===undefined?null:id,typeof tok==="string"?tok:"",lp]}
+function parseFirst(choice){
+  var lp=choice.logprobs||{},top=[],kind="logprob";
+  if(Array.isArray(lp.content)&&lp.content.length){
+    var t=lp.content[0],raw=t.top_logprobs;
+    if(raw===undefined&&t.top_probs){kind="prob";raw=t.top_probs}
+    (raw||[]).forEach(function(a){var v=kind==="logprob"?a.logprob:safeLog(a.prob);if(typeof v==="number")top.push(entry(a.token||"",v,a.id))});
+  }else if(Array.isArray(lp.tokens)&&lp.tokens.length){
+    var d=(lp.top_logprobs||[])[0]||{};Object.keys(d).forEach(function(k){if(typeof d[k]==="number")top.push(entry(k,d[k]))});
+  }else return null;
+  top.sort(function(a,b){return b[2]-a[2]});
+  return {top:top,kind:kind};
+}
+function keyOf(e){return e[0]!==null?"i"+e[0]:"t"+e[1]}
+function pdiff(a,b,k){
+  if(!a||!b||a.error||b.error)return null;
+  var ta=a.top.slice(0,k).filter(function(e){return e[2]>-9000}),mb={};
+  b.top.forEach(function(e){if(e[2]>-9000)mb[keyOf(e)]=e[2]});
+  var common=ta.filter(function(e){return keyOf(e) in mb});
+  if(!ta.length||common.length<0.6*ta.length||Object.keys(mb).length<0.6*ta.length)return Infinity;
+  return Math.max.apply(null,common.map(function(e){return Math.abs(e[2]-mb[keyOf(e)])}));
+}
+async function probe(){
+  var base=$("pbase").value.trim().replace(/\/+$/,""),key=$("pkey").value,k=5,H={"Content-Type":"application/json"};
+  if(key)H.Authorization="Bearer "+key;
+  $("prun").disabled=true;$("pout").innerHTML="";$("pstatus").textContent="Connecting...";
+  try{
+    var model=$("pmodel").value.trim();
+    if(!model){var mr=await fetch(base+"/models",{headers:H});if(!mr.ok)throw new Error("GET "+base+"/models returned HTTP "+mr.status+". Enter the model id.");model=(await mr.json()).data[0].id;$("pmodel").value=model}
+    var extras=true;
+    var ask=async function(temperature,extra){
+      var p={model:model,prompt:$("pprompt").value,max_tokens:1,temperature:temperature,top_p:1,seed:1,logprobs:k,stream:false};
+      if(extras)p.n_probs=k;
+      Object.keys(extra||{}).forEach(function(x){if(extras||x!=="repeat_penalty")p[x]=extra[x]});
+      var r=await fetch(base+"/completions",{method:"POST",headers:H,body:JSON.stringify(p)});
+      if(!r.ok){var t=await r.text();return {error:"HTTP "+r.status+": "+t.slice(0,200)}}
+      var s=parseFirst((await r.json()).choices[0]);return s||{error:"the response carried no logprobs"};
+    };
+    var warm=await ask(1,{});
+    if(warm.error){extras=false;warm=await ask(1,{})}
+    if(warm.error)throw new Error("The first request failed: "+warm.error);
+    var b0=await ask(1,{});
+    if(b0.error)throw new Error("The request failed: "+b0.error);
+    var rows=[["temperature 1 \u2192 0.5",await ask(0.5,{})],["top_p 1 \u2192 0.2",await ask(1,{top_p:0.2})],["repetition penalty 1 \u2192 1.5",await ask(1,{repetition_penalty:1.5,repeat_penalty:1.5})],["sampling \u2192 greedy (temperature 0)",await ask(0,{})]];
+    var noise=pdiff(b0,await ask(1,{}),k)||0,tol=Math.max(1e-6,10*noise),moved=[];
+    var h='<div class="tw"><table class="num"><thead><tr><th>Change in the request</th><th>Largest change in the top-'+k+' logprobs</th><th class="l">Reading</th></tr></thead><tbody>';
+    rows.forEach(function(r,i){var d=pdiff(b0,r[1],k),w=d===null?"not tested ("+esc((r[1]&&r[1].error)||"")+")":d<=tol?'<span class="s y">unchanged</span>':'<span class="s p">changes</span>';
+      if(d!==null&&d>tol&&i<3)moved.push(["temperature","top_p","a repetition penalty"][i]);
+      h+="<tr><td>"+esc(r[0])+"</td><td>"+(d===null?"&ndash;":d===Infinity?"different tokens":fmt(d))+'</td><td class="l">'+w+"</td></tr>"});
+    h+="<tr><td>same request twice</td><td>"+fmt(noise)+'</td><td class="l">noise floor</td></tr></tbody></table></div>';
+    var v;
+    if(b0.kind==="prob")v=["v-warn","Post-sampling probabilities","The endpoint returns probabilities after its sampler chain (llama.cpp post_sampling_probs). They are not comparable with a reference log-softmax; turn the option off."];
+    else if(moved.length)v=["v-warn","Processed logprobs","The values follow "+moved.join(", ")+". A reference computed as log_softmax(logits) matches only at neutral settings. Apply the same processing to the reference, or switch the server to raw output."];
+    else v=["v-ok","Raw model logprobs","Sampling parameters do not change the values. Compare them directly with log_softmax(logits) from the reference, on the same token ids and in the same dtype."];
+    $("pout").innerHTML=h+'<div class="verdict '+v[0]+'">'+esc(v[1])+"<span>"+esc(v[2])+"</span></div>";
+    $("pstatus").textContent="Done.";
+  }catch(e){
+    var msg=e.message||String(e);
+    if(/Failed to fetch|NetworkError|Load failed/i.test(msg))msg+=" (the browser could not reach the endpoint: check the URL, CORS, and that it is HTTPS or localhost)";
+    $("pstatus").textContent=msg;
+  }finally{$("prun").disabled=false}
+}
+$("prun").addEventListener("click",probe);
+})();
+</script>
+</body>
+</html>
