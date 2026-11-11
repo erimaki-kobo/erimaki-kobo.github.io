@@ -165,6 +165,7 @@ def strip_tags(s):
     return html.unescape(re.sub(r"<[^>]+>", "", s))
 
 FAQ_HTML = "\n".join("<dt>%s</dt>\n<dd>%s</dd>" % (e(q), a) for q, a in FAQ)
+LICENSE = "https://creativecommons.org/licenses/by/4.0/"
 ORG = {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}
 ld = {"@context": "https://schema.org", "@graph": [
     {"@type": "TechArticle", "@id": URL + "#article", "headline": H1, "description": DESC, "url": URL,
@@ -177,7 +178,7 @@ ld = {"@context": "https://schema.org", "@graph": [
     {"@type": "Dataset", "@id": URL + "#data", "name": "GGUF architecture strings: first llama.cpp build and first Ollama release",
      "description": "One record per general.architecture string known to llama.cpp %s: introducing commit, first release tag and date, "
                     "first Ollama release whose bundled llama.cpp contains it, and the llama.cpp build bundled by every Ollama release." % HEAD_TAG,
-     "url": URL, "dateModified": AS_OF, "creator": ORG,
+     "url": URL, "dateModified": AS_OF, "creator": ORG, "license": LICENSE,
      "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": URL + "archs.json"}},
     {"@type": "FAQPage", "@id": URL + "#faq",
      "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in FAQ]},
@@ -366,7 +367,7 @@ PAGE = """<!DOCTYPE html>
 <dt>Ollama's own engine</dt><dd>The releases in which Ollama's Go engine registered a model under exactly this name (<code>model.Register</code> in <code>model/models</code>). That engine existed from @@GOF@@ to @@GOL@@. See the note below before relying on it.</dd>
 <dt>vLLM GGUF plugin</dt><dd>"tested" means the family is in the "Tested model coverage" table of <code>vllm-gguf-plugin</code> v0.0.5. A dash means untested there, not known to fail.</dd>
 </dl>
-<p>The same data as JSON: <a href="archs.json">archs.json</a>.</p>
+<p>The same data as JSON: <a href="archs.json">archs.json</a>, licensed <a href="@@LICENSE@@">CC BY 4.0</a>.</p>
 
 <h2 id="ollama">Which llama.cpp build is inside each Ollama release?</h2>
 <p><strong>Ollama @@LO@@ bundles llama.cpp @@LOB@@. From @@FFP@@ the pin is a release tag in the file <code>LLAMA_CPP_VERSION</code>; before that it is a commit.</strong> Consecutive releases with the same pin are merged into one row. Where the pinned commit sits between two tags, the row shows the last tag before it.</p>
@@ -448,7 +449,7 @@ subs = {
     "G4B": str(g4["b"]), "G4D": g4["d"], "G4OL": g4["ol"][1:], "G4GF": g4["gf"][1:], "Q35B": str(q35["b"]), "Q35D": q35["d"],
     "FP": FIRST_PIN["tag"][1:], "FFP": FIRST_FILE_PIN["tag"][1:], "GOF": FIRST_GO_TAG["tag"][1:], "GOL": LAST_GO_TAG["tag"][1:],
     "NOGO": FIRST_NO_GO["tag"][1:], "NGO": str(len(go_earlier)), "NOT": str(len(OT)), "NPIN": str(len(pinned)),
-    "LCREPO": LC, "OLREPO": OL, "VF": "0.3.13", "VL": "0.24.0", "NPATCH": str(sum(1 for x in rows_data if x["patch"] or x["er"])),
+    "LICENSE": LICENSE, "LCREPO": LC, "OLREPO": OL, "VF": "0.3.13", "VL": "0.24.0", "NPATCH": str(sum(1 for x in rows_data if x["patch"] or x["er"])),
 }
 page = PAGE
 for k, v in subs.items():
