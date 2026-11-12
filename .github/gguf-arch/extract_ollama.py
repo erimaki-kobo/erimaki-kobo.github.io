@@ -50,7 +50,7 @@ def pin_for(tag):
 def build_of(ref):
     """Map a llama.cpp ref to (equivalent build tag, exact?)."""
     if re.fullmatch(r"b\d+", ref):
-        return ref, True, git(LC, "log", "-1", "--format=%ad", "--date=short", ref, ok=True).strip() if git(LC, "rev-parse", "-q", "--verify", ref + "^{commit}", ok=True) else None
+        return ref, True, git(LC, "log", "-1", "--format=%cd", "--date=short-local", ref, ok=True).strip() if git(LC, "rev-parse", "-q", "--verify", ref + "^{commit}", ok=True) else None
     full = git(LC, "rev-parse", "-q", "--verify", ref + "^{commit}", ok=True)
     if not full:
         return None, False, None
@@ -63,7 +63,7 @@ def build_of(ref):
     if not m:
         return None, False, None
     exact = m.group(2) is None
-    date = git(LC, "log", "-1", "--format=%ad", "--date=short", full).strip()
+    date = git(LC, "log", "-1", "--format=%cd", "--date=short-local", full).strip()
     return m.group(1), exact, date
 
 def go_archs(tag):
@@ -84,7 +84,7 @@ tags.sort(key=key)
 
 rows = []
 for i, t in enumerate(tags):
-    date = git(OL, "log", "-1", "--format=%ad", "--date=short", t).strip()
+    date = git(OL, "log", "-1", "--format=%cd", "--date=short-local", t).strip()
     pin, how = pin_for(t)
     build = exact = bdate = None
     if pin:

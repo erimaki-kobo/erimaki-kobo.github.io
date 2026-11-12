@@ -16,7 +16,10 @@ if [ -n "${LLAMA_REF:-}" ]; then
   git -C llama.cpp update-ref --no-deref HEAD "$(git -C llama.cpp rev-parse "${LLAMA_REF}^{commit}")"
 fi
 
-git -C llama.cpp log --follow -p --date=short --format="COMMIT%x09%H%x09%ad%x09%s" -- src/llama-arch.cpp > arch_log.txt
+# All dates are UTC commit dates (the time the build tag or release was cut),
+# not the author's local date, which can be a day off.
+export TZ=UTC
+git -C llama.cpp log --follow -p --date=short-local --format="COMMIT%x09%H%x09%cd%x09%s" -- src/llama-arch.cpp > arch_log.txt
 python3 -I extract_llama.py
 python3 -I extract_ollama.py
 python3 -I extract_ollama_go.py

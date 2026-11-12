@@ -337,7 +337,7 @@ PAGE = """<!DOCTYPE html>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>@@H1@@</h1>
 <p class="lede"><strong>"unknown model architecture: 'X'" means the llama.cpp inside your runtime is older than the commit that added X. The fix is a build at or above the number in the table below.</strong> For example, <code>gemma4</code> needs llama.cpp b@@G4B@@ (@@G4D@@) and <code>qwen35</code>, used by Qwen 3.5 and 3.6, needs b@@Q35B@@ (@@Q35D@@). Ollama's bundled llama.cpp has both from @@G4OL@@. llama.cpp @@HEAD@@ knows @@N@@ architecture strings, @@N2026@@ of them added in 2026. The latest Ollama, @@LO@@, bundles @@LOB@@@@NOTYET@@.</p>
-<p class="meta">Published @@PUB@@ &middot; Data as of @@ASOF@@ &middot; llama.cpp up to @@HEAD@@ &middot; Ollama up to @@LO@@ &middot; read from git history, nothing was run</p>
+<p class="meta">Published @@PUB@@ &middot; Data as of @@ASOF@@ &middot; llama.cpp up to @@HEAD@@ &middot; Ollama up to @@LO@@ &middot; read from git history, nothing was run &middot; dates are UTC commit dates</p>
 
 <h2 id="lookup">Which build does my GGUF need?</h2>
 <p>Paste the error line, or type the value of <code>general.architecture</code>. The two version fields are optional; fill them in to get a yes or no for your install.</p>

@@ -54,7 +54,7 @@ old_names = [n for n in head_archs if intro.get(n, {}).get("commit") == first_co
 print("archs predating llama-arch.cpp:", len(old_names), file=sys.stderr)
 
 # commit list of the predecessor files, oldest first, with the path valid at each commit
-hist = git("log", "--reverse", "--date=short", "--format=%H%x09%ad%x09%s", "--name-only", "--", "src/llama.cpp", "llama.cpp").splitlines()
+hist = git("log", "--reverse", "--date=short-local", "--format=%H%x09%cd%x09%s", "--name-only", "--", "src/llama.cpp", "llama.cpp").splitlines()
 old_commits = []  # (hash, date, subject, path)
 i = 0
 while i < len(hist):
@@ -123,7 +123,7 @@ def first_tag(commit):
 tag_date_cache = {}
 def tag_date(tag):
     if tag not in tag_date_cache:
-        tag_date_cache[tag] = git("log", "-1", "--format=%ad", "--date=short", tag).strip()
+        tag_date_cache[tag] = git("log", "-1", "--format=%cd", "--date=short-local", tag).strip()
     return tag_date_cache[tag]
 
 rows = []
@@ -142,7 +142,7 @@ for name, enum in sorted(head_archs.items(), key=lambda kv: kv[0]):
 head = git("rev-parse", "HEAD").strip()
 head_tag = first_tag(head) or git("describe", "--tags", "--abbrev=0", "--match", "b*", head).strip()  # latest tag at or before HEAD
 out = {"source": "https://github.com/ggml-org/llama.cpp", "file": "src/llama-arch.cpp (LLM_ARCH_NAMES)",
-       "head": head, "head_tag": head_tag, "head_date": git("log", "-1", "--format=%ad", "--date=short").strip(),
+       "head": head, "head_tag": head_tag, "head_date": git("log", "-1", "--format=%cd", "--date=short-local").strip(),
        "count": len(rows), "archs": rows}
 (ROOT / "llama_archs.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
 missing = [r["arch"] for r in rows if not r.get("first_tag")]
