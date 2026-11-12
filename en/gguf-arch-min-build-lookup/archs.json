@@ -1,9 +1,9 @@
 {
- "as_of": "2026-11-11",
- "llama_cpp_head": "b12300",
+ "as_of": "2026-11-12",
+ "llama_cpp_head": "b12316",
  "ollama_latest": {
   "tag": "v0.40.16",
-  "date": "2026-11-07",
+  "date": "2026-11-08",
   "pinned_build": "b12177"
  },
  "architectures": [
@@ -28,7 +28,7 @@
   {
    "architecture": "xing4_0",
    "llama_cpp_first_build": "b12156",
-   "llama_cpp_first_build_date": "2026-11-06",
+   "llama_cpp_first_build_date": "2026-11-05",
    "llama_cpp_commit": "45b6604b20f17b7d7638042306c0cd1b6af5999c",
    "ollama_first_release_bundled_llama_cpp": "v0.40.16",
    "ollama_own_engine": null,
@@ -46,7 +46,7 @@
   {
    "architecture": "clover_moe",
    "llama_cpp_first_build": "b12060",
-   "llama_cpp_first_build_date": "2026-11-03",
+   "llama_cpp_first_build_date": "2026-11-02",
    "llama_cpp_commit": "e4b6c8ca6a6e8da70248da30709e897e7cc8615e",
    "ollama_first_release_bundled_llama_cpp": "v0.40.15",
    "ollama_own_engine": null,
@@ -100,7 +100,7 @@
   {
    "architecture": "sensenova_u1",
    "llama_cpp_first_build": "b11801",
-   "llama_cpp_first_build_date": "2026-10-22",
+   "llama_cpp_first_build_date": "2026-10-21",
    "llama_cpp_commit": "7775ffb7e48fa0c7dcffd5815743b3d2fb3b6761",
    "ollama_first_release_bundled_llama_cpp": "v0.40.9",
    "ollama_own_engine": null,
@@ -217,7 +217,7 @@
   {
    "architecture": "hy_v4",
    "llama_cpp_first_build": "b10813",
-   "llama_cpp_first_build_date": "2026-09-05",
+   "llama_cpp_first_build_date": "2026-09-04",
    "llama_cpp_commit": "49c0dc82b849344f945b14ab997386bd793369ae",
    "ollama_first_release_bundled_llama_cpp": "v0.34.1",
    "ollama_own_engine": null,
@@ -271,7 +271,7 @@
   {
    "architecture": "minimax-01",
    "llama_cpp_first_build": "b10437",
-   "llama_cpp_first_build_date": "2026-08-15",
+   "llama_cpp_first_build_date": "2026-08-14",
    "llama_cpp_commit": "16d222fc5ead59d20039501a37251c9ed457a454",
    "ollama_first_release_bundled_llama_cpp": "v0.32.15",
    "ollama_own_engine": null,
@@ -325,7 +325,7 @@
   {
    "architecture": "minimax-m3",
    "llama_cpp_first_build": "b10141",
-   "llama_cpp_first_build_date": "2026-07-27",
+   "llama_cpp_first_build_date": "2026-07-26",
    "llama_cpp_commit": "b1d4c6552489d27eb732c2804f189d9cc6ba99bd",
    "ollama_first_release_bundled_llama_cpp": "v0.32.6",
    "ollama_own_engine": null,
@@ -346,7 +346,7 @@
   {
    "architecture": "hy_v3",
    "llama_cpp_first_build": "b9993",
-   "llama_cpp_first_build_date": "2026-07-14",
+   "llama_cpp_first_build_date": "2026-07-13",
    "llama_cpp_commit": "2969d6d15d67a08e7b83f26164b15350c79c5248",
    "ollama_first_release_bundled_llama_cpp": "v0.32.2",
    "ollama_own_engine": null,
@@ -457,7 +457,7 @@
   {
    "architecture": "mistral4",
    "llama_cpp_first_build": "b8388",
-   "llama_cpp_first_build_date": "2026-03-17",
+   "llama_cpp_first_build_date": "2026-03-16",
    "llama_cpp_commit": "d34ff7eb5ba289bd61f659c8f3f48c983c3ce4f8",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": null,
@@ -475,7 +475,7 @@
   {
    "architecture": "paddleocr",
    "llama_cpp_first_build": "b8110",
-   "llama_cpp_first_build_date": "2026-02-20",
+   "llama_cpp_first_build_date": "2026-02-19",
    "llama_cpp_commit": "237958db339300bdd8028608cc08b2ba2685ec33",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": null,
@@ -502,7 +502,7 @@
   {
    "architecture": "qwen35",
    "llama_cpp_first_build": "b7990",
-   "llama_cpp_first_build_date": "2026-02-11",
+   "llama_cpp_first_build_date": "2026-02-10",
    "llama_cpp_commit": "fc0fe4004985d6749a7a05e250d161f9dbe41d65",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": [
@@ -514,7 +514,7 @@
   {
    "architecture": "qwen35moe",
    "llama_cpp_first_build": "b7990",
-   "llama_cpp_first_build_date": "2026-02-11",
+   "llama_cpp_first_build_date": "2026-02-10",
    "llama_cpp_commit": "fc0fe4004985d6749a7a05e250d161f9dbe41d65",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": [
@@ -526,7 +526,7 @@
   {
    "architecture": "step35",
    "llama_cpp_first_build": "b7964",
-   "llama_cpp_first_build_date": "2026-02-07",
+   "llama_cpp_first_build_date": "2026-02-06",
    "llama_cpp_commit": "b83111815e9a79949257e9d4b087206b320a3063",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": null,
@@ -544,7 +544,7 @@
   {
    "architecture": "exaone-moe",
    "llama_cpp_first_build": "b7727",
-   "llama_cpp_first_build_date": "2026-01-14",
+   "llama_cpp_first_build_date": "2026-01-13",
    "llama_cpp_commit": "60591f01d433f3fc7603d5273fbe361bd05a3507",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": null,
@@ -553,7 +553,7 @@
   {
    "architecture": "maincoder",
    "llama_cpp_first_build": "b7614",
-   "llama_cpp_first_build_date": "2026-01-03",
+   "llama_cpp_first_build_date": "2026-01-02",
    "llama_cpp_commit": "5755e52d15d234579b84ace4ccd1b1cdd4596a9b",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": null,
@@ -562,7 +562,7 @@
   {
    "architecture": "plamo3",
    "llama_cpp_first_build": "b7563",
-   "llama_cpp_first_build_date": "2025-12-29",
+   "llama_cpp_first_build_date": "2025-12-28",
    "llama_cpp_commit": "9c675c714020748b5c3954ff334a946e29075f88",
    "ollama_first_release_bundled_llama_cpp": "v0.30.0",
    "ollama_own_engine": null,
@@ -634,7 +634,7 @@
   {
    "architecture": "rnd1",
    "llama_cpp_first_build": "b7140",
-   "llama_cpp_first_build_date": "2025-11-23",
+   "llama_cpp_first_build_date": "2025-11-24",
    "llama_cpp_commit": "4902eebe33ed2341ef9bd7c80195bbd9d24f4d5f",
    "ollama_first_release_bundled_llama_cpp": "v0.13.2",
    "ollama_own_engine": null,
@@ -769,7 +769,7 @@
   {
    "architecture": "nemotron_h",
    "llama_cpp_first_build": "b6315",
-   "llama_cpp_first_build_date": "2025-08-28",
+   "llama_cpp_first_build_date": "2025-08-29",
    "llama_cpp_commit": "e8d99dd0b67f2ecc1e45fca8074a3a18c3e036d2",
    "ollama_first_release_bundled_llama_cpp": "v0.12.4",
    "ollama_own_engine": [
@@ -811,7 +811,7 @@
   {
    "architecture": "glm4moe",
    "llama_cpp_first_build": "b6085",
-   "llama_cpp_first_build_date": "2025-08-05",
+   "llama_cpp_first_build_date": "2025-08-04",
    "llama_cpp_commit": "ef0144c087b33e5b8da42d529ac71aaf05cb49df",
    "ollama_first_release_bundled_llama_cpp": "v0.11.5",
    "ollama_own_engine": null,
@@ -874,7 +874,7 @@
   {
    "architecture": "plamo2",
    "llama_cpp_first_build": "b5899",
-   "llama_cpp_first_build_date": "2025-07-16",
+   "llama_cpp_first_build_date": "2025-07-15",
    "llama_cpp_commit": "68e37a61a7b24863f67541db65b4f6195962a268",
    "ollama_first_release_bundled_llama_cpp": "v0.11.5",
    "ollama_own_engine": null,
@@ -895,7 +895,7 @@
   {
    "architecture": "granitehybrid",
    "llama_cpp_first_build": "b5868",
-   "llama_cpp_first_build_date": "2025-07-10",
+   "llama_cpp_first_build_date": "2025-07-11",
    "llama_cpp_commit": "0aedae00e6fb48680324a5ac5da9cba0e35de6b5",
    "ollama_first_release_bundled_llama_cpp": "v0.11.5",
    "ollama_own_engine": null,
@@ -979,7 +979,7 @@
   {
    "architecture": "arcee",
    "llama_cpp_first_build": "b5674",
-   "llama_cpp_first_build_date": "2025-06-16",
+   "llama_cpp_first_build_date": "2025-06-15",
    "llama_cpp_commit": "d7da8dc83a03b30e1ec10317080082ea76840c38",
    "ollama_first_release_bundled_llama_cpp": "v0.11.5",
    "ollama_own_engine": null,
@@ -1072,7 +1072,7 @@
   {
    "architecture": "arwkv7",
    "llama_cpp_first_build": "b4907",
-   "llama_cpp_first_build_date": "2025-03-18",
+   "llama_cpp_first_build_date": "2025-03-17",
    "llama_cpp_commit": "7dfad387e3f6ac98d383ded2d175eb59736a3993",
    "ollama_first_release_bundled_llama_cpp": "v0.6.6",
    "ollama_own_engine": null,
@@ -1081,7 +1081,7 @@
   {
    "architecture": "rwkv7",
    "llama_cpp_first_build": "b4907",
-   "llama_cpp_first_build_date": "2025-03-18",
+   "llama_cpp_first_build_date": "2025-03-17",
    "llama_cpp_commit": "7dfad387e3f6ac98d383ded2d175eb59736a3993",
    "ollama_first_release_bundled_llama_cpp": "v0.6.6",
    "ollama_own_engine": null,
@@ -1147,7 +1147,7 @@
   {
    "architecture": "deepseek",
    "llama_cpp_first_build": "b4333",
-   "llama_cpp_first_build_date": "2024-12-16",
+   "llama_cpp_first_build_date": "2024-12-15",
    "llama_cpp_commit": "a0974156f334acf8af5858d7ede5ab7d7490d415",
    "ollama_first_release_bundled_llama_cpp": "v0.5.5",
    "ollama_own_engine": null,
@@ -1201,7 +1201,7 @@
   {
    "architecture": "olmoe",
    "llama_cpp_first_build": "b3766",
-   "llama_cpp_first_build_date": "2024-09-15",
+   "llama_cpp_first_build_date": "2024-09-16",
    "llama_cpp_commit": "0aadac10c7dd704f8285ddf5a63d6f764cb340aa",
    "ollama_first_release_bundled_llama_cpp": "v0.3.14",
    "ollama_own_engine": null,
@@ -1237,7 +1237,7 @@
   {
    "architecture": "nemotron",
    "llama_cpp_first_build": "b3592",
-   "llama_cpp_first_build_date": "2024-08-15",
+   "llama_cpp_first_build_date": "2024-08-16",
    "llama_cpp_commit": "2a24c8caa6d10a7263ca317fa7cb64f0edc72aae",
    "ollama_first_release_bundled_llama_cpp": "v0.3.10",
    "ollama_own_engine": null,
@@ -1264,7 +1264,7 @@
   {
    "architecture": "openelm",
    "llama_cpp_first_build": "b3305",
-   "llama_cpp_first_build_date": "2024-07-05",
+   "llama_cpp_first_build_date": "2024-07-04",
    "llama_cpp_commit": "d7fd29fff16456ce9c3a23fd2d09a66256b05aff",
    "ollama_first_release_bundled_llama_cpp": "v0.2.0",
    "ollama_own_engine": null,
@@ -1303,7 +1303,7 @@
   {
    "architecture": "bitnet",
    "llama_cpp_first_build": "b3208",
-   "llama_cpp_first_build_date": "2024-06-24",
+   "llama_cpp_first_build_date": "2024-06-23",
    "llama_cpp_commit": "e112b610a1a75cb7fa8351e1a933e2e7a755a5ce",
    "ollama_first_release_bundled_llama_cpp": "v0.2.0",
    "ollama_own_engine": null,
@@ -1414,7 +1414,7 @@
   {
    "architecture": "starcoder2",
    "llama_cpp_first_build": "b2308",
-   "llama_cpp_first_build_date": "2024-03-02",
+   "llama_cpp_first_build_date": "2024-03-01",
    "llama_cpp_commit": "c29af7e2252d288f2ea58a7d437c1cb7c0abf160",
    "ollama_first_release_bundled_llama_cpp": "v0.1.28",
    "ollama_own_engine": null,
@@ -1522,7 +1522,7 @@
   {
    "architecture": "qwen",
    "llama_cpp_first_build": "b1596",
-   "llama_cpp_first_build_date": "2023-12-02",
+   "llama_cpp_first_build_date": "2023-12-01",
    "llama_cpp_commit": "37c746d687d877bc11803e96b4dc5f378b83c0a0",
    "ollama_first_release_bundled_llama_cpp": "v0.1.18",
    "ollama_own_engine": null,
@@ -1567,7 +1567,7 @@
   {
    "architecture": "baichuan",
    "llama_cpp_first_build": "b1223",
-   "llama_cpp_first_build_date": "2023-09-15",
+   "llama_cpp_first_build_date": "2023-09-14",
    "llama_cpp_commit": "4c8643dd6ea1a163bc5979cb69c1e7ab0975bc93",
    "ollama_first_release_bundled_llama_cpp": "v0.1.18",
    "ollama_own_engine": null,
@@ -1669,21 +1669,21 @@
   },
   {
    "release": "v0.1.23",
-   "date": "2024-02-01",
+   "date": "2024-02-02",
    "llama_cpp_build": "b1999",
    "pin": "d2f650cb5b04ee2726663e79b47da5efe196ce00",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.1.24",
-   "date": "2024-02-07",
+   "date": "2024-02-08",
    "llama_cpp_build": "b2081",
    "pin": "f57fadc009cbff741a1961cb7896c47d73978d2c",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.1.25",
-   "date": "2024-02-14",
+   "date": "2024-02-15",
    "llama_cpp_build": "b2144",
    "pin": "6c00a066928b0475b865a2e3e709e2166e02d548",
    "pin_is_exact_tag": false
@@ -1718,7 +1718,7 @@
   },
   {
    "release": "v0.1.30",
-   "date": "2024-03-28",
+   "date": "2024-03-27",
    "llama_cpp_build": "b2527",
    "pin": "ad3a0505e3b6cd777259ee35e61d428357ffc565",
    "pin_is_exact_tag": true
@@ -1760,7 +1760,7 @@
   },
   {
    "release": "v0.1.36",
-   "date": "2024-05-10",
+   "date": "2024-05-11",
    "llama_cpp_build": "b2769",
    "pin": "952d03dbead16e4dbdd1d3458486340673cc2465",
    "pin_is_exact_tag": false
@@ -1788,14 +1788,14 @@
   },
   {
    "release": "v0.1.40",
-   "date": "2024-05-31",
+   "date": "2024-06-01",
    "llama_cpp_build": "b3051",
    "pin": "5921b8f089d3b7bda86aac5a66825df6a6c10603",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.1.41",
-   "date": "2024-06-01",
+   "date": "2024-06-02",
    "llama_cpp_build": "b3051",
    "pin": "5921b8f089d3b7bda86aac5a66825df6a6c10603",
    "pin_is_exact_tag": true
@@ -1830,21 +1830,21 @@
   },
   {
    "release": "v0.1.46",
-   "date": "2024-06-24",
+   "date": "2024-06-25",
    "llama_cpp_build": "b3171",
    "pin": "7c26775adb579e92b59c82e8084c07a1d0f75e9c",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.1.47",
-   "date": "2024-06-26",
+   "date": "2024-06-27",
    "llama_cpp_build": "b3171",
    "pin": "7c26775adb579e92b59c82e8084c07a1d0f75e9c",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.1.48",
-   "date": "2024-06-28",
+   "date": "2024-06-29",
    "llama_cpp_build": "b3171",
    "pin": "7c26775adb579e92b59c82e8084c07a1d0f75e9c",
    "pin_is_exact_tag": true
@@ -1858,7 +1858,7 @@
   },
   {
    "release": "v0.2.1",
-   "date": "2024-07-08",
+   "date": "2024-07-09",
    "llama_cpp_build": "b3334",
    "pin": "a8db2a9ce64cd4417f6a312ab61858f17f0f8584",
    "pin_is_exact_tag": false
@@ -1872,7 +1872,7 @@
   },
   {
    "release": "v0.2.3",
-   "date": "2024-07-12",
+   "date": "2024-07-13",
    "llama_cpp_build": "b3334",
    "pin": "a8db2a9ce64cd4417f6a312ab61858f17f0f8584",
    "pin_is_exact_tag": false
@@ -1921,7 +1921,7 @@
   },
   {
    "release": "v0.3.1",
-   "date": "2024-07-30",
+   "date": "2024-07-31",
    "llama_cpp_build": "b3485",
    "pin": "6eeaeba126ff701f3e8f79f246805b7023709972",
    "pin_is_exact_tag": true
@@ -1935,14 +1935,14 @@
   },
   {
    "release": "v0.3.3",
-   "date": "2024-08-02",
+   "date": "2024-08-01",
    "llama_cpp_build": "b3485",
    "pin": "6eeaeba126ff701f3e8f79f246805b7023709972",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.3.4",
-   "date": "2024-08-06",
+   "date": "2024-08-07",
    "llama_cpp_build": "b3535",
    "pin": "1e6f6554aa11fa10160a5fda689e736c3c34169f",
    "pin_is_exact_tag": true
@@ -1963,7 +1963,7 @@
   },
   {
    "release": "v0.3.7",
-   "date": "2024-08-24",
+   "date": "2024-08-25",
    "llama_cpp_build": "b3535",
    "pin": "1e6f6554aa11fa10160a5fda689e736c3c34169f",
    "pin_is_exact_tag": true
@@ -1991,7 +1991,7 @@
   },
   {
    "release": "v0.3.11",
-   "date": "2024-09-17",
+   "date": "2024-09-18",
    "llama_cpp_build": "b3661",
    "pin": "8962422b1c6f9b8b15f5aeaea42600bcc2d44177",
    "pin_is_exact_tag": true
@@ -2005,7 +2005,7 @@
   },
   {
    "release": "v0.3.13",
-   "date": "2024-10-09",
+   "date": "2024-10-10",
    "llama_cpp_build": "b3661",
    "pin": "8962422b1c6f9b8b15f5aeaea42600bcc2d44177",
    "pin_is_exact_tag": true
@@ -2026,7 +2026,7 @@
   },
   {
    "release": "v0.4.1",
-   "date": "2024-11-06",
+   "date": "2024-11-08",
    "llama_cpp_build": "b3861",
    "pin": "3f1ae2e32cde00c39b96be6d01c2997c29bae555",
    "pin_is_exact_tag": false
@@ -2040,14 +2040,14 @@
   },
   {
    "release": "v0.4.3",
-   "date": "2024-11-22",
+   "date": "2024-11-21",
    "llama_cpp_build": "b3861",
    "pin": "3f1ae2e32cde00c39b96be6d01c2997c29bae555",
    "pin_is_exact_tag": false
   },
   {
    "release": "v0.4.4",
-   "date": "2024-11-22",
+   "date": "2024-11-23",
    "llama_cpp_build": "b3861",
    "pin": "3f1ae2e32cde00c39b96be6d01c2997c29bae555",
    "pin_is_exact_tag": false
@@ -2068,14 +2068,14 @@
   },
   {
    "release": "v0.4.7",
-   "date": "2024-11-29",
+   "date": "2024-11-30",
    "llama_cpp_build": "b3861",
    "pin": "3f1ae2e32cde00c39b96be6d01c2997c29bae555",
    "pin_is_exact_tag": false
   },
   {
    "release": "v0.5.0",
-   "date": "2024-12-04",
+   "date": "2024-12-05",
    "llama_cpp_build": "b3861",
    "pin": "3f1ae2e32cde00c39b96be6d01c2997c29bae555",
    "pin_is_exact_tag": false
@@ -2096,7 +2096,7 @@
   },
   {
    "release": "v0.5.3",
-   "date": "2024-12-16",
+   "date": "2024-12-17",
    "llama_cpp_build": "b4327",
    "pin": "ba1cb19cdd0d92e012e0f6e009e0620f854b6afd",
    "pin_is_exact_tag": true
@@ -2110,14 +2110,14 @@
   },
   {
    "release": "v0.5.5",
-   "date": "2025-01-10",
+   "date": "2025-01-11",
    "llama_cpp_build": "b4419",
    "pin": "46e3556e01b824e52395fb050b29804b6cff2a7c",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.5.6",
-   "date": "2025-01-14",
+   "date": "2025-01-15",
    "llama_cpp_build": "b4419",
    "pin": "46e3556e01b824e52395fb050b29804b6cff2a7c",
    "pin_is_exact_tag": true
@@ -2145,28 +2145,28 @@
   },
   {
    "release": "v0.5.10",
-   "date": "2025-02-13",
+   "date": "2025-02-14",
    "llama_cpp_build": "b4419",
    "pin": "46e3556e01b824e52395fb050b29804b6cff2a7c",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.5.11",
-   "date": "2025-02-13",
+   "date": "2025-02-14",
    "llama_cpp_build": "b4419",
    "pin": "46e3556e01b824e52395fb050b29804b6cff2a7c",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.5.12",
-   "date": "2025-02-23",
+   "date": "2025-02-24",
    "llama_cpp_build": "b4419",
    "pin": "46e3556e01b824e52395fb050b29804b6cff2a7c",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.5.13",
-   "date": "2025-03-03",
+   "date": "2025-03-04",
    "llama_cpp_build": "b4778",
    "pin": "d7cfe1ffe0f435d0048a6058d529daf76e072d9c",
    "pin_is_exact_tag": false
@@ -2208,21 +2208,21 @@
   },
   {
    "release": "v0.6.5",
-   "date": "2025-04-04",
+   "date": "2025-04-05",
    "llama_cpp_build": "b4778",
    "pin": "d7cfe1ffe0f435d0048a6058d529daf76e072d9c",
    "pin_is_exact_tag": false
   },
   {
    "release": "v0.6.6",
-   "date": "2025-04-18",
+   "date": "2025-04-19",
    "llama_cpp_build": "b5125",
    "pin": "71e90e8813f90097701e62f7fce137d96ddf41e2",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.6.7",
-   "date": "2025-04-30",
+   "date": "2025-05-01",
    "llama_cpp_build": "b5162",
    "pin": "2016f07bd106c73699ecbaace80f55db5ed95dac",
    "pin_is_exact_tag": true
@@ -2243,7 +2243,7 @@
   },
   {
    "release": "v0.7.1",
-   "date": "2025-05-22",
+   "date": "2025-05-23",
    "llama_cpp_build": "b5359",
    "pin": "de4c07f93783a1a96456a44dc16b9db538ee1618",
    "pin_is_exact_tag": true
@@ -2257,7 +2257,7 @@
   },
   {
    "release": "v0.9.0",
-   "date": "2025-05-28",
+   "date": "2025-05-29",
    "llama_cpp_build": "b5359",
    "pin": "de4c07f93783a1a96456a44dc16b9db538ee1618",
    "pin_is_exact_tag": true
@@ -2292,7 +2292,7 @@
   },
   {
    "release": "v0.9.5",
-   "date": "2025-07-02",
+   "date": "2025-07-01",
    "llama_cpp_build": "b5359",
    "pin": "de4c07f93783a1a96456a44dc16b9db538ee1618",
    "pin_is_exact_tag": true
@@ -2313,7 +2313,7 @@
   },
   {
    "release": "v0.10.1",
-   "date": "2025-07-31",
+   "date": "2025-07-30",
    "llama_cpp_build": "b5359",
    "pin": "de4c07f93783a1a96456a44dc16b9db538ee1618",
    "pin_is_exact_tag": true
@@ -2341,7 +2341,7 @@
   },
   {
    "release": "v0.11.3",
-   "date": "2025-08-05",
+   "date": "2025-08-06",
    "llama_cpp_build": "b5359",
    "pin": "de4c07f93783a1a96456a44dc16b9db538ee1618",
    "pin_is_exact_tag": true
@@ -2355,14 +2355,14 @@
   },
   {
    "release": "v0.11.5",
-   "date": "2025-08-18",
+   "date": "2025-08-19",
    "llama_cpp_build": "b6121",
    "pin": "e54d41befcc1575f4c898c5ff4ef43970cead75f",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.11.6",
-   "date": "2025-08-19",
+   "date": "2025-08-20",
    "llama_cpp_build": "b6121",
    "pin": "e54d41befcc1575f4c898c5ff4ef43970cead75f",
    "pin_is_exact_tag": true
@@ -2411,7 +2411,7 @@
   },
   {
    "release": "v0.12.1",
-   "date": "2025-09-22",
+   "date": "2025-09-23",
    "llama_cpp_build": "b6121",
    "pin": "e54d41befcc1575f4c898c5ff4ef43970cead75f",
    "pin_is_exact_tag": true
@@ -2425,7 +2425,7 @@
   },
   {
    "release": "v0.12.3",
-   "date": "2025-09-25",
+   "date": "2025-09-26",
    "llama_cpp_build": "b6121",
    "pin": "e54d41befcc1575f4c898c5ff4ef43970cead75f",
    "pin_is_exact_tag": true
@@ -2439,7 +2439,7 @@
   },
   {
    "release": "v0.12.5",
-   "date": "2025-10-09",
+   "date": "2025-10-10",
    "llama_cpp_build": "b6646",
    "pin": "364a7a6d4a786e98947c8a90430ea581213c0ba9",
    "pin_is_exact_tag": true
@@ -2488,35 +2488,35 @@
   },
   {
    "release": "v0.13.0",
-   "date": "2025-11-18",
+   "date": "2025-11-19",
    "llama_cpp_build": "b6840",
    "pin": "3cfa9c3f125763305b4226bc032f1954f08990dc",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.13.1",
-   "date": "2025-11-25",
+   "date": "2025-12-02",
    "llama_cpp_build": "b6840",
    "pin": "3cfa9c3f125763305b4226bc032f1954f08990dc",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.13.2",
-   "date": "2025-12-07",
+   "date": "2025-12-08",
    "llama_cpp_build": "b7209",
    "pin": "7f8ef50cce40e3e7e4526a3696cb45658190e69a",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.13.3",
-   "date": "2025-12-11",
+   "date": "2025-12-12",
    "llama_cpp_build": "b7345",
    "pin": "17f7f4baad8b3a716ee139da7bb56ae984e8c0fa",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.13.4",
-   "date": "2025-12-15",
+   "date": "2025-12-16",
    "llama_cpp_build": "b7345",
    "pin": "17f7f4baad8b3a716ee139da7bb56ae984e8c0fa",
    "pin_is_exact_tag": true
@@ -2551,21 +2551,21 @@
   },
   {
    "release": "v0.14.3",
-   "date": "2026-01-21",
+   "date": "2026-01-20",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.15.0",
-   "date": "2026-01-23",
+   "date": "2026-01-24",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.15.1",
-   "date": "2026-01-24",
+   "date": "2026-01-25",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2579,7 +2579,7 @@
   },
   {
    "release": "v0.15.3",
-   "date": "2026-02-01",
+   "date": "2026-01-31",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2593,21 +2593,21 @@
   },
   {
    "release": "v0.15.5",
-   "date": "2026-02-05",
-   "llama_cpp_build": "b7437",
-   "pin": "ec98e2002",
-   "pin_is_exact_tag": true
-  },
-  {
-   "release": "v0.15.6",
    "date": "2026-02-06",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
+   "release": "v0.15.6",
+   "date": "2026-02-07",
+   "llama_cpp_build": "b7437",
+   "pin": "ec98e2002",
+   "pin_is_exact_tag": true
+  },
+  {
    "release": "v0.16.0",
-   "date": "2026-02-11",
+   "date": "2026-02-12",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2621,14 +2621,14 @@
   },
   {
    "release": "v0.16.2",
-   "date": "2026-02-13",
+   "date": "2026-02-14",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.16.3",
-   "date": "2026-02-18",
+   "date": "2026-02-19",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2656,35 +2656,35 @@
   },
   {
    "release": "v0.17.3",
-   "date": "2026-02-26",
+   "date": "2026-02-27",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.17.4",
-   "date": "2026-02-26",
+   "date": "2026-02-27",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.17.5",
-   "date": "2026-03-01",
+   "date": "2026-03-02",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.17.6",
-   "date": "2026-03-03",
+   "date": "2026-03-04",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.17.7",
-   "date": "2026-03-05",
+   "date": "2026-03-06",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2733,21 +2733,21 @@
   },
   {
    "release": "v0.20.1",
-   "date": "2026-04-03",
+   "date": "2026-04-04",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.20.2",
-   "date": "2026-04-03",
+   "date": "2026-04-04",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.20.3",
-   "date": "2026-04-06",
+   "date": "2026-04-07",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2782,7 +2782,7 @@
   },
   {
    "release": "v0.21.0",
-   "date": "2026-04-16",
+   "date": "2026-04-17",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2803,21 +2803,21 @@
   },
   {
    "release": "v0.22.0",
-   "date": "2026-04-27",
+   "date": "2026-04-28",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.22.1",
-   "date": "2026-04-29",
+   "date": "2026-04-30",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.23.0",
-   "date": "2026-05-02",
+   "date": "2026-05-03",
    "llama_cpp_build": "b7437",
    "pin": "ec98e2002",
    "pin_is_exact_tag": true
@@ -2901,7 +2901,7 @@
   },
   {
    "release": "v0.30.6",
-   "date": "2026-06-04",
+   "date": "2026-06-05",
    "llama_cpp_build": "b9509",
    "pin": "b9509",
    "pin_is_exact_tag": true
@@ -2915,7 +2915,7 @@
   },
   {
    "release": "v0.30.8",
-   "date": "2026-06-11",
+   "date": "2026-06-12",
    "llama_cpp_build": "b9509",
    "pin": "b9509",
    "pin_is_exact_tag": true
@@ -2950,7 +2950,7 @@
   },
   {
    "release": "v0.31.1",
-   "date": "2026-06-29",
+   "date": "2026-06-30",
    "llama_cpp_build": "b9840",
    "pin": "b9840",
    "pin_is_exact_tag": true
@@ -2985,14 +2985,14 @@
   },
   {
    "release": "v0.32.3",
-   "date": "2026-07-22",
+   "date": "2026-07-23",
    "llama_cpp_build": "b10091",
    "pin": "b10091",
    "pin_is_exact_tag": true
   },
   {
    "release": "v0.32.4",
-   "date": "2026-07-24",
+   "date": "2026-07-25",
    "llama_cpp_build": "b10091",
    "pin": "b10091",
    "pin_is_exact_tag": true
@@ -3013,7 +3013,7 @@
   },
   {
    "release": "v0.32.7",
-   "date": "2026-08-09",
+   "date": "2026-08-10",
    "llama_cpp_build": "b10242",
    "pin": "b10242",
    "pin_is_exact_tag": true
@@ -3027,7 +3027,7 @@
   },
   {
    "release": "v0.32.9",
-   "date": "2026-08-10",
+   "date": "2026-08-11",
    "llama_cpp_build": "b10353",
    "pin": "b10353",
    "pin_is_exact_tag": true
@@ -3048,7 +3048,7 @@
   },
   {
    "release": "v0.32.12",
-   "date": "2026-08-11",
+   "date": "2026-08-14",
    "llama_cpp_build": "b10380",
    "pin": "b10380",
    "pin_is_exact_tag": true
@@ -3090,7 +3090,7 @@
   },
   {
    "release": "v0.33.2",
-   "date": "2026-08-27",
+   "date": "2026-08-28",
    "llama_cpp_build": "b10630",
    "pin": "b10630",
    "pin_is_exact_tag": true
@@ -3111,7 +3111,7 @@
   },
   {
    "release": "v0.34.1",
-   "date": "2026-09-14",
+   "date": "2026-09-15",
    "llama_cpp_build": "b10864",
    "pin": "b10864",
    "pin_is_exact_tag": true
@@ -3125,7 +3125,7 @@
   },
   {
    "release": "v0.34.3",
-   "date": "2026-09-18",
+   "date": "2026-09-19",
    "llama_cpp_build": "b10969",
    "pin": "b10969",
    "pin_is_exact_tag": true
@@ -3146,7 +3146,7 @@
   },
   {
    "release": "v0.35.1",
-   "date": "2026-10-01",
+   "date": "2026-10-02",
    "llama_cpp_build": "b11232",
    "pin": "b11232",
    "pin_is_exact_tag": true
@@ -3251,7 +3251,7 @@
   },
   {
    "release": "v0.40.14",
-   "date": "2026-11-02",
+   "date": "2026-11-03",
    "llama_cpp_build": "b11963",
    "pin": "b11963",
    "pin_is_exact_tag": true
@@ -3265,7 +3265,7 @@
   },
   {
    "release": "v0.40.16",
-   "date": "2026-11-07",
+   "date": "2026-11-08",
    "llama_cpp_build": "b12177",
    "pin": "b12177",
    "pin_is_exact_tag": true
