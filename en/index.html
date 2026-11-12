@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="vllm-kv-concurrency-planner/">How many concurrent requests fit in vLLM? KV cache planner</a></h2>
+<p>The calculation vLLM runs at startup (<code>GPU KV cache size</code>, <code>Maximum concurrency</code>) reproduced from a <code>config.json</code> or a startup log, including the layer grouping that makes Gemma 3 and gpt-oss need far less than "bytes per token &times; context". Checked against vLLM v0.33.0's own planning code and public logs. Includes a planner in the browser and <code>kvplan.py</code>.</p>
+<p class="meta">Published 2026-11-12</p>
+</article>
+<article class="card">
 <h2><a href="vllm-consumer-multi-gpu-p2p-check/">vLLM tensor parallel hangs on two GPUs without NVLink: which flag fixes it</a></h2>
 <p>Why the same flag "works" for one RTX 5090 / 4090 / RTX PRO box and does nothing on the next: the two all-reduce paths vLLM v0.33.0 can use on PCIe GPUs, causes from missing P2P to IOMMU, ACS, VMs and a driver bug, and <code>p2pcheck.py</code>, which tests each path with a timeout and prints the flags to use.</p>
 <p class="meta">Published 2026-11-12</p>
