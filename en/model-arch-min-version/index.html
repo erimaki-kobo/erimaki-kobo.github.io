@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which Transformers, vLLM, llama.cpp Version Supports My Model</title>
+<meta name="description" content="KeyError or &quot;does not recognize this architecture&quot;? Paste config.json to get the first Transformers, vLLM and llama.cpp release that supports the model.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/model-arch-min-version/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Which Transformers, vLLM, llama.cpp Version Supports My Model">
+<meta property="og:description" content="KeyError or &quot;does not recognize this architecture&quot;? Paste config.json to get the first Transformers, vLLM and llama.cpp release that supports the model.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/model-arch-min-version/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#article", "headline": "\"does not recognize this architecture\" and \"not supported for now\": the minimum Transformers, vLLM and llama.cpp version for a model", "description": "KeyError or \"does not recognize this architecture\"? Paste config.json to get the first Transformers, vLLM and llama.cpp release that supports the model.", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/", "datePublished": "2026-11-13", "dateModified": "2026-11-13", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "about": ["Hugging Face Transformers", "vLLM", "llama.cpp", "Ollama", "config.json"], "isBasedOn": "https://erimaki-kobo.github.io/en/model-arch-min-version/data.json"}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#tool", "name": "Minimum Transformers, vLLM and llama.cpp version lookup", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/#lookup", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Paste config.json or an error message; get the first Transformers, vLLM and llama.cpp releases that support the model."}, {"@type": "Dataset", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#data", "name": "First Transformers and vLLM release for each model_type and architecture", "description": "Every model_type in Transformers v4.0.0 to v5.22.2 and every architecture name in vLLM v0.1.0 to v0.33.0, with the first final release that registers it, removals, and the GGUF architecture llama.cpp's converter writes.", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/", "dateModified": "2026-11-13", "creator": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "license": "https://creativecommons.org/licenses/by/4.0/", "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/model-arch-min-version/data.json"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#faq", "mainEntity": [{"@type": "Question", "name": "What does \"KeyError\" or \"does not recognize this architecture\" mean in Transformers?", "acceptedAnswer": {"@type": "Answer", "text": "The model_type in config.json is not in the AutoConfig table of your installed Transformers. Before v4.37.0 the error is a bare KeyError with the name, for example KeyError: 'qwen2'; from v4.37.0 it reads \"The checkpoint you are trying to load has model type X but Transformers does not recognize this architecture\". Install the release from the table on this page or newer."}}, {"@type": "Question", "name": "Which Transformers version do I need for Qwen3?", "acceptedAnswer": {"@type": "Answer", "text": "Transformers 4.51.0 (released 2025-04-05) is the first release with model_type qwen3. vLLM has Qwen3ForCausalLM natively from 0.8.4, and llama.cpp reads Qwen3 GGUF files from build b5092."}}, {"@type": "Question", "name": "Which versions do I need for Qwen3.5 or Qwen3.6?", "acceptedAnswer": {"@type": "Answer", "text": "Both use model_type qwen3_5 (qwen3_5_moe for the MoE models). Transformers 5.2.0 is the first release with it, vLLM 0.17.0 the first with a native class, and the GGUF architecture is qwen35 from llama.cpp b7990. Use the newest patch release, because fixes for new models often land after the first support."}}, {"@type": "Question", "name": "Which versions do I need for Gemma 4?", "acceptedAnswer": {"@type": "Answer", "text": "Transformers 5.5.0, vLLM 0.19.0 and llama.cpp b8637 are the first releases that know Gemma 4 (model_type gemma4, architecture Gemma4ForConditionalGeneration)."}}, {"@type": "Question", "name": "What does \"Model architectures ['X'] are not supported for now\" mean in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "None of the names in the architectures list of config.json is in your vLLM's model registry, and the Transformers fallback did not apply. Upgrade to the release in the table, or, for a model vLLM never implemented, run it through the Transformers modeling backend with --model-impl transformers (vLLM 0.7.2 and later)."}}, {"@type": "Question", "name": "My versions are new enough and the model still fails. Why?", "acceptedAnswer": {"@type": "Answer", "text": "Being registered is the minimum, not a guarantee. New models often need a fix in the next patch release, a newer tokenizer or a newer kernel library. Install the newest patch release first. If config.json has an auto_map and you pass trust_remote_code=True, the repository's own code runs, and its requirements come from the model card."}}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+#fam{min-width:900px}
+#fam td:nth-child(3),#fam td:nth-child(5),#fam td:nth-child(7){white-space:nowrap}
+#res td{overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>&quot;does not recognize this architecture&quot; and &quot;not supported for now&quot;: the minimum Transformers, vLLM and llama.cpp version for a model</h1>
+<p class="lede"><strong>These errors mean your library is older than the first release that registered the model. Install that release or newer: for Qwen3 it is Transformers 4.51.0, vLLM 0.8.4 and llama.cpp b5092.</strong> Qwen3.5 and Qwen3.6 need Transformers 5.2.0, vLLM 0.17.0 and llama.cpp b7990; Gemma 4 needs 5.5.0, 0.19.0 and b8637. Paste a <code>config.json</code> below to get the numbers for any of the 816 model types Transformers has registered and the 471 architecture names vLLM has used.</p>
+<p class="meta">Published 2026-11-13 &middot; Data as of 2026-11-13 &middot; Transformers up to v5.22.2 (2026-11-06) &middot; vLLM up to v0.33.0 (2026-11-01) &middot; llama.cpp from the <a href="/en/gguf-arch-min-build-lookup/">GGUF lookup</a> &middot; read from release tags, no model was loaded</p>
+
+<h2 id="lookup">Which version does my model need?</h2>
+<p>Paste the model's <code>config.json</code> (best: it has both <code>model_type</code> and <code>architectures</code>), or the error line, or just a name such as <code>qwen3</code> or <code>Gemma4ForConditionalGeneration</code>. The two version fields are optional.</p>
+<div class="card">
+<label for="q">config.json, error message, or name</label>
+<textarea id="q" placeholder='{"architectures": ["Qwen3ForCausalLM"], "model_type": "qwen3", "transformers_version": "4.51.0"}' spellcheck="false"></textarea>
+<div class="grid">
+<div><label for="tv">Your Transformers version (optional)</label><input id="tv" placeholder="4.46.3" autocomplete="off"></div>
+<div><label for="vv">Your vLLM version (optional)</label><input id="vv" placeholder="0.8.0" autocomplete="off"></div>
+</div>
+<div class="row"><button id="go" type="button">Look up</button><span id="status" role="status"></span></div>
+<div id="res" aria-live="polite"></div>
+</div>
+<p class="note">Runs in your browser; nothing is sent anywhere. Versions: <code>python -c "import transformers, vllm; print(transformers.__version__, vllm.__version__)"</code>. The config of a Hugging Face model is at <code>https://huggingface.co/&lt;org&gt;/&lt;model&gt;/blob/main/config.json</code>.</p>
+
+<h2 id="errors">Which error comes from which check?</h2>
+<p><strong>Transformers looks up <code>model_type</code>; vLLM looks up the names in <code>architectures</code>; llama.cpp looks up <code>general.architecture</code> inside the GGUF file.</strong> Each library keeps its own table, so a model can be known to one and not to another.</p>
+<div class="tw"><table>
+<thead><tr><th>Message</th><th>Library</th><th>What it looked up</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td><code>KeyError: 'qwen2'</code></td><td>Transformers before v4.37.0</td><td><code>model_type</code> in config.json</td><td>Transformers at or above the first release for that model_type</td></tr>
+<tr><td><code>The checkpoint you are trying to load has model type `X` but Transformers does not recognize this architecture</code></td><td>Transformers v4.37.0 and later</td><td><code>model_type</code></td><td>Same; if no release has it yet, install from source</td></tr>
+<tr><td><code>Model architectures ['X'] are not supported for now</code></td><td>vLLM, every release since v0.1.0</td><td>every name in <code>architectures</code></td><td>vLLM at or above the first release; or the Transformers backend</td></tr>
+<tr><td><code>Model architecture X was supported in vLLM until vY</code></td><td>vLLM v0.10.1 and later</td><td>names removed from vLLM</td><td>pin vLLM vY, or use another engine</td></tr>
+<tr><td><code>Model architecture X is not supported in-tree anymore. Please install the plugin</code></td><td>vLLM v0.19.0 and later</td><td>names moved to plugins</td><td>install the plugin named in the message</td></tr>
+<tr><td><code>unknown model architecture: 'X'</code></td><td>llama.cpp, Ollama, LM Studio</td><td><code>general.architecture</code> in the GGUF</td><td>see the <a href="/en/gguf-arch-min-build-lookup/">GGUF lookup</a></td></tr>
+</tbody></table></div>
+
+<h2 id="families">When did each major model family arrive in Transformers, vLLM and llama.cpp?</h2>
+<p><strong>The first final release of each library that registers the family.</strong> Later releases also have it unless a removal is shown. Dates are the release tag dates.</p>
+<div class="tw wide"><table id="fam">
+<thead><tr><th>Family</th><th>model_type</th><th>Transformers from</th><th>Main architecture</th><th>vLLM from (native)</th><th>vLLM v0.33.0</th><th>GGUF arch, string from</th><th>Converter knows the class from</th><th>Ollama from (string)</th></tr></thead>
+<tbody>
+<tr><td>Llama 1 to 3</td><td><code>llama</code></td><td>v4.28.0 (2023-04-13)</td><td><code>LlamaForCausalLM</code></td><td>v0.1.0 (2023-06-20)</td><td>native</td><td><code>llama</code> b1046 (2023-08-24)</td><td>&mdash;</td><td>v0.1.18</td></tr>
+<tr><td>Llama 4</td><td><code>llama4</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Llama4ForConditionalGeneration</code></td><td>v0.8.3 (2025-04-05)</td><td>native</td><td><code>llama4</code> b5074 (2025-04-07)</td><td>b5074 (2025-04-07)</td><td>v0.6.6</td></tr>
+<tr><td>Mistral 7B</td><td><code>mistral</code></td><td>v4.34.0 (2023-10-03)</td><td><code>MistralForCausalLM</code></td><td>v0.2.0 (2023-09-28)</td><td>native</td><td><code>llama</code> b1046 (2023-08-24)</td><td>&mdash;</td><td>v0.1.18</td></tr>
+<tr><td>Mistral Small 3.1 / Mistral 3</td><td><code>mistral3</code></td><td>v4.50.0 (2025-03-21)</td><td><code>Mistral3ForConditionalGeneration</code></td><td>v0.8.3 (2025-04-05)</td><td>native</td><td><code>mistral3</code> b7216 (2025-12-01)</td><td>b4919 (2025-03-18)</td><td>v0.13.3</td></tr>
+<tr><td>Mixtral</td><td><code>mixtral</code></td><td>v4.36.0 (2023-12-11)</td><td><code>MixtralForCausalLM</code></td><td>v0.2.4 (2023-12-11)</td><td>native</td><td><code>llama</code> b1046 (2023-08-24)</td><td>&mdash;</td><td>v0.1.18</td></tr>
+<tr><td>Mistral Large 4</td><td><code>mistral_large4</code></td><td>v5.22.0 (2026-10-29)</td><td><code>MistralLarge4ForConditionalGeneration</code></td><td>no native class</td><td>see the Transformers backend note</td><td><code>mistral-large4</code> b11998 (2026-10-29)</td><td>b11998 (2026-10-29)</td><td>v0.40.15</td></tr>
+<tr><td>Qwen2 / Qwen2.5</td><td><code>qwen2</code></td><td>v4.37.0 (2024-01-22)</td><td><code>Qwen2ForCausalLM</code></td><td>v0.3.0 (2024-01-31)</td><td>native</td><td><code>qwen2</code> b1939 (2024-01-22)</td><td>&mdash;</td><td>v0.1.21</td></tr>
+<tr><td>Qwen2.5-VL</td><td><code>qwen2_5_vl</code></td><td>v4.49.0 (2025-02-17)</td><td><code>Qwen2_5_VLForConditionalGeneration</code></td><td>v0.7.2 (2025-02-06)</td><td>native</td><td><code>qwen2vl</code> b4327 (2024-12-14)</td><td>b4976 (2025-03-27)</td><td>v0.5.3</td></tr>
+<tr><td>Qwen3</td><td><code>qwen3</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3ForCausalLM</code></td><td>v0.8.4 (2025-04-14)</td><td>native</td><td><code>qwen3</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
+<tr><td>Qwen3 MoE</td><td><code>qwen3_moe</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3MoeForCausalLM</code></td><td>v0.8.4 (2025-04-14)</td><td>native</td><td><code>qwen3moe</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
+<tr><td>Qwen3-Next</td><td><code>qwen3_next</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3NextForCausalLM</code></td><td>v0.10.2 (2025-10-07)</td><td>native</td><td><code>qwen3next</code> b7186 (2025-11-28)</td><td>b7186 (2025-11-28)</td><td>v0.13.2</td></tr>
+<tr><td>Qwen3-VL</td><td><code>qwen3_vl</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3VLForConditionalGeneration</code></td><td>v0.11.0 (2025-10-10)</td><td>native</td><td><code>qwen3vl</code> b6887 (2025-10-30)</td><td>b6887 (2025-10-30)</td><td>v0.13.2</td></tr>
+<tr><td>Qwen3.5 / Qwen3.6</td><td><code>qwen3_5</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5ForConditionalGeneration</code></td><td>v0.17.0 (2026-03-06)</td><td>native</td><td><code>qwen35</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
+<tr><td>Qwen3.5 / Qwen3.6 MoE</td><td><code>qwen3_5_moe</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5MoeForConditionalGeneration</code></td><td>v0.17.0 (2026-03-06)</td><td>native</td><td><code>qwen35moe</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
+<tr><td>Gemma 2</td><td><code>gemma2</code></td><td>v4.42.0 (2024-06-27)</td><td><code>Gemma2ForCausalLM</code></td><td>v0.5.1 (2024-07-05)</td><td>native</td><td><code>gemma2</code> b3259 (2024-06-28)</td><td>b3259 (2024-06-27)</td><td>v0.1.47</td></tr>
+<tr><td>Gemma 3</td><td><code>gemma3</code></td><td>v4.50.0 (2025-03-21)</td><td><code>Gemma3ForConditionalGeneration</code></td><td>v0.8.0 (2025-03-18)</td><td>native</td><td><code>gemma3</code> b4875 (2025-03-12)</td><td>b4875 (2025-03-12)</td><td>v0.6.2</td></tr>
+<tr><td>Gemma 3n</td><td><code>gemma3n</code></td><td>v4.53.0 (2025-06-26)</td><td><code>Gemma3nForConditionalGeneration</code></td><td>v0.9.2 (2025-07-06)</td><td>native</td><td><code>gemma3n</code> b5769 (2025-06-28)</td><td>b5769 (2025-06-28)</td><td>v0.11.5</td></tr>
+<tr><td>Gemma 4</td><td><code>gemma4</code></td><td>v5.5.0 (2026-04-02)</td><td><code>Gemma4ForConditionalGeneration</code></td><td>v0.19.0 (2026-04-02)</td><td>native</td><td><code>gemma4</code> b8637 (2026-04-02)</td><td>b8637 (2026-04-02)</td><td>v0.30.0</td></tr>
+<tr><td>Phi-3 / Phi-3.5</td><td><code>phi3</code></td><td>v4.41.0 (2024-05-17)</td><td><code>Phi3ForCausalLM</code></td><td>v0.4.2 (2024-05-04)</td><td>native</td><td><code>phi3</code> b2717 (2024-04-24)</td><td>b2717 (2024-04-24)</td><td>v0.1.33</td></tr>
+<tr><td>DeepSeek-V2</td><td><code>deepseek_v2</code></td><td>v4.54.0 (2025-07-25)</td><td><code>DeepseekV2ForCausalLM</code></td><td>v0.5.1 (2024-07-05)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b3023 (2024-05-28)</td><td>v0.1.40</td></tr>
+<tr><td>DeepSeek-V3 / R1</td><td><code>deepseek_v3</code></td><td>v4.51.0 (2025-04-05)</td><td><code>DeepseekV3ForCausalLM</code></td><td>v0.6.6 (2024-12-26)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b4417 (2025-01-04)</td><td>v0.1.40</td></tr>
+<tr><td>DeepSeek-V4</td><td><code>deepseek_v4</code></td><td>v5.8.0 (2026-05-05)</td><td><code>DeepseekV4ForCausalLM</code></td><td>v0.20.0 (2026-04-27)</td><td>native</td><td><code>deepseek4</code> b9840 (2026-06-29)</td><td>b9840 (2026-06-29)</td><td>v0.31.0</td></tr>
+<tr><td>gpt-oss</td><td><code>gpt_oss</code></td><td>v4.55.0 (2025-08-05)</td><td><code>GptOssForCausalLM</code></td><td>v0.10.1 (2025-08-18)</td><td>native</td><td><code>gpt-oss</code> b6096 (2025-08-05)</td><td>b6096 (2025-08-05)</td><td>v0.11.5</td></tr>
+<tr><td>GLM-4.5</td><td><code>glm4_moe</code></td><td>v4.54.0 (2025-07-25)</td><td><code>Glm4MoeForCausalLM</code></td><td>v0.10.0 (2025-07-23)</td><td>native</td><td><code>glm4moe</code> b6085 (2025-08-04)</td><td>b6085 (2025-08-04)</td><td>v0.11.5</td></tr>
+<tr><td>GLM-5 Next</td><td><code>glm5_next</code></td><td>v5.16.1 (2026-08-26)</td><td><code>Glm5NextForConditionalGeneration</code></td><td>v0.30.0 (2026-09-21)</td><td>native</td><td><code>glm5-next</code> b11279 (2026-09-30)</td><td>b11279 (2026-09-30)</td><td>v0.40.0</td></tr>
+<tr><td>Kimi K2.5</td><td><code>kimi_k25</code></td><td>v5.13.0 (2026-07-03)</td><td><code>KimiK25ForConditionalGeneration</code></td><td>v0.15.0 (2026-01-28)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b8003 (2026-02-11)</td><td>v0.1.40</td></tr>
+<tr><td>Kimi Linear</td><td><code>kimi_linear</code></td><td>v5.17.0 (2026-09-09)</td><td><code>KimiLinearForCausalLM</code></td><td>v0.11.1 (2025-11-18)</td><td>native</td><td><code>kimi-linear</code> b7957 (2026-02-06)</td><td>b7957 (2026-02-06)</td><td>v0.30.0</td></tr>
+<tr><td>MiniMax-M2</td><td><code>minimax_m2</code></td><td>v5.0.0 (2026-01-26)</td><td><code>MiniMaxM2ForCausalLM</code></td><td>v0.11.1 (2025-11-18)</td><td>native</td><td><code>minimax-m2</code> b6906 (2025-10-31)</td><td>b6906 (2025-10-31)</td><td>v0.13.2</td></tr>
+<tr><td>Granite</td><td><code>granite</code></td><td>v4.45.0 (2024-09-25)</td><td><code>GraniteForCausalLM</code></td><td>v0.6.0 (2024-09-04)</td><td>native</td><td><code>granite</code> b3774 (2024-09-17)</td><td>b3774 (2024-09-17)</td><td>v0.3.14</td></tr>
+<tr><td>OLMo 2</td><td><code>olmo2</code></td><td>v4.47.0 (2024-12-05)</td><td><code>Olmo2ForCausalLM</code></td><td>v0.6.5 (2024-12-17)</td><td>Transformers backend after v0.25.1</td><td><code>olmo2</code> b4168 (2024-11-25)</td><td>b4168 (2024-11-25)</td><td>v0.5.2</td></tr>
+</tbody></table></div>
+<p class="note"><strong>Two llama.cpp columns.</strong> "String from" is the first build whose loader knows the GGUF architecture string; "Converter knows the class from" is the first build whose <code>convert_hf_to_gguf.py</code> registers the Hugging Face class. When the second is later, the model reuses an older string (Qwen2.5-VL, DeepSeek-V3 / R1, Kimi K2.5): a GGUF of that model is written by the newer converter, so use a build at least that new. Classes the converter already had by b2700 (April 2024) show a dash there, because before that the converter was being restructured and the first appearance of a class does not mean new support.</p>
+<p class="note">The order is not always Transformers first. Kimi K2.5 ran in vLLM from v0.15.0, months before Transformers registered <code>kimi_k25</code> in v5.13.0; until then it loaded in Transformers only with <code>trust_remote_code=True</code>. DeepSeek-V2 waited even longer: vLLM v0.5.1, Transformers v4.54.0. Mistral Large 4 is in Transformers v5.22.0 but has no native vLLM class up to v0.33.0.</p>
+
+<h2 id="working">Is the first release that registers a model enough?</h2>
+<p><strong>The table gives the first release that knows the name. It is the floor, not a promise that everything works there.</strong> Support for a new model is often fixed in the next one or two patch releases, and other projects then raise their own minimum: Qwen3.5 was registered in Transformers 5.2.0, while the lmms-engine migration guide asks for Transformers 5.3.0 for it. For a model released in the last few months, install the newest patch release of the line, not the first one.</p>
+<ul>
+<li><strong>trust_remote_code models:</strong> if <code>config.json</code> has an <code>auto_map</code>, Transformers can run the model's own code with <code>trust_remote_code=True</code>, often before native support. That code has its own requirements, written on the model card. This page covers native support only.</li>
+<li><strong>Removed model types:</strong> 28 model types left Transformers after their last release, mostly old research models dropped in v5. The full table marks them.</li>
+<li><strong>Other dependencies:</strong> a new model can also need a newer <code>tokenizers</code>, <code>torch</code>, or for vLLM a newer kernel package. The error then names that package, not the architecture.</li>
+</ul>
+
+<h2 id="vllm">What happens in vLLM when the architecture is missing?</h2>
+<p><strong>From v0.7.2 vLLM falls back to the Transformers implementation when none of the names in <code>architectures</code> is registered and the Transformers class is compatible.</strong> With the default <code>--model-impl auto</code> this is silent; <code>--model-impl transformers</code> forces it and reports why it cannot. The installed Transformers must then know the model too, so both versions in the lookup matter.</p>
+<ul>
+<li>23 names that vLLM once implemented itself now run through that backend on purpose (for example <code>Olmo2ForCausalLM</code>, native up to v0.25.1).</li>
+<li>50 names were removed and raise "was supported in vLLM until vY" (for example <code>QWenLMHeadModel</code>, the first Qwen, until v0.23.0).</li>
+<li>5 names moved to plugins, such as BART to <a href="https://github.com/vllm-project/bart-plugin">bart-plugin</a>.</li>
+<li>Pooling variants (<code>...ForSequenceClassification</code>, <code>...Model</code>) that are not registered are converted from the generative class of the same model in v0.33.0; the lookup shows the base class.</li>
+</ul>
+<p>GGUF files in vLLM go through a separate plugin; see <a href="/en/gguf-arch-min-build-lookup/#vllm">the GGUF page</a>.</p>
+
+<h2 id="llamacpp">How is the GGUF architecture found from config.json?</h2>
+<p><strong>llama.cpp's converter (<code>convert_hf_to_gguf.py</code>) registers each Hugging Face architecture name with a GGUF architecture, and that string is what llama.cpp checks when it loads the file.</strong> The names often differ: <code>MistralForCausalLM</code> becomes <code>llama</code>, <code>DeepseekV3ForCausalLM</code> becomes <code>deepseek2</code>, <code>Qwen3_5ForConditionalGeneration</code> becomes <code>qwen35</code>. The lookup uses the converter at llama.cpp b12352 (312 names), the first build whose converter registers each class (binary search over the release tags), and the build numbers of the strings from the <a href="/en/gguf-arch-min-build-lookup/">GGUF lookup</a>, which is regenerated daily.</p>
+
+<h2 id="table">Full list: first release for every model_type and architecture</h2>
+<p>Two tables: Transformers by <code>model_type</code> (816 rows), then vLLM by architecture name (471 rows; 380 native in v0.33.0). The filter applies to both.</p>
+<p><label for="filter">Filter both tables</label><input id="filter" placeholder="qwen" autocomplete="off"></p>
+<h3 id="tf-table">Transformers: model_type</h3>
+<div class="tw"><table id="tft">
+<thead><tr><th>model_type</th><th>First release</th><th>Date</th><th>Removed</th></tr></thead>
+<tbody>
+<tr><td><code>EvollaModel</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>afmoe</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>aimv2</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>aimv2_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>aimv2_vision_model</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>albert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>align</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>align_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>align_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>altclip</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>altclip_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>altclip_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>apertus</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>arcee</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>aria</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>aria_text</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>audio-spectrogram-transformer</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>audioflamingo3</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>audioflamingo3_encoder</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>autoformer</code></td><td>v4.30.0</td><td>2023-06-08</td><td></td></tr>
+<tr><td><code>axk1</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>axk2</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>aya_vision</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>bailing_hybrid</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>bamba</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>bark</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>bart</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>beam</code></td><td>v5.20.1</td><td>2026-10-16</td><td></td></tr>
+<tr><td><code>beit</code></td><td>v4.10.0</td><td>2021-08-31</td><td></td></tr>
+<tr><td><code>bert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>bert-generation</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>big_bird</code></td><td>v4.5.0</td><td>2021-04-06</td><td></td></tr>
+<tr><td><code>bigbird_pegasus</code></td><td>v4.6.0</td><td>2021-05-12</td><td></td></tr>
+<tr><td><code>biogpt</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>bit</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>bitnet</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>blenderbot</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>blenderbot-small</code></td><td>v4.2.0</td><td>2021-01-13</td><td></td></tr>
+<tr><td><code>blip</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>blip-2</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>blip_2_qformer</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>blip_2_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>blip_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>blip_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>bloom</code></td><td>v4.20.0</td><td>2022-06-16</td><td></td></tr>
+<tr><td><code>blt</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>blt_global_transformer</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>blt_local_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>blt_local_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>blt_patcher</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>bridgetower</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>bridgetower_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>bridgetower_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>bros</code></td><td>v4.34.0</td><td>2023-10-03</td><td></td></tr>
+<tr><td><code>camembert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>canary</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>canary_decoder</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>canine</code></td><td>v4.9.0</td><td>2021-07-22</td><td></td></tr>
+<tr><td><code>chameleon</code></td><td>v4.43.0</td><td>2024-07-23</td><td></td></tr>
+<tr><td><code>chameleon_vqgan</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>chinese_clip</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>chinese_clip_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>chinese_clip_vision_model</code></td><td>v4.38.0</td><td>2024-02-21</td><td></td></tr>
+<tr><td><code>chmv2</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>clap</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>clap_audio_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>clap_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>clip</code></td><td>v4.6.0</td><td>2021-05-12</td><td></td></tr>
+<tr><td><code>clip_text_model</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>clip_vision_model</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>clipseg</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>clipseg_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>clipseg_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>clvp</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>clvp_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>clvp_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>code_llama</code></td><td>v4.33.0</td><td>2023-09-04</td><td>removed after v5.5.4</td></tr>
+<tr><td><code>codegen</code></td><td>v4.21.0</td><td>2022-07-27</td><td></td></tr>
+<tr><td><code>cohere</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>cohere2</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>cohere2_moe</code></td><td>v5.9.0</td><td>2026-05-20</td><td></td></tr>
+<tr><td><code>cohere2_vision</code></td><td>v4.55.0</td><td>2025-08-05</td><td></td></tr>
+<tr><td><code>cohere_asr</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>cohere_compass</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>cohere_compass_text</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>cohere_compass_vision</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>colmodernvbert</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>colpali</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>colqwen2</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>conditional_detr</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>convbert</code></td><td>v4.3.0</td><td>2021-02-08</td><td></td></tr>
+<tr><td><code>convnext</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>convnextv2</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>cosmos3_edge</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>cosmos3_edge_text</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>cosmos3_edge_vision</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>cosmos3_omni</code></td><td>v5.11.0</td><td>2026-06-10</td><td></td></tr>
+<tr><td><code>cpmant</code></td><td>v4.28.0</td><td>2023-04-13</td><td></td></tr>
+<tr><td><code>csm</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>csm_depth_decoder_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>ctrl</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>cvt</code></td><td>v4.20.0</td><td>2022-06-16</td><td></td></tr>
+<tr><td><code>cwm</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>d_fine</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>dab-detr</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>dac</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>data2vec-audio</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>data2vec-text</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>data2vec-vision</code></td><td>v4.19.0</td><td>2022-05-12</td><td></td></tr>
+<tr><td><code>dbrx</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
+<tr><td><code>deberta</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>deberta-v2</code></td><td>v4.4.0</td><td>2021-03-16</td><td></td></tr>
+<tr><td><code>decision_transformer</code></td><td>v4.18.0</td><td>2022-04-06</td><td></td></tr>
+<tr><td><code>deepseek_ocr2</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>deepseek_ocr2_encoder</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>deepseek_ocr2_sam_vision_model</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>deepseek_ocr2_text</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>deepseek_ocr2_vision</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>deepseek_v2</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>deepseek_v3</code></td><td>v4.51.0</td><td>2025-04-05</td><td></td></tr>
+<tr><td><code>deepseek_v32</code></td><td>v5.11.0</td><td>2026-06-10</td><td></td></tr>
+<tr><td><code>deepseek_v4</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>deepseek_vl</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>deepseek_vl_hybrid</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>deformable_detr</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>deimv2</code></td><td>v5.7.0</td><td>2026-04-28</td><td></td></tr>
+<tr><td><code>deit</code></td><td>v4.6.0</td><td>2021-05-12</td><td></td></tr>
+<tr><td><code>depth_anything</code></td><td>v4.38.0</td><td>2024-02-21</td><td></td></tr>
+<tr><td><code>depth_pro</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>deta</code></td><td>v4.27.0</td><td>2023-03-15</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>detr</code></td><td>v4.7.0</td><td>2021-06-17</td><td></td></tr>
+<tr><td><code>dia</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>dia_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>dia_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>diffllama</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>diffusion_gemma</code></td><td>v5.11.0</td><td>2026-06-10</td><td></td></tr>
+<tr><td><code>diffusion_gemma_text</code></td><td>v5.11.0</td><td>2026-06-10</td><td></td></tr>
+<tr><td><code>dinat</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>dinov2</code></td><td>v4.32.0</td><td>2023-08-22</td><td></td></tr>
+<tr><td><code>dinov2_with_registers</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>dinov3_convnext</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>dinov3_vit</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>distilbert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>doge</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>donut-swin</code></td><td>v4.22.0</td><td>2022-09-14</td><td></td></tr>
+<tr><td><code>dots1</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>dpr</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>dpt</code></td><td>v4.18.0</td><td>2022-04-06</td><td></td></tr>
+<tr><td><code>edgetam</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>edgetam_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>edgetam_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>edgetam_video</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>edgetam_video_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>edgetam_video_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>edgetam_vision_model</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>efficientformer</code></td><td>v4.26.0</td><td>2023-01-24</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>efficientloftr</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>efficientnet</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>electra</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>embedding_gemma2</code></td><td>v5.19.0</td><td>2026-10-06</td><td></td></tr>
+<tr><td><code>embedding_gemma2_text</code></td><td>v5.19.0</td><td>2026-10-06</td><td></td></tr>
+<tr><td><code>emu3</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>emu3_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>emu3_vqgan</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>encodec</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>encoder-decoder</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>eomt</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>eomt_dinov3</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>ernie</code></td><td>v4.22.0</td><td>2022-09-14</td><td></td></tr>
+<tr><td><code>ernie4_5</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>ernie4_5_moe</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>ernie4_5_vl_moe</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>ernie4_5_vl_moe_text</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>ernie4_5_vl_moe_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>ernie_m</code></td><td>v4.27.0</td><td>2023-03-15</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>esm</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>esmc</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>esmfold2</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>eurobert</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>evolla</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>exaone4</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>exaone4_5</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>exaone4_5_vision</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>exaone_moe</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>falcon</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>falcon_h1</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>falcon_mamba</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>fast_vlm</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>fastspeech2_conformer</code></td><td>v4.37.0</td><td>2024-01-22</td><td></td></tr>
+<tr><td><code>fastspeech2_conformer_hifigan</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>fastspeech2_conformer_with_hifigan</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>flaubert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>flava</code></td><td>v4.19.0</td><td>2022-05-12</td><td></td></tr>
+<tr><td><code>flava_image_codebook</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>flava_image_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>flava_multimodal_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>flava_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>flex_olmo</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>flint</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>florence2</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>florence_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>fnet</code></td><td>v4.11.0</td><td>2021-09-27</td><td></td></tr>
+<tr><td><code>focalnet</code></td><td>v4.29.0</td><td>2023-05-10</td><td></td></tr>
+<tr><td><code>fsmt</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>fun_asr_nano</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>fun_asr_nano_encoder</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>funnel</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>fuyu</code></td><td>v4.35.0</td><td>2023-11-02</td><td></td></tr>
+<tr><td><code>gemma</code></td><td>v4.38.0</td><td>2024-02-21</td><td></td></tr>
+<tr><td><code>gemma2</code></td><td>v4.42.0</td><td>2024-06-27</td><td></td></tr>
+<tr><td><code>gemma3</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>gemma3_text</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>gemma3n</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>gemma3n_audio</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>gemma3n_text</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>gemma3n_vision</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>gemma4</code></td><td>v5.5.0</td><td>2026-04-02</td><td></td></tr>
+<tr><td><code>gemma4_assistant</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>gemma4_audio</code></td><td>v5.5.0</td><td>2026-04-02</td><td></td></tr>
+<tr><td><code>gemma4_text</code></td><td>v5.5.0</td><td>2026-04-02</td><td></td></tr>
+<tr><td><code>gemma4_unified</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>gemma4_unified_assistant</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>gemma4_unified_audio</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>gemma4_unified_text</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>gemma4_unified_vision</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>gemma4_vision</code></td><td>v5.5.0</td><td>2026-04-02</td><td></td></tr>
+<tr><td><code>git</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>git_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>glm</code></td><td>v4.46.0</td><td>2024-10-24</td><td></td></tr>
+<tr><td><code>glm4</code></td><td>v4.51.3</td><td>2025-04-14</td><td></td></tr>
+<tr><td><code>glm46v</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm4_moe</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>glm4_moe_lite</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm4v</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>glm4v_moe</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>glm4v_moe_text</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>glm4v_moe_vision</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm4v_text</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>glm4v_vision</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm5_next</code></td><td>v5.16.1</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>glm5_next_text</code></td><td>v5.16.1</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>glm5_next_vision</code></td><td>v5.16.1</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>glm_image</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm_image_text</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm_image_vision</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm_image_vqmodel</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glm_moe_dsa</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>glm_ocr</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>glm_ocr_text</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>glm_ocr_vision</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>glmasr</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glmasr_encoder</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>glmga</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>glpn</code></td><td>v4.18.0</td><td>2022-04-06</td><td></td></tr>
+<tr><td><code>got_ocr2</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>got_ocr2_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>gpt-sw3</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>gpt2</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>gpt_bigcode</code></td><td>v4.28.0</td><td>2023-04-13</td><td></td></tr>
+<tr><td><code>gpt_neo</code></td><td>v4.5.0</td><td>2021-04-06</td><td></td></tr>
+<tr><td><code>gpt_neox</code></td><td>v4.20.0</td><td>2022-06-16</td><td></td></tr>
+<tr><td><code>gpt_neox_japanese</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>gpt_oss</code></td><td>v4.55.0</td><td>2025-08-05</td><td></td></tr>
+<tr><td><code>gptj</code></td><td>v4.11.0</td><td>2021-09-27</td><td></td></tr>
+<tr><td><code>gptsan-japanese</code></td><td>v4.27.0</td><td>2023-03-15</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>gradium_phonon_tts</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>granite</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>granite4_vision</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>granite4_vision_text</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>granite_speech</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>granite_speech5_ctc</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>granite_speech5_encoder</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>granite_speech_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>granite_speech_plus</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>granite_speech_plus_encoder</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>granite_swa</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>granitemoe</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>granitemoe_swa</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>granitemoehybrid</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>granitemoeshared</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>granitevision</code></td><td>v4.49.0</td><td>2025-02-17</td><td>removed after v5.5.4</td></tr>
+<tr><td><code>graphormer</code></td><td>v4.26.0</td><td>2023-01-24</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>grounding-dino</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
+<tr><td><code>groupvit</code></td><td>v4.21.0</td><td>2022-07-27</td><td></td></tr>
+<tr><td><code>groupvit_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>groupvit_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>gte</code></td><td>v5.18.0</td><td>2026-09-30</td><td></td></tr>
+<tr><td><code>helium</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>hgnet_v2</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>hiera</code></td><td>v4.43.0</td><td>2024-07-23</td><td></td></tr>
+<tr><td><code>higgs_audio_v2</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>higgs_audio_v2_tokenizer</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>hrm_text</code></td><td>v5.9.0</td><td>2026-05-20</td><td></td></tr>
+<tr><td><code>hubert</code></td><td>v4.7.0</td><td>2021-06-17</td><td></td></tr>
+<tr><td><code>hunyuan_v1_dense</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>hunyuan_v1_moe</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>hunyuan_vl</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>hunyuan_vl_text</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>hunyuan_vl_vision</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>hy_v3</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>hy_v4</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>hyperclovax</code></td><td>v5.9.0</td><td>2026-05-20</td><td></td></tr>
+<tr><td><code>hyperclovax_vision_v2</code></td><td>v5.18.0</td><td>2026-09-30</td><td></td></tr>
+<tr><td><code>ibert</code></td><td>v4.4.0</td><td>2021-03-16</td><td></td></tr>
+<tr><td><code>idefics</code></td><td>v4.32.0</td><td>2023-08-22</td><td></td></tr>
+<tr><td><code>idefics2</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
+<tr><td><code>idefics2_perceiver</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>idefics2_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>idefics3</code></td><td>v4.46.0</td><td>2024-10-24</td><td></td></tr>
+<tr><td><code>idefics3_vision</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>idefics_perciever</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>idefics_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>ijepa</code></td><td>v4.47.0</td><td>2024-12-05</td><td></td></tr>
+<tr><td><code>imagegpt</code></td><td>v4.13.0</td><td>2021-12-09</td><td></td></tr>
+<tr><td><code>informer</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>inkling_audio</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>inkling_mm_model</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>inkling_text</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>inkling_vision</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>instructblip</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>instructblip_qformer</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>instructblip_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>instructblipvideo</code></td><td>v4.42.0</td><td>2024-06-27</td><td></td></tr>
+<tr><td><code>instructblipvideo_qformer</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>instructblipvideo_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>internvl</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>internvl_vision</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>jais2</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>jamba</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
+<tr><td><code>janus</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>janus_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>janus_vqgan</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>jetmoe</code></td><td>v4.41.0</td><td>2024-05-17</td><td></td></tr>
+<tr><td><code>jina_embeddings_v3</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>jukebox</code></td><td>v4.25.1</td><td>2022-12-01</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>kimi_k25</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>kimi_k25_vision</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>kimi_linear</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>kolibri1</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>kosmos-2</code></td><td>v4.35.0</td><td>2023-11-02</td><td></td></tr>
+<tr><td><code>kosmos-2.5</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>kosmos_2_5_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>kosmos_2_5_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>kosmos_2_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>kosmos_2_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>kyutai_speech_to_text</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>laguna</code></td><td>v5.7.0</td><td>2026-04-28</td><td></td></tr>
+<tr><td><code>lasr_ctc</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>lasr_encoder</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>layoutlm</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>layoutlmv2</code></td><td>v4.10.0</td><td>2021-08-31</td><td></td></tr>
+<tr><td><code>layoutlmv3</code></td><td>v4.20.0</td><td>2022-06-16</td><td></td></tr>
+<tr><td><code>layoutxlm</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>led</code></td><td>v4.2.0</td><td>2021-01-13</td><td></td></tr>
+<tr><td><code>levit</code></td><td>v4.20.0</td><td>2022-06-16</td><td></td></tr>
+<tr><td><code>lfm2</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>lfm2_moe</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>lfm2_vl</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>lightglue</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>lighton_ocr</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>lilt</code></td><td>v4.24.0</td><td>2022-11-01</td><td></td></tr>
+<tr><td><code>llama</code></td><td>v4.28.0</td><td>2023-04-13</td><td></td></tr>
+<tr><td><code>llama4</code></td><td>v4.51.0</td><td>2025-04-05</td><td></td></tr>
+<tr><td><code>llama4_text</code></td><td>v4.51.0</td><td>2025-04-05</td><td></td></tr>
+<tr><td><code>llama4_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>llava</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>llava-next-video</code></td><td>v4.42.0</td><td>2024-06-27</td><td>removed after v4.44.2</td></tr>
+<tr><td><code>llava_next</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>llava_next_video</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>llava_onevision</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>longcat_flash</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>longformer</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>longt5</code></td><td>v4.20.0</td><td>2022-06-16</td><td></td></tr>
+<tr><td><code>luke</code></td><td>v4.6.0</td><td>2021-05-12</td><td></td></tr>
+<tr><td><code>lw_detr</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>lw_detr_vit</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>lxmert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>m2m_100</code></td><td>v4.4.0</td><td>2021-03-16</td><td></td></tr>
+<tr><td><code>mamba</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>mamba2</code></td><td>v4.44.0</td><td>2024-08-06</td><td></td></tr>
+<tr><td><code>marian</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>markuplm</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>mask2former</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>maskformer</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>maskformer-swin</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>mbart</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>mctct</code></td><td>v4.20.0</td><td>2022-06-16</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>mega</code></td><td>v4.28.0</td><td>2023-04-13</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>megatron-bert</code></td><td>v4.9.0</td><td>2021-07-22</td><td></td></tr>
+<tr><td><code>megatron_bert</code></td><td>v4.6.0</td><td>2021-05-12</td><td>removed after v4.8.2</td></tr>
+<tr><td><code>mellum</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>metaclip_2</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>metaclip_2_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>metaclip_2_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>mgp-str</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>mimi</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>mimi_decoder</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>mimi_encoder</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>mimo_v2_flash</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>minicpm3</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>minicpm_ocr</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>minicpm_ocr_vision</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>minicpmv4_6</code></td><td>v5.7.0</td><td>2026-04-28</td><td></td></tr>
+<tr><td><code>minicpmv4_6_vision</code></td><td>v5.7.0</td><td>2026-04-28</td><td></td></tr>
+<tr><td><code>minicpmv4_7</code></td><td>v5.18.0</td><td>2026-09-30</td><td></td></tr>
+<tr><td><code>minicpmv4_7_vision</code></td><td>v5.18.0</td><td>2026-09-30</td><td></td></tr>
+<tr><td><code>minimax</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>minimax_m2</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>minimax_m3_vl</code></td><td>v5.12.0</td><td>2026-06-12</td><td></td></tr>
+<tr><td><code>minimax_m3_vl_text</code></td><td>v5.12.0</td><td>2026-06-12</td><td></td></tr>
+<tr><td><code>minimax_m3_vl_vision</code></td><td>v5.12.0</td><td>2026-06-12</td><td></td></tr>
+<tr><td><code>ministral</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>ministral3</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>mistral</code></td><td>v4.34.0</td><td>2023-10-03</td><td></td></tr>
+<tr><td><code>mistral3</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>mistral4</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>mistral_large4</code></td><td>v5.22.0</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>mistral_large4_text</code></td><td>v5.22.0</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>mixtral</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>mlcd</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>mlcd_vision_model</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>mllama</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>mllama_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>mllama_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>mm-grounding-dino</code></td><td>v4.55.0</td><td>2025-08-05</td><td></td></tr>
+<tr><td><code>mobilebert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>mobilenet_v1</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>mobilenet_v2</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>mobilevit</code></td><td>v4.21.0</td><td>2022-07-27</td><td></td></tr>
+<tr><td><code>mobilevitv2</code></td><td>v4.30.0</td><td>2023-06-08</td><td></td></tr>
+<tr><td><code>modernbert</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>modernbert-decoder</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>modernvbert</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>molmo2</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>molmo2_adapter</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>molmo2_text</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>molmo2_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>moonshine</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>moonshine_streaming</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>moonshine_streaming_encoder</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>moshi</code></td><td>v4.46.0</td><td>2024-10-24</td><td></td></tr>
+<tr><td><code>moshi_depth</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>moss_transcribe_diarize</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>moss_transcribe_diarize_audio</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>mpnet</code></td><td>v4.1.0</td><td>2020-12-17</td><td></td></tr>
+<tr><td><code>mpt</code></td><td>v4.32.0</td><td>2023-08-22</td><td></td></tr>
+<tr><td><code>mra</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>mt5</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>muse_glimmer</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>muse_glimmer_assistant</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>muse_glimmer_text</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>muse_glimmer_vision</code></td><td>v5.15.0</td><td>2026-08-10</td><td></td></tr>
+<tr><td><code>muse_spark</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>muse_spark_audio</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>muse_spark_text</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>muse_spark_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>musicflamingo</code></td><td>v5.5.0</td><td>2026-04-02</td><td></td></tr>
+<tr><td><code>musicflamingo_encoder</code></td><td>v5.5.0</td><td>2026-04-02</td><td>removed after v5.5.4</td></tr>
+<tr><td><code>musicgen</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>musicgen_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>musicgen_melody</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>musicgen_melody_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>mvp</code></td><td>v4.21.0</td><td>2022-07-27</td><td></td></tr>
+<tr><td><code>nanochat</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>nat</code></td><td>v4.25.1</td><td>2022-12-01</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>nemo_speechlm</code></td><td>v5.22.0</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>nemotron</code></td><td>v4.44.0</td><td>2024-08-06</td><td></td></tr>
+<tr><td><code>nemotron3_5_asr</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>nemotron3_5_transcribe_asr_audio</code></td><td>v5.22.0</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>nemotron3_5_transcribe_audio</code></td><td>v5.22.0</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>nemotron3_5_transcribe_word_timestamp</code></td><td>v5.22.0</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>nemotron3_diarization</code></td><td>v5.18.0</td><td>2026-09-30</td><td></td></tr>
+<tr><td><code>nemotron3_diarization_audio</code></td><td>v5.18.0</td><td>2026-09-30</td><td></td></tr>
+<tr><td><code>nemotron_asr_streaming</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>nemotron_asr_streaming_encoder</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>nemotron_h</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>nemotron_h_omni</code></td><td>v5.18.0</td><td>2026-09-30</td><td></td></tr>
+<tr><td><code>neomme</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>neucodec</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>nezha</code></td><td>v4.21.0</td><td>2022-07-27</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>nllb-moe</code></td><td>v4.28.0</td><td>2023-04-13</td><td></td></tr>
+<tr><td><code>nomic_bert</code></td><td>v5.5.0</td><td>2026-04-02</td><td></td></tr>
+<tr><td><code>nougat</code></td><td>v4.34.0</td><td>2023-10-03</td><td></td></tr>
+<tr><td><code>nystromformer</code></td><td>v4.16.0</td><td>2022-01-27</td><td></td></tr>
+<tr><td><code>olmo</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
+<tr><td><code>olmo2</code></td><td>v4.47.0</td><td>2024-12-05</td><td></td></tr>
+<tr><td><code>olmo3</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>olmo_hybrid</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>olmoe</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>omdet-turbo</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>oneformer</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>open-llama</code></td><td>v4.29.0</td><td>2023-05-10</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>openai-gpt</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>openai_privacy_filter</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>opt</code></td><td>v4.19.0</td><td>2022-05-12</td><td></td></tr>
+<tr><td><code>ovis2</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>ovis2_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>owlv2</code></td><td>v4.35.0</td><td>2023-11-02</td><td></td></tr>
+<tr><td><code>owlv2_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>owlv2_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>owlvit</code></td><td>v4.21.0</td><td>2022-07-27</td><td></td></tr>
+<tr><td><code>owlvit_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>owlvit_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>paddleocr_vl</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>paddleocr_vl_text</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>paddleocr_vl_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>paligemma</code></td><td>v4.41.0</td><td>2024-05-17</td><td></td></tr>
+<tr><td><code>parakeet_ctc</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>parakeet_encoder</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>parakeet_rnnt</code></td><td>v5.12.0</td><td>2026-06-12</td><td></td></tr>
+<tr><td><code>parakeet_tdt</code></td><td>v5.9.0</td><td>2026-05-20</td><td></td></tr>
+<tr><td><code>patchtsmixer</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>patchtst</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>pe_audio</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>pe_audio_encoder</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>pe_audio_video</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>pe_audio_video_encoder</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>pe_video</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>pe_video_encoder</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>pegasus</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>pegasus_x</code></td><td>v4.22.0</td><td>2022-09-14</td><td></td></tr>
+<tr><td><code>perceiver</code></td><td>v4.13.0</td><td>2021-12-09</td><td></td></tr>
+<tr><td><code>perception_encoder</code></td><td>v4.54.0</td><td>2025-07-25</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>perception_lm</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>persimmon</code></td><td>v4.34.0</td><td>2023-10-03</td><td></td></tr>
+<tr><td><code>phi</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>phi3</code></td><td>v4.41.0</td><td>2024-05-17</td><td></td></tr>
+<tr><td><code>phi4_multimodal</code></td><td>v4.51.0</td><td>2025-04-05</td><td></td></tr>
+<tr><td><code>phi4_multimodal_audio</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>phi4_multimodal_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>phimoe</code></td><td>v4.46.0</td><td>2024-10-24</td><td></td></tr>
+<tr><td><code>pi0</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pix2struct</code></td><td>v4.28.0</td><td>2023-04-13</td><td></td></tr>
+<tr><td><code>pix2struct_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>pix2struct_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>pixio</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>pixtral</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>plbart</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>pocket_tts</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>pocket_tts_audio_tokenizer</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>pocket_tts_audio_tokenizer_decoder</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>pocket_tts_audio_tokenizer_encoder</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>poolformer</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>pop2piano</code></td><td>v4.33.0</td><td>2023-09-04</td><td></td></tr>
+<tr><td><code>pp_chart2table</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pp_chart2table_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>pp_doclayout_v2</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>pp_doclayout_v3</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>pp_doclayout_v4</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>pp_formulanet</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>pp_formulanet_text</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>pp_formulanet_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>pp_lcnet</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pp_lcnet_v3</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pp_lcnet_v4</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>pp_ocrv5_mobile_det</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pp_ocrv5_mobile_rec</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pp_ocrv5_server_det</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pp_ocrv5_server_rec</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>pp_ocrv6_medium_det</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>pp_ocrv6_small_det</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>pp_ocrv6_small_rec</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>pp_ocrv6_tiny_rec</code></td><td>v5.10.0</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>prompt_depth_anything</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>prophetnet</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>pvt</code></td><td>v4.32.0</td><td>2023-08-22</td><td></td></tr>
+<tr><td><code>pvt_v2</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>qdqbert</code></td><td>v4.13.0</td><td>2021-12-09</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>qianfan_ocr</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qianfan_ocr_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2</code></td><td>v4.37.0</td><td>2024-01-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_audio_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_bigvgan</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_dit</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_talker</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_text</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_thinker</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_token2wav</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_omni_vision_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_5_vl</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>qwen2_5_vl_text</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>qwen2_5_vl_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen2_audio</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>qwen2_audio_encoder</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>qwen2_moe</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
+<tr><td><code>qwen2_vl</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
+<tr><td><code>qwen2_vl_text</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>qwen2_vl_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3</code></td><td>v4.51.0</td><td>2025-04-05</td><td></td></tr>
+<tr><td><code>qwen3_5</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>qwen3_5_moe</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>qwen3_5_moe_text</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>qwen3_5_moe_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_5_text</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>qwen3_5_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_asr</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>qwen3_asr_encoder</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>qwen3_moe</code></td><td>v4.51.0</td><td>2025-04-05</td><td></td></tr>
+<tr><td><code>qwen3_next</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>qwen3_omni_moe</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>qwen3_omni_moe_audio_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_omni_moe_talker_code_predictor</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_omni_moe_talker_text</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_omni_moe_text</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_omni_moe_thinker</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_omni_moe_vision_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_vl</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>qwen3_vl_moe</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>qwen3_vl_moe_text</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>qwen3_vl_moe_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen3_vl_text</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>qwen3_vl_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>qwen4_exp</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>qwen4_exp_text</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>qwen4_exp_vision</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>radio</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>rag</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>realm</code></td><td>v4.16.0</td><td>2022-01-27</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>recurrent_gemma</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
+<tr><td><code>reformer</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>regnet</code></td><td>v4.19.0</td><td>2022-05-12</td><td></td></tr>
+<tr><td><code>rembert</code></td><td>v4.10.0</td><td>2021-08-31</td><td></td></tr>
+<tr><td><code>resnet</code></td><td>v4.18.0</td><td>2022-04-06</td><td></td></tr>
+<tr><td><code>retribert</code></td><td>v4.0.0</td><td>2020-11-30</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>rf_detr</code></td><td>v5.9.0</td><td>2026-05-20</td><td></td></tr>
+<tr><td><code>rf_detr_dinov2</code></td><td>v5.9.0</td><td>2026-05-20</td><td></td></tr>
+<tr><td><code>roberta</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>roberta-prelayernorm</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>roc_bert</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>roformer</code></td><td>v4.7.0</td><td>2021-06-17</td><td></td></tr>
+<tr><td><code>rt_detr</code></td><td>v4.42.0</td><td>2024-06-27</td><td></td></tr>
+<tr><td><code>rt_detr_resnet</code></td><td>v4.42.0</td><td>2024-06-27</td><td></td></tr>
+<tr><td><code>rt_detr_v2</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>rwkv</code></td><td>v4.29.0</td><td>2023-05-10</td><td></td></tr>
+<tr><td><code>sam</code></td><td>v4.29.0</td><td>2023-05-10</td><td></td></tr>
+<tr><td><code>sam2</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>sam2_hiera_det_model</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>sam2_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam2_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam2_video</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>sam2_video_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam2_video_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam2_vision_model</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>sam3</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>sam3_detr_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_detr_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_geometry_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_lite_text</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_lite_text_detr_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_lite_text_detr_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_lite_text_geometry_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_lite_text_mask_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_lite_text_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_mask_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>sam3_tracker</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>sam3_tracker_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam3_tracker_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam3_tracker_video</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>sam3_tracker_video_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam3_tracker_video_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam3_video</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>sam3_vision_model</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>sam3_vit_model</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>sam_hq</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>sam_hq_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam_hq_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam_hq_vision_model</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>sam_mask_decoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam_prompt_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>sam_vision_model</code></td><td>v4.51.0</td><td>2025-04-05</td><td></td></tr>
+<tr><td><code>sapiens2</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>sapiens2_head</code></td><td>v5.10.1</td><td>2026-06-03</td><td></td></tr>
+<tr><td><code>seamless_m4t</code></td><td>v4.35.0</td><td>2023-11-02</td><td></td></tr>
+<tr><td><code>seamless_m4t_v2</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>seed_oss</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>segformer</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
+<tr><td><code>seggpt</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>sew</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
+<tr><td><code>sew-d</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
+<tr><td><code>shieldgemma2</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>siglip</code></td><td>v4.37.0</td><td>2024-01-22</td><td></td></tr>
+<tr><td><code>siglip2</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>siglip2_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>siglip2_vision_model</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>siglip_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>siglip_vision_model</code></td><td>v4.37.0</td><td>2024-01-22</td><td></td></tr>
+<tr><td><code>slanet</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>slanext</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>slanext_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>smollm3</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>smolvlm</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>smolvlm_vision</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
+<tr><td><code>solar_open</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>speech-encoder-decoder</code></td><td>v4.11.0</td><td>2021-09-27</td><td></td></tr>
+<tr><td><code>speech_to_text</code></td><td>v4.4.0</td><td>2021-03-16</td><td></td></tr>
+<tr><td><code>speech_to_text_2</code></td><td>v4.11.0</td><td>2021-09-27</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>speecht5</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>speecht5_hifigan</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>splinter</code></td><td>v4.10.0</td><td>2021-08-31</td><td></td></tr>
+<tr><td><code>squeezebert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>stablelm</code></td><td>v4.38.0</td><td>2024-02-21</td><td></td></tr>
+<tr><td><code>starcoder2</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>step3p5</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>step3p5_vision</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>step3p7</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
+<tr><td><code>superglue</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>superpoint</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>swiftformer</code></td><td>v4.30.0</td><td>2023-06-08</td><td></td></tr>
+<tr><td><code>swin</code></td><td>v4.16.0</td><td>2022-01-27</td><td></td></tr>
+<tr><td><code>swin2sr</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>swinv2</code></td><td>v4.22.0</td><td>2022-09-14</td><td></td></tr>
+<tr><td><code>switch_transformers</code></td><td>v4.25.1</td><td>2022-12-01</td><td></td></tr>
+<tr><td><code>t5</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>t5_gemma_module</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>t5gemma</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>t5gemma2</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>t5gemma2_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>t5gemma2_encoder</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>t5gemma2_text</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>table-transformer</code></td><td>v4.24.0</td><td>2022-11-01</td><td></td></tr>
+<tr><td><code>tapas</code></td><td>v4.1.0</td><td>2020-12-17</td><td></td></tr>
+<tr><td><code>tapex</code></td><td>v4.19.0</td><td>2022-05-12</td><td>removed after v4.19.4</td></tr>
+<tr><td><code>textnet</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>time_series_transformer</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>timesfm</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>timesfm2_5</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>timesformer</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>timm_backbone</code></td><td>v4.30.0</td><td>2023-06-08</td><td></td></tr>
+<tr><td><code>timm_wrapper</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>tipsv2</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>tipsv2_dpt</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>tipsv2_text_model</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>tipsv2_vision_model</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
+<tr><td><code>trajectory_transformer</code></td><td>v4.20.0</td><td>2022-06-16</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>transfo-xl</code></td><td>v4.0.0</td><td>2020-11-30</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>trocr</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
+<tr><td><code>tvlt</code></td><td>v4.27.0</td><td>2023-03-15</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>tvp</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>udop</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>ultrabert</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>ultravbert</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
+<tr><td><code>umt5</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>unispeech</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
+<tr><td><code>unispeech-sat</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
+<tr><td><code>univnet</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
+<tr><td><code>unlimited_ocr</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>unlimited_ocr_sam_vision_model</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>unlimited_ocr_text</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>unlimited_ocr_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>unlimited_ocr_vision_encoder</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>upernet</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
+<tr><td><code>uvdoc</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>uvdoc_backbone</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>van</code></td><td>v4.18.0</td><td>2022-04-06</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>vaultgemma</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>vibevoice</code></td><td>v5.17.0</td><td>2026-09-09</td><td></td></tr>
+<tr><td><code>vibevoice_acoustic_tokenizer</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>vibevoice_acoustic_tokenizer_decoder</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>vibevoice_acoustic_tokenizer_encoder</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>vibevoice_asr</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
+<tr><td><code>vibevoice_diffusion</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
+<tr><td><code>video_llama_3</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>video_llama_3_vision</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
+<tr><td><code>video_llava</code></td><td>v4.41.0</td><td>2024-05-17</td><td></td></tr>
+<tr><td><code>videomae</code></td><td>v4.22.0</td><td>2022-09-14</td><td></td></tr>
+<tr><td><code>videomt</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
+<tr><td><code>videoprism</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>videoprism_text_model</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>videoprism_vision_model</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>vilt</code></td><td>v4.16.0</td><td>2022-01-27</td><td></td></tr>
+<tr><td><code>vipllava</code></td><td>v4.37.0</td><td>2024-01-22</td><td></td></tr>
+<tr><td><code>vision-encoder-decoder</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
+<tr><td><code>vision-text-dual-encoder</code></td><td>v4.13.0</td><td>2021-12-09</td><td></td></tr>
+<tr><td><code>visual_bert</code></td><td>v4.7.0</td><td>2021-06-17</td><td></td></tr>
+<tr><td><code>vit</code></td><td>v4.5.0</td><td>2021-04-06</td><td></td></tr>
+<tr><td><code>vit_hybrid</code></td><td>v4.26.0</td><td>2023-01-24</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>vit_mae</code></td><td>v4.16.0</td><td>2022-01-27</td><td></td></tr>
+<tr><td><code>vit_msn</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>vitdet</code></td><td>v4.33.0</td><td>2023-09-04</td><td></td></tr>
+<tr><td><code>vitmatte</code></td><td>v4.34.0</td><td>2023-10-03</td><td></td></tr>
+<tr><td><code>vitpose</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>vitpose_backbone</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
+<tr><td><code>vits</code></td><td>v4.33.0</td><td>2023-09-04</td><td></td></tr>
+<tr><td><code>vivit</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
+<tr><td><code>vjepa2</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>voxtral</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>voxtral_encoder</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>voxtral_realtime</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>voxtral_realtime_encoder</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>voxtral_realtime_text</code></td><td>v5.2.0</td><td>2026-02-16</td><td></td></tr>
+<tr><td><code>wav2vec2</code></td><td>v4.3.0</td><td>2021-02-08</td><td></td></tr>
+<tr><td><code>wav2vec2-bert</code></td><td>v4.37.0</td><td>2024-01-22</td><td></td></tr>
+<tr><td><code>wav2vec2-conformer</code></td><td>v4.20.0</td><td>2022-06-16</td><td></td></tr>
+<tr><td><code>wavlm</code></td><td>v4.15.0</td><td>2021-12-22</td><td></td></tr>
+<tr><td><code>whisper</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
+<tr><td><code>xclip</code></td><td>v4.22.0</td><td>2022-09-14</td><td></td></tr>
+<tr><td><code>xclip_text_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>xclip_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>xcodec</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
+<tr><td><code>xcodec2</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>xglm</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>xlm</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>xlm-prophetnet</code></td><td>v4.0.0</td><td>2020-11-30</td><td>removed after v4.57.6</td></tr>
+<tr><td><code>xlm-roberta</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>xlm-roberta-xl</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
+<tr><td><code>xlnet</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
+<tr><td><code>xlstm</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
+<tr><td><code>xmod</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>yolos</code></td><td>v4.19.0</td><td>2022-05-12</td><td></td></tr>
+<tr><td><code>yoso</code></td><td>v4.16.0</td><td>2022-01-27</td><td></td></tr>
+<tr><td><code>youtu</code></td><td>v5.1.0</td><td>2026-02-05</td><td></td></tr>
+<tr><td><code>zamba</code></td><td>v4.46.0</td><td>2024-10-24</td><td></td></tr>
+<tr><td><code>zamba2</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
+<tr><td><code>zaya</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
+<tr><td><code>zoedepth</code></td><td>v4.43.0</td><td>2024-07-23</td><td></td></tr>
+</tbody></table></div>
+<h3 id="vllm-table">vLLM: architecture names</h3>
+<div class="tw"><table id="vlt">
+<thead><tr><th>Architecture</th><th>First release (native)</th><th>In v0.33.0</th><th>model_type</th><th>GGUF arch, llama.cpp from</th></tr></thead>
+<tbody>
+<tr><td><code>AXK1ForCausalLM</code></td><td>v0.17.0</td><td>native</td><td><code>axk1</code></td><td></td></tr>
+<tr><td><code>AfmoeForCausalLM</code></td><td>v0.11.1</td><td>native</td><td><code>afmoe</code></td><td><code>afmoe</code> b7061</td></tr>
+<tr><td><code>AliceAIForCausalLM</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Alpamayo2Super</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ApertusForCausalLM</code></td><td>v0.10.2</td><td>native</td><td><code>apertus</code></td><td><code>apertus</code> b6671</td></tr>
+<tr><td><code>AquilaForCausalLM</code></td><td>v0.2.1</td><td>removed (last v0.24.0)</td><td></td><td></td></tr>
+<tr><td><code>AquilaModel</code></td><td>v0.1.4</td><td>removed (last v0.24.0)</td><td></td><td></td></tr>
+<tr><td><code>ArceeForCausalLM</code></td><td>v0.10.0</td><td>Transformers backend (native to v0.31.0)</td><td><code>arcee</code></td><td><code>arcee</code> b5674</td></tr>
+<tr><td><code>ArcticForCausalLM</code></td><td>v0.4.3</td><td>removed (last v0.28.0)</td><td></td><td><code>arctic</code> b2988</td></tr>
+<tr><td><code>AriaForConditionalGeneration</code></td><td>v0.6.5</td><td>native</td><td><code>aria</code></td><td></td></tr>
+<tr><td><code>AudioFlamingo3ForConditionalGeneration</code></td><td>v0.13.0</td><td>native</td><td><code>audioflamingo3</code></td><td><code>qwen2</code> b1939, converter b7593</td></tr>
+<tr><td><code>AyaVisionForConditionalGeneration</code></td><td>v0.8.3</td><td>removed (last v0.24.0)</td><td><code>aya_vision</code></td><td></td></tr>
+<tr><td><code>BagelForConditionalGeneration</code></td><td>v0.13.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>BaiChuanForCausalLM</code></td><td>v0.1.3</td><td>removed (last v0.23.0)</td><td></td><td><code>baichuan</code> b1223</td></tr>
+<tr><td><code>BaichuanForCausalLM</code></td><td>v0.1.3</td><td>removed (last v0.23.0)</td><td></td><td><code>baichuan</code> b1223</td></tr>
+<tr><td><code>BailingMoeForCausalLM</code></td><td>v0.10.0</td><td>native</td><td></td><td><code>bailingmoe</code> b5002</td></tr>
+<tr><td><code>BailingMoeV25MTPModel</code></td><td>v0.25.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>BailingMoeV2ForCausalLM</code></td><td>v0.11.0</td><td>native</td><td></td><td><code>bailingmoe2</code> b6810</td></tr>
+<tr><td><code>BailingMoeV2_5ForCausalLM</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>BailingMoeV3ForCausalLM</code></td><td>v0.28.0</td><td>native</td><td></td><td><code>bailingmoe3</code> b10470</td></tr>
+<tr><td><code>BailingMoeV3MTPModel</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>BailingMoeV3VLForConditionalGeneration</code></td><td>v0.30.0</td><td>native</td><td></td><td><code>bailingmoe3</code> b10470, converter b11156</td></tr>
+<tr><td><code>BambaForCausalLM</code></td><td>v0.7.3</td><td>removed (last v0.23.0)</td><td><code>bamba</code></td><td><code>granitehybrid</code> b5868</td></tr>
+<tr><td><code>BartForConditionalGeneration</code></td><td>v0.5.5</td><td>plugin</td><td><code>bart</code></td><td></td></tr>
+<tr><td><code>BartModel</code></td><td>v0.5.5</td><td>plugin</td><td><code>bart</code></td><td></td></tr>
+<tr><td><code>BeamForCausalLM</code></td><td>v0.33.0</td><td>native</td><td><code>beam</code></td><td><code>beam</code> b11701</td></tr>
+<tr><td><code>BeeForConditionalGeneration</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>BertForMaskedLM</code></td><td>v0.26.0</td><td>native</td><td><code>bert</code></td><td><code>bert</code> b2127, converter b4375</td></tr>
+<tr><td><code>BertForSequenceClassification</code></td><td>v0.6.5</td><td>native</td><td><code>bert</code></td><td><code>bert</code> b2127, converter b5524</td></tr>
+<tr><td><code>BertForTokenClassification</code></td><td>v0.11.0</td><td>native</td><td><code>bert</code></td><td></td></tr>
+<tr><td><code>BertModel</code></td><td>v0.6.4</td><td>native</td><td><code>bert</code></td><td><code>bert</code> b2127</td></tr>
+<tr><td><code>BertSpladeSparseEmbeddingModel</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>BgeM3EmbeddingModel</code></td><td>v0.15.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Blip2ForConditionalGeneration</code></td><td>v0.5.4</td><td>native</td><td><code>blip-2</code></td><td></td></tr>
+<tr><td><code>BloomForCausalLM</code></td><td>v0.1.2</td><td>native</td><td><code>bloom</code></td><td><code>bloom</code> b1363</td></tr>
+<tr><td><code>CLIPModel</code></td><td>v0.11.1</td><td>native</td><td><code>clip</code></td><td></td></tr>
+<tr><td><code>ChameleonForCausalLM</code></td><td>v0.5.3</td><td>gone (last v0.5.3.post1)</td><td></td><td><code>chameleon</code> b3834</td></tr>
+<tr><td><code>ChameleonForConditionalGeneration</code></td><td>v0.5.3</td><td>removed (last v0.28.0)</td><td><code>chameleon</code></td><td><code>chameleon</code> b3834, converter b3841</td></tr>
+<tr><td><code>ChatGLMForConditionalGeneration</code></td><td>v0.2.4</td><td>native</td><td></td><td><code>chatglm</code> b3333</td></tr>
+<tr><td><code>ChatGLMModel</code></td><td>v0.2.2</td><td>native</td><td></td><td><code>chatglm</code> b3333</td></tr>
+<tr><td><code>Cheers</code></td><td>v0.20.0</td><td>removed (last v0.28.0)</td><td></td><td></td></tr>
+<tr><td><code>CheersForConditionalGeneration</code></td><td>v0.20.0</td><td>removed (last v0.28.0)</td><td></td><td></td></tr>
+<tr><td><code>ClefFlashForJointSchema</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ClefOmniForJointSchema</code></td><td>v0.32.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Cohere2ForCausalLM</code></td><td>v0.6.5</td><td>native</td><td><code>cohere2</code></td><td><code>cohere2</code> b4415</td></tr>
+<tr><td><code>Cohere2MoeForCausalLM</code></td><td>v0.21.0</td><td>native</td><td><code>cohere2_moe</code></td><td><code>cohere2moe</code> b9626</td></tr>
+<tr><td><code>Cohere2VisionForConditionalGeneration</code></td><td>v0.10.1</td><td>native</td><td><code>cohere2_vision</code></td><td></td></tr>
+<tr><td><code>CohereAsrForConditionalGeneration</code></td><td>v0.19.0</td><td>native</td><td><code>cohere_asr</code></td><td></td></tr>
+<tr><td><code>CohereCompassForConditionalGeneration</code></td><td>v0.30.0</td><td>native</td><td><code>cohere_compass</code></td><td></td></tr>
+<tr><td><code>CohereForCausalLM</code></td><td>v0.4.0</td><td>native</td><td><code>cohere</code></td><td><code>command-r</code> b2440</td></tr>
+<tr><td><code>ColBERTJinaRobertaModel</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ColBERTLfm2Model</code></td><td>v0.19.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ColBERTModernBertModel</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ColModernVBertForRetrieval</code></td><td>v0.17.0</td><td>native</td><td><code>colmodernvbert</code></td><td></td></tr>
+<tr><td><code>ColPaliForRetrieval</code></td><td>v0.18.0</td><td>native</td><td><code>colpali</code></td><td></td></tr>
+<tr><td><code>ColQwen3</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ColQwen3_5</code></td><td>v0.19.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ColUltraVBertForRetrieval</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Cosmos3EdgeForConditionalGeneration</code></td><td>v0.26.0</td><td>native</td><td><code>cosmos3_edge</code></td><td></td></tr>
+<tr><td><code>Cosmos3ForConditionalGeneration</code></td><td>v0.23.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>CwmForCausalLM</code></td><td>v0.11.0</td><td>Transformers backend (native to v0.31.0)</td><td><code>cwm</code></td><td></td></tr>
+<tr><td><code>D3ForSequenceClassification</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DFlash2BeamDraftModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DFlash2DraftModel</code></td><td>v0.28.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b10658</td></tr>
+<tr><td><code>DFlashDraftModel</code></td><td>v0.20.0</td><td>native</td><td></td><td><code>dflash</code> b9831</td></tr>
+<tr><td><code>DFlashLagunaForCausalLM</code></td><td>v0.25.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DFlashMuseGlimmerAssistantModel</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DFlashQwen3XPressModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DSparkDraftModel</code></td><td>v0.25.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b10470</td></tr>
+<tr><td><code>DSparkV41DraftModel</code></td><td>v0.30.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DbrxForCausalLM</code></td><td>v0.4.0</td><td>native</td><td><code>dbrx</code></td><td><code>dbrx</code> b2665</td></tr>
+<tr><td><code>DeciLMForCausalLM</code></td><td>v0.2.7</td><td>native</td><td></td><td><code>deci</code> b4380</td></tr>
+<tr><td><code>DeepSeekMTPModel</code></td><td>v0.7.3</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DeepSeekV4MTPModel</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DeepseekForCausalLM</code></td><td>v0.3.0</td><td>native</td><td></td><td><code>deepseek</code> b4333</td></tr>
+<tr><td><code>DeepseekOCR2ForCausalLM</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DeepseekOCRForCausalLM</code></td><td>v0.11.1</td><td>native</td><td></td><td><code>deepseek2</code> b3023, converter b8530</td></tr>
+<tr><td><code>DeepseekV2ForCausalLM</code></td><td>v0.5.1</td><td>native</td><td><code>deepseek_v2</code></td><td><code>deepseek2</code> b3023</td></tr>
+<tr><td><code>DeepseekV32ForCausalLM</code></td><td>v0.11.0</td><td>native</td><td><code>deepseek_v32</code></td><td><code>deepseek32</code> b9411</td></tr>
+<tr><td><code>DeepseekV32MTPModel</code></td><td>v0.29.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DeepseekV3BidirectionalModel</code></td><td>v0.29.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DeepseekV3ForCausalLM</code></td><td>v0.6.6</td><td>native</td><td><code>deepseek_v3</code></td><td><code>deepseek2</code> b3023, converter b4417</td></tr>
+<tr><td><code>DeepseekV41ForCausalLM</code></td><td>v0.30.0</td><td>native</td><td></td><td><code>deepseek41</code> b11870</td></tr>
+<tr><td><code>DeepseekV4ForCausalLM</code></td><td>v0.20.0</td><td>native</td><td><code>deepseek_v4</code></td><td><code>deepseek4</code> b9840</td></tr>
+<tr><td><code>DeepseekV4ForConditionalGeneration</code></td><td>v0.30.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DeepseekVLV2ForCausalLM</code></td><td>v0.7.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DiffusionGemmaForBlockDiffusion</code></td><td>v0.24.0</td><td>native</td><td><code>diffusion_gemma</code></td><td></td></tr>
+<tr><td><code>DomynEdgeForCausalLM</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DonutForConditionalGeneration</code></td><td>v0.10.2</td><td>removed (last v0.10.2)</td><td></td><td></td></tr>
+<tr><td><code>DoryForCausalLM</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Dots1ForCausalLM</code></td><td>v0.9.2</td><td>removed (last v0.23.0)</td><td><code>dots1</code></td><td><code>dots1</code> b5668</td></tr>
+<tr><td><code>Dots3NoteForCausalLM</code></td><td>v0.28.0</td><td>native</td><td></td><td><code>dots3note</code> b10569</td></tr>
+<tr><td><code>Dots3NoteMTPModel</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>DotsOCRForCausalLM</code></td><td>v0.11.0</td><td>native</td><td></td><td><code>qwen2</code> b1939, converter b8731</td></tr>
+<tr><td><code>EAGLEModel</code></td><td>v0.5.5</td><td>gone (last v0.9.2)</td><td></td><td></td></tr>
+<tr><td><code>Eagle2_5_VLForConditionalGeneration</code></td><td>v0.15.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Eagle3DeepseekV2ForCausalLM</code></td><td>v0.18.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Eagle3DeepseekV3ForCausalLM</code></td><td>v0.18.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Eagle3LlamaForCausalLM</code></td><td>v0.8.5</td><td>native</td><td></td><td><code>llama</code> b1046, converter b9802</td></tr>
+<tr><td><code>Eagle3MiniMaxM2ForCausalLM</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Eagle3Qwen2_5vlForCausalLM</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Eagle3Qwen3ForCausalLM</code></td><td>v0.24.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Eagle3Qwen3vlForCausalLM</code></td><td>v0.12.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EagleCohereForCausalLM</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EagleDeepSeekMTPModel</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EagleLlama4ForCausalLM</code></td><td>v0.10.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EagleLlamaForCausalLM</code></td><td>v0.8.4</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EagleMiniCPMForCausalLM</code></td><td>v0.9.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EagleMistralForCausalLM</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EagleMistralLarge3ForCausalLM</code></td><td>v0.12.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>EmbeddingGemma2Model</code></td><td>v0.32.0</td><td>native</td><td><code>embedding_gemma2</code></td><td><code>gemma-embedding2</code> b11452</td></tr>
+<tr><td><code>Emu3ForConditionalGeneration</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>emu3</code></td><td></td></tr>
+<tr><td><code>Ernie4_5ForCausalLM</code></td><td>v0.10.1</td><td>native</td><td><code>ernie4_5</code></td><td><code>ernie4_5</code> b5771, converter b6269</td></tr>
+<tr><td><code>Ernie4_5_ForCausalLM</code></td><td>v0.9.2</td><td>gone (last v0.10.0)</td><td></td><td><code>ernie4_5</code> b5771</td></tr>
+<tr><td><code>Ernie4_5_MoeForCausalLM</code></td><td>v0.9.2</td><td>native</td><td><code>ernie4_5_moe</code></td><td><code>ernie4_5-moe</code> b5924</td></tr>
+<tr><td><code>Ernie4_5_VLMoeForConditionalGeneration</code></td><td>v0.10.2</td><td>native</td><td><code>ernie4_5_vl_moe</code></td><td></td></tr>
+<tr><td><code>ErnieForSequenceClassification</code></td><td>v0.18.0</td><td>removed (last v0.23.0)</td><td><code>ernie</code></td><td></td></tr>
+<tr><td><code>ErnieForTokenClassification</code></td><td>v0.18.0</td><td>removed (last v0.23.0)</td><td><code>ernie</code></td><td></td></tr>
+<tr><td><code>ErnieMTPModel</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ErnieModel</code></td><td>v0.18.0</td><td>removed (last v0.23.0)</td><td><code>ernie</code></td><td></td></tr>
+<tr><td><code>Exaone4ForCausalLM</code></td><td>v0.10.0</td><td>native</td><td><code>exaone4</code></td><td><code>exaone4</code> b5932</td></tr>
+<tr><td><code>Exaone4_5_ForConditionalGeneration</code></td><td>v0.20.0</td><td>native</td><td><code>exaone4_5</code></td><td><code>exaone4</code> b5932, converter b9453</td></tr>
+<tr><td><code>Exaone4_5_MTP</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ExaoneForCausalLM</code></td><td>v0.6.0</td><td>native</td><td></td><td><code>exaone</code> b3595</td></tr>
+<tr><td><code>ExaoneMoEForCausalLM</code></td><td>v0.14.0</td><td>native</td><td></td><td><code>exaone-moe</code> b7727</td></tr>
+<tr><td><code>ExaoneMoeForCausalLM</code></td><td>v0.27.0</td><td>native</td><td><code>exaone_moe</code></td><td><code>exaone-moe</code> b7727, converter b10295</td></tr>
+<tr><td><code>ExaoneMoeMTP</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ExtractHiddenStatesModel</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Fairseq2LlamaForCausalLM</code></td><td>v0.7.0</td><td>removed (last v0.28.0)</td><td></td><td></td></tr>
+<tr><td><code>FalconForCausalLM</code></td><td>v0.1.3</td><td>native</td><td><code>falcon</code></td><td><code>falcon</code> b1046</td></tr>
+<tr><td><code>FalconH1ForCausalLM</code></td><td>v0.9.0</td><td>native</td><td><code>falcon_h1</code></td><td><code>falcon-h1</code> b5851</td></tr>
+<tr><td><code>FalconMambaForCausalLM</code></td><td>v0.6.4</td><td>native</td><td><code>falcon_mamba</code></td><td><code>mamba</code> b2366, converter b3612</td></tr>
+<tr><td><code>FireRedASR2ForConditionalGeneration</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>FireRedLIDForConditionalGeneration</code></td><td>v0.20.0</td><td>removed (last v0.28.0)</td><td></td><td></td></tr>
+<tr><td><code>FlexOlmoForCausalLM</code></td><td>v0.11.1</td><td>Transformers backend (native to v0.28.0)</td><td><code>flex_olmo</code></td><td></td></tr>
+<tr><td><code>FlintForCausalLM</code></td><td>v0.33.0</td><td>native</td><td><code>flint</code></td><td><code>flint</code> b11803</td></tr>
+<tr><td><code>Florence2ForConditionalGeneration</code></td><td>v0.6.4</td><td>plugin</td><td><code>florence2</code></td><td></td></tr>
+<tr><td><code>FunASRForConditionalGeneration</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>FunAudioChatForConditionalGeneration</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>FuyuForCausalLM</code></td><td>v0.5.2</td><td>removed (last v0.25.0)</td><td><code>fuyu</code></td><td></td></tr>
+<tr><td><code>GLM4VForCausalLM</code></td><td>v0.7.3</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>GPT2ForSequenceClassification</code></td><td>v0.9.2</td><td>native</td><td><code>gpt-sw3</code></td><td></td></tr>
+<tr><td><code>GPT2LMHeadModel</code></td><td>v0.1.0</td><td>native</td><td><code>gpt-sw3</code></td><td><code>gpt2</code> b1046</td></tr>
+<tr><td><code>GPTBigCodeForCausalLM</code></td><td>v0.1.2</td><td>Transformers backend (native to v0.24.0)</td><td><code>gpt_bigcode</code></td><td><code>starcoder</code> b1245</td></tr>
+<tr><td><code>GPTJForCausalLM</code></td><td>v0.1.3</td><td>native</td><td><code>gptj</code></td><td></td></tr>
+<tr><td><code>GPTNeoXForCausalLM</code></td><td>v0.1.0</td><td>Transformers backend (native to v0.31.0)</td><td><code>gpt_neox</code></td><td><code>gptneox</code> b1046</td></tr>
+<tr><td><code>Gemma2ForCausalLM</code></td><td>v0.5.1</td><td>native</td><td><code>gemma2</code></td><td><code>gemma2</code> b3259</td></tr>
+<tr><td><code>Gemma2Model</code></td><td>v0.6.3</td><td>native</td><td><code>gemma2</code></td><td></td></tr>
+<tr><td><code>Gemma3ForCausalLM</code></td><td>v0.8.0</td><td>native</td><td><code>gemma3_text</code></td><td><code>gemma3</code> b4875</td></tr>
+<tr><td><code>Gemma3ForConditionalGeneration</code></td><td>v0.8.0</td><td>native</td><td><code>gemma3</code></td><td><code>gemma3</code> b4875</td></tr>
+<tr><td><code>Gemma3TextModel</code></td><td>v0.10.2</td><td>native</td><td><code>gemma3_text</code></td><td><code>gemma-embedding</code> b6384</td></tr>
+<tr><td><code>Gemma3nForCausalLM</code></td><td>v0.10.1</td><td>native</td><td><code>gemma3n_text</code></td><td><code>gemma3n</code> b5769, converter b7689</td></tr>
+<tr><td><code>Gemma3nForConditionalGeneration</code></td><td>v0.9.2</td><td>native</td><td><code>gemma3n</code></td><td><code>gemma3n</code> b5769</td></tr>
+<tr><td><code>Gemma4DSparkModel</code></td><td>v0.26.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b11132</td></tr>
+<tr><td><code>Gemma4ForCausalLM</code></td><td>v0.19.0</td><td>native</td><td><code>gemma4_text</code></td><td><code>gemma4</code> b8637, converter b9341</td></tr>
+<tr><td><code>Gemma4ForConditionalGeneration</code></td><td>v0.19.0</td><td>native</td><td><code>gemma4</code></td><td><code>gemma4</code> b8637</td></tr>
+<tr><td><code>Gemma4MTPModel</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Gemma4UnifiedForConditionalGeneration</code></td><td>v0.23.0</td><td>native</td><td><code>gemma4_unified</code></td><td><code>gemma4</code> b8637, converter b9493</td></tr>
+<tr><td><code>GemmaForCausalLM</code></td><td>v0.3.2</td><td>native</td><td><code>gemma</code></td><td><code>gemma</code> b2223</td></tr>
+<tr><td><code>Glm4ForCausalLM</code></td><td>v0.8.4</td><td>native</td><td><code>glm4</code></td><td><code>glm4</code> b5115</td></tr>
+<tr><td><code>Glm4MoeForCausalLM</code></td><td>v0.10.0</td><td>native</td><td><code>glm4_moe</code></td><td><code>glm4moe</code> b6085</td></tr>
+<tr><td><code>Glm4MoeLiteForCausalLM</code></td><td>v0.15.0</td><td>native</td><td><code>glm4_moe_lite</code></td><td><code>deepseek2</code> b3023, converter b7779</td></tr>
+<tr><td><code>Glm4MoeLiteMTPModel</code></td><td>v0.15.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Glm4MoeMTPModel</code></td><td>v0.10.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Glm4vForConditionalGeneration</code></td><td>v0.9.2</td><td>native</td><td><code>glm4v</code></td><td><code>glm4</code> b5115, converter b5975</td></tr>
+<tr><td><code>Glm4vMoeForConditionalGeneration</code></td><td>v0.10.1</td><td>native</td><td><code>glm4v_moe</code></td><td><code>glm4moe</code> b6085, converter b7429</td></tr>
+<tr><td><code>Glm5NextForCausalLM</code></td><td>v0.30.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Glm5NextForConditionalGeneration</code></td><td>v0.30.0</td><td>native</td><td><code>glm5_next</code></td><td><code>glm5-next</code> b11279</td></tr>
+<tr><td><code>Glm5NextMTPModel</code></td><td>v0.30.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>GlmAsrForConditionalGeneration</code></td><td>v0.14.0</td><td>native</td><td><code>glmasr</code></td><td></td></tr>
+<tr><td><code>GlmForCausalLM</code></td><td>v0.6.5</td><td>Transformers backend (native to v0.31.0)</td><td><code>glm</code></td><td><code>chatglm</code> b3333, converter b4613</td></tr>
+<tr><td><code>GlmMoeDsaForCausalLM</code></td><td>v0.16.0</td><td>native</td><td><code>glm_moe_dsa</code></td><td><code>glm-dsa</code> b8036</td></tr>
+<tr><td><code>GlmOcrForConditionalGeneration</code></td><td>v0.16.0</td><td>native</td><td><code>glm_ocr</code></td><td><code>glm4</code> b5115, converter b8093</td></tr>
+<tr><td><code>GlmOcrMTPModel</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>GptOssForCausalLM</code></td><td>v0.10.1</td><td>native</td><td><code>gpt_oss</code></td><td><code>gpt-oss</code> b6096</td></tr>
+<tr><td><code>Granite4VisionForConditionalGeneration</code></td><td>v0.20.0</td><td>native</td><td><code>granite4_vision</code></td><td></td></tr>
+<tr><td><code>GraniteForCausalLM</code></td><td>v0.6.0</td><td>native</td><td><code>granite</code></td><td><code>granite</code> b3774</td></tr>
+<tr><td><code>GraniteMoeForCausalLM</code></td><td>v0.6.3</td><td>native</td><td><code>granitemoe</code></td><td><code>granitemoe</code> b3823</td></tr>
+<tr><td><code>GraniteMoeHybridForCausalLM</code></td><td>v0.9.0</td><td>native</td><td><code>granitemoehybrid</code></td><td><code>granitehybrid</code> b5868</td></tr>
+<tr><td><code>GraniteMoeSWAForCausalLM</code></td><td>v0.29.0</td><td>native</td><td><code>granitemoe_swa</code></td><td><code>granite_swa</code> b10514</td></tr>
+<tr><td><code>GraniteMoeSharedForCausalLM</code></td><td>v0.8.0</td><td>native</td><td><code>granitemoeshared</code></td><td><code>granitemoe</code> b3823, converter b5363</td></tr>
+<tr><td><code>GraniteSWAForCausalLM</code></td><td>v0.29.0</td><td>native</td><td><code>granite_swa</code></td><td><code>granite_swa</code> b10514</td></tr>
+<tr><td><code>GraniteSpeechForConditionalGeneration</code></td><td>v0.8.5</td><td>native</td><td><code>granite_speech</code></td><td></td></tr>
+<tr><td><code>GraniteSpeechPlusForConditionalGeneration</code></td><td>v0.23.0</td><td>native</td><td><code>granite_speech_plus</code></td><td></td></tr>
+<tr><td><code>GritLM</code></td><td>v0.6.5</td><td>removed (last v0.28.0)</td><td></td><td></td></tr>
+<tr><td><code>Grok1ForCausalLM</code></td><td>v0.14.0</td><td>removed (last v0.24.0)</td><td></td><td><code>grok</code> b2514, converter b6475</td></tr>
+<tr><td><code>Grok1ModelForCausalLM</code></td><td>v0.8.0</td><td>removed (last v0.24.0)</td><td></td><td></td></tr>
+<tr><td><code>GteModel</code></td><td>v0.8.5</td><td>native</td><td><code>gte</code></td><td></td></tr>
+<tr><td><code>GteNewForSequenceClassification</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>GteNewModel</code></td><td>v0.9.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>H2OVLChatModel</code></td><td>v0.6.4</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>HCXVisionForCausalLM</code></td><td>v0.10.1</td><td>removed (last v0.28.0)</td><td></td><td></td></tr>
+<tr><td><code>HCXVisionV2ForCausalLM</code></td><td>v0.18.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>HF_ColBERT</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>HYV3ForCausalLM</code></td><td>v0.20.0</td><td>native</td><td><code>hy_v3</code></td><td><code>hy_v3</code> b9993</td></tr>
+<tr><td><code>HYV3MTPModel</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>HYV4ForCausalLM</code></td><td>v0.29.0</td><td>native</td><td><code>hy_v4</code></td><td><code>hy_v4</code> b10813</td></tr>
+<tr><td><code>HYV4MTPModel</code></td><td>v0.29.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>HfMoondream</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>HrmTextForCausalLM</code></td><td>v0.24.0</td><td>native</td><td><code>hrm_text</code></td><td><code>hrm_text</code> b11003</td></tr>
+<tr><td><code>HunYuanDenseV1ForCausalLM</code></td><td>v0.10.0</td><td>Transformers backend (native to v0.28.0)</td><td><code>hunyuan_v1_dense</code></td><td><code>hunyuan-dense</code> b6058</td></tr>
+<tr><td><code>HunYuanMoEV1ForCausalLM</code></td><td>v0.9.2</td><td>Transformers backend (native to v0.28.0)</td><td><code>hunyuan_v1_moe</code></td><td><code>hunyuan-moe</code> b5843</td></tr>
+<tr><td><code>HunYuanVLForConditionalGeneration</code></td><td>v0.12.0</td><td>Transformers backend (native to v0.28.0)</td><td><code>hunyuan_vl</code></td><td><code>hunyuan_vl</code> b8885</td></tr>
+<tr><td><code>HyperCLOVAXForCausalLM</code></td><td>v0.18.0</td><td>native</td><td><code>hyperclovax</code></td><td></td></tr>
+<tr><td><code>IQuestCoderForCausalLM</code></td><td>v0.14.0</td><td>native</td><td></td><td><code>llama</code> b1046, converter b7607</td></tr>
+<tr><td><code>IQuestLoopCoderForCausalLM</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Idefics3ForConditionalGeneration</code></td><td>v0.6.4</td><td>native</td><td><code>idefics3</code></td><td></td></tr>
+<tr><td><code>InklingForCausalLM</code></td><td>v0.26.0</td><td>native</td><td><code>inkling_text</code></td><td></td></tr>
+<tr><td><code>InklingForConditionalGeneration</code></td><td>v0.26.0</td><td>native</td><td><code>inkling_mm_model</code></td><td></td></tr>
+<tr><td><code>InklingMTPModel</code></td><td>v0.26.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternLM2ForCausalLM</code></td><td>v0.3.1</td><td>native</td><td></td><td><code>internlm2</code> b2038</td></tr>
+<tr><td><code>InternLM2ForRewardModel</code></td><td>v0.7.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternLM2VEForCausalLM</code></td><td>v0.6.4</td><td>removed (last v0.23.0)</td><td></td><td></td></tr>
+<tr><td><code>InternLM3ForCausalLM</code></td><td>v0.7.0</td><td>native</td><td></td><td><code>llama</code> b1046, converter b4497</td></tr>
+<tr><td><code>InternLMForCausalLM</code></td><td>v0.1.4</td><td>removed (last v0.23.0)</td><td></td><td></td></tr>
+<tr><td><code>InternS1ForConditionalGeneration</code></td><td>v0.10.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternS1ProForConditionalGeneration</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternS2MobiusForConditionalGeneration</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternS2MobiusMTP</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternS2PreviewForConditionalGeneration</code></td><td>v0.22.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternVLChatModel</code></td><td>v0.5.4</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>InternVLForConditionalGeneration</code></td><td>v0.10.2</td><td>native</td><td><code>internvl</code></td><td></td></tr>
+<tr><td><code>IsaacForConditionalGeneration</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>JAISLMHeadModel</code></td><td>v0.4.0</td><td>removed (last v0.22.0)</td><td></td><td><code>jais</code> b3282</td></tr>
+<tr><td><code>Jais2ForCausalLM</code></td><td>v0.13.0</td><td>Transformers backend (native to v0.31.0)</td><td><code>jais2</code></td><td><code>jais2</code> b8106</td></tr>
+<tr><td><code>JambaForCausalLM</code></td><td>v0.5.1</td><td>native</td><td><code>jamba</code></td><td><code>jamba</code> b5856</td></tr>
+<tr><td><code>JambaForSequenceClassification</code></td><td>v0.6.6</td><td>native</td><td><code>jamba</code></td><td></td></tr>
+<tr><td><code>JinaEmbeddingsV5Model</code></td><td>v0.20.0</td><td>native</td><td></td><td><code>eurobert</code> b8161</td></tr>
+<tr><td><code>JinaForRanking</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>JinaVLForRanking</code></td><td>v0.10.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>K2HorizonForCausalLM</code></td><td>v0.30.0</td><td>native</td><td></td><td><code>k2-horizon</code> b11454</td></tr>
+<tr><td><code>K3DSparkModel</code></td><td>v0.27.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>KananaVForConditionalGeneration</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>KeyeForConditionalGeneration</code></td><td>v0.9.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>KeyeVL1_5ForConditionalGeneration</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>KimiK25ForConditionalGeneration</code></td><td>v0.15.0</td><td>native</td><td></td><td><code>deepseek2</code> b3023, converter b8003</td></tr>
+<tr><td><code>KimiK3ForConditionalGeneration</code></td><td>v0.27.0</td><td>native</td><td></td><td><code>kimi-k3</code> b10448</td></tr>
+<tr><td><code>KimiK3MTPModel</code></td><td>v0.27.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>KimiLinearForCausalLM</code></td><td>v0.11.1</td><td>native</td><td><code>kimi_linear</code></td><td><code>kimi-linear</code> b7957</td></tr>
+<tr><td><code>KimiVLForConditionalGeneration</code></td><td>v0.8.5</td><td>native</td><td></td><td><code>deepseek2</code> b3023, converter b6078</td></tr>
+<tr><td><code>Kolibri1ForCausalLM</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>kolibri1</code></td><td><code>kolibri1</code> b11709</td></tr>
+<tr><td><code>LLaMAForCausalLM</code></td><td>v0.1.2</td><td>native</td><td></td><td><code>llama</code> b1046, converter b3758</td></tr>
+<tr><td><code>LagunaForCausalLM</code></td><td>v0.21.0</td><td>native</td><td><code>laguna</code></td><td><code>laguna</code> b10087</td></tr>
+<tr><td><code>Lfm2BidirectionalModel</code></td><td>v0.33.0</td><td>native</td><td></td><td><code>lfm2</code> b5873, converter b9777</td></tr>
+<tr><td><code>Lfm2ForCausalLM</code></td><td>v0.10.2</td><td>native</td><td><code>lfm2</code></td><td><code>lfm2</code> b5873</td></tr>
+<tr><td><code>Lfm2MoeForCausalLM</code></td><td>v0.11.1</td><td>native</td><td><code>lfm2_moe</code></td><td><code>lfm2moe</code> b6709</td></tr>
+<tr><td><code>Lfm2VlForConditionalGeneration</code></td><td>v0.14.0</td><td>native</td><td><code>lfm2_vl</code></td><td></td></tr>
+<tr><td><code>LiLiCorrDraftModel</code></td><td>v0.31.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b11641</td></tr>
+<tr><td><code>LightOnOCRForConditionalGeneration</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Llama4ForCausalLM</code></td><td>v0.8.3</td><td>native</td><td><code>llama4</code></td><td><code>llama4</code> b5074, converter b6499</td></tr>
+<tr><td><code>Llama4ForConditionalGeneration</code></td><td>v0.8.3</td><td>native</td><td><code>llama4</code></td><td><code>llama4</code> b5074</td></tr>
+<tr><td><code>LlamaBidirectionalForSequenceClassification</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>LlamaBidirectionalModel</code></td><td>v0.14.0</td><td>native</td><td></td><td><code>llama-embed</code> b7531</td></tr>
+<tr><td><code>LlamaForCausalLM</code></td><td>v0.1.0</td><td>native</td><td><code>llama</code></td><td><code>llama</code> b1046</td></tr>
+<tr><td><code>LlamaForCausalLMEagle3</code></td><td>v0.10.2</td><td>native</td><td></td><td><code>llama</code> b1046, converter b9606</td></tr>
+<tr><td><code>LlamaModel</code></td><td>v0.6.4</td><td>native</td><td><code>llama</code></td><td><code>llama</code> b1046, converter b5524</td></tr>
+<tr><td><code>LlamaNemotronVLForSequenceClassification</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>LlamaNemotronVLModel</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Llama_Nemotron_Nano_VL</code></td><td>v0.10.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>LlavaForConditionalGeneration</code></td><td>v0.4.0</td><td>native</td><td><code>llava</code></td><td><code>llama</code> b1046, converter b5173</td></tr>
+<tr><td><code>LlavaNextForConditionalGeneration</code></td><td>v0.5.0</td><td>native</td><td><code>llava_next</code></td><td></td></tr>
+<tr><td><code>LlavaNextVideoForConditionalGeneration</code></td><td>v0.6.1</td><td>native</td><td><code>llava_next_video</code></td><td></td></tr>
+<tr><td><code>LlavaOnevision2ForConditionalGeneration</code></td><td>v0.25.0</td><td>native</td><td></td><td><code>qwen3</code> b5092, converter b12192</td></tr>
+<tr><td><code>LlavaOnevisionForConditionalGeneration</code></td><td>v0.6.2</td><td>native</td><td><code>llava_onevision</code></td><td></td></tr>
+<tr><td><code>LongCatFlashMTPModel</code></td><td>v0.11.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>LongcatFlashForCausalLM</code></td><td>v0.11.0</td><td>native</td><td><code>longcat_flash</code></td><td></td></tr>
+<tr><td><code>LongcatFlashNgramForCausalLM</code></td><td>v0.26.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MBartForConditionalGeneration</code></td><td>v0.10.1</td><td>plugin</td><td><code>mbart</code></td><td></td></tr>
+<tr><td><code>MLPSpeculatorPreTrainedModel</code></td><td>v0.5.1</td><td>gone (last v0.9.2)</td><td></td><td></td></tr>
+<tr><td><code>MPTForCausalLM</code></td><td>v0.1.2</td><td>removed (last v0.28.0)</td><td></td><td><code>mpt</code> b1046</td></tr>
+<tr><td><code>Mamba2ForCausalLM</code></td><td>v0.7.3</td><td>native</td><td><code>mamba2</code></td><td><code>mamba2</code> b5812</td></tr>
+<tr><td><code>MambaForCausalLM</code></td><td>v0.6.3</td><td>native</td><td><code>mamba</code></td><td><code>mamba</code> b2366</td></tr>
+<tr><td><code>MantisForConditionalGeneration</code></td><td>v0.6.5</td><td>removed (last v0.24.0)</td><td></td><td></td></tr>
+<tr><td><code>MedusaModel</code></td><td>v0.5.2</td><td>gone (last v0.32.0)</td><td></td><td></td></tr>
+<tr><td><code>MellumForCausalLM</code></td><td>v0.22.1</td><td>Transformers backend (native to v0.31.0)</td><td><code>mellum</code></td><td><code>mellum</code> b9482</td></tr>
+<tr><td><code>MiDashengLMModel</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiMoForCausalLM</code></td><td>v0.9.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiMoMTPModel</code></td><td>v0.9.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiMoV2FlashForCausalLM</code></td><td>v0.14.0</td><td>native</td><td><code>mimo_v2_flash</code></td><td><code>mimo2</code> b7536</td></tr>
+<tr><td><code>MiMoV2ForCausalLM</code></td><td>v0.21.0</td><td>native</td><td></td><td><code>mimo2</code> b7536, converter b9055</td></tr>
+<tr><td><code>MiMoV2MTPModel</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiMoV2OmniForCausalLM</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiMoV2OmniMTPModel</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiniCPM3ForCausalLM</code></td><td>v0.6.2</td><td>native</td><td><code>minicpm3</code></td><td><code>minicpm3</code> b3765</td></tr>
+<tr><td><code>MiniCPMForCausalLM</code></td><td>v0.4.1</td><td>native</td><td></td><td><code>minicpm</code> b2087</td></tr>
+<tr><td><code>MiniCPMO</code></td><td>v0.7.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiniCPMOcrForConditionalGeneration</code></td><td>v0.33.0</td><td>native</td><td><code>minicpm_ocr</code></td><td><code>qwen35</code> b7990, converter b11826</td></tr>
+<tr><td><code>MiniCPMV</code></td><td>v0.5.4</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiniCPMV4_6ForConditionalGeneration</code></td><td>v0.22.0</td><td>native</td><td><code>minicpmv4_6</code></td><td><code>qwen35</code> b7990, converter b9049</td></tr>
+<tr><td><code>MiniCPMV4_7ForConditionalGeneration</code></td><td>v0.32.0</td><td>native</td><td><code>minicpmv4_7</code></td><td><code>qwen35</code> b7990, converter b11551</td></tr>
+<tr><td><code>MiniMaxForCausalLM</code></td><td>v0.10.0</td><td>removed (last v0.23.0)</td><td><code>minimax</code></td><td></td></tr>
+<tr><td><code>MiniMaxM1ForCausalLM</code></td><td>v0.9.2</td><td>removed (last v0.23.0)</td><td></td><td><code>minimax-01</code> b10437</td></tr>
+<tr><td><code>MiniMaxM2ForCausalLM</code></td><td>v0.11.1</td><td>native</td><td><code>minimax_m2</code></td><td><code>minimax-m2</code> b6906</td></tr>
+<tr><td><code>MiniMaxM3MTP</code></td><td>v0.24.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MiniMaxM3SparseForCausalLM</code></td><td>v0.24.0</td><td>native</td><td></td><td><code>minimax-m3</code> b10141</td></tr>
+<tr><td><code>MiniMaxM3SparseForConditionalGeneration</code></td><td>v0.24.0</td><td>native</td><td><code>minimax_m3_vl</code></td><td><code>minimax-m3</code> b10141</td></tr>
+<tr><td><code>MiniMaxText01ForCausalLM</code></td><td>v0.8.3</td><td>removed (last v0.23.0)</td><td></td><td><code>minimax-01</code> b10437</td></tr>
+<tr><td><code>MiniMaxVL01ForConditionalGeneration</code></td><td>v0.9.0</td><td>removed (last v0.23.0)</td><td></td><td></td></tr>
+<tr><td><code>Ministral3ForCausalLM</code></td><td>v0.20.0</td><td>native</td><td><code>ministral3</code></td><td><code>mistral3</code> b7216, converter b7801</td></tr>
+<tr><td><code>Mistral3ForConditionalGeneration</code></td><td>v0.8.3</td><td>native</td><td><code>mistral3</code></td><td><code>mistral3</code> b7216</td></tr>
+<tr><td><code>MistralForCausalLM</code></td><td>v0.2.0</td><td>native</td><td><code>mistral</code></td><td><code>llama</code> b1046</td></tr>
+<tr><td><code>MistralLarge3ForCausalLM</code></td><td>v0.12.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MistralModel</code></td><td>v0.4.3</td><td>native</td><td><code>mistral</code></td><td></td></tr>
+<tr><td><code>MixtralForCausalLM</code></td><td>v0.2.4</td><td>native</td><td><code>mixtral</code></td><td><code>llama</code> b1046</td></tr>
+<tr><td><code>MllamaForConditionalGeneration</code></td><td>v0.6.2</td><td>removed (last v0.10.2)</td><td><code>mllama</code></td><td></td></tr>
+<tr><td><code>ModernBertForSequenceClassification</code></td><td>v0.8.5</td><td>native</td><td><code>modernbert</code></td><td><code>modern-bert</code> b7515</td></tr>
+<tr><td><code>ModernBertForTokenClassification</code></td><td>v0.11.1</td><td>native</td><td><code>modernbert</code></td><td></td></tr>
+<tr><td><code>ModernBertModel</code></td><td>v0.9.0</td><td>native</td><td><code>modernbert</code></td><td><code>modern-bert</code> b7515</td></tr>
+<tr><td><code>ModernVBertModel</code></td><td>v0.33.0</td><td>native</td><td><code>modernvbert</code></td><td></td></tr>
+<tr><td><code>Molmo2ForConditionalGeneration</code></td><td>v0.15.0</td><td>native</td><td><code>molmo2</code></td><td></td></tr>
+<tr><td><code>MolmoForCausalLM</code></td><td>v0.6.3</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Moondream3ForCausalLM</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MoonshotKimiaForCausalLM</code></td><td>v0.18.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MossAudioModel</code></td><td>v0.24.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MossTranscribeDiarizeForConditionalGeneration</code></td><td>v0.25.0</td><td>native</td><td><code>moss_transcribe_diarize</code></td><td></td></tr>
+<tr><td><code>MotifForCausalLM</code></td><td>v0.10.2</td><td>removed (last v0.10.2)</td><td></td><td></td></tr>
+<tr><td><code>MptForCausalLM</code></td><td>v0.2.2</td><td>removed (last v0.28.0)</td><td><code>mpt</code></td><td></td></tr>
+<tr><td><code>MuseGlimmerAssistantModel</code></td><td>v0.28.0</td><td>native</td><td><code>muse_glimmer_assistant</code></td><td><code>dflash</code> b9831, converter b10353</td></tr>
+<tr><td><code>MuseGlimmerForCausalLM</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MuseGlimmerForConditionalGeneration</code></td><td>v0.28.0</td><td>native</td><td><code>muse_glimmer</code></td><td><code>muse-glimmer</code> b10353</td></tr>
+<tr><td><code>MuseSparkDSparkModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MuseSparkForConditionalGeneration</code></td><td>v0.33.0</td><td>native</td><td><code>muse_spark</code></td><td><code>muse-spark</code> b11671</td></tr>
+<tr><td><code>MusicFlamingoForConditionalGeneration</code></td><td>v0.16.0</td><td>removed (last v0.24.0)</td><td><code>musicflamingo</code></td><td></td></tr>
+<tr><td><code>NVLM_D</code></td><td>v0.6.3</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>NanbeigeForCausalLM</code></td><td>&mdash;</td><td>Transformers backend</td><td></td><td><code>nanbeige</code> b10153</td></tr>
+<tr><td><code>Nemotron3_5AsrForRNNT</code></td><td>&mdash;</td><td>plugin</td><td><code>nemotron3_5_asr</code></td><td></td></tr>
+<tr><td><code>NemotronForCausalLM</code></td><td>v0.5.4</td><td>native</td><td><code>nemotron</code></td><td><code>nemotron</code> b3592</td></tr>
+<tr><td><code>NemotronHForCausalLM</code></td><td>v0.9.1</td><td>native</td><td><code>nemotron_h</code></td><td><code>nemotron_h</code> b6315</td></tr>
+<tr><td><code>NemotronHMTPModel</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>NemotronHPuzzleForCausalLM</code></td><td>v0.16.0</td><td>native</td><td></td><td><code>nemotron_h_moe</code> b7418, converter b10776</td></tr>
+<tr><td><code>NemotronH_Nano_Omni_Reasoning_V3</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>NemotronH_Nano_VL</code></td><td>v0.10.2</td><td>gone (last v0.10.2)</td><td></td><td></td></tr>
+<tr><td><code>NemotronH_Nano_VL_V2</code></td><td>v0.11.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>NemotronH_Omni_Reasoning_V3</code></td><td>v0.29.0</td><td>native</td><td><code>nemotron_h_omni</code></td><td></td></tr>
+<tr><td><code>NemotronH_Super_Omni_Reasoning_V3</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>NemotronParseForConditionalGeneration</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>NomicBertModel</code></td><td>v0.8.5</td><td>native</td><td><code>nomic_bert</code></td><td><code>bert</code> b2127</td></tr>
+<tr><td><code>OLMoForCausalLM</code></td><td>v0.3.2</td><td>gone (last v0.4.1)</td><td></td><td><code>olmo</code> b2697</td></tr>
+<tr><td><code>OPTForCausalLM</code></td><td>v0.1.0</td><td>native</td><td><code>opt</code></td><td></td></tr>
+<tr><td><code>Olmo2ForCausalLM</code></td><td>v0.6.5</td><td>Transformers backend (native to v0.25.1)</td><td><code>olmo2</code></td><td><code>olmo2</code> b4168</td></tr>
+<tr><td><code>Olmo3ForCausalLM</code></td><td>v0.11.0</td><td>Transformers backend (native to v0.28.0)</td><td><code>olmo3</code></td><td><code>olmo2</code> b4168, converter b6492</td></tr>
+<tr><td><code>OlmoForCausalLM</code></td><td>v0.4.2</td><td>Transformers backend (native to v0.25.1)</td><td><code>olmo</code></td><td><code>olmo</code> b2697</td></tr>
+<tr><td><code>OlmoHybridForCausalLM</code></td><td>v0.18.0</td><td>native</td><td><code>olmo_hybrid</code></td><td></td></tr>
+<tr><td><code>OlmoeForCausalLM</code></td><td>v0.6.2</td><td>native</td><td><code>olmoe</code></td><td><code>olmoe</code> b3766</td></tr>
+<tr><td><code>OpenAIPrivacyFilterForTokenClassification</code></td><td>v0.25.0</td><td>native</td><td><code>openai_privacy_filter</code></td><td></td></tr>
+<tr><td><code>OpenCUAForConditionalGeneration</code></td><td>v0.12.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>OpenPanguMTPModel</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>OpenPanguVLForConditionalGeneration</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>OpenVLAForActionPrediction</code></td><td>v0.22.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>OpsColQwen3Model</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>OrionForCausalLM</code></td><td>v0.3.3</td><td>native</td><td></td><td><code>orion</code> b1990</td></tr>
+<tr><td><code>OuroForCausalLM</code></td><td>v0.11.1</td><td>removed (last v0.26.0)</td><td></td><td></td></tr>
+<tr><td><code>Ovis</code></td><td>v0.9.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Ovis2_5</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Ovis2_6ForCausalLM</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Ovis2_6_MoeForCausalLM</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PEagleDraftModel</code></td><td>v0.22.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PaddleOCRVLForConditionalGeneration</code></td><td>v0.11.1</td><td>native</td><td><code>paddleocr_vl</code></td><td><code>paddleocr</code> b8110</td></tr>
+<tr><td><code>PaliGemmaForConditionalGeneration</code></td><td>v0.5.2</td><td>native</td><td><code>paligemma</code></td><td></td></tr>
+<tr><td><code>PanguEmbeddedForCausalLM</code></td><td>v0.11.1</td><td>native</td><td></td><td><code>pangu-embedded</code> b6955</td></tr>
+<tr><td><code>PanguProMoEV2ForCausalLM</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PanguUltraMoEForCausalLM</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Param2MoEForCausalLM</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>ParseAuxMTPModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PeagleLlamaForCausalLM</code></td><td>v0.22.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PeagleQwen3ForCausalLM</code></td><td>v0.24.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PersimmonForCausalLM</code></td><td>v0.5.2</td><td>removed (last v0.25.0)</td><td><code>persimmon</code></td><td></td></tr>
+<tr><td><code>Phi3ForCausalLM</code></td><td>v0.4.2</td><td>native</td><td><code>phi3</code></td><td><code>phi3</code> b2717</td></tr>
+<tr><td><code>Phi3SmallForCausalLM</code></td><td>v0.4.3</td><td>removed (last v0.9.2)</td><td></td><td></td></tr>
+<tr><td><code>Phi3VForCausalLM</code></td><td>v0.5.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Phi4FlashForCausalLM</code></td><td>v0.10.0</td><td>removed (last v0.10.2)</td><td></td><td></td></tr>
+<tr><td><code>Phi4ForCausalLMV</code></td><td>v0.20.0</td><td>native</td><td></td><td><code>phi3</code> b2717, converter b8303</td></tr>
+<tr><td><code>Phi4MMForCausalLM</code></td><td>v0.8.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Phi4MultimodalForCausalLM</code></td><td>v0.10.1</td><td>removed (last v0.12.0)</td><td><code>phi4_multimodal</code></td><td></td></tr>
+<tr><td><code>PhiForCausalLM</code></td><td>v0.2.2</td><td>Transformers backend (native to v0.31.0)</td><td><code>phi</code></td><td><code>phi2</code> b1658</td></tr>
+<tr><td><code>PhiMoEForCausalLM</code></td><td>v0.6.0</td><td>native</td><td></td><td><code>phimoe</code> b4453</td></tr>
+<tr><td><code>PixtralForConditionalGeneration</code></td><td>v0.6.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Plamo2ForCausalLM</code></td><td>v0.8.5</td><td>removed (last v0.26.0)</td><td></td><td><code>plamo2</code> b5899</td></tr>
+<tr><td><code>Plamo3ForCausalLM</code></td><td>v0.12.0</td><td>native</td><td></td><td><code>plamo3</code> b7563</td></tr>
+<tr><td><code>PrithviGeoSpatialMAE</code></td><td>v0.7.3</td><td>removed (last v0.28.0)</td><td></td><td></td></tr>
+<tr><td><code>QWenLMHeadModel</code></td><td>v0.1.4</td><td>removed (last v0.23.0)</td><td></td><td><code>qwen</code> b1596</td></tr>
+<tr><td><code>QianfanOCRForConditionalGeneration</code></td><td>v0.21.0</td><td>native</td><td><code>qianfan_ocr</code></td><td></td></tr>
+<tr><td><code>QuantMixtralForCausalLM</code></td><td>v0.3.0</td><td>gone (last v0.10.1)</td><td></td><td></td></tr>
+<tr><td><code>Qwen2AudioForConditionalGeneration</code></td><td>v0.6.4</td><td>native</td><td><code>qwen2_audio</code></td><td><code>qwen2</code> b1939, converter b5483</td></tr>
+<tr><td><code>Qwen2ForCausalLM</code></td><td>v0.3.0</td><td>native</td><td><code>qwen2</code></td><td><code>qwen2</code> b1939</td></tr>
+<tr><td><code>Qwen2ForProcessRewardModel</code></td><td>v0.7.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen2ForRewardModel</code></td><td>v0.6.3</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen2ForSequenceClassification</code></td><td>v0.6.4</td><td>gone (last v0.9.2)</td><td><code>qwen2</code></td><td></td></tr>
+<tr><td><code>Qwen2Model</code></td><td>v0.6.4</td><td>native</td><td><code>qwen2</code></td><td><code>qwen2</code> b1939, converter b5265</td></tr>
+<tr><td><code>Qwen2MoeForCausalLM</code></td><td>v0.4.0</td><td>native</td><td><code>qwen2_moe</code></td><td><code>qwen2moe</code> b2683</td></tr>
+<tr><td><code>Qwen2VLForConditionalGeneration</code></td><td>v0.6.1</td><td>native</td><td><code>qwen2_vl</code></td><td><code>qwen2vl</code> b4327</td></tr>
+<tr><td><code>Qwen2_5OmniForConditionalGeneration</code></td><td>v0.9.0</td><td>native</td><td><code>qwen2_5_omni</code></td><td></td></tr>
+<tr><td><code>Qwen2_5OmniModel</code></td><td>v0.8.5</td><td>native</td><td></td><td><code>qwen2vl</code> b4327, converter b5508</td></tr>
+<tr><td><code>Qwen2_5_VLForConditionalGeneration</code></td><td>v0.7.2</td><td>native</td><td><code>qwen2_5_vl</code></td><td><code>qwen2vl</code> b4327, converter b4976</td></tr>
+<tr><td><code>Qwen3ASRForConditionalGeneration</code></td><td>v0.16.0</td><td>native</td><td><code>qwen3_asr</code></td><td><code>qwen3vl</code> b6887, converter b8769</td></tr>
+<tr><td><code>Qwen3ASRForcedAlignerForTokenClassification</code></td><td>v0.19.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen3ASRRealtimeGeneration</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen3DSparkModel</code></td><td>v0.25.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b10164</td></tr>
+<tr><td><code>Qwen3ForCausalLM</code></td><td>v0.8.4</td><td>native</td><td><code>qwen3</code></td><td><code>qwen3</code> b5092</td></tr>
+<tr><td><code>Qwen3ForSequenceClassification</code></td><td>v0.9.2</td><td>gone (last v0.9.2)</td><td><code>qwen3</code></td><td></td></tr>
+<tr><td><code>Qwen3MoeForCausalLM</code></td><td>v0.8.4</td><td>native</td><td><code>qwen3_moe</code></td><td><code>qwen3moe</code> b5092</td></tr>
+<tr><td><code>Qwen3NextForCausalLM</code></td><td>v0.10.2</td><td>native</td><td><code>qwen3_next</code></td><td><code>qwen3next</code> b7186</td></tr>
+<tr><td><code>Qwen3NextMTP</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen3OmniDSparkModel</code></td><td>v0.29.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen3OmniMoeForConditionalGeneration</code></td><td>v0.11.1</td><td>native</td><td><code>qwen3_omni_moe</code></td><td><code>qwen3vlmoe</code> b6887, converter b8769</td></tr>
+<tr><td><code>Qwen3VLForConditionalGeneration</code></td><td>v0.11.0</td><td>native</td><td><code>qwen3_vl</code></td><td><code>qwen3vl</code> b6887</td></tr>
+<tr><td><code>Qwen3VLMoeForConditionalGeneration</code></td><td>v0.11.0</td><td>native</td><td><code>qwen3_vl_moe</code></td><td><code>qwen3vlmoe</code> b6887</td></tr>
+<tr><td><code>Qwen3VLNemotronEmbedModel</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen3XPressModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen3_5ForCausalLM</code></td><td>v0.27.0</td><td>native</td><td><code>qwen3_5</code></td><td><code>qwen35</code> b7990, converter b8208</td></tr>
+<tr><td><code>Qwen3_5ForConditionalGeneration</code></td><td>v0.17.0</td><td>native</td><td><code>qwen3_5</code></td><td><code>qwen35</code> b7990</td></tr>
+<tr><td><code>Qwen3_5MTP</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen3_5MoeForCausalLM</code></td><td>v0.27.0</td><td>native</td><td><code>qwen3_5_moe</code></td><td><code>qwen35moe</code> b7990, converter b8208</td></tr>
+<tr><td><code>Qwen3_5MoeForConditionalGeneration</code></td><td>v0.17.0</td><td>native</td><td><code>qwen3_5_moe</code></td><td><code>qwen35moe</code> b7990</td></tr>
+<tr><td><code>Qwen3_5MoeMTP</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Qwen4ExpForCausalLM</code></td><td>v0.29.0</td><td>native</td><td><code>qwen4_exp</code></td><td><code>qwen4exp</code> b10660</td></tr>
+<tr><td><code>Qwen4ExpForConditionalGeneration</code></td><td>v0.29.0</td><td>native</td><td><code>qwen4_exp</code></td><td><code>qwen4exp</code> b10660</td></tr>
+<tr><td><code>Qwen4ExpMTP</code></td><td>v0.29.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>QwenVLForConditionalGeneration</code></td><td>v0.7.3</td><td>removed (last v0.23.0)</td><td></td><td></td></tr>
+<tr><td><code>RForConditionalGeneration</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>RWForCausalLM</code></td><td>v0.1.3</td><td>removed (last v0.28.0)</td><td></td><td><code>falcon</code> b1046</td></tr>
+<tr><td><code>RadioMBartPrefixForCausalLM</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Rnj1ForCausalLM</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>RobertaForMaskedLM</code></td><td>v0.6.5</td><td>native</td><td><code>roberta</code></td><td></td></tr>
+<tr><td><code>RobertaForSequenceClassification</code></td><td>v0.6.5</td><td>native</td><td><code>roberta</code></td><td><code>bert</code> b2127, converter b5530</td></tr>
+<tr><td><code>RobertaForTokenClassification</code></td><td>v0.26.0</td><td>native</td><td><code>roberta</code></td><td></td></tr>
+<tr><td><code>RobertaModel</code></td><td>v0.6.4</td><td>native</td><td><code>roberta</code></td><td><code>bert</code> b2127, converter b4279</td></tr>
+<tr><td><code>SarvamMLAForCausalLM</code></td><td>v0.18.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>SarvamMoEForCausalLM</code></td><td>v0.18.0</td><td>native</td><td></td><td><code>bailingmoe2</code> b6810, converter b9093</td></tr>
+<tr><td><code>SeedOssForCausalLM</code></td><td>v0.10.2</td><td>Transformers backend (native to v0.31.0)</td><td><code>seed_oss</code></td><td><code>seed_oss</code> b6257</td></tr>
+<tr><td><code>SiglipModel</code></td><td>v0.11.1</td><td>native</td><td><code>siglip</code></td><td></td></tr>
+<tr><td><code>SkyworkR1VChatModel</code></td><td>v0.8.3</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>SmolLM3ForCausalLM</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>smollm3</code></td><td><code>smollm3</code> b5847</td></tr>
+<tr><td><code>SmolVLMForConditionalGeneration</code></td><td>v0.8.4</td><td>native</td><td><code>smolvlm</code></td><td></td></tr>
+<tr><td><code>SolarForCausalLM</code></td><td>v0.6.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>StableLMEpochForCausalLM</code></td><td>v0.3.0</td><td>removed (last v0.28.0)</td><td></td><td><code>stablelm</code> b1515</td></tr>
+<tr><td><code>StableLmForCausalLM</code></td><td>v0.3.3</td><td>native</td><td><code>stablelm</code></td><td><code>stablelm</code> b1515</td></tr>
+<tr><td><code>Starcoder2ForCausalLM</code></td><td>v0.3.3</td><td>Transformers backend (native to v0.24.0)</td><td><code>starcoder2</code></td><td><code>starcoder2</code> b2308</td></tr>
+<tr><td><code>Step1ForCausalLM</code></td><td>v0.15.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Step3TextForCausalLM</code></td><td>v0.10.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Step3VLForConditionalGeneration</code></td><td>v0.10.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Step3p5ForCausalLM</code></td><td>v0.15.1</td><td>native</td><td></td><td><code>step35</code> b7964</td></tr>
+<tr><td><code>Step3p5MTP</code></td><td>v0.15.1</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Step3p7ForConditionalGeneration</code></td><td>v0.23.0</td><td>native</td><td><code>step3p7</code></td><td><code>step35</code> b7964, converter b9473</td></tr>
+<tr><td><code>Step5ForCausalLM</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Step5ForConditionalGeneration</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Step5MTP</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>StepVLForConditionalGeneration</code></td><td>v0.15.0</td><td>native</td><td></td><td><code>qwen3</code> b5092, converter b8705</td></tr>
+<tr><td><code>Tarsier2ForConditionalGeneration</code></td><td>v0.9.2</td><td>removed (last v0.23.0)</td><td></td><td></td></tr>
+<tr><td><code>TarsierForConditionalGeneration</code></td><td>v0.9.1</td><td>removed (last v0.24.0)</td><td></td><td></td></tr>
+<tr><td><code>TeleChat2ForCausalLM</code></td><td>v0.6.5</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>TeleChat3ForCausalLM</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>TeleChatForCausalLM</code></td><td>v0.12.0</td><td>removed (last v0.25.0)</td><td></td><td></td></tr>
+<tr><td><code>TeleFLMForCausalLM</code></td><td>v0.8.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Terratorch</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>TransformersModel</code></td><td>v0.7.2</td><td>gone (last v0.8.2)</td><td></td><td></td></tr>
+<tr><td><code>UltravoxModel</code></td><td>v0.5.5</td><td>native</td><td></td><td><code>llama</code> b1046, converter b5458</td></tr>
+<tr><td><code>UnlimitedOCRForCausalLM</code></td><td>v0.25.0</td><td>native</td><td></td><td><code>deepseek2</code> b3023, converter b9784</td></tr>
+<tr><td><code>VaultGemmaForCausalLM</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>vaultgemma</code></td><td></td></tr>
+<tr><td><code>VibeVoiceAsrForConditionalGeneration</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>vibevoice_asr</code></td><td></td></tr>
+<tr><td><code>VoxtralForConditionalGeneration</code></td><td>v0.10.0</td><td>native</td><td><code>voxtral</code></td><td><code>llama</code> b1046, converter b6014</td></tr>
+<tr><td><code>VoxtralRealtimeGeneration</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>VoxtralStreamingGeneration</code></td><td>v0.14.0</td><td>gone (last v0.15.1)</td><td></td><td></td></tr>
+<tr><td><code>VoyageQwen3BidirectionalEmbedModel</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>WhisperForConditionalGeneration</code></td><td>v0.7.0</td><td>native</td><td><code>whisper</code></td><td></td></tr>
+<tr><td><code>XLMRobertaForSequenceClassification</code></td><td>v0.6.5</td><td>native</td><td><code>xlm-roberta</code></td><td><code>bert</code> b2127, converter b3841</td></tr>
+<tr><td><code>XLMRobertaForTokenClassification</code></td><td>v0.26.0</td><td>native</td><td><code>xlm-roberta</code></td><td></td></tr>
+<tr><td><code>XLMRobertaModel</code></td><td>v0.6.4</td><td>native</td><td><code>xlm-roberta</code></td><td><code>bert</code> b2127, converter b3528</td></tr>
+<tr><td><code>XverseForCausalLM</code></td><td>v0.4.0</td><td>removed (last v0.23.0)</td><td></td><td><code>xverse</code> b2576</td></tr>
+<tr><td><code>YiForCausalLM</code></td><td>v0.2.2</td><td>gone (last v0.3.0)</td><td></td><td></td></tr>
+<tr><td><code>Zamba2ForCausalLM</code></td><td>v0.8.0</td><td>native</td><td><code>zamba2</code></td><td></td></tr>
+</tbody></table></div>
+<p>The same data as JSON: <a href="data.json">data.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+
+<h2 id="method">How was this built?</h2>
+<ul>
+<li><strong>Transformers:</strong> at each of 214 final release tags from v4.0.0 to v5.22.2, every <code>("model_type", "...Config")</code> pair in <code>models/auto/configuration_auto.py</code>, and in <code>auto_mappings.py</code> where newer releases moved the table. "First release" is the first tag that contains the name; release candidates are not counted.</li>
+<li><strong>vLLM:</strong> at each of 98 final release tags from v0.1.0 to v0.33.0, the model registry (<code>model_loader.py</code>, then <code>models/__init__.py</code>, then <code>models/registry.py</code>). Native classes only; the Transformers-backend, removed and plugin lists of v0.33.0 give the status column.</li>
+<li><strong>Architecture to model_type:</strong> the <code>MODEL_FOR_*_MAPPING_NAMES</code> tables in <code>modeling_auto.py</code> at v5.22.2.</li>
+<li><strong>GGUF:</strong> <code>@ModelBase.register(...)</code> and <code>model_arch</code> in llama.cpp's <code>conversion/</code> package at b12352, text models only. The first build registering each class: binary search over the <code>bNNNN</code> tags in <code>convert_hf_to_gguf.py</code> (and <code>convert-hf-to-gguf.py</code>, and <code>conversion/</code> after the split). Results before b2700 are dropped: the <code>register</code> decorator itself appeared in b2318 and Llama and Mistral moved into it in b2573.</li>
+</ul>
+
+<h2 id="limits">What this page does not cover</h2>
+<ul>
+<li>No model was loaded. The tables say when a name entered each library, which is what these errors check, and nothing about speed or correctness.</li>
+<li>SGLang, TGI, MLX and TensorRT-LLM are not mapped. For llama.cpp-based runtimes other than Ollama, use the build number with the GGUF lookup.</li>
+<li>Code on the main branch that is not yet in a release is not counted. If the lookup says "not in any release", the model may already be on main.</li>
+<li>Regenerated when new releases of Transformers or vLLM appear; the "as of" date at the top says how current it is.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<dl>
+<dt>What does &quot;KeyError&quot; or &quot;does not recognize this architecture&quot; mean in Transformers?</dt><dd>The model_type in config.json is not in the AutoConfig table of your installed Transformers. Before v4.37.0 the error is a bare KeyError with the name, for example KeyError: &#x27;qwen2&#x27;; from v4.37.0 it reads &quot;The checkpoint you are trying to load has model type X but Transformers does not recognize this architecture&quot;. Install the release from the table on this page or newer.</dd>
+<dt>Which Transformers version do I need for Qwen3?</dt><dd>Transformers 4.51.0 (released 2025-04-05) is the first release with model_type qwen3. vLLM has Qwen3ForCausalLM natively from 0.8.4, and llama.cpp reads Qwen3 GGUF files from build b5092.</dd>
+<dt>Which versions do I need for Qwen3.5 or Qwen3.6?</dt><dd>Both use model_type qwen3_5 (qwen3_5_moe for the MoE models). Transformers 5.2.0 is the first release with it, vLLM 0.17.0 the first with a native class, and the GGUF architecture is qwen35 from llama.cpp b7990. Use the newest patch release, because fixes for new models often land after the first support.</dd>
+<dt>Which versions do I need for Gemma 4?</dt><dd>Transformers 5.5.0, vLLM 0.19.0 and llama.cpp b8637 are the first releases that know Gemma 4 (model_type gemma4, architecture Gemma4ForConditionalGeneration).</dd>
+<dt>What does &quot;Model architectures [&#x27;X&#x27;] are not supported for now&quot; mean in vLLM?</dt><dd>None of the names in the architectures list of config.json is in your vLLM&#x27;s model registry, and the Transformers fallback did not apply. Upgrade to the release in the table, or, for a model vLLM never implemented, run it through the Transformers modeling backend with --model-impl transformers (vLLM 0.7.2 and later).</dd>
+<dt>My versions are new enough and the model still fails. Why?</dt><dd>Being registered is the minimum, not a guarantee. New models often need a fix in the next patch release, a newer tokenizer or a newer kernel library. Install the newest patch release first. If config.json has an auto_map and you pass trust_remote_code=True, the repository&#x27;s own code runs, and its requirements come from the model card.</dd>
+</dl>
+
+<p class="note">Related: <a href="/en/gguf-arch-min-build-lookup/">GGUF architecture lookup: minimum llama.cpp and Ollama</a> &middot; <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM compatibility matrix: PyTorch, CUDA and driver by release</a>.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Transformers: <a href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/auto/configuration_auto.py">configuration_auto.py</a>, <a href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/auto/modeling_auto.py">modeling_auto.py</a>, <a href="https://github.com/huggingface/transformers/releases">releases</a></li>
+<li>vLLM: <a href="https://github.com/vllm-project/vllm/blob/main/vllm/model_executor/models/registry.py">models/registry.py</a>, <a href="https://docs.vllm.ai/en/latest/models/supported_models.html">supported models</a>, <a href="https://github.com/vllm-project/vllm/releases">releases</a></li>
+<li>llama.cpp: <a href="https://github.com/ggml-org/llama.cpp/tree/master/conversion">conversion/</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/convert_hf_to_gguf.py">convert_hf_to_gguf.py</a></li>
+<li>Qwen3.5 and Transformers 5.3.0: <a href="https://lmms-engine.readthedocs.io/en/latest/troubleshoot/transformers_5_migration.html">lmms-engine migration guide</a></li>
+<li>Reports of the errors: <a href="https://huggingface.co/Qwen/Qwen2-72B-Instruct/discussions/16">KeyError 'qwen2'</a>, <a href="https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct/discussions/8">Qwen3-Omni: which version works?</a>, <a href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/discussions/11">MistralForCausalLM not supported (vLLM)</a></li>
+</ul>
+</main>
+<script>
+(function(){
+"use strict";
+var D=null,G=null,GASOF=null,OLL=null,WANT=false;
+function ready(){if(WANT&&D)run(false)}
+fetch("data.json").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+  D=j;if(!G){G=D.gg;GASOF=D.gguf_asof;OLL=D.ollama_latest}ready();
+}).catch(function(){var s=document.getElementById("status");if(s)s.textContent="Could not load data.json; reload the page."});
+fetch("/en/gguf-arch-min-build-lookup/archs.json").then(function(r){return r.ok?r.json():null}).then(function(j){
+  if(!j||!j.architectures)return;
+  var g={};j.architectures.forEach(function(a){g[a.architecture]=[String(a.llama_cpp_first_build).replace(/^b/,""),a.llama_cpp_first_build_date,a.ollama_first_release_bundled_llama_cpp]});
+  if(!D||j.as_of>=D.gguf_asof){G=g;GASOF=j.as_of;OLL=j.ollama_latest||OLL}
+}).catch(function(){});
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function vnum(s){
+  if(!s)return null;
+  var m=String(s).match(/(\d+)\.(\d+)(?:\.(\d+))?(?:\.post(\d+))?([^\s]*)/);
+  if(!m)return null;
+  var pre=/(rc|dev|a\d|b\d|alpha|beta)/i.test(m[5]||"")?-1:0;
+  return [+m[1],+m[2],+(m[3]||0),m[4]?+m[4]:0,pre];
+}
+function cmp(a,b){for(var i=0;i<5;i++){if(a[i]!==b[i])return a[i]<b[i]?-1:1}return 0}
+function bare(t){return String(t).replace(/^v/,"")}
+function date(t){return D.dates[t]||""}
+function tagd(t){return esc(t)+(date(t)?" ("+date(t)+")":"")}
+function code(s){return "<code>"+esc(s)+"</code>"}
+
+var VL_SUFFIX=["ForSequenceClassification","ForTokenClassification","ForTextEncoding","EmbeddingModel","ForRewardModeling","RewardModel","ClassificationModel","Model"];
+
+function parse(txt){
+  var r={mt:[],ar:[],tv:null,auto:false,cfg:false,sub:null};
+  function addM(x){x=String(x).trim();if(x&&r.mt.indexOf(x)<0)r.mt.push(x)}
+  function addA(x){x=String(x).trim();if(x&&r.ar.indexOf(x)<0)r.ar.push(x)}
+  var o=null;
+  try{o=JSON.parse(txt)}catch(e){}
+  if(o&&typeof o==="object"&&!Array.isArray(o)){
+    r.cfg=true;
+    if(o.model_type)addM(o.model_type);
+    if(Array.isArray(o.architectures))o.architectures.forEach(addA);
+    r.tv=o.transformers_version||null;
+    r.auto=!!(o.auto_map&&typeof o.auto_map==="object");
+    var tc=o.text_config||o.llm_config||o.language_config;
+    if(tc&&tc.model_type&&r.mt.indexOf(tc.model_type)<0)r.sub=String(tc.model_type);
+  }else{
+    var m,re;
+    re=/model[ _]type\s*[`'"]([^`'"\s]+)[`'"]/gi;while((m=re.exec(txt)))addM(m[1]);
+    re=/"model_type"\s*:\s*"([^"]+)"/g;while((m=re.exec(txt)))addM(m[1]);
+    re=/KeyError:\s*['"]([^'"]+)['"]/g;while((m=re.exec(txt)))addM(m[1]);
+    re=/architectures?\s*(?:"\s*)?[:=]?\s*\[([^\]]*)\]/gi;while((m=re.exec(txt))){var q=m[1].match(/['"]([^'"]+)['"]/g)||[];q.forEach(function(s){addA(s.slice(1,-1))})}
+    re=/Model architecture ([A-Za-z0-9_]+) (?:was|is)/g;while((m=re.exec(txt)))addA(m[1]);
+    re=/Transformers implementation of '([A-Za-z0-9_]+)'/g;while((m=re.exec(txt)))addA(m[1]);
+    if(!r.mt.length&&!r.ar.length){
+      (txt.match(/[A-Za-z][A-Za-z0-9_\-.]*/g)||[]).forEach(function(t){
+        t=t.replace(/[.\-]+$/,"");
+        if(D.tf[t])addM(t);else if(D.tf[t.toLowerCase()])addM(t.toLowerCase());
+        else if(D.vl[t]||D.a2m[t]||D.h2g[t])addA(t);
+      });
+    }
+  }
+  r.ar.forEach(function(a){if(D.a2m[a]&&!r.cfg)addM(D.a2m[a])});
+  return r;
+}
+
+function verdict(cls,head,body){return '<div class="verdict '+cls+'">'+head+(body?"<span>"+body+"</span>":"")+"</div>"}
+function yours(mine,first,last){
+  if(!mine||!first)return "";
+  var v=vnum(mine);if(!v)return ' <span class="s n">could not read "'+esc(mine)+'"</span>';
+  if(cmp(v,vnum(first))<0)return ' <span class="s n">your '+esc(mine)+": too old</span>";
+  if(last&&cmp(v,vnum(last))>0)return ' <span class="s n">your '+esc(mine)+": too new (removed)</span>";
+  return ' <span class="s y">your '+esc(mine)+": new enough</span>";
+}
+
+function tfRow(mt,r,mine){
+  var e=D.tf[mt];
+  if(e){
+    var first=e[0],last=e[1];
+    var s="<tr><td>Transformers<br>"+code(mt)+"</td><td><strong>"+tagd(first)+"</strong>"+(last?"<br>removed after "+tagd(last):"")+yours(mine,first,last)+"</td><td>"+code('pip install -U "transformers>='+bare(first)+'"'+(last?' "transformers<='+bare(last)+'"':""))+"</td></tr>";
+    return {html:s,ok:true,first:first,last:last};
+  }
+  var why=r.auto?"The config has an <code>auto_map</code>, so the model ships its own code: load it with <code>trust_remote_code=True</code>. The model card says which Transformers version that code needs.":
+    "No Transformers release up to "+esc(D.tf_latest)+" registers this model_type. Either the model is newer than the last release (install from source: <code>pip install git+https://github.com/huggingface/transformers.git</code>), or it is a custom model whose repository should contain an <code>auto_map</code>.";
+  return {html:"<tr><td>Transformers<br>"+code(mt)+"</td><td><strong>not in any release</strong></td><td>"+why+"</td></tr>",ok:false};
+}
+
+function vlBase(a){
+  for(var i=0;i<VL_SUFFIX.length;i++){var s=VL_SUFFIX[i];if(a.length>s.length&&a.slice(-s.length)===s){
+    var stem=a.slice(0,-s.length),c=[stem+"ForCausalLM",stem+"ForConditionalGeneration"];
+    for(var j=0;j<c.length;j++)if(D.vl[c[j]]&&D.vl[c[j]][1]==="n")return c[j];}}
+  return null;
+}
+function vlRow(a,mts,mine){
+  var e=D.vl[a],label="vLLM<br>"+code(a);
+  if(!e){
+    var b=vlBase(a);
+    if(b){var f=D.vl[b][0];return "<tr><td>"+label+"</td><td><strong>"+tagd(f)+"</strong> (as "+code(b)+")"+yours(mine,f,null)+'</td><td>Not registered under this name. vLLM '+esc(D.vl_latest)+' converts pooling architectures from the base model; '+code(b)+" is native from "+esc(f)+". Use <code>--runner pooling</code> if it is not picked up.</td></tr>";}
+    var mt=mts.filter(function(m){return D.tf[m]})[0];
+    if(mt)return "<tr><td>"+label+'</td><td><strong>no native implementation</strong></td><td>Not registered in any vLLM release up to '+esc(D.vl_latest)+'. From '+esc(D.vl_tb_since)+' vLLM can run a model through its Transformers modeling backend when the Transformers class supports it, so try a recent vLLM with Transformers &ge; '+esc(bare(D.tf[mt][0]))+'. Force it with <code>--model-impl transformers</code>; if that fails, the error says the class is not compatible with vLLM.</td></tr>';
+    return "<tr><td>"+label+'</td><td><strong>not in any release</strong></td><td>No vLLM release up to '+esc(D.vl_latest)+' registers this name. Check the spelling against <code>architectures</code> in config.json, or look for an out-of-tree plugin on the model card.</td></tr>';
+  }
+  var f=e[0],st=e[1],x=e[2],s;
+  if(st==="n"){s="<strong>"+tagd(f)+"</strong>"+yours(mine,f,null);return "<tr><td>"+label+"</td><td>"+s+"</td><td>"+code('pip install -U "vllm>='+bare(f)+'"')+"</td></tr>";}
+  if(st==="t"){var mt2=mts.filter(function(m){return D.tf[m]})[0];
+    return "<tr><td>"+label+"</td><td><strong>"+tagd(f)+"</strong>"+yours(mine,f,null)+"</td><td>Native up to "+esc(x)+"; later releases run it through the Transformers modeling backend, so the installed Transformers must also know the model"+(mt2?" (&ge; "+esc(bare(D.tf[mt2][0]))+")":"")+".</td></tr>";}
+  if(st==="p")return "<tr><td>"+label+"</td><td><strong>"+(f?tagd(f):"?")+" to "+esc(x)+"</strong>"+yours(mine,f,x)+"</td><td>Removed from vLLM after "+esc(x)+'. Newer releases say "was supported in vLLM until '+esc(x)+'". Pin '+code('pip install "vllm=='+bare(x)+'"')+" or use another engine.</td></tr>";
+  if(st==="o")return "<tr><td>"+label+"</td><td><strong>plugin</strong>"+(f?"<br>in-tree "+tagd(f)+" until removed":"")+'</td><td>Moved out of vLLM. Install the plugin: <a href="'+esc(x)+'">'+esc(x.replace(/^https:\/\/github.com\//,""))+"</a>.</td></tr>";
+  var gb=vlBase(a);
+  if(gb)return "<tr><td>"+label+"</td><td><strong>"+tagd(D.vl[gb][0])+"</strong> (as "+code(gb)+")"+yours(mine,D.vl[gb][0],null)+"</td><td>Registered under its own name only from "+esc(f)+" to "+esc(x)+". vLLM "+esc(D.vl_latest)+" converts it from "+code(gb)+", native from "+esc(D.vl[gb][0])+". Use <code>--runner pooling</code> if it is not picked up.</td></tr>";
+  return "<tr><td>"+label+"</td><td><strong>"+tagd(f)+" to "+esc(x)+"</strong>"+yours(mine,f,x)+"</td><td>The name is gone from the registry after "+esc(x)+" (renamed or folded into another class). Check the model card for the current name.</td></tr>";
+}
+function ggRow(a,mts){
+  var h=D.h2g[a];if(!h)return "";
+  var g=h[0],cb=h[1],cd=h[2];
+  var e=G[g],link='/en/gguf-arch-min-build-lookup/?arch='+encodeURIComponent(g)+"#lookup";
+  if(!e)return "<tr><td>llama.cpp / Ollama<br>"+code(g)+'</td><td><strong>not yet</strong></td><td>The converter maps '+code(a)+" to "+code(g)+', but no llama.cpp release contained it as of '+esc(GASOF)+'. <a href="'+link+'">GGUF lookup</a>.</td></tr>';
+  var ol=e[2]?"Ollama "+esc(e[2])+" or later":"no Ollama release yet (latest "+esc(OLL&&OLL.tag?OLL.tag:"?")+")";
+  if(cb&&+cb>+e[0])
+    return "<tr><td>llama.cpp / Ollama<br>"+code(g)+"</td><td><strong>b"+esc(cb)+" ("+esc(cd)+")</strong><br>string "+code(g)+" from b"+esc(e[0])+"</td><td>This model reuses the older GGUF string "+code(g)+". llama.cpp's converter registered "+code(a)+" only in b"+esc(cb)+", so GGUF files of this model come from that build or later; use a llama.cpp at least that new. For Ollama, pick a release whose bundled build is at or above b"+esc(cb)+' (<a href="'+link+'">table</a>).</td></tr>';
+  return "<tr><td>llama.cpp / Ollama<br>"+code(g)+"</td><td><strong>b"+e[0]+" ("+esc(e[1])+")</strong><br>"+ol+'</td><td>GGUF files of this model carry <code>general.architecture = '+esc(g)+'</code>. <a href="'+link+'">Details and your build</a>.</td></tr>';
+}
+function run(push){
+  var txt=document.getElementById("q").value.trim(),st=document.getElementById("status"),out=document.getElementById("res");
+  var mt=document.getElementById("tv").value.trim(),mv=document.getElementById("vv").value.trim();
+  st.textContent="";out.innerHTML="";
+  if(!D){WANT=true;st.textContent="Loading data...";return null}
+  if(!txt){st.textContent="Paste a config.json, an error line, or a model_type / architecture name.";return null}
+  var r=parse(txt);
+  if(!r.mt.length&&!r.ar.length){st.textContent="Found no model_type or architecture in that text. Paste config.json, or the line with the model type or the architecture name.";return null}
+  var rows=[],tfOK=null,notes=[];
+  r.mt.forEach(function(m){var x=tfRow(m,r,mt);rows.push(x.html);if(tfOK===null)tfOK=x})
+  if(r.sub&&D.tf[r.sub])notes.push("The text part of this model uses model_type "+code(r.sub)+" (Transformers from "+tagd(D.tf[r.sub][0])+").");
+  r.ar.forEach(function(a){rows.push(vlRow(a,r.mt,mv))});
+  r.ar.forEach(function(a){var g=ggRow(a,r.mt);if(g&&rows.indexOf(g)<0)rows.push(g)});
+  if(!r.ar.length)notes.push("No <code>architectures</code> given, so vLLM and llama.cpp were not checked. Paste the whole config.json to check them.");
+  if(r.tv)notes.push("The config was saved with Transformers "+esc(r.tv)+". That version is known to read it; the first release that registers the model_type can be older.");
+  if(r.auto&&tfOK&&tfOK.ok)notes.push("The config also has an <code>auto_map</code>. With <code>trust_remote_code=True</code> Transformers runs the repository's code instead of its own, and that code may need a different version.");
+  var head;
+  if(tfOK&&tfOK.ok){var age=(Date.now()-Date.parse(date(tfOK.first)))/864e5;
+    head=verdict("v-ok","Minimum versions found","These are the first releases that know the model. "+(age<120?"This model is recent: use the newest patch release, because fixes for new models often land one or two releases after support.":"Any later release also has it unless a removal is shown."));}
+  else head=verdict("v-load","Not in a Transformers release","See the reason in the table. The other rows still apply.");
+  var all=rows.join("");
+  if(all.indexOf("too old")>=0||all.indexOf("too new (removed)")>=0)head=verdict("v-bad","Your installed version is outside the supported range","Upgrade (or pin) the library marked in red to the release shown. The other rows are the minimums for the rest of the stack.");
+  out.innerHTML=head+'<div class="tw"><table><thead><tr><th>Library</th><th>First release</th><th>What to do</th></tr></thead><tbody>'+rows.join("")+"</tbody></table></div>"+(notes.length?'<ul class="note">'+notes.map(function(n){return "<li>"+n+"</li>"}).join("")+"</ul>":"");
+  if(push){try{var p=new URLSearchParams();p.set("q",txt.length<400?txt:(r.mt[0]||r.ar[0]));if(mt)p.set("tf",mt);if(mv)p.set("vllm",mv);history.replaceState(null,"",location.pathname+"?"+p.toString()+"#lookup")}catch(err){}}
+  return r;
+}
+window.mavLookup=run;
+document.getElementById("go").addEventListener("click",function(){run(true)});
+document.getElementById("q").addEventListener("keydown",function(e){if(e.key==="Enter"&&(e.ctrlKey||e.metaKey))run(true)});
+var fi=document.getElementById("filter");
+if(fi)fi.addEventListener("input",function(){var v=fi.value.trim().toLowerCase();["tft","vlt"].forEach(function(id){var t=document.getElementById(id);if(!t)return;var rs=t.tBodies[0].rows;for(var i=0;i<rs.length;i++){rs[i].style.display=!v||rs[i].textContent.toLowerCase().indexOf(v)>=0?"":"none"}})});
+try{var sp=new URLSearchParams(location.search);if(sp.get("q")){document.getElementById("q").value=sp.get("q");if(sp.get("tf"))document.getElementById("tv").value=sp.get("tf");if(sp.get("vllm"))document.getElementById("vv").value=sp.get("vllm");WANT=true;ready()}}catch(e){}
+})();
+</script>
+</body>
+</html>

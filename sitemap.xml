@@ -38,7 +38,7 @@
 </url>
 <url>
 <loc>https://erimaki-kobo.github.io/en/</loc>
-<lastmod>2026-11-12</lastmod>
+<lastmod>2026-11-13</lastmod>
 </url>
 <url>
 <loc>https://erimaki-kobo.github.io/en/llm-determinism-test/</loc>
@@ -71,5 +71,9 @@
 <url>
 <loc>https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/</loc>
 <lastmod>2026-11-12</lastmod>
+</url>
+<url>
+<loc>https://erimaki-kobo.github.io/en/model-arch-min-version/</loc>
+<lastmod>2026-11-13</lastmod>
 </url>
 </urlset>
