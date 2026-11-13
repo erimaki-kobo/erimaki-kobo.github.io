@@ -16,7 +16,7 @@ HV = [  # (lib, names, claimed last, replacement html, replacement flag(s) check
  ("vllm_cli", ["--enable-reasoning"], "v0.9.2", "Drop it; <code>--reasoning-parser</code> alone turns reasoning parsing on.", [("--reasoning-parser", "v0.7.1")]),
  ("vllm_cli", ["--use-v2-block-manager"], "v0.9.2", "Drop it; there is only one block manager.", []),
  ("vllm_cli", ["--guided-decoding-backend"], "v0.10.2", "Use <code>--structured-outputs-config '{\"backend\": \"...\"}'</code> (from v0.11.0).", [("--structured-outputs-config", "v0.11.0")]),
- ("vllm_cli", ["--task"], "v0.12.0", "Use <code>--runner pooling</code> and <code>--convert embed|classify|reward</code> (from v0.10.1).", [("--runner", "v0.10.1"), ("--convert", "v0.10.1")]),
+ ("vllm_cli", ["--task"], "v0.12.0", "For text generation, drop it. For embedding, classification or reward models use <code>--runner pooling</code> with <code>--convert embed|classify|reward</code> (from v0.10.1).", [("--runner", "v0.10.1"), ("--convert", "v0.10.1")]),
  ("vllm_cli", ["--disable-log-requests"], "v0.16.0", "Drop it; requests are not logged by default. <code>--enable-log-requests</code> (from v0.10.1) turns logging on.", [("--enable-log-requests", "v0.10.1")]),
  ("vllm_cli", ["--worker-use-ray"], "v0.6.6.post1", "Use <code>--distributed-executor-backend ray</code> (from v0.4.3).", [("--distributed-executor-backend", "v0.4.3")]),
  ("vllm_cli", ["--engine-use-ray"], "v0.6.1", "Use <code>--distributed-executor-backend ray</code> (from v0.4.3).", [("--distributed-executor-backend", "v0.4.3")]),
