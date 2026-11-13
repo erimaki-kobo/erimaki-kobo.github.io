@@ -421,7 +421,8 @@ $("fetch").addEventListener("click", function () {
   var id = $("hf").value.trim().replace(/^https?:\/\/huggingface\.co\//, "").replace(/\/(tree|blob|resolve)\/.*$/, "").replace(/\/+$/, "");
   var st = $("fstatus");
   if (!/^[\w.\-]+\/[\w.\-]+$/.test(id)) { st.textContent = "Enter a model id like Qwen/Qwen3-8B."; return; }
-  st.textContent = "Fetching..."; TOKJSON = null;
+  st.textContent = "Fetching..."; TOKJSON = null; $("res").innerHTML = ""; $("status").textContent = "";
+  ["cfg", "gen", "tok", "tmpl"].forEach(function (k) { $(k).value = ""; });
   var base = "https://huggingface.co/" + id + "/resolve/main/";
   function get(f) { return fetch(base + f).then(function (r) { return r.ok ? r.text() : (r.status === 401 || r.status === 403 ? Promise.reject(new Error("gated")) : null); }); }
   Promise.all(["config.json", "generation_config.json", "tokenizer_config.json", "chat_template.jinja"].map(function (f) { return get(f).catch(function (e) { return e; }); })).then(function (r) {
