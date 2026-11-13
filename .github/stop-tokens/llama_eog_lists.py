@@ -28,7 +28,11 @@ assert 'has_return && has_call && has_end' in src and '"<rfl:parameter name=\\""
 res = {"tag": TAG, "eot": eot, "eom": eom, "fim_pad": fim_pad, "fim_rep": fim_rep, "fim_sep": fim_sep, "eog": eog, "flint_only": flint_texts}
 # first build naming each EOG text (in any file holding the vocab code), binary search over b-tags from b2702
 tags = sorted([t for t in git("tag", "-l", "b[0-9]*").split() if re.fullmatch(r"b\d+", t)], key=lambda t: int(t[1:]))
-dates = dict(l.split("|") for l in git("for-each-ref", "refs/tags/b*", "--format=%(refname:lstrip=2)|%(creatordate:short)").splitlines())
+class _Dates(dict):  # UTC commit date of a tag (the same convention as the GGUF lookup page)
+    def __missing__(self, tag):
+        p = subprocess.run(["git", "-C", G, "log", "-1", "--date=short-local", "--format=%cd", tag], capture_output=True, text=True, env=dict(os.environ, TZ="UTC"))
+        self[tag] = p.stdout.strip(); return self[tag]
+dates = _Dates()
 lo0 = tags.index("b2702"); hi0 = tags.index(TAG)
 cache = {}
 def code(tag):

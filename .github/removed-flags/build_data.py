@@ -11,7 +11,21 @@ def ranges(d, key):
             if r and r[-1][1] == idx[t] - 1: r[-1][1] = idx[t]
             else: r.append([idx[t], idx[t]])
     return tags, span
-out = {"libs": {}}
+# A variable that envs.py defines counts as read in the releases just before it entered envs.py, if the source
+# names it elsewhere in every one of them (it was read with os.getenv there). Never extended after its removal:
+# later mentions are deprecation messages.
+_tags = list(env); _first = {}
+for _i, _t in enumerate(_tags):
+    for _n in env[_t]["names"]: _first.setdefault(_n, _i)
+EARLY = {}
+for _n, _i in _first.items():
+    _j = _i
+    while _j > 0 and _n in env[_tags[_j - 1]].get("quoted", []): _j -= 1
+    if _j < _i:
+        EARLY[_n] = _tags[_j]
+        for _k in range(_j, _i): env[_tags[_k]]["names"] = sorted(set(env[_tags[_k]]["names"]) | {_n})
+print("env names read before they entered envs.py:", EARLY)
+out = {"libs": {}, "env_early": EARLY}
 def add(name, d, key, filt=None):
     tags, span = ranges(d, key)
     if filt: span = {k: v for k, v in span.items() if filt(k)}

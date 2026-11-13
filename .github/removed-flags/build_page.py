@@ -15,7 +15,7 @@ HV = [  # (lib, names, claimed last, replacement html, replacement flag(s) check
  ("vllm_cli", ["--speculative-model", "--num-speculative-tokens"], "v0.8.2", "Use <code>--speculative-config</code> (JSON, from v0.8.2), e.g. <code>--speculative-config '{\"model\": \"...\", \"num_speculative_tokens\": 5}'</code>.", [("--speculative-config", "v0.8.2")]),
  ("vllm_cli", ["--enable-reasoning"], "v0.9.2", "Drop it; <code>--reasoning-parser</code> alone turns reasoning parsing on.", [("--reasoning-parser", "v0.7.1")]),
  ("vllm_cli", ["--use-v2-block-manager"], "v0.9.2", "Drop it; there is only one block manager.", []),
- ("vllm_cli", ["--guided-decoding-backend"], "v0.10.2", "Use <code>--structured-outputs-config '{\"backend\": \"...\"}'</code> (from v0.11.0).", [("--structured-outputs-config", "v0.11.0")]),
+ ("vllm_cli", ["--guided-decoding-backend"], "v0.11.2", "Use <code>--structured-outputs-config '{\"backend\": \"...\"}'</code> (from v0.11.0). v0.11.0 to v0.11.2 still accept the old argument with a deprecation warning, but their source stores its value where nothing reads it, so set the new argument there too.", [("--structured-outputs-config", "v0.11.0")]),
  ("vllm_cli", ["--task"], "v0.12.0", "For text generation, drop it. For embedding, classification or reward models use <code>--runner pooling</code> with <code>--convert embed|classify|reward</code> (from v0.10.1).", [("--runner", "v0.10.1"), ("--convert", "v0.10.1")]),
  ("vllm_cli", ["--disable-log-requests"], "v0.16.0", "Drop it; requests are not logged by default. <code>--enable-log-requests</code> (from v0.10.1) turns logging on.", [("--enable-log-requests", "v0.10.1")]),
  ("vllm_cli", ["--worker-use-ray"], "v0.6.6.post1", "Use <code>--distributed-executor-backend ray</code> (from v0.4.3).", [("--distributed-executor-backend", "v0.4.3")]),
@@ -48,17 +48,20 @@ HV = [  # (lib, names, claimed last, replacement html, replacement flag(s) check
  ("sglang_cli", ["--enable-flashinfer-cutlass-moe"], "v0.5.4", "Use <code>--moe-runner-backend</code> (from v0.5.1).", []),
  ("sglang_cli", ["--cuda-graph-max-bs", "--cuda-graph-bs"], "v0.5.19", "Use <code>--cuda-graph-max-bs-decode</code> / <code>--cuda-graph-max-bs-prefill</code>, <code>--cuda-graph-bs-decode</code> / <code>--cuda-graph-bs-prefill</code> or <code>--cuda-graph-config</code> (from v0.5.14). From v0.5.20 the old name is a prefix of two new ones, so argparse reports it as ambiguous rather than unrecognized.", []),
  ("sglang_cli", ["--disable-piecewise-cuda-graph"], "v0.5.19", "Use <code>--cuda-graph-backend-prefill</code> / <code>--cuda-graph-backend-decode</code> (from v0.5.14).", []),
- ("sglang_cli", ["--torchao-config", "--stream-output"], "v0.5.19", "No replacement argument.", []),
+ ("sglang_cli", ["--stream-output"], "v0.5.19", "Use <code>--incremental-streaming-output</code> (from v0.5.10). v0.5.10 to v0.5.19 accept the old name as a deprecated alias.", []),
+ ("sglang_cli", ["--torchao-config"], "v0.5.17", "No replacement argument.", []),
 ]
 hints = {}
 for lib, names, lst, txt, deps in HV:
     for n in names:
         got = last(lib, n)
-        if lib == "sglang_cli" and n == "--torchao-config": assert got == "v0.5.17", got
-        else: assert got == lst, (lib, n, got, lst)
+        assert got == lst, (lib, n, got, lst)
         hints.setdefault(lib, {})[n] = txt
     for f, since in deps:
         assert first("vllm_cli", f) == since, (f, first("vllm_cli", f), since)
+assert first("sglang_cli", "--incremental-streaming-output") == "v0.5.10"
+assert first("vllm_cli", "--config") == "v0.6.0" and first("vllm_cli", "--headless") == "v0.9.0"  # serve's own arguments are read
+assert first("vllm_env", "VLLM_BATCH_INVARIANT") == "v0.11.1", first("vllm_env", "VLLM_BATCH_INVARIANT")
 hints["vllm_completion"] = {k: v for k, v in hints["vllm_chat"].items() if k in L["vllm_completion"]["names"]}
 
 def gone(lib):
@@ -79,7 +82,7 @@ DESC = "Paste a vllm serve command, VLLM_ variables or a request body: see which
 assert len(TITLE) <= 62 and len(DESC) <= 160, (len(TITLE), len(DESC))
 H1 = "\"unrecognized arguments\" and settings that silently stop working: removed vLLM arguments, environment variables and request fields"
 FAQ = [
- ("Why does vllm serve say \"unrecognized arguments: --X\"?", "The argument is not defined in your vLLM release: either it was removed (for example --speculative-model after v0.8.2, --guided-decoding-backend after v0.10.2, --task after v0.12.0, --disable-log-requests after v0.16.0) or it was added in a newer release than yours. The lookup on this page gives the release range for every argument vLLM ever had."),
+ ("Why does vllm serve say \"unrecognized arguments: --X\"?", "The argument is not defined in your vLLM release: either it was removed (for example --speculative-model after v0.8.2, --guided-decoding-backend after v0.11.2, --task after v0.12.0, --disable-log-requests after v0.16.0) or it was added in a newer release than yours. The lookup on this page gives the release range for every argument vLLM ever had."),
  ("Is VLLM_ATTENTION_BACKEND still supported?", "No. It was last read in v0.14.1. From v0.13.0 the replacement is the --attention-backend argument. Setting the variable on newer releases does not raise an error; from v0.17.0 vLLM only logs \"Unknown vLLM environment variable detected\" at startup."),
  ("Why is my guided_json request not constrained any more?", "guided_json and the other guided_* request fields were removed after v0.11.2. Because vLLM's server accepts unknown fields and drops them, the request still succeeds and the output is simply unconstrained. Use structured_outputs (from v0.11.0) or response_format. vLLM v0.30.0 and later log a warning for these specific fields."),
  ("How do I turn off a boolean option like chunked prefill?", "From v0.8.5, vLLM's boolean options use --X and --no-X, so write --no-enable-chunked-prefill. The old form --enable-chunked-prefill False fails there with \"unrecognized arguments: False\". On v0.5.3 to v0.8.4 write --enable-chunked-prefill false."),
@@ -104,7 +107,7 @@ body = f"""<main>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>{e(H1)}</h1>
 <p class="lede"><strong>vLLM has removed {G['vllm_cli']} command-line arguments, {G['vllm_env']} environment variables and {len(req_gone)} server request fields since its first release. A removed argument stops <code>vllm serve</code> with "unrecognized arguments"; a removed variable or request field does not: vLLM ignores it and runs without the setting.</strong> Common cases: <code>--speculative-model</code> ended in v0.8.2 (use <code>--speculative-config</code>), <code>--task</code> in v0.12.0 (use <code>--runner</code> and <code>--convert</code>), <code>VLLM_ATTENTION_BACKEND</code> in v0.14.1 (use <code>--attention-backend</code>), and <code>guided_json</code> in v0.11.2 (use <code>structured_outputs</code>). Paste your command or request below to check every name in it.</p>
-<p class="meta">Published {PUB} &middot; vLLM v0.1.0 to {VL} ({len(L['vllm_cli']['tags'])} releases) &middot; SGLang v0.1.3 to {SG} ({len(L['sglang_cli']['tags'])} releases) &middot; read from each release's source</p>
+<p class="meta">Published {PUB} &middot; Corrected {MOD}: <code>--guided-decoding-backend</code> lasted until v0.11.2, <code>--config</code> and four more arguments start earlier, <code>VLLM_BATCH_INVARIANT</code> from v0.11.1, SGLang <code>--stream-output</code>, prefix matching &middot; vLLM v0.1.0 to {VL} ({len(L['vllm_cli']['tags'])} releases) &middot; SGLang v0.1.3 to {SG} ({len(L['sglang_cli']['tags'])} releases) &middot; read from each release's source</p>
 
 <h2 id="lookup">Which names in my command still work?</h2>
 <p>Paste a <code>vllm serve</code> or <code>python -m sglang.launch_server</code> command, the error message, <code>export VLLM_...</code> lines, a JSON request body, or a <code>SamplingParams(...)</code> call. Enter your version to check against it; otherwise the newest release is used.</p>
@@ -125,9 +128,9 @@ body = f"""<main>
 <div class="tw"><table>
 <thead><tr><th>Where the name is used</th><th>What happens with a removed name</th><th>Since</th></tr></thead>
 <tbody>
-<tr><td><code>vllm serve --X</code></td><td>Exits with "unrecognized arguments: --X"</td><td>always</td></tr>
+<tr><td><code>vllm serve --X</code></td><td>Exits with "unrecognized arguments: --X". Exception: argparse accepts unambiguous prefixes, so an old name that is the start of one current argument is read as that argument, and the start of several fails as "ambiguous option" (<code>--device</code>, removed after v0.9.2, now "could match --device-ids, --device-memory-utilization")</td><td>always</td></tr>
 <tr><td><code>VLLM_X=...</code> in the environment</td><td>Not read. No error. From v0.17.0 a startup warning "Unknown vLLM environment variable detected: VLLM_X" (an error with <code>--fail-on-environ-validation</code>)</td><td>warning from v0.17.0</td></tr>
-<tr><td>Field in a request to the OpenAI-compatible server</td><td>v0.6.4 and earlier: rejected (400). v0.6.5 to v0.17.1: accepted, dropped, logged as a WARNING "The following fields were present in the request but ignored". From v0.18.0 that log line is DEBUG, so nothing shows. From v0.30.0 the removed <code>guided_*</code> fields get their own warning that output will not be constrained</td><td>silent from v0.18.0</td></tr>
+<tr><td>Field in a request to the OpenAI-compatible server</td><td>v0.4.1 and earlier: silently ignored (plain pydantic models). v0.4.2 to v0.6.4.post1: rejected (400). v0.6.5 to v0.17.1: accepted, dropped, logged as a WARNING "The following fields were present in the request but ignored". From v0.18.0 that log line is DEBUG, so nothing shows. From v0.30.0 the removed <code>guided_*</code> fields get their own warning that output will not be constrained</td><td>silent from v0.18.0</td></tr>
 <tr><td><code>SamplingParams(x=...)</code> in Python</td><td><code>TypeError: unexpected keyword argument</code></td><td>always</td></tr>
 </tbody></table></div>
 
@@ -161,7 +164,7 @@ body = f"""<main>
 <p class="note">The structured-output fields and which backend serves them are covered in detail on <a href="/en/vllm-structured-output-backend-cost/">vLLM structured output: which backend runs your schema</a>.</p>
 
 <h2 id="sglang">Which SGLang arguments were removed?</h2>
-<p><strong>SGLang has removed {G['sglang_cli']} server arguments; {cur('sglang_cli')} exist in {SG}.</strong> Unlike vLLM, SGLang's parser accepts unambiguous prefixes, so <code>--tp</code> works as <code>--tp-size</code>, and an old name that is now the prefix of two new ones fails as "ambiguous option".</p>
+<p><strong>SGLang has removed {G['sglang_cli']} server arguments; {cur('sglang_cli')} exist in {SG}.</strong> Like vLLM's, SGLang's parser accepts unambiguous prefixes, so <code>--tp</code> works as <code>--tp-size</code>. An old name that is now the prefix of two new ones fails as "ambiguous option", and one that is the prefix of a single new one is silently read as it: in {SG}, <code>--enable-flashinfer</code> turns on <code>--enable-flashinfer-allreduce-fusion</code>.</p>
 <div class="tw"><table>
 <thead><tr><th>Argument</th><th>Last release with it</th><th>What to use</th></tr></thead>
 <tbody>
@@ -191,8 +194,8 @@ body = f"""<main>
 
 <h2 id="method">How was this built?</h2>
 <ul>
-<li><strong>vLLM arguments:</strong> at each of {len(L['vllm_cli']['tags'])} final releases, every name in <code>add_argument(...)</code> in <code>vllm/engine/arg_utils.py</code> and the server's <code>cli_args.py</code> (under <code>entrypoints/openai/</code>, then <code>launchers/</code>, then <code>common/</code>), plus fields of the <code>FrontendArgs</code> dataclasses that become arguments.</li>
-<li><strong>Environment variables:</strong> the keys of <code>environment_variables</code> in <code>vllm/envs.py</code>, {len(L['vllm_env']['tags'])} releases from v0.4.2.</li>
+<li><strong>vLLM arguments:</strong> at each of {len(L['vllm_cli']['tags'])} final releases, every name in <code>add_argument(...)</code> in <code>vllm/engine/arg_utils.py</code>, the server's <code>cli_args.py</code> (under <code>entrypoints/openai/</code>, then <code>launchers/</code>, then <code>common/</code>) and the <code>serve</code> subcommand (<code>scripts.py</code>, then <code>entrypoints/cli/serve.py</code>), including names registered in a loop as deprecated aliases, plus fields of the <code>FrontendArgs</code> dataclasses that become arguments. "Last release" is the last one that accepts the name, deprecated or not.</li>
+<li><strong>Environment variables:</strong> the keys of <code>environment_variables</code> in <code>vllm/envs.py</code>, {len(L['vllm_env']['tags'])} releases from v0.4.2. For a variable that later entered that file, the releases just before count too when the source reads it elsewhere: <code>VLLM_BATCH_INVARIANT</code> was read with <code>os.getenv</code> from v0.11.1 and moved into <code>envs.py</code> in v0.19.0.</li>
 <li><strong>Request fields:</strong> the fields of <code>SamplingParams</code>, <code>ChatCompletionRequest</code> and <code>CompletionRequest</code> at each release.</li>
 <li><strong>SGLang:</strong> <code>add_argument(...)</code> in <code>server_args.py</code>, and from v0.5.14 the annotated dataclass fields that generate arguments, {len(L['sglang_cli']['tags'])} releases.</li>
 <li><strong>Replacements:</strong> read from the help text and source of the releases around each removal. Two are marked "probably": the move was not traced line by line.</li>
@@ -202,7 +205,7 @@ body = f"""<main>
 <ul>
 <li>Release candidates and code on the main branch. An argument added after {VL} shows as "not in any release".</li>
 <li>Values: an argument that still exists can change the values it accepts (for example a backend name). Only names are checked.</li>
-<li>Variables read outside <code>vllm/envs.py</code>, SGLang's own <code>SGLANG_</code> variables, and SGLang's request fields.</li>
+<li>Variables that never entered <code>vllm/envs.py</code> (about twenty are read directly with <code>os.getenv</code>, mostly for one backend or for tests), SGLang's own <code>SGLANG_</code> variables, and SGLang's request fields.</li>
 <li>Which releases accept <code>--no-X</code> for each switch is summarized in the note above, not checked per argument by the lookup.</li>
 </ul>
 

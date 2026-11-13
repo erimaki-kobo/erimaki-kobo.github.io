@@ -46,3 +46,11 @@
 - 変換器のモデル別の eot 設定（GLM の <|user|> など）を予測に入れる
 - Ollama の MLX ランナー（macOS）
 - vLLM・SGLang の古い版の違い（v0.4.1 より前など）を版の入力で出す
+
+## 2026-11-14 の訂正（独立検査 claude/en/audit_2026-11-14.md の S1〜S4）
+- Solar Open：テンプレートは履歴を <|end|> で閉じるが、生成の終わりは <|flush|>（ツール呼び出しは <|calls|>）。モデルの generation_config.json は eos_token_id [2, 24, 25] で <|end|>（21）を含まず、llama.cpp はこの語彙で <|end|> を EOG から外す。stopcheck.js に読み替え（src "solar"）、build_page.py の表はこの1本だけ上書き、test_core.mjs に1ケース
+- <|end|> を外す条件に「<|calls|> と <|flush|> がある」を足した
+- 日付は UTC のコミット日（llama_eog_lists.py。gguf のページと同じ）。b5674 と b10141 が1日動いた
+- Ollama の独自エンジンは v0.5.12〜v0.24.0（runner/ollamarunner があるタグ）。v0.30.0 から llama-server
+- 検査：test_core.mjs ALL PASS、check_browser.js ALL PASS（サイトと同じ配置で。archs.json を読むため）
+- jinja-0.5.13.js は作り直さない（build_page.py に既にヘッダつきのファイルを渡すとヘッダが二重になる）

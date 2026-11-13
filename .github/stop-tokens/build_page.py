@@ -15,7 +15,13 @@ rows = []
 for l in TM.splitlines():
     if not l.strip() or l.startswith("{"): continue
     f, m = l[:52].strip().replace(".jinja", ""), l[53:79].strip().replace(" [harmony]", "")
+    # Solar Open: the template closes past turns with <|end|>, but a generated answer ends in <|flush|>
+    # (generation_config.json eos_token_id [2, 24, 25] = <|endoftext|>, <|flush|>, <|calls|>; llama.cpp removes <|end|>).
+    if f == "upstage-Solar-Open-100B":
+        assert m == "<|end|>", m
+        m = "<|flush|>"
     rows.append((f, m))
+assert ("upstage-Solar-Open-100B", "<|flush|>") in rows
 n_t = len(rows); n_ok = sum(1 for f, m in rows if m not in ("-", "(none)")); n_none = sum(1 for f, m in rows if m == "(none)"); n_err = sum(1 for f, m in rows if m == "-")
 assert (n_t, n_ok, n_none, n_err) == (74, 59, 9, 6), (n_t, n_ok, n_none, n_err)
 known = set(LL["eog"]) | set(LL["eot"]) | set(LL["eom"])
@@ -66,7 +72,7 @@ ENG = [
  ("Transformers <code>generate()</code>", "v5.22.2", "<code>eos_token_id</code> of generation_config.json. Without that file, the one in config.json (top level, else <code>text_config</code>). The tokenizer's <code>eos_token</code> is not added.", "If generation_config.json exists but has no <code>eos_token_id</code>, there is no end token at all."),
  ("vLLM", "v0.33.0", "The tokenizer's <code>eos_token</code>, plus <code>eos_token_id</code> of generation_config.json (or of config.json when that file is missing), plus the request's <code>stop_token_ids</code>.", "<code>--generation-config vllm</code> drops the sampling defaults, not these tokens. <code>ignore_eos</code> turns the end tokens off."),
  ("SGLang", "v0.5.23", "<code>eos_token_id</code> of config.json (top level) and of generation_config.json, the tokenizer's <code>eos_token</code>, three built-in extras when the vocabulary has them (" + ", ".join(c(x) for x in ["<|eom_id|>", "<|content_model_end_sampling|>", "<|ifm|im_end|>"]) + "), and the request's <code>stop_token_ids</code>.", "The widest net of the six."),
- ("llama.cpp", LL["tag"], "The end-of-generation (EOG) set: the GGUF's eos, eot and eom ids, the FIM pad, repo and separator tokens, and every vocabulary token whose text is in a built-in list (" + str(len(LL["eog"])) + " texts in " + LL["tag"] + ").", "Two exceptions remove tokens again: <code>&lt;|end|&gt;</code> when <code>&lt;|return|&gt;</code> and <code>&lt;|call|&gt;</code> exist (gpt-oss), and <code>&lt;/s&gt;</code> for Gemma 4, PLaMo and Beam."),
+ ("llama.cpp", LL["tag"], "The end-of-generation (EOG) set: the GGUF's eos, eot and eom ids, the FIM pad, repo and separator tokens, and every vocabulary token whose text is in a built-in list (" + str(len(LL["eog"])) + " texts in " + LL["tag"] + ").", "Two exceptions remove tokens again: <code>&lt;|end|&gt;</code> when <code>&lt;|return|&gt;</code> and <code>&lt;|call|&gt;</code> exist (gpt-oss) or <code>&lt;|calls|&gt;</code> and <code>&lt;|flush|&gt;</code> exist (Solar Open), and <code>&lt;/s&gt;</code> for Gemma 4, PLaMo and Beam."),
  ("Ollama", "v0.40.16", "llama.cpp's EOG set from the GGUF (Ollama runs <code>llama-server</code> and passes the request on), plus the <code>stop</code> strings from the Modelfile and the request.", "The EOG list is that of the llama.cpp build Ollama bundles; the <a href=\"/en/gguf-arch-min-build-lookup/#ollama\">GGUF lookup</a> lists it per release."),
  ("MLX-LM", "v0.32.2", "<code>eos_token_id</code> of config.json (top level), replaced by the one in generation_config.json when that is set, plus the tokenizer's <code>eos_token</code>.", "<code>--extra-eos-token</code> adds more."),
 ]
@@ -76,7 +82,7 @@ body = f"""<main>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>{e(H1)}</h1>
 <p class="lede"><strong>A chat model ends its answer with one special token, written by its chat template: <code>&lt;|eot_id|&gt;</code> for Llama 3, <code>&lt;|im_end|&gt;</code> for Qwen, <code>&lt;end_of_turn&gt;</code> for Gemma 2 and 3, <code>&lt;turn|&gt;</code> for Gemma 4. Generation stops only if the engine counts that token as an end token, and each engine builds that set from different files.</strong> Transformers reads generation_config.json, vLLM adds the tokenizer's eos_token, llama.cpp reads the GGUF and a list of {len(LL['eog'])} built-in token texts, and Ollama adds the Modelfile's stop strings. Paste a model's files below to see where each engine stops.</p>
-<p class="meta">Published {PUB} &middot; Rules read from Transformers v5.22.2, vLLM v0.33.0, SGLang v0.5.23, MLX-LM v0.32.2, llama.cpp {LL['tag']} and Ollama v0.40.16 &middot; no model was run</p>
+<p class="meta">Published {PUB} &middot; Corrected {MOD}: Solar Open ends in <code>&lt;|flush|&gt;</code>, two dates moved to UTC, Ollama engine range &middot; Rules read from Transformers v5.22.2, vLLM v0.33.0, SGLang v0.5.23, MLX-LM v0.32.2, llama.cpp {LL['tag']} and Ollama v0.40.16 &middot; no model was run</p>
 
 <h2 id="check">Which engines will stop on my model's end-of-turn token?</h2>
 <p>Fetch a public model from Hugging Face, or paste its files. For a GGUF, paste the lines that llama.cpp prints while loading (they start with <code>printing all EOG tokens</code>) to replace the prediction with the real set.</p>
@@ -134,7 +140,7 @@ body = f"""<main>
 <tbody>
 {chr(10).join(mk_rows)}
 </tbody></table></div>
-<p class="note">"Writes nothing after it" means the template relies on the model emitting an eos token (GLM and Apertus, for example). Rendering used one user and one assistant message; templates that require tools or special content fields failed and are counted as not rendered.</p>
+<p class="note">"Writes nothing after it" means the template relies on the model emitting an eos token (GLM and Apertus, for example). Rendering used one user and one assistant message; templates that require tools or special content fields failed and are counted as not rendered. Solar Open is listed by what the model generates: its template closes past turns with <code>&lt;|end|&gt;</code>, but a generated answer ends in <code>&lt;|flush|&gt;</code> (a tool call in <code>&lt;|calls|&gt;</code>); the model's generation_config.json lists those two and not <code>&lt;|end|&gt;</code>, and llama.cpp takes <code>&lt;|end|&gt;</code> out of the set for this vocabulary. gpt-oss works the same way with <code>&lt;|return|&gt;</code>.</p>
 
 <h3 id="history">From which llama.cpp build is each text in the list?</h3>
 <p>The first <code>bNNNN</code> release whose vocabulary code compares token texts against each name. A GGUF whose eos or eot id already points at the token stops in older builds too; before b2702 (2024-04-21) there was no end-of-generation set at all, only the eos id.</p>
@@ -158,7 +164,7 @@ body = f"""<main>
 <li>No model was run. The checker reports which tokens each engine treats as the end; whether the model emits that token is up to its weights.</li>
 <li>Stop strings in requests (<code>stop</code>) are matched on text and work in every engine; they are not part of the table.</li>
 <li>Older releases of Transformers, vLLM, SGLang and MLX-LM may differ; vLLM began reading <code>eos_token_id</code> from generation_config.json in v0.4.1 (2024-04).</li>
-<li>Ollama's MLX runner on macOS and its older own engine (0.5.12 to 0.31.1) are not covered.</li>
+<li>Ollama's MLX runner on macOS and its older own engine (0.5.12 to 0.24.0; from 0.30.0 Ollama runs llama-server) are not covered.</li>
 </ul>
 
 <h2 id="faq">Questions</h2>

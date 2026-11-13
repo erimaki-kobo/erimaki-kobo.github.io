@@ -14,6 +14,12 @@ const cases = [
   ["typo", "vllm serve m --max-model-lenght 4096", "vllm", "", ["Not a name in any vLLM release"]],
   ["vllm flag on sglang", "python -m sglang.launch_server --gpu-memory-utilization 0.9", "auto", "", ["It is a vLLM argument"]],
   ["env silent", "export VLLM_USE_V1=0", "auto", "", ["No error", "Unknown vLLM environment variable detected"]],
+  ["deprecated still accepted", "vllm serve m --guided-decoding-backend xgrammar", "auto", "0.11.2", ["Still there in your 0.11.2", "removed after v0.11.2"]],
+  ["serve's own argument", "vllm serve m --config c.yaml --headless", "auto", "0.9.0", ["All 2 names are valid"]],
+  ["env read before envs.py", "export VLLM_BATCH_INVARIANT=1", "auto", "0.15.1", ["v0.11.1 to v0.33.0", "All 1 names are valid"]],
+  ["prefix ambiguous", "vllm serve m --device cuda", "vllm", "", ["Removed after v0.9.2", "ambiguous option", "--device-ids"]],
+  ["prefix accepted", "python -m sglang.launch_server --model-path m --enable-flashinfer", "auto", "", ["No error in v0.5.23", "--enable-flashinfer-allreduce-fusion"]],
+  ["sglang alias", "python -m sglang.launch_server --model-path m --stream-output", "auto", "", ["Removed after v0.5.19", "--incremental-streaming-output"]],
   ["nothing", "hello", "auto", "", ["Found no"]],
 ];
 (async () => {

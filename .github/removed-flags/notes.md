@@ -30,3 +30,11 @@
 3. `python3 build_data.py` → out/data.json
 4. `python3 build_page.py out/data.json scripts build 公開日 更新日`。消えた数が変わると assert で止まるので、数と、新しく消えた名前の代わり（消える直前の版の help の文で確かめる）を足す
 5. test_data.py と check_browser.js
+
+## 2026-11-14 の訂正（独立検査 claude/en/audit_2026-11-14.md の R1〜R6）
+- vllm_cli_hist.py を AST にした：名前が変数の add_argument（非推奨の別名をループで登録するもの）と、serve サブコマンド自身の引数（scripts.py・entrypoints/cli/serve.py の serve_parser）を読む。--guided-decoding-* 4本の最後は v0.11.2、--config は v0.6.0 から、など9本の範囲が変わった。件数（81・120・106）は同じ
+- vllm_env_hist.py は envs.py の外の引用符つきの名前も出し、build_data.py が「envs.py に入る直前まで連続して名前が出ている版」を足す（VLLM_BATCH_INVARIANT は v0.11.1 から。4本）。消えたあとの版には足さない（非推奨の文面に名前が残るため）
+- 本文：リクエスト項目の拒否は v0.4.2〜v0.6.4.post1 だけ／SGLang の --stream-output は v0.5.19 まで・代わりは --incremental-streaming-output／vLLM も argparse の前方一致の省略形を受け付ける
+- tool.js：消えた名前が、その版にある引数の前方一致になるとき「別の引数として読まれる」「ambiguous option になる」を出す
+- 検査：test_data.py 60/60、check_browser.js 20ケース×幅2つ ALL PASS
+- 未検証：実際に vllm serve を動かしての動き（--guided-decoding-backend の値が v0.11.x で効かないことを含む。ソースの読み）

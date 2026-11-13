@@ -72,7 +72,13 @@ function run(push) {
     } else if (row.have === "never") {
       var other = sg ? D.libs.vllm_cli.names[n] : D.libs.sglang_cli.names[n];
       if (other) row.text += " It is " + (sg ? "a vLLM" : "an SGLang") + " argument; check which server you are starting.";
-      if (sg) row.text += " SGLang accepts unambiguous prefixes, so a shortened name can still work.";
+    }
+    if (row.cls === "n") {
+      // argparse (allow_abbrev) reads an unambiguous prefix of a current argument as that argument
+      var ti = mine ? idxOf(L, mine) : null; if (ti === null || ti < 0) ti = L.tags.length - 1;
+      var cand = Object.keys(L.names).filter(function (k) { return k !== n && k.indexOf(n) === 0 && L.names[k].some(function (p) { return p[0] <= ti && ti <= p[1]; }); });
+      if (cand.length === 1) row.text += " <strong>No error in " + esc(L.tags[ti]) + "</strong>: the parser accepts unambiguous prefixes, so this is read as " + code(cand[0]) + ".";
+      else if (cand.length > 1) row.text += " In " + esc(L.tags[ti]) + " the error is \"ambiguous option\" (it could match " + cand.slice(0, 4).map(code).join(", ") + (cand.length > 4 ? ", ..." : "") + "), not \"unrecognized arguments\".";
     }
     if (n !== base && !sg && base.indexOf(".") > 0) row.text += " (Read as " + code(n) + "; the part after the dot is a key inside that JSON argument.)";
     rows.push(row);

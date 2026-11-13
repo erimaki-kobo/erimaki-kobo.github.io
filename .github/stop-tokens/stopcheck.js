@@ -95,6 +95,8 @@ function analyze(F, LL, render) {
       marker = { id: m.id, text: m.text, src: "template" };
       // harmony (gpt-oss): history turns end in <|end|>, a generated final answer ends in <|return|>
       if (m.text === "<|end|>" && tab.byText.has("<|return|>")) { marker = { id: tab.byText.get("<|return|>"), text: "<|return|>", src: "harmony" }; }
+      // Solar Open: history turns end in <|end|>, a generated answer ends in <|flush|> (a tool call in <|calls|>)
+      else if (m.text === "<|end|>" && tab.byText.has("<|flush|>") && tab.byText.has("<|calls|>")) { marker = { id: tab.byText.get("<|flush|>"), text: "<|flush|>", src: "solar" }; }
     } else marker = { id: null, text: "", src: "none" };
   }
 

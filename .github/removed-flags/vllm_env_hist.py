@@ -1,4 +1,6 @@
-"""vLLM environment variables per release tag (vllm/envs.py). usage: vllm_env_hist.py <hist dir> <cache dir> > vllm_env.json"""
+"""vLLM environment variables per release tag (vllm/envs.py). usage: vllm_env_hist.py <hist dir> <cache dir> > vllm_env.json
+"quoted": VLLM_ names that appear as a quoted string in other vllm/*.py files of the tag. build_data.py uses it only for
+releases before a variable entered envs.py (VLLM_BATCH_INVARIANT was read with os.getenv from v0.11.1 to v0.18.1)."""
 import json, os, re, subprocess, sys
 H, C = sys.argv[1], sys.argv[2]
 REPO = "vllm-project_vllm"
@@ -23,6 +25,8 @@ for t, d in tags:
     if not s:
         continue
     names = sorted(set(re.findall(r'^\s*["\'](VLLM_[A-Z0-9_]+)["\']\s*:', s, re.M)))
-    res[t] = {"date": d, "names": names}
+    g, _ = git("grep", "-h", "-o", "-E", r"""["']VLLM_[A-Z0-9_]+["']""", f"refs/tags/{t}", "--", "vllm/*.py", ":!vllm/envs.py")
+    quoted = sorted(set(x[1:-1] for x in g.split()))
+    res[t] = {"date": d, "names": names, "quoted": quoted}
     print(t, d, len(names), file=sys.stderr, flush=True)
 json.dump(res, sys.stdout)

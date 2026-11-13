@@ -6,9 +6,13 @@ H = "/home/claude/w/hist"
 def show(repo, tag, path):
     p = subprocess.run(["git", "-C", f"{H}/{repo}.git", "show", f"refs/tags/{tag}:{path}"], capture_output=True)
     return p.stdout.decode("utf-8", "replace") if p.returncode == 0 else ""
-VF = ["vllm/engine/arg_utils.py", "vllm/entrypoints/openai/cli_args.py", "vllm/entrypoints/common/cli_args.py", "vllm/entrypoints/launchers/cli_args.py", "vllm/entrypoints/api_server.py", "vllm/entrypoints/openai/api_server.py"]
+VF = ["vllm/engine/arg_utils.py", "vllm/entrypoints/openai/cli_args.py", "vllm/entrypoints/common/cli_args.py", "vllm/entrypoints/launchers/cli_args.py", "vllm/entrypoints/api_server.py", "vllm/entrypoints/openai/api_server.py", "vllm/scripts.py", "vllm/entrypoints/cli/serve.py"]
 def vtext(tag): return "".join(show("vllm-project_vllm", tag, p) for p in VF)
-def etext(tag): return show("vllm-project_vllm", tag, "vllm/envs.py")
+EARLY = json.load(open("out/data.json")).get("env_early", {})
+def etext(tag):  # envs.py, plus the other files for the releases before a variable entered envs.py
+    t = show("vllm-project_vllm", tag, "vllm/envs.py")
+    p = subprocess.run(["git", "-C", f"{H}/vllm-project_vllm.git", "grep", "-h", "-o", "-E", '"VLLM_[A-Z0-9_]+"', f"refs/tags/{tag}", "--", "vllm/*.py", ":!vllm/envs.py"], capture_output=True)
+    return t + "".join(l for l in p.stdout.decode().splitlines() if l.strip('"') in EARLY)
 fails = n = 0
 for lib, txt, conv in (("vllm_cli", vtext, lambda s: [f'"{s}"', "'" + s + "'", s[2:].replace("-", "_") + ":"]), ("vllm_env", etext, lambda s: [f'"{s}"']) ):
     L = D[lib]; T = L["tags"]

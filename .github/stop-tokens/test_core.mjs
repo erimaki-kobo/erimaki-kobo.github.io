@@ -21,6 +21,8 @@ const cases = [
     { marker: "<|im_end|>", transformers: "stops", vllm: "stops", llamacpp: "stops" }],
   ["ollama string", { config: { eos_token_id: 151643 }, gen: null, tok: Object.assign({}, qtok, { eos_token: "<|endoftext|>" }), modelfile: 'PARAMETER stop "<|im_end|>"', llamalog: "load: printing all EOG tokens:\nload:   - 151643 ('<|endoftext|>')\n" },
     { llamacpp: "runs-on", ollama: "stops-string" }],
+  ["solar open", { config: { eos_token_id: 2 }, gen: { eos_token_id: [2, 24, 25] }, tok: { eos_token: "<|endoftext|>", bos_token: "<|startoftext|>", chat_template: "{% for m in messages %}{{ '<|begin|>' + m.role + '<|content|>' + m.content + '<|end|>' }}{% endfor %}{% if add_generation_prompt %}{{ '<|begin|>assistant' }}{% endif %}", added_tokens_decoder: { "1": { content: "<|startoftext|>" }, "2": { content: "<|endoftext|>" }, "20": { content: "<|begin|>" }, "21": { content: "<|end|>" }, "23": { content: "<|content|>" }, "24": { content: "<|flush|>" }, "25": { content: "<|calls|>" } } } },
+    { marker: "<|flush|>", transformers: "stops", vllm: "stops", sglang: "stops", mlx: "stops", llamacpp: "stops" }],
   ["multimodal text_config", { config: { text_config: { eos_token_id: 128009 } }, gen: null, tok: l3tok("<|end_of_text|>") },
     { transformers: "stops", vllm: "stops", sglang: "runs-on", mlx: "runs-on" }],
 ];
