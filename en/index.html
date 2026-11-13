@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="vllm-removed-flags-lookup/">"unrecognized arguments" and settings that silently stop working: removed vLLM arguments, environment variables and request fields</a></h2>
+<p>Every vLLM command-line argument, VLLM_ environment variable and request field ever released, and every SGLang server argument, with the releases that have it and what replaces the removed ones. Shows which removals fail with an error and which are dropped silently. Includes a lookup: paste a command or request, see what still works.</p>
+<p class="meta">Published 2026-11-13</p>
+</article>
+<article class="card">
 <h2><a href="generation-stop-tokens-check/">Why does my model not stop generating? The end-of-turn token, and which engines stop on it</a></h2>
 <p>Where Transformers, vLLM, SGLang, llama.cpp, Ollama and MLX-LM get the tokens that end generation, read from each engine's source, with the end-of-turn token of 74 real chat templates and the llama.cpp build that first names each one. Includes a checker: fetch a Hugging Face model or paste its files, see which engines stop.</p>
 <p class="meta">Published 2026-11-13</p>
