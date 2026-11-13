@@ -1,0 +1,189 @@
+{
+"tag": "b12352",
+"eot": [
+"<|eot_id|>",
+"<|im_end|>",
+"<|end|>",
+"<end_of_turn>",
+"<|endoftext|>",
+"<|end_of_text|>",
+"<EOT>",
+"_<EOT>",
+"[EOT]",
+"<｜end▁of▁sentence｜>",
+"<end_of_utterance>"
+],
+"eom": [
+"<|eom_id|>"
+],
+"fim_pad": [
+"<|fim_pad|>",
+"<fim-pad>",
+"<fim_pad>",
+"<PAD>",
+"[PAD]"
+],
+"fim_rep": [
+"<|fim_repo|>",
+"<|repo_name|>",
+"<fim-repo>",
+"<REPO>",
+"<reponame>"
+],
+"fim_sep": [
+"<|file_sep|>",
+"<|plamo:file_separator|>"
+],
+"eog": [
+"<|eot_id|>",
+"<|eot|>",
+"<|im_end|>",
+"<|end|>",
+"<|return|>",
+"<|call|>",
+"<|flush|>",
+"<|calls|>",
+"<end_of_turn>",
+"<|endoftext|>",
+"</s>",
+"<|eom_id|>",
+"<EOT>",
+"_<EOT>",
+"[EOT]",
+"[EOS]",
+"<|end_of_text|>",
+"<end_of_utterance>",
+"<eos>",
+"<turn|>",
+"<|tool_response>",
+"<｜end▁of▁sentence｜>",
+"[e~[",
+"<|ifm|im_end|>"
+],
+"flint_only": [
+"<|user|>",
+"<|observation|>"
+],
+"first": {
+"</s>": [
+"8110",
+"2026-02-19",
+false
+],
+"<EOT>": [
+"3818",
+"2024-09-24",
+false
+],
+"<end_of_turn>": [
+"2702",
+"2024-04-21",
+true
+],
+"<end_of_utterance>": [
+"5865",
+"2025-07-10",
+false
+],
+"<eos>": [
+"8717",
+"2026-04-08",
+false
+],
+"<turn|>": [
+"8637",
+"2026-04-02",
+false
+],
+"<|calls|>": [
+"7603",
+"2026-01-01",
+false
+],
+"<|call|>": [
+"6096",
+"2025-08-05",
+false
+],
+"<|end_of_text|>": [
+"5674",
+"2025-06-16",
+false
+],
+"<|endoftext|>": [
+"2953",
+"2024-05-20",
+false
+],
+"<|end|>": [
+"2717",
+"2024-04-24",
+false
+],
+"<|eom_id|>": [
+"3818",
+"2024-09-24",
+false
+],
+"<|eot_id|>": [
+"2702",
+"2024-04-21",
+true
+],
+"<|eot|>": [
+"11671",
+"2026-10-15",
+false
+],
+"<|flush|>": [
+"7603",
+"2026-01-01",
+false
+],
+"<|ifm|im_end|>": [
+"11454",
+"2026-10-06",
+false
+],
+"<|im_end|>": [
+"2714",
+"2024-04-22",
+false
+],
+"<|return|>": [
+"6096",
+"2025-08-05",
+false
+],
+"<|tool_response>": [
+"8665",
+"2026-04-04",
+false
+],
+"<｜end▁of▁sentence｜>": [
+"3909",
+"2024-10-12",
+false
+],
+"[EOS]": [
+"7957",
+"2026-02-06",
+false
+],
+"[EOT]": [
+"7957",
+"2026-02-06",
+false
+],
+"[e~[": [
+"10141",
+"2026-07-27",
+false
+],
+"_<EOT>": [
+"5013",
+"2025-03-31",
+false
+]
+}
+}

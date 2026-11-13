@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Doesn&#x27;t Stop Generating? Check Stop Tokens per Engine</title>
+<meta name="description" content="Paste a model&#x27;s files or Hugging Face id: see the token that ends a chat turn and whether Transformers, vLLM, SGLang, llama.cpp, Ollama, MLX stop on it.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/generation-stop-tokens-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Model Doesn&#x27;t Stop Generating? Check Stop Tokens per Engine">
+<meta property="og:description" content="Paste a model&#x27;s files or Hugging Face id: see the token that ends a chat turn and whether Transformers, vLLM, SGLang, llama.cpp, Ollama, MLX stop on it.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/generation-stop-tokens-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/generation-stop-tokens-check/#article", "headline": "Why does my model not stop generating? The end-of-turn token, and which engines stop on it", "description": "Paste a model's files or Hugging Face id: see the token that ends a chat turn and whether Transformers, vLLM, SGLang, llama.cpp, Ollama, MLX stop on it.", "url": "https://erimaki-kobo.github.io/en/generation-stop-tokens-check/", "datePublished": "2026-11-13", "dateModified": "2026-11-13", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "about": ["eos_token_id", "generation_config.json", "chat template", "vLLM", "llama.cpp", "Ollama", "SGLang", "MLX-LM", "Hugging Face Transformers"]}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/generation-stop-tokens-check/#tool", "name": "Stop token checker for LLM inference engines", "url": "https://erimaki-kobo.github.io/en/generation-stop-tokens-check/#check", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Reads config.json, generation_config.json, tokenizer_config.json and the chat template; shows the end-of-turn token and whether each engine stops on it."}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/generation-stop-tokens-check/#faq", "mainEntity": [{"@type": "Question", "name": "Why does Llama 3 Instruct keep generating after <|eot_id|>?", "acceptedAnswer": {"@type": "Answer", "text": "Its tokenizer's eos_token is <|end_of_text|>, while a chat turn ends with <|eot_id|>. The second one is only listed in generation_config.json (eos_token_id [128001, 128009]). An engine or copy of the model that does not read that list stops only at <|end_of_text|>, which the model rarely emits in chat. vLLM reads it from v0.4.1."}}, {"@type": "Question", "name": "Which file decides where generation stops?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the engine. Transformers' generate() uses generation_config.json (or config.json when that file is missing) and ignores the tokenizer's eos_token. vLLM adds the tokenizer's eos_token to that. SGLang adds config.json as well. llama.cpp uses the eos, eot and eom ids stored in the GGUF plus a built-in list of token texts. Ollama passes stop strings from the Modelfile to llama.cpp."}}, {"@type": "Question", "name": "How do I make vLLM stop on a token?", "acceptedAnswer": {"@type": "Answer", "text": "Send \"stop_token_ids\": [ID] in the request, or start vLLM with --generation-config pointing at a directory whose generation_config.json lists the id in eos_token_id."}}, {"@type": "Question", "name": "How do I make llama.cpp or Ollama stop on a token?", "acceptedAnswer": {"@type": "Answer", "text": "For llama.cpp, --override-kv tokenizer.ggml.eos_token_id=int:ID makes that token the eos, and the eos is always in the end-of-generation set. For Ollama, add PARAMETER stop \"<token>\" to the Modelfile and run ollama create."}}, {"@type": "Question", "name": "My fine-tuned model never stops, but the base model does. Why?", "acceptedAnswer": {"@type": "Answer", "text": "If the training examples did not end with the end-of-turn or eos token, the model never learned to emit it. No engine setting fixes that; add the token to the end of every training example and train again."}}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+#eng{min-width:820px}
+#res td{overflow-wrap:anywhere}
+.grid textarea{min-height:90px}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>Why does my model not stop generating? The end-of-turn token, and which engines stop on it</h1>
+<p class="lede"><strong>A chat model ends its answer with one special token, written by its chat template: <code>&lt;|eot_id|&gt;</code> for Llama 3, <code>&lt;|im_end|&gt;</code> for Qwen, <code>&lt;end_of_turn&gt;</code> for Gemma 2 and 3, <code>&lt;turn|&gt;</code> for Gemma 4. Generation stops only if the engine counts that token as an end token, and each engine builds that set from different files.</strong> Transformers reads generation_config.json, vLLM adds the tokenizer's eos_token, llama.cpp reads the GGUF and a list of 24 built-in token texts, and Ollama adds the Modelfile's stop strings. Paste a model's files below to see where each engine stops.</p>
+<p class="meta">Published 2026-11-13 &middot; Rules read from Transformers v5.22.2, vLLM v0.33.0, SGLang v0.5.23, MLX-LM v0.32.2, llama.cpp b12352 and Ollama v0.40.16 &middot; no model was run</p>
+
+<h2 id="check">Which engines will stop on my model's end-of-turn token?</h2>
+<p>Fetch a public model from Hugging Face, or paste its files. For a GGUF, paste the lines that llama.cpp prints while loading (they start with <code>printing all EOG tokens</code>) to replace the prediction with the real set.</p>
+<div class="card">
+<label for="hf">Hugging Face model id</label>
+<div class="row" style="margin-top:0"><input id="hf" placeholder="Qwen/Qwen3-8B" autocomplete="off" style="max-width:360px"><button id="fetch" type="button">Fetch files</button><span id="fstatus" class="note"></span></div>
+<div class="grid" style="margin-top:12px">
+<div><label for="cfg">config.json</label><textarea id="cfg" spellcheck="false" placeholder='{"eos_token_id": 128001, ...}'></textarea></div>
+<div><label for="gen">generation_config.json (if the model has one)</label><textarea id="gen" spellcheck="false" placeholder='{"eos_token_id": [128001, 128009]}'></textarea></div>
+<div><label for="tok">tokenizer_config.json</label><textarea id="tok" spellcheck="false" placeholder='{"eos_token": "&lt;|end_of_text|&gt;", "added_tokens_decoder": ...}'></textarea></div>
+<div><label for="tmpl">chat_template.jinja (if it is a separate file)</label><textarea id="tmpl" spellcheck="false"></textarea></div>
+<div><label for="log">llama.cpp load log (optional)</label><textarea id="log" spellcheck="false" placeholder="load: printing all EOG tokens:&#10;load:   - 128009 ('&lt;|eot_id|&gt;')"></textarea></div>
+<div><label for="mf">Ollama Modelfile (optional: <code>ollama show --modelfile NAME</code>)</label><textarea id="mf" spellcheck="false" placeholder='PARAMETER stop "&lt;|im_end|&gt;"'></textarea></div>
+<div><label for="lb">Your llama.cpp build (optional)</label><input id="lb" placeholder="b5000" autocomplete="off"></div>
+<div><label for="ov">Your Ollama version (optional)</label><input id="ov" placeholder="0.24.0" autocomplete="off"></div>
+<div><label for="marker">End-of-turn token, if the template cannot be read (optional)</label><input id="marker" placeholder="&lt;|im_end|&gt;" autocomplete="off"></div>
+</div>
+<div class="row"><button id="go" type="button">Check</button><span id="status" role="status"></span></div>
+<div id="res" aria-live="polite"></div>
+</div>
+<p class="note">Runs in your browser. Only the Fetch button contacts huggingface.co, for the four small files and, if needed, tokenizer.json. Gated models (Llama, Gemma) have to be pasted. The chat template is rendered with <a href="https://github.com/huggingface/huggingface.js/tree/main/packages/jinja">@huggingface/jinja</a> 0.5.13, the renderer Transformers.js uses.</p>
+
+<h2 id="engines">Where does each engine get its end tokens?</h2>
+<p><strong>Six engines, six rules. The same model files can stop in one engine and run on in another.</strong> Each row was read from the source of the release named.</p>
+<div class="tw wide"><table id="eng">
+<thead><tr><th>Engine</th><th>Read at</th><th>Tokens that end generation</th><th>Watch out for</th></tr></thead>
+<tbody>
+<tr><td>Transformers <code>generate()</code></td><td>v5.22.2</td><td><code>eos_token_id</code> of generation_config.json. Without that file, the one in config.json (top level, else <code>text_config</code>). The tokenizer's <code>eos_token</code> is not added.</td><td>If generation_config.json exists but has no <code>eos_token_id</code>, there is no end token at all.</td></tr>
+<tr><td>vLLM</td><td>v0.33.0</td><td>The tokenizer's <code>eos_token</code>, plus <code>eos_token_id</code> of generation_config.json (or of config.json when that file is missing), plus the request's <code>stop_token_ids</code>.</td><td><code>--generation-config vllm</code> drops the sampling defaults, not these tokens. <code>ignore_eos</code> turns the end tokens off.</td></tr>
+<tr><td>SGLang</td><td>v0.5.23</td><td><code>eos_token_id</code> of config.json (top level) and of generation_config.json, the tokenizer's <code>eos_token</code>, three built-in extras when the vocabulary has them (<code>&lt;|eom_id|&gt;</code>, <code>&lt;|content_model_end_sampling|&gt;</code>, <code>&lt;|ifm|im_end|&gt;</code>), and the request's <code>stop_token_ids</code>.</td><td>The widest net of the six.</td></tr>
+<tr><td>llama.cpp</td><td>b12352</td><td>The end-of-generation (EOG) set: the GGUF's eos, eot and eom ids, the FIM pad, repo and separator tokens, and every vocabulary token whose text is in a built-in list (24 texts in b12352).</td><td>Two exceptions remove tokens again: <code>&lt;|end|&gt;</code> when <code>&lt;|return|&gt;</code> and <code>&lt;|call|&gt;</code> exist (gpt-oss), and <code>&lt;/s&gt;</code> for Gemma 4, PLaMo and Beam.</td></tr>
+<tr><td>Ollama</td><td>v0.40.16</td><td>llama.cpp's EOG set from the GGUF (Ollama runs <code>llama-server</code> and passes the request on), plus the <code>stop</code> strings from the Modelfile and the request.</td><td>The EOG list is that of the llama.cpp build Ollama bundles; the <a href="/en/gguf-arch-min-build-lookup/#ollama">GGUF lookup</a> lists it per release.</td></tr>
+<tr><td>MLX-LM</td><td>v0.32.2</td><td><code>eos_token_id</code> of config.json (top level), replaced by the one in generation_config.json when that is set, plus the tokenizer's <code>eos_token</code>.</td><td><code>--extra-eos-token</code> adds more.</td></tr>
+</tbody></table></div>
+
+<h2 id="models">What does the checker say about popular models?</h2>
+<p><strong>13 of 14 public models stop correctly in all six engines by these rules. The exception is <code>Qwen/Qwen3.5-4B</code>: its repository has no generation_config.json, and its config.json lists only <code>&lt;|endoftext|&gt;</code> (248044, inside <code>text_config</code>), so Transformers' <code>generate()</code> would not stop at <code>&lt;|im_end|&gt;</code>.</strong> vLLM, SGLang and MLX-LM still stop there because they add the tokenizer's <code>eos_token</code>, which is <code>&lt;|im_end|&gt;</code>. The 27B model of the same family ships a generation_config.json with both ids.</p>
+<div class="tw wide"><table id="real">
+<thead><tr><th>Model</th><th>Turn ends with</th><th>generation_config.json</th><th>Transformers</th><th>vLLM</th><th>SGLang</th><th>llama.cpp (predicted)</th><th>MLX-LM</th></tr></thead>
+<tbody>
+<tr><td>HuggingFaceTB/SmolLM3-3B</td><td><code>&lt;|im_end|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>Qwen/Qwen2.5-7B-Instruct</td><td><code>&lt;|im_end|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>Qwen/Qwen3-8B</td><td><code>&lt;|im_end|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>Qwen/Qwen3.5-4B</td><td><code>&lt;|im_end|&gt;</code></td><td>missing</td><td><span class="s n">runs on</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>deepseek-ai/DeepSeek-R1-Distill-Qwen-7B</td><td><code>&lt;&#65372;end&#9601;of&#9601;sentence&#65372;&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>ibm-granite/granite-4.0-micro</td><td><code>&lt;|end_of_text|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>microsoft/Phi-4-mini-instruct</td><td><code>&lt;|end|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>moonshotai/Kimi-K2-Instruct</td><td><code>&lt;|im_end|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>openai/gpt-oss-20b</td><td><code>&lt;|return|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>unsloth/Meta-Llama-3.1-8B-Instruct</td><td><code>&lt;|eot_id|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>unsloth/Mistral-Small-3.2-24B-Instruct-2506</td><td><code>&lt;/s&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>unsloth/gemma-3-4b-it</td><td><code>&lt;end_of_turn&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>unsloth/llama-3-8b-Instruct</td><td><code>&lt;|eot_id|&gt;</code></td><td>present</td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td><td><span class="s y">stops</span></td></tr>
+<tr><td>zai-org/GLM-4.6</td><td>nothing</td><td>present</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+</tbody></table></div>
+<p class="note">Files fetched from Hugging Face on 2026-11-13. Gated models were read from Unsloth's public copies, whose files can differ from the originals (Unsloth's Llama 3 copy, for example, sets the tokenizer's eos to <code>&lt;|eot_id|&gt;</code>). GLM-4.6's template writes nothing after the answer; the model ends with <code>&lt;|user|&gt;</code> or <code>&lt;|observation|&gt;</code>, which its config lists. The Ollama column is the same as llama.cpp here and is left out. No model was run.</p>
+
+<h2 id="mismatch">What are the usual reasons a model does not stop?</h2>
+<div class="tw"><table>
+<thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td>Llama 3 Instruct runs past <code>&lt;|eot_id|&gt;</code></td><td>The tokenizer's eos is <code>&lt;|end_of_text|&gt;</code>; <code>&lt;|eot_id|&gt;</code> (128009) is listed only in generation_config.json. Engines or copies without that list stop only at <code>&lt;|end_of_text|&gt;</code>.</td><td>An engine that reads generation_config.json (vLLM from v0.4.1), or <code>stop_token_ids=[128009]</code></td></tr>
+<tr><td>Only the quantized or converted copy runs on</td><td>The uploader copied an older generation_config.json or tokenizer_config.json</td><td>Compare its files with the original model's in the checker above</td></tr>
+<tr><td>Only llama.cpp or Ollama runs on</td><td>The GGUF's eos/eot ids point elsewhere and the end token is not in the built-in list of your build (see the table below)</td><td>A newer build, a GGUF converted with a newer llama.cpp, or <code>--override-kv</code></td></tr>
+<tr><td>Only Ollama runs on</td><td>A model imported with a hand-written Modelfile lacks <code>PARAMETER stop</code></td><td>Add the stop string and <code>ollama create</code> again</td></tr>
+<tr><td>A fine-tuned model runs on everywhere</td><td>The training examples did not end with the end-of-turn token</td><td>Fix the training data; no engine setting helps</td></tr>
+</tbody></table></div>
+
+<h2 id="templates">Which end-of-turn tokens does llama.cpp recognize by name?</h2>
+<p><strong>Of the 74 chat templates that llama.cpp keeps for its tests, 59 end the assistant's turn with a token, 9 write nothing after it, and 6 could not be rendered with a simple conversation.</strong> 10 of the end tokens found are not in llama.cpp's built-in list; for those 13 templates, llama.cpp stops only if the GGUF's eos or eot id points at the token, so the converter has to get it right.</p>
+<div class="tw"><table>
+<thead><tr><th>End-of-turn token</th><th>Templates</th><th>Which</th><th>In llama.cpp's built-in list?</th></tr></thead>
+<tbody>
+<tr><td><code>&lt;|im_end|&gt;</code></td><td>20</td><td>Bielik-11B-v3.0-Instruct, HuggingFaceTB-SmolLM3-3B, Kimi-K2-Instruct, Kimi-K2-Thinking, LFM2-8B-A1B, LFM2.5-8B-A1B, LFM2.5-Instruct, LFM3, MiMo-VL, NVIDIA-Nemotron-3-Nano-30B-A3B-BF16, NousResearch-Hermes-2-Pro-Llama-3-8B-tool_use, NousResearch-Hermes-3-Llama-3.1-8B-tool_use, Qwen-QwQ-32B, Qwen-Qwen2.5-7B-Instruct, Qwen-Qwen3-0.6B, Qwen3-Coder, Qwen3.5-4B, StepFun3.5-Flash, moonshotai-Kimi-K2, openbmb-MiniCPM5-1B</td><td>yes, from b2714 (2024-04-22)</td></tr>
+<tr><td><code>&lt;&#65372;end&#9601;of&#9601;sentence&#65372;&gt;</code></td><td>8</td><td>Spark2.5, deepseek-ai-DeepSeek-R1-Distill-Llama-8B, deepseek-ai-DeepSeek-R1-Distill-Qwen-32B, deepseek-ai-DeepSeek-V3.1, deepseek-ai-DeepSeek-V3.2, deepseek-ai-DeepSeek-V4-Flash-0731, deepseek-ai-DeepSeek-V4, llama-cpp-deepseek-r1</td><td>yes, from b3909 (2024-10-12)</td></tr>
+<tr><td><code>&lt;|eot_id|&gt;</code></td><td>5</td><td>meetkai-functionary-medium-v3.1, meetkai-functionary-medium-v3.2, meta-llama-Llama-3.1-8B-Instruct, meta-llama-Llama-3.2-3B-Instruct, meta-llama-Llama-3.3-70B-Instruct</td><td>yes, from b2702 (2024-04-21) or earlier</td></tr>
+<tr><td><code>&lt;/assistant&gt;</code></td><td>3</td><td>poolside-Laguna-S-2.1, poolside-Laguna-XS-2.1, poolside-Laguna-XS.2</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;|end_of_text|&gt;</code></td><td>3</td><td>ibm-granite-granite-3.3-2B-Instruct, ibm-granite-granite-4.0, ibm-granite-granite-4.1</td><td>yes, from b5674 (2025-06-16)</td></tr>
+<tr><td><code>&lt;|end|&gt;</code></td><td>3</td><td>microsoft-Phi-3.5-mini-instruct, unsloth-Apriel-1.5, upstage-Solar-Open-100B</td><td>yes, from b2717 (2024-04-24)</td></tr>
+<tr><td><code>&lt;|message_sep|&gt;</code></td><td>2</td><td>GigaChat3-10B-A1.8B, GigaChat3.1-10B-A1.8B</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;|return|&gt;</code></td><td>2</td><td>llm-jp-llm-jp-4.1-8b-thinking, openai-gpt-oss-120b</td><td>yes, from b6096 (2025-08-05)</td></tr>
+<tr><td><code>[e~[</code></td><td>2</td><td>MiniMax-M2, MiniMax-M3</td><td>yes, from b10141 (2026-07-27)</td></tr>
+<tr><td><code>&lt;SPECIAL_12&gt;</code></td><td>1</td><td>NVIDIA-Nemotron-Nano-v2</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;end_of_sentence&gt;</code></td><td>1</td><td>MiniMax-M1</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;end_of_turn&gt;</code></td><td>1</td><td>google-gemma-2-2b-it</td><td>yes, from b2702 (2024-04-21) or earlier</td></tr>
+<tr><td><code>&lt;sep&gt;</code></td><td>1</td><td>Reka-Edge</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;turn|&gt;</code></td><td>1</td><td>google-gemma-4-31B-it</td><td>yes, from b8637 (2026-04-02)</td></tr>
+<tr><td><code>&lt;|END_OF_TURN_TOKEN|&gt;</code></td><td>1</td><td>CohereForAI-c4ai-command-r-plus-tool_use</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;|END_RESPONSE|&gt;</code></td><td>1</td><td>CohereForAI-c4ai-command-r7b-12-2024-tool_use</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;|END_TEXT|&gt;</code></td><td>1</td><td>Cohere2MoE</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;|close|&gt;</code></td><td>1</td><td>Kimi-K3</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+<tr><td><code>&lt;|eot|&gt;</code></td><td>1</td><td>muse-glimmer</td><td>yes, from b11671 (2026-10-15)</td></tr>
+<tr><td><code>&lt;|role_end|&gt;</code></td><td>1</td><td>inclusionai-ling-3.0-flash</td><td><strong>no</strong>: needs eos/eot in the GGUF</td></tr>
+</tbody></table></div>
+<p class="note">"Writes nothing after it" means the template relies on the model emitting an eos token (GLM and Apertus, for example). Rendering used one user and one assistant message; templates that require tools or special content fields failed and are counted as not rendered.</p>
+
+<h3 id="history">From which llama.cpp build is each text in the list?</h3>
+<p>The first <code>bNNNN</code> release whose vocabulary code compares token texts against each name. A GGUF whose eos or eot id already points at the token stops in older builds too; before b2702 (2024-04-21) there was no end-of-generation set at all, only the eos id.</p>
+<div class="tw"><table>
+<thead><tr><th>Token text</th><th>Named from</th><th>Date</th></tr></thead>
+<tbody>
+<tr><td><code>&lt;end_of_turn&gt;</code></td><td>b2702 or earlier</td><td>2024-04-21</td></tr>
+<tr><td><code>&lt;|eot_id|&gt;</code></td><td>b2702 or earlier</td><td>2024-04-21</td></tr>
+<tr><td><code>&lt;|im_end|&gt;</code></td><td>b2714</td><td>2024-04-22</td></tr>
+<tr><td><code>&lt;|end|&gt;</code></td><td>b2717</td><td>2024-04-24</td></tr>
+<tr><td><code>&lt;|endoftext|&gt;</code></td><td>b2953</td><td>2024-05-20</td></tr>
+<tr><td><code>&lt;EOT&gt;</code></td><td>b3818</td><td>2024-09-24</td></tr>
+<tr><td><code>&lt;|eom_id|&gt;</code></td><td>b3818</td><td>2024-09-24</td></tr>
+<tr><td><code>&lt;&#65372;end&#9601;of&#9601;sentence&#65372;&gt;</code></td><td>b3909</td><td>2024-10-12</td></tr>
+<tr><td><code>_&lt;EOT&gt;</code></td><td>b5013</td><td>2025-03-31</td></tr>
+<tr><td><code>&lt;|end_of_text|&gt;</code></td><td>b5674</td><td>2025-06-16</td></tr>
+<tr><td><code>&lt;end_of_utterance&gt;</code></td><td>b5865</td><td>2025-07-10</td></tr>
+<tr><td><code>&lt;|call|&gt;</code></td><td>b6096</td><td>2025-08-05</td></tr>
+<tr><td><code>&lt;|return|&gt;</code></td><td>b6096</td><td>2025-08-05</td></tr>
+<tr><td><code>&lt;|calls|&gt;</code></td><td>b7603</td><td>2026-01-01</td></tr>
+<tr><td><code>&lt;|flush|&gt;</code></td><td>b7603</td><td>2026-01-01</td></tr>
+<tr><td><code>[EOS]</code></td><td>b7957</td><td>2026-02-06</td></tr>
+<tr><td><code>[EOT]</code></td><td>b7957</td><td>2026-02-06</td></tr>
+<tr><td><code>&lt;/s&gt;</code></td><td>b8110</td><td>2026-02-19</td></tr>
+<tr><td><code>&lt;turn|&gt;</code></td><td>b8637</td><td>2026-04-02</td></tr>
+<tr><td><code>&lt;|tool_response&gt;</code></td><td>b8665</td><td>2026-04-04</td></tr>
+<tr><td><code>&lt;eos&gt;</code></td><td>b8717</td><td>2026-04-08</td></tr>
+<tr><td><code>[e~[</code></td><td>b10141</td><td>2026-07-27</td></tr>
+<tr><td><code>&lt;|ifm|im_end|&gt;</code></td><td>b11454</td><td>2026-10-06</td></tr>
+<tr><td><code>&lt;|eot|&gt;</code></td><td>b11671</td><td>2026-10-15</td></tr>
+</tbody></table></div>
+<p class="note">b2702 compared against <code>&lt;|im_emd|&gt;</code>, a typo; <code>&lt;|im_end|&gt;</code> arrived in b2714 the next day.</p>
+
+<h2 id="method">How was this built?</h2>
+<ul>
+<li><strong>Engine rules:</strong> read from <code>generation/utils.py</code> and <code>generation/configuration_utils.py</code> (Transformers v5.22.2), <code>sampling_params.py</code>, <code>v1/engine/input_processor.py</code> and <code>transformers_utils/config.py</code> (vLLM v0.33.0), <code>configs/model_config.py</code>, <code>managers/schedule_batch.py</code> and <code>utils/hf_transformers/common.py</code> (SGLang v0.5.23), <code>utils.py</code> and <code>tokenizer_utils.py</code> (MLX-LM v0.32.2), <code>src/llama-vocab.cpp</code> and <code>gguf-py/gguf/vocab.py</code> (llama.cpp b12352), <code>llm/llama_server.go</code> (Ollama v0.40.16).</li>
+<li><strong>llama.cpp lists:</strong> the token texts compared in <code>src/llama-vocab.cpp</code> at b12352, extracted by a script; the first build for each by binary search over the release tags.</li>
+<li><strong>Predicted GGUF ids:</strong> without a load log, the checker takes the eos the converter would write (tokenizer_config.json's <code>eos_token</code>, else config.json's <code>eos_token_id</code>). Some converters set eot or eom as well, which only adds tokens.</li>
+<li><strong>Templates:</strong> llama.cpp's <code>models/templates</code> at b12352, rendered with @huggingface/jinja 0.5.13.</li>
+</ul>
+
+<h2 id="limits">What this page does not cover</h2>
+<ul>
+<li>No model was run. The checker reports which tokens each engine treats as the end; whether the model emits that token is up to its weights.</li>
+<li>Stop strings in requests (<code>stop</code>) are matched on text and work in every engine; they are not part of the table.</li>
+<li>Older releases of Transformers, vLLM, SGLang and MLX-LM may differ; vLLM began reading <code>eos_token_id</code> from generation_config.json in v0.4.1 (2024-04).</li>
+<li>Ollama's MLX runner on macOS and its older own engine (0.5.12 to 0.31.1) are not covered.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<dl>
+<dt>Why does Llama 3 Instruct keep generating after &lt;|eot_id|&gt;?</dt><dd>Its tokenizer&#x27;s eos_token is &lt;|end_of_text|&gt;, while a chat turn ends with &lt;|eot_id|&gt;. The second one is only listed in generation_config.json (eos_token_id [128001, 128009]). An engine or copy of the model that does not read that list stops only at &lt;|end_of_text|&gt;, which the model rarely emits in chat. vLLM reads it from v0.4.1.</dd>
+<dt>Which file decides where generation stops?</dt><dd>It depends on the engine. Transformers&#x27; generate() uses generation_config.json (or config.json when that file is missing) and ignores the tokenizer&#x27;s eos_token. vLLM adds the tokenizer&#x27;s eos_token to that. SGLang adds config.json as well. llama.cpp uses the eos, eot and eom ids stored in the GGUF plus a built-in list of token texts. Ollama passes stop strings from the Modelfile to llama.cpp.</dd>
+<dt>How do I make vLLM stop on a token?</dt><dd>Send &quot;stop_token_ids&quot;: [ID] in the request, or start vLLM with --generation-config pointing at a directory whose generation_config.json lists the id in eos_token_id.</dd>
+<dt>How do I make llama.cpp or Ollama stop on a token?</dt><dd>For llama.cpp, --override-kv tokenizer.ggml.eos_token_id=int:ID makes that token the eos, and the eos is always in the end-of-generation set. For Ollama, add PARAMETER stop &quot;&lt;token&gt;&quot; to the Modelfile and run ollama create.</dd>
+<dt>My fine-tuned model never stops, but the base model does. Why?</dt><dd>If the training examples did not end with the end-of-turn or eos token, the model never learned to emit it. No engine setting fixes that; add the token to the end of every training example and train again.</dd>
+</dl>
+
+<p class="note">Related: <a href="/en/model-arch-min-version/">Minimum Transformers, vLLM and llama.cpp version for a model</a> &middot; <a href="/en/gguf-arch-min-build-lookup/">GGUF architecture lookup</a> &middot; <a href="/en/engine-logprob-parity-check/">Why logprobs differ between engines</a>.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Transformers: <a href="https://github.com/huggingface/transformers/blob/v5.22.2/src/transformers/generation/utils.py">generation/utils.py</a>, <a href="https://github.com/huggingface/transformers/blob/v5.22.2/src/transformers/generation/configuration_utils.py">configuration_utils.py</a></li>
+<li>vLLM: <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/sampling_params.py">sampling_params.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/transformers_utils/config.py">transformers_utils/config.py</a>, PR <a href="https://github.com/vllm-project/vllm/pull/4182">#4182</a>, issue <a href="https://github.com/vllm-project/vllm/issues/4180">#4180</a></li>
+<li>SGLang: <a href="https://github.com/sgl-project/sglang/blob/v0.5.23/python/sglang/srt/configs/model_config.py">model_config.py</a>, <a href="https://github.com/sgl-project/sglang/blob/v0.5.23/python/sglang/srt/managers/schedule_batch.py">schedule_batch.py</a></li>
+<li>llama.cpp: <a href="https://github.com/ggml-org/llama.cpp/blob/b12352/src/llama-vocab.cpp">src/llama-vocab.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/tree/b12352/models/templates">models/templates</a>, issue <a href="https://github.com/ggml-org/llama.cpp/issues/9606">#9606</a></li>
+<li>MLX-LM: <a href="https://github.com/ml-explore/mlx-lm/blob/v0.32.2/mlx_lm/tokenizer_utils.py">tokenizer_utils.py</a>; Ollama: <a href="https://github.com/ollama/ollama/blob/v0.40.16/llm/llama_server.go">llm/llama_server.go</a>, <a href="https://github.com/ollama/ollama/blob/main/docs/modelfile.mdx">Modelfile</a></li>
+<li>Reports: <a href="https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct/discussions/26">Meta-Llama-3-8B-Instruct #26</a>, <a href="https://huggingface.co/turboderp/Llama-3-8B-Instruct-exl2/discussions/1">exl2 thread</a>, <a href="https://forgather.readthedocs.io/en/latest/guides/eos-and-generate-stopping/">forgather: eos and generate stopping</a></li>
+</ul>
+</main>
+<script type="application/json" id="ll-data">{"tag":"b12352","eot":["<|eot_id|>","<|im_end|>","<|end|>","<end_of_turn>","<|endoftext|>","<|end_of_text|>","<EOT>","_<EOT>","[EOT]","<\uff5cend\u2581of\u2581sentence\uff5c>","<end_of_utterance>"],"eom":["<|eom_id|>"],"fim_pad":["<|fim_pad|>","<fim-pad>","<fim_pad>","<PAD>","[PAD]"],"fim_rep":["<|fim_repo|>","<|repo_name|>","<fim-repo>","<REPO>","<reponame>"],"fim_sep":["<|file_sep|>","<|plamo:file_separator|>"],"eog":["<|eot_id|>","<|eot|>","<|im_end|>","<|end|>","<|return|>","<|call|>","<|flush|>","<|calls|>","<end_of_turn>","<|endoftext|>","</s>","<|eom_id|>","<EOT>","_<EOT>","[EOT]","[EOS]","<|end_of_text|>","<end_of_utterance>","<eos>","<turn|>","<|tool_response>","<\uff5cend\u2581of\u2581sentence\uff5c>","[e~[","<|ifm|im_end|>"],"flint_only":["<|user|>","<|observation|>"],"first":{"</s>":["8110","2026-02-19",false],"<EOT>":["3818","2024-09-24",false],"<end_of_turn>":["2702","2024-04-21",true],"<end_of_utterance>":["5865","2025-07-10",false],"<eos>":["8717","2026-04-08",false],"<turn|>":["8637","2026-04-02",false],"<|calls|>":["7603","2026-01-01",false],"<|call|>":["6096","2025-08-05",false],"<|end_of_text|>":["5674","2025-06-16",false],"<|endoftext|>":["2953","2024-05-20",false],"<|end|>":["2717","2024-04-24",false],"<|eom_id|>":["3818","2024-09-24",false],"<|eot_id|>":["2702","2024-04-21",true],"<|eot|>":["11671","2026-10-15",false],"<|flush|>":["7603","2026-01-01",false],"<|ifm|im_end|>":["11454","2026-10-06",false],"<|im_end|>":["2714","2024-04-22",false],"<|return|>":["6096","2025-08-05",false],"<|tool_response>":["8665","2026-04-04",false],"<\uff5cend\u2581of\u2581sentence\uff5c>":["3909","2024-10-12",false],"[EOS]":["7957","2026-02-06",false],"[EOT]":["7957","2026-02-06",false],"[e~[":["10141","2026-07-27",false],"_<EOT>":["5013","2025-03-31",false]}}</script>
+<script>
+// stopcheck.js: which token ends a chat turn, and which inference engines stop on it.
+// Pure functions; the page passes in the model files and a Jinja renderer.
+// Engine rules read from: Transformers v5.22.2, vLLM v0.33.0, SGLang v0.5.23, MLX-LM v0.32.2,
+// llama.cpp b12352 (LL = lists extracted from src/llama-vocab.cpp), Ollama v0.40.16.
+(function (root) {
+"use strict";
+
+function ids(v) {
+  if (v === null || v === undefined || v === false) return [];
+  if (Array.isArray(v)) return v.filter(function (x) { return Number.isInteger(x); });
+  return Number.isInteger(v) ? [v] : [];
+}
+function tokText(v) { return typeof v === "string" ? v : (v && typeof v === "object" && typeof v.content === "string" ? v.content : null); }
+
+// token table from tokenizer_config.added_tokens_decoder, tokenizer.json added_tokens and (optionally) its vocab
+function table(tok, tj) {
+  var byText = new Map(), byId = new Map(), special = new Set();
+  function add(id, text, isSpecial) {
+    id = +id; if (!Number.isInteger(id) || typeof text !== "string") return;
+    if (!byId.has(id)) byId.set(id, text);
+    if (!byText.has(text)) byText.set(text, id);
+    if (isSpecial) special.add(id);
+  }
+  var atd = tok && tok.added_tokens_decoder;
+  if (atd && typeof atd === "object") Object.keys(atd).forEach(function (k) { add(k, tokText(atd[k]), atd[k].special !== false); });
+  if (tj && Array.isArray(tj.added_tokens)) tj.added_tokens.forEach(function (a) { add(a.id, a.content, a.special !== false); });
+  var full = false;
+  if (tj && tj.model && tj.model.vocab) {
+    var v = tj.model.vocab;
+    if (Array.isArray(v)) v.forEach(function (p, i) { add(i, Array.isArray(p) ? p[0] : p, false); });
+    else Object.keys(v).forEach(function (k) { add(v[k], k, false); });
+    full = true;
+  }
+  return { byText: byText, byId: byId, special: special, full: full };
+}
+
+function chatTemplate(tok, tmplFile) {
+  if (typeof tmplFile === "string" && tmplFile.trim()) return tmplFile;
+  var ct = tok && tok.chat_template;
+  if (typeof ct === "string") return ct;
+  if (Array.isArray(ct)) {
+    var d = ct.filter(function (x) { return x && x.name === "default"; })[0] || ct[0];
+    return d && typeof d.template === "string" ? d.template : null;
+  }
+  return null;
+}
+
+var SENT = "QQ_ANSWER_7f3e9";
+// Render [user, assistant] and read what the template writes right after the assistant's text.
+function endMarker(T, tok, render) {
+  if (!T || !render) return { status: "none", why: T ? "no renderer" : "no chat template" };
+  var out, bos = tokText(tok && tok.bos_token) || "", eos = tokText(tok && tok.eos_token) || "";
+  try {
+    out = render(T, {
+      messages: [{ role: "user", content: "Hi" }, { role: "assistant", content: SENT }],
+      add_generation_prompt: false, bos_token: bos, eos_token: eos,
+      pad_token: tokText(tok && tok.pad_token) || "", unk_token: tokText(tok && tok.unk_token) || "",
+      tools: [], documents: [], date_string: "13 Nov 2026"
+    });
+  } catch (e) { return { status: "error", why: String(e && e.message || e).slice(0, 200) }; }
+  var i = out.lastIndexOf(SENT);
+  if (i < 0) return { status: "error", why: "the template did not print the assistant message" };
+  return { status: "ok", after: out.slice(i + SENT.length, i + SENT.length + 80) };
+}
+
+// longest known token text at the start of s (after optional whitespace)
+function matchToken(s, tab) {
+  var t = s.replace(/^[ \t\r\n]+/, ""), best = null;
+  tab.byText.forEach(function (id, text) {
+    if (text.length >= 2 && /[^A-Za-z0-9 ]/.test(text) && t.indexOf(text) === 0 && (!best || text.length > best.text.length)) best = { id: id, text: text };
+  });
+  return best;
+}
+
+function analyze(F, LL, render) {
+  var cfg = F.config || {}, gen = F.gen, tok = F.tok || {}, tab = table(tok, F.tokjson);
+  var notes = [];
+  var tcfg = cfg.text_config || cfg.llm_config || cfg.language_config || null;
+  var tokEosText = tokText(tok.eos_token);
+  var tokEos = tokEosText !== null && tab.byText.has(tokEosText) ? tab.byText.get(tokEosText) : null;
+  if (tokEosText && tokEos === null) notes.push("eos_token " + JSON.stringify(tokEosText) + " is not among the added tokens; paste tokenizer.json to resolve it.");
+  var cfgEos = ids(cfg.eos_token_id), txtEos = tcfg ? ids(tcfg.eos_token_id) : [];
+  var genHas = !!(gen && typeof gen === "object"), genEos = genHas ? ids(gen.eos_token_id) : [];
+  // Transformers GenerationConfig.from_model_config: top-level value, else the decoder/text_config value
+  var fromModel = cfg.eos_token_id !== undefined && cfg.eos_token_id !== null ? cfgEos : txtEos;
+
+  // ---- end of the assistant turn ----
+  var T = chatTemplate(tok, F.template), em = endMarker(T, tok, render), marker = null;
+  if (F.marker) {
+    var mt = String(F.marker).trim();
+    marker = tab.byText.has(mt) ? { id: tab.byText.get(mt), text: mt, src: "given" } : (/^\d+$/.test(mt) ? { id: +mt, text: tab.byId.get(+mt) || "?", src: "given" } : { id: null, text: mt, src: "given" });
+  } else if (em.status === "ok") {
+    var m = matchToken(em.after, tab);
+    if (m) {
+      marker = { id: m.id, text: m.text, src: "template" };
+      // harmony (gpt-oss): history turns end in <|end|>, a generated final answer ends in <|return|>
+      if (m.text === "<|end|>" && tab.byText.has("<|return|>")) { marker = { id: tab.byText.get("<|return|>"), text: "<|return|>", src: "harmony" }; }
+    } else marker = { id: null, text: "", src: "none" };
+  }
+
+  // ---- engines ----
+  function set(list) { var s = new Set(); list.forEach(function (x) { ids(x).forEach(function (i) { s.add(i); }); }); return s; }
+  var E = {};
+  E.transformers = { stop: set([genHas ? genEos : fromModel]), from: genHas ? "generation_config.json eos_token_id" : "config.json eos_token_id (no generation_config.json)" };
+  if (genHas && !genEos.length) notes.push("generation_config.json has no eos_token_id: Transformers' generate() then has no end token at all.");
+  E.vllm = { stop: set([tokEos, genHas ? genEos : fromModel]), from: "tokenizer eos_token + " + (genHas ? "generation_config.json" : "config.json (no generation_config.json)") };
+  var sgAdd = ["<|eom_id|>", "<|content_model_end_sampling|>", "<|ifm|im_end|>"].filter(function (t) { return tab.byText.has(t); }).map(function (t) { return tab.byText.get(t); });
+  E.sglang = { stop: set([cfgEos, genEos, tokEos, sgAdd]), from: "config.json + generation_config.json + tokenizer eos_token + built-in extras" };
+  E.mlx = { stop: set([genEos.length ? genEos : cfgEos, tokEos]), from: (genEos.length ? "generation_config.json" : "config.json") + " + tokenizer eos_token" };
+  if (!genEos.length && !cfgEos.length) E.mlx.note = "No eos_token_id in config.json or generation_config.json; MLX-LM may use a per-model default.";
+
+  // llama.cpp: exact from a pasted load log, else predicted for a fresh conversion
+  var ll = llamaEOG(F, LL, tab, tok, cfg, tcfg);
+  E.llamacpp = ll;
+  var stopStr = [];
+  (F.modelfile || "").replace(/^\s*PARAMETER\s+stop\s+(.+?)\s*$/gim, function (_, v) { stopStr.push(v.replace(/^"(.*)"$/, "$1")); return _; });
+  E.ollama = { stop: ll.stop, strings: stopStr, from: "llama.cpp EOG of the GGUF + Modelfile stop strings", predicted: ll.predicted };
+
+  Object.keys(E).forEach(function (k) {
+    var e = E[k];
+    if (!marker || marker.src === "none") { e.verdict = marker ? "no-marker" : "unknown"; return; }
+    if (marker.id !== null && e.stop.has(marker.id)) e.verdict = "stops";
+    else if (k === "ollama" && e.strings.indexOf(marker.text) >= 0) e.verdict = "stops-string";
+    else e.verdict = "runs-on";
+  });
+  return { marker: marker, render: em, tokEos: tokEos, tokEosText: tokEosText, cfgEos: cfgEos, txtEos: txtEos, genHas: genHas, genEos: genEos, engines: E, notes: notes, table: tab, fullVocab: tab.full, template: !!T };
+}
+
+function llamaEOG(F, LL, tab, tok, cfg, tcfg) {
+  var log = F.llamalog || "";
+  var got = [], m, re = /-\s+(\d+)\s+\('((?:[^']|'(?!\)))*)'\)/g, sec = log.indexOf("printing all EOG tokens");
+  if (sec >= 0) {
+    var part = log.slice(sec);
+    while ((m = re.exec(part))) got.push(+m[1]);
+    if (got.length) return { stop: new Set(got), from: "your llama.cpp load log", predicted: false };
+  }
+  // predicted: GGUF eos from tokenizer_config eos_token, else config.json eos_token_id (integer), as gguf-py's SpecialVocab does
+  var s = new Set(), why = [];
+  var eosT = tokText(tok.eos_token), eos = eosT !== null && tab.byText.has(eosT) ? tab.byText.get(eosT) : null;
+  if (eos === null) { var c = Number.isInteger(cfg.eos_token_id) ? cfg.eos_token_id : (tcfg && Number.isInteger(tcfg.eos_token_id) ? tcfg.eos_token_id : null); eos = c; }
+  function has(t) { return tab.byText.has(t); }
+  LL.fim_pad.concat(LL.fim_rep, LL.fim_sep).forEach(function (t) { if (has(t)) s.add(tab.byText.get(t)); });
+  LL.eog.forEach(function (t) { if (has(t)) s.add(tab.byText.get(t)); });
+  LL.eot.concat(LL.eom).forEach(function (t) { if (has(t)) s.add(tab.byText.get(t)); });
+  if (eos !== null) s.add(eos);
+  var idOf = function (t) { return tab.byText.get(t); };
+  if (has("<|end|>") && ((has("<|return|>") && has("<|call|>")) || (has("<|calls|>") && has("<|flush|>")))) { s.delete(idOf("<|end|>")); why.push("<|end|> removed (harmony / solar-open rule)"); }
+  if (has("</s>") && s.has(idOf("</s>")) && (has('<rfl:parameter name="') || has("<|tool_response>") || has("<|plamo:eos|>"))) { s.delete(idOf("</s>")); why.push("</s> treated as a normal token"); }
+  return { stop: s, from: "predicted for a GGUF converted with llama.cpp b" + LL.tag.slice(1), predicted: true, rules: why, eos: eos };
+}
+
+root.StopCheck = { analyze: analyze, table: table, chatTemplate: chatTemplate, ids: ids };
+})(typeof window !== "undefined" ? window : globalThis);
+</script>
+<script>
+(function () {
+"use strict";
+var LL = JSON.parse(document.getElementById("ll-data").textContent);
+var J = null, TOKJSON = null, OLLR = null;
+import("./jinja-0.5.13.js").then(function (m) { J = m; }).catch(function () {});
+fetch("/en/gguf-arch-min-build-lookup/archs.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.ollama_releases) OLLR = j; }).catch(function () {});
+function $(id) { return document.getElementById(id); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function code(s) { return "<code>" + esc(s) + "</code>"; }
+function pj(id, label) {
+  var t = $(id).value.trim(); if (!t) return { v: null };
+  try { return { v: JSON.parse(t) }; } catch (e) { return { err: label + " is not valid JSON: " + e.message }; }
+}
+function render(t, ctx) { return new J.Template(t).render(ctx); }
+function bnum(s) { var m = String(s || "").match(/b?(\d{3,6})/); return m ? +m[1] : null; }
+function ollamaBuild(v) {
+  if (!OLLR || !v) return null;
+  var want = String(v).trim().replace(/^v/, ""), hit = null;
+  OLLR.ollama_releases.forEach(function (r) { if (r.release.replace(/^v/, "") === want) hit = r; });
+  return hit ? { build: bnum(r2b(hit)), release: hit.release } : { build: null, release: want };
+}
+function r2b(r) { return r.llama_cpp_build; }
+// llama.cpp lists as they stood at a given build (texts the code did not yet name are dropped)
+function listsAt(build) {
+  if (!build) return LL;
+  var keep = function (t) { var f = LL.first[t]; return !f || +f[0] <= build; };
+  return { tag: "b" + build, eot: LL.eot.filter(keep), eom: LL.eom.filter(keep), fim_pad: LL.fim_pad, fim_rep: LL.fim_rep, fim_sep: LL.fim_sep, eog: LL.eog.filter(keep) };
+}
+
+$("fetch").addEventListener("click", function () {
+  var id = $("hf").value.trim().replace(/^https?:\/\/huggingface\.co\//, "").replace(/\/(tree|blob|resolve)\/.*$/, "").replace(/\/+$/, "");
+  var st = $("fstatus");
+  if (!/^[\w.\-]+\/[\w.\-]+$/.test(id)) { st.textContent = "Enter a model id like Qwen/Qwen3-8B."; return; }
+  st.textContent = "Fetching..."; TOKJSON = null;
+  var base = "https://huggingface.co/" + id + "/resolve/main/";
+  function get(f) { return fetch(base + f).then(function (r) { return r.ok ? r.text() : (r.status === 401 || r.status === 403 ? Promise.reject(new Error("gated")) : null); }); }
+  Promise.all(["config.json", "generation_config.json", "tokenizer_config.json", "chat_template.jinja"].map(function (f) { return get(f).catch(function (e) { return e; }); })).then(function (r) {
+    if (r.some(function (x) { return x instanceof Error && x.message === "gated"; })) { st.textContent = "This model is gated: open its page on Hugging Face, copy the files and paste them below."; return; }
+    if (!r[0] || r[0] instanceof Error) { st.textContent = "config.json not found for " + id + "."; return; }
+    $("cfg").value = r[0]; $("gen").value = typeof r[1] === "string" ? r[1] : ""; $("tok").value = typeof r[2] === "string" ? r[2] : ""; $("tmpl").value = typeof r[3] === "string" ? r[3] : "";
+    var tok = null; try { tok = JSON.parse(r[2]); } catch (e) {}
+    var need = !tok || !tok.added_tokens_decoder;
+    if (!need) { st.textContent = "Fetched " + id + "."; run(); return; }
+    st.textContent = "Fetching tokenizer.json...";
+    get("tokenizer.json").then(function (t) { try { TOKJSON = JSON.parse(t); } catch (e) {} st.textContent = "Fetched " + id + "."; run(); }).catch(function () { st.textContent = "Fetched " + id + " (no tokenizer.json)."; run(); });
+  });
+});
+$("go").addEventListener("click", function () { run(); });
+
+var NAMES = { transformers: "Transformers generate()", vllm: "vLLM", sglang: "SGLang", llamacpp: "llama.cpp", ollama: "Ollama", mlx: "MLX-LM" };
+function fix(k, mk, e) {
+  var id = mk && mk.id !== null ? mk.id : "ID", t = mk ? mk.text : "TOKEN";
+  return {
+    transformers: code("model.generation_config.eos_token_id = [" + [id].concat(Array.from(e.stop)).filter(function (x, i, a) { return a.indexOf(x) === i; }).join(", ") + "]"),
+    vllm: "per request " + code('"stop_token_ids": [' + id + "]") + ", or serve with " + code("--generation-config <dir>") + " holding a generation_config.json whose " + code("eos_token_id") + " lists " + id,
+    sglang: "per request " + code('"stop_token_ids": [' + id + "]"),
+    llamacpp: "a newer build, or " + code("--override-kv tokenizer.ggml.eos_token_id=int:" + id) + " (the eos token is always added to the end-of-generation set)",
+    ollama: "add " + code("PARAMETER stop \"" + t + "\"") + " to the Modelfile and " + code("ollama create"),
+    mlx: code("mlx_lm.generate --extra-eos-token \"" + t + "\"") + "; for the server, send " + code('"stop": ["' + t + '"]')
+  }[k];
+}
+function run() {
+  var out = $("res"), st = $("status"); out.innerHTML = ""; st.textContent = "";
+  var c = pj("cfg", "config.json"), g = pj("gen", "generation_config.json"), t = pj("tok", "tokenizer_config.json");
+  var bad = [c, g, t].filter(function (x) { return x.err; })[0];
+  if (bad) { st.textContent = bad.err; return; }
+  if (!c.v && !t.v) { st.textContent = "Paste at least config.json and tokenizer_config.json, or fetch a model."; return; }
+  if (!J && (($("tmpl").value.trim()) || (t.v && t.v.chat_template)) && !$("marker").value.trim()) { st.textContent = "Template engine still loading, try again in a second."; return; }
+  var lb = bnum($("lb").value), ov = $("ov").value.trim(), ob = ollamaBuild(ov);
+  var F = { config: c.v || {}, gen: g.v, tok: t.v || {}, template: $("tmpl").value, tokjson: TOKJSON, llamalog: $("log").value, modelfile: $("mf").value, marker: $("marker").value.trim() };
+  var r = StopCheck.analyze(F, listsAt(lb), J ? render : null);
+  if (ob && ob.build) { var ro = StopCheck.analyze(F, listsAt(ob.build), J ? render : null); r.engines.ollama = ro.engines.ollama; r.engines.ollama.atBuild = ob.build; }
+  var mk = r.marker, head;
+  if (!mk) head = '<div class="verdict v-load">No end-of-turn token found<span>' + esc(r.render.why || "") + ". Type the token the model ends its answer with (for example <code>&lt;|im_end|&gt;</code>) in the last field and check again.</span></div>";
+  else if (mk.src === "none") head = '<div class="verdict v-load">The template writes nothing after the answer<span>So the model is expected to end with an eos token itself. The table shows which tokens each engine stops on.</span></div>';
+  else head = '<div class="verdict v-ok">The model ends a turn with ' + code(mk.text) + (mk.id !== null ? " (id " + mk.id + ")" : "") + "<span>" + ({ template: "Read from the chat template.", given: "As you entered it.", harmony: "Harmony format: past turns end in <code>&lt;|end|&gt;</code>, a generated final answer ends in <code>&lt;|return|&gt;</code>." }[mk.src]) + "</span></div>";
+  var rows = Object.keys(NAMES).map(function (k) {
+    var e = r.engines[k], ids = Array.from(e.stop).sort(function (a, b) { return a - b; });
+    var list = ids.slice(0, 8).map(function (i) { return code(i + (r.table.byId.has(i) ? " " + r.table.byId.get(i) : "")); }).join(" ") + (ids.length > 8 ? " +" + (ids.length - 8) : "");
+    if (k === "ollama" && e.strings.length) list += "<br>stop strings: " + e.strings.map(code).join(" ");
+    var v = { stops: '<span class="s y">stops</span>', "stops-string": '<span class="s y">stops (stop string)</span>', "runs-on": '<span class="s n">does not stop at end of turn</span>', "no-marker": "see stop list", unknown: "?" }[e.verdict];
+    var from = esc(e.from) + (e.atBuild ? " (Ollama " + esc(ob.release) + " bundles b" + e.atBuild + ")" : "") + (e.predicted ? ". Paste the load log for the exact set." : "") + (e.note ? " " + esc(e.note) : "") + (e.rules && e.rules.length ? " " + esc(e.rules.join("; ")) : "");
+    return "<tr><td>" + NAMES[k] + "</td><td>" + v + "</td><td>" + (list || "none") + "</td><td>" + from + (e.verdict === "runs-on" ? "<br><strong>Fix:</strong> " + fix(k, mk, e) : "") + "</td></tr>";
+  }).join("");
+  var notes = r.notes.slice();
+  if (lb && lb < 2702) notes.push("llama.cpp builds before b2702 (2024-04-21) stop only on the GGUF eos token.");
+  var ovn = ov.replace(/^v/, "").split(".").map(Number);
+  if (ov && ovn.length >= 2 && (ovn[0] === 0 && ((ovn[1] > 5 || (ovn[1] === 5 && (ovn[2] || 0) >= 12)) && (ovn[1] < 31 || (ovn[1] === 31 && (ovn[2] || 0) <= 1))))) notes.push("Ollama " + esc(ov) + " can run some models in its own Go engine instead of llama.cpp (0.5.12 to 0.31.1); the Ollama row assumes llama.cpp.");
+  if (ov && ob && !ob.build) notes.push("Ollama " + esc(ov) + " is not in the release table; Ollama was checked with the newest llama.cpp lists.");
+  if (!r.fullVocab && !r.table.byId.size) notes.push("No token list found in tokenizer_config.json; token ids could not be named. Fetch the model or paste a tokenizer_config.json with added_tokens_decoder.");
+  out.innerHTML = head + '<div class="tw"><table><thead><tr><th>Engine</th><th>End of turn</th><th>Tokens it stops on</th><th>Where they come from</th></tr></thead><tbody>' + rows + "</tbody></table></div>" + (notes.length ? '<ul class="note">' + notes.map(function (n) { return "<li>" + n + "</li>"; }).join("") + "</ul>" : "");
+  window.lastStopCheck = r;
+}
+window.stopRun = run;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+{
+"HuggingFaceTB/SmolLM3-3B": {
+"after": "<|im_end|>\n",
+"ce": 128012,
+"eos": "<|im_end|>",
+"ge": 128012,
+"te": null,
+"toks": {
+"<|end_of_text|>": 128001,
+"<|eom_id|>": 128008,
+"<|eot_id|>": 128009,
+"<|im_end|>": 128012
+}
+},
+"Qwen/Qwen2.5-7B-Instruct": {
+"after": "<|im_end|>\n",
+"ce": 151645,
+"eos": "<|im_end|>",
+"ge": [
+151645,
+151643
+],
+"te": null,
+"toks": {
+"<|endoftext|>": 151643,
+"<|file_sep|>": 151664,
+"<|fim_pad|>": 151662,
+"<|im_end|>": 151645,
+"<|repo_name|>": 151663
+}
+},
+"Qwen/Qwen3-8B": {
+"after": "<|im_end|>\n",
+"ce": 151645,
+"eos": "<|im_end|>",
+"ge": [
+151645,
+151643
+],
+"te": null,
+"toks": {
+"<|endoftext|>": 151643,
+"<|file_sep|>": 151664,
+"<|fim_pad|>": 151662,
+"<|im_end|>": 151645,
+"<|repo_name|>": 151663
+}
+},
+"Qwen/Qwen3.5-4B": {
+"after": "<|im_end|>\n",
+"ce": null,
+"eos": "<|im_end|>",
+"ge": null,
+"te": 248044,
+"toks": {
+"<|endoftext|>": 248044,
+"<|file_sep|>": 248065,
+"<|fim_pad|>": 248063,
+"<|im_end|>": 248046,
+"<|repo_name|>": 248064
+}
+},
+"deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": {
+"after": "<\uff5cend\u2581of\u2581sentence\uff5c>",
+"ce": 151643,
+"eos": "<\uff5cend\u2581of\u2581sentence\uff5c>",
+"ge": 151643,
+"te": null,
+"toks": {
+"<|file_sep|>": 151664,
+"<|fim_pad|>": 151662,
+"<|repo_name|>": 151663,
+"<\uff5cend\u2581of\u2581sentence\uff5c>": 151643
+}
+},
+"ibm-granite/granite-4.0-micro": {
+"after": "<|end_of_text|>\n",
+"ce": 100257,
+"eos": "<|end_of_text|>",
+"ge": 100257,
+"te": null,
+"toks": {
+"<|end_of_text|>": 100257,
+"<|fim_pad|>": 100261
+}
+},
+"microsoft/Phi-4-mini-instruct": {
+"after": "<|end|><|endoftext|>",
+"ce": 199999,
+"eos": "<|endoftext|>",
+"ge": [
+200020,
+199999
+],
+"te": null,
+"toks": {
+"<|endoftext|>": 199999,
+"<|end|>": 200020,
+"<|user|>": 200021
+}
+},
+"moonshotai/Kimi-K2-Instruct": {
+"after": "<|im_end|>",
+"ce": 163585,
+"eos": "[EOS]",
+"ge": 163586,
+"te": null,
+"toks": {
+"<|im_end|>": 163586,
+"[EOS]": 163585,
+"[EOT]": 163593
+}
+},
+"openai/gpt-oss-20b": {
+"after": "<|return|>",
+"ce": 200002,
+"eos": "<|return|>",
+"ge": [
+200002,
+199999,
+200012
+],
+"te": null,
+"toks": {
+"<|call|>": 200012,
+"<|endoftext|>": 199999,
+"<|end|>": 200007,
+"<|return|>": 200002
+}
+},
+"unsloth/Meta-Llama-3.1-8B-Instruct": {
+"after": "<|eot_id|>",
+"ce": 128009,
+"eos": "<|eot_id|>",
+"ge": [
+128001,
+128008,
+128009
+],
+"te": null,
+"toks": {
+"<|end_of_text|>": 128001,
+"<|eom_id|>": 128008,
+"<|eot_id|>": 128009
+}
+},
+"unsloth/Mistral-Small-3.2-24B-Instruct-2506": {
+"after": "</s>",
+"ce": 2,
+"eos": "</s>",
+"ge": 2,
+"te": null,
+"toks": {
+"</s>": 2
+}
+},
+"unsloth/gemma-3-4b-it": {
+"after": "<end_of_turn>\n",
+"ce": 106,
+"eos": "<end_of_turn>",
+"ge": [
+1,
+106
+],
+"te": null,
+"toks": {
+"</s>": 212,
+"<end_of_turn>": 106,
+"<eos>": 1
+}
+},
+"unsloth/llama-3-8b-Instruct": {
+"after": "<|eot_id|>",
+"ce": 128009,
+"eos": "<|eot_id|>",
+"ge": [
+128001,
+128009
+],
+"te": null,
+"toks": {
+"<|end_of_text|>": 128001,
+"<|eot_id|>": 128009
+}
+},
+"zai-org/GLM-4.6": {
+"after": "",
+"ce": [
+151329,
+151336,
+151338
+],
+"eos": "<|endoftext|>",
+"ge": [
+151329,
+151336,
+151338
+],
+"te": null,
+"toks": {
+"<|endoftext|>": 151329,
+"<|observation|>": 151338,
+"<|user|>": 151336
+}
+}
+}
