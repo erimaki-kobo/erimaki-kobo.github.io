@@ -1,0 +1,2563 @@
+{
+ "nvcc": {
+  "12.0.140": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.0.140",
+     "sha256": "332c1b822fcab8d86db02236973deac3661cd4b122e0e54158ae38fd7f6d1def",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.0.140-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-01-31",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.0.76": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.0.76",
+     "sha256": "c92ffef90fecfa699f069d9681220e07e2166b9150c8a8f7e1affe3e74241d37",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.0.76-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2022-12-08",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.1.105": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.1.105",
+     "sha256": "193e945c8d961471d55c08e0b3e58661a11f4809c2c9817169f975fe96f56544",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.1.105-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-04-19",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.1.66": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.1.66",
+     "sha256": "1275f814a3c96eeeb9aeb2f0edcc3d59ef3fe244e3aac80be9bdc659a1a66f8b",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.1.66-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-02-28",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.2.128": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.2.128",
+     "sha256": "32c8350cf656646d5c2e39d1533cb28b67a5736e7365800827b2c0a408d5079f",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.2.128-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-07-31",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.2.140": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.2.140",
+     "sha256": "879f3cb12b0b0417fba9bf4cfc77df94cdf55502f9fa59a08313a12fdbfc03ce",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.2.140-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-08-29",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.2.91": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.2.91",
+     "sha256": "38b58280668b10f188315793add7d46754d7d826d84c3031ea1dfdc9392fc4bd",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.2.91-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-06-28",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.3.103": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.3.103",
+     "sha256": "eba4b33de09083d7b7b8936af1148272950073d5eb33aa0d880e87e7ace83f29",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.3.103-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-11-15",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.3.107": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.3.107",
+     "sha256": "84ec598aa45ee9352fa5d73e7437db8fd7c42650b6ebb867ce6efeb88f21d397",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.3.107-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.3.107",
+     "sha256": "90ef5911210def91b755acdd0ee0a9cfc1bdbda78ae0dba99b7660962d460bd8",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.3.107-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2024-01-02",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.3.52": {
+   "arch": {
+    "x86_64": {
+     "banner": "12.3.52",
+     "sha256": "52156747dd0230a5f036be5e6112e25d7ab2a8754350f909cb1f8574ebdb39ce",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.3.52-py3-none-manylinux1_x86_64.whl"
+    }
+   },
+   "date": "2023-10-19",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.4.131": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.4.131",
+     "sha256": "7355ab85168fd102eb357ce7cfc0f510b8e6212509cfa93452b3476aa715c218",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.4.131-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.4.131",
+     "sha256": "1173444a1de6fd2d0f183409c91ef7d05f66a55839dad8d8ab642b2596b79b0b",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.4.131-py3-none-manylinux2014_x86_64.whl"
+    }
+   },
+   "date": "2024-06-18",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.4.99": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.4.99",
+     "sha256": "c0f07321d94e325afa219e214daad9d24488222e0562f267860616353beea4e2",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.4.99-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.4.99",
+     "sha256": "5032aa5edc0a9960fb409df1c14445c385c78678c6342eba5bc436d1e3d3520b",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.4.99-py3-none-manylinux2014_x86_64.whl"
+    }
+   },
+   "date": "2024-03-12",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.5.40": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.5.40",
+     "sha256": "6710de890fe5b290a86c117ec6da6442b6db5f8ef0031591599979beddd1e23c",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.5.40-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.5.40",
+     "sha256": "0f538449dad55b44ef657d20ce54a24335c669eb98f403afa794cd593dd56ed4",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.5.40-py3-none-manylinux2014_x86_64.whl"
+    }
+   },
+   "date": "2024-06-19",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.5.82": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.5.82",
+     "sha256": "793b6cced1ea375d8bde8170a075819ee821d458c02d87834a673cf5d5cae28a",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.5.82-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.5.82",
+     "sha256": "08f9de5d031cd59f61e576ebc82dd5d3c785f9b6db5a5356e3279289445f3e2f",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.5.82-py3-none-manylinux2014_x86_64.whl"
+    }
+   },
+   "date": "2024-07-18",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.6.20": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.6.20",
+     "sha256": "4d580f33a310b887841eda7b774bcd9080d7f4424a26f56a1fb5e7c79a59fd6a",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.20-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.6.20",
+     "sha256": "1e6954397dbabcdbe8a3975170120ec44cedb1ebf74c8c566103e0bac0b3838c",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.20-py3-none-manylinux2014_x86_64.whl"
+    }
+   },
+   "date": "2024-08-02",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.6.68": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.6.68",
+     "sha256": "e9766197f8c45de9d08f26b1b7c1a983cb0cfa377bfc1aa7e4b2695c1e442110",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.68-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.6.68",
+     "sha256": "ac4a8cbb9a0c54117dd7a42b533ff2c24b6fd180e0b1d1aa999d0ce0369e95ee",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.68-py3-none-manylinux2014_x86_64.whl"
+    }
+   },
+   "date": "2024-08-29",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.6.77": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.6.77",
+     "sha256": "e23ccbf754e47bf6566915c6a00d4a7626fc9fa194a60524a2316dac5c7eb120",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.77-py3-none-manylinux2014_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.6.77",
+     "sha256": "c65e37f276fd257501bf136869d5fd2366ed962bb5a8226885a9a60506c57466",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.77-py3-none-manylinux2014_x86_64.whl"
+    }
+   },
+   "date": "2024-10-01",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.6.85": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.6.85",
+     "sha256": "94e92230388adee03028c739a27191b2dc8ac7bacf09633138ab7f60fc50e38d",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.85-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.6.85",
+     "sha256": "81ef7761e3769ec17980aba4e416ecbc85352b8dce26cdd392b7204302a909a2",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.6.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl"
+    }
+   },
+   "date": "2024-11-20",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.8.61": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.8.61",
+     "sha256": "b5310ed7c5676f96132ffed42c0d4cf34d8b5b804213adba52c9c54d3b005a71",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_101",
+      "sm_101a",
+      "sm_120",
+      "sm_120a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.8.61-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.8.61",
+     "sha256": "4bd98e8f67a98b921c1bed72c873f3dc0fc5bc241a89af4b253b9c2f6517380c",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_101",
+      "sm_101a",
+      "sm_120",
+      "sm_120a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl"
+    }
+   },
+   "date": "2025-01-23",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.8.93": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.8.93",
+     "sha256": "9750201693a8d711e0a0c1fd38276226daea1f4a4aa1829dbb14351ca29f62ef",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_101",
+      "sm_101a",
+      "sm_120",
+      "sm_120a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.8.93-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.8.93",
+     "sha256": "c960a4f238b17d5c5d3c01ad2bbc1ebd2c5aecc459cb4d223bff10b45f9b8fca",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_101",
+      "sm_101a",
+      "sm_120",
+      "sm_120a"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl"
+    }
+   },
+   "date": "2025-03-07",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.9.41": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.9.41",
+     "sha256": "f8cfbc41ed0886d66a775e1fe3e790dac25eb6ad3abce850e4be937590fea954",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_101",
+      "sm_101a",
+      "sm_101f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.9.41-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.9.41",
+     "sha256": "98aa93dbba7e98c3b3c5ae59f1e4ab2a72f52b2d0d785dbf665377fc998d10c2",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_101",
+      "sm_101a",
+      "sm_101f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.9.41-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl"
+    }
+   },
+   "date": "2025-05-01",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "12.9.86": {
+   "arch": {
+    "aarch64": {
+     "banner": "12.9.86",
+     "sha256": "d07db8b5fd19692ad6fc9643ad3449cc27190fad1f1ad6c6b8338fdec95ea72e",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_101",
+      "sm_101a",
+      "sm_101f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.9.86-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "12.9.86",
+     "sha256": "983b0e9283855979f42cebfd80d43f9b6e786eb84f03f7570bf941c4d3a3c461",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_101",
+      "sm_101a",
+      "sm_101f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc_cu12-12.9.86-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl"
+    }
+   },
+   "date": "2025-06-05",
+   "pkg": "nvidia-cuda-nvcc-cu12"
+  },
+  "13.0.48": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.0.48",
+     "sha256": "f2bb0f2f4127f5fa3febffa9c836f7bdcfe960e11bfdb6044b4b19d6015b1627",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.0.48-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.0.48",
+     "sha256": "99c8028201054e57e8ef83cf320f240a55c3422e6a5ae389b3acda13fd0482e1",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.0.48-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2025-08-04",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.0.88": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.0.88",
+     "sha256": "a1941a04ca4fd233b2fbe50c625b1e72b3d5f79ebe80209a272c85482dfbb487",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.0.88-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.0.88",
+     "sha256": "daba837a68265cae38c832d13399b61dab811891de9b8914defddef143b849f2",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.0.88-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2025-09-04",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.1.115": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.1.115",
+     "sha256": "4e5577645e82615923dec2aec05a922ad7014118e781c96fd2739e840cf04b94",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.1.115-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.1.115",
+     "sha256": "85836303aeca1a2ac9387a6d364b276a3603907c95c3b06c9e3aadf46195b0d8",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.1.115-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-01-13",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.1.80": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.1.80",
+     "sha256": "39c5a1275fd0809d5f1f009497f3f78fd5e7c7450361e6902ecfdb8b42780b07",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.1.80-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.1.80",
+     "sha256": "cdcbf106e11a09f4cc5ff6f064a060570103d7ab123e31b1b0b75a8dbbc43119",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.1.80-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2025-12-05",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.2.51": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.2.51",
+     "sha256": "f5d0bd4bb7597943e444bb4d28136dcd4c6e0b6d0e71c29f46bd0b37f1e8e53d",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.2.51-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.2.51",
+     "sha256": "21fec077bceb3265135cf10aa98937000bd0d01141401c094a15c5916ca9d911",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.2.51-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-03-09",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.2.78": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.2.78",
+     "sha256": "623241c41030050ea9a43130ec03322166ea2822f9c091ec5bd2bed135b2864e",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.2.78-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.2.78",
+     "sha256": "a0212ca1a74ca4877e8d063baa1dd0b075fcd255fb6ab9e8a6bf98a276a2d6e8",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.2.78-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-04-13",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.2.86": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.2.86",
+     "sha256": "e4c5a1a9273185c1330c36a0858a71d72a8f842dbe9bd053089e9c997d89ac66",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.2.86-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.2.86",
+     "sha256": "19e72e997567f783361f2b27403689d4254cde5d6ee78757660217126cd1a0e7",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.2.86-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-07-16",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.3.33": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.3.33",
+     "sha256": "f9a0a7f1f7f03b402ca222168a8ae4870fdb312354356b444941fbba7754326e",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.3.33-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.3.33",
+     "sha256": "7fdd01a4cf50e30746da98989c9272a907f491e6fd7fecfda14642e4375f88fb",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.3.33-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-05-26",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.3.73": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.3.73",
+     "sha256": "54c52f1db6da31a0143cd32bfe56dafd46e49559e8afd25f0725073b88df416b",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.3.73-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.3.73",
+     "sha256": "afd8d1e1fa6e310f7faee44f6621e4c1315fb7fd6da7d4d87414358e12a651dc",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.3.73-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-06-29",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.4.59": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.4.59",
+     "sha256": "a941bdea2a015e87a55195d488f98f5128198235a4042f311f8222f593b1ce5a",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_107",
+      "sm_107a",
+      "sm_107f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.4.59-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.4.59",
+     "sha256": "9c2c084df7eb9be48f0502b6938ce2571679b2a78cad1c564b583bd7d9ea3c50",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_107",
+      "sm_107a",
+      "sm_107f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.4.59-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-09-09",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.4.92": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.4.92",
+     "sha256": "5a603db15dbc0b048c1fe2f39d97509b6e220f85c6da295b7332be39460ac64b",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_107",
+      "sm_107a",
+      "sm_107f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.4.92-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.4.92",
+     "sha256": "6f6a701573ac9f5c2409708b3b700cb9b2a0f11b13c20468153c13b597b2d6d3",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_107",
+      "sm_107a",
+      "sm_107f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.4.92-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-09-16",
+   "pkg": "nvidia-cuda-nvcc"
+  },
+  "13.5.37": {
+   "arch": {
+    "aarch64": {
+     "banner": "13.5.37",
+     "sha256": "525154a59c576d707da68be72657404a43773f89f33f5de831eae383373e92d4",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_107",
+      "sm_107a",
+      "sm_107f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.5.37-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl"
+    },
+    "x86_64": {
+     "banner": "13.5.37",
+     "sha256": "b3e295413e9628ee261a63ea3f70ec5af20988c9809214c064661662206574a3",
+     "sm": [
+      "sm_80",
+      "sm_86",
+      "sm_87",
+      "sm_88",
+      "sm_89",
+      "sm_90",
+      "sm_90a",
+      "sm_100",
+      "sm_100a",
+      "sm_100f",
+      "sm_103",
+      "sm_103a",
+      "sm_103f",
+      "sm_107",
+      "sm_107a",
+      "sm_107f",
+      "sm_110",
+      "sm_110a",
+      "sm_110f",
+      "sm_120",
+      "sm_120a",
+      "sm_120f",
+      "sm_121",
+      "sm_121a",
+      "sm_121f"
+     ],
+     "wheel": "nvidia_cuda_nvcc-13.5.37-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+    }
+   },
+   "date": "2026-11-04",
+   "pkg": "nvidia-cuda-nvcc"
+  }
+ },
+ "torch": {
+  "2.0.0": {
+   "date": "2023-03-15",
+   "triton": "triton (==2.0.0) ; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.0.1": {
+   "date": "2023-05-08",
+   "triton": null
+  },
+  "2.1.0": {
+   "date": "2023-10-04",
+   "triton": null
+  },
+  "2.1.1": {
+   "date": "2023-11-15",
+   "triton": "triton (==2.1.0) ; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.1.2": {
+   "date": "2023-12-14",
+   "triton": "triton (==2.1.0) ; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.10.0": {
+   "date": "2026-01-21",
+   "triton": "triton==3.6.0; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.11.0": {
+   "date": "2026-03-23",
+   "triton": "triton==3.6.0; platform_system == \"Linux\""
+  },
+  "2.12.0": {
+   "date": "2026-05-13",
+   "triton": "triton==3.7.0; platform_system == \"Linux\""
+  },
+  "2.12.1": {
+   "date": "2026-06-17",
+   "triton": "triton==3.7.1; platform_system == \"Linux\""
+  },
+  "2.13.0": {
+   "date": "2026-07-08",
+   "triton": "triton==3.7.1; platform_system == \"Linux\" and python_version < \"3.15\""
+  },
+  "2.14.0": {
+   "date": "2026-09-02",
+   "triton": "triton~=3.8.0; platform_system == \"Linux\" and python_version < \"3.15\""
+  },
+  "2.14.1": {
+   "date": "2026-09-30",
+   "triton": "triton~=3.8.0; platform_system == \"Linux\" and python_version < \"3.15\""
+  },
+  "2.15.0": {
+   "date": "2026-10-28",
+   "triton": "triton~=3.9.0; platform_system == \"Linux\" and python_version < \"3.16\""
+  },
+  "2.2.0": {
+   "date": "2024-01-30",
+   "triton": "triton ==2.2.0 ; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.2.1": {
+   "date": "2024-02-22",
+   "triton": "triton (==2.2.0) ; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.12\""
+  },
+  "2.2.2": {
+   "date": "2024-03-27",
+   "triton": "triton==2.2.0; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.12\""
+  },
+  "2.3.0": {
+   "date": "2024-04-24",
+   "triton": "triton==2.3.0; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.12\""
+  },
+  "2.3.1": {
+   "date": "2024-06-05",
+   "triton": "triton==2.3.1; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.12\""
+  },
+  "2.4.0": {
+   "date": "2024-07-24",
+   "triton": "triton==3.0.0; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.13\""
+  },
+  "2.4.1": {
+   "date": "2024-09-04",
+   "triton": "triton==3.0.0; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.13\""
+  },
+  "2.5.0": {
+   "date": "2024-10-17",
+   "triton": "triton==3.1.0; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.13\""
+  },
+  "2.5.1": {
+   "date": "2024-10-29",
+   "triton": "triton==3.1.0; platform_system == \"Linux\" and platform_machine == \"x86_64\" and python_version < \"3.13\""
+  },
+  "2.6.0": {
+   "date": "2025-01-29",
+   "triton": "triton==3.2.0; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.7.0": {
+   "date": "2025-04-23",
+   "triton": "triton==3.3.0; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.7.1": {
+   "date": "2025-06-04",
+   "triton": "triton==3.3.1; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.8.0": {
+   "date": "2025-08-06",
+   "triton": "triton==3.4.0; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.9.0": {
+   "date": "2025-10-15",
+   "triton": "triton==3.5.0; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  },
+  "2.9.1": {
+   "date": "2025-11-12",
+   "triton": "triton==3.5.1; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+  }
+ },
+ "triton": {
+  "2.0.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.0.76",
+       "sha256": "842d37be6b5f67a0251fcd9591f6034c07f41b28e065fcd1221d1409f4a88ec5",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-2.0.0-1-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+     "wheel_sha256": "38806ee9663f4b0f7cd64790e96c579374089e58f49aac4a6608121aa55e2505"
+    }
+   },
+   "date": "2023-03-20"
+  },
+  "2.1.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.1.105",
+       "sha256": "eb9c87832293aa88d4e6e58ecd0d77e25deb93da5c1a8bb91de7d7cd5b0281ac",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-2.1.0-0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+     "wheel_sha256": "66439923a30d5d48399b08a9eae10370f6c261a5ec864a64983bae63152d39d7"
+    }
+   },
+   "date": "2023-09-01"
+  },
+  "2.2.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.3.52",
+       "sha256": "eb8d520a3df252220ffde7434832c32ba73b2c7912305f083ab1d52f16bb9704",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-2.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+     "wheel_sha256": "0af58716e721460a61886668b205963dc4d1e4ac20508cc3f623aef0d70283d5"
+    }
+   },
+   "date": "2024-01-10"
+  },
+  "2.3.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.3.52",
+       "sha256": "eb8d520a3df252220ffde7434832c32ba73b2c7912305f083ab1d52f16bb9704",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-2.3.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+     "wheel_sha256": "218d742e67480d9581bafb73ed598416cc8a56f6316152e5562ee65e33de01c0"
+    }
+   },
+   "date": "2024-04-05"
+  },
+  "2.3.1": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.3.52",
+       "sha256": "eb8d520a3df252220ffde7434832c32ba73b2c7912305f083ab1d52f16bb9704",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-2.3.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+     "wheel_sha256": "eaf80e8761a9e3498aa92e7bf83a085b31959c61f5e8ac14eedd018df6fccd10"
+    }
+   },
+   "date": "2024-05-27"
+  },
+  "3.0.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.4.99",
+       "sha256": "94dda54a1673940d56d3072c64ef7aacb125a1e64394586e10f77a7a5ff0ff87",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-3.0.0-1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+     "wheel_sha256": "34e509deb77f1c067d8640725ef00c5cbfcb2052a1a3cb6a6d343841f92624eb"
+    }
+   },
+   "date": "2024-07-19"
+  },
+  "3.1.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.4.99",
+       "sha256": "94dda54a1673940d56d3072c64ef7aacb125a1e64394586e10f77a7a5ff0ff87",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-3.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+     "wheel_sha256": "c8182f42fd8080a7d39d666814fa36c5e30cc00ea7eeeb1a2983dbb4c99a0fdc"
+    }
+   },
+   "date": "2024-10-14"
+  },
+  "3.2.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.4.99",
+       "sha256": "94dda54a1673940d56d3072c64ef7aacb125a1e64394586e10f77a7a5ff0ff87",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      }
+     },
+     "wheel": "triton-3.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+     "wheel_sha256": "8d9b215efc1c26fa7eefb9a157915c92d52e000d2bf83e5f69704047e63f125c"
+    }
+   },
+   "date": "2025-01-22"
+  },
+  "3.3.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.4.99",
+       "sha256": "5032aa5edc0a9960fb409df1c14445c385c78678c6342eba5bc436d1e3d3520b",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "12.8.61",
+       "sha256": "4bd98e8f67a98b921c1bed72c873f3dc0fc5bc241a89af4b253b9c2f6517380c",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      }
+     },
+     "wheel": "triton-3.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "b68c778f6c4218403a6bd01be7484f6dc9e20fe2083d22dd8aef33e3b87a10a3"
+    }
+   },
+   "date": "2025-04-09"
+  },
+  "3.3.1": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.4.99",
+       "sha256": "5032aa5edc0a9960fb409df1c14445c385c78678c6342eba5bc436d1e3d3520b",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "12.8.61",
+       "sha256": "4bd98e8f67a98b921c1bed72c873f3dc0fc5bc241a89af4b253b9c2f6517380c",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      }
+     },
+     "wheel": "triton-3.3.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "9999e83aba21e1a78c1f36f21bce621b77bcaa530277a50484a7cb4a822f6e43"
+    }
+   },
+   "date": "2025-05-29"
+  },
+  "3.4.0": {
+   "arch": {
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "c960a4f238b17d5c5d3c01ad2bbc1ebd2c5aecc459cb4d223bff10b45f9b8fca",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      }
+     },
+     "wheel": "triton-3.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "31c1d84a5c0ec2c0f8e8a072d7fd150cab84a9c239eaddc6706c081bfae4eb04"
+    }
+   },
+   "date": "2025-07-30"
+  },
+  "3.5.0": {
+   "arch": {
+    "aarch64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "9750201693a8d711e0a0c1fd38276226daea1f4a4aa1829dbb14351ca29f62ef",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      }
+     },
+     "wheel": "triton-3.5.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+     "wheel_sha256": "7da21fccceafc163e3a5e857abe34351ef76345af06cabf9637a914742671f0b"
+    },
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "c960a4f238b17d5c5d3c01ad2bbc1ebd2c5aecc459cb4d223bff10b45f9b8fca",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      }
+     },
+     "wheel": "triton-3.5.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "c9e71db82261c4ffa3921cd050cd5faa18322d2d405c30eb56084afaff3b0833"
+    }
+   },
+   "date": "2025-10-13"
+  },
+  "3.5.1": {
+   "arch": {
+    "aarch64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "9750201693a8d711e0a0c1fd38276226daea1f4a4aa1829dbb14351ca29f62ef",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      }
+     },
+     "wheel": "triton-3.5.1-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+     "wheel_sha256": "275a045b6ed670dd1bd005c3e6c2d61846c74c66f4512d6f33cc027b11de8fd4"
+    },
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "c960a4f238b17d5c5d3c01ad2bbc1ebd2c5aecc459cb4d223bff10b45f9b8fca",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      }
+     },
+     "wheel": "triton-3.5.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "d2c6b915a03888ab931a9fd3e55ba36785e1fe70cbea0b40c6ef93b20fc85232"
+    }
+   },
+   "date": "2025-11-11"
+  },
+  "3.6.0": {
+   "arch": {
+    "aarch64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "9750201693a8d711e0a0c1fd38276226daea1f4a4aa1829dbb14351ca29f62ef",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "12.9.86",
+       "sha256": "d07db8b5fd19692ad6fc9643ad3449cc27190fad1f1ad6c6b8338fdec95ea72e",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_101",
+        "sm_101a",
+        "sm_101f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.6.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+     "wheel_sha256": "374f52c11a711fd062b4bfbb201fd9ac0a5febd28a96fb41b4a0f51dde3157f4"
+    },
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "c960a4f238b17d5c5d3c01ad2bbc1ebd2c5aecc459cb4d223bff10b45f9b8fca",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "12.9.86",
+       "sha256": "983b0e9283855979f42cebfd80d43f9b6e786eb84f03f7570bf941c4d3a3c461",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_101",
+        "sm_101a",
+        "sm_101f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "74caf5e34b66d9f3a429af689c1c7128daba1d8208df60e81106b115c00d6fca"
+    }
+   },
+   "date": "2026-01-20"
+  },
+  "3.7.0": {
+   "arch": {
+    "aarch64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "9750201693a8d711e0a0c1fd38276226daea1f4a4aa1829dbb14351ca29f62ef",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.1.80",
+       "sha256": "39c5a1275fd0809d5f1f009497f3f78fd5e7c7450361e6902ecfdb8b42780b07",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.7.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+     "wheel_sha256": "a4bf49b00a7a377a68a6da603a876e797614e6455a80e9021669c476a953ad9a"
+    },
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "c960a4f238b17d5c5d3c01ad2bbc1ebd2c5aecc459cb4d223bff10b45f9b8fca",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.1.80",
+       "sha256": "cdcbf106e11a09f4cc5ff6f064a060570103d7ab123e31b1b0b75a8dbbc43119",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.7.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "8f111161d49bf903c0eaedde3962353a3d841c08a836839b7cc1025b8426efcf"
+    }
+   },
+   "date": "2026-05-07"
+  },
+  "3.7.1": {
+   "arch": {
+    "aarch64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "9750201693a8d711e0a0c1fd38276226daea1f4a4aa1829dbb14351ca29f62ef",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.1.80",
+       "sha256": "39c5a1275fd0809d5f1f009497f3f78fd5e7c7450361e6902ecfdb8b42780b07",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.7.1-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+     "wheel_sha256": "9497f2e696ee368862a181a90b2dcc03ca978cc4f602abd67c7d81022a6988e1"
+    },
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.8.93",
+       "sha256": "c960a4f238b17d5c5d3c01ad2bbc1ebd2c5aecc459cb4d223bff10b45f9b8fca",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_101",
+        "sm_101a",
+        "sm_120",
+        "sm_120a"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.1.80",
+       "sha256": "cdcbf106e11a09f4cc5ff6f064a060570103d7ab123e31b1b0b75a8dbbc43119",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.7.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "7e40869937a68206ec70d7f25bb7ec6433cb083f9135e1f36dbd318dc449a728"
+    }
+   },
+   "date": "2026-06-17"
+  },
+  "3.8.0": {
+   "arch": {
+    "aarch64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.9.86",
+       "sha256": "d07db8b5fd19692ad6fc9643ad3449cc27190fad1f1ad6c6b8338fdec95ea72e",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_101",
+        "sm_101a",
+        "sm_101f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.3.33",
+       "sha256": "f9a0a7f1f7f03b402ca222168a8ae4870fdb312354356b444941fbba7754326e",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.8.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+     "wheel_sha256": "a9c404c69ed4a39e8ec632eaf6b9fe058a060bf98979c177f6ef666f06bb8d50"
+    },
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.9.86",
+       "sha256": "983b0e9283855979f42cebfd80d43f9b6e786eb84f03f7570bf941c4d3a3c461",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_101",
+        "sm_101a",
+        "sm_101f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.3.33",
+       "sha256": "7fdd01a4cf50e30746da98989c9272a907f491e6fd7fecfda14642e4375f88fb",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.8.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "e91ffa46d095b252248297292dd22bcbacd53a125a0c2eefbbbf74925a320bc3"
+    }
+   },
+   "date": "2026-08-28"
+  },
+  "3.9.0": {
+   "arch": {
+    "aarch64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.9.86",
+       "sha256": "d07db8b5fd19692ad6fc9643ad3449cc27190fad1f1ad6c6b8338fdec95ea72e",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_101",
+        "sm_101a",
+        "sm_101f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.4.59",
+       "sha256": "a941bdea2a015e87a55195d488f98f5128198235a4042f311f8222f593b1ce5a",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_107",
+        "sm_107a",
+        "sm_107f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.9.0-cp312-abi3-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+     "wheel_sha256": "5542f4328472fd827dbb1ec43873364c2894682cc3f5d1c74a643762900e243e"
+    },
+    "x86_64": {
+     "tools": {
+      "ptxas": {
+       "banner": "12.9.86",
+       "sha256": "983b0e9283855979f42cebfd80d43f9b6e786eb84f03f7570bf941c4d3a3c461",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_101",
+        "sm_101a",
+        "sm_101f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      },
+      "ptxas-blackwell": {
+       "banner": "13.4.59",
+       "sha256": "9c2c084df7eb9be48f0502b6938ce2571679b2a78cad1c564b583bd7d9ea3c50",
+       "sm": [
+        "sm_80",
+        "sm_86",
+        "sm_87",
+        "sm_88",
+        "sm_89",
+        "sm_90",
+        "sm_90a",
+        "sm_100",
+        "sm_100a",
+        "sm_100f",
+        "sm_103",
+        "sm_103a",
+        "sm_103f",
+        "sm_107",
+        "sm_107a",
+        "sm_107f",
+        "sm_110",
+        "sm_110a",
+        "sm_110f",
+        "sm_120",
+        "sm_120a",
+        "sm_120f",
+        "sm_121",
+        "sm_121a",
+        "sm_121f"
+       ]
+      }
+     },
+     "wheel": "triton-3.9.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+     "wheel_sha256": "5e52ab4e2f1d64f0ac494c9aa723697b793f81a91c4cae4c36608ca0bc4267bf"
+    }
+   },
+   "date": "2026-10-27"
+  }
+ }
+}

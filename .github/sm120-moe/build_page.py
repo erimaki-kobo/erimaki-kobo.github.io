@@ -208,7 +208,7 @@ BODY = """<p class="mut"><a href="/en/">Answers for LLM inference engineers</a> 
 <li><a href="https://discuss.vllm.ai/t/running-nvfp4-nemotron-model-on-win11-wsl-rtx-5080-5070-ti/2310">vLLM forum: Running NVFP4 Nemotron model on Win11/WSL RTX 5080 + 5070 Ti</a></li>
 <li><a href="https://discuss.vllm.ai/t/sm120-rtx-pro-6000-nvfp4-moe-performance-report-qwen3-5-397b/2536">vLLM forum: SM120 (RTX PRO 6000) NVFP4 MoE Performance Report</a></li>
 </ul>
-<p class="mut">Related: <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM PyTorch/CUDA/driver matrix</a> &middot; <a href="/en/vllm-removed-flags-lookup/">vLLM removed flags lookup</a> &middot; <a href="/en/vllm-kv-concurrency-planner/">vLLM KV cache planner</a></p>"""
+<p class="mut">Related: <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM PyTorch/CUDA/driver matrix</a> &middot; <a href="/en/vllm-removed-flags-lookup/">vLLM removed flags lookup</a> &middot; <a href="/en/vllm-kv-concurrency-planner/">vLLM KV cache planner</a> &middot; <a href="/en/triton-ptxas-arch-lookup/">Triton ptxas error on SM120/SM121 (sm_121a is not defined)</a></p>"""
 
 # forced-backend messages: read from forced.json (made by forced.sh from real runs), never typed by hand
 F = json.load(open(os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), "forced.json")))

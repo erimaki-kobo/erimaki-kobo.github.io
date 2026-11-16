@@ -1,0 +1,2257 @@
+{
+ "caps": [
+  80,
+  86,
+  89,
+  90,
+  100,
+  103,
+  110,
+  120,
+  121
+ ],
+ "cuda": {
+  "12.0": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a"
+  ],
+  "12.1": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a"
+  ],
+  "12.2": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a"
+  ],
+  "12.3": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a"
+  ],
+  "12.4": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a"
+  ],
+  "12.5": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a"
+  ],
+  "12.6": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a"
+  ],
+  "12.8": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_101",
+   "sm_101a",
+   "sm_120",
+   "sm_120a"
+  ],
+  "12.9": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_100f",
+   "sm_101",
+   "sm_101a",
+   "sm_101f",
+   "sm_103",
+   "sm_103a",
+   "sm_103f",
+   "sm_120",
+   "sm_120a",
+   "sm_120f",
+   "sm_121",
+   "sm_121a",
+   "sm_121f"
+  ],
+  "13.0": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_88",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_100f",
+   "sm_103",
+   "sm_103a",
+   "sm_103f",
+   "sm_110",
+   "sm_110a",
+   "sm_110f",
+   "sm_120",
+   "sm_120a",
+   "sm_120f",
+   "sm_121",
+   "sm_121a",
+   "sm_121f"
+  ],
+  "13.1": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_88",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_100f",
+   "sm_103",
+   "sm_103a",
+   "sm_103f",
+   "sm_110",
+   "sm_110a",
+   "sm_110f",
+   "sm_120",
+   "sm_120a",
+   "sm_120f",
+   "sm_121",
+   "sm_121a",
+   "sm_121f"
+  ],
+  "13.2": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_88",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_100f",
+   "sm_103",
+   "sm_103a",
+   "sm_103f",
+   "sm_110",
+   "sm_110a",
+   "sm_110f",
+   "sm_120",
+   "sm_120a",
+   "sm_120f",
+   "sm_121",
+   "sm_121a",
+   "sm_121f"
+  ],
+  "13.3": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_88",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_100f",
+   "sm_103",
+   "sm_103a",
+   "sm_103f",
+   "sm_110",
+   "sm_110a",
+   "sm_110f",
+   "sm_120",
+   "sm_120a",
+   "sm_120f",
+   "sm_121",
+   "sm_121a",
+   "sm_121f"
+  ],
+  "13.4": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_88",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_100f",
+   "sm_103",
+   "sm_103a",
+   "sm_103f",
+   "sm_107",
+   "sm_107a",
+   "sm_107f",
+   "sm_110",
+   "sm_110a",
+   "sm_110f",
+   "sm_120",
+   "sm_120a",
+   "sm_120f",
+   "sm_121",
+   "sm_121a",
+   "sm_121f"
+  ],
+  "13.5": [
+   "sm_80",
+   "sm_86",
+   "sm_87",
+   "sm_88",
+   "sm_89",
+   "sm_90",
+   "sm_90a",
+   "sm_100",
+   "sm_100a",
+   "sm_100f",
+   "sm_103",
+   "sm_103a",
+   "sm_103f",
+   "sm_107",
+   "sm_107a",
+   "sm_107f",
+   "sm_110",
+   "sm_110a",
+   "sm_110f",
+   "sm_120",
+   "sm_120a",
+   "sm_120f",
+   "sm_121",
+   "sm_121a",
+   "sm_121f"
+  ]
+ },
+ "cuda_first": {
+  "12.0": "2022-12-08",
+  "12.1": "2023-02-28",
+  "12.2": "2023-06-28",
+  "12.3": "2023-10-19",
+  "12.4": "2024-03-12",
+  "12.5": "2024-06-19",
+  "12.6": "2024-08-02",
+  "12.8": "2025-01-23",
+  "12.9": "2025-05-01",
+  "13.0": "2025-08-04",
+  "13.1": "2025-12-05",
+  "13.2": "2026-03-09",
+  "13.3": "2026-05-26",
+  "13.4": "2026-09-09",
+  "13.5": "2026-11-04"
+ },
+ "torch": {
+  "2.10.0": {
+   "aarch64": false,
+   "date": "2026-01-21",
+   "spec": "==3.6.0",
+   "triton": "3.6.0"
+  },
+  "2.11.0": {
+   "aarch64": true,
+   "date": "2026-03-23",
+   "spec": "==3.6.0",
+   "triton": "3.6.0"
+  },
+  "2.12.0": {
+   "aarch64": true,
+   "date": "2026-05-13",
+   "spec": "==3.7.0",
+   "triton": "3.7.0"
+  },
+  "2.12.1": {
+   "aarch64": true,
+   "date": "2026-06-17",
+   "spec": "==3.7.1",
+   "triton": "3.7.1"
+  },
+  "2.13.0": {
+   "aarch64": true,
+   "date": "2026-07-08",
+   "spec": "==3.7.1",
+   "triton": "3.7.1"
+  },
+  "2.14.0": {
+   "aarch64": true,
+   "date": "2026-09-02",
+   "spec": "~=3.8.0",
+   "triton": "3.8.0"
+  },
+  "2.14.1": {
+   "aarch64": true,
+   "date": "2026-09-30",
+   "spec": "~=3.8.0",
+   "triton": "3.8.0"
+  },
+  "2.15.0": {
+   "aarch64": true,
+   "date": "2026-10-28",
+   "spec": "~=3.9.0",
+   "triton": "3.9.0"
+  },
+  "2.4.0": {
+   "aarch64": false,
+   "date": "2024-07-24",
+   "spec": "==3.0.0",
+   "triton": "3.0.0"
+  },
+  "2.4.1": {
+   "aarch64": false,
+   "date": "2024-09-04",
+   "spec": "==3.0.0",
+   "triton": "3.0.0"
+  },
+  "2.5.0": {
+   "aarch64": false,
+   "date": "2024-10-17",
+   "spec": "==3.1.0",
+   "triton": "3.1.0"
+  },
+  "2.5.1": {
+   "aarch64": false,
+   "date": "2024-10-29",
+   "spec": "==3.1.0",
+   "triton": "3.1.0"
+  },
+  "2.6.0": {
+   "aarch64": false,
+   "date": "2025-01-29",
+   "spec": "==3.2.0",
+   "triton": "3.2.0"
+  },
+  "2.7.0": {
+   "aarch64": false,
+   "date": "2025-04-23",
+   "spec": "==3.3.0",
+   "triton": "3.3.0"
+  },
+  "2.7.1": {
+   "aarch64": false,
+   "date": "2025-06-04",
+   "spec": "==3.3.1",
+   "triton": "3.3.1"
+  },
+  "2.8.0": {
+   "aarch64": false,
+   "date": "2025-08-06",
+   "spec": "==3.4.0",
+   "triton": "3.4.0"
+  },
+  "2.9.0": {
+   "aarch64": false,
+   "date": "2025-10-15",
+   "spec": "==3.5.0",
+   "triton": "3.5.0"
+  },
+  "2.9.1": {
+   "aarch64": false,
+   "date": "2025-11-12",
+   "spec": "==3.5.1",
+   "triton": "3.5.1"
+  }
+ },
+ "triton": {
+  "3.0.0": {
+   "aarch64": false,
+   "byte_identical": false,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9"
+   ],
+   "cuda_rule": "12.x",
+   "date": "2024-07-19",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH"
+   },
+   "name": {
+    "100": "sm_100",
+    "103": "sm_103",
+    "110": "sm_110",
+    "120": "sm_120",
+    "121": "sm_121",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a==90",
+   "res": {
+    "100": {
+     "cuda": [
+      "12.8",
+      "12.9"
+     ],
+     "name": "sm_100",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "103": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_103",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "110": {
+     "cuda": [],
+     "name": "sm_110",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "120": {
+     "cuda": [
+      "12.8",
+      "12.9"
+     ],
+     "name": "sm_120",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "121": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_121",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    }
+   },
+   "sel": {
+    "100": "ptxas",
+    "103": "ptxas",
+    "110": "ptxas",
+    "120": "ptxas",
+    "121": "ptxas",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": "one",
+   "tag_date": "2024-07-18",
+   "tools": {
+    "ptxas": "12.4.99"
+   }
+  },
+  "3.1.0": {
+   "aarch64": false,
+   "byte_identical": false,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9"
+   ],
+   "cuda_rule": "12.x",
+   "date": "2024-10-14",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH"
+   },
+   "name": {
+    "100": "sm_100",
+    "103": "sm_103",
+    "110": "sm_110",
+    "120": "sm_120",
+    "121": "sm_121",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a==90",
+   "res": {
+    "100": {
+     "cuda": [
+      "12.8",
+      "12.9"
+     ],
+     "name": "sm_100",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "103": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_103",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "110": {
+     "cuda": [],
+     "name": "sm_110",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "120": {
+     "cuda": [
+      "12.8",
+      "12.9"
+     ],
+     "name": "sm_120",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "121": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_121",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    }
+   },
+   "sel": {
+    "100": "ptxas",
+    "103": "ptxas",
+    "110": "ptxas",
+    "120": "ptxas",
+    "121": "ptxas",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": "one",
+   "tag_date": "2024-09-24",
+   "tools": {
+    "ptxas": "12.4.99"
+   }
+  },
+  "3.2.0": {
+   "aarch64": false,
+   "byte_identical": false,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6"
+   ],
+   "cuda_rule": "12.0-12.6",
+   "date": "2025-01-22",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH"
+   },
+   "name": {
+    "100": "sm_100",
+    "103": "sm_103",
+    "110": "sm_110",
+    "120": "sm_120",
+    "121": "sm_121",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a==90",
+   "res": {
+    "100": {
+     "cuda": [],
+     "name": "sm_100",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "103": {
+     "cuda": [],
+     "name": "sm_103",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "110": {
+     "cuda": [],
+     "name": "sm_110",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "120": {
+     "cuda": [],
+     "name": "sm_120",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "121": {
+     "cuda": [],
+     "name": "sm_121",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.4.99"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    }
+   },
+   "sel": {
+    "100": "ptxas",
+    "103": "ptxas",
+    "110": "ptxas",
+    "120": "ptxas",
+    "121": "ptxas",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": "one",
+   "tag_date": "2025-01-22",
+   "tools": {
+    "ptxas": "12.4.99"
+   }
+  },
+  "3.3.0": {
+   "aarch64": false,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9"
+   ],
+   "cuda_rule": "12.x",
+   "date": "2025-04-09",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH",
+    "ptxas-blackwell": "TRITON_PTXAS-BLACKWELL_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.8.61"
+    },
+    "103": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_103a",
+     "ok": false,
+     "tool": "ptxas-blackwell",
+     "var": "TRITON_PTXAS-BLACKWELL_PATH",
+     "ver": "12.8.61"
+    },
+    "110": {
+     "cuda": [],
+     "name": "sm_110a",
+     "ok": false,
+     "tool": "ptxas-blackwell",
+     "var": "TRITON_PTXAS-BLACKWELL_PATH",
+     "ver": "12.8.61"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.8.61"
+    },
+    "121": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_121a",
+     "ok": false,
+     "tool": "ptxas-blackwell",
+     "var": "TRITON_PTXAS-BLACKWELL_PATH",
+     "ver": "12.8.61"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    }
+   },
+   "sel": {
+    "100": "ptxas-blackwell",
+    "103": "ptxas-blackwell",
+    "110": "ptxas-blackwell",
+    "120": "ptxas-blackwell",
+    "121": "ptxas-blackwell",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": ">=100",
+   "tag_date": "2025-04-09",
+   "tools": {
+    "ptxas": "12.4.99",
+    "ptxas-blackwell": "12.8.61"
+   }
+  },
+  "3.3.1": {
+   "aarch64": false,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9"
+   ],
+   "cuda_rule": "12.x",
+   "date": "2025-05-29",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH",
+    "ptxas-blackwell": "TRITON_PTXAS-BLACKWELL_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.8.61"
+    },
+    "103": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_103a",
+     "ok": false,
+     "tool": "ptxas-blackwell",
+     "var": "TRITON_PTXAS-BLACKWELL_PATH",
+     "ver": "12.8.61"
+    },
+    "110": {
+     "cuda": [],
+     "name": "sm_110a",
+     "ok": false,
+     "tool": "ptxas-blackwell",
+     "var": "TRITON_PTXAS-BLACKWELL_PATH",
+     "ver": "12.8.61"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.8.61"
+    },
+    "121": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_121a",
+     "ok": false,
+     "tool": "ptxas-blackwell",
+     "var": "TRITON_PTXAS-BLACKWELL_PATH",
+     "ver": "12.8.61"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.4.99"
+    }
+   },
+   "sel": {
+    "100": "ptxas-blackwell",
+    "103": "ptxas-blackwell",
+    "110": "ptxas-blackwell",
+    "120": "ptxas-blackwell",
+    "121": "ptxas-blackwell",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": ">=100",
+   "tag_date": "2025-05-29",
+   "tools": {
+    "ptxas": "12.4.99",
+    "ptxas-blackwell": "12.8.61"
+   }
+  },
+  "3.4.0": {
+   "aarch64": false,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9"
+   ],
+   "cuda_rule": "12.x",
+   "date": "2025-07-30",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "103": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_103a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "110": {
+     "cuda": [],
+     "name": "sm_110a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "121": {
+     "cuda": [
+      "12.9"
+     ],
+     "name": "sm_121a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    }
+   },
+   "sel": {
+    "100": "ptxas",
+    "103": "ptxas",
+    "110": "ptxas",
+    "120": "ptxas",
+    "121": "ptxas",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": "one",
+   "tag_date": "2025-07-30",
+   "tools": {
+    "ptxas": "12.8.93"
+   }
+  },
+  "3.5.0": {
+   "aarch64": true,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9",
+    "13.0",
+    "13.1",
+    "13.2",
+    "13.3",
+    "13.4",
+    "13.5"
+   ],
+   "cuda_rule": "12.x and 13+",
+   "date": "2025-10-13",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "103": {
+     "cuda": [
+      "12.9",
+      "13.0",
+      "13.1",
+      "13.2",
+      "13.3",
+      "13.4",
+      "13.5"
+     ],
+     "name": "sm_103a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "110": {
+     "cuda": [
+      "13.0",
+      "13.1",
+      "13.2",
+      "13.3",
+      "13.4",
+      "13.5"
+     ],
+     "name": "sm_110a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "121": {
+     "cuda": [
+      "12.9",
+      "13.0",
+      "13.1",
+      "13.2",
+      "13.3",
+      "13.4",
+      "13.5"
+     ],
+     "name": "sm_121a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    }
+   },
+   "sel": {
+    "100": "ptxas",
+    "103": "ptxas",
+    "110": "ptxas",
+    "120": "ptxas",
+    "121": "ptxas",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": "one",
+   "tag_date": "2025-10-13",
+   "tools": {
+    "ptxas": "12.8.93"
+   }
+  },
+  "3.5.1": {
+   "aarch64": true,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9",
+    "13.0",
+    "13.1",
+    "13.2",
+    "13.3",
+    "13.4",
+    "13.5"
+   ],
+   "cuda_rule": "12.x and 13+",
+   "date": "2025-11-11",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "103": {
+     "cuda": [
+      "12.9",
+      "13.0",
+      "13.1",
+      "13.2",
+      "13.3",
+      "13.4",
+      "13.5"
+     ],
+     "name": "sm_103a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "110": {
+     "cuda": [
+      "13.0",
+      "13.1",
+      "13.2",
+      "13.3",
+      "13.4",
+      "13.5"
+     ],
+     "name": "sm_110a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "121": {
+     "cuda": [
+      "12.9",
+      "13.0",
+      "13.1",
+      "13.2",
+      "13.3",
+      "13.4",
+      "13.5"
+     ],
+     "name": "sm_121a",
+     "ok": false,
+     "tool": "ptxas",
+     "var": "TRITON_PTXAS_PATH",
+     "ver": "12.8.93"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    }
+   },
+   "sel": {
+    "100": "ptxas",
+    "103": "ptxas",
+    "110": "ptxas",
+    "120": "ptxas",
+    "121": "ptxas",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": "one",
+   "tag_date": "2025-11-11",
+   "tools": {
+    "ptxas": "12.8.93"
+   }
+  },
+  "3.6.0": {
+   "aarch64": true,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9",
+    "13.0",
+    "13.1",
+    "13.2",
+    "13.3",
+    "13.4",
+    "13.5"
+   ],
+   "cuda_rule": "12.x and 13+",
+   "date": "2026-01-20",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH",
+    "ptxas-blackwell": "TRITON_PTXAS_BLACKWELL_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.9.86"
+    },
+    "103": {
+     "name": "sm_103a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.9.86"
+    },
+    "110": {
+     "cuda": [
+      "13.0",
+      "13.1",
+      "13.2",
+      "13.3",
+      "13.4",
+      "13.5"
+     ],
+     "name": "sm_110a",
+     "ok": false,
+     "tool": "ptxas-blackwell",
+     "var": "TRITON_PTXAS_BLACKWELL_PATH",
+     "ver": "12.9.86"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.9.86"
+    },
+    "121": {
+     "name": "sm_121a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "12.9.86"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    }
+   },
+   "sel": {
+    "100": "ptxas-blackwell",
+    "103": "ptxas-blackwell",
+    "110": "ptxas-blackwell",
+    "120": "ptxas-blackwell",
+    "121": "ptxas-blackwell",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": ">=100",
+   "tag_date": "2026-01-20",
+   "tools": {
+    "ptxas": "12.8.93",
+    "ptxas-blackwell": "12.9.86"
+   }
+  },
+  "3.7.0": {
+   "aarch64": true,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9",
+    "13.0",
+    "13.1",
+    "13.2",
+    "13.3",
+    "13.4",
+    "13.5"
+   ],
+   "cuda_rule": "12.x and 13+",
+   "date": "2026-05-07",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH",
+    "ptxas-blackwell": "TRITON_PTXAS_BLACKWELL_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "103": {
+     "name": "sm_103a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "110": {
+     "name": "sm_110a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "121": {
+     "name": "sm_121a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    }
+   },
+   "sel": {
+    "100": "ptxas-blackwell",
+    "103": "ptxas-blackwell",
+    "110": "ptxas-blackwell",
+    "120": "ptxas-blackwell",
+    "121": "ptxas-blackwell",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": ">=100",
+   "tag_date": "2026-05-07",
+   "tools": {
+    "ptxas": "12.8.93",
+    "ptxas-blackwell": "13.1.80"
+   }
+  },
+  "3.7.1": {
+   "aarch64": true,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9",
+    "13.0",
+    "13.1",
+    "13.2",
+    "13.3",
+    "13.4",
+    "13.5"
+   ],
+   "cuda_rule": "12.x and 13+",
+   "date": "2026-06-17",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH",
+    "ptxas-blackwell": "TRITON_PTXAS_BLACKWELL_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "103": {
+     "name": "sm_103a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "110": {
+     "name": "sm_110a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "121": {
+     "name": "sm_121a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.1.80"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.8.93"
+    }
+   },
+   "sel": {
+    "100": "ptxas-blackwell",
+    "103": "ptxas-blackwell",
+    "110": "ptxas-blackwell",
+    "120": "ptxas-blackwell",
+    "121": "ptxas-blackwell",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": ">=100",
+   "tag_date": "2026-06-16",
+   "tools": {
+    "ptxas": "12.8.93",
+    "ptxas-blackwell": "13.1.80"
+   }
+  },
+  "3.8.0": {
+   "aarch64": true,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9",
+    "13.0",
+    "13.1",
+    "13.2",
+    "13.3",
+    "13.4",
+    "13.5"
+   ],
+   "cuda_rule": "12.x and 13+",
+   "date": "2026-08-28",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH",
+    "ptxas-blackwell": "TRITON_PTXAS_BLACKWELL_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.3.33"
+    },
+    "103": {
+     "name": "sm_103a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.3.33"
+    },
+    "110": {
+     "name": "sm_110a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.3.33"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.3.33"
+    },
+    "121": {
+     "name": "sm_121a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.3.33"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.9.86"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.9.86"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.9.86"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.9.86"
+    }
+   },
+   "sel": {
+    "100": "ptxas-blackwell",
+    "103": "ptxas-blackwell",
+    "110": "ptxas-blackwell",
+    "120": "ptxas-blackwell",
+    "121": "ptxas-blackwell",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas"
+   },
+   "sel_rule": ">=100",
+   "tag_date": "2026-08-28",
+   "tools": {
+    "ptxas": "12.9.86",
+    "ptxas-blackwell": "13.3.33"
+   }
+  },
+  "3.9.0": {
+   "aarch64": true,
+   "byte_identical": true,
+   "cuda_ok": [
+    "12.0",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.8",
+    "12.9",
+    "13.0",
+    "13.1",
+    "13.2",
+    "13.3",
+    "13.4",
+    "13.5"
+   ],
+   "cuda_rule": "12.x and 13+",
+   "date": "2026-10-27",
+   "env": {
+    "ptxas": "TRITON_PTXAS_PATH",
+    "ptxas-blackwell": "TRITON_PTXAS_BLACKWELL_PATH"
+   },
+   "name": {
+    "100": "sm_100a",
+    "103": "sm_103a",
+    "110": "sm_110a",
+    "120": "sm_120a",
+    "121": "sm_121a",
+    "80": "sm_80",
+    "86": "sm_86",
+    "89": "sm_89",
+    "90": "sm_90a"
+   },
+   "name_rule": "a>=90",
+   "res": {
+    "100": {
+     "name": "sm_100a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.4.59"
+    },
+    "103": {
+     "name": "sm_103a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.4.59"
+    },
+    "110": {
+     "name": "sm_110a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.4.59"
+    },
+    "120": {
+     "name": "sm_120a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.4.59"
+    },
+    "121": {
+     "name": "sm_121a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.4.59"
+    },
+    "80": {
+     "name": "sm_80",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.9.86"
+    },
+    "86": {
+     "name": "sm_86",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.9.86"
+    },
+    "89": {
+     "name": "sm_89",
+     "ok": true,
+     "tool": "ptxas",
+     "ver": "12.9.86"
+    },
+    "90": {
+     "name": "sm_90a",
+     "ok": true,
+     "tool": "ptxas-blackwell",
+     "ver": "13.4.59"
+    }
+   },
+   "sel": {
+    "100": "ptxas-blackwell",
+    "103": "ptxas-blackwell",
+    "110": "ptxas-blackwell",
+    "120": "ptxas-blackwell",
+    "121": "ptxas-blackwell",
+    "80": "ptxas",
+    "86": "ptxas",
+    "89": "ptxas",
+    "90": "ptxas-blackwell"
+   },
+   "sel_rule": ">=90",
+   "tag_date": "2026-10-26",
+   "tools": {
+    "ptxas": "12.9.86",
+    "ptxas-blackwell": "13.4.59"
+   }
+  }
+ },
+ "vllm": [
+  {
+   "date": "2024-08-05",
+   "torch": "2.4.0",
+   "v": "0.5.4"
+  },
+  {
+   "date": "2024-08-23",
+   "torch": "2.4.0",
+   "v": "0.5.5"
+  },
+  {
+   "date": "2024-09-04",
+   "torch": "2.4.0",
+   "v": "0.6.0"
+  },
+  {
+   "date": "2024-09-11",
+   "torch": "2.4.0",
+   "v": "0.6.1"
+  },
+  {
+   "date": "2024-09-25",
+   "torch": "2.4.0",
+   "v": "0.6.2"
+  },
+  {
+   "date": "2024-10-14",
+   "torch": "2.4.0",
+   "v": "0.6.3"
+  },
+  {
+   "date": "2024-11-14",
+   "torch": "2.5.1",
+   "v": "0.6.4"
+  },
+  {
+   "date": "2024-12-17",
+   "torch": "2.5.1",
+   "v": "0.6.5"
+  },
+  {
+   "date": "2024-12-26",
+   "torch": "2.5.1",
+   "v": "0.6.6"
+  },
+  {
+   "date": "2025-01-26",
+   "torch": "2.5.1",
+   "v": "0.7.0"
+  },
+  {
+   "date": "2025-01-31",
+   "torch": "2.5.1",
+   "v": "0.7.1"
+  },
+  {
+   "date": "2025-02-06",
+   "torch": "2.5.1",
+   "v": "0.7.2"
+  },
+  {
+   "date": "2025-02-20",
+   "torch": "2.5.1",
+   "v": "0.7.3"
+  },
+  {
+   "date": "2025-03-18",
+   "torch": "2.6.0",
+   "v": "0.8.0"
+  },
+  {
+   "date": "2025-03-19",
+   "torch": "2.6.0",
+   "v": "0.8.1"
+  },
+  {
+   "date": "2025-03-24",
+   "torch": "2.6.0",
+   "v": "0.8.2"
+  },
+  {
+   "date": "2025-04-05",
+   "torch": "2.6.0",
+   "v": "0.8.3"
+  },
+  {
+   "date": "2025-04-14",
+   "torch": "2.6.0",
+   "v": "0.8.4"
+  },
+  {
+   "date": "2025-04-28",
+   "torch": "2.6.0",
+   "v": "0.8.5"
+  },
+  {
+   "date": "2025-05-27",
+   "torch": "2.7.0",
+   "v": "0.9.0"
+  },
+  {
+   "date": "2025-05-30",
+   "torch": "2.7.0",
+   "v": "0.9.0.1"
+  },
+  {
+   "date": "2025-06-10",
+   "torch": "2.7.0",
+   "v": "0.9.1"
+  },
+  {
+   "date": "2025-07-06",
+   "torch": "2.7.0",
+   "v": "0.9.2"
+  },
+  {
+   "date": "2025-07-23",
+   "torch": "2.7.1",
+   "v": "0.10.0"
+  },
+  {
+   "date": "2025-08-18",
+   "torch": "2.7.1",
+   "v": "0.10.1"
+  },
+  {
+   "date": "2025-08-20",
+   "torch": "2.7.1",
+   "v": "0.10.1.1"
+  },
+  {
+   "date": "2025-10-07",
+   "torch": "2.8.0",
+   "v": "0.10.2"
+  },
+  {
+   "date": "2025-10-10",
+   "torch": "2.8.0",
+   "v": "0.11.0"
+  },
+  {
+   "date": "2025-11-18",
+   "torch": "2.9.0",
+   "v": "0.11.1"
+  },
+  {
+   "date": "2025-11-19",
+   "torch": "2.9.0",
+   "v": "0.11.2"
+  },
+  {
+   "date": "2025-12-02",
+   "torch": "2.9.0",
+   "v": "0.12.0"
+  },
+  {
+   "date": "2025-12-18",
+   "torch": "2.9.0",
+   "v": "0.13.0"
+  },
+  {
+   "date": "2026-01-16",
+   "torch": "2.9.1",
+   "v": "0.14.0"
+  },
+  {
+   "date": "2026-01-23",
+   "torch": "2.9.1",
+   "v": "0.14.1"
+  },
+  {
+   "date": "2026-01-28",
+   "torch": "2.9.1",
+   "v": "0.15.0"
+  },
+  {
+   "date": "2026-02-03",
+   "torch": "2.9.1",
+   "v": "0.15.1"
+  },
+  {
+   "date": "2026-02-24",
+   "torch": "2.9.1",
+   "v": "0.16.0"
+  },
+  {
+   "date": "2026-03-06",
+   "torch": "2.10.0",
+   "v": "0.17.0"
+  },
+  {
+   "date": "2026-03-11",
+   "torch": "2.10.0",
+   "v": "0.17.1"
+  },
+  {
+   "date": "2026-03-19",
+   "torch": "2.10.0",
+   "v": "0.18.0"
+  },
+  {
+   "date": "2026-03-30",
+   "torch": "2.10.0",
+   "v": "0.18.1"
+  },
+  {
+   "date": "2026-04-02",
+   "torch": "2.10.0",
+   "v": "0.19.0"
+  },
+  {
+   "date": "2026-04-17",
+   "torch": "2.10.0",
+   "v": "0.19.1"
+  },
+  {
+   "date": "2026-04-27",
+   "torch": "2.11.0",
+   "v": "0.20.0"
+  },
+  {
+   "date": "2026-05-04",
+   "torch": "2.11.0",
+   "v": "0.20.1"
+  },
+  {
+   "date": "2026-05-07",
+   "torch": "2.11.0",
+   "v": "0.20.2"
+  },
+  {
+   "date": "2026-05-14",
+   "torch": "2.11.0",
+   "v": "0.21.0"
+  },
+  {
+   "date": "2026-05-29",
+   "torch": "2.11.0",
+   "v": "0.22.0"
+  },
+  {
+   "date": "2026-06-03",
+   "torch": "2.11.0",
+   "v": "0.22.1"
+  },
+  {
+   "date": "2026-06-14",
+   "torch": "2.11.0",
+   "v": "0.23.0"
+  },
+  {
+   "date": "2026-06-28",
+   "torch": "2.11.0",
+   "v": "0.24.0"
+  },
+  {
+   "date": "2026-07-11",
+   "torch": "2.11.0",
+   "v": "0.25.0"
+  },
+  {
+   "date": "2026-07-12",
+   "torch": "2.11.0",
+   "v": "0.25.1"
+  },
+  {
+   "date": "2026-07-26",
+   "torch": "2.11.0",
+   "v": "0.26.0"
+  },
+  {
+   "date": "2026-08-10",
+   "torch": "2.13.0",
+   "v": "0.27.0"
+  },
+  {
+   "date": "2026-08-11",
+   "torch": "2.13.0",
+   "v": "0.27.1"
+  },
+  {
+   "date": "2026-08-24",
+   "torch": "2.13.0",
+   "v": "0.28.0"
+  },
+  {
+   "date": "2026-09-08",
+   "torch": "2.13.0",
+   "v": "0.29.0"
+  },
+  {
+   "date": "2026-09-21",
+   "torch": "2.13.0",
+   "v": "0.30.0"
+  },
+  {
+   "date": "2026-10-02",
+   "torch": "2.13.0",
+   "v": "0.31.0"
+  },
+  {
+   "date": "2026-10-17",
+   "torch": "2.13.0",
+   "v": "0.32.0"
+  },
+  {
+   "date": "2026-10-31",
+   "torch": "2.14.0",
+   "v": "0.33.0"
+  },
+  {
+   "date": "2026-11-14",
+   "torch": "2.14.0",
+   "v": "0.34.0"
+  }
+ ]
+}
