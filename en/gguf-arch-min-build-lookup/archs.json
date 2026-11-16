@@ -1,6 +1,6 @@
 {
- "as_of": "2026-11-15",
- "llama_cpp_head": "b12426",
+ "as_of": "2026-11-16",
+ "llama_cpp_head": "b12436",
  "ollama_latest": {
   "tag": "v0.40.16",
   "date": "2026-11-08",
