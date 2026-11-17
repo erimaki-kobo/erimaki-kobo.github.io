@@ -32,10 +32,16 @@ for _t in _tags:
     for _n in env[_t].get("validate_special", []): ERR.setdefault(_n, {"since": _t, "hint": None})
 print("removed env names that stop startup:", {k: v["since"] for k, v in ERR.items()})
 out = {"libs": {}, "env_early": EARLY, "env_error": ERR}
+# Dates are PyPI upload dates where PyPI has the release (.github/common/pypi_dates.json); the git tag date otherwise.
+# A tag can sit on a commit made weeks after the release: v0.10.2 is tagged 2025-10-07 and was uploaded 2025-09-13.
+import os
+_pp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common", "pypi_dates.json")
+PYPI = load(_pp) if os.path.exists(_pp) else {}
 def add(name, d, key, filt=None):
     tags, span = ranges(d, key)
     if filt: span = {k: v for k, v in span.items() if filt(k)}
-    out["libs"][name] = {"tags": tags, "dates": [d[t]["date"] for t in tags], "names": span}
+    up = PYPI.get(name.split("_")[0], {})
+    out["libs"][name] = {"tags": tags, "dates": [up.get(t.lstrip("v"), d[t]["date"]) for t in tags], "names": span}
 add("vllm_cli", cli, "flags", lambda k: k.startswith("--"))
 add("vllm_env", env, "names")
 # request fields: union of SamplingParams, chat, completion, each tracked separately

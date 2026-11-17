@@ -30,10 +30,13 @@ node .github/matrix/check_browser.js http://127.0.0.1:8765/en/vllm-torch-cuda-dr
 ```
 
 - `facts_v0.34.0.json` is the input that added v0.34.0; copy it for the next release.
+- The page shows `pypi_date` everywhere (the day the wheels were uploaded, UTC). `date` (the git tag) stays in the data but is
+  not shown: a tag can sit on a commit made weeks after the release (v0.10.2: tag 2025-10-07, PyPI 2025-09-13).
 - `build_page.py` asserts every claim the prose makes about the data. The block around `cu13_only` stops the build when a
   release is not "CUDA 13.0 only, torch 2.14.0, no variant wheels": then the lede, the last bullets of "When did vLLM
   change ..." and the note under them have to be rewritten, not the assert loosened.
 - The note about the install guide's `releases/latest` command, and which tag each GitHub release is attached to, is not
   generated. Re-read the guide and the release pages when rebuilding.
 - `check_browser.js` holds answers worked out by hand from the table; update `LATEST`, `NREL` and the expected strings.
+- `patch` scripts elsewhere read `matrix.json` for PyPI dates (`.github/structured-output/patch_v0.34.0.py`).
 - After a rebuild: `sitemap.xml` lastmod, the card on `en/index.html`.

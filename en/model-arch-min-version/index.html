@@ -95,7 +95,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 </tbody></table></div>
 
 <h2 id="families">When did each major model family arrive in Transformers, vLLM and llama.cpp?</h2>
-<p><strong>The first final release of each library that registers the family.</strong> Later releases also have it unless a removal is shown. Dates are the release tag dates.</p>
+<p><strong>The first final release of each library that registers the family.</strong> Later releases also have it unless a removal is shown. Dates are the release tag dates, except vLLM v0.10.2 and v0.11.0: their tags sit on later commits, so the day of the PyPI upload is shown.</p>
 <div class="tw wide"><table id="fam">
 <thead><tr><th>Family</th><th>model_type</th><th>Transformers from</th><th>Main architecture</th><th>vLLM from (native)</th><th>vLLM v0.33.0</th><th>GGUF arch, string from</th><th>Converter knows the class from</th><th>Ollama from (string)</th></tr></thead>
 <tbody>
@@ -109,8 +109,8 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td>Qwen2.5-VL</td><td><code>qwen2_5_vl</code></td><td>v4.49.0 (2025-02-17)</td><td><code>Qwen2_5_VLForConditionalGeneration</code></td><td>v0.7.2 (2025-02-06)</td><td>native</td><td><code>qwen2vl</code> b4327 (2024-12-14)</td><td>b4976 (2025-03-27)</td><td>v0.5.3</td></tr>
 <tr><td>Qwen3</td><td><code>qwen3</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3ForCausalLM</code></td><td>v0.8.4 (2025-04-14)</td><td>native</td><td><code>qwen3</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
 <tr><td>Qwen3 MoE</td><td><code>qwen3_moe</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3MoeForCausalLM</code></td><td>v0.8.4 (2025-04-14)</td><td>native</td><td><code>qwen3moe</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
-<tr><td>Qwen3-Next</td><td><code>qwen3_next</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3NextForCausalLM</code></td><td>v0.10.2 (2025-10-07)</td><td>native</td><td><code>qwen3next</code> b7186 (2025-11-28)</td><td>b7186 (2025-11-28)</td><td>v0.13.2</td></tr>
-<tr><td>Qwen3-VL</td><td><code>qwen3_vl</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3VLForConditionalGeneration</code></td><td>v0.11.0 (2025-10-10)</td><td>native</td><td><code>qwen3vl</code> b6887 (2025-10-30)</td><td>b6887 (2025-10-30)</td><td>v0.13.2</td></tr>
+<tr><td>Qwen3-Next</td><td><code>qwen3_next</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3NextForCausalLM</code></td><td>v0.10.2 (2025-09-13)</td><td>native</td><td><code>qwen3next</code> b7186 (2025-11-28)</td><td>b7186 (2025-11-28)</td><td>v0.13.2</td></tr>
+<tr><td>Qwen3-VL</td><td><code>qwen3_vl</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3VLForConditionalGeneration</code></td><td>v0.11.0 (2025-10-04)</td><td>native</td><td><code>qwen3vl</code> b6887 (2025-10-30)</td><td>b6887 (2025-10-30)</td><td>v0.13.2</td></tr>
 <tr><td>Qwen3.5 / Qwen3.6</td><td><code>qwen3_5</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5ForConditionalGeneration</code></td><td>v0.17.0 (2026-03-06)</td><td>native</td><td><code>qwen35</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
 <tr><td>Qwen3.5 / Qwen3.6 MoE</td><td><code>qwen3_5_moe</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5MoeForConditionalGeneration</code></td><td>v0.17.0 (2026-03-06)</td><td>native</td><td><code>qwen35moe</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
 <tr><td>Gemma 2</td><td><code>gemma2</code></td><td>v4.42.0 (2024-06-27)</td><td><code>Gemma2ForCausalLM</code></td><td>v0.5.1 (2024-07-05)</td><td>native</td><td><code>gemma2</code> b3259 (2024-06-28)</td><td>b3259 (2024-06-27)</td><td>v0.1.47</td></tr>

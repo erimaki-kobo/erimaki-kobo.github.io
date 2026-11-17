@@ -189,7 +189,7 @@ ol.steps li{margin:.5em 0}
 <tr><td>v0.6.5 (2024-12)</td><td><code>gpu_memory_utilization</code> counts this instance only; before, memory used by other processes was subtracted from the KV cache</td></tr>
 <tr><td>v0.8.4 (2025-04)</td><td>the "does not fit" error prints an estimated maximum model length</td></tr>
 <tr><td>v0.9.1 (2025-06)</td><td><code>Available KV cache memory</code> line; startup stops when less than the budget is free</td></tr>
-<tr><td>v0.10.2 (2025-10)</td><td><code>--kv-cache-memory-bytes</code></td></tr>
+<tr><td>v0.10.2 (2025-09)</td><td><code>--kv-cache-memory-bytes</code></td></tr>
 <tr><td>v0.14.0 (2026-01)</td><td><code>--max-model-len -1</code> picks the longest context that fits</td></tr>
 <tr><td>v0.20.0 (2026-04)</td><td>default <code>gpu_memory_utilization</code> 0.9 &rarr; 0.92; the estimated CUDA graph memory is subtracted from the KV memory by default (<code>VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0</code> turns it off; the variable exists from v0.18.0, off by default until here)</td></tr>
 <tr><td>v0.20.1 (2026-05)</td><td><code>GPU KV cache size</code> = concurrency &times; max_model_len; before, blocks &divide; groups &times; block size, which understated models with sliding-window layers</td></tr>

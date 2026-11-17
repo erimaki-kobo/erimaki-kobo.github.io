@@ -69,6 +69,10 @@ assert docs_mismatch[0]["v"] == "0.20.0" and docs_mismatch[-1]["v"] == LATEST["v
 assert "cu129" not in M["torch"]["2.14.0"]["index"] and "cu129" in M["torch"]["2.13.0"]["index"]
 assert M["torch"]["2.14.0"]["index"] == ["cu126", "cu130", "cu132"]
 assert M["torch"]["2.11.0"]["pypi_cuda"] == "13.0" and M["torch"]["2.10.0"]["pypi_cuda"] == "12.8"
+byv = {r["v"]: r for r in R}
+assert (byv["0.10.2"]["date"], byv["0.10.2"]["pypi_date"]) == ("2025-10-07", "2025-09-13")
+assert (byv["0.11.0"]["date"], byv["0.11.0"]["pypi_date"]) == ("2025-10-10", "2025-10-04")
+assert all(re.fullmatch(r"\d{4}-\d\d-\d\d", r["pypi_date"]) for r in R) and [r["pypi_date"] for r in R] == sorted(r["pypi_date"] for r in R)
 N_REL = len(R)
 N_VARIANT_WHEELS = sum(len(r["variants"]) for r in R)
 
@@ -87,7 +91,7 @@ for r in reversed(R):
     rows.append(
         '<tr id="v%s" data-v="%s"><td><strong>%s</strong><br><span class="meta">%s</span></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>'
         '<td>%s<br><span class="note">%s</span></td><td>%s%s</td><td>%s</td><td class="you">&ndash;</td></tr>' % (
-            r["v"].replace(".", "-"), e(r["v"]), e(r["v"]), e(r["date"]), e(r["torch"]), cu, e(driver_floor(r["cuda_major"])),
+            r["v"].replace(".", "-"), e(r["v"]), e(r["v"]), e(r["pypi_date"]), e(r["torch"]), cu, e(driver_floor(r["cuda_major"])),
             e(r["torch_pypi_cuda"]), "<br>".join(var) if var else "&ndash;", py_range(r["python"]), e(r["platform"]),
             " ".join(e(a) for a in r["archs"]), " <span class=\"note\">(+PTX)</span>" if r["ptx"] else "", dock))
 ROWS = "\n".join(rows)
@@ -188,8 +192,8 @@ PAGE = """<!DOCTYPE html>
 <main>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>@@H1@@</h1>
-<p class="lede"><strong>vLLM v@@LV@@ (released @@LDATE@@) pins <code>torch==@@LTORCH@@</code>, is built for CUDA 13.0 only, and needs NVIDIA Linux driver 580 or newer.</strong> Every PyPI wheel since v@@CU13V@@ loads <code>libcudart.so.13</code>, although the install guide at each of those tags still names CUDA 12.9 as the default. On a driver older than 580, the newest release with a prebuilt CUDA 12 wheel is v@@V12VAR@@ (the <code>+cu129</code> wheel with <code>torch==@@T12VAR@@+cu129</code>), and the newest release where a plain <code>pip install vllm</code> gives a CUDA 12 build is v@@V12PYPI@@. <code>--torch-backend=cu129</code> changes which PyTorch is downloaded. It does not change the vLLM wheel that PyPI serves.</p>
-<p class="meta">Published @@PUB@@ &middot; Updated @@MOD@@ &middot; Data as of @@ASOF@@ &middot; @@NREL@@ stable releases, v0.8.0 to v@@LV@@ &middot; Linux x86_64</p>
+<p class="lede"><strong>vLLM v@@LV@@ (on PyPI since @@LDATE@@) pins <code>torch==@@LTORCH@@</code>, is built for CUDA 13.0 only, and needs NVIDIA Linux driver 580 or newer.</strong> Every PyPI wheel since v@@CU13V@@ loads <code>libcudart.so.13</code>, although the install guide at each of those tags still names CUDA 12.9 as the default. On a driver older than 580, the newest release with a prebuilt CUDA 12 wheel is v@@V12VAR@@ (the <code>+cu129</code> wheel with <code>torch==@@T12VAR@@+cu129</code>), and the newest release where a plain <code>pip install vllm</code> gives a CUDA 12 build is v@@V12PYPI@@. <code>--torch-backend=cu129</code> changes which PyTorch is downloaded. It does not change the vLLM wheel that PyPI serves.</p>
+<p class="meta">Published @@PUB@@ &middot; Corrected @@CORR@@: every date is now the day the release was uploaded to PyPI; until then the page showed the date of the git tag, which for v0.10.2 was 2025-10-07 instead of 2025-09-13 and for v0.11.0 was 2025-10-10 instead of 2025-10-04 &middot; Updated @@MOD@@ &middot; Data as of @@ASOF@@ &middot; @@NREL@@ stable releases, v0.8.0 to v@@LV@@ &middot; Linux x86_64</p>
 
 <h2 id="lookup">Which vLLM release can my driver and GPU run?</h2>
 <p>Enter what <code>nvidia-smi</code> reports. The answer is the newest release that has a prebuilt wheel for that combination, with the command to install it. Python and glibc are optional filters.</p>
@@ -216,7 +220,7 @@ PAGE = """<!DOCTYPE html>
 <p class="note">Driver version only: <code>nvidia-smi --query-gpu=driver_version --format=csv,noheader</code>. The lookup runs in your browser on the table below; nothing is sent anywhere. It covers Linux x86_64 wheels from PyPI and from the vLLM GitHub releases. The glibc filter compares against the wheel's platform tag, which is what pip checks.</p>
 
 <h2 id="table">Which PyTorch, CUDA and driver does each vLLM release need?</h2>
-<p><strong>Each release pins one exact PyTorch version. On PyPI, releases up to v@@V12PYPI@@ are CUDA 12 builds and releases from v@@CU13V@@ are CUDA 13 builds.</strong> One row per stable release, newest first. "PyPI wheel" is what <code>pip install vllm==&lt;version&gt;</code> downloads. The PyTorch pin is exact, the CUDA major of the wheel sets the driver floor, and the "Other CUDA wheels" column shows where a build for another CUDA version exists.</p>
+<p><strong>Each release pins one exact PyTorch version. On PyPI, releases up to v@@V12PYPI@@ are CUDA 12 builds and releases from v@@CU13V@@ are CUDA 13 builds.</strong> One row per stable release, newest first, with the day its wheels were uploaded to PyPI (UTC). "PyPI wheel" is what <code>pip install vllm==&lt;version&gt;</code> downloads. The PyTorch pin is exact, the CUDA major of the wheel sets the driver floor, and the "Other CUDA wheels" column shows where a build for another CUDA version exists.</p>
 <div class="tw wide"><table id="matrix">
 <thead><tr><th>vLLM</th><th>PyTorch pin</th><th>PyPI wheel links</th><th>Driver floor (Linux)</th><th>PyTorch on PyPI: CUDA</th><th>Other CUDA wheels (GitHub release)</th><th>Python / wheel tag</th><th>GPU targets (x86_64 build)</th><th>Docker tag suffixes</th><th>Your system</th></tr></thead>
 <tbody>
@@ -316,15 +320,15 @@ PAGE = """<!DOCTYPE html>
 SZ = M["pypi_x86_64_wheel_bytes"]     # {"0.33.0": bytes, "0.34.0": bytes}: sizes quoted in the last bullet
 subs = {
     "TITLE": e(TITLE), "DESC": e(DESC), "URL": URL, "H1": e(H1), "LD": LD_JSON, "CSS": CSS.strip(), "JS": JS.strip(), "LIC": LIC,
-    "DATA": DATA_JSON, "ROWS": ROWS, "FAQ": FAQ_HTML, "ASOF": AS_OF, "PUB": PUBLISHED, "MOD": MODIFIED, "NREL": str(N_REL), "NVAR": str(N_VARIANT_WHEELS),
-    "LV": LATEST["v"], "LDATE": LATEST["date"], "LTORCH": LATEST["torch"],
+    "DATA": DATA_JSON, "ROWS": ROWS, "FAQ": FAQ_HTML, "ASOF": AS_OF, "PUB": PUBLISHED, "MOD": MODIFIED, "CORR": "2026-11-17", "NREL": str(N_REL), "NVAR": str(N_VARIANT_WHEELS),
+    "LV": LATEST["v"], "LDATE": LATEST["pypi_date"], "LTORCH": LATEST["torch"],
     "LSIZE": str(round(SZ[LATEST["v"]] / 1e6)), "PSIZE": str(round(SZ[first_cu13_only["v"]] / 1e6)),
-    "ONLY13V": first_cu13_only["v"], "ONLY13D": first_cu13_only["date"], "ONLY13T": first_cu13_only["torch"],
-    "CU13V": first_cu13["v"], "CU13D": first_cu13["date"],
-    "V12VAR": last_cu12_variant["v"], "D12VAR": last_cu12_variant["date"], "T12VAR": cu12_variant["torch"], "U12VAR": cu12_variant["url"],
+    "ONLY13V": first_cu13_only["v"], "ONLY13D": first_cu13_only["pypi_date"], "ONLY13T": first_cu13_only["torch"],
+    "CU13V": first_cu13["v"], "CU13D": first_cu13["pypi_date"],
+    "V12VAR": last_cu12_variant["v"], "D12VAR": last_cu12_variant["pypi_date"], "T12VAR": cu12_variant["torch"], "U12VAR": cu12_variant["url"],
     "V12PYPI": last_cu12_pypi["v"],
-    "CC100V": first_cc100["v"], "CC100D": first_cc100["date"], "CC120V": first_cc120["v"],
-    "T128V": first_torch_cu128_pypi["v"], "T128D": first_torch_cu128_pypi["date"], "T128T": first_torch_cu128_pypi["torch"],
+    "CC100V": first_cc100["v"], "CC100D": first_cc100["pypi_date"], "CC120V": first_cc120["v"],
+    "T128V": first_torch_cu128_pypi["v"], "T128D": first_torch_cu128_pypi["pypi_date"], "T128T": first_torch_cu128_pypi["torch"],
     "CU118V": last_cu118["v"], "PY310V": last_py310["v"], "PY39V": last_py39["v"],
 }
 page = PAGE
