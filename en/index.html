@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="transformers-import-name-version-lookup/">ImportError: cannot import name 'X' from 'transformers': which releases have each name</a></h2>
+<p>Every name that <code>from transformers import ...</code> has resolved from 2.0.0 to 5.23.0, read from the source of 100 releases: the release that added it, the last one that had it, the range to pin and, where the library's own deprecation message names one, the replacement. Covers the TensorFlow and Flax classes that 5.0.0 removed, the names that still import in 5.x through an alias, and <code>transformers.utils</code> and <code>transformers.file_utils</code>. Includes a lookup: paste the error or the import line.</p>
+<p class="meta">Published 2026-11-17</p>
+</article>
+<article class="card">
 <h2><a href="llama-cpp-removed-args-lookup/">"error: invalid argument" in llama.cpp: which build removed each llama-server and llama-cli option</a></h2>
 <p>Every option name llama.cpp has accepted since b3716, read from each of the 391 commits that changed the option table: the 50 that are gone and the commit that removed each, the ones that only answer "the argument has been removed", the ones llama-cli lost to llama-completion, and the <code>LLAMA_ARG_</code> variables that are now ignored without a word. Includes a lookup: paste the command line or the error, with your build or Ollama release.</p>
 <p class="meta">Published 2026-11-17</p>

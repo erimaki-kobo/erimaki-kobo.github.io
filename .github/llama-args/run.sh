@@ -26,6 +26,8 @@ python3 -I "$HERE/build_page.py" "$WORK/data.json" "$SITE/en/gguf-arch-min-build
 mkdir -p "$WORK/site/en/gguf-arch-min-build-lookup"
 cp "$SITE/en/gguf-arch-min-build-lookup/archs.json" "$WORK/site/en/gguf-arch-min-build-lookup/"
 
+# node resolves "playwright" from the directory of the script, so the script runs from a copy next to node_modules
+cp "$HERE/check_browser.js" "$WORK/"
 cd "$WORK"
 node -e "require('playwright')" 2>/dev/null || PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-save --silent playwright
 PORT=8765
@@ -34,4 +36,4 @@ SERVER=$!
 trap 'kill $SERVER 2>/dev/null || true' EXIT
 sleep 1
 LATEST_BUILD="$(python3 -I -c 'import json,sys;print(json.load(open(sys.argv[1]))["latest"][0])' "$WORK/data.json")" \
-  node "$HERE/check_browser.js" "http://127.0.0.1:$PORT"
+  node "$WORK/check_browser.js" "http://127.0.0.1:$PORT"

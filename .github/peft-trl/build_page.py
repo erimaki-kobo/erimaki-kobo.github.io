@@ -262,7 +262,7 @@ BODY = """<main>
 @@FAQ@@
 </dl>
 
-<p class="note">Related: <a href="/en/model-arch-min-version/">minimum Transformers and vLLM version for a model architecture</a> &middot; <a href="/en/vllm-removed-flags-lookup/">removed vLLM arguments, environment variables and request fields</a> &middot; <a href="/en/gguf-arch-min-build-lookup/">GGUF architecture lookup</a>.</p>
+<p class="note">Related: <a href="/en/model-arch-min-version/">minimum Transformers and vLLM version for a model architecture</a> &middot; <a href="/en/vllm-removed-flags-lookup/">removed vLLM arguments, environment variables and request fields</a> &middot; <a href="/en/gguf-arch-min-build-lookup/">GGUF architecture lookup</a> &middot; <a href="/en/transformers-import-name-version-lookup/">"cannot import name ... from 'transformers'": the releases that have each name</a>.</p>
 
 <h2 id="sources">Sources</h2>
 <ul>
