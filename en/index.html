@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="huggingface-hub-import-name-version-lookup/">ImportError: cannot import name 'cached_download' (or HfFolder, or any name) from 'huggingface_hub': which releases have it</a></h2>
+<p><code>cached_download</code> left huggingface_hub in 0.26.0; <code>HfFolder</code>, <code>Repository</code> and <code>InferenceApi</code> in 1.0.0. Every name the hub has exported from 0.0.1 to 2.4.0, read from the source of 75 releases, with the range to pin and the replacement its deprecation message names. Also read: 331 releases of diffusers, sentence-transformers, gradio, datasets and peft, for the hub range each one can be imported with and the version that stopped importing each removed name. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-17</p>
+</article>
+<article class="card">
 <h2><a href="transformers-import-name-version-lookup/">ImportError: cannot import name 'X' from 'transformers': which releases have each name</a></h2>
 <p>Every name that <code>from transformers import ...</code> has resolved from 2.0.0 to 5.23.0, read from the source of 100 releases: the release that added it, the last one that had it, the range to pin and, where the library's own deprecation message names one, the replacement. Covers the TensorFlow and Flax classes that 5.0.0 removed, the names that still import in 5.x through an alias, and <code>transformers.utils</code> and <code>transformers.file_utils</code>. Includes a lookup: paste the error or the import line.</p>
 <p class="meta">Published 2026-11-17</p>

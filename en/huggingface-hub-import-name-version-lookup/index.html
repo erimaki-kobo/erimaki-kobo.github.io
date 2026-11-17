@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cannot import name 'cached_download' from huggingface_hub</title>
+<meta name="description" content="cached_download left huggingface_hub in 0.26.0, HfFolder in 1.0.0. Paste the error: get the releases with the name, the pin and the fixed diffusers version.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cannot import name &#x27;cached_download&#x27; from huggingface_hub">
+<meta property="og:description" content="cached_download left huggingface_hub in 0.26.0, HfFolder in 1.0.0. Paste the error: get the releases with the name, the pin and the fixed diffusers version.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.s.p{color:var(--warn)}.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/#article", "headline": "ImportError: cannot import name 'cached_download' (or HfFolder, or any name) from 'huggingface_hub': which releases have it", "description": "cached_download left huggingface_hub in 0.26.0, HfFolder in 1.0.0. Paste the error: get the releases with the name, the pin and the fixed diffusers version.", "url": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "inLanguage": "en", "about": ["huggingface_hub", "ImportError", "diffusers", "sentence-transformers", "gradio"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/", "isBasedOn": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/data.json"}, {"@type": "WebApplication", "name": "huggingface_hub import name lookup", "url": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/#lookup", "description": "Paste an ImportError or a name and get the huggingface_hub releases that export it, the range to pin, and the library versions that still import it.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from huggingface_hub by release", "url": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/data.json", "dateModified": "2026-11-17", "description": "For 75 releases of huggingface_hub (0.0.1 to 2.4.0): the names importable from huggingface_hub, huggingface_hub.utils and huggingface_hub.errors as release ranges, and the releases of diffusers, sentence-transformers, gradio, datasets and peft that import them at module level. Read from the source of each release tag.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/data.json"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which huggingface_hub version removed cached_download?", "acceptedAnswer": {"@type": "Answer", "text": "huggingface_hub 0.26.0 (2024-10-18). cached_download is importable through 0.25.2. Its deprecation message names the replacement: hf_hub_download, which takes a repo id and a file name where cached_download took a URL."}}, {"@type": "Question", "name": "How do I fix \"cannot import name 'cached_download' from 'huggingface_hub'\" with diffusers or sentence-transformers?", "acceptedAnswer": {"@type": "Answer", "text": "Upgrade the library that asks for it: diffusers imports cached_download at module level from 0.1.0 to 0.28.x and stops in 0.29.0, sentence-transformers from 2.0.0 to 2.2.x and stops in 2.3.0. If you cannot upgrade it, pin the hub instead: pip install \"huggingface_hub<0.26.0\" (0.25.2 is the last release that has the name)."}}, {"@type": "Question", "name": "Why can't I import HfFolder from huggingface_hub?", "acceptedAnswer": {"@type": "Answer", "text": "huggingface_hub 1.0.0 (2025-10-27) removed HfFolder; 0.36.2 is the last release that has it. Use login() to store a token and get_token() to read one. gradio imports HfFolder at module level from 4.9.0 to 5.7.x and stops in 5.8.0; datasets from 1.13.0 to 2.15.x and stops in 2.16.0."}}, {"@type": "Question", "name": "Does pinning huggingface_hub break anything else?", "acceptedAnswer": {"@type": "Answer", "text": "It can. Newer releases of the same libraries import names that old hub releases do not have: for example diffusers 0.33.0 and later need huggingface_hub 0.27.0 or newer for DDUFEntry. Pick a hub release inside the range of every library you have installed; the table on this page gives that range per library version."}}, {"@type": "Question", "name": "The name in my error is not cached_download or HfFolder. Does this page cover it?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The lookup covers every name that huggingface_hub, huggingface_hub.utils and huggingface_hub.errors have exported from 0.0.1 to 2.4.0: 568 top-level names, of which 49 are gone from the newest release."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "cannot import name 'cached_download' from huggingface_hub", "item": "https://erimaki-kobo.github.io/en/huggingface-hub-import-name-version-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>ImportError: cannot import name 'cached_download' (or HfFolder, or any name) from 'huggingface_hub': which releases have it</h1>
+<p class="lede"><strong><code>cached_download</code> was removed in huggingface_hub 0.26.0 (2024-10-18); the last release that has it is 0.25.2. <code>HfFolder</code>, <code>Repository</code> and <code>InferenceApi</code> were removed in 1.0.0 (2025-10-27); the last release that has them is 0.36.2.</strong> The error means a library written for an older hub is running against a newer one. Fix it by upgrading that library (diffusers 0.29.0 or later and sentence-transformers 2.3.0 or later no longer import <code>cached_download</code>; gradio 5.8.0 or later and datasets 2.16.0 or later no longer import <code>HfFolder</code>), or by pinning the hub below the release that dropped the name: <code>pip install "huggingface_hub&lt;0.26.0"</code> or <code>"huggingface_hub&lt;1.0.0"</code>. For any other name, paste the error below.</p>
+<p class="meta">Published 2026-11-17 &middot; Data as of 2026-11-17 &middot; huggingface_hub 0.0.1 to 2.4.0, the first release of each of 75 minor versions &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The ImportError line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ImportError: cannot import name 'cached_download' from 'huggingface_hub' (/usr/lib/python3/site-packages/huggingface_hub/__init__.py)"></textarea>
+<div class="grid">
+<div><label for="v">Your huggingface_hub version (optional; <code>pip show huggingface_hub</code>)</label><input id="v" inputmode="decimal" placeholder="for example 0.36.0"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ImportError: cannot import name &#x27;cached_download&#x27; from &#x27;huggingface_hub&#x27; (/usr/local/lib/python3.10/site-packages/huggingface_hub/__init__.py)" data-v="">cached_download</button><button type="button" data-ex="from huggingface_hub import HfFolder, Repository, hf_hub_url, cached_download" data-v="1.0.0">old app on 1.0.0</button><button type="button" data-ex="cannot import name &#x27;OfflineModeIsEnabled&#x27; from &#x27;huggingface_hub.utils&#x27;" data-v="0.19.4">utils, hub too old</button><button type="button" data-ex="cannot import name &#x27;DDUFEntry&#x27; from &#x27;huggingface_hub&#x27;" data-v="0.25.2">pinned too low</button><button type="button" data-ex="ModelFilter" data-v="">ModelFilter</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="data.json">data.json</a> (36 KB); nothing you paste is sent anywhere. Covers <code>huggingface_hub</code>, <code>huggingface_hub.utils</code> and <code>huggingface_hub.errors</code>: 568 top-level names, 519 of them in 2.4.0.</p>
+</div>
+
+<h2 id="libs">Which huggingface_hub does my diffusers, sentence-transformers, gradio, datasets or peft need?</h2>
+<p><strong>Each library version imports a fixed set of hub names at module level, and those names fix the range of hub releases it can even be imported with.</strong> "At least" is the newest first-release among the names it imports; "below" is the first hub release that dropped one of them. The name in parentheses is the one that sets the limit. The range is about imports only: a library's own dependency declaration can be narrower, and pip follows that.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Library</th><th>Versions</th><th>huggingface_hub at least</th><th>huggingface_hub below</th></tr></thead>
+<tbody>
+<tr><td>diffusers</td><td>0.0.2</td><td>&ge; 0.1.0 <span class="note">(<code>model_info</code>)</span></td><td><span class="s n">&lt; 1.0.0 <span class="note">(<code>HfFolder</code>)</span></span></td></tr>
+<tr><td></td><td>0.1.0 to 0.2.x</td><td>&ge; 0.1.0 <span class="note">(<code>Repository</code>)</span></td><td><span class="s n">&lt; 0.26.0 <span class="note">(<code>cached_download</code>)</span></span></td></tr>
+<tr><td></td><td>0.3.0 to 0.11.x</td><td>&ge; 0.8.1 <span class="note">(<code>EntryNotFoundError</code>)</span></td><td><span class="s n">&lt; 0.26.0 <span class="note">(<code>cached_download</code>)</span></span></td></tr>
+<tr><td></td><td>0.12.0 to 0.25.x</td><td>&ge; 0.10.0 <span class="note">(<code>ModelCard</code>)</span></td><td><span class="s n">&lt; 0.26.0 <span class="note">(<code>cached_download</code>)</span></span></td></tr>
+<tr><td></td><td>0.26.0 to 0.28.x</td><td>&ge; 0.20.0 <span class="note">(<code>OfflineModeIsEnabled</code>)</span></td><td><span class="s n">&lt; 0.26.0 <span class="note">(<code>cached_download</code>)</span></span></td></tr>
+<tr><td></td><td>0.29.0 to 0.32.x</td><td>&ge; 0.21.0 <span class="note">(<code>split_torch_state_dict_into_shards</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.33.0 to 0.39.x</td><td>&ge; 0.27.0 <span class="note">(<code>DDUFEntry</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.40.0</td><td>&ge; 1.23.0 <span class="note">(<code>CachedRepoTreeNotFoundError</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.41.0 to 0.43.x</td><td>&ge; 1.31.0 <span class="note">(<code>httpx</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td>sentence-transformers</td><td>0.1.0 to 1.2.x</td><td>any</td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>2.0.0 to 2.2.x</td><td>&ge; 0.1.0 <span class="note">(<code>Repository</code>)</span></td><td><span class="s n">&lt; 0.26.0 <span class="note">(<code>cached_download</code>)</span></span></td></tr>
+<tr><td></td><td>2.3.0 to 2.7.x</td><td>&ge; 0.1.0 <span class="note">(<code>hf_hub_download</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>3.0.0 to 6.3.x</td><td>&ge; 0.10.0 <span class="note">(<code>CardData</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td>gradio</td><td>3.0.25 to 3.20.x</td><td>any</td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>3.21.0 to 3.23.x</td><td>&ge; 0.13.0 <span class="note">(<code>send_telemetry</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>3.24.0 to 4.8.x</td><td>&ge; 0.8.1 <span class="note">(<code>CommitOperationAdd</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>4.9.0 to 4.16.x</td><td>&ge; 0.8.1 <span class="note">(<code>CommitOperationAdd</code>)</span></td><td><span class="s n">&lt; 1.0.0 <span class="note">(<code>HfFolder</code>)</span></span></td></tr>
+<tr><td></td><td>4.17.0 to 4.44.x</td><td>&ge; 0.15.0 <span class="note">(<code>InferenceClient</code>)</span></td><td><span class="s n">&lt; 1.0.0 <span class="note">(<code>HfFolder</code>)</span></span></td></tr>
+<tr><td></td><td>5.0.0 to 5.7.x</td><td>&ge; 0.22.0 <span class="note">(<code>ImageClassificationOutputElement</code>)</span></td><td><span class="s n">&lt; 1.0.0 <span class="note">(<code>HfFolder</code>)</span></span></td></tr>
+<tr><td></td><td>5.8.0 to 6.6.x</td><td>&ge; 0.22.0 <span class="note">(<code>ImageClassificationOutputElement</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>6.7.0 to 6.32.x</td><td>&ge; 0.23.0 <span class="note">(<code>HFValidationError</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td>datasets</td><td>1.0.0 to 1.12.x</td><td>any</td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>1.13.0 to 2.13.x</td><td>any</td><td><span class="s n">&lt; 1.0.0 <span class="note">(<code>HfFolder</code>)</span></span></td></tr>
+<tr><td></td><td>2.14.0 to 2.15.x</td><td>&ge; 0.14.0 <span class="note">(<code>HfFileSystem</code>)</span></td><td><span class="s n">&lt; 1.0.0 <span class="note">(<code>HfFolder</code>)</span></span></td></tr>
+<tr><td></td><td>2.16.0 to 3.0.x</td><td>&ge; 0.14.0 <span class="note">(<code>HfFileSystem</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>3.1.0 to 4.7.x</td><td>&ge; 0.20.0 <span class="note">(<code>OfflineModeIsEnabled</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>4.8.0 to 5.0.x</td><td>&ge; 1.5.0 <span class="note">(<code>BucketNotFoundError</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>5.1.0 to 5.2.x</td><td>&ge; 1.31.0 <span class="note">(<code>httpx</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td>peft</td><td>0.0.1</td><td>any</td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.1.0 to 0.3.x</td><td>&ge; 0.1.0 <span class="note">(<code>hf_hub_download</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.4.0 to 0.5.x</td><td>&ge; 0.10.0 <span class="note">(<code>get_hf_file_metadata</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.6.0</td><td>&ge; 0.10.0 <span class="note">(<code>ModelCard</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.7.0 to 0.12.x</td><td>&ge; 0.17.0 <span class="note">(<code>file_exists</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.13.0</td><td>&ge; 0.23.0 <span class="note">(<code>HFValidationError</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+<tr><td></td><td>0.14.0 to 0.21.x</td><td>&ge; 0.25.0 <span class="note">(<code>EntryNotFoundError</code>)</span></td><td><span class="s y">no upper limit from imports</span></td></tr>
+</tbody></table></div>
+<p class="note">Read at the first release of each minor version of each library (331 releases; newest read: diffusers 0.43.0, sentence-transformers 6.3.0, gradio 6.32.0, datasets 5.2.0, peft 0.21.3). "0.28.x" means the 0.28 series. An import inside a <code>try</code> block, a function or <code>if TYPE_CHECKING:</code> is not counted, because it does not stop the library from importing.</p>
+
+<h2 id="common">Which release has the names people ask about most?</h2>
+<p><strong>The table gives the releases that export each name, the replacement named by the library's own deprecation message, and the libraries that import the name.</strong> "Through" is the last patch release before the name disappeared.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Name</th><th>In 2.4.0</th><th>Releases that have it</th></tr></thead>
+<tbody>
+<tr><td><code>cached_download</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.0.1</strong> through <strong>0.25.2</strong>; gone in 0.26.0 (2024-10-18)<br>Instead: <code>hf_hub_download</code> (its deprecation message: "Use `hf_hub_download` instead."). It takes a repo id and a file name, not a URL.<br>Imported at module level by: <strong>diffusers</strong> 0.1.0 to 0.28.x, not from 0.29.0; <strong>sentence-transformers</strong> 2.0.0 to 2.2.x, not from 2.3.0.</td></tr>
+<tr><td><code>HfFolder</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.0.1</strong> through <strong>0.36.2</strong>; gone in 1.0.0 (2025-10-27)<br>Instead: <code>login()</code> to store a token (the note in its source: "Use `huggingface_hub.login` instead") and <code>get_token()</code> to read one.<br>Imported at module level by: <strong>datasets</strong> 1.13.0 to 2.15.x, not from 2.16.0; <strong>diffusers</strong> 0.0.2 to 0.24.x, not from 0.25.0; <strong>gradio</strong> 4.9.0 to 5.7.x, not from 5.8.0; <strong>sentence-transformers</strong> 2.0.0 to 2.2.x, not from 2.3.0.</td></tr>
+<tr><td><code>Repository</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.1.0</strong> through <strong>0.36.2</strong>; gone in 1.0.0 (2025-10-27)<br>Instead: the HTTP-based methods of <code>HfApi</code>, such as <code>upload_file</code>, <code>upload_folder</code> and <code>snapshot_download</code> (its docstring: "deprecated in favor of the http-based alternatives implemented in `HfApi`").<br>Imported at module level by: <strong>diffusers</strong> 0.1.0 to 0.9.x, not from 0.10.0; <strong>sentence-transformers</strong> 2.0.0 to 2.2.x, not from 2.3.0.</td></tr>
+<tr><td><code>InferenceApi</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.1.0</strong> through <strong>0.36.2</strong>; gone in 1.0.0 (2025-10-27)<br>Instead: <code>InferenceClient</code> (its deprecation message: "deprecated in favor of the more feature-complete `InferenceClient`").</td></tr>
+<tr><td><code>ModelFilter</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.4.0</strong> through <strong>0.23.5</strong>; gone in 0.24.0 (2024-07-18)<br>Instead: pass the filter parameters as keyword arguments directly to <code>list_models</code> (its deprecation message).</td></tr>
+<tr><td><code>DatasetFilter</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.4.0</strong> through <strong>0.23.5</strong>; gone in 0.24.0 (2024-07-18)<br>Instead: pass the filter parameters as keyword arguments directly to <code>list_datasets</code> (its deprecation message).</td></tr>
+<tr><td><code>ModelSearchArguments</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.4.0</strong> through <strong>0.18.0</strong>; gone in 0.19.0 (2023-11-08)</td></tr>
+<tr><td><code>update_repo_visibility</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.1.0</strong> through <strong>0.36.2</strong>; gone in 1.0.0 (2025-10-27)<br>Instead: <code>update_repo_settings</code> (its deprecation message).</td></tr>
+<tr><td><code>configure_http_backend</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.14.0</strong> through <strong>0.36.2</strong>; gone in 1.0.0 (2025-10-27)</td></tr>
+<tr><td><code>list_files_info</code><br><span class="note">huggingface_hub</span></td><td><span class="s n">gone</span></td><td><strong>0.14.0</strong> through <strong>0.22.2</strong>; gone in 0.23.0 (2024-05-02)</td></tr>
+<tr><td><code>hf_hub_download</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.1.0</strong> (2021-11-02), still in 2.4.0</td></tr>
+<tr><td><code>snapshot_download</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.1.0</strong> (2021-11-02), still in 2.4.0</td></tr>
+<tr><td><code>InferenceClient</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.15.0</strong> (2023-06-01), still in 2.4.0</td></tr>
+<tr><td><code>get_token</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.20.0</strong> (2023-12-20), still in 2.4.0</td></tr>
+<tr><td><code>split_torch_state_dict_into_shards</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.21.0</strong> (2024-02-27), still in 2.4.0</td></tr>
+<tr><td><code>DDUFEntry</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.27.0</strong> (2024-12-16), still in 2.4.0</td></tr>
+<tr><td><code>HfFileSystem</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.14.0</strong> (2023-04-24), still in 2.4.0</td></tr>
+<tr><td><code>file_exists</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.17.0</strong> (2023-09-11), still in 2.4.0</td></tr>
+<tr><td><code>list_repo_tree</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>0.20.0</strong> (2023-12-20), still in 2.4.0</td></tr>
+<tr><td><code>is_offline_mode</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>1.3.0</strong> (2026-01-09), still in 2.4.0</td></tr>
+<tr><td><code>hf_raise_for_status</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>1.0.0</strong> (2025-10-27), still in 2.4.0</td></tr>
+<tr><td><code>set_client_factory</code><br><span class="note">huggingface_hub</span></td><td><span class="s y">imports</span></td><td>from <strong>1.0.0</strong> (2025-10-27), still in 2.4.0</td></tr>
+<tr><td><code>OfflineModeIsEnabled</code><br><span class="note">huggingface_hub.utils</span></td><td><span class="s y">imports</span></td><td>from <strong>0.20.0</strong> (2023-12-20), still in 2.4.0</td></tr>
+<tr><td><code>HfHubHTTPError</code><br><span class="note">huggingface_hub.utils</span></td><td><span class="s y">imports</span></td><td>from <strong>0.10.0</strong> (2022-09-28), still in 2.4.0</td></tr>
+<tr><td><code>EntryNotFoundError</code><br><span class="note">huggingface_hub.utils</span></td><td><span class="s y">imports</span></td><td>from <strong>0.8.1</strong> (2022-06-21), still in 2.4.0</td></tr>
+<tr><td><code>HfFolder</code><br><span class="note">huggingface_hub.utils</span></td><td><span class="s n">gone</span></td><td><strong>0.10.0</strong> through <strong>0.36.2</strong>; gone in 1.0.0 (2025-10-27)<br>Instead: <code>huggingface_hub.login()</code> to store a token and <code>huggingface_hub.get_token()</code> to read one.</td></tr>
+<tr><td><code>is_hf_transfer_available</code><br><span class="note">huggingface_hub.utils</span></td><td><span class="s n">gone</span></td><td><strong>0.12.0</strong> through <strong>0.36.2</strong>; gone in 1.0.0 (2025-10-27)</td></tr>
+<tr><td><code>httpx</code><br><span class="note">huggingface_hub.utils</span></td><td><span class="s y">imports</span></td><td>from <strong>1.31.0</strong> (2026-09-10), still in 2.4.0</td></tr>
+<tr><td><code>EntryNotFoundError</code><br><span class="note">huggingface_hub.errors</span></td><td><span class="s y">imports</span></td><td>from <strong>0.25.0</strong> (2024-09-17), still in 2.4.0</td></tr>
+<tr><td><code>RepositoryNotFoundError</code><br><span class="note">huggingface_hub.errors</span></td><td><span class="s y">imports</span></td><td>from <strong>0.25.0</strong> (2024-09-17), still in 2.4.0</td></tr>
+<tr><td><code>HfHubHTTPError</code><br><span class="note">huggingface_hub.errors</span></td><td><span class="s y">imports</span></td><td>from <strong>0.25.0</strong> (2024-09-17), still in 2.4.0</td></tr>
+<tr><td><code>OfflineModeIsEnabled</code><br><span class="note">huggingface_hub.errors</span></td><td><span class="s y">imports</span></td><td>from <strong>0.23.0</strong> (2024-05-02), still in 2.4.0</td></tr>
+<tr><td><code>HFValidationError</code><br><span class="note">huggingface_hub.errors</span></td><td><span class="s y">imports</span></td><td>from <strong>0.23.0</strong> (2024-05-02), still in 2.4.0</td></tr>
+</tbody></table></div>
+
+<h2 id="removed">What did each huggingface_hub release remove?</h2>
+<p><strong>49 of the 568 top-level names are gone from 2.4.0; this is every one of them, by the release that dropped it.</strong> Most are generated inference types that were renamed; the ones that break other libraries are in 0.26.0 and 1.0.0.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Release</th><th>Date (PyPI)</th><th>Names</th><th>Gone from the top level</th></tr></thead>
+<tbody>
+<tr><td>2.0.0</td><td>2026-09-24</td><td>5</td><td><code>delete_space_storage</code>, <code>duplicate_space</code>, <code>repo_type_and_id_from_hf_id</code>, <code>request_space_storage</code>, <code>upload_large_folder</code></td></tr>
+<tr><td>1.3.0</td><td>2026-01-09</td><td>1</td><td><code>offline_mode</code></td></tr>
+<tr><td>1.0.0</td><td>2025-10-27</td><td>12</td><td><code>HfFolder</code>, <code>InferenceApi</code>, <code>KerasModelHubMixin</code>, <code>Repository</code>, <code>configure_http_backend</code>, <code>from_pretrained_keras</code>, <code>get_tf_storage_size</code>, <code>get_token_permission</code>, <code>push_to_hub_keras</code>, <code>save_pretrained_keras</code>, <code>split_tf_state_dict_into_shards</code>, <code>update_repo_visibility</code><br><span class="note">the git-based <code>Repository</code>, the legacy <code>InferenceApi</code>, <code>HfFolder</code>, the Keras and TensorFlow helpers, and the <code>requests</code>-based <code>configure_http_backend</code></span></td></tr>
+<tr><td>0.32.0</td><td>2025-05-23</td><td>1</td><td><code>ChatCompletionInputGrammarTypeType</code></td></tr>
+<tr><td>0.29.0</td><td>2025-02-19</td><td>1</td><td><code>TextToImageTargetSize</code></td></tr>
+<tr><td>0.28.0</td><td>2025-01-28</td><td>1</td><td><code>like</code></td></tr>
+<tr><td>0.27.0</td><td>2024-12-16</td><td>9</td><td><code>ChatCompletionInputToolType</code>, <code>MultiCommitException</code>, <code>ToolElement</code>, <code>ZeroShotClassificationInputData</code>, <code>ZeroShotImageClassificationInputData</code>, <code>ZeroShotObjectDetectionInputData</code>, <code>create_commits_on_pr</code>, <code>list_metrics</code>, <code>plan_multi_commits</code></td></tr>
+<tr><td>0.26.0</td><td>2024-10-18</td><td>5</td><td><code>ChatCompletionInputTool</code>, <code>ChatCompletionInputToolTypeClass</code>, <code>SummarizationGenerationParameters</code>, <code>TranslationGenerationParameters</code>, <code>cached_download</code><br><span class="note"><code>cached_download</code> and four generated inference types</span></td></tr>
+<tr><td>0.24.0</td><td>2024-07-18</td><td>4</td><td><code>ChatCompletionInputToolCall</code>, <code>DatasetFilter</code>, <code>ModelFilter</code>, <code>split_numpy_state_dict_into_shards</code></td></tr>
+<tr><td>0.23.0</td><td>2024-05-02</td><td>7</td><td><code>ChatCompletionOutputChoice</code>, <code>ChatCompletionOutputChoiceMessage</code>, <code>TextGenerationOutputSequenceDetails</code>, <code>TextGenerationParameters</code>, <code>TextGenerationPrefillToken</code>, <code>TextGenerationStreamDetails</code>, <code>list_files_info</code></td></tr>
+<tr><td>0.19.0</td><td>2023-11-08</td><td>2</td><td><code>DatasetSearchArguments</code>, <code>ModelSearchArguments</code></td></tr>
+<tr><td>0.14.0</td><td>2023-04-24</td><td>2</td><td><code>set_access_token</code>, <code>unset_access_token</code></td></tr>
+<tr><td>0.10.0</td><td>2022-09-28</td><td>2</td><td><code>login</code>, <code>logout</code></td></tr>
+<tr><td>0.5.0</td><td>2022-04-05</td><td>1</td><td><code>list_repos_objs</code></td></tr>
+</tbody></table></div>
+<p class="note"><code>login</code> and <code>logout</code> are listed at 0.10.0 because that release did not export them; they are back from 0.11.0 and are in 2.4.0.</p>
+
+<h2 id="read">How do I read the error?</h2>
+<ul>
+<li><strong>The traceback</strong> names the file that asked for the name, a few lines above the error. If it is inside <code>site-packages/diffusers/</code>, <code>sentence_transformers/</code>, <code>gradio/</code> or another library, that library is older than your hub: upgrade it, or pin the hub.</li>
+<li><strong>The path in parentheses</strong> is the copy of huggingface_hub that was imported. Check that it is the version you expect: <code>python -c "import huggingface_hub as h; print(h.__version__, h.__file__)"</code>.</li>
+<li><strong>On a Space</strong>, the hub version is whatever the Space's SDK and <code>requirements.txt</code> resolve to at build time, so an app that worked can break on a rebuild. Pin <code>huggingface_hub</code> in <code>requirements.txt</code>, or raise the pins of the libraries that import the old name.</li>
+<li><strong>"Did you mean: 'hf_hub_download'?"</strong> at the end is Python's spelling suggestion, not advice from the library; for <code>cached_download</code> it happens to name the real replacement.</li>
+</ul>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong></p>
+<ul>
+<li>huggingface_hub up to 0.7.x imports its names eagerly in <code>__init__.py</code>; from 0.8.1 the top level is lazy and serves the names of one table (<code>_SUBMOD_ATTRS</code>), which is read. The module-level <code>__getattr__</code> has no other rule; the build stops if a release adds one.</li>
+<li><code>huggingface_hub.utils</code> and <code>huggingface_hub.errors</code>: the names the module binds, plus the lazy table of <code>utils</code> where it has one.</li>
+<li>The five libraries: every <code>.py</code> file of the package at the first release of each minor version, looking for <code>from huggingface_hub import ...</code>, <code>from huggingface_hub.utils import ...</code> and <code>from huggingface_hub.errors import ...</code> at module level.</li>
+<li>Dates and yanked releases come from PyPI. Where the <code>.0</code> release of a minor version was yanked or never uploaded, the first release pip installs is used.</li>
+</ul>
+<p>Checks, all by a second reading: (1) every lazy release carries a generated static copy of its table for type checkers; in all 66 lazy releases that have one, the copy and our reading are identical (66 of 66). (2) For each of the 8 "library imports a removed name" ranges, a plain-text search of the library's files finds the import at both ends of the range and no module-level import in the version after it. (3) 16 facts from deprecation messages and release notes hold (for example <code>cached_download</code> carries <code>@_deprecate_method(version="0.26")</code> in 0.25.0 and is gone in 0.26.0).</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. The library ranges say which hub releases let the library's files import; they do not say every feature works across that range.</li>
+<li>Only the first release of each minor version was read, for the hub and for the libraries. A change made in a patch release is attributed to the next minor.</li>
+<li>A module-level import in a file that the library itself only loads on demand does not break <code>import library</code>, only the feature that loads that file. The lookup names one such file per range in <a href="data.json">data.json</a>.</li>
+<li>Submodules of the hub other than <code>utils</code> and <code>errors</code> are not covered (<code>huggingface_hub.constants</code>, <code>huggingface_hub.file_download</code>, <code>huggingface_hub.inference</code> and so on), and libraries other than the five are not read.</li>
+<li>"Instead" is given only where the hub's own deprecation message or docstring names a replacement.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>Which huggingface_hub version removed cached_download?</h3>
+<p>huggingface_hub 0.26.0 (2024-10-18). cached_download is importable through 0.25.2. Its deprecation message names the replacement: hf_hub_download, which takes a repo id and a file name where cached_download took a URL.</p>
+<h3>How do I fix "cannot import name 'cached_download' from 'huggingface_hub'" with diffusers or sentence-transformers?</h3>
+<p>Upgrade the library that asks for it: diffusers imports cached_download at module level from 0.1.0 to 0.28.x and stops in 0.29.0, sentence-transformers from 2.0.0 to 2.2.x and stops in 2.3.0. If you cannot upgrade it, pin the hub instead: pip install "huggingface_hub&lt;0.26.0" (0.25.2 is the last release that has the name).</p>
+<h3>Why can't I import HfFolder from huggingface_hub?</h3>
+<p>huggingface_hub 1.0.0 (2025-10-27) removed HfFolder; 0.36.2 is the last release that has it. Use login() to store a token and get_token() to read one. gradio imports HfFolder at module level from 4.9.0 to 5.7.x and stops in 5.8.0; datasets from 1.13.0 to 2.15.x and stops in 2.16.0.</p>
+<h3>Does pinning huggingface_hub break anything else?</h3>
+<p>It can. Newer releases of the same libraries import names that old hub releases do not have: for example diffusers 0.33.0 and later need huggingface_hub 0.27.0 or newer for DDUFEntry. Pick a hub release inside the range of every library you have installed; the table on this page gives that range per library version.</p>
+<h3>The name in my error is not cached_download or HfFolder. Does this page cover it?</h3>
+<p>Yes. The lookup covers every name that huggingface_hub, huggingface_hub.utils and huggingface_hub.errors have exported from 0.0.1 to 2.4.0: 568 top-level names, of which 49 are gone from the newest release.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>huggingface/huggingface_hub, release tags v0.0.1 to v2.4.0: <a href="https://github.com/huggingface/huggingface_hub/blob/v2.4.0/src/huggingface_hub/__init__.py">src/huggingface_hub/__init__.py</a>, <a href="https://github.com/huggingface/huggingface_hub/blob/v2.4.0/src/huggingface_hub/utils/__init__.py">utils/__init__.py</a>, <a href="https://github.com/huggingface/huggingface_hub/blob/v2.4.0/src/huggingface_hub/errors.py">errors.py</a>.</li>
+<li>Deprecation messages quoted for replacements: <a href="https://github.com/huggingface/huggingface_hub/blob/v0.25.0/src/huggingface_hub/file_download.py">file_download.py at 0.25.0</a> (<code>cached_download</code>), <a href="https://github.com/huggingface/huggingface_hub/blob/v0.36.0/src/huggingface_hub/inference_api.py">inference_api.py at 0.36.0</a>, <a href="https://github.com/huggingface/huggingface_hub/blob/v0.36.0/src/huggingface_hub/repository.py">repository.py at 0.36.0</a>, <a href="https://github.com/huggingface/huggingface_hub/blob/v0.36.0/src/huggingface_hub/utils/_hf_folder.py">utils/_hf_folder.py at 0.36.0</a>, <a href="https://github.com/huggingface/huggingface_hub/blob/v0.23.0/src/huggingface_hub/utils/endpoint_helpers.py">utils/endpoint_helpers.py at 0.23.0</a> (<code>ModelFilter</code>, <code>DatasetFilter</code>), <a href="https://github.com/huggingface/huggingface_hub/blob/v0.36.0/src/huggingface_hub/hf_api.py">hf_api.py at 0.36.0</a> (<code>update_repo_visibility</code>).</li>
+<li>Release tags of <a href="https://github.com/huggingface/diffusers">huggingface/diffusers</a>, <a href="https://github.com/UKPLab/sentence-transformers">UKPLab/sentence-transformers</a>, <a href="https://github.com/gradio-app/gradio">gradio-app/gradio</a>, <a href="https://github.com/huggingface/datasets">huggingface/datasets</a> and <a href="https://github.com/huggingface/peft">huggingface/peft</a>; release dates from PyPI.</li>
+<li>Reports of the error this page answers: <a href="https://huggingface.co/spaces/ymzhang319/FoleyCrafter/discussions/6">a Space fixed by changing requirements.txt</a>, <a href="https://huggingface.co/spaces/SemanticTypography/Word-As-Image/commit/632c5578ef4a6c86f6fcf16e2ee7ed50af158f40">a Space pinning huggingface_hub==0.25.2</a>, <a href="https://huggingface.co/spaces/facebook/EdgeTAM/discussions/1">HfFolder with Gradio</a>.</li>
+</ul>
+<p>The same data as JSON: <a href="data.json">data.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/transformers-import-name-version-lookup/">"cannot import name ... from 'transformers'": the releases that have each name</a> &middot; <a href="/en/peft-trl-args-version-lookup/">"got an unexpected keyword argument": PEFT, TRL and TrainingArguments by version</a> &middot; <a href="/en/model-arch-min-version/">"does not recognize this architecture": the version each model needs</a>.</p>
+</main>
+<script>window.TF_HINTS = {"top:cached_download": "<code>hf_hub_download</code> (its deprecation message: \"Use `hf_hub_download` instead.\"). It takes a repo id and a file name, not a URL.", "top:InferenceApi": "<code>InferenceClient</code> (its deprecation message: \"deprecated in favor of the more feature-complete `InferenceClient`\").", "top:Repository": "the HTTP-based methods of <code>HfApi</code>, such as <code>upload_file</code>, <code>upload_folder</code> and <code>snapshot_download</code> (its docstring: \"deprecated in favor of the http-based alternatives implemented in `HfApi`\").", "top:HfFolder": "<code>login()</code> to store a token (the note in its source: \"Use `huggingface_hub.login` instead\") and <code>get_token()</code> to read one.", "utils:HfFolder": "<code>huggingface_hub.login()</code> to store a token and <code>huggingface_hub.get_token()</code> to read one.", "top:ModelFilter": "pass the filter parameters as keyword arguments directly to <code>list_models</code> (its deprecation message).", "top:DatasetFilter": "pass the filter parameters as keyword arguments directly to <code>list_datasets</code> (its deprecation message).", "top:update_repo_visibility": "<code>update_repo_settings</code> (its deprecation message)."}; window.TF_GROUPS = [];</script>
+<script>
+(function () {
+  "use strict";
+  var D = null, HINTS = window.TF_HINTS, GROUPS = window.TF_GROUPS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  var MODS = {"huggingface_hub": "top", "huggingface_hub.utils": "utils", "huggingface_hub.errors": "errors"};
+  var LABEL = {top: "huggingface_hub", utils: "huggingface_hub.utils", errors: "huggingface_hub.errors"};
+  var KINDS = ["top", "utils", "errors"];
+  var STOP = {from: 1, "import": 1, huggingface_hub: 1, utils: 1, errors: 1, ImportError: 1, cannot: 1, name: 1, as: 1,
+    unknown: 1, location: 1, py: 1, __init__: 1, site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1};
+
+  function parse(text) {
+    var out = [], seen = {}, m;
+    function add(name, mod) {
+      var k = mod + ":" + name;
+      if (!seen[k] && /^[A-Za-z_]\w*$/.test(name)) { seen[k] = 1; out.push({name: name, mod: mod}); }
+    }
+    var rest = text;
+    var reErr = /cannot import name ['"`\u2018\u2019]?([A-Za-z_]\w*)['"`\u2018\u2019]?\s+from\s+['"`\u2018\u2019]?(huggingface_hub(?:\.\w+)*)/g;
+    while ((m = reErr.exec(text))) add(m[1], MODS[m[2]] || "other:" + m[2]);
+    rest = rest.replace(reErr, " ").replace(/\([^()]*site-packages[^()]*\)/g, " ");
+    var reImp = /from\s+(huggingface_hub(?:\.\w+)*)\s+import\s+(\([^)]*\)|[^\n;]+)/g;
+    while ((m = reImp.exec(rest))) {
+      var mod = MODS[m[1]] || "other:" + m[1];
+      m[2].replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, mod);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    if (!out.length) {
+      (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w] && !/^\d/.test(w)) add(w, "any"); });
+    }
+    return out.slice(0, 40);
+  }
+
+  function rel(i) { return D.releases[i]; }
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(rel(i)[0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairs(kind, name) {
+    var r = D[kind][name];
+    if (!r) return null;
+    if (kind === "top") r = r.slice(1);
+    var out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function aliasAt(name, i) {
+    var a = D.alias[name] || [];
+    for (var k = 0; k < a.length; k++) if (a[k][0] <= i && (a[k][1] === 0 || i < a[k][1])) return a[k][2];
+    return null;
+  }
+  function lastBefore(i) { return rel(i - 1)[2]; }
+  function rangeText(p) {
+    var a = rel(p[0]);
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
+    var b = rel(p[1]);
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + lastBefore(p[1]) + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  function hintFor(name, kind, p) {
+    if (p[1] === 0) return "";
+    var h = HINTS[kind + ":" + name];
+    if (h) return h;
+    var goneIn = rel(p[1])[0];
+    for (var i = 0; i < GROUPS.length; i++) {
+      var g = GROUPS[i];
+      if (g[0] === kind && g[1] === goneIn && new RegExp(g[2]).test(name)) return g[3];
+    }
+    return "";
+  }
+  function minor(v) { return v.split(".").slice(0, 2).join(".") + ".x"; }
+  function usersOf(kind, name) {
+    var u = D.users[kind + ":" + name];
+    if (!u) return "";
+    return "<br>Imported at module level by: " + Object.keys(u).sort().map(function (lib) {
+      return u[lib].map(function (r) {
+        return "<strong>" + esc(lib) + "</strong> " + r[0] + " to " + minor(r[1]) +
+          (r[3] ? " (no longer from " + r[3] + ": upgrading " + esc(lib) + " is the other fix)" : " (still, in the newest release)");
+      }).join("; ");
+    }).join("; ") + ".";
+  }
+  function dist(a, b) {   // edit distance, for misspelled names
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, kind) {
+    var low = name.toLowerCase(), keys = Object.keys(D[kind]), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (kl === low) exact.push(k);
+      else if (low.length >= 5 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 6)) sub.push(k);
+      else if (low.length >= 5 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+
+  function answer(q, mine) {
+    var name = q.name, kind = q.mod, h = "";
+    if (kind.indexOf("other:") === 0) {
+      return "<tr><td><code>" + esc(name) + "</code></td><td><span class=\"s p\">not covered</span></td><td>This page reads <code>huggingface_hub</code>, " +
+        "<code>huggingface_hub.utils</code> and <code>huggingface_hub.errors</code>, not <code>" + esc(kind.slice(6)) + "</code>. " +
+        (D.top[name] ? "The same name at the top level: " + pairs("top", name).map(rangeText).join("; ") + "." : "") + "</td></tr>";
+    }
+    var kinds = kind === "any" ? KINDS.filter(function (k) { return D[k][name]; }) : [kind];
+    if (kind === "any" && !kinds.length) kinds = ["top"];
+    kinds.forEach(function (k) {
+      var ps = pairs(k, name), cell, status;
+      var alias = k === "top" ? D.alias[name] : null;
+      if (!ps && !alias) {
+        var also = KINDS.filter(function (o) { return o !== k && D[o][name]; });
+        var nn = near(name, k);
+        status = "<span class=\"s n\">never there</span>";
+        cell = "No release from " + rel(0)[0] + " to " + D.latest + " has this name in <code>" + LABEL[k] + "</code>." +
+          (also.length ? " It is a name of " + also.map(function (o) { return "<code>" + LABEL[o] + "</code> (" + pairs(o, name).map(rangeText).join("; ") + ")"; }).join(" and ") + "." : "") +
+          (nn.length ? " Close names: " + nn.map(function (x) { return "<code>" + esc(x) + "</code>"; }).join(", ") + "." : "") +
+          " If another package asks for it, the name may come from a fork or from a release newer than " + D.latest + ".";
+      } else {
+        ps = ps || [];
+        var last = ps.length ? ps[ps.length - 1] : null, now = last && last[1] === 0;
+        var nowAlias = k === "top" ? aliasAt(name, D.releases.length - 1) : null;
+        status = now ? "<span class=\"s y\">in " + D.latest + "</span>"
+          : nowAlias ? "<span class=\"s y\">imports in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+        cell = ps.map(rangeText).join("<br>");
+        if (alias) {
+          cell += (cell ? "<br>" : "") + alias.map(function (a) {
+            return "From " + rel(a[0])[0] + (a[1] ? " through " + lastBefore(a[1]) : " on") + " it is in no list but still imports: the lazy module hands back <code>" + esc(a[2]) + "</code>.";
+          }).join("<br>");
+        }
+        if (last && !now && !nowAlias) {
+          var hint = hintFor(name, k, last);
+          cell += "<br><span class=\"pin\">Keep it: <code>pip install \"huggingface_hub" + (last[0] > 0 ? "&gt;=" + rel(last[0])[0] + "," : "") + "&lt;" + rel(last[1])[0] + "\"</code></span>" +
+            (hint ? "<br>Instead: " + hint : "") + usersOf(k, name);
+        } else if (last && last[0] > 0 && (now || nowAlias)) {
+          cell += "<br><span class=\"pin\">Needs: <code>pip install \"huggingface_hub&gt;=" + rel(last[0])[0] + "\"</code></span>";
+        }
+        if (k === "top" && ps.length) cell += "<br><span class=\"note\">" + (now ? "Lives in" : "Lived in") + " <code>huggingface_hub." + esc(D.modules[D.top[name][0]]) + "</code></span>";
+        if (mine !== null) {
+          var has = inRange(ps, mine) || (k === "top" && aliasAt(name, mine));
+          cell += "<br><strong>Your " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+            (has ? " If the error still names it, another copy of huggingface_hub is being imported: check <code>python -c \"import huggingface_hub as h; print(h.__version__, h.__file__)\"</code>." : "");
+        }
+      }
+      h += "<tr><td><code>" + esc(name) + "</code><br><span class=\"note\">" + LABEL[k] + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+    });
+    return h;
+  }
+
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), mine = null;
+    $("status").textContent = "";
+    if (!D) { $("status").textContent = "The data is still loading."; return; }
+    if (v) {
+      if (!/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 4.57.1."; return; }
+      mine = indexOfVersion(v.replace(/^v/, ""));
+      if (mine < 0) { $("status").textContent = "Releases before " + rel(0)[0] + " are not covered."; return; }
+    }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; return; }
+    $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+      qs.map(function (q) { return answer(q, mine); }).join("") + "</tbody></table></div>" +
+      "<p class=\"note\">Read at the first release of every minor version (" + D.releases.length + " releases, " + rel(0)[0] + " to " + D.latest + "); patch releases in between are assumed to keep the names.</p>";
+  }
+
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  fetch("data.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    d.alias = {}; D = d; window.TF_DATA = d;
+    var q = new URLSearchParams(location.search).get("q");
+    if (q) { $("q").value = q; $("v").value = new URLSearchParams(location.search).get("v") || ""; run(); }
+  }).catch(function (e) { $("status").textContent = "Could not load data.json (" + e.message + "). The tables below still apply."; });
+})();
+</script>
+</body>
+</html>
