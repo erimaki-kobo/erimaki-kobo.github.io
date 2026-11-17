@@ -36,6 +36,10 @@ checks = 0
 for a in L["archs"]:
     if a["arch"] == "(unknown)":
         continue
+    if not a["first_tag"]:
+        # added on master after the newest release tag: no build ships it yet, so it waits for the next run
+        print("not yet in a release:", a["arch"], a["commit"][:10], file=sys.stderr)
+        continue
     fb = bnum(a["first_tag"])
     via_llama = None
     via_go = None
