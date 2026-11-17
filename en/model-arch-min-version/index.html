@@ -10,7 +10,7 @@
 <meta property="og:title" content="Which Transformers, vLLM, llama.cpp Version Supports My Model">
 <meta property="og:description" content="KeyError or &quot;does not recognize this architecture&quot;? Paste config.json to get the first Transformers, vLLM and llama.cpp release that supports the model.">
 <meta property="og:url" content="https://erimaki-kobo.github.io/en/model-arch-min-version/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#article", "headline": "\"does not recognize this architecture\" and \"not supported for now\": the minimum Transformers, vLLM and llama.cpp version for a model", "description": "KeyError or \"does not recognize this architecture\"? Paste config.json to get the first Transformers, vLLM and llama.cpp release that supports the model.", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/", "datePublished": "2026-11-13", "dateModified": "2026-11-14", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "about": ["Hugging Face Transformers", "vLLM", "llama.cpp", "Ollama", "config.json"], "isBasedOn": "https://erimaki-kobo.github.io/en/model-arch-min-version/data.json"}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#tool", "name": "Minimum Transformers, vLLM and llama.cpp version lookup", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/#lookup", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Paste config.json or an error message; get the first Transformers, vLLM and llama.cpp releases that support the model."}, {"@type": "Dataset", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#data", "name": "First Transformers and vLLM release for each model_type and architecture", "description": "Every model_type in Transformers v4.0.0 to v5.22.2 and every architecture name in vLLM v0.1.0 to v0.33.0, with the first final release that registers it, removals, and the GGUF architecture llama.cpp's converter writes.", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/", "dateModified": "2026-11-14", "creator": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "license": "https://creativecommons.org/licenses/by/4.0/", "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/model-arch-min-version/data.json"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#faq", "mainEntity": [{"@type": "Question", "name": "What does \"KeyError\" or \"does not recognize this architecture\" mean in Transformers?", "acceptedAnswer": {"@type": "Answer", "text": "The model_type in config.json is not in the AutoConfig table of your installed Transformers. Before v4.37.0 the error is a bare KeyError with the name, for example KeyError: 'qwen2'; from v4.37.0 it reads \"The checkpoint you are trying to load has model type X but Transformers does not recognize this architecture\". Install the release from the table on this page or newer."}}, {"@type": "Question", "name": "Which Transformers version do I need for Qwen3?", "acceptedAnswer": {"@type": "Answer", "text": "Transformers 4.51.0 (released 2025-04-05) is the first release with model_type qwen3. vLLM has Qwen3ForCausalLM natively from 0.8.4, and llama.cpp reads Qwen3 GGUF files from build b5092."}}, {"@type": "Question", "name": "Which versions do I need for Qwen3.5 or Qwen3.6?", "acceptedAnswer": {"@type": "Answer", "text": "Both use model_type qwen3_5 (qwen3_5_moe for the MoE models). Transformers 5.2.0 is the first release with it, vLLM 0.17.0 the first with a native class, and the GGUF architecture is qwen35 from llama.cpp b7990. Use the newest patch release, because fixes for new models often land after the first support."}}, {"@type": "Question", "name": "Which versions do I need for Gemma 4?", "acceptedAnswer": {"@type": "Answer", "text": "Transformers 5.5.0, vLLM 0.19.0 and llama.cpp b8637 are the first releases that know Gemma 4 (model_type gemma4, architecture Gemma4ForConditionalGeneration)."}}, {"@type": "Question", "name": "What does \"Model architectures ['X'] are not supported for now\" mean in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "None of the names in the architectures list of config.json is in your vLLM's model registry, and the Transformers fallback did not apply. Upgrade to the release in the table, or, for a model vLLM never implemented, run it through the Transformers modeling backend with --model-impl transformers (vLLM 0.7.2 and later)."}}, {"@type": "Question", "name": "My versions are new enough and the model still fails. Why?", "acceptedAnswer": {"@type": "Answer", "text": "Being registered is the minimum, not a guarantee. New models often need a fix in the next patch release, a newer tokenizer or a newer kernel library. Install the newest patch release first. If config.json has an auto_map and you pass trust_remote_code=True, the repository's own code runs, and its requirements come from the model card."}}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#article", "headline": "\"does not recognize this architecture\" and \"not supported for now\": the minimum Transformers, vLLM and llama.cpp version for a model", "description": "KeyError or \"does not recognize this architecture\"? Paste config.json to get the first Transformers, vLLM and llama.cpp release that supports the model.", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/", "datePublished": "2026-11-13", "dateModified": "2026-11-17", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "about": ["Hugging Face Transformers", "vLLM", "llama.cpp", "Ollama", "config.json"], "isBasedOn": "https://erimaki-kobo.github.io/en/model-arch-min-version/data.json"}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#tool", "name": "Minimum Transformers, vLLM and llama.cpp version lookup", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/#lookup", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Paste config.json or an error message; get the first Transformers, vLLM and llama.cpp releases that support the model."}, {"@type": "Dataset", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#data", "name": "First Transformers and vLLM release for each model_type and architecture", "description": "Every model_type in Transformers v4.0.0 to v5.23.0 and every architecture name in vLLM v0.1.0 to v0.34.0, with the first final release that registers it, removals, and the GGUF architecture llama.cpp's converter writes.", "url": "https://erimaki-kobo.github.io/en/model-arch-min-version/", "dateModified": "2026-11-17", "creator": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "license": "https://creativecommons.org/licenses/by/4.0/", "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/model-arch-min-version/data.json"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/model-arch-min-version/#faq", "mainEntity": [{"@type": "Question", "name": "What does \"KeyError\" or \"does not recognize this architecture\" mean in Transformers?", "acceptedAnswer": {"@type": "Answer", "text": "The model_type in config.json is not in the AutoConfig table of your installed Transformers. Before v4.37.0 the error is a bare KeyError with the name, for example KeyError: 'qwen2'; from v4.37.0 it reads \"The checkpoint you are trying to load has model type X but Transformers does not recognize this architecture\". Install the release from the table on this page or newer."}}, {"@type": "Question", "name": "Which Transformers version do I need for Qwen3?", "acceptedAnswer": {"@type": "Answer", "text": "Transformers 4.51.0 (released 2025-04-05) is the first release with model_type qwen3. vLLM has Qwen3ForCausalLM natively from 0.8.4, and llama.cpp reads Qwen3 GGUF files from build b5092."}}, {"@type": "Question", "name": "Which versions do I need for Qwen3.5 or Qwen3.6?", "acceptedAnswer": {"@type": "Answer", "text": "Both use model_type qwen3_5 (qwen3_5_moe for the MoE models). Transformers 5.2.0 is the first release with it, vLLM 0.17.0 the first with a native class, and the GGUF architecture is qwen35 from llama.cpp b7990. Use the newest patch release, because fixes for new models often land after the first support."}}, {"@type": "Question", "name": "Which versions do I need for Gemma 4?", "acceptedAnswer": {"@type": "Answer", "text": "Transformers 5.5.0, vLLM 0.19.0 and llama.cpp b8637 are the first releases that know Gemma 4 (model_type gemma4, architecture Gemma4ForConditionalGeneration)."}}, {"@type": "Question", "name": "What does \"Model architectures ['X'] are not supported for now\" mean in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "None of the names in the architectures list of config.json is in your vLLM's model registry, and the Transformers fallback did not apply. Upgrade to the release in the table, or, for a model vLLM never implemented, run it through the Transformers modeling backend with --model-impl transformers (vLLM 0.7.2 and later)."}}, {"@type": "Question", "name": "My versions are new enough and the model still fails. Why?", "acceptedAnswer": {"@type": "Answer", "text": "Being registered is the minimum, not a guarantee. New models often need a fix in the next patch release, a newer tokenizer or a newer kernel library. Install the newest patch release first. If config.json has an auto_map and you pass trust_remote_code=True, the repository's own code runs, and its requirements come from the model card."}}]}]}</script>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
 @media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
@@ -64,8 +64,8 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <main>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>&quot;does not recognize this architecture&quot; and &quot;not supported for now&quot;: the minimum Transformers, vLLM and llama.cpp version for a model</h1>
-<p class="lede"><strong>These errors mean your library is older than the first release that registered the model. Install that release or newer: for Qwen3 it is Transformers 4.51.0, vLLM 0.8.4 and llama.cpp b5092.</strong> Qwen3.5 and Qwen3.6 need Transformers 5.2.0, vLLM 0.17.0 and llama.cpp b7990; Gemma 4 needs 5.5.0, 0.19.0 and b8637. Paste a <code>config.json</code> below to get the numbers for any of the 816 model types Transformers has registered and the 471 architecture names vLLM has used.</p>
-<p class="meta">Published 2026-11-13 &middot; Corrected 2026-11-14: the Transformers fallback logs a warning &middot; Data as of 2026-11-13 &middot; Transformers up to v5.22.2 (2026-11-06) &middot; vLLM up to v0.33.0 (2026-11-01) &middot; llama.cpp from the <a href="/en/gguf-arch-min-build-lookup/">GGUF lookup</a> &middot; read from release tags, no model was loaded</p>
+<p class="lede"><strong>These errors mean your library is older than the first release that registered the model. Install that release or newer: for Qwen3 it is Transformers 4.51.0, vLLM 0.8.4 and llama.cpp b5092.</strong> Qwen3.5 and Qwen3.6 need Transformers 5.2.0, vLLM 0.17.0 and llama.cpp b7990; Gemma 4 needs 5.5.0, 0.19.0 and b8637. Paste a <code>config.json</code> below to get the numbers for any of the 832 model types Transformers has registered and the 487 architecture names vLLM has used.</p>
+<p class="meta">Published 2026-11-13 &middot; Corrected 2026-11-14: the Transformers fallback logs a warning &middot; Corrected 2026-11-17: dates are now PyPI upload dates (vLLM v0.10.2 was shown with the date of its git tag, 2025-10-07, instead of 2025-09-13) &middot; Updated 2026-11-17 &middot; Data as of 2026-11-17 &middot; Transformers up to v5.23.0 (2026-11-13) &middot; vLLM up to v0.34.0 (2026-11-16) &middot; llama.cpp from the <a href="/en/gguf-arch-min-build-lookup/">GGUF lookup</a> &middot; read from release tags, no model was loaded</p>
 
 <h2 id="lookup">Which version does my model need?</h2>
 <p>Paste the model's <code>config.json</code> (best: it has both <code>model_type</code> and <code>architectures</code>), or the error line, or just a name such as <code>qwen3</code> or <code>Gemma4ForConditionalGeneration</code>. The two version fields are optional.</p>
@@ -95,43 +95,43 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 </tbody></table></div>
 
 <h2 id="families">When did each major model family arrive in Transformers, vLLM and llama.cpp?</h2>
-<p><strong>The first final release of each library that registers the family.</strong> Later releases also have it unless a removal is shown. Dates are the release tag dates, except vLLM v0.10.2 and v0.11.0: their tags sit on later commits, so the day of the PyPI upload is shown.</p>
+<p><strong>The first final release of each library that registers the family.</strong> Later releases also have it unless a removal is shown. Dates are the day each release was uploaded to PyPI (UTC).</p>
 <div class="tw wide"><table id="fam">
-<thead><tr><th>Family</th><th>model_type</th><th>Transformers from</th><th>Main architecture</th><th>vLLM from (native)</th><th>vLLM v0.33.0</th><th>GGUF arch, string from</th><th>Converter knows the class from</th><th>Ollama from (string)</th></tr></thead>
+<thead><tr><th>Family</th><th>model_type</th><th>Transformers from</th><th>Main architecture</th><th>vLLM from (native)</th><th>vLLM v0.34.0</th><th>GGUF arch, string from</th><th>Converter knows the class from</th><th>Ollama from (string)</th></tr></thead>
 <tbody>
 <tr><td>Llama 1 to 3</td><td><code>llama</code></td><td>v4.28.0 (2023-04-13)</td><td><code>LlamaForCausalLM</code></td><td>v0.1.0 (2023-06-20)</td><td>native</td><td><code>llama</code> b1046 (2023-08-24)</td><td>&mdash;</td><td>v0.1.18</td></tr>
-<tr><td>Llama 4</td><td><code>llama4</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Llama4ForConditionalGeneration</code></td><td>v0.8.3 (2025-04-05)</td><td>native</td><td><code>llama4</code> b5074 (2025-04-07)</td><td>b5074 (2025-04-07)</td><td>v0.6.6</td></tr>
+<tr><td>Llama 4</td><td><code>llama4</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Llama4ForConditionalGeneration</code></td><td>v0.8.3 (2025-04-06)</td><td>native</td><td><code>llama4</code> b5074 (2025-04-07)</td><td>b5074 (2025-04-07)</td><td>v0.6.6</td></tr>
 <tr><td>Mistral 7B</td><td><code>mistral</code></td><td>v4.34.0 (2023-10-03)</td><td><code>MistralForCausalLM</code></td><td>v0.2.0 (2023-09-28)</td><td>native</td><td><code>llama</code> b1046 (2023-08-24)</td><td>&mdash;</td><td>v0.1.18</td></tr>
-<tr><td>Mistral Small 3.1 / Mistral 3</td><td><code>mistral3</code></td><td>v4.50.0 (2025-03-21)</td><td><code>Mistral3ForConditionalGeneration</code></td><td>v0.8.3 (2025-04-05)</td><td>native</td><td><code>mistral3</code> b7216 (2025-12-01)</td><td>b4919 (2025-03-18)</td><td>v0.13.3</td></tr>
+<tr><td>Mistral Small 3.1 / Mistral 3</td><td><code>mistral3</code></td><td>v4.50.0 (2025-03-21)</td><td><code>Mistral3ForConditionalGeneration</code></td><td>v0.8.3 (2025-04-06)</td><td>native</td><td><code>mistral3</code> b7216 (2025-12-01)</td><td>b4919 (2025-03-18)</td><td>v0.13.3</td></tr>
 <tr><td>Mixtral</td><td><code>mixtral</code></td><td>v4.36.0 (2023-12-11)</td><td><code>MixtralForCausalLM</code></td><td>v0.2.4 (2023-12-11)</td><td>native</td><td><code>llama</code> b1046 (2023-08-24)</td><td>&mdash;</td><td>v0.1.18</td></tr>
-<tr><td>Mistral Large 4</td><td><code>mistral_large4</code></td><td>v5.22.0 (2026-10-29)</td><td><code>MistralLarge4ForConditionalGeneration</code></td><td>no native class</td><td>see the Transformers backend note</td><td><code>mistral-large4</code> b11998 (2026-10-29)</td><td>b11998 (2026-10-29)</td><td>v0.40.15</td></tr>
+<tr><td>Mistral Large 4</td><td><code>mistral_large4</code></td><td>v5.22.0 (2026-10-29)</td><td><code>MistralLarge4ForConditionalGeneration</code></td><td>v0.34.0 (2026-11-16) as <code>MistralLarge4ForCausalLM</code></td><td>native under that name only (Mistral-format <code>params.json</code>)</td><td><code>mistral-large4</code> b11998 (2026-10-29)</td><td>b11998 (2026-10-29)</td><td>v0.40.15</td></tr>
 <tr><td>Qwen2 / Qwen2.5</td><td><code>qwen2</code></td><td>v4.37.0 (2024-01-22)</td><td><code>Qwen2ForCausalLM</code></td><td>v0.3.0 (2024-01-31)</td><td>native</td><td><code>qwen2</code> b1939 (2024-01-22)</td><td>&mdash;</td><td>v0.1.21</td></tr>
 <tr><td>Qwen2.5-VL</td><td><code>qwen2_5_vl</code></td><td>v4.49.0 (2025-02-17)</td><td><code>Qwen2_5_VLForConditionalGeneration</code></td><td>v0.7.2 (2025-02-06)</td><td>native</td><td><code>qwen2vl</code> b4327 (2024-12-14)</td><td>b4976 (2025-03-27)</td><td>v0.5.3</td></tr>
-<tr><td>Qwen3</td><td><code>qwen3</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3ForCausalLM</code></td><td>v0.8.4 (2025-04-14)</td><td>native</td><td><code>qwen3</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
-<tr><td>Qwen3 MoE</td><td><code>qwen3_moe</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3MoeForCausalLM</code></td><td>v0.8.4 (2025-04-14)</td><td>native</td><td><code>qwen3moe</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
+<tr><td>Qwen3</td><td><code>qwen3</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3ForCausalLM</code></td><td>v0.8.4 (2025-04-15)</td><td>native</td><td><code>qwen3</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
+<tr><td>Qwen3 MoE</td><td><code>qwen3_moe</code></td><td>v4.51.0 (2025-04-05)</td><td><code>Qwen3MoeForCausalLM</code></td><td>v0.8.4 (2025-04-15)</td><td>native</td><td><code>qwen3moe</code> b5092 (2025-04-09)</td><td>b5092 (2025-04-09)</td><td>v0.6.6</td></tr>
 <tr><td>Qwen3-Next</td><td><code>qwen3_next</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3NextForCausalLM</code></td><td>v0.10.2 (2025-09-13)</td><td>native</td><td><code>qwen3next</code> b7186 (2025-11-28)</td><td>b7186 (2025-11-28)</td><td>v0.13.2</td></tr>
 <tr><td>Qwen3-VL</td><td><code>qwen3_vl</code></td><td>v4.57.0 (2025-10-03)</td><td><code>Qwen3VLForConditionalGeneration</code></td><td>v0.11.0 (2025-10-04)</td><td>native</td><td><code>qwen3vl</code> b6887 (2025-10-30)</td><td>b6887 (2025-10-30)</td><td>v0.13.2</td></tr>
-<tr><td>Qwen3.5 / Qwen3.6</td><td><code>qwen3_5</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5ForConditionalGeneration</code></td><td>v0.17.0 (2026-03-06)</td><td>native</td><td><code>qwen35</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
-<tr><td>Qwen3.5 / Qwen3.6 MoE</td><td><code>qwen3_5_moe</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5MoeForConditionalGeneration</code></td><td>v0.17.0 (2026-03-06)</td><td>native</td><td><code>qwen35moe</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
-<tr><td>Gemma 2</td><td><code>gemma2</code></td><td>v4.42.0 (2024-06-27)</td><td><code>Gemma2ForCausalLM</code></td><td>v0.5.1 (2024-07-05)</td><td>native</td><td><code>gemma2</code> b3259 (2024-06-28)</td><td>b3259 (2024-06-27)</td><td>v0.1.47</td></tr>
+<tr><td>Qwen3.5 / Qwen3.6</td><td><code>qwen3_5</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5ForConditionalGeneration</code></td><td>v0.17.0 (2026-03-07)</td><td>native</td><td><code>qwen35</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
+<tr><td>Qwen3.5 / Qwen3.6 MoE</td><td><code>qwen3_5_moe</code></td><td>v5.2.0 (2026-02-16)</td><td><code>Qwen3_5MoeForConditionalGeneration</code></td><td>v0.17.0 (2026-03-07)</td><td>native</td><td><code>qwen35moe</code> b7990 (2026-02-10)</td><td>b7990 (2026-02-10)</td><td>v0.30.0</td></tr>
+<tr><td>Gemma 2</td><td><code>gemma2</code></td><td>v4.42.0 (2024-06-27)</td><td><code>Gemma2ForCausalLM</code></td><td>v0.5.1 (2024-07-06)</td><td>native</td><td><code>gemma2</code> b3259 (2024-06-28)</td><td>b3259 (2024-06-27)</td><td>v0.1.47</td></tr>
 <tr><td>Gemma 3</td><td><code>gemma3</code></td><td>v4.50.0 (2025-03-21)</td><td><code>Gemma3ForConditionalGeneration</code></td><td>v0.8.0 (2025-03-18)</td><td>native</td><td><code>gemma3</code> b4875 (2025-03-12)</td><td>b4875 (2025-03-12)</td><td>v0.6.2</td></tr>
-<tr><td>Gemma 3n</td><td><code>gemma3n</code></td><td>v4.53.0 (2025-06-26)</td><td><code>Gemma3nForConditionalGeneration</code></td><td>v0.9.2 (2025-07-06)</td><td>native</td><td><code>gemma3n</code> b5769 (2025-06-28)</td><td>b5769 (2025-06-28)</td><td>v0.11.5</td></tr>
-<tr><td>Gemma 4</td><td><code>gemma4</code></td><td>v5.5.0 (2026-04-02)</td><td><code>Gemma4ForConditionalGeneration</code></td><td>v0.19.0 (2026-04-02)</td><td>native</td><td><code>gemma4</code> b8637 (2026-04-02)</td><td>b8637 (2026-04-02)</td><td>v0.30.0</td></tr>
-<tr><td>Phi-3 / Phi-3.5</td><td><code>phi3</code></td><td>v4.41.0 (2024-05-17)</td><td><code>Phi3ForCausalLM</code></td><td>v0.4.2 (2024-05-04)</td><td>native</td><td><code>phi3</code> b2717 (2024-04-24)</td><td>b2717 (2024-04-24)</td><td>v0.1.33</td></tr>
-<tr><td>DeepSeek-V2</td><td><code>deepseek_v2</code></td><td>v4.54.0 (2025-07-25)</td><td><code>DeepseekV2ForCausalLM</code></td><td>v0.5.1 (2024-07-05)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b3023 (2024-05-28)</td><td>v0.1.40</td></tr>
-<tr><td>DeepSeek-V3 / R1</td><td><code>deepseek_v3</code></td><td>v4.51.0 (2025-04-05)</td><td><code>DeepseekV3ForCausalLM</code></td><td>v0.6.6 (2024-12-26)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b4417 (2025-01-04)</td><td>v0.1.40</td></tr>
+<tr><td>Gemma 3n</td><td><code>gemma3n</code></td><td>v4.53.0 (2025-06-26)</td><td><code>Gemma3nForConditionalGeneration</code></td><td>v0.9.2 (2025-07-08)</td><td>native</td><td><code>gemma3n</code> b5769 (2025-06-28)</td><td>b5769 (2025-06-28)</td><td>v0.11.5</td></tr>
+<tr><td>Gemma 4</td><td><code>gemma4</code></td><td>v5.5.0 (2026-04-02)</td><td><code>Gemma4ForConditionalGeneration</code></td><td>v0.19.0 (2026-04-03)</td><td>native</td><td><code>gemma4</code> b8637 (2026-04-02)</td><td>b8637 (2026-04-02)</td><td>v0.30.0</td></tr>
+<tr><td>Phi-3 / Phi-3.5</td><td><code>phi3</code></td><td>v4.41.0 (2024-05-17)</td><td><code>Phi3ForCausalLM</code></td><td>v0.4.2 (2024-05-05)</td><td>native</td><td><code>phi3</code> b2717 (2024-04-24)</td><td>b2717 (2024-04-24)</td><td>v0.1.33</td></tr>
+<tr><td>DeepSeek-V2</td><td><code>deepseek_v2</code></td><td>v4.54.0 (2025-07-25)</td><td><code>DeepseekV2ForCausalLM</code></td><td>v0.5.1 (2024-07-06)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b3023 (2024-05-28)</td><td>v0.1.40</td></tr>
+<tr><td>DeepSeek-V3 / R1</td><td><code>deepseek_v3</code></td><td>v4.51.0 (2025-04-05)</td><td><code>DeepseekV3ForCausalLM</code></td><td>v0.6.6 (2024-12-27)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b4417 (2025-01-04)</td><td>v0.1.40</td></tr>
 <tr><td>DeepSeek-V4</td><td><code>deepseek_v4</code></td><td>v5.8.0 (2026-05-05)</td><td><code>DeepseekV4ForCausalLM</code></td><td>v0.20.0 (2026-04-27)</td><td>native</td><td><code>deepseek4</code> b9840 (2026-06-29)</td><td>b9840 (2026-06-29)</td><td>v0.31.0</td></tr>
-<tr><td>gpt-oss</td><td><code>gpt_oss</code></td><td>v4.55.0 (2025-08-05)</td><td><code>GptOssForCausalLM</code></td><td>v0.10.1 (2025-08-18)</td><td>native</td><td><code>gpt-oss</code> b6096 (2025-08-05)</td><td>b6096 (2025-08-05)</td><td>v0.11.5</td></tr>
-<tr><td>GLM-4.5</td><td><code>glm4_moe</code></td><td>v4.54.0 (2025-07-25)</td><td><code>Glm4MoeForCausalLM</code></td><td>v0.10.0 (2025-07-23)</td><td>native</td><td><code>glm4moe</code> b6085 (2025-08-04)</td><td>b6085 (2025-08-04)</td><td>v0.11.5</td></tr>
-<tr><td>GLM-5 Next</td><td><code>glm5_next</code></td><td>v5.16.1 (2026-08-26)</td><td><code>Glm5NextForConditionalGeneration</code></td><td>v0.30.0 (2026-09-21)</td><td>native</td><td><code>glm5-next</code> b11279 (2026-09-30)</td><td>b11279 (2026-09-30)</td><td>v0.40.0</td></tr>
-<tr><td>Kimi K2.5</td><td><code>kimi_k25</code></td><td>v5.13.0 (2026-07-03)</td><td><code>KimiK25ForConditionalGeneration</code></td><td>v0.15.0 (2026-01-28)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b8003 (2026-02-11)</td><td>v0.1.40</td></tr>
-<tr><td>Kimi Linear</td><td><code>kimi_linear</code></td><td>v5.17.0 (2026-09-09)</td><td><code>KimiLinearForCausalLM</code></td><td>v0.11.1 (2025-11-18)</td><td>native</td><td><code>kimi-linear</code> b7957 (2026-02-06)</td><td>b7957 (2026-02-06)</td><td>v0.30.0</td></tr>
-<tr><td>MiniMax-M2</td><td><code>minimax_m2</code></td><td>v5.0.0 (2026-01-26)</td><td><code>MiniMaxM2ForCausalLM</code></td><td>v0.11.1 (2025-11-18)</td><td>native</td><td><code>minimax-m2</code> b6906 (2025-10-31)</td><td>b6906 (2025-10-31)</td><td>v0.13.2</td></tr>
-<tr><td>Granite</td><td><code>granite</code></td><td>v4.45.0 (2024-09-25)</td><td><code>GraniteForCausalLM</code></td><td>v0.6.0 (2024-09-04)</td><td>native</td><td><code>granite</code> b3774 (2024-09-17)</td><td>b3774 (2024-09-17)</td><td>v0.3.14</td></tr>
-<tr><td>OLMo 2</td><td><code>olmo2</code></td><td>v4.47.0 (2024-12-05)</td><td><code>Olmo2ForCausalLM</code></td><td>v0.6.5 (2024-12-17)</td><td>Transformers backend after v0.25.1</td><td><code>olmo2</code> b4168 (2024-11-25)</td><td>b4168 (2024-11-25)</td><td>v0.5.2</td></tr>
+<tr><td>gpt-oss</td><td><code>gpt_oss</code></td><td>v4.55.0 (2025-08-05)</td><td><code>GptOssForCausalLM</code></td><td>v0.10.1 (2025-08-19)</td><td>native</td><td><code>gpt-oss</code> b6096 (2025-08-05)</td><td>b6096 (2025-08-05)</td><td>v0.11.5</td></tr>
+<tr><td>GLM-4.5</td><td><code>glm4_moe</code></td><td>v4.54.0 (2025-07-25)</td><td><code>Glm4MoeForCausalLM</code></td><td>v0.10.0 (2025-07-25)</td><td>native</td><td><code>glm4moe</code> b6085 (2025-08-04)</td><td>b6085 (2025-08-04)</td><td>v0.11.5</td></tr>
+<tr><td>GLM-5 Next</td><td><code>glm5_next</code></td><td>v5.16.1 (2026-08-26)</td><td><code>Glm5NextForConditionalGeneration</code></td><td>v0.30.0 (2026-09-22)</td><td>native</td><td><code>glm5-next</code> b11279 (2026-09-30)</td><td>b11279 (2026-09-30)</td><td>v0.40.0</td></tr>
+<tr><td>Kimi K2.5</td><td><code>kimi_k25</code></td><td>v5.13.0 (2026-07-03)</td><td><code>KimiK25ForConditionalGeneration</code></td><td>v0.15.0 (2026-01-29)</td><td>native</td><td><code>deepseek2</code> b3023 (2024-05-28)</td><td>b8003 (2026-02-11)</td><td>v0.1.40</td></tr>
+<tr><td>Kimi Linear</td><td><code>kimi_linear</code></td><td>v5.17.0 (2026-09-09)</td><td><code>KimiLinearForCausalLM</code></td><td>v0.11.1 (2025-11-19)</td><td>native</td><td><code>kimi-linear</code> b7957 (2026-02-06)</td><td>b7957 (2026-02-06)</td><td>v0.30.0</td></tr>
+<tr><td>MiniMax-M2</td><td><code>minimax_m2</code></td><td>v5.0.0 (2026-01-26)</td><td><code>MiniMaxM2ForCausalLM</code></td><td>v0.11.1 (2025-11-19)</td><td>native</td><td><code>minimax-m2</code> b6906 (2025-10-31)</td><td>b6906 (2025-10-31)</td><td>v0.13.2</td></tr>
+<tr><td>Granite</td><td><code>granite</code></td><td>v4.45.0 (2024-09-25)</td><td><code>GraniteForCausalLM</code></td><td>v0.6.0 (2024-09-05)</td><td>native</td><td><code>granite</code> b3774 (2024-09-17)</td><td>b3774 (2024-09-17)</td><td>v0.3.14</td></tr>
+<tr><td>OLMo 2</td><td><code>olmo2</code></td><td>v4.47.0 (2024-12-05)</td><td><code>Olmo2ForCausalLM</code></td><td>v0.6.5 (2024-12-18)</td><td>Transformers backend after v0.25.1</td><td><code>olmo2</code> b4168 (2024-11-25)</td><td>b4168 (2024-11-25)</td><td>v0.5.2</td></tr>
 </tbody></table></div>
 <p class="note"><strong>Two llama.cpp columns.</strong> "String from" is the first build whose loader knows the GGUF architecture string; "Converter knows the class from" is the first build whose <code>convert_hf_to_gguf.py</code> registers the Hugging Face class. When the second is later, the model reuses an older string (Qwen2.5-VL, DeepSeek-V3 / R1, Kimi K2.5): a GGUF of that model is written by the newer converter, so use a build at least that new. Classes the converter already had by b2700 (April 2024) show a dash there, because before that the converter was being restructured and the first appearance of a class does not mean new support.</p>
-<p class="note">The order is not always Transformers first. Kimi K2.5 ran in vLLM from v0.15.0, months before Transformers registered <code>kimi_k25</code> in v5.13.0; until then it loaded in Transformers only with <code>trust_remote_code=True</code>. DeepSeek-V2 waited even longer: vLLM v0.5.1, Transformers v4.54.0. Mistral Large 4 is in Transformers v5.22.0 but has no native vLLM class up to v0.33.0.</p>
+<p class="note">The order is not always Transformers first. Kimi K2.5 ran in vLLM from v0.15.0, months before Transformers registered <code>kimi_k25</code> in v5.13.0; until then it loaded in Transformers only with <code>trust_remote_code=True</code>. DeepSeek-V2 waited even longer: vLLM v0.5.1, Transformers v4.54.0. Mistral Large 4 is in Transformers v5.22.0; vLLM had no native class for it up to v0.33.0, and v0.34.0 adds one under the name <code>MistralLarge4ForCausalLM</code>, which vLLM's loader for Mistral-format configs (<code>params.json</code>) assigns. The Transformers class name <code>MistralLarge4ForConditionalGeneration</code> is still not in vLLM's registry.</p>
 
 <h2 id="working">Is the first release that registers a model enough?</h2>
 <p><strong>The table gives the first release that knows the name. It is the floor, not a promise that everything works there.</strong> Support for a new model is often fixed in the next one or two patch releases, and other projects then raise their own minimum: Qwen3.5 was registered in Transformers 5.2.0, while the lmms-engine migration guide asks for Transformers 5.3.0 for it. For a model released in the last few months, install the newest patch release of the line, not the first one.</p>
@@ -144,18 +144,18 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <h2 id="vllm">What happens in vLLM when the architecture is missing?</h2>
 <p><strong>From v0.7.2 vLLM falls back to the Transformers implementation when none of the names in <code>architectures</code> is registered and the Transformers class is compatible.</strong> With the default <code>--model-impl auto</code> vLLM does not stop; it logs one warning ("X has no vLLM implementation, falling back to Transformers implementation"); <code>--model-impl transformers</code> forces it and reports why it cannot. The installed Transformers must then know the model too, so both versions in the lookup matter.</p>
 <ul>
-<li>23 names that vLLM once implemented itself now run through that backend on purpose (for example <code>Olmo2ForCausalLM</code>, native up to v0.25.1).</li>
-<li>50 names were removed and raise "was supported in vLLM until vY" (for example <code>QWenLMHeadModel</code>, the first Qwen, until v0.23.0).</li>
+<li>27 names that vLLM once implemented itself now run through that backend on purpose (for example <code>Olmo2ForCausalLM</code>, native up to v0.25.1).</li>
+<li>52 names were removed and raise "was supported in vLLM until vY" (for example <code>QWenLMHeadModel</code>, the first Qwen, until v0.23.0).</li>
 <li>5 names moved to plugins, such as BART to <a href="https://github.com/vllm-project/bart-plugin">bart-plugin</a>.</li>
-<li>Pooling variants (<code>...ForSequenceClassification</code>, <code>...Model</code>) that are not registered are converted from the generative class of the same model in v0.33.0; the lookup shows the base class.</li>
+<li>Pooling variants (<code>...ForSequenceClassification</code>, <code>...Model</code>) that are not registered are converted from the generative class of the same model in v0.34.0; the lookup shows the base class.</li>
 </ul>
 <p>GGUF files in vLLM go through a separate plugin; see <a href="/en/gguf-arch-min-build-lookup/#vllm">the GGUF page</a>.</p>
 
 <h2 id="llamacpp">How is the GGUF architecture found from config.json?</h2>
-<p><strong>llama.cpp's converter (<code>convert_hf_to_gguf.py</code>) registers each Hugging Face architecture name with a GGUF architecture, and that string is what llama.cpp checks when it loads the file.</strong> The names often differ: <code>MistralForCausalLM</code> becomes <code>llama</code>, <code>DeepseekV3ForCausalLM</code> becomes <code>deepseek2</code>, <code>Qwen3_5ForConditionalGeneration</code> becomes <code>qwen35</code>. The lookup uses the converter at llama.cpp b12352 (312 names), the first build whose converter registers each class (binary search over the release tags), and the build numbers of the strings from the <a href="/en/gguf-arch-min-build-lookup/">GGUF lookup</a>, which is regenerated daily.</p>
+<p><strong>llama.cpp's converter (<code>convert_hf_to_gguf.py</code>) registers each Hugging Face architecture name with a GGUF architecture, and that string is what llama.cpp checks when it loads the file.</strong> The names often differ: <code>MistralForCausalLM</code> becomes <code>llama</code>, <code>DeepseekV3ForCausalLM</code> becomes <code>deepseek2</code>, <code>Qwen3_5ForConditionalGeneration</code> becomes <code>qwen35</code>. The lookup uses the converter at llama.cpp b12447 (319 names), the first build whose converter registers each class (binary search over the release tags), and the build numbers of the strings from the <a href="/en/gguf-arch-min-build-lookup/">GGUF lookup</a>, which is regenerated daily.</p>
 
 <h2 id="table">Full list: first release for every model_type and architecture</h2>
-<p>Two tables: Transformers by <code>model_type</code> (816 rows), then vLLM by architecture name (471 rows; 380 native in v0.33.0). The filter applies to both.</p>
+<p>Two tables: Transformers by <code>model_type</code> (832 rows), then vLLM by architecture name (487 rows; 387 native in v0.34.0). The filter applies to both.</p>
 <p><label for="filter">Filter both tables</label><input id="filter" placeholder="qwen" autocomplete="off"></p>
 <h3 id="tf-table">Transformers: model_type</h3>
 <div class="tw"><table id="tft">
@@ -237,9 +237,9 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>clvp</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
 <tr><td><code>clvp_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
 <tr><td><code>clvp_encoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
-<tr><td><code>code_llama</code></td><td>v4.33.0</td><td>2023-09-04</td><td>removed after v5.5.4</td></tr>
+<tr><td><code>code_llama</code></td><td>v4.33.0</td><td>2023-09-05</td><td>removed after v5.5.4</td></tr>
 <tr><td><code>codegen</code></td><td>v4.21.0</td><td>2022-07-27</td><td></td></tr>
-<tr><td><code>cohere</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>cohere</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>cohere2</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
 <tr><td><code>cohere2_moe</code></td><td>v5.9.0</td><td>2026-05-20</td><td></td></tr>
 <tr><td><code>cohere2_vision</code></td><td>v4.55.0</td><td>2025-08-05</td><td></td></tr>
@@ -307,6 +307,10 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>doge</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
 <tr><td><code>donut-swin</code></td><td>v4.22.0</td><td>2022-09-14</td><td></td></tr>
 <tr><td><code>dots1</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
+<tr><td><code>dots3_note</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>dots3_note_audio_encoder</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>dots3_note_text</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>dots3_note_vision_encoder</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
 <tr><td><code>dpr</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
 <tr><td><code>dpt</code></td><td>v4.18.0</td><td>2022-04-06</td><td></td></tr>
 <tr><td><code>edgetam</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
@@ -430,6 +434,9 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>granite</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
 <tr><td><code>granite4_vision</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
 <tr><td><code>granite4_vision_text</code></td><td>v5.8.0</td><td>2026-05-05</td><td></td></tr>
+<tr><td><code>granite_docling</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>granite_docling_text</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>granite_docling_vision</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
 <tr><td><code>granite_speech</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
 <tr><td><code>granite_speech5_ctc</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
 <tr><td><code>granite_speech5_encoder</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
@@ -476,6 +483,9 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>ijepa</code></td><td>v4.47.0</td><td>2024-12-05</td><td></td></tr>
 <tr><td><code>imagegpt</code></td><td>v4.13.0</td><td>2021-12-09</td><td></td></tr>
 <tr><td><code>informer</code></td><td>v4.27.0</td><td>2023-03-15</td><td></td></tr>
+<tr><td><code>inkling2</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>inkling2_text</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>inkling2_vision</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
 <tr><td><code>inkling_audio</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
 <tr><td><code>inkling_mm_model</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
 <tr><td><code>inkling_text</code></td><td>v5.14.0</td><td>2026-07-15</td><td></td></tr>
@@ -486,14 +496,17 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>instructblipvideo</code></td><td>v4.42.0</td><td>2024-06-27</td><td></td></tr>
 <tr><td><code>instructblipvideo_qformer</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
 <tr><td><code>instructblipvideo_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
+<tr><td><code>internlm3</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
 <tr><td><code>internvl</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
 <tr><td><code>internvl_vision</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
+<tr><td><code>iquestcoder</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
 <tr><td><code>jais2</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
 <tr><td><code>jamba</code></td><td>v4.40.0</td><td>2024-04-18</td><td></td></tr>
 <tr><td><code>janus</code></td><td>v4.52.0</td><td>2025-05-20</td><td></td></tr>
 <tr><td><code>janus_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
 <tr><td><code>janus_vqgan</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
 <tr><td><code>jetmoe</code></td><td>v4.41.0</td><td>2024-05-17</td><td></td></tr>
+<tr><td><code>jev</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
 <tr><td><code>jina_embeddings_v3</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
 <tr><td><code>jukebox</code></td><td>v4.25.1</td><td>2022-12-01</td><td>removed after v4.57.6</td></tr>
 <tr><td><code>kimi_k25</code></td><td>v5.13.0</td><td>2026-07-03</td><td></td></tr>
@@ -519,6 +532,9 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>lfm2</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
 <tr><td><code>lfm2_moe</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
 <tr><td><code>lfm2_vl</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
+<tr><td><code>lfm3</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>lfm3_vl</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
+<tr><td><code>lfm3_vl_vision</code></td><td>v5.23.0</td><td>2026-11-13</td><td></td></tr>
 <tr><td><code>lightglue</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
 <tr><td><code>lighton_ocr</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
 <tr><td><code>lilt</code></td><td>v4.24.0</td><td>2022-11-01</td><td></td></tr>
@@ -528,7 +544,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>llama4_vision_model</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
 <tr><td><code>llava</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
 <tr><td><code>llava-next-video</code></td><td>v4.42.0</td><td>2024-06-27</td><td>removed after v4.44.2</td></tr>
-<tr><td><code>llava_next</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>llava_next</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>llava_next_video</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
 <tr><td><code>llava_onevision</code></td><td>v4.45.0</td><td>2024-09-25</td><td></td></tr>
 <tr><td><code>longcat_flash</code></td><td>v4.57.0</td><td>2025-10-03</td><td></td></tr>
@@ -539,7 +555,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>lw_detr_vit</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
 <tr><td><code>lxmert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
 <tr><td><code>m2m_100</code></td><td>v4.4.0</td><td>2021-03-16</td><td></td></tr>
-<tr><td><code>mamba</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>mamba</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>mamba2</code></td><td>v4.44.0</td><td>2024-08-06</td><td></td></tr>
 <tr><td><code>marian</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
 <tr><td><code>markuplm</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
@@ -621,7 +637,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>musicflamingo_encoder</code></td><td>v5.5.0</td><td>2026-04-02</td><td>removed after v5.5.4</td></tr>
 <tr><td><code>musicgen</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
 <tr><td><code>musicgen_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
-<tr><td><code>musicgen_melody</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>musicgen_melody</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>musicgen_melody_decoder</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
 <tr><td><code>mvp</code></td><td>v4.21.0</td><td>2022-07-27</td><td></td></tr>
 <tr><td><code>nanochat</code></td><td>v5.0.0</td><td>2026-01-26</td><td></td></tr>
@@ -704,7 +720,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>pocket_tts_audio_tokenizer_decoder</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
 <tr><td><code>pocket_tts_audio_tokenizer_encoder</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
 <tr><td><code>poolformer</code></td><td>v4.17.0</td><td>2022-03-03</td><td></td></tr>
-<tr><td><code>pop2piano</code></td><td>v4.33.0</td><td>2023-09-04</td><td></td></tr>
+<tr><td><code>pop2piano</code></td><td>v4.33.0</td><td>2023-09-05</td><td></td></tr>
 <tr><td><code>pp_chart2table</code></td><td>v5.4.0</td><td>2026-03-27</td><td></td></tr>
 <tr><td><code>pp_chart2table_vision</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
 <tr><td><code>pp_doclayout_v2</code></td><td>v5.3.0</td><td>2026-03-04</td><td></td></tr>
@@ -727,7 +743,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>prompt_depth_anything</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
 <tr><td><code>prophetnet</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
 <tr><td><code>pvt</code></td><td>v4.32.0</td><td>2023-08-22</td><td></td></tr>
-<tr><td><code>pvt_v2</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>pvt_v2</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>qdqbert</code></td><td>v4.13.0</td><td>2021-12-09</td><td>removed after v4.57.6</td></tr>
 <tr><td><code>qianfan_ocr</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
 <tr><td><code>qianfan_ocr_vision</code></td><td>v5.6.0</td><td>2026-04-22</td><td></td></tr>
@@ -838,7 +854,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>seamless_m4t_v2</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
 <tr><td><code>seed_oss</code></td><td>v4.56.0</td><td>2025-08-29</td><td></td></tr>
 <tr><td><code>segformer</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
-<tr><td><code>seggpt</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>seggpt</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>sew</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
 <tr><td><code>sew-d</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
 <tr><td><code>shieldgemma2</code></td><td>v4.50.0</td><td>2025-03-21</td><td></td></tr>
@@ -863,12 +879,12 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>splinter</code></td><td>v4.10.0</td><td>2021-08-31</td><td></td></tr>
 <tr><td><code>squeezebert</code></td><td>v4.0.0</td><td>2020-11-30</td><td></td></tr>
 <tr><td><code>stablelm</code></td><td>v4.38.0</td><td>2024-02-21</td><td></td></tr>
-<tr><td><code>starcoder2</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>starcoder2</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>step3p5</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
 <tr><td><code>step3p5_vision</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
 <tr><td><code>step3p7</code></td><td>v5.16.0</td><td>2026-08-26</td><td></td></tr>
 <tr><td><code>superglue</code></td><td>v4.49.0</td><td>2025-02-17</td><td></td></tr>
-<tr><td><code>superpoint</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>superpoint</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>swiftformer</code></td><td>v4.30.0</td><td>2023-06-08</td><td></td></tr>
 <tr><td><code>swin</code></td><td>v4.16.0</td><td>2022-01-27</td><td></td></tr>
 <tr><td><code>swin2sr</code></td><td>v4.26.0</td><td>2023-01-24</td><td></td></tr>
@@ -900,7 +916,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>trocr</code></td><td>v4.12.0</td><td>2021-10-28</td><td></td></tr>
 <tr><td><code>tvlt</code></td><td>v4.27.0</td><td>2023-03-15</td><td>removed after v4.57.6</td></tr>
 <tr><td><code>tvp</code></td><td>v4.36.0</td><td>2023-12-11</td><td></td></tr>
-<tr><td><code>udop</code></td><td>v4.39.0</td><td>2024-03-20</td><td></td></tr>
+<tr><td><code>udop</code></td><td>v4.39.0</td><td>2024-03-21</td><td></td></tr>
 <tr><td><code>ultrabert</code></td><td>v5.20.0</td><td>2026-10-15</td><td></td></tr>
 <tr><td><code>ultravbert</code></td><td>v5.21.1</td><td>2026-10-29</td><td></td></tr>
 <tr><td><code>umt5</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
@@ -940,11 +956,11 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>vit_hybrid</code></td><td>v4.26.0</td><td>2023-01-24</td><td>removed after v4.57.6</td></tr>
 <tr><td><code>vit_mae</code></td><td>v4.16.0</td><td>2022-01-27</td><td></td></tr>
 <tr><td><code>vit_msn</code></td><td>v4.23.0</td><td>2022-10-10</td><td></td></tr>
-<tr><td><code>vitdet</code></td><td>v4.33.0</td><td>2023-09-04</td><td></td></tr>
+<tr><td><code>vitdet</code></td><td>v4.33.0</td><td>2023-09-05</td><td></td></tr>
 <tr><td><code>vitmatte</code></td><td>v4.34.0</td><td>2023-10-03</td><td></td></tr>
 <tr><td><code>vitpose</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
 <tr><td><code>vitpose_backbone</code></td><td>v4.48.0</td><td>2025-01-10</td><td></td></tr>
-<tr><td><code>vits</code></td><td>v4.33.0</td><td>2023-09-04</td><td></td></tr>
+<tr><td><code>vits</code></td><td>v4.33.0</td><td>2023-09-05</td><td></td></tr>
 <tr><td><code>vivit</code></td><td>v4.31.0</td><td>2023-07-18</td><td></td></tr>
 <tr><td><code>vjepa2</code></td><td>v4.53.0</td><td>2025-06-26</td><td></td></tr>
 <tr><td><code>voxtral</code></td><td>v4.54.0</td><td>2025-07-25</td><td></td></tr>
@@ -980,7 +996,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 </tbody></table></div>
 <h3 id="vllm-table">vLLM: architecture names</h3>
 <div class="tw"><table id="vlt">
-<thead><tr><th>Architecture</th><th>First release (native)</th><th>In v0.33.0</th><th>model_type</th><th>GGUF arch, llama.cpp from</th></tr></thead>
+<thead><tr><th>Architecture</th><th>First release (native)</th><th>In v0.34.0</th><th>model_type</th><th>GGUF arch, llama.cpp from</th></tr></thead>
 <tbody>
 <tr><td><code>AXK1ForCausalLM</code></td><td>v0.17.0</td><td>native</td><td><code>axk1</code></td><td></td></tr>
 <tr><td><code>AfmoeForCausalLM</code></td><td>v0.11.1</td><td>native</td><td><code>afmoe</code></td><td><code>afmoe</code> b7061</td></tr>
@@ -991,7 +1007,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>AquilaModel</code></td><td>v0.1.4</td><td>removed (last v0.24.0)</td><td></td><td></td></tr>
 <tr><td><code>ArceeForCausalLM</code></td><td>v0.10.0</td><td>Transformers backend (native to v0.31.0)</td><td><code>arcee</code></td><td><code>arcee</code> b5674</td></tr>
 <tr><td><code>ArcticForCausalLM</code></td><td>v0.4.3</td><td>removed (last v0.28.0)</td><td></td><td><code>arctic</code> b2988</td></tr>
-<tr><td><code>AriaForConditionalGeneration</code></td><td>v0.6.5</td><td>native</td><td><code>aria</code></td><td></td></tr>
+<tr><td><code>AriaForConditionalGeneration</code></td><td>v0.6.5</td><td>Transformers backend (native to v0.33.0)</td><td><code>aria</code></td><td></td></tr>
 <tr><td><code>AudioFlamingo3ForConditionalGeneration</code></td><td>v0.13.0</td><td>native</td><td><code>audioflamingo3</code></td><td><code>qwen2</code> b1939, converter b7593</td></tr>
 <tr><td><code>AyaVisionForConditionalGeneration</code></td><td>v0.8.3</td><td>removed (last v0.24.0)</td><td><code>aya_vision</code></td><td></td></tr>
 <tr><td><code>BagelForConditionalGeneration</code></td><td>v0.13.0</td><td>native</td><td></td><td></td></tr>
@@ -1018,6 +1034,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>Blip2ForConditionalGeneration</code></td><td>v0.5.4</td><td>native</td><td><code>blip-2</code></td><td></td></tr>
 <tr><td><code>BloomForCausalLM</code></td><td>v0.1.2</td><td>native</td><td><code>bloom</code></td><td><code>bloom</code> b1363</td></tr>
 <tr><td><code>CLIPModel</code></td><td>v0.11.1</td><td>native</td><td><code>clip</code></td><td></td></tr>
+<tr><td><code>CanaryForConditionalGeneration</code></td><td>v0.34.0</td><td>native</td><td><code>canary</code></td><td></td></tr>
 <tr><td><code>ChameleonForCausalLM</code></td><td>v0.5.3</td><td>gone (last v0.5.3.post1)</td><td></td><td><code>chameleon</code> b3834</td></tr>
 <tr><td><code>ChameleonForConditionalGeneration</code></td><td>v0.5.3</td><td>removed (last v0.28.0)</td><td><code>chameleon</code></td><td><code>chameleon</code> b3834, converter b3841</td></tr>
 <tr><td><code>ChatGLMForConditionalGeneration</code></td><td>v0.2.4</td><td>native</td><td></td><td><code>chatglm</code> b3333</td></tr>
@@ -1046,11 +1063,13 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>D3ForSequenceClassification</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DFlash2BeamDraftModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DFlash2DraftModel</code></td><td>v0.28.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b10658</td></tr>
+<tr><td><code>DFlash2RicursiveDraftModel</code></td><td>v0.34.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DFlashDraftModel</code></td><td>v0.20.0</td><td>native</td><td></td><td><code>dflash</code> b9831</td></tr>
 <tr><td><code>DFlashLagunaForCausalLM</code></td><td>v0.25.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DFlashMuseGlimmerAssistantModel</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DFlashQwen3XPressModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DSparkDraftModel</code></td><td>v0.25.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b10470</td></tr>
+<tr><td><code>DSparkMiniMaxDraftModel</code></td><td>v0.34.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b12420</td></tr>
 <tr><td><code>DSparkV41DraftModel</code></td><td>v0.30.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DbrxForCausalLM</code></td><td>v0.4.0</td><td>native</td><td><code>dbrx</code></td><td><code>dbrx</code> b2665</td></tr>
 <tr><td><code>DeciLMForCausalLM</code></td><td>v0.2.7</td><td>native</td><td></td><td><code>deci</code> b4380</td></tr>
@@ -1073,7 +1092,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>DonutForConditionalGeneration</code></td><td>v0.10.2</td><td>removed (last v0.10.2)</td><td></td><td></td></tr>
 <tr><td><code>DoryForCausalLM</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Dots1ForCausalLM</code></td><td>v0.9.2</td><td>removed (last v0.23.0)</td><td><code>dots1</code></td><td><code>dots1</code> b5668</td></tr>
-<tr><td><code>Dots3NoteForCausalLM</code></td><td>v0.28.0</td><td>native</td><td></td><td><code>dots3note</code> b10569</td></tr>
+<tr><td><code>Dots3NoteForCausalLM</code></td><td>v0.28.0</td><td>native</td><td><code>dots3_note</code></td><td><code>dots3note</code> b10569</td></tr>
 <tr><td><code>Dots3NoteMTPModel</code></td><td>v0.28.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>DotsOCRForCausalLM</code></td><td>v0.11.0</td><td>native</td><td></td><td><code>qwen2</code> b1939, converter b8731</td></tr>
 <tr><td><code>EAGLEModel</code></td><td>v0.5.5</td><td>gone (last v0.9.2)</td><td></td><td></td></tr>
@@ -1140,7 +1159,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>Gemma4ForConditionalGeneration</code></td><td>v0.19.0</td><td>native</td><td><code>gemma4</code></td><td><code>gemma4</code> b8637</td></tr>
 <tr><td><code>Gemma4MTPModel</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Gemma4UnifiedForConditionalGeneration</code></td><td>v0.23.0</td><td>native</td><td><code>gemma4_unified</code></td><td><code>gemma4</code> b8637, converter b9493</td></tr>
-<tr><td><code>GemmaForCausalLM</code></td><td>v0.3.2</td><td>native</td><td><code>gemma</code></td><td><code>gemma</code> b2223</td></tr>
+<tr><td><code>GemmaForCausalLM</code></td><td>v0.3.2</td><td>Transformers backend (native to v0.33.0)</td><td><code>gemma</code></td><td><code>gemma</code> b2223</td></tr>
 <tr><td><code>Glm4ForCausalLM</code></td><td>v0.8.4</td><td>native</td><td><code>glm4</code></td><td><code>glm4</code> b5115</td></tr>
 <tr><td><code>Glm4MoeForCausalLM</code></td><td>v0.10.0</td><td>native</td><td><code>glm4_moe</code></td><td><code>glm4moe</code> b6085</td></tr>
 <tr><td><code>Glm4MoeLiteForCausalLM</code></td><td>v0.15.0</td><td>native</td><td><code>glm4_moe_lite</code></td><td><code>deepseek2</code> b3023, converter b7779</td></tr>
@@ -1157,7 +1176,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>GlmOcrForConditionalGeneration</code></td><td>v0.16.0</td><td>native</td><td><code>glm_ocr</code></td><td><code>glm4</code> b5115, converter b8093</td></tr>
 <tr><td><code>GlmOcrMTPModel</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>GptOssForCausalLM</code></td><td>v0.10.1</td><td>native</td><td><code>gpt_oss</code></td><td><code>gpt-oss</code> b6096</td></tr>
-<tr><td><code>Granite4VisionForConditionalGeneration</code></td><td>v0.20.0</td><td>native</td><td><code>granite4_vision</code></td><td></td></tr>
+<tr><td><code>Granite4VisionForConditionalGeneration</code></td><td>v0.20.0</td><td>native</td><td><code>granite4_vision</code></td><td><code>granite</code> b3774, converter b12385</td></tr>
 <tr><td><code>GraniteForCausalLM</code></td><td>v0.6.0</td><td>native</td><td><code>granite</code></td><td><code>granite</code> b3774</td></tr>
 <tr><td><code>GraniteMoeForCausalLM</code></td><td>v0.6.3</td><td>native</td><td><code>granitemoe</code></td><td><code>granitemoe</code> b3823</td></tr>
 <tr><td><code>GraniteMoeHybridForCausalLM</code></td><td>v0.9.0</td><td>native</td><td><code>granitemoehybrid</code></td><td><code>granitehybrid</code> b5868</td></tr>
@@ -1215,9 +1234,10 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>K2HorizonForCausalLM</code></td><td>v0.30.0</td><td>native</td><td></td><td><code>k2-horizon</code> b11454</td></tr>
 <tr><td><code>K3DSparkModel</code></td><td>v0.27.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>KananaVForConditionalGeneration</code></td><td>v0.14.0</td><td>native</td><td></td><td></td></tr>
-<tr><td><code>KeyeForConditionalGeneration</code></td><td>v0.9.2</td><td>native</td><td></td><td></td></tr>
-<tr><td><code>KeyeVL1_5ForConditionalGeneration</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>KeyeForConditionalGeneration</code></td><td>v0.9.2</td><td>removed (last v0.33.0)</td><td></td><td></td></tr>
+<tr><td><code>KeyeVL1_5ForConditionalGeneration</code></td><td>v0.10.2</td><td>removed (last v0.33.0)</td><td></td><td></td></tr>
 <tr><td><code>KimiK25ForConditionalGeneration</code></td><td>v0.15.0</td><td>native</td><td></td><td><code>deepseek2</code> b3023, converter b8003</td></tr>
+<tr><td><code>KimiK31ForConditionalGeneration</code></td><td>v0.34.0</td><td>native</td><td></td><td><code>kimi-k31</code> b12180</td></tr>
 <tr><td><code>KimiK3ForConditionalGeneration</code></td><td>v0.27.0</td><td>native</td><td></td><td><code>kimi-k3</code> b10448</td></tr>
 <tr><td><code>KimiK3MTPModel</code></td><td>v0.27.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>KimiLinearForCausalLM</code></td><td>v0.11.1</td><td>native</td><td><code>kimi_linear</code></td><td><code>kimi-linear</code> b7957</td></tr>
@@ -1229,6 +1249,9 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>Lfm2ForCausalLM</code></td><td>v0.10.2</td><td>native</td><td><code>lfm2</code></td><td><code>lfm2</code> b5873</td></tr>
 <tr><td><code>Lfm2MoeForCausalLM</code></td><td>v0.11.1</td><td>native</td><td><code>lfm2_moe</code></td><td><code>lfm2moe</code> b6709</td></tr>
 <tr><td><code>Lfm2VlForConditionalGeneration</code></td><td>v0.14.0</td><td>native</td><td><code>lfm2_vl</code></td><td></td></tr>
+<tr><td><code>Lfm3AudioForConditionalGeneration</code></td><td>v0.34.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>Lfm3ForCausalLM</code></td><td>v0.34.0</td><td>native</td><td><code>lfm3</code></td><td><code>lfm3</code> b11938</td></tr>
+<tr><td><code>Lfm3VlForConditionalGeneration</code></td><td>v0.34.0</td><td>native</td><td><code>lfm3_vl</code></td><td><code>lfm3</code> b11938</td></tr>
 <tr><td><code>LiLiCorrDraftModel</code></td><td>v0.31.0</td><td>native</td><td></td><td><code>dflash</code> b9831, converter b11641</td></tr>
 <tr><td><code>LightOnOCRForConditionalGeneration</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Llama4ForCausalLM</code></td><td>v0.8.3</td><td>native</td><td><code>llama4</code></td><td><code>llama4</code> b5074, converter b6499</td></tr>
@@ -1265,6 +1288,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>MiMoV2MTPModel</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>MiMoV2OmniForCausalLM</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>MiMoV2OmniMTPModel</code></td><td>v0.21.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MingV3ASRForConditionalGeneration</code></td><td>v0.34.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>MiniCPM3ForCausalLM</code></td><td>v0.6.2</td><td>native</td><td><code>minicpm3</code></td><td><code>minicpm3</code> b3765</td></tr>
 <tr><td><code>MiniCPMForCausalLM</code></td><td>v0.4.1</td><td>native</td><td></td><td><code>minicpm</code> b2087</td></tr>
 <tr><td><code>MiniCPMO</code></td><td>v0.7.1</td><td>native</td><td></td><td></td></tr>
@@ -1284,6 +1308,8 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>Mistral3ForConditionalGeneration</code></td><td>v0.8.3</td><td>native</td><td><code>mistral3</code></td><td><code>mistral3</code> b7216</td></tr>
 <tr><td><code>MistralForCausalLM</code></td><td>v0.2.0</td><td>native</td><td><code>mistral</code></td><td><code>llama</code> b1046</td></tr>
 <tr><td><code>MistralLarge3ForCausalLM</code></td><td>v0.12.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MistralLarge4DSparkModel</code></td><td>v0.34.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>MistralLarge4ForCausalLM</code></td><td>v0.34.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>MistralModel</code></td><td>v0.4.3</td><td>native</td><td><code>mistral</code></td><td></td></tr>
 <tr><td><code>MixtralForCausalLM</code></td><td>v0.2.4</td><td>native</td><td><code>mixtral</code></td><td><code>llama</code> b1046</td></tr>
 <tr><td><code>MllamaForConditionalGeneration</code></td><td>v0.6.2</td><td>removed (last v0.10.2)</td><td><code>mllama</code></td><td></td></tr>
@@ -1308,6 +1334,8 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>NVLM_D</code></td><td>v0.6.3</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>NanbeigeForCausalLM</code></td><td>&mdash;</td><td>Transformers backend</td><td></td><td><code>nanbeige</code> b10153</td></tr>
 <tr><td><code>Nemotron3_5AsrForRNNT</code></td><td>&mdash;</td><td>plugin</td><td><code>nemotron3_5_asr</code></td><td></td></tr>
+<tr><td><code>Nemotron3_5TranscribeForConditionalGeneration</code></td><td>v0.34.0</td><td>native</td><td><code>nemo_speechlm</code></td><td><code>nemotron_h</code> b6315, converter b12087</td></tr>
+<tr><td><code>Nemotron3_5TranscribeMTPModel</code></td><td>v0.34.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>NemotronForCausalLM</code></td><td>v0.5.4</td><td>native</td><td><code>nemotron</code></td><td><code>nemotron</code> b3592</td></tr>
 <tr><td><code>NemotronHForCausalLM</code></td><td>v0.9.1</td><td>native</td><td><code>nemotron_h</code></td><td><code>nemotron_h</code> b6315</td></tr>
 <tr><td><code>NemotronHMTPModel</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
@@ -1325,7 +1353,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>Olmo3ForCausalLM</code></td><td>v0.11.0</td><td>Transformers backend (native to v0.28.0)</td><td><code>olmo3</code></td><td><code>olmo2</code> b4168, converter b6492</td></tr>
 <tr><td><code>OlmoForCausalLM</code></td><td>v0.4.2</td><td>Transformers backend (native to v0.25.1)</td><td><code>olmo</code></td><td><code>olmo</code> b2697</td></tr>
 <tr><td><code>OlmoHybridForCausalLM</code></td><td>v0.18.0</td><td>native</td><td><code>olmo_hybrid</code></td><td></td></tr>
-<tr><td><code>OlmoeForCausalLM</code></td><td>v0.6.2</td><td>native</td><td><code>olmoe</code></td><td><code>olmoe</code> b3766</td></tr>
+<tr><td><code>OlmoeForCausalLM</code></td><td>v0.6.2</td><td>Transformers backend (native to v0.33.0)</td><td><code>olmoe</code></td><td><code>olmoe</code> b3766</td></tr>
 <tr><td><code>OpenAIPrivacyFilterForTokenClassification</code></td><td>v0.25.0</td><td>native</td><td><code>openai_privacy_filter</code></td><td></td></tr>
 <tr><td><code>OpenCUAForConditionalGeneration</code></td><td>v0.12.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>OpenPanguMTPModel</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
@@ -1338,7 +1366,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>Ovis2_5</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Ovis2_6ForCausalLM</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Ovis2_6_MoeForCausalLM</code></td><td>v0.17.0</td><td>native</td><td></td><td></td></tr>
-<tr><td><code>PEagleDraftModel</code></td><td>v0.22.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PEagleDraftModel</code></td><td>v0.22.0</td><td>gone (last v0.33.0)</td><td></td><td></td></tr>
 <tr><td><code>PaddleOCRVLForConditionalGeneration</code></td><td>v0.11.1</td><td>native</td><td><code>paddleocr_vl</code></td><td><code>paddleocr</code> b8110</td></tr>
 <tr><td><code>PaliGemmaForConditionalGeneration</code></td><td>v0.5.2</td><td>native</td><td><code>paligemma</code></td><td></td></tr>
 <tr><td><code>PanguEmbeddedForCausalLM</code></td><td>v0.11.1</td><td>native</td><td></td><td><code>pangu-embedded</code> b6955</td></tr>
@@ -1346,8 +1374,8 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>PanguUltraMoEForCausalLM</code></td><td>v0.11.1</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Param2MoEForCausalLM</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>ParseAuxMTPModel</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
-<tr><td><code>PeagleLlamaForCausalLM</code></td><td>v0.22.0</td><td>native</td><td></td><td></td></tr>
-<tr><td><code>PeagleQwen3ForCausalLM</code></td><td>v0.24.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>PeagleLlamaForCausalLM</code></td><td>v0.22.0</td><td>gone (last v0.33.0)</td><td></td><td></td></tr>
+<tr><td><code>PeagleQwen3ForCausalLM</code></td><td>v0.24.0</td><td>gone (last v0.33.0)</td><td></td><td></td></tr>
 <tr><td><code>PersimmonForCausalLM</code></td><td>v0.5.2</td><td>removed (last v0.25.0)</td><td><code>persimmon</code></td><td></td></tr>
 <tr><td><code>Phi3ForCausalLM</code></td><td>v0.4.2</td><td>native</td><td><code>phi3</code></td><td><code>phi3</code> b2717</td></tr>
 <tr><td><code>Phi3SmallForCausalLM</code></td><td>v0.4.3</td><td>removed (last v0.9.2)</td><td></td><td></td></tr>
@@ -1404,6 +1432,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>RForConditionalGeneration</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>RWForCausalLM</code></td><td>v0.1.3</td><td>removed (last v0.28.0)</td><td></td><td><code>falcon</code> b1046</td></tr>
 <tr><td><code>RadioMBartPrefixForCausalLM</code></td><td>v0.33.0</td><td>native</td><td></td><td></td></tr>
+<tr><td><code>RicursiveForCausalLM</code></td><td>v0.34.0</td><td>native</td><td></td><td><code>ricursive</code> b12158</td></tr>
 <tr><td><code>Rnj1ForCausalLM</code></td><td>v0.20.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>RobertaForMaskedLM</code></td><td>v0.6.5</td><td>native</td><td><code>roberta</code></td><td></td></tr>
 <tr><td><code>RobertaForSequenceClassification</code></td><td>v0.6.5</td><td>native</td><td><code>roberta</code></td><td><code>bert</code> b2127, converter b5530</td></tr>
@@ -1418,7 +1447,7 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>SmolVLMForConditionalGeneration</code></td><td>v0.8.4</td><td>native</td><td><code>smolvlm</code></td><td></td></tr>
 <tr><td><code>SolarForCausalLM</code></td><td>v0.6.2</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>StableLMEpochForCausalLM</code></td><td>v0.3.0</td><td>removed (last v0.28.0)</td><td></td><td><code>stablelm</code> b1515</td></tr>
-<tr><td><code>StableLmForCausalLM</code></td><td>v0.3.3</td><td>native</td><td><code>stablelm</code></td><td><code>stablelm</code> b1515</td></tr>
+<tr><td><code>StableLmForCausalLM</code></td><td>v0.3.3</td><td>Transformers backend (native to v0.33.0)</td><td><code>stablelm</code></td><td><code>stablelm</code> b1515</td></tr>
 <tr><td><code>Starcoder2ForCausalLM</code></td><td>v0.3.3</td><td>Transformers backend (native to v0.24.0)</td><td><code>starcoder2</code></td><td><code>starcoder2</code> b2308</td></tr>
 <tr><td><code>Step1ForCausalLM</code></td><td>v0.15.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Step3TextForCausalLM</code></td><td>v0.10.1</td><td>native</td><td></td><td></td></tr>
@@ -1438,10 +1467,12 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>TeleFLMForCausalLM</code></td><td>v0.8.2</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>Terratorch</code></td><td>v0.10.2</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>TransformersModel</code></td><td>v0.7.2</td><td>gone (last v0.8.2)</td><td></td><td></td></tr>
+<tr><td><code>UltraVBertModel</code></td><td>v0.34.0</td><td>native</td><td><code>ultravbert</code></td><td></td></tr>
 <tr><td><code>UltravoxModel</code></td><td>v0.5.5</td><td>native</td><td></td><td><code>llama</code> b1046, converter b5458</td></tr>
+<tr><td><code>UnlimitedOCR2TextForCausalLM</code></td><td>v0.34.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>UnlimitedOCRForCausalLM</code></td><td>v0.25.0</td><td>native</td><td></td><td><code>deepseek2</code> b3023, converter b9784</td></tr>
 <tr><td><code>VaultGemmaForCausalLM</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>vaultgemma</code></td><td></td></tr>
-<tr><td><code>VibeVoiceAsrForConditionalGeneration</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>vibevoice_asr</code></td><td></td></tr>
+<tr><td><code>VibeVoiceAsrForConditionalGeneration</code></td><td>&mdash;</td><td>Transformers backend</td><td><code>vibevoice_asr</code></td><td><code>qwen2</code> b1939, converter b12426</td></tr>
 <tr><td><code>VoxtralForConditionalGeneration</code></td><td>v0.10.0</td><td>native</td><td><code>voxtral</code></td><td><code>llama</code> b1046, converter b6014</td></tr>
 <tr><td><code>VoxtralRealtimeGeneration</code></td><td>v0.16.0</td><td>native</td><td></td><td></td></tr>
 <tr><td><code>VoxtralStreamingGeneration</code></td><td>v0.14.0</td><td>gone (last v0.15.1)</td><td></td><td></td></tr>
@@ -1453,15 +1484,16 @@ h3{font-size:1.05rem;margin:1.4em 0 .3em}
 <tr><td><code>XverseForCausalLM</code></td><td>v0.4.0</td><td>removed (last v0.23.0)</td><td></td><td><code>xverse</code> b2576</td></tr>
 <tr><td><code>YiForCausalLM</code></td><td>v0.2.2</td><td>gone (last v0.3.0)</td><td></td><td></td></tr>
 <tr><td><code>Zamba2ForCausalLM</code></td><td>v0.8.0</td><td>native</td><td><code>zamba2</code></td><td></td></tr>
+<tr><td><code>ZayaForCausalLM</code></td><td>v0.34.0</td><td>native</td><td><code>zaya</code></td><td></td></tr>
 </tbody></table></div>
 <p>The same data as JSON: <a href="data.json">data.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
 
 <h2 id="method">How was this built?</h2>
 <ul>
-<li><strong>Transformers:</strong> at each of 214 final release tags from v4.0.0 to v5.22.2, every <code>("model_type", "...Config")</code> pair in <code>models/auto/configuration_auto.py</code>, and in <code>auto_mappings.py</code> where newer releases moved the table. "First release" is the first tag that contains the name; release candidates are not counted.</li>
-<li><strong>vLLM:</strong> at each of 98 final release tags from v0.1.0 to v0.33.0, the model registry (<code>model_loader.py</code>, then <code>models/__init__.py</code>, then <code>models/registry.py</code>). Native classes only; the Transformers-backend, removed and plugin lists of v0.33.0 give the status column.</li>
-<li><strong>Architecture to model_type:</strong> the <code>MODEL_FOR_*_MAPPING_NAMES</code> tables in <code>modeling_auto.py</code> at v5.22.2.</li>
-<li><strong>GGUF:</strong> <code>@ModelBase.register(...)</code> and <code>model_arch</code> in llama.cpp's <code>conversion/</code> package at b12352, text models only. The first build registering each class: binary search over the <code>bNNNN</code> tags in <code>convert_hf_to_gguf.py</code> (and <code>convert-hf-to-gguf.py</code>, and <code>conversion/</code> after the split). Results before b2700 are dropped: the <code>register</code> decorator itself appeared in b2318 and Llama and Mistral moved into it in b2573.</li>
+<li><strong>Transformers:</strong> at each of 215 final release tags from v4.0.0 to v5.23.0, every <code>("model_type", "...Config")</code> pair in <code>models/auto/configuration_auto.py</code>, and in <code>auto_mappings.py</code> where newer releases moved the table. "First release" is the first tag that contains the name; release candidates are not counted.</li>
+<li><strong>vLLM:</strong> at each of 99 final release tags from v0.1.0 to v0.34.0, the model registry (<code>model_loader.py</code>, then <code>models/__init__.py</code>, then <code>models/registry.py</code>). Native classes only; the Transformers-backend, removed and plugin lists of v0.34.0 give the status column.</li>
+<li><strong>Architecture to model_type:</strong> the <code>MODEL_FOR_*_MAPPING_NAMES</code> tables in <code>modeling_auto.py</code> at v5.23.0. A class that two model types share keeps the one that registered it first.</li>
+<li><strong>GGUF:</strong> <code>@ModelBase.register(...)</code> and <code>model_arch</code> in llama.cpp's <code>conversion/</code> package at b12447, text models only. The first build registering each class: binary search over the <code>bNNNN</code> tags in <code>convert_hf_to_gguf.py</code> (and <code>convert-hf-to-gguf.py</code>, and <code>conversion/</code> after the split). Results before b2700 are dropped: the <code>register</code> decorator itself appeared in b2318 and Llama and Mistral moved into it in b2573.</li>
 </ul>
 
 <h2 id="limits">What this page does not cover</h2>

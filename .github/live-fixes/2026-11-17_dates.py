@@ -6,7 +6,8 @@ v0.10.2: tag 2025-10-07, uploaded to PyPI 2025-09-13.  v0.11.0: tag 2025-10-10, 
 
 Usage: python3 -I 2026-11-17_dates.py <repository root>
 Idempotent: a page that is already fixed is left alone. Run it again after rebuilding
-en/model-arch-min-version or en/vllm-kv-concurrency-planner from scripts that still use tag dates.
+en/vllm-kv-concurrency-planner from scripts that still use tag dates.
+(en/model-arch-min-version takes its dates from pypi_dates.json since .github/model-arch/ exists.)
 """
 import json, sys
 from pathlib import Path
@@ -16,12 +17,6 @@ P = json.loads((root / ".github/common/pypi_dates.json").read_text())["vllm"]
 assert P["0.10.2"] == "2025-09-13" and P["0.11.0"] == "2025-10-04"
 
 FIX = {
-    "en/model-arch-min-version/index.html": [
-        ("v0.10.2 (2025-10-07)", "v0.10.2 (2025-09-13)", None),
-        ("v0.11.0 (2025-10-10)", "v0.11.0 (2025-10-04)", None),
-        ("Dates are the release tag dates.</p>",
-         "Dates are the release tag dates, except vLLM v0.10.2 and v0.11.0: their tags sit on later commits, so the day of the PyPI upload is shown.</p>", 1),
-    ],
     "en/vllm-kv-concurrency-planner/index.html": [
         ("<td>v0.10.2 (2025-10)</td>", "<td>v0.10.2 (2025-09)</td>", 1),
     ],

@@ -1,0 +1,37 @@
+{
+ "DSparkMiniMaxDraftModel": [
+  "12420",
+  "2026-11-15",
+  "previous build b12419"
+ ],
+ "Granite4VisionForConditionalGeneration": [
+  "12385",
+  "2026-11-14",
+  "previous build b12383"
+ ],
+ "HiggsAudio3Model": [
+  "12426",
+  "2026-11-15",
+  "previous build b12425"
+ ],
+ "Inkling2ForCausalLM": [
+  "12406",
+  "2026-11-14",
+  "previous build b12405"
+ ],
+ "Inkling2ForConditionalGeneration": [
+  "12406",
+  "2026-11-14",
+  "previous build b12405"
+ ],
+ "VibeVoiceAsrForConditionalGeneration": [
+  "12426",
+  "2026-11-15",
+  "previous build b12425"
+ ],
+ "Zonos3Model": [
+  "12424",
+  "2026-11-15",
+  "previous build b12423"
+ ]
+}

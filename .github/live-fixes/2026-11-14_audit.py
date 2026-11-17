@@ -1,16 +1,10 @@
-"""Corrections from the 2026-11-14 audit for the two pages whose build scripts are not in this repository
-(model-arch-min-version, vllm-kv-concurrency-planner). Run from the repository root after rebuilding either page:
+"""Corrections from the 2026-11-14 audit for vllm-kv-concurrency-planner, whose build scripts are not in this repository.
+(The model-arch-min-version correction now lives in the page itself: .github/model-arch/build_page.py uses the published
+page as its template.) Run from the repository root after rebuilding the page:
     python3 .github/live-fixes/2026-11-14_audit.py
 Idempotent: a replacement that is already applied is skipped; one whose old text is missing stops with an error."""
 import sys
 FIXES = {
- "en/model-arch-min-version/index.html": [
-  # M1: the Transformers fallback is not silent; vLLM v0.7.2 to v0.33.0 log a warning (model_loader/utils.py)
-  ('With the default <code>--model-impl auto</code> this is silent;',
-   'With the default <code>--model-impl auto</code> vLLM does not stop; it logs one warning ("X has no vLLM implementation, falling back to Transformers implementation");'),
-  ('<p class="meta">Published 2026-11-13 &middot; Data as of',
-   '<p class="meta">Published 2026-11-13 &middot; Corrected 2026-11-14: the Transformers fallback logs a warning &middot; Data as of'),
- ],
  "en/vllm-kv-concurrency-planner/index.html": [
   # K1: the estimated maximum model length is in the error from v0.8.4 (kv_cache_utils.py), not v0.9.1
   ('<tr><td>v0.9.1 (2025-06)</td><td><code>Available KV cache memory</code> line; startup stops when less than the budget is free; the "does not fit" error prints an estimated maximum model length</td></tr>',
