@@ -25,7 +25,13 @@ for _n, _i in _first.items():
         EARLY[_n] = _tags[_j]
         for _k in range(_j, _i): env[_tags[_k]]["names"] = sorted(set(env[_tags[_k]]["names"]) | {_n})
 print("env names read before they entered envs.py:", EARLY)
-out = {"libs": {}, "env_early": EARLY}
+# Removed variables that stop startup instead of being ignored (vLLM v0.34.0 on): the first release that names them.
+ERR = {}
+for _t in _tags:
+    for _n, _h in env[_t].get("removed_hints", {}).items(): ERR.setdefault(_n, {"since": _t, "hint": _h})
+    for _n in env[_t].get("validate_special", []): ERR.setdefault(_n, {"since": _t, "hint": None})
+print("removed env names that stop startup:", {k: v["since"] for k, v in ERR.items()})
+out = {"libs": {}, "env_early": EARLY, "env_error": ERR}
 def add(name, d, key, filt=None):
     tags, span = ranges(d, key)
     if filt: span = {k: v for k, v in span.items() if filt(k)}

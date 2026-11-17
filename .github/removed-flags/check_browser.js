@@ -1,7 +1,7 @@
 const { chromium } = require(process.env.PW || "playwright");
 const URL = process.argv[2];
 const cases = [
-  ["serve old", "VLLM_ATTENTION_BACKEND=FLASHINFER vllm serve Qwen/Qwen3-8B --task generate --disable-log-requests --guided-decoding-backend xgrammar --max_model_len 8192", "auto", "", ["--task", "--runner pooling", "VLLM_ATTENTION_BACKEND", "--attention-backend", "--max_model_len", "Current in v0.33.0", "4 of 5 names will not work"]],
+  ["serve old", "VLLM_ATTENTION_BACKEND=FLASHINFER vllm serve Qwen/Qwen3-8B --task generate --disable-log-requests --guided-decoding-backend xgrammar --max_model_len 8192", "auto", "", ["--task", "--runner pooling", "VLLM_ATTENTION_BACKEND", "--attention-backend", "--max_model_len", "Current in v0.34.0", "4 of 5 names will not work"]],
   ["old version ok", "vllm serve m --speculative-model x --num-speculative-tokens 5", "auto", "0.6.3", ["Still there in your 0.6.3", "All 2 names are valid"]],
   ["too new", "vllm serve m --speculative-config '{}'", "auto", "0.7.3", ["Added in v0.8.2", "1 of 1"]],
   ["negated", "vllm serve m --no-enable-chunked-prefill", "auto", "", ["negated form of --enable-chunked-prefill"]],
@@ -16,10 +16,13 @@ const cases = [
   ["env silent", "export VLLM_USE_V1=0", "auto", "", ["No error", "Unknown vLLM environment variable detected"]],
   ["deprecated still accepted", "vllm serve m --guided-decoding-backend xgrammar", "auto", "0.11.2", ["Still there in your 0.11.2", "removed after v0.11.2"]],
   ["serve's own argument", "vllm serve m --config c.yaml --headless", "auto", "0.9.0", ["All 2 names are valid"]],
-  ["env read before envs.py", "export VLLM_BATCH_INVARIANT=1", "auto", "0.15.1", ["v0.11.1 to v0.33.0", "All 1 names are valid"]],
+  ["env read before envs.py", "export VLLM_BATCH_INVARIANT=1", "auto", "0.15.1", ["v0.11.1 to v0.34.0", "All 1 names are valid"]],
   ["prefix ambiguous", "vllm serve m --device cuda", "vllm", "", ["Removed after v0.9.2", "ambiguous option", "--device-ids"]],
   ["prefix accepted", "python -m sglang.launch_server --model-path m --enable-flashinfer", "auto", "", ["No error in v0.5.23", "--enable-flashinfer-allreduce-fusion"]],
   ["sglang alias", "python -m sglang.launch_server --model-path m --stream-output", "auto", "", ["Removed after v0.5.19", "--incremental-streaming-output"]],
+  ["env that stops startup", "export VLLM_MARLIN_INPUT_DTYPE=int8", "auto", "", ["Removed after v0.33.0", "Not ignored", "from v0.34.0 vLLM stops at startup", "VLLM_HUMMING_INPUT_QUANT_CONFIG"]],
+  ["env that stops startup, older release", "VLLM_USE_V2_MODEL_RUNNER=0 vllm serve m", "auto", "0.33.0", ["Still there in your 0.33.0", "All 1 names are valid"]],
+  ["env that stops startup, newest", "VLLM_USE_V2_MODEL_RUNNER=0 vllm serve m", "auto", "", ["Not ignored", "Model Runner V1 has been removed"]],
   ["nothing", "hello", "auto", "", ["Found no"]],
 ];
 (async () => {

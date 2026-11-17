@@ -32,6 +32,8 @@ HV = [  # (lib, names, claimed last, replacement html, replacement flag(s) check
  ("vllm_env", ["VLLM_SLEEP_WHEN_IDLE"], "v0.17.1", "No replacement.", []),
  ("vllm_env", ["VLLM_RPC_TIMEOUT"], "v0.22.1", "No replacement.", []),
  ("vllm_env", ["VLLM_ENGINE_ITERATION_TIMEOUT_S"], "v0.31.0", "No replacement.", []),
+ ("vllm_env", ["VLLM_MARLIN_INPUT_DTYPE"], "v0.33.0", "From v0.34.0, setting it stops startup with \"VLLM_MARLIN_INPUT_DTYPE has been removed\". Marlin no longer takes 8-bit activations; the hint vLLM prints is <code>--quantization humming</code> with <code>VLLM_HUMMING_INPUT_QUANT_CONFIG</code> (from v0.20.0), for example <code>{\"dtype\":\"int8\"}</code>.", []),
+ ("vllm_env", ["VLLM_USE_V2_MODEL_RUNNER"], "v0.33.0", "Drop it; from v0.34.0 Model Runner V2 is the only runner. There, any value other than <code>1</code> stops startup with \"VLLM_USE_V2_MODEL_RUNNER=0 is no longer supported: Model Runner V1 has been removed\", and <code>1</code> only logs that it is redundant.", []),
  ("vllm_env", ["VLLM_TORCH_COMPILE_LEVEL"], "v0.6.4.post1", "Use <code>-O</code> or <code>--compilation-config</code>.", []),
  ("vllm_sampling_params", ["use_beam_search", "length_penalty", "early_stopping"], "v0.6.2", "Use <code>LLM.beam_search()</code> with <code>BeamSearchParams</code> (from v0.6.3).", []),
  ("vllm_sampling_params", ["guided_decoding"], "v0.11.2", "Use <code>structured_outputs=StructuredOutputsParams(...)</code> (from v0.11.0).", []),
@@ -62,6 +64,13 @@ for lib, names, lst, txt, deps in HV:
 assert first("sglang_cli", "--incremental-streaming-output") == "v0.5.10"
 assert first("vllm_cli", "--config") == "v0.6.0" and first("vllm_cli", "--headless") == "v0.9.0"  # serve's own arguments are read
 assert first("vllm_env", "VLLM_BATCH_INVARIANT") == "v0.11.1", first("vllm_env", "VLLM_BATCH_INVARIANT")
+assert first("vllm_env", "VLLM_HUMMING_INPUT_QUANT_CONFIG") == "v0.20.0"
+# Removed variables that stop startup (read from envs.py removed_environment_variables and validate_environ).
+# The prose below names exactly these two; a new entry upstream stops the build here so the prose gets rewritten.
+EE = D["env_error"]
+assert {k: v["since"] for k, v in EE.items()} == {"VLLM_MARLIN_INPUT_DTYPE": "v0.34.0", "VLLM_USE_V2_MODEL_RUNNER": "v0.34.0"}, EE
+assert EE["VLLM_MARLIN_INPUT_DTYPE"]["hint"].startswith("Marlin no longer supports 8-bit activations. Use `--quantization humming`"), EE
+for _n in EE: assert last("vllm_env", _n) == "v0.33.0", _n
 hints["vllm_completion"] = {k: v for k, v in hints["vllm_chat"].items() if k in L["vllm_completion"]["names"]}
 
 def gone(lib):
@@ -73,7 +82,7 @@ def gone_rows(lib):
     T = L[lib]["tags"]
     return "\n".join(f"<tr><td>{c(n)}</td><td>{T[r[0][0]]}</td><td>{T[r[-1][1]]}</td><td>{T[r[-1][1] + 1]}</td></tr>" for n, r in gone(lib))
 G = {k: len(gone(k)) for k in L}
-assert G["vllm_cli"] == 81 and G["vllm_env"] == 120 and G["sglang_cli"] == 106, G
+assert G["vllm_cli"] == 81 and G["vllm_env"] == 122 and G["sglang_cli"] == 106, G
 req_gone = sorted(set(n for k in ("vllm_chat", "vllm_completion") for n, r in gone(k)))
 def cur(lib): return len(L[lib]["names"]) - G[lib]
 
@@ -84,6 +93,7 @@ H1 = "\"unrecognized arguments\" and settings that silently stop working: remove
 FAQ = [
  ("Why does vllm serve say \"unrecognized arguments: --X\"?", "The argument is not defined in your vLLM release: either it was removed (for example --speculative-model after v0.8.2, --guided-decoding-backend after v0.11.2, --task after v0.12.0, --disable-log-requests after v0.16.0) or it was added in a newer release than yours. The lookup on this page gives the release range for every argument vLLM ever had."),
  ("Is VLLM_ATTENTION_BACKEND still supported?", "No. It was last read in v0.14.1. From v0.13.0 the replacement is the --attention-backend argument. Setting the variable on newer releases does not raise an error; from v0.17.0 vLLM only logs \"Unknown vLLM environment variable detected\" at startup."),
+ ("Does vLLM ever stop because of a removed environment variable?", "From v0.34.0, yes, for two names. VLLM_MARLIN_INPUT_DTYPE is on a new list of removed variables and stops startup with \"VLLM_MARLIN_INPUT_DTYPE has been removed\" plus a hint. VLLM_USE_V2_MODEL_RUNNER set to anything but 1 stops startup with \"is no longer supported: Model Runner V1 has been removed\". Every other removed variable is still ignored; from v0.17.0 it only causes the warning \"Unknown vLLM environment variable detected\", or an error if --fail-on-environ-validation is set."),
  ("Why is my guided_json request not constrained any more?", "guided_json and the other guided_* request fields were removed after v0.11.2. Because vLLM's server accepts unknown fields and drops them, the request still succeeds and the output is simply unconstrained. Use structured_outputs (from v0.11.0) or response_format. vLLM v0.30.0 and later log a warning for these specific fields."),
  ("How do I turn off a boolean option like chunked prefill?", "From v0.8.5, vLLM's boolean options use --X and --no-X, so write --no-enable-chunked-prefill. The old form --enable-chunked-prefill False fails there with \"unrecognized arguments: False\". On v0.5.3 to v0.8.4 write --enable-chunked-prefill false."),
  ("Can I write --max_model_len with underscores?", "Yes. vLLM's argument parser accepts underscores and dashes in argument names, and reads --json-arg.key value as a key inside a JSON argument."),
@@ -106,8 +116,8 @@ def hint_rows(lib):
 body = f"""<main>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>{e(H1)}</h1>
-<p class="lede"><strong>vLLM has removed {G['vllm_cli']} command-line arguments, {G['vllm_env']} environment variables and {len(req_gone)} server request fields since its first release. A removed argument stops <code>vllm serve</code> with "unrecognized arguments"; a removed variable or request field does not: vLLM ignores it and runs without the setting.</strong> Common cases: <code>--speculative-model</code> ended in v0.8.2 (use <code>--speculative-config</code>), <code>--task</code> in v0.12.0 (use <code>--runner</code> and <code>--convert</code>), <code>VLLM_ATTENTION_BACKEND</code> in v0.14.1 (use <code>--attention-backend</code>), and <code>guided_json</code> in v0.11.2 (use <code>structured_outputs</code>). Paste your command or request below to check every name in it.</p>
-<p class="meta">Published {PUB} &middot; Corrected {MOD}: <code>--guided-decoding-backend</code> lasted until v0.11.2, <code>--config</code> and four more arguments start earlier, <code>VLLM_BATCH_INVARIANT</code> from v0.11.1, SGLang <code>--stream-output</code>, prefix matching &middot; vLLM v0.1.0 to {VL} ({len(L['vllm_cli']['tags'])} releases) &middot; SGLang v0.1.3 to {SG} ({len(L['sglang_cli']['tags'])} releases) &middot; read from each release's source</p>
+<p class="lede"><strong>vLLM has removed {G['vllm_cli']} command-line arguments, {G['vllm_env']} environment variables and {len(req_gone)} server request fields since its first release. A removed argument stops <code>vllm serve</code> with "unrecognized arguments"; a removed variable or request field usually does not: vLLM ignores it and runs without the setting.</strong> The exception is new in v0.34.0: two removed variables, <code>VLLM_MARLIN_INPUT_DTYPE</code> and <code>VLLM_USE_V2_MODEL_RUNNER=0</code>, now stop startup. Common cases: <code>--speculative-model</code> ended in v0.8.2 (use <code>--speculative-config</code>), <code>--task</code> in v0.12.0 (use <code>--runner</code> and <code>--convert</code>), <code>VLLM_ATTENTION_BACKEND</code> in v0.14.1 (use <code>--attention-backend</code>), and <code>guided_json</code> in v0.11.2 (use <code>structured_outputs</code>). Paste your command or request below to check every name in it.</p>
+<p class="meta">Published {PUB} &middot; Corrected 2026-11-14: <code>--guided-decoding-backend</code> lasted until v0.11.2, <code>--config</code> and four more arguments start earlier, <code>VLLM_BATCH_INVARIANT</code> from v0.11.1, SGLang <code>--stream-output</code>, prefix matching &middot; Updated {MOD} &middot; vLLM v0.1.0 to {VL} ({len(L['vllm_cli']['tags'])} releases) &middot; SGLang v0.1.3 to {SG} ({len(L['sglang_cli']['tags'])} releases) &middot; read from each release's source</p>
 
 <h2 id="lookup">Which names in my command still work?</h2>
 <p>Paste a <code>vllm serve</code> or <code>python -m sglang.launch_server</code> command, the error message, <code>export VLLM_...</code> lines, a JSON request body, or a <code>SamplingParams(...)</code> call. Enter your version to check against it; otherwise the newest release is used.</p>
@@ -124,12 +134,12 @@ body = f"""<main>
 <p class="note">Runs in your browser; nothing is sent anywhere. Version: <code>python -c "import vllm; print(vllm.__version__)"</code>. Environment variables are checked against vLLM only.</p>
 
 <h2 id="silent">Which removals fail loudly, and which fail silently?</h2>
-<p><strong>Only command-line arguments and <code>SamplingParams</code> arguments raise an error. Environment variables and server request fields are dropped without one.</strong></p>
+<p><strong>Command-line arguments and <code>SamplingParams</code> arguments raise an error. Environment variables and server request fields are dropped without one, except the two variables that v0.34.0 rejects by name.</strong></p>
 <div class="tw"><table>
 <thead><tr><th>Where the name is used</th><th>What happens with a removed name</th><th>Since</th></tr></thead>
 <tbody>
 <tr><td><code>vllm serve --X</code></td><td>Exits with "unrecognized arguments: --X". Exception: argparse accepts unambiguous prefixes, so an old name that is the start of one current argument is read as that argument, and the start of several fails as "ambiguous option" (<code>--device</code>, removed after v0.9.2, now "could match --device-ids, --device-memory-utilization")</td><td>always</td></tr>
-<tr><td><code>VLLM_X=...</code> in the environment</td><td>Not read. No error. From v0.17.0 a startup warning "Unknown vLLM environment variable detected: VLLM_X" (an error with <code>--fail-on-environ-validation</code>)</td><td>warning from v0.17.0</td></tr>
+<tr><td><code>VLLM_X=...</code> in the environment</td><td>Not read. No error. From v0.17.0 a startup warning "Unknown vLLM environment variable detected: VLLM_X" (an error with <code>--fail-on-environ-validation</code>). From v0.34.0 <code>vllm/envs.py</code> also keeps a list of removed variables that stop startup with <code>ValueError: VLLM_X has been removed.</code> and a hint; in v0.34.0 the list has one name, <code>VLLM_MARLIN_INPUT_DTYPE</code>. The same release rejects <code>VLLM_USE_V2_MODEL_RUNNER</code> unless it is <code>1</code></td><td>warning from v0.17.0; two names are errors from v0.34.0</td></tr>
 <tr><td>Field in a request to the OpenAI-compatible server</td><td>v0.4.1 and earlier: silently ignored (plain pydantic models). v0.4.2 to v0.6.4.post1: rejected (400). v0.6.5 to v0.17.1: accepted, dropped, logged as a WARNING "The following fields were present in the request but ignored". From v0.18.0 that log line is DEBUG, so nothing shows. From v0.30.0 the removed <code>guided_*</code> fields get their own warning that output will not be constrained</td><td>silent from v0.18.0</td></tr>
 <tr><td><code>SamplingParams(x=...)</code> in Python</td><td><code>TypeError: unexpected keyword argument</code></td><td>always</td></tr>
 </tbody></table></div>
@@ -195,6 +205,7 @@ body = f"""<main>
 <h2 id="method">How was this built?</h2>
 <ul>
 <li><strong>vLLM arguments:</strong> at each of {len(L['vllm_cli']['tags'])} final releases, every name in <code>add_argument(...)</code> in <code>vllm/engine/arg_utils.py</code>, the server's <code>cli_args.py</code> (under <code>entrypoints/openai/</code>, then <code>launchers/</code>, then <code>common/</code>) and the <code>serve</code> subcommand (<code>scripts.py</code>, then <code>entrypoints/cli/serve.py</code>), including names registered in a loop as deprecated aliases, plus fields of the <code>FrontendArgs</code> dataclasses that become arguments. "Last release" is the last one that accepts the name, deprecated or not.</li>
+<li><strong>Variables that stop startup:</strong> the keys of <code>removed_environment_variables</code> in <code>vllm/envs.py</code> and the names <code>validate_environ</code> in <code>vllm/platforms/interface.py</code> compares by hand, at each release. Both appear first in v0.34.0.</li>
 <li><strong>Environment variables:</strong> the keys of <code>environment_variables</code> in <code>vllm/envs.py</code>, {len(L['vllm_env']['tags'])} releases from v0.4.2. For a variable that later entered that file, the releases just before count too when the source reads it elsewhere: <code>VLLM_BATCH_INVARIANT</code> was read with <code>os.getenv</code> from v0.11.1 and moved into <code>envs.py</code> in v0.19.0.</li>
 <li><strong>Request fields:</strong> the fields of <code>SamplingParams</code>, <code>ChatCompletionRequest</code> and <code>CompletionRequest</code> at each release.</li>
 <li><strong>SGLang:</strong> <code>add_argument(...)</code> in <code>server_args.py</code>, and from v0.5.14 the annotated dataclass fields that generate arguments, {len(L['sglang_cli']['tags'])} releases.</li>
@@ -223,7 +234,7 @@ body = f"""<main>
 <li>Reports: <a href="https://discuss.vllm.ai/t/vllm-error-unrecognized-arguments-no-enable-chunked-prefill/1183">unrecognized arguments: --no-enable-chunked-prefill</a></li>
 </ul>
 </main>"""
-data = {"libs": L, "hints": hints}
+data = {"libs": L, "hints": hints, "env_error": {k: v["since"] for k, v in EE.items()}}
 CSS = open(os.path.join(S, "style.css")).read(); JS = open(os.path.join(S, "tool.js")).read()
 doc = f"""<!DOCTYPE html>
 <html lang="en">

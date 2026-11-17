@@ -83,7 +83,13 @@ function run(push) {
     if (n !== base && !sg && base.indexOf(".") > 0) row.text += " (Read as " + code(n) + "; the part after the dot is a key inside that JSON argument.)";
     rows.push(row);
   });
-  p.env.forEach(function (n) { var row = verdict("vllm_env", n, n, mine, "vLLM environment variable"); if (row.cls === "n" && row.have !== "never") row.text += " <strong>No error</strong>: vLLM simply does not read it (from v0.17.0 it logs \"Unknown vLLM environment variable detected\")."; rows.push(row); });
+  p.env.forEach(function (n) { var row = verdict("vllm_env", n, n, mine, "vLLM environment variable"); if (row.cls === "n" && row.have !== "never") {
+      // a few removed variables stop startup instead of being ignored (D.env_error: name -> first release that rejects it)
+      var since = D.env_error && D.env_error[n], L = D.libs.vllm_env, mi = mine ? idxOf(L, mine) : null;
+      if (since && (mi === null || mi < 0 || mi >= L.tags.indexOf(since))) row.text += " <strong>Not ignored</strong>: from " + esc(since) + " vLLM stops at startup when this variable is set.";
+      else row.text += " <strong>No error</strong>: vLLM simply does not read it (from v0.17.0 it logs \"Unknown vLLM environment variable detected\").";
+    }
+    rows.push(row); });
   p.fields.forEach(function (n) {
     if (p.py && !p.isChat) { var row = verdict("vllm_sampling_params", n, n, mine, "SamplingParams argument"); if (row.cls === "n" && row.have !== "never") row.text += " Python raises <code>TypeError</code>."; rows.push(row); return; }
     var lib = p.isChat || !D.libs.vllm_completion.names[n] ? "vllm_chat" : "vllm_completion";

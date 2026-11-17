@@ -38,3 +38,11 @@
 - tool.js：消えた名前が、その版にある引数の前方一致になるとき「別の引数として読まれる」「ambiguous option になる」を出す
 - 検査：test_data.py 60/60、check_browser.js 20ケース×幅2つ ALL PASS
 - 未検証：実際に vllm serve を動かしての動き（--guided-decoding-backend の値が v0.11.x で効かないことを含む。ソースの読み）
+
+## 2026-11-17 vLLM v0.34.0 に合わせて作り直し（fable 5.2）
+- v0.34.0 で引数は 7 本増えて消えたものは無し（消えた数 81 のまま）。環境変数は 17 個増え、2 個消えた（消えた数 120 → 122）：VLLM_USE_V2_MODEL_RUNNER、VLLM_MARLIN_INPUT_DTYPE
+- **v0.34.0 から、消えた環境変数の一部は「黙って無視」ではなく起動を止める**。envs.py に removed_environment_variables（名前→ヒント）ができ、validate_environ が `ValueError: X has been removed. <hint>` を出す（v0.34.0 の中身は VLLM_MARLIN_INPUT_DTYPE の 1 個）。VLLM_USE_V2_MODEL_RUNNER は validate_environ が名指しで見て、1 以外なら ValueError、1 なら「redundant」の警告（vllm/platforms/interface.py）
+- vllm_env_hist.py：removed_environment_variables のキーを「定義されている名前」から外し（外さないと v0.34.0 でも在ることになる）、removed_hints と validate_special を出す。build_data.py が env_error（名前→最初に止める版）を作り、tool.js はその名前に「Not ignored」を出す
+- build_page.py：env_error がこの 2 個であることを assert している。上流が一覧に足したら止まるので、本文（lede・#silent の表・FAQ）を書き直す
+- 検査：test_data.py 60/60、check_browser.js 23 ケース×幅 2 つ ALL PASS。実際に vllm serve を動かしてはいない（ソースの読み）
+- SGLang は v0.5.23 のまま

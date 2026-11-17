@@ -38,8 +38,8 @@ def comfy_rows(d):
     return [(x["id"], x["head_commit"], x["names"]) for x in d.get("comfyui_gguf", {}).get("loaders", [])]
 
 # A name leaving a ComfyUI-GGUF list is possible upstream (unlike a llama.cpp architecture), so it is reported, not refused.
-for lid, names in comfy(old).items():
-    gone = sorted(names - comfy(new).get(lid, set()))
+for lid, old_names in comfy(old).items():
+    gone = sorted(old_names - comfy(new).get(lid, set()))
     if gone:
         print("note: no longer on the %s list:" % lid, gone, file=sys.stderr)
 if comfy(old) and set(comfy(old)) - set(comfy(new)):
