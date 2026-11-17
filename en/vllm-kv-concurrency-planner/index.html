@@ -10,7 +10,7 @@
 <meta property="og:title" content="vLLM KV Cache Calculator: How Many Concurrent Requests Fit">
 <meta property="og:description" content="Paste config.json or a startup log and get vLLM's own numbers: KV cache size in tokens and maximum concurrency. Handles Gemma 3, gpt-oss, MLA and fp8 KV.">
 <meta property="og:url" content="https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#article", "headline": "How many concurrent requests fit in vLLM? A KV cache planner that follows vLLM's own startup math", "description": "Paste config.json or a startup log and get vLLM's own numbers: KV cache size in tokens and maximum concurrency. Handles Gemma 3, gpt-oss, MLA and fp8 KV.", "url": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/", "datePublished": "2026-11-12", "dateModified": "2026-11-17", "inLanguage": "en", "about": ["vLLM", "KV cache", "GPU memory", "LLM inference capacity planning"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/"}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#tool", "name": "vLLM KV cache and concurrency planner", "url": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#tool", "description": "Computes vLLM's KV cache token capacity and maximum concurrency from a model's config.json or a startup log, following the layer grouping of vLLM v0.33.0 (full attention, MLA, sliding-window models, tensor parallel, fp8 KV).", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "softwareVersion": "1.0.0", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "SoftwareApplication", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#kvplan", "name": "kvplan.py", "url": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/", "downloadUrl": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/kvplan.py", "description": "Command-line version of the planner: one Python file, standard library only.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (Python 3.9+)", "softwareVersion": "1.0.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#faq", "mainEntity": [{"@type": "Question", "name": "How does vLLM calculate \"Maximum concurrency\"?", "acceptedAnswer": {"@type": "Answer", "text": "It divides the number of KV cache blocks by the blocks one request of max_model_len tokens needs. The blocks come from the KV memory: total GPU memory times gpu_memory_utilization, minus the weights, the activation peak of a profiling pass and the CUDA graph estimate, cut into blocks of 16 tokens. For a full-attention model one request needs ceil(max_model_len / 16) blocks."}}, {"@type": "Question", "name": "Does lowering --max-model-len reduce vLLM's GPU memory use?", "acceptedAnswer": {"@type": "Answer", "text": "No. vLLM still takes total memory times gpu_memory_utilization and gives everything left after the weights to the KV cache. A shorter max_model_len only means each full-length request needs fewer blocks, so the logged concurrency goes up. To use less memory, lower --gpu-memory-utilization or set --kv-cache-memory-bytes."}}, {"@type": "Question", "name": "Is \"Maximum concurrency\" the limit on simultaneous requests?", "acceptedAnswer": {"@type": "Answer", "text": "No. It is how many requests fit if every one of them grows to max_model_len. Blocks are handed out as tokens are processed, so shorter requests share the pool and more of them run together, up to --max-num-seqs (256 or 1,024 by default, depending on the GPU). When the pool runs out, the scheduler preempts a running request and recomputes it later."}}, {"@type": "Question", "name": "How much KV cache does one token take in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "For standard attention: 2 x layers x KV heads x head dimension x bytes per element. Llama-3.1-8B (32 layers, 8 KV heads, 128 dims, 16-bit) takes 128 KiB per token; --kv-cache-dtype fp8 halves it; tensor parallel divides the KV heads per GPU. DeepSeek-style MLA stores one latent vector per layer (kv_lora_rank + qk_rope_head_dim values). Sliding-window layers keep only the window plus the tokens in flight."}}, {"@type": "Question", "name": "Why does vLLM say the model's max seq len needs more KV cache than is available?", "acceptedAnswer": {"@type": "Answer", "text": "One request of max_model_len tokens must fit in the KV cache, with one block held back. If it does not, vLLM stops and prints the estimated maximum model length that would fit. Pass that value (or --max-model-len -1 from v0.14.0) as the context length, raise --gpu-memory-utilization, use --kv-cache-dtype fp8, or spread the model over more GPUs."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "vLLM KV cache and concurrency planner", "item": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/"}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#article", "headline": "How many concurrent requests fit in vLLM? A KV cache planner that follows vLLM's own startup math", "description": "Paste config.json or a startup log and get vLLM's own numbers: KV cache size in tokens and maximum concurrency. Handles Gemma 3, gpt-oss, MLA and fp8 KV.", "url": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/", "datePublished": "2026-11-12", "dateModified": "2026-11-17", "inLanguage": "en", "about": ["vLLM", "KV cache", "GPU memory", "LLM inference capacity planning"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/"}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#tool", "name": "vLLM KV cache and concurrency planner", "url": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#tool", "description": "Computes vLLM's KV cache token capacity and maximum concurrency from a model's config.json or a startup log, following vLLM v0.34.0 and v0.33.0 (full attention, MLA, sliding-window models, tensor parallel, fp8 KV).", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "softwareVersion": "1.1.0", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "SoftwareApplication", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#kvplan", "name": "kvplan.py", "url": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/", "downloadUrl": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/kvplan.py", "description": "Command-line version of the planner: one Python file, standard library only.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (Python 3.9+)", "softwareVersion": "1.1.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/#faq", "mainEntity": [{"@type": "Question", "name": "How does vLLM calculate \"Maximum concurrency\"?", "acceptedAnswer": {"@type": "Answer", "text": "It divides the number of KV cache blocks by the blocks one request of max_model_len tokens needs. The blocks come from the KV memory: total GPU memory times gpu_memory_utilization, minus the weights, the activation peak of a profiling pass and the CUDA graph estimate, cut into blocks of 64 tokens (16 up to v0.33.0). For a full-attention model one request needs ceil(max_model_len / block size) blocks. From v0.34.0 on CUDA and ROCm the memory is measured after warmup instead of estimated, and gpu_memory_utilization defaults to 1.0."}}, {"@type": "Question", "name": "Does lowering --max-model-len reduce vLLM's GPU memory use?", "acceptedAnswer": {"@type": "Answer", "text": "No. vLLM still takes total memory times gpu_memory_utilization and gives everything left after the weights to the KV cache. A shorter max_model_len only means each full-length request needs fewer blocks, so the logged concurrency goes up. To use less memory, lower --gpu-memory-utilization or set --kv-cache-memory-bytes."}}, {"@type": "Question", "name": "Is \"Maximum concurrency\" the limit on simultaneous requests?", "acceptedAnswer": {"@type": "Answer", "text": "No. It is how many requests fit if every one of them grows to max_model_len. Blocks are handed out as tokens are processed, so shorter requests share the pool and more of them run together, up to --max-num-seqs (256 or 1,024 by default, depending on the GPU). When the pool runs out, the scheduler preempts a running request and recomputes it later."}}, {"@type": "Question", "name": "How much KV cache does one token take in vLLM?", "acceptedAnswer": {"@type": "Answer", "text": "For standard attention: 2 x layers x KV heads x head dimension x bytes per element. Llama-3.1-8B (32 layers, 8 KV heads, 128 dims, 16-bit) takes 128 KiB per token; --kv-cache-dtype fp8 halves it; tensor parallel divides the KV heads per GPU. DeepSeek-style MLA stores one latent vector per layer (kv_lora_rank + qk_rope_head_dim values). Sliding-window layers keep only the window plus the tokens in flight."}}, {"@type": "Question", "name": "Why does vLLM say the model's max seq len needs more KV cache than is available?", "acceptedAnswer": {"@type": "Answer", "text": "One request of max_model_len tokens must fit in the KV cache, with one block held back. If it does not, vLLM stops and prints the estimated maximum model length that would fit. Pass that value (or --max-model-len -1 from v0.14.0) as the context length, raise --gpu-memory-utilization, use --kv-cache-dtype fp8, or spread the model over more GPUs."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "vLLM KV cache and concurrency planner", "item": "https://erimaki-kobo.github.io/en/vllm-kv-concurrency-planner/"}]}]}</script>
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
 @media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
@@ -54,10 +54,10 @@ ol.steps li{margin:.5em 0}
 <main>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>How many concurrent requests fit in vLLM? A KV cache planner that follows vLLM's own startup math</h1>
-<p class="lede"><strong>vLLM answers this at startup, and you can compute the same number before you launch.</strong> It takes <code>total GPU memory &times; gpu_memory_utilization</code>, subtracts the weights, the activation peak and its CUDA graph estimate, cuts what is left into blocks of 16 tokens, and logs <code>GPU KV cache size: N tokens, Maximum concurrency for L tokens per request: X.XXx</code>. X is the number of blocks divided by the blocks one request of <code>max_model_len</code> tokens needs. Lowering <code>--max-model-len</code> does not free memory; it only raises X. How many requests really run together is capped separately by <code>--max-num-seqs</code> (256 or 1,024 by default).</p>
-<p>The planner below runs that calculation in your browser, from a <code>config.json</code> before launch or from a startup log afterwards. It follows the layer grouping of vLLM v0.33.0, so it also gets models with sliding-window layers right (Gemma 2 and 3, gpt-oss), where "bytes per token &times; context" overshoots by a factor of two or more.</p>
-<p class="meta">Published 2026-11-12 &middot; Corrected 2026-11-14: two rows of the version table (v0.8.4, v0.20.0) &middot; Updated 2026-11-17: note on v0.34.0 &middot; Follows vLLM v0.33.0 (2026-11-01) &middot; Agrees with vLLM's own planning code on 40,000 random configurations and with 8 public startup logs (<a href="#checked">details</a>) &middot; Tool version 1.0.0 &middot; <a href="#limits">no GPU run by us</a></p>
-<p class="note" id="v034"><strong>vLLM v0.34.0 (2026-11-16) sizes the KV cache differently, and this page still follows v0.33.0.</strong> Three defaults changed. A block is 64 tokens instead of 16 (PR #63231). On CUDA and ROCm the "extensible KV cache" is on unless <code>--kv-cache-memory-bytes</code> is set: the cache is sized from the memory that is actually free after CUDA graph capture and warmup, not from an estimate (it falls back to the estimate where the driver lacks virtual-memory support). With it, <code>gpu_memory_utilization</code>, when not given, is 1.0 instead of 0.92. The log lines (<code>Available KV cache memory</code>, <code>Maximum concurrency for L tokens per request</code>) are unchanged. For a v0.34.0 estimate, set "Block size, tokens" to 64 and <code>--gpu-memory-utilization</code> to 1.0 in the planner; it has not been compared with v0.34.0's code yet, so treat that result as approximate.</p>
+<p class="lede"><strong>vLLM answers this at startup, and you can compute the same number before you launch.</strong> It takes <code>total GPU memory &times; gpu_memory_utilization</code>, keeps what the weights, the activations and the CUDA graphs need, cuts what is left into blocks of 64 tokens (16 up to v0.33.0), and logs <code>GPU KV cache size: N tokens, Maximum concurrency for L tokens per request: X.XXx</code>. X is the number of blocks divided by the blocks one request of <code>max_model_len</code> tokens needs. Lowering <code>--max-model-len</code> does not free memory; it only raises X. How many requests really run together is capped separately by <code>--max-num-seqs</code> (256 or 1,024 by default).</p>
+<p>The planner below runs that calculation in your browser, from a <code>config.json</code> before launch or from a startup log afterwards. It follows vLLM v0.34.0 and, with the version switch, v0.33.0 and earlier. It uses vLLM's layer grouping, so it also gets models with sliding-window layers right (Gemma 2 and 3, gpt-oss), where "bytes per token &times; context" overshoots by a factor of two or more.</p>
+<p class="meta">Published 2026-11-12 &middot; Corrected 2026-11-14: two rows of the version table (v0.8.4, v0.20.0) &middot; Updated 2026-11-17: follows vLLM v0.34.0 (2026-11-16), with a switch for v0.33.0 and earlier &middot; Agrees with vLLM's own planning code on 40,000 random configurations for each of the two releases and with 8 public startup logs (<a href="#checked">details</a>) &middot; Tool version 1.1.0 &middot; <a href="#limits">no GPU run by us</a></p>
+<p class="note" id="v034"><strong>What v0.34.0 changed.</strong> A block is 64 tokens instead of 16 (PR #63231). On CUDA and ROCm the "extensible KV cache" is on by default: the cache is sized from the memory that is actually free after CUDA graph capture and warmup, not from an estimate, and <code>gpu_memory_utilization</code>, when not given, is 1.0 instead of 0.92. <code>--no-enable-extensible-kv-cache</code>, <code>--kv-cache-memory-bytes</code>, <code>--num-gpu-blocks-override</code>, other platforms and some KV connectors keep the estimate and 0.92. The grouping of layers and the blocks one request needs are the same code as in v0.33.0.</p>
 
 <h2 id="tool">Planner</h2>
 <div class="card">
@@ -71,24 +71,26 @@ ol.steps li{margin:.5em 0}
 <label for="cfg">The model's config.json (paste the whole file)</label>
 <textarea id="cfg" spellcheck="false"></textarea>
 <div class="grid">
+<div><label for="ver">vLLM version and how the KV cache is sized</label><select id="ver"><option value="m34">v0.34.0: measured after warmup (default on CUDA and ROCm)</option><option value="e34">v0.34.0: estimate (--no-enable-extensible-kv-cache, other platforms)</option><option value="e33">v0.33.0 and earlier</option></select></div>
 <div><label for="gpu">Memory of one GPU, GiB (nvidia-smi MiB &divide; 1024)</label><input id="gpu" inputmode="decimal" value="24"></div>
-<div><label for="util">--gpu-memory-utilization</label><input id="util" inputmode="decimal" value="0.92"></div>
+<div><label for="util">--gpu-memory-utilization</label><input id="util" inputmode="decimal" value="1.0"></div>
 <div><label for="wts">Weights on this GPU, GiB ("Model loading took")</label><input id="wts" inputmode="decimal" value="14.96"></div>
 <div><label for="oth">Activation peak + CUDA graphs, GiB (your guess)</label><input id="oth" inputmode="decimal" value="1.5"></div>
-<div><label for="kvm">or: KV memory, GiB (overrides the four above)</label><input id="kvm" inputmode="decimal" placeholder="Available KV cache memory"></div>
+<div><label for="trn">of which transient activation peak, GiB (v0.34.0 measured sizing only)</label><input id="trn" inputmode="decimal" value="1.0"></div>
+<div><label for="kvm">or: KV memory, GiB (overrides the five above)</label><input id="kvm" inputmode="decimal" placeholder="Available KV cache memory"></div>
 <div><label for="len">--max-model-len</label><input id="len" inputmode="numeric" value="32768"></div>
 <div><label for="tp">--tensor-parallel-size</label><input id="tp" inputmode="numeric" value="1"></div>
 <div><label for="kvd">--kv-cache-dtype</label><select id="kvd"><option value="auto">auto (16-bit, as the model)</option><option value="fp8">fp8</option><option value="float32">auto, float32 model</option></select></div>
 <div><label for="typ">A typical request, tokens (prompt + output)</label><input id="typ" inputmode="numeric" value="4096"></div>
 <div><label for="mbt">--max-num-batched-tokens (blank = default)</label><input id="mbt" inputmode="numeric" placeholder="2048 / 8192 / 16384"></div>
-<div><label for="blk">Block size, tokens</label><input id="blk" inputmode="numeric" value="16"></div>
+<div><label for="blk">Block size, tokens</label><input id="blk" inputmode="numeric" value="64"></div>
 </div>
 <p class="chk"><input type="checkbox" id="asy" checked><label for="asy">async scheduling (default on)</label> &nbsp; <input type="checkbox" id="hyb"><label for="hyb">--disable-hybrid-kv-cache-manager</label></p>
 <div id="out" aria-live="polite"></div>
 </div>
 <div id="pane-log" role="tabpanel" hidden>
-<label for="log">Startup log, or just the lines with "Available KV cache memory" and "GPU KV cache size" (or the startup error)</label>
-<textarea id="log" spellcheck="false" placeholder="INFO [gpu_worker.py] Available KV cache memory: 16.65 GiB&#10;INFO [kv_cache_utils.py] GPU KV cache size: 155,904 tokens&#10;INFO [kv_cache_utils.py] Maximum concurrency for 40,960 tokens per request: 3.81x"></textarea>
+<label for="log">Startup log, or just the lines with "Available KV cache memory" (v0.34.0: "Memory after warmup") and "GPU KV cache size", or the startup error</label>
+<textarea id="log" spellcheck="false" placeholder="INFO [extensible_kv_cache.py] Memory after warmup: ... 837 KV cache blocks (6.54 GiB) fit within the requested 24.00 GiB. (v0.34.0)&#10;INFO [gpu_worker.py] Available KV cache memory: 16.65 GiB&#10;INFO [kv_cache_utils.py] GPU KV cache size: 155,904 tokens&#10;INFO [kv_cache_utils.py] Maximum concurrency for 40,960 tokens per request: 3.81x"></textarea>
 <div class="grid">
 <div><label for="llen">Try another --max-model-len</label><input id="llen" inputmode="numeric" placeholder="as in the log"></div>
 <div><label for="lkvm">Try another KV memory, GiB</label><input id="lkvm" inputmode="decimal" placeholder="as in the log"></div>
@@ -96,20 +98,20 @@ ol.steps li{margin:.5em 0}
 </div>
 <div id="lout" aria-live="polite"></div>
 </div>
-<p class="note">Nothing you paste leaves the page. The same logic as a script: <a href="kvplan.py" download>kvplan.py</a> (one file, standard library only, MIT), <code>python kvplan.py plan --config config.json --gpu-gib 24 --weights-gib 14.96 --max-model-len 32768</code> or <code>python kvplan.py log --file vllm.log</code>.</p>
+<p class="note">Nothing you paste leaves the page. The same logic as a script: <a href="kvplan.py" download>kvplan.py</a> (one file, standard library only, MIT), <code>python kvplan.py plan --config config.json --gpu-gib 24 --weights-gib 14.96 --max-model-len 32768</code> (add <code>--vllm-version 0.33</code> for v0.33.0 and earlier) or <code>python kvplan.py log --file vllm.log</code>.</p>
 </div>
 <p><strong>Which tab?</strong> The config tab is exact about the KV side (blocks, groups, what one request reserves) and only as good as your guess for the non-KV memory, which vLLM measures with a profiling pass. Once the server has started, the log tab is exact for both, and it works for every model, including the ones the config tab refuses (Qwen3.5 and other hybrids with linear-attention or Mamba layers, DeepSeek-V4, packed KV formats).</p>
 
 <h2 id="math">What does vLLM compute at startup?</h2>
-<p><strong>Seven steps, all visible in the v0.33.0 source.</strong> The example is the planner's default: Llama-3.1-8B in bf16 on a 24 GiB GPU.</p>
+<p><strong>Seven steps, all visible in the v0.34.0 source.</strong> The example is the planner's default: Llama-3.1-8B in bf16 on a 24 GiB GPU with nothing else on it, 14.96 GiB of weights, and an assumed 1.5 GiB for activations and CUDA graphs, 1.0 GiB of it a transient peak.</p>
 <ol class="steps">
-<li><strong>Budget</strong> = ceil(total memory &times; <code>gpu_memory_utilization</code>). It is a share of the total, not of what is free; if less than the budget is free, startup stops with <code>Free memory on device ... is less than desired GPU memory utilization</code>. The default is 0.92 (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/worker/utils.py">worker/utils.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/config/cache.py">config/cache.py</a>). Example: 24 &times; 0.92 = 22.08 GiB.</li>
-<li><strong>KV memory</strong> = budget &minus; weights &minus; activation peak of a profiling forward pass &minus; the estimated CUDA graph memory. This is the <code>Available KV cache memory</code> line. <code>--kv-cache-memory-bytes</code> sets it directly and ignores the utilization (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/worker/gpu_worker.py">gpu_worker.py</a>). Example: 22.08 &minus; 14.96 &minus; 1.5 (assumed) = 5.62 GiB.</li>
-<li><strong>One page</strong> is 16 tokens of one layer: KV heads &times; (key dims + value dims) &times; bytes per element &times; 16. With tensor parallel, each GPU holds max(1, KV heads &divide; TP) heads (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/kv_cache_interface.py">kv_cache_interface.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/config/model.py">config/model.py</a>). Example: 8 &times; 256 &times; 2 &times; 16 = 65,536 bytes.</li>
-<li><strong>Layers are put into groups</strong> that share a block table, and one block holds the pages of the widest group. A model whose layers are all alike is one group (<a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/core/kv_cache_planning.py">kv_cache_planning.py</a>). Example: 32 layers &times; 65,536 = 2,097,152 bytes per block, which is 128 KiB per token.</li>
-<li><strong>Blocks</strong> = KV memory // bytes per block. Example: 2,877 blocks.</li>
-<li><strong>Blocks one full-length request needs</strong>: ceil(L &divide; 16) for a full-attention group; for a sliding-window group, ceil(min(window &minus; 1 + tokens in flight, L) &divide; 16) + 1, where tokens in flight = concurrent batches (2 with async scheduling, the default) &times; <code>max_num_batched_tokens</code>. Example at L = 32,768: 2,048 blocks.</li>
-<li><strong>Maximum concurrency</strong> = blocks &divide; blocks per request, and <code>GPU KV cache size</code> = int(concurrency &times; L) tokens. One block is the permanently reserved null block: if a single request does not fit in the rest, startup stops and prints an estimated maximum model length. Example: 46,032 tokens, 1.40x at 32,768; 5.62x at 8,192; at 131,072 it refuses to start and estimates 46,016.</li>
+<li><strong>Budget</strong> = ceil(total memory &times; <code>gpu_memory_utilization</code>). It is a share of the total, not of what is free. With the extensible KV cache the default is 1.0 and the budget is only a cap; with estimate-based sizing (and in every release up to v0.33.0) the default is 0.92, and if less than the budget is free, startup stops with <code>Free memory on device ... is less than desired GPU memory utilization</code> (<a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/v1/worker/utils.py">worker/utils.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/config/cache.py">config/cache.py</a>). Example: 24 &times; 1.0 = 24 GiB; up to v0.33.0, 24 &times; 0.92 = 22.08 GiB.</li>
+<li><strong>KV memory.</strong> With the extensible KV cache, vLLM measures after CUDA graph capture and warmup: min(budget &minus; resident, free at startup &minus; resident &minus; margin) &minus; transient peak, where resident is what stays allocated (weights, CUDA graphs, workspaces), the margin is max(1 GiB, 0.75 &times; transient peak) (3 GiB floor on ROCm), and the transient peak is the larger of the measured activation peak and the growth of PyTorch's reservation. It logs <code>Memory after warmup: ... N KV cache blocks (X GiB) fit within the requested ...</code>; the earlier <code>Available KV cache memory</code> line is only the address range reserved before warmup (<a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/v1/worker/extensible_kv_cache.py">extensible_kv_cache.py</a>). Example: min(24 &minus; 15.46, 24 &minus; 15.46 &minus; 1) &minus; 1 = 6.54 GiB. With estimate-based sizing: budget &minus; weights &minus; activation peak of a profiling pass &minus; estimated CUDA graph memory, which is the <code>Available KV cache memory</code> line (<a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/v1/worker/gpu_worker.py">gpu_worker.py</a>); up to v0.33.0, 22.08 &minus; 14.96 &minus; 1.5 = 5.62 GiB. <code>--kv-cache-memory-bytes</code> sets it directly.</li>
+<li><strong>One page</strong> is one block of one layer: KV heads &times; (key dims + value dims) &times; bytes per element &times; block size (64 tokens; 16 up to v0.33.0). With tensor parallel, each GPU holds max(1, KV heads &divide; TP) heads (<a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/v1/kv_cache_interface.py">kv_cache_interface.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/config/model.py">config/model.py</a>). Example: 8 &times; 256 &times; 2 &times; 64 = 262,144 bytes.</li>
+<li><strong>Layers are put into groups</strong> that share a block table, and one block holds the pages of the widest group. A model whose layers are all alike is one group (<a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/v1/core/kv_cache_planning.py">kv_cache_planning.py</a>). Example: 32 layers &times; 262,144 = 8,388,608 bytes per block, which is 128 KiB per token.</li>
+<li><strong>Blocks</strong> = KV memory // bytes per block. Example: 837 blocks (2,877 blocks of 16 tokens from 5.62 GiB up to v0.33.0).</li>
+<li><strong>Blocks one full-length request needs</strong>: ceil(L &divide; block size) for a full-attention group; for a sliding-window group, ceil(min(window &minus; 1 + tokens in flight, L) &divide; block size) + 1, where tokens in flight = concurrent batches (2 with async scheduling, the default) &times; <code>max_num_batched_tokens</code>. Example at L = 32,768: 512 blocks.</li>
+<li><strong>Maximum concurrency</strong> = blocks &divide; blocks per request, and <code>GPU KV cache size</code> = int(concurrency &times; L) tokens. One block is the permanently reserved null block: if a single request does not fit in the rest, startup stops and prints an estimated maximum model length. Example: 53,568 tokens, 1.63x at 32,768; 6.54x at 8,192; at 131,072 it refuses to start and estimates 53,504. Up to v0.33.0 the same GPU gives 46,032 tokens and 1.40x at 32,768.</li>
 </ol>
 
 <h2 id="per-token">How much KV cache does one token take?</h2>
@@ -152,7 +154,7 @@ ol.steps li{margin:.5em 0}
 </tbody></table></div>
 
 <h2 id="defaults">What are the defaults for max_num_seqs and max_num_batched_tokens?</h2>
-<p><strong>They depend on the GPU's memory, and on whether you use <code>vllm serve</code> or the <code>LLM</code> class</strong> (<code>get_batch_defaults</code> in <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/engine/arg_utils.py">arg_utils.py</a>, v0.33.0):</p>
+<p><strong>They depend on the GPU's memory, and on whether you use <code>vllm serve</code> or the <code>LLM</code> class</strong> (<code>get_batch_defaults</code> in <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/engine/arg_utils.py">arg_utils.py</a>; the function is the same code in v0.33.0 and v0.34.0):</p>
 <div class="tw"><table>
 <thead><tr><th>GPU memory</th><th>max_num_seqs</th><th>max_num_batched_tokens, <code>vllm serve</code> / <code>LLM</code></th></tr></thead>
 <tbody>
@@ -165,8 +167,9 @@ ol.steps li{margin:.5em 0}
 <h2 id="checked">What was this checked against?</h2>
 <p><strong>vLLM's own code, and logs that people posted.</strong></p>
 <ul>
-<li><strong>vLLM v0.33.0's planning code.</strong> The unmodified source files <code>kv_cache_interface.py</code> and <code>kv_cache_planning.py</code>, plus the two capacity functions of <code>kv_cache_utils.py</code>, were run with PyTorch replaced by a stub that only knows dtype sizes. On 40,000 random configurations (full attention, MLA, interleaved sliding window with one or two window sizes, all-sliding; hybrid manager on and off; 1 to 96 layers) the planner returned the same block count, token capacity, concurrency, group count, start-or-refuse decision and estimated maximum model length.</li>
-<li><strong>The browser version</strong> returns the same results as <code>kvplan.py</code> on 6,000 random config.json files and 28 log inputs.</li>
+<li><strong>vLLM's planning code, v0.33.0 and v0.34.0.</strong> The unmodified source files <code>kv_cache_interface.py</code> and <code>kv_cache_planning.py</code>, plus the capacity functions of <code>kv_cache_utils.py</code>, were run with PyTorch replaced by a stub that only knows dtype sizes. On 40,000 random configurations per release (full attention, MLA, interleaved sliding window with one or two window sizes, all-sliding; hybrid manager on and off; 1 to 80 layers; blocks of 16, 32, 64 and 128 tokens) the planner returned the same block count, token capacity, concurrency, group count, start-or-refuse decision and estimated maximum model length. The harness was written again for v0.34.0, independently of the one used on 2026-11-12, and it found one difference, now fixed: with <code>--disable-hybrid-kv-cache-manager</code>, a model whose layers are all sliding-window with two different window sizes is refused by vLLM, and the planner used to compute it.</li>
+<li><strong>v0.34.0's measured sizing.</strong> <code>measure_kv_cache_bytes</code>, taken from <code>extensible_kv_cache.py</code> as it is, returns the same bytes as the planner on 20,000 random inputs. What the planner cannot know is the input: how much stays resident and how large the transient peak is on your GPU.</li>
+<li><strong>The browser version</strong> returns the same results as <code>kvplan.py</code> on 6,032 random inputs (config.json files with both sizing modes, and log lines).</li>
 <li><strong>Public startup logs.</strong> vLLM prints the KV memory rounded to 0.01 GiB; for each log the planner's capacity over that rounding interval contains the logged value, and the concurrency matches to the printed digit:</li>
 </ul>
 <div class="tw"><table>
@@ -181,7 +184,7 @@ ol.steps li{margin:.5em 0}
 <tr><td>Llama-3.2-3B, T4, max_model_len 16384</td><td>5.78</td><td>54,096 / 3.30x at 16,384</td><td>54,064 to 54,160 / 3.30x</td><td><a href="https://discuss.vllm.ai/t/max-model-len-vs-gpu-memory-usage/2724">vLLM forum, 2026-06</a></td></tr>
 <tr><td>Gemma 3 4B, A100 80GB, v0.29, LLM class</td><td>58.33</td><td>729,735 / 22.27x at 32,768</td><td>729,735 to 729,861 / 22.27x</td><td><a href="https://sotaaz.com/post/llamacpp-vs-vllm-kv-cache-en">SOTAAZ, 2026-10</a></td></tr>
 </tbody></table></div>
-<p class="note">The T4 logs are from an older engine that prints blocks; capacity there is blocks &times; 16. The Gemma 3 4B run used the <code>LLM</code> class on an A100 (8,192 batched tokens, so 16,384 in flight).</p>
+<p class="note">All eight logs are from releases before v0.34.0, so the planner column is the "v0.33.0 and earlier" setting (blocks of 16 tokens). We have not found a public v0.34.0 startup log yet. The T4 logs are from an older engine that prints blocks; capacity there is blocks &times; 16. The Gemma 3 4B run used the <code>LLM</code> class on an A100 (8,192 batched tokens, so 16,384 in flight).</p>
 
 <h2 id="versions">What changed between versions?</h2>
 <div class="tw"><table>
@@ -196,22 +199,23 @@ ol.steps li{margin:.5em 0}
 <tr><td>v0.20.1 (2026-05)</td><td><code>GPU KV cache size</code> = concurrency &times; max_model_len; before, blocks &divide; groups &times; block size, which understated models with sliding-window layers</td></tr>
 <tr><td>v0.26.0 (2026-07)</td><td>sliding-window layers reserve window &minus; 1 + concurrent batches &times; <code>max_num_batched_tokens</code>; before, one batch</td></tr>
 <tr><td>v0.28.0 (2026-08)</td><td>the two capacity lines became one; GPUs of 160 GiB and more get 16,384 batched tokens</td></tr>
-<tr><td>v0.34.0 (2026-11)</td><td>default block 16 &rarr; 64 tokens; the extensible KV cache is on by default on CUDA and ROCm and sizes the cache from the memory free after CUDA graph capture and warmup; default <code>gpu_memory_utilization</code> is 1.0 with it, 0.92 without. The planner on this page does not follow this release yet</td></tr>
+<tr><td>v0.34.0 (2026-11)</td><td>default block 16 &rarr; 64 tokens; the extensible KV cache is on by default on CUDA and ROCm and sizes the cache from the memory free after CUDA graph capture and warmup (new log line <code>Memory after warmup</code>); default <code>gpu_memory_utilization</code> is 1.0 with it, 0.92 without; with it, less free memory than the budget no longer stops startup; the "does not fit" error ends with a different hint</td></tr>
 </tbody></table></div>
-<p class="note">Read from the release tags of the vLLM repository. On older releases the config tab can differ for sliding-window models; the log tab does not depend on the version.</p>
+<p class="note">Read from the release tags of the vLLM repository. On releases older than v0.26.0 the config tab can differ for sliding-window models; the log tab does not depend on the version.</p>
 
 <h2 id="limits">Limits</h2>
 <ul>
-<li>No GPU was used. The KV side is checked against vLLM's code and public logs; the non-KV memory (activation peak, CUDA graphs) is your input, because vLLM measures it rather than computes it. Start once, read <code>Available KV cache memory</code>, and put it in the "KV memory" field.</li>
+<li>No GPU was used. The KV side is checked against vLLM's code and public logs; the non-KV memory (activation peak, CUDA graphs) is your input, because vLLM measures it rather than computes it. Start once, read <code>Memory after warmup: ... KV cache blocks (X GiB)</code> (v0.34.0 with the extensible KV cache) or <code>Available KV cache memory</code> (estimate-based sizing and older releases), and put it in the "KV memory" field.</li>
 <li>The config tab covers full attention, MLA, interleaved and all-sliding window models, tensor parallel and fp8 or 16-bit KV. It refuses models it cannot reproduce instead of guessing. Pipeline parallel, decode context parallel, draft models for speculative decoding and encoder-decoder models are not covered.</li>
 <li>Models whose vLLM class builds its attention layers differently from the generic rules here (custom sliding-window patterns, KV sharing between layers) can differ. The result table shows the layer counts it assumed; compare them with the model card.</li>
-<li>Attention backends can raise the block size above 16 for some head sizes. That changes rounding by at most one block per group and request; set "Block size" if your log says otherwise.</li>
+<li>With the extensible KV cache the final block count is also capped by the address range reserved before warmup, and with several GPUs every rank uses the smallest count; the planner computes one GPU and does not model the reservation.</li>
+<li>Attention backends can raise the block size above the default for some head sizes. That changes rounding by at most one block per group and request; set "Block size" if your log says otherwise.</li>
 <li>"Requests held at once" ignores prefix caching, which lets requests with a common prefix share blocks, so real servers often hold more.</li>
 </ul>
 
 <h2 id="faq">Questions</h2>
 <h3>How does vLLM calculate "Maximum concurrency"?</h3>
-<p>It divides the number of KV cache blocks by the blocks one request of max_model_len tokens needs. The blocks come from the KV memory: total GPU memory times gpu_memory_utilization, minus the weights, the activation peak of a profiling pass and the CUDA graph estimate, cut into blocks of 16 tokens. For a full-attention model one request needs ceil(max_model_len / 16) blocks.</p>
+<p>It divides the number of KV cache blocks by the blocks one request of max_model_len tokens needs. The blocks come from the KV memory: total GPU memory times gpu_memory_utilization, minus the weights, the activation peak of a profiling pass and the CUDA graph estimate, cut into blocks of 64 tokens (16 up to v0.33.0). For a full-attention model one request needs ceil(max_model_len / block size) blocks. From v0.34.0 on CUDA and ROCm the memory is measured after warmup instead of estimated, and gpu_memory_utilization defaults to 1.0.</p>
 <h3>Does lowering --max-model-len reduce vLLM's GPU memory use?</h3>
 <p>No. vLLM still takes total memory times gpu_memory_utilization and gives everything left after the weights to the KV cache. A shorter max_model_len only means each full-length request needs fewer blocks, so the logged concurrency goes up. To use less memory, lower --gpu-memory-utilization or set --kv-cache-memory-bytes.</p>
 <h3>Is "Maximum concurrency" the limit on simultaneous requests?</h3>
@@ -223,6 +227,7 @@ ol.steps li{margin:.5em 0}
 
 <h2 id="sources">Sources</h2>
 <ul>
+<li>vLLM v0.34.0 source: <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/v1/worker/extensible_kv_cache.py">v1/worker/extensible_kv_cache.py</a> (<code>measure_kv_cache_bytes</code>, margins), <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/config/cache.py">config/cache.py</a> (block size, <code>resolved_gpu_memory_utilization</code>), <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/config/vllm.py">config/vllm.py</a> (when the extensible KV cache is on), <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/docs/configuration/optimization.md">docs/configuration/optimization.md</a> (GPU Memory Utilization).</li>
 <li>vLLM v0.33.0 source: <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/worker/utils.py">v1/worker/utils.py</a> (<code>request_memory</code>), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/worker/gpu_worker.py">v1/worker/gpu_worker.py</a> (<code>determine_available_memory</code>), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/kv_cache_interface.py">v1/kv_cache_interface.py</a> (page sizes, per-request blocks), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/core/kv_cache_planning.py">v1/core/kv_cache_planning.py</a> (groups, blocks, fit check), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/core/kv_cache_utils.py">v1/core/kv_cache_utils.py</a> (capacity log line), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/config/cache.py">config/cache.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/config/vllm.py">config/vllm.py</a> (tokens in flight, hybrid manager), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/engine/arg_utils.py">engine/arg_utils.py</a> (batch defaults), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/transformers_utils/model_arch_config_convertor.py">model_arch_config_convertor.py</a> (how config.json is read), <a href="https://github.com/vllm-project/vllm/blob/v0.33.0/vllm/v1/core/sched/scheduler.py">v1/core/sched/scheduler.py</a> (preemption).</li>
 <li>vLLM docs: <a href="https://docs.vllm.ai/en/latest/configuration/conserving_memory/">Conserving memory</a>, <a href="https://docs.vllm.ai/en/latest/configuration/optimization/">Optimization and tuning</a>.</li>
 <li>Hugging Face transformers 5.22.2, configuration classes for Gemma 2, Gemma 3, gpt-oss, Qwen2, Qwen3, Mistral, Llama, Phi-3 and DeepSeek-V3 (class defaults and <code>layer_types</code>).</li>
@@ -416,11 +421,11 @@ ol.steps li{margin:.5em 0}
     if (disableHybrid) {
       var hasS = layers.some(function (l) { return l.kind === "sliding"; });
       var hasF = layers.some(function (l) { return l.kind === "full"; });
+      var wins = {};
+      layers.forEach(function (l) { if (l.kind === "sliding") wins[l.slidingWindow] = 1; });
+      if (Object.keys(wins).length > 1)
+        throw new Unsupported("two sliding-window sizes with the hybrid KV cache manager disabled");
       if (hasS && hasF) {
-        var wins = {};
-        layers.forEach(function (l) { if (l.kind === "sliding") wins[l.slidingWindow] = 1; });
-        if (Object.keys(wins).length > 1)
-          throw new Unsupported("two sliding-window sizes with the hybrid KV cache manager disabled");
         layers = layers.map(function (l) {
           return l.kind === "sliding"
             ? mkLayer("full", l.numKvHeads, l.headSize, l.headSizeV, l.dtypeBytes, l.blockSize) : l;
@@ -493,6 +498,17 @@ ol.steps li{margin:.5em 0}
   function kvMemoryBytes(totalBytes, util, nonKvBytes, cudagraphBytes) {
     return Math.ceil(totalBytes * util) - nonKvBytes - (cudagraphBytes || 0);
   }
+  // v0.34.0 extensible KV cache: measure_kv_cache_bytes with nothing committed yet
+  function measuredKvMemoryBytes(requestedBytes, initFreeBytes, residentBytes, transientBytes,
+      growthBytes, marginFloorBytes, marginFraction) {
+    var floor = has(marginFloorBytes) ? marginFloorBytes : GIB;
+    var frac = has(marginFraction) ? marginFraction : 0.75;
+    var headroom = initFreeBytes - residentBytes;
+    var margin = Math.max(floor, Math.floor(transientBytes * frac));
+    var available = Math.min(requestedBytes - residentBytes, headroom - margin);
+    available -= Math.max(transientBytes, growthBytes || 0);
+    return Math.max(available, 0);
+  }
   function defaultBatch(totalGib, deviceName, serve, cc) {
     var name = (deviceName || "").toLowerCase();
     if (serve === undefined) serve = true;
@@ -512,7 +528,8 @@ ol.steps li{margin:.5em 0}
     est_max_len: /estimated maximum model length is (\d+)/,
     free: /Free memory on device .*?\(([\d.]+)\/([\d.]+) GiB\) on startup is less than desired GPU memory utilization \(([\d.]+), ([\d.]+) GiB\)/,
     reserved_gib: /reserved ([\d.]+) GiB memory for KV Cache as specified by/,
-    v0_kv_gib: /memory reserved for KV Cache is ([\d.]+) ?GiB/
+    v0_kv_gib: /memory reserved for KV Cache is ([\d.]+) ?GiB/,
+    after_warmup: /(\d+) KV cache blocks \(([\d.]+) GiB\) fit within the requested ([\d.]+) GiB/
   };
   function parseLog(text) {
     var out = {};
@@ -527,11 +544,18 @@ ol.steps li{margin:.5em 0}
       } else if (key === "free") {
         out.free_gib = parseFloat(g[0]); out.total_gib = parseFloat(g[1]);
         out.utilization = parseFloat(g[2]); out.requested_gib = parseFloat(g[3]);
+      } else if (key === "after_warmup") {
+        out.warmup_blocks = parseInt(g[0], 10); out.warmup_gib = parseFloat(g[1]);
+        out.requested_gib = parseFloat(g[2]);
       } else if (key === "tokens" || key === "gpu_blocks" || key === "est_max_len")
         out[key] = parseInt(g[0], 10);
       else out[key] = parseFloat(g[0]);
     });
     if (!("tokens" in out) && "gpu_blocks" in out) out.tokens = out.gpu_blocks * 16;
+    if ("warmup_gib" in out) {
+      out.reserved_before_warmup_gib = "available_gib" in out ? out.available_gib : null;
+      out.available_gib = out.warmup_gib;
+    }
     if (!("available_gib" in out) && "reserved_gib" in out) out.available_gib = out.reserved_gib;
     if (!("available_gib" in out) && "v0_kv_gib" in out) out.available_gib = out.v0_kv_gib;
     return out;
@@ -552,9 +576,9 @@ ol.steps li{margin:.5em 0}
     return res;
   }
 
-  var api = {GIB: GIB, VLLM_VERSION: "v0.33.0", readConfig: readConfig, buildLayers: buildLayers,
+  var api = {GIB: GIB, VLLM_VERSION: "v0.34.0", readConfig: readConfig, buildLayers: buildLayers,
     groupLayers: groupLayers, plan: plan, requestsThatFit: requestsThatFit,
-    kvMemoryBytes: kvMemoryBytes, defaultBatch: defaultBatch, parseLog: parseLog,
+    kvMemoryBytes: kvMemoryBytes, measuredKvMemoryBytes: measuredKvMemoryBytes, defaultBatch: defaultBatch, parseLog: parseLog,
     fromLog: fromLog, bytesPerToken: bytesPerToken, pageBytes: pageBytes};
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.kvplan = api;
@@ -575,6 +599,7 @@ ol.steps li{margin:.5em 0}
   function kib(b) { return (b / 1024).toFixed(1).replace(/\.0$/, "") + " KiB"; }
   function row(k, v) { return "<tr><th scope=\"row\">" + k + "</th><td>" + v + "</td></tr>"; }
 
+  var VER = {m34: {blk: 64, util: "1.0"}, e34: {blk: 64, util: "0.92"}, e33: {blk: 16, util: "0.92"}};
   var EXAMPLES = {
     llama: {cfg: {model_type: "llama", hidden_size: 4096, num_hidden_layers: 32,
       num_attention_heads: 32, num_key_value_heads: 8}, wts: 14.96, len: 32768},
@@ -602,7 +627,7 @@ ol.steps li{margin:.5em 0}
     try {
       shape = K.readConfig(cfg);
       layers = K.buildLayers(shape, {tensorParallel: tp, kvDtype: $("kvd").value,
-        blockSize: Math.max(1, Math.floor(num("blk") || 16))});
+        blockSize: Math.max(1, Math.floor(num("blk") || VER[$("ver").value].blk))});
     } catch (e) {
       if (!e.unsupported) throw e;
       out.innerHTML = "<p class=\"s p\">Not covered from config.json: " + esc(e.message) +
@@ -611,13 +636,23 @@ ol.steps li{margin:.5em 0}
     }
     var len = Math.floor(num("len") || shape.maxPos || 0);
     if (!len) { out.innerHTML = "<p class=\"s n\">Enter max_model_len.</p>"; return; }
-    var total = num("gpu"), util = num("util") || 0.92, kvm = num("kvm"), avail, how;
+    var mode = $("ver").value;
+    var total = num("gpu"), util = num("util") || VER[mode].util, kvm = num("kvm"), avail, how;
     if (kvm !== null) { avail = Math.floor(kvm * GIB); how = "as entered"; }
     else {
       if (total === null) { out.innerHTML = "<p class=\"s n\">Enter the GPU memory or the KV memory.</p>"; return; }
       var nonKv = ((num("wts") || 0) + (num("oth") || 0)) * GIB;
-      avail = K.kvMemoryBytes(Math.floor(total * GIB), util, Math.floor(nonKv));
-      how = "ceil(" + total + " &times; " + util + ") &minus; " + (num("wts") || 0) + " &minus; " + (num("oth") || 0) + " GiB";
+      if (mode === "m34") {
+        var trn = Math.min(num("trn") || 0, num("oth") || 0);
+        var totalB = Math.floor(total * GIB), trnB = Math.floor(trn * GIB);
+        avail = K.measuredKvMemoryBytes(Math.ceil(totalB * util), totalB, Math.floor(nonKv) - trnB, trnB);
+        how = "min(budget &minus; resident, free &minus; resident &minus; margin) &minus; transient peak: budget ceil(" + total + " &times; " + util +
+          "), resident " + (num("wts") || 0) + " + " + ((num("oth") || 0) - trn).toFixed(2).replace(/\.?0+$/, "") + ", transient " + trn +
+          ", margin " + Math.max(1, 0.75 * trn).toFixed(2).replace(/\.?0+$/, "") + " GiB; vLLM logs the real figure as <code>Memory after warmup</code>";
+      } else {
+        avail = K.kvMemoryBytes(Math.floor(total * GIB), util, Math.floor(nonKv));
+        how = "ceil(" + total + " &times; " + util + ") &minus; " + (num("wts") || 0) + " &minus; " + (num("oth") || 0) + " GiB";
+      }
     }
     var defs = K.defaultBatch(total === null ? 0 : total, "", true);
     var mbt = num("mbt") || defs[1];
@@ -677,6 +712,8 @@ ol.steps li{margin:.5em 0}
       return;
     }
     var h = "<table class=\"res\"><tbody>", seen = [];
+    if ("warmup_blocks" in d) seen.push(fmt(d.warmup_blocks) + " blocks after warmup (v0.34.0 measured sizing" +
+      (d.reserved_before_warmup_gib !== null ? "; " + d.reserved_before_warmup_gib + " GiB was only the reservation before warmup" : "") + ")");
     if ("available_gib" in d) seen.push("KV memory " + d.available_gib + " GiB");
     if ("tokens" in d) seen.push(fmt(d.tokens) + " tokens");
     if ("concurrency" in d) seen.push(d.concurrency + "x at " + fmt(d.max_model_len));
@@ -722,7 +759,12 @@ ol.steps li{margin:.5em 0}
       runConfig();
     });
   });
-  ["cfg", "gpu", "util", "wts", "oth", "kvm", "len", "tp", "kvd", "mbt", "asy", "hyb", "typ", "blk"].forEach(function (id) {
+  $("ver").addEventListener("change", function () {
+    var v = VER[$("ver").value];
+    $("blk").value = v.blk; $("util").value = v.util; $("trn").disabled = $("ver").value !== "m34";
+    runConfig();
+  });
+  ["cfg", "gpu", "util", "wts", "oth", "trn", "kvm", "len", "tp", "kvd", "mbt", "asy", "hyb", "typ", "blk"].forEach(function (id) {
     $(id).addEventListener("input", runConfig); $(id).addEventListener("change", runConfig);
   });
   ["log", "llen", "lkvm", "ltyp"].forEach(function (id) { $(id).addEventListener("input", runLog); });

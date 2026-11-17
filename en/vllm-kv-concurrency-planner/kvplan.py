@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""kvplan.py - KV-cache capacity planner for vLLM (follows vLLM v0.33.0).
+"""kvplan.py - KV-cache capacity planner for vLLM (follows vLLM v0.34.0 and v0.33.0).
 
 Answers "how many tokens / how many concurrent requests fit?" the way vLLM
 itself computes it at startup, instead of a flat bytes-per-token estimate:
 
   budget      = ceil(total_gpu_memory * gpu_memory_utilization)
-  KV memory   = budget - weights - activation peak - CUDA graph estimate
+  KV memory   = v0.34.0 on CUDA/ROCm (extensible KV cache, the default):
+                  min(budget - resident, free after warmup - margin) - transient peak
+                v0.33.0 and earlier, or --no-enable-extensible-kv-cache:
+                  budget - weights - activation peak - CUDA graph estimate
                 (or exactly --kv-cache-memory-bytes)
   block bytes = layers in the widest KV group * page bytes
   num_blocks  = KV memory // block bytes
@@ -16,7 +19,8 @@ Two ways to use it:
 
   # 1. Before launch, from config.json
   python kvplan.py plan --config config.json --gpu-gib 24 --weights-gib 14.96 \\
-        --max-model-len 32768
+        --max-model-len 32768                     # v0.34.0 rules
+  python kvplan.py plan ... --vllm-version 0.33   # v0.33.0 and earlier
 
   # 2. After launch, from the startup log (works for every model)
   python kvplan.py log --file vllm.log --max-model-len 16384
@@ -39,7 +43,17 @@ import sys
 from dataclasses import dataclass, field
 
 GIB = 1 << 30
-VLLM_VERSION = "v0.33.0"
+VLLM_VERSION = "v0.34.0"
+
+# What changed in v0.34.0 (vllm/config/cache.py, vllm/v1/worker/extensible_kv_cache.py)
+VERSION_DEFAULTS = {
+    # block_size, gpu_memory_utilization, KV memory measured after warmup
+    "0.34": {"block_size": 64, "utilization": 1.0, "measured": True},
+    "0.33": {"block_size": 16, "utilization": 0.92, "measured": False},
+}
+ESTIMATE_UTILIZATION = 0.92  # CacheConfig.DEFAULT_GPU_MEMORY_UTILIZATION
+MARGIN_FLOOR_BYTES = 1 << 30  # KV_CACHE_MARGIN_FLOOR_BYTES (3 << 30 on ROCm)
+MARGIN_FRACTION = 0.75  # KV_CACHE_MARGIN_FRACTION
 
 
 def cdiv(a: int, b: int) -> int:
@@ -94,11 +108,11 @@ def group_layers(layers: list[Layer], disable_hybrid: bool = False) -> list[Grou
     """get_kv_cache_groups for the supported subset."""
     if disable_hybrid:
         kinds = {l.kind for l in layers}
+        if len({l.sliding_window for l in layers if l.kind == "sliding"}) > 1:
+            # vLLM itself refuses to merge two window sizes into one group
+            raise Unsupported("two sliding-window sizes with the hybrid KV "
+                              "cache manager disabled")
         if "sliding" in kinds and "full" in kinds:
-            if len({l.sliding_window for l in layers if l.kind == "sliding"}) > 1:
-                # vLLM itself refuses to merge two window sizes into one group
-                raise Unsupported("two sliding-window sizes with the hybrid KV "
-                                  "cache manager disabled")
             # unify_hybrid_kv_cache_specs: allocate sliding layers as full
             layers = [
                 Layer("full", l.num_kv_heads, l.head_size, l.head_size_v,
@@ -231,9 +245,30 @@ def kv_memory_bytes(
     return requested - non_kv_bytes - cudagraph_bytes
 
 
+def measured_kv_memory_bytes(
+    requested_bytes: int,
+    init_free_bytes: int,
+    resident_bytes: int,
+    transient_peak_bytes: int,
+    *,
+    torch_reserve_growth_bytes: int = 0,
+    margin_floor_bytes: int = MARGIN_FLOOR_BYTES,
+    margin_fraction: float = MARGIN_FRACTION,
+) -> int:
+    """v0.34.0 extensible KV cache: measure_kv_cache_bytes with nothing committed
+    yet. resident_bytes is what stays allocated after warmup (weights, CUDA
+    graphs, workspaces); transient_peak_bytes is the activation peak kept free."""
+    headroom = init_free_bytes - resident_bytes
+    margin = max(margin_floor_bytes, int(transient_peak_bytes * margin_fraction))
+    available = min(requested_bytes - resident_bytes, headroom - margin)
+    available -= max(transient_peak_bytes, torch_reserve_growth_bytes)
+    return max(available, 0)
+
+
 def default_batch(total_gib: float, device_name: str = "", serve: bool = True,
                   compute_capability: str = "") -> tuple[int, int]:
-    """(max_num_seqs, max_num_batched_tokens) defaults, v0.33.0 get_batch_defaults."""
+    """(max_num_seqs, max_num_batched_tokens) defaults, get_batch_defaults
+    (the same code in v0.33.0 and v0.34.0)."""
     name = device_name.lower()
     if total_gib >= 160:
         return 1024, 16384
@@ -449,6 +484,9 @@ LOG_PATTERNS = {
              r"than desired GPU memory utilization \(([\d.]+), ([\d.]+) GiB\)"),
     "reserved_gib": r"reserved ([\d.]+) GiB memory for KV Cache as specified by",
     "v0_kv_gib": r"memory reserved for KV Cache is ([\d.]+) ?GiB",
+    # v0.34.0, extensible KV cache: the size that is actually committed
+    "after_warmup": (r"(\d+) KV cache blocks \(([\d.]+) GiB\) fit within the "
+                     r"requested ([\d.]+) GiB"),
 }
 
 
@@ -467,12 +505,19 @@ def parse_log(text: str) -> dict:
         elif key == "free":
             out["free_gib"], out["total_gib"] = float(g[0]), float(g[1])
             out["utilization"], out["requested_gib"] = float(g[2]), float(g[3])
+        elif key == "after_warmup":
+            out["warmup_blocks"], out["warmup_gib"] = int(g[0]), float(g[1])
+            out["requested_gib"] = float(g[2])
         elif key in ("tokens", "gpu_blocks", "est_max_len"):
             out[key] = int(g[0])
         else:
             out[key] = float(g[0])
     if "tokens" not in out and "gpu_blocks" in out:
         out["tokens"] = out["gpu_blocks"] * 16
+    if "warmup_gib" in out:
+        # "Available KV cache memory" is only the pre-warmup reservation there.
+        out["reserved_before_warmup_gib"] = out.get("available_gib")
+        out["available_gib"] = out["warmup_gib"]
     if "available_gib" not in out and "reserved_gib" in out:
         out["available_gib"] = out["reserved_gib"]
     if "available_gib" not in out and "v0_kv_gib" in out:
@@ -518,7 +563,18 @@ def main(argv=None) -> int:
     p.add_argument("--config", required=True)
     p.add_argument("--max-model-len", type=int)
     p.add_argument("--gpu-gib", type=float, help="total memory of one GPU, GiB")
-    p.add_argument("--gpu-memory-utilization", type=float, default=0.92)
+    p.add_argument("--vllm-version", choices=sorted(VERSION_DEFAULTS), default="0.34",
+                   help="0.34 = v0.34.0 rules (default); 0.33 = v0.33.0 and earlier")
+    p.add_argument("--no-enable-extensible-kv-cache", action="store_true",
+                   help="v0.34.0 with estimate-based sizing (also what non-CUDA "
+                        "platforms and --kv-cache-memory-bytes use)")
+    p.add_argument("--gpu-memory-utilization", type=float,
+                   help="default: 1.0 with the v0.34.0 extensible KV cache, else 0.92")
+    p.add_argument("--free-gib", type=float,
+                   help="free memory on the GPU at startup, GiB (default: all of it)")
+    p.add_argument("--transient-gib", type=float, default=1.0,
+                   help="v0.34.0 measured sizing: activation peak kept free, GiB "
+                        "(assumption; part of --overhead-gib)")
     p.add_argument("--weights-gib", type=float, default=0.0,
                    help="weights on one GPU, GiB (divide by --tensor-parallel-size)")
     p.add_argument("--overhead-gib", type=float, default=1.5,
@@ -529,7 +585,8 @@ def main(argv=None) -> int:
     p.add_argument("--tensor-parallel-size", type=int, default=1)
     p.add_argument("--kv-cache-dtype", default="auto")
     p.add_argument("--model-dtype-bytes", type=int, default=2)
-    p.add_argument("--block-size", type=int, default=16)
+    p.add_argument("--block-size", type=int,
+                   help="default: 64 for v0.34.0, 16 for v0.33.0 and earlier")
     p.add_argument("--max-num-batched-tokens", type=int)
     p.add_argument("--concurrent-batches", type=int, default=2,
                    help="2 with async scheduling (default), 1 without")
@@ -562,20 +619,34 @@ def main(argv=None) -> int:
                       f"{res['concurrency']:.2f}x at {res['max_model_len']:,} tokens")
         return 0
 
+    ver = VERSION_DEFAULTS[a.vllm_version]
+    measured = ver["measured"] and not a.no_enable_extensible_kv_cache \
+        and a.kv_cache_memory_gib is None
+    block_size = a.block_size or ver["block_size"]
+    util = a.gpu_memory_utilization or (
+        ver["utilization"] if measured else ESTIMATE_UTILIZATION)
     try:
         shape = read_config(json.load(open(a.config)))
         layers = build_layers(shape, tensor_parallel=a.tensor_parallel_size,
                               kv_dtype=a.kv_cache_dtype,
                               model_dtype_bytes=a.model_dtype_bytes,
-                              block_size=a.block_size)
+                              block_size=block_size)
     except Unsupported as e:
         print(f"not covered from config.json: {e}\nStart vLLM once and use "
               f"`kvplan.py log` on the startup log instead.", file=sys.stderr)
         return 3
     if a.kv_cache_memory_gib is not None:
         avail = int(a.kv_cache_memory_gib * GIB)
+    elif a.gpu_gib is not None and measured:
+        total = int(a.gpu_gib * GIB)
+        transient = int(min(a.transient_gib, a.overhead_gib) * GIB)
+        resident = int((a.weights_gib + a.overhead_gib) * GIB) - transient
+        avail = measured_kv_memory_bytes(
+            math.ceil(total * util),
+            int(a.free_gib * GIB) if a.free_gib is not None else total,
+            resident, transient)
     elif a.gpu_gib is not None:
-        avail = kv_memory_bytes(int(a.gpu_gib * GIB), a.gpu_memory_utilization,
+        avail = kv_memory_bytes(int(a.gpu_gib * GIB), util,
                                 int((a.weights_gib + a.overhead_gib) * GIB))
     else:
         ap.error("give --gpu-gib or --kv-cache-memory-gib")
@@ -587,7 +658,10 @@ def main(argv=None) -> int:
     res = plan(layers, avail, length, in_flight_tokens=in_flight,
                disable_hybrid=a.disable_hybrid_kv_cache_manager)
     out = {
-        "vllm": VLLM_VERSION, "model_type": shape.model_type, "kind": shape.kind,
+        "vllm": "v0.34.0" if a.vllm_version == "0.34" else "v0.33.0",
+        "sizing": "measured after warmup" if measured else "estimate",
+        "gpu_memory_utilization": util, "block_size": block_size,
+        "model_type": shape.model_type, "kind": shape.kind,
         "layers": shape.num_layers, "kv_memory_gib": round(avail / GIB, 2),
         "block_bytes": res.block_bytes, "num_blocks": res.num_blocks,
         "kv_cache_size_tokens": res.tokens, "max_model_len": length,
@@ -604,7 +678,8 @@ def main(argv=None) -> int:
         print(json.dumps(out, indent=2))
         return 0
     print(f"{shape.model_type}: {shape.kind}, {shape.num_layers} layers "
-          f"(follows vLLM {VLLM_VERSION})")
+          f"(follows vLLM {out['vllm']}, {out['sizing']} sizing, "
+          f"gpu_memory_utilization {util})")
     for n in shape.notes:
         print("  note:", n)
     print(f"KV memory            {avail / GIB:.2f} GiB")
