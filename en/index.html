@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="diffusers-import-name-version-lookup/">ImportError: cannot import name 'X' from 'diffusers' (or diffusers.utils, diffusers.models ...): which releases have it</a></h2>
+<p><code>FluxPipeline</code> needs diffusers 0.30.0; <code>randn_tensor</code> left <code>diffusers.utils</code> in 0.21.0; the ONNX pipelines left in 0.43.0 and the Flax classes in 0.40.0. Every name that every module of diffusers binds, from 0.0.2 to 0.43.0, read from the source of 43 releases: 798 top-level names, 1,380 modules, the range to pin and where a moved name lives now. Also lists 15 names that the lazy import tables advertise but cannot import. Includes a lookup: paste the error, <code>No module named 'diffusers...'</code>, or the import line.</p>
+<p class="meta">Published 2026-11-18</p>
+</article>
+<article class="card">
 <h2><a href="huggingface-hub-import-name-version-lookup/">ImportError: cannot import name 'cached_download' (or HfFolder, or any name) from 'huggingface_hub': which releases have it</a></h2>
 <p><code>cached_download</code> left huggingface_hub in 0.26.0; <code>HfFolder</code>, <code>Repository</code> and <code>InferenceApi</code> in 1.0.0. Every name the hub has exported from 0.0.1 to 2.4.0, read from the source of 75 releases, with the range to pin and the replacement its deprecation message names. Also read: 331 releases of diffusers, sentence-transformers, gradio, datasets and peft, for the hub range each one can be imported with and the version that stopped importing each removed name. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-17</p>

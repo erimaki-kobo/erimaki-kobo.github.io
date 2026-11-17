@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cannot import name from 'diffusers': the version that has it</title>
+<meta name="description" content="FluxPipeline needs diffusers 0.30.0; randn_tensor left diffusers.utils in 0.21.0; ONNX pipelines left in 0.43.0. Paste the error: get the releases and the pin.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cannot import name from &#x27;diffusers&#x27;: the version that has it">
+<meta property="og:description" content="FluxPipeline needs diffusers 0.30.0; randn_tensor left diffusers.utils in 0.21.0; ONNX pipelines left in 0.43.0. Paste the error: get the releases and the pin.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.s.p{color:var(--warn)}.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/#article", "headline": "ImportError: cannot import name 'X' from 'diffusers' (or diffusers.utils, diffusers.models ...): which release", "description": "FluxPipeline needs diffusers 0.30.0; randn_tensor left diffusers.utils in 0.21.0; ONNX pipelines left in 0.43.0. Paste the error: get the releases and the pin.", "url": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "inLanguage": "en", "about": ["diffusers", "ImportError", "Stable Diffusion", "FLUX"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/", "isBasedOn": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/data.json"}, {"@type": "WebApplication", "name": "diffusers import name lookup", "url": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/#lookup", "description": "Paste an ImportError or an import statement and get the diffusers releases in which that name can be imported from that module, the range to pin, and where the name lives now.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from diffusers and its modules, by release", "url": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/data.json", "dateModified": "2026-11-18", "description": "For 43 releases of diffusers (0.0.2 to 0.43.0): the names importable from diffusers and from each of its 1380 modules as release ranges, the life of each module, and the lazy-table entries that cannot resolve. Read from the source of each release tag.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/data.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/names-core.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/names-modular.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/names-pipelines.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/where.json"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which diffusers version has FluxPipeline?", "acceptedAnswer": {"@type": "Answer", "text": "diffusers 0.30.0 (2024-08-07) and every release after it. On an older release, or on a 0.30.0.dev0 build made before the pipeline was merged, \"from diffusers import FluxPipeline\" fails with ImportError. Upgrade: pip install -U \"diffusers>=0.30.0\"."}}, {"@type": "Question", "name": "How do I fix \"cannot import name 'randn_tensor' from 'diffusers.utils'\"?", "acceptedAnswer": {"@type": "Answer", "text": "Change the import to \"from diffusers.utils.torch_utils import randn_tensor\". diffusers.utils exported randn_tensor from 0.12.0 through 0.20.2 and stopped in 0.21.0 (2023-09-13); diffusers.utils.torch_utils has had it since 0.12.0, so the new import works on old and new releases. If the import is inside a package you do not maintain, pin instead: pip install \"diffusers<0.21.0\"."}}, {"@type": "Question", "name": "Why can't I import OnnxStableDiffusionPipeline from diffusers any more?", "acceptedAnswer": {"@type": "Answer", "text": "diffusers 0.43.0 (2026-11-12) removed the ONNX Runtime pipelines and OnnxRuntimeModel; 0.42.1 is the last release that has them. The deprecation message in 0.42.1 says: \"Please use Optimum for ONNX Runtime support.\" To keep the old code running: pip install \"diffusers<0.43.0\"."}}, {"@type": "Question", "name": "Which diffusers version removed the Flax classes?", "acceptedAnswer": {"@type": "Answer", "text": "diffusers 0.40.0 (2026-08-20) removed all 20 Flax names from the top level, FlaxStableDiffusionPipeline and FlaxUNet2DConditionModel included; 0.39.0 is the last release that has them. Its message recommends migrating to the PyTorch classes or pinning the version."}}, {"@type": "Question", "name": "My diffusers is newer than the version the name needs, and the import still fails. Why?", "acceptedAnswer": {"@type": "Answer", "text": "Three usual reasons. Another copy of diffusers is being imported: print diffusers.__version__ and diffusers.__file__ in the same interpreter. The install is a development build (for example 0.30.0.dev0) made before the name was merged. Or the error names another package: \"Failed to import diffusers.pipelines... because of the following error: cannot import name ... from 'transformers'\" is about transformers or huggingface_hub, not diffusers."}}, {"@type": "Question", "name": "The name in my error is not a pipeline. Does this page cover it?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The lookup covers every name that every module of diffusers binds, from 0.0.2 to 0.43.0: 798 top-level names (51 gone from the newest release) and 37577 module-and-name pairs across 1380 modules, 228 of which no longer exist."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "cannot import name from 'diffusers': the version that has it", "item": "https://erimaki-kobo.github.io/en/diffusers-import-name-version-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>ImportError: cannot import name 'X' from 'diffusers' (or diffusers.utils, diffusers.models ...): which releases have it</h1>
+<p class="lede"><strong>The error has one of three causes: your diffusers is older than the release that added the name, the name was removed, or it moved to another module.</strong> Added: <code>FluxPipeline</code> needs diffusers 0.30.0, <code>WanPipeline</code> 0.33.0, <code>StableDiffusion3Pipeline</code> 0.29.0. Removed: the ONNX pipelines in 0.43.0 (2026-11-12; last release with them 0.42.1), the Flax classes in 0.40.0 (2026-08-20; last 0.39.0), the k-diffusion pipelines in 0.37.0 (2026-03-05; last 0.36.0). Moved: <code>randn_tensor</code> left <code>diffusers.utils</code> in 0.21.0 (2023-09-13) and imports from <code>diffusers.utils.torch_utils</code> in every release since 0.12.0. For any other name, in any module of diffusers, paste the error below.</p>
+<p class="meta">Published 2026-11-18 &middot; Data as of 2026-11-18 &middot; diffusers 0.0.2 to 0.43.0, the first release of each of 43 minor versions &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The error line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ImportError: cannot import name 'FluxPipeline' from 'diffusers' (/usr/lib/python3/site-packages/diffusers/__init__.py)"></textarea>
+<div class="grid">
+<div><label for="v">Your diffusers version (optional; <code>pip show diffusers</code>)</label><input id="v" inputmode="decimal" placeholder="for example 0.31.0"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ImportError: cannot import name &#x27;FluxPipeline&#x27; from &#x27;diffusers&#x27; (/usr/local/lib/python3.11/site-packages/diffusers/__init__.py)" data-v="0.29.2">FluxPipeline on 0.29.2</button><button type="button" data-ex="ImportError: cannot import name &#x27;randn_tensor&#x27; from &#x27;diffusers.utils&#x27;" data-v="">randn_tensor</button><button type="button" data-ex="from diffusers import OnnxStableDiffusionPipeline, FlaxStableDiffusionPipeline, StableDiffusionKDiffusionPipeline" data-v="0.43.0">removed families</button><button type="button" data-ex="ModuleNotFoundError: No module named &#x27;diffusers.models.unet_2d_condition&#x27;" data-v="">a module that moved</button><button type="button" data-ex="from diffusers.models.embeddings import PositionNet" data-v="">PositionNet</button><button type="button" data-ex="cannot import name &#x27;OnnxStableDiffusionInpaintPipelineLegacy&#x27; from &#x27;diffusers&#x27;" data-v="0.31.0">listed but broken</button><button type="button" data-ex="retrieve_timesteps" data-v="">a bare name</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="data.json">data.json</a> and four more files it loads when needed (1150 KB in all); nothing you paste is sent anywhere. Understands <code>cannot import name</code>, <code>No module named 'diffusers...'</code>, <code>module diffusers has no attribute</code>, <code>Failed to import diffusers...</code> and plain <code>from diffusers... import ...</code> lines. Covers 798 top-level names and 37577 module-and-name pairs in 1380 modules.</p>
+</div>
+
+<h2 id="added">Which diffusers version added the pipeline, model or scheduler I am importing?</h2>
+<p><strong>The table gives the first release that exports each name from the top level; with an older diffusers, <code>from diffusers import &lt;name&gt;</code> raises this ImportError, and upgrading to that release or later fixes it.</strong> All of these are still in 0.43.0.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>First release</th><th>Date (PyPI)</th><th>Top-level names it added (a selection)</th></tr></thead>
+<tbody>
+<tr><td>0.36.0</td><td>2025-12-08</td><td><code>Flux2Pipeline</code>, <code>ZImagePipeline</code></td></tr>
+<tr><td>0.35.0</td><td>2025-08-19</td><td><code>FluxKontextPipeline</code>, <code>QwenImagePipeline</code>, <code>ModularPipeline</code></td></tr>
+<tr><td>0.34.0</td><td>2025-06-24</td><td><code>HiDreamImagePipeline</code>, <code>ChromaPipeline</code></td></tr>
+<tr><td>0.33.0</td><td>2025-04-09</td><td><code>WanPipeline</code>, <code>AutoModel</code>, <code>Lumina2Pipeline</code>, <code>QuantoConfig</code></td></tr>
+<tr><td>0.32.0</td><td>2024-12-23</td><td><code>FluxFillPipeline</code>, <code>HunyuanVideoPipeline</code>, <code>SanaPipeline</code>, <code>LTXPipeline</code>, <code>GGUFQuantizationConfig</code>, <code>TorchAoConfig</code></td></tr>
+<tr><td>0.31.0</td><td>2024-10-22</td><td><code>FluxControlNetPipeline</code>, <code>BitsAndBytesConfig</code></td></tr>
+<tr><td>0.30.0</td><td>2024-08-07</td><td><code>FluxPipeline</code>, <code>FluxTransformer2DModel</code>, <code>CogVideoXPipeline</code>, <code>StableAudioPipeline</code>, <code>AuraFlowPipeline</code></td></tr>
+<tr><td>0.29.0</td><td>2024-06-12</td><td><code>StableDiffusion3Pipeline</code>, <code>SD3Transformer2DModel</code>, <code>FlowMatchEulerDiscreteScheduler</code></td></tr>
+<tr><td>0.26.0</td><td>2024-01-31</td><td><code>I2VGenXLPipeline</code></td></tr>
+<tr><td>0.24.0</td><td>2023-11-29</td><td><code>StableVideoDiffusionPipeline</code></td></tr>
+<tr><td>0.22.0</td><td>2023-11-06</td><td><code>LCMScheduler</code>, <code>AnimateDiffPipeline</code>, <code>MotionAdapter</code>, <code>PixArtAlphaPipeline</code></td></tr>
+<tr><td>0.19.0</td><td>2023-07-26</td><td><code>AutoPipelineForText2Image</code>, <code>T2IAdapter</code></td></tr>
+<tr><td>0.18.0</td><td>2023-07-06</td><td><code>StableDiffusionXLPipeline</code>, <code>KandinskyV22Pipeline</code></td></tr>
+<tr><td>0.16.0</td><td>2023-04-26</td><td><code>IFPipeline</code></td></tr>
+<tr><td>0.15.0</td><td>2023-04-12</td><td><code>TextToVideoSDPipeline</code></td></tr>
+<tr><td>0.14.0</td><td>2023-03-03</td><td><code>ControlNetModel</code>, <code>StableDiffusionControlNetPipeline</code></td></tr>
+<tr><td>0.13.0</td><td>2023-02-17</td><td><code>UniPCMultistepScheduler</code></td></tr>
+<tr><td>0.10.0</td><td>2022-12-08</td><td><code>StableDiffusionDepth2ImgPipeline</code></td></tr>
+<tr><td>0.8.0</td><td>2022-11-23</td><td><code>DPMSolverMultistepScheduler</code></td></tr>
+<tr><td>0.7.0</td><td>2022-11-03</td><td><code>EulerDiscreteScheduler</code>, <code>EulerAncestralDiscreteScheduler</code></td></tr>
+<tr><td>0.3.0</td><td>2022-09-08</td><td><code>StableDiffusionImg2ImgPipeline</code>, <code>StableDiffusionInpaintPipeline</code></td></tr>
+<tr><td>0.2.0</td><td>2022-08-16</td><td><code>StableDiffusionPipeline</code></td></tr>
+</tbody></table></div>
+<p class="note">A selection of 49 of the 747 names in 0.43.0; the lookup has all of them. A development install such as <code>0.30.0.dev0</code> has only what was merged when it was built, so it can lack a name that the final 0.30.0 has.</p>
+
+<h2 id="removed">What did each diffusers release remove from the top level?</h2>
+<p><strong>51 of the 798 names that <code>from diffusers import ...</code> has ever accepted are gone from 0.43.0; this is every one of them, by the release that dropped it.</strong> To keep old code running, pin below that release, for example <code>pip install "diffusers&lt;0.43.0"</code> for the ONNX pipelines.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Release</th><th>Date (PyPI)</th><th>Names</th><th>Gone from the top level</th></tr></thead>
+<tbody>
+<tr><td>0.43.0</td><td>2026-11-12</td><td>6</td><td><code>OnnxRuntimeModel</code>, <code>OnnxStableDiffusionImg2ImgPipeline</code>, <code>OnnxStableDiffusionInpaintPipeline</code>, <code>OnnxStableDiffusionPipeline</code>, <code>OnnxStableDiffusionUpscalePipeline</code>, <code>StableDiffusionOnnxPipeline</code><br><span class="note">the ONNX Runtime pipelines and <code>OnnxRuntimeModel</code>. The message in 0.42.1: "Please use Optimum for ONNX Runtime support."</span></td></tr>
+<tr><td>0.41.0</td><td>2026-10-06</td><td>2</td><td><code>Lumina2Text2ImgPipeline</code>, <code>LuminaText2ImgPipeline</code></td></tr>
+<tr><td>0.40.0</td><td>2026-08-20</td><td>20</td><td><code>FlaxAutoencoderKL</code>, <code>FlaxControlNetModel</code>, <code>FlaxDDIMScheduler</code>, <code>FlaxDDPMScheduler</code>, <code>FlaxDPMSolverMultistepScheduler</code>, <code>FlaxDiffusionPipeline</code>, <code>FlaxEulerDiscreteScheduler</code>, <code>FlaxKarrasVeScheduler</code>, <code>FlaxLMSDiscreteScheduler</code>, <code>FlaxModelMixin</code>, <code>FlaxPNDMScheduler</code>, <code>FlaxSchedulerMixin</code>, <code>FlaxScoreSdeVeScheduler</code>, <code>FlaxStableDiffusionControlNetPipeline</code>, <code>FlaxStableDiffusionImg2ImgPipeline</code>, <code>FlaxStableDiffusionInpaintPipeline</code>, <code>FlaxStableDiffusionPipeline</code>, <code>FlaxStableDiffusionXLPipeline</code>, <code>FlaxUNet2DConditionModel</code>, <code>is_flax_available</code><br><span class="note">every Flax class. The message in 0.39.0: "Flax classes are deprecated and will be removed in Diffusers v0.40.0. We recommend migrating to PyTorch classes or pinning your version of Diffusers."</span></td></tr>
+<tr><td>0.37.0</td><td>2026-03-05</td><td>6</td><td><code>StableDiffusionKDiffusionPipeline</code>, <code>StableDiffusionXLKDiffusionPipeline</code>, <code>Wan22AutoBlocks</code>, <code>WanAutoBlocks</code>, <code>is_k_diffusion_available</code>, <code>is_k_diffusion_version</code><br><span class="note">the k-diffusion pipelines and their availability checks</span></td></tr>
+<tr><td>0.25.0</td><td>2023-12-27</td><td>1</td><td><code>OnnxStableDiffusionInpaintPipelineLegacy</code><br><span class="note">the name stayed in the lazy table until 0.42.1, but the file behind it was removed here (see <a href="#stale">below</a>)</span></td></tr>
+<tr><td>0.22.0</td><td>2023-11-06</td><td>1</td><td><code>pipeline_utils</code><br><span class="note">the old module <code>diffusers.pipeline_utils</code>; use <code>diffusers.pipelines.pipeline_utils</code>, or import <code>DiffusionPipeline</code> from <code>diffusers</code></span></td></tr>
+<tr><td>0.16.0</td><td>2023-04-26</td><td>1</td><td><code>TextualInversionLoaderMixin</code></td></tr>
+<tr><td>0.12.0</td><td>2023-01-25</td><td>7</td><td><code>dynamic_modules_utils</code>, <code>hub_utils</code>, <code>modeling_flax_pytorch_utils</code>, <code>modeling_flax_utils</code>, <code>modeling_utils</code>, <code>onnx_utils</code>, <code>pipeline_flax_utils</code><br><span class="note">old top-level modules; the same files live under <code>diffusers.models</code>, <code>diffusers.pipelines</code> and <code>diffusers.utils</code></span></td></tr>
+<tr><td>0.11.0</td><td>2022-12-19</td><td>1</td><td><code>transformers</code></td></tr>
+<tr><td>0.8.0</td><td>2022-11-23</td><td>2</td><td><code>error_msg</code>, <code>is_accelerate_available</code></td></tr>
+<tr><td>0.4.0</td><td>2022-10-06</td><td>1</td><td><code>testing_utils</code></td></tr>
+<tr><td>0.2.0</td><td>2022-08-16</td><td>3</td><td><code>GaussianDDPMScheduler</code>, <code>UNetGLIDEModel</code>, <code>UNetModel</code></td></tr>
+</tbody></table></div>
+<p class="note">Lower-case entries such as <code>pipeline_utils</code> and <code>hub_utils</code> are modules that used to sit directly under <code>diffusers</code>. </p>
+
+<h2 id="moved">The name is still in diffusers but my import path fails. Where did it go?</h2>
+<p><strong>diffusers has moved files several times, and an import that names the old module fails even though the class still exists.</strong> 228 of the 1380 modules that have existed are gone from 0.43.0; the releases that removed or moved the most are 0.25.0 (54), 0.37.0 (15), 0.38.0 (67), 0.40.0 (29). The safest import is the shortest one that works: <code>from diffusers import UNet2DConditionModel</code> has worked in every release since 0.2.0, while <code>from diffusers.models.unet_2d_condition import UNet2DConditionModel</code> stopped in 0.29.0.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Old import</th><th>Works in</th><th>Stops in</th><th>Use instead</th></tr></thead>
+<tbody>
+<tr><td><code>from diffusers.utils import randn_tensor</code></td><td>0.12.0 to 0.20.2</td><td>0.21.0 (2023-09-13)</td><td><code>from diffusers.utils.torch_utils import randn_tensor</code> (same function; that import works in every release from 0.12.0).</td></tr>
+<tr><td><code>from diffusers.utils import torch_device</code></td><td>0.4.0 to 0.20.2</td><td>0.21.0 (2023-09-13)</td><td><code>from diffusers.utils.testing_utils import torch_device</code>, or write <code>"cuda" if torch.cuda.is_available() else "cpu"</code>: it is a test helper.</td></tr>
+<tr><td><code>from diffusers.utils import floats_tensor</code></td><td>0.4.0 to 0.20.2</td><td>0.21.0 (2023-09-13)</td><td><code>from diffusers.utils.testing_utils import floats_tensor</code> (a test helper).</td></tr>
+<tr><td><code>from diffusers.utils import HF_HUB_OFFLINE</code></td><td>0.12.0 to 0.24.0</td><td>0.25.0 (2023-12-27)</td><td><code>from huggingface_hub.constants import HF_HUB_OFFLINE</code>: from 0.25.0 diffusers reads the constant from huggingface_hub.</td></tr>
+<tr><td><code>from diffusers.utils import DIFFUSERS_CACHE</code></td><td>0.2.0 to 0.24.0</td><td>0.25.0 (2023-12-27)</td><td><code>from huggingface_hub.constants import HF_HUB_CACHE</code>: from 0.25.0 diffusers uses the cache directory of huggingface_hub.</td></tr>
+<tr><td><code>from diffusers.models.embeddings import PositionNet</code></td><td>0.20.0 to 0.25.1</td><td>0.26.0 (2024-01-31)</td><td><code>GLIGENTextBoundingboxProjection</code> in the same module: the class was renamed in 0.26.0.</td></tr>
+<tr><td><code>diffusers.pipeline_utils</code> <span class="note">(module)</span></td><td>0.0.2 to 0.21.4</td><td>0.22.0 (2023-11-06)</td><td><code>diffusers.pipelines.pipeline_utils</code> (the old module said: "Please import from diffusers.pipelines.pipeline_utils instead."), or simply <code>from diffusers import DiffusionPipeline</code></td></tr>
+<tr><td><code>diffusers.modeling_utils</code> <span class="note">(module)</span></td><td>0.0.2 to 0.11.1</td><td>0.12.0 (2023-01-25)</td><td><code>diffusers.models.modeling_utils</code></td></tr>
+<tr><td><code>diffusers.models.cross_attention</code> <span class="note">(module)</span></td><td>0.12.0 to 0.19.3</td><td>0.20.0 (2023-08-17)</td><td>diffusers.models.attention_processor (<code>CrossAttention</code> is <code>Attention</code> there; the old module said: "Importing from cross_attention is deprecated. Please import from diffusers.models.attention_processor instead.")</td></tr>
+<tr><td><code>diffusers.models.unet_2d_condition</code> <span class="note">(module)</span></td><td>0.2.0 to 0.28.2</td><td>0.29.0 (2024-06-12)</td><td><code>diffusers.models.unets.unet_2d_condition</code></td></tr>
+<tr><td><code>diffusers.models.unet_2d_blocks</code> <span class="note">(module)</span></td><td>0.7.0 to 0.28.2</td><td>0.29.0 (2024-06-12)</td><td><code>diffusers.models.unets.unet_2d_blocks</code></td></tr>
+<tr><td><code>diffusers.models.transformer_2d</code> <span class="note">(module)</span></td><td>0.12.0 to 0.28.2</td><td>0.29.0 (2024-06-12)</td><td><code>diffusers.models.transformers.transformer_2d</code></td></tr>
+<tr><td><code>diffusers.models.autoencoder_kl</code> <span class="note">(module)</span></td><td>0.12.0 to 0.24.0</td><td>0.25.0 (2023-12-27)</td><td><code>diffusers.models.autoencoders.autoencoder_kl</code></td></tr>
+<tr><td><code>diffusers.models.vae</code> <span class="note">(module)</span></td><td>0.2.0 to 0.24.0</td><td>0.25.0 (2023-12-27)</td><td><code>diffusers.models.autoencoders.vae</code></td></tr>
+<tr><td><code>diffusers.models.controlnet</code> <span class="note">(module)</span></td><td>0.14.0 to 0.36.0</td><td>0.37.0 (2026-03-05)</td><td><code>diffusers.models.controlnets.controlnet</code></td></tr>
+<tr><td><code>diffusers.models.controlnet_flux</code> <span class="note">(module)</span></td><td>0.31.0 to 0.36.0</td><td>0.37.0 (2026-03-05)</td><td><code>diffusers.models.controlnets.controlnet_flux</code></td></tr>
+<tr><td><code>diffusers.models.controlnet_sd3</code> <span class="note">(module)</span></td><td>0.30.0 to 0.36.0</td><td>0.37.0 (2026-03-05)</td><td><code>diffusers.models.controlnets.controlnet_sd3</code></td></tr>
+<tr><td><code>diffusers.pipelines.controlnet.multicontrolnet</code> <span class="note">(module)</span></td><td>0.17.0 to 0.40.0</td><td>0.41.0 (2026-10-06)</td><td><code>diffusers.models.controlnets.multicontrolnet</code></td></tr>
+<tr><td><code>diffusers.schedulers.scheduling_karras_ve</code> <span class="note">(module)</span></td><td>0.2.0 to 0.23.1</td><td>0.24.0 (2023-11-29)</td><td><code>diffusers.schedulers.deprecated.scheduling_karras_ve</code></td></tr>
+</tbody></table></div>
+<p class="note">For a module, "use instead" is the module with the same file name in 0.43.0. The lookup does this for any module or name: paste <code>No module named 'diffusers...'</code> or the import line.</p>
+
+<h2 id="stale">Which names does diffusers list but fail to import?</h2>
+<p><strong>15 entries of the lazy import tables point at a file that is gone or at a file that does not define the name; the import fails although the name is in the table, in <code>dir()</code> and in autocompletion.</strong> 5 of them are still there in 0.43.0. The best-known one: <code>from diffusers import OnnxStableDiffusionInpaintPipelineLegacy</code> stopped working in 0.25.0, when its file was removed, but the top-level table kept the name until 0.42.1. With <code>onnxruntime</code> installed the import raises; without it, diffusers hands back a placeholder class that raises when used.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Import</th><th>Fails in</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td><code>from diffusers import OnnxStableDiffusionInpaintPipelineLegacy</code></td><td>0.25.0 to 0.42.1</td><td>the entry goes through <code>diffusers.pipelines</code>, which no longer has it</td></tr>
+<tr><td><code>from diffusers.pipelines.cogview3 import CogView3PlusPipelineOutput</code></td><td>0.31.0 to 0.43.0 (still)</td><td><code>pipeline_output.py</code> is there but does not provide that name</td></tr>
+<tr><td><code>from diffusers.pipelines.cogview4 import CogView4PlusPipelineOutput</code></td><td>0.33.0 to 0.43.0 (still)</td><td><code>pipeline_output.py</code> is there but does not provide that name</td></tr>
+<tr><td><code>from diffusers.pipelines.deprecated.stable_diffusion_safe import StableDiffusionSafetyChecker</code></td><td>0.38.0 to 0.43.0 (still)</td><td><code>safety_checker.py</code> is there but does not provide that name</td></tr>
+<tr><td><code>from diffusers.pipelines.qwenimage import QwenImagePriorReduxPipelineOutput</code></td><td>0.35.0 to 0.43.0 (still)</td><td><code>pipeline_output.py</code> is there but does not provide that name</td></tr>
+<tr><td><code>from diffusers.pipelines.qwenimage import ReduxImageEncoder</code></td><td>0.35.0 to 0.43.0 (still)</td><td>the entry points to <code>modeling_qwenimage.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import CycleDiffusionPipeline</code></td><td>0.25.0 to 0.33.1</td><td>the entry points to <code>pipeline_cycle_diffusion.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import OnnxStableDiffusionInpaintPipelineLegacy</code></td><td>0.25.0 to 0.42.1</td><td>the entry points to <code>pipeline_onnx_stable_diffusion_inpaint_legacy.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import StableDiffusionAttendAndExcitePipeline</code></td><td>0.25.0 to 0.33.1</td><td>the entry points to <code>pipeline_stable_diffusion_attend_and_excite.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import StableDiffusionGLIGENPipeline</code></td><td>0.25.0 to 0.33.1</td><td>the entry points to <code>pipeline_stable_diffusion_gligen.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import StableDiffusionGLIGENTextImagePipeline</code></td><td>0.25.0 to 0.33.1</td><td>the entry points to <code>pipeline_stable_diffusion_gligen_text_image.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import StableDiffusionInpaintPipelineLegacy</code></td><td>0.25.0 to 0.33.1</td><td>the entry points to <code>pipeline_stable_diffusion_inpaint_legacy.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import StableDiffusionModelEditingPipeline</code></td><td>0.25.0 to 0.33.1</td><td>the entry points to <code>pipeline_stable_diffusion_model_editing.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion import StableDiffusionParadigmsPipeline</code></td><td>0.25.0 to 0.33.1</td><td>the entry points to <code>pipeline_stable_diffusion_paradigms.py</code>, which is not there</td></tr>
+<tr><td><code>from diffusers.pipelines.stable_diffusion_safe import StableDiffusionSafetyChecker</code></td><td>0.21.0 to 0.37.1</td><td><code>safety_checker.py</code> is there but does not provide that name</td></tr>
+</tbody></table></div>
+<p class="note">Found by following every table entry to the file it names, in every release. The error is <code>ImportError: cannot import name ...</code> when the file exists, and <code>RuntimeError: Failed to import diffusers... because of the following error (look up to see its traceback)</code> when it does not.</p>
+
+<h2 id="read">How do I read the error?</h2>
+<ul>
+<li><strong>The module after "from"</strong> matters as much as the name. <code>from 'diffusers'</code> is the top level; <code>from 'diffusers.utils'</code> or a longer path is a module whose contents change more often. Paste the whole line so the lookup uses the right module.</li>
+<li><strong>The path in parentheses</strong> is the copy of diffusers that was imported. Check that it is the version you expect: <code>python -c "import diffusers as d; print(d.__version__, d.__file__)"</code>. In a notebook, restart the kernel after upgrading.</li>
+<li><strong>"Failed to import diffusers.pipelines... because of the following error"</strong> wraps a second error. If that one names <code>transformers</code> or <code>huggingface_hub</code> (<code>cannot import name 'cached_download' from 'huggingface_hub'</code> is the common one), diffusers is fine and the other package is too new or too old: see the pages linked at the bottom.</li>
+<li><strong>No error on import, then "requires the torch library"</strong> (or transformers, onnxruntime, ...) when the class is used: the name exists, and diffusers gave you a placeholder because that backend is not installed. Install the backend; the diffusers version is not the problem.</li>
+<li><strong>"Did you mean: ...?"</strong> at the end is Python's spelling suggestion, not advice from diffusers.</li>
+</ul>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong></p>
+<ul>
+<li>Up to 0.20.x, <code>diffusers/__init__.py</code> imports its names eagerly, and the names are the ones those import statements bind. From 0.21.0 (2023-09-13) the top level and most packages below it replace themselves with a lazy module that serves the names of one table (<code>_import_structure</code>). The table is read along the path taken when the optional backends are installed; each entry is then followed to the file it names, down to the definition.</li>
+<li>For any other module, the names are everything it binds at module level: classes, functions, assignments and imports. Code under <code>if TYPE_CHECKING:</code> is skipped, because it does not run.</li>
+<li>The lazy module's own lookup code (<code>_LazyModule.__getattr__</code>) is checked in every release for rules that look at the spelling of a name; it has none, and the build stops if one appears.</li>
+<li>Dates and yanked releases come from PyPI.</li>
+</ul>
+<p>Checks, all by a second reading: (1) every lazy package repeats its names as plain imports for type checkers; in 1713 of 2008 package-and-release pairs that block and our reading are identical, and the other pairs differ by 49 names that upstream lists in only one of the two places (the lookup follows the table, which is what runs). (2) Each of the 798 top-level names is found as plain text in <code>__init__.py</code> of every release in its range (12039 name-and-release pairs), and is absent from the release on either side of the range (803 edges). (3) A regular expression finds 60015 class, function and variable definitions in 7595 file versions; all are among the names read. (4) The placeholders the top level hands out when a backend is missing are the same names as the real ones, except for the stale entry above. (5) 23 known facts hold, among them the releases named in the public error reports under Sources.</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. "Has it" means the import statement resolves in the source; it does not mean the class works with your versions of torch or transformers.</li>
+<li>Only the first release of each minor version was read. A change made in a patch release is attributed to the next minor.</li>
+<li>The answer assumes the optional backends are installed. Without one, a top-level import of a name that needs it still succeeds and returns a placeholder; a few packages below the top level then hand out more placeholders than they have real names.</li>
+<li>Importing a name can still fail for another reason: the file that defines it imports something your transformers or huggingface_hub does not have. That shows up as "Failed to import ..." with a second error underneath.</li>
+<li>"Instead" is given only where the source of the last release with the name states it, or where the same name is defined elsewhere in 0.43.0. Community pipelines (<code>custom_pipeline=...</code>) and forks are not covered.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>Which diffusers version has FluxPipeline?</h3>
+<p>diffusers 0.30.0 (2024-08-07) and every release after it. On an older release, or on a 0.30.0.dev0 build made before the pipeline was merged, "from diffusers import FluxPipeline" fails with ImportError. Upgrade: pip install -U "diffusers&gt;=0.30.0".</p>
+<h3>How do I fix "cannot import name 'randn_tensor' from 'diffusers.utils'"?</h3>
+<p>Change the import to "from diffusers.utils.torch_utils import randn_tensor". diffusers.utils exported randn_tensor from 0.12.0 through 0.20.2 and stopped in 0.21.0 (2023-09-13); diffusers.utils.torch_utils has had it since 0.12.0, so the new import works on old and new releases. If the import is inside a package you do not maintain, pin instead: pip install "diffusers&lt;0.21.0".</p>
+<h3>Why can't I import OnnxStableDiffusionPipeline from diffusers any more?</h3>
+<p>diffusers 0.43.0 (2026-11-12) removed the ONNX Runtime pipelines and OnnxRuntimeModel; 0.42.1 is the last release that has them. The deprecation message in 0.42.1 says: "Please use Optimum for ONNX Runtime support." To keep the old code running: pip install "diffusers&lt;0.43.0".</p>
+<h3>Which diffusers version removed the Flax classes?</h3>
+<p>diffusers 0.40.0 (2026-08-20) removed all 20 Flax names from the top level, FlaxStableDiffusionPipeline and FlaxUNet2DConditionModel included; 0.39.0 is the last release that has them. Its message recommends migrating to the PyTorch classes or pinning the version.</p>
+<h3>My diffusers is newer than the version the name needs, and the import still fails. Why?</h3>
+<p>Three usual reasons. Another copy of diffusers is being imported: print diffusers.__version__ and diffusers.__file__ in the same interpreter. The install is a development build (for example 0.30.0.dev0) made before the name was merged. Or the error names another package: "Failed to import diffusers.pipelines... because of the following error: cannot import name ... from 'transformers'" is about transformers or huggingface_hub, not diffusers.</p>
+<h3>The name in my error is not a pipeline. Does this page cover it?</h3>
+<p>Yes. The lookup covers every name that every module of diffusers binds, from 0.0.2 to 0.43.0: 798 top-level names (51 gone from the newest release) and 37577 module-and-name pairs across 1380 modules, 228 of which no longer exist.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>huggingface/diffusers, release tags v0.0.2 to v0.43.0: every <code>.py</code> file under <a href="https://github.com/huggingface/diffusers/blob/v0.43.0/src/diffusers/__init__.py">src/diffusers</a>; the lazy module is in <a href="https://github.com/huggingface/diffusers/blob/v0.43.0/src/diffusers/utils/import_utils.py">utils/import_utils.py</a>.</li>
+<li>Messages quoted for replacements: <a href="https://github.com/huggingface/diffusers/blob/v0.42.1/src/diffusers/pipelines/onnx_utils.py">pipelines/onnx_utils.py at 0.42.1</a> (ONNX), <a href="https://github.com/huggingface/diffusers/blob/v0.39.0/src/diffusers/pipelines/pipeline_flax_utils.py">pipelines/pipeline_flax_utils.py at 0.39.0</a> (Flax), <a href="https://github.com/huggingface/diffusers/blob/v0.36.0/src/diffusers/pipelines/stable_diffusion_k_diffusion/pipeline_stable_diffusion_k_diffusion.py">pipeline_stable_diffusion_k_diffusion.py at 0.36.0</a>, <a href="https://github.com/huggingface/diffusers/blob/v0.19.0/src/diffusers/models/cross_attention.py">models/cross_attention.py at 0.19.0</a>, <a href="https://github.com/huggingface/diffusers/blob/v0.21.0/src/diffusers/pipeline_utils.py">pipeline_utils.py at 0.21.0</a>, <a href="https://github.com/huggingface/diffusers/blob/v0.26.0/src/diffusers/models/embeddings.py">models/embeddings.py at 0.26.0</a> (<code>GLIGENTextBoundingboxProjection</code>).</li>
+<li>Reports of the error this page answers: <a href="https://huggingface.co/black-forest-labs/FLUX.1-dev/discussions/41">FluxPipeline on a 0.30.0.dev0 build</a>, <a href="https://huggingface.co/stabilityai/stable-diffusion-2-depth/discussions/6">StableDiffusionDepth2ImgPipeline on 0.9.0</a>, <a href="https://huggingface.co/stabilityai/stable-audio-open-1.0/discussions/40">StableAudioPipeline</a>, <a href="https://discuss.huggingface.co/t/cannot-import-wan-pipeline/145370">WanPipeline</a>, <a href="https://discuss.huggingface.co/t/getting-a-peculiar-error-importerror-cannot-import-name-hf-hub-offline-from-diffusers-utils/40262">HF_HUB_OFFLINE from diffusers.utils</a>.</li>
+<li>Release dates: <a href="https://pypi.org/project/diffusers/#history">PyPI</a>.</li>
+</ul>
+<p>The same data as JSON: <a href="data.json">data.json</a>, <a href="names-core.json">names-core.json</a>, <a href="names-pipelines.json">names-pipelines.json</a>, <a href="names-modular.json">names-modular.json</a>, <a href="where.json">where.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/transformers-import-name-version-lookup/">"cannot import name ... from 'transformers'": the releases that have each name</a> &middot; <a href="/en/huggingface-hub-import-name-version-lookup/">"cannot import name 'cached_download' from 'huggingface_hub'"</a> &middot; <a href="/en/peft-trl-args-version-lookup/">"got an unexpected keyword argument": PEFT, TRL and TrainingArguments by version</a>.</p>
+</main>
+<script>window.DF_HINTS = {"utils:randn_tensor": "<code>from diffusers.utils.torch_utils import randn_tensor</code> (same function; that import works in every release from 0.12.0).", "utils:torch_device": "<code>from diffusers.utils.testing_utils import torch_device</code>, or write <code>\"cuda\" if torch.cuda.is_available() else \"cpu\"</code>: it is a test helper.", "utils:floats_tensor": "<code>from diffusers.utils.testing_utils import floats_tensor</code> (a test helper).", "utils:slow": "<code>from diffusers.utils.testing_utils import slow</code> (a test helper).", "utils:HF_HUB_OFFLINE": "<code>from huggingface_hub.constants import HF_HUB_OFFLINE</code>: from 0.25.0 diffusers reads the constant from huggingface_hub.", "utils:DIFFUSERS_CACHE": "<code>from huggingface_hub.constants import HF_HUB_CACHE</code>: from 0.25.0 diffusers uses the cache directory of huggingface_hub.", "models.embeddings:PositionNet": "<code>GLIGENTextBoundingboxProjection</code> in the same module: the class was renamed in 0.26.0."}; window.DF_GROUPS = [["0.43.0", "^Onnx|^StableDiffusionOnnxPipeline$", "ONNX Runtime support moved out of diffusers. The message in 0.42.1: \"Please use Optimum for ONNX Runtime support.\""], ["0.40.0", "^Flax|^is_flax_available$", "nothing in diffusers. The message in 0.39.0: \"Flax classes are deprecated and will be removed in Diffusers v0.40.0. We recommend migrating to PyTorch classes or pinning your version of Diffusers.\""], ["0.37.0", "KDiffusion|^is_k_diffusion", "the built-in schedulers, used with the regular Stable Diffusion pipelines. The k-diffusion pipelines carried <code>_last_supported_version = \"0.33.1\"</code> before they were removed."]];</script>
+<script>
+(function () {
+  "use strict";
+  var SEQ = 0, D = null, CH = {}, W = null, HINTS = window.DF_HINTS, GROUPS = window.DF_GROUPS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  var STOP = {from: 1, "import": 1, diffusers: 1, ImportError: 1, cannot: 1, name: 1, as: 1, unknown: 1, location: 1, py: 1,
+    __init__: 1, site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
+    ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
+    following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1};
+  var Q = "['\"`\u2018\u2019]?";
+
+  function modOf(dotted) { return dotted === "diffusers" ? "" : dotted.replace(/^diffusers\./, ""); }
+  function label(m) { return m ? "diffusers." + m : "diffusers"; }
+
+  function parse(text) {
+    var out = [], seen = {}, m;
+    function add(name, mod) {
+      var k = mod + ":" + name;
+      if (!seen[k] && (name === null || /^[A-Za-z_]\w*$/.test(name))) { seen[k] = 1; out.push({name: name, mod: mod}); }
+    }
+    var rest = text;
+    var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(diffusers(?:\\.\\w+)*)", "g");
+    while ((m = reErr.exec(text))) add(m[1], modOf(m[2]));
+    rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reAttr = new RegExp("module " + Q + "(diffusers(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
+    while ((m = reAttr.exec(rest))) add(m[2], modOf(m[1]));
+    rest = rest.replace(reAttr, " ");
+    var reNoMod = new RegExp("(?:No module named|Failed to import)\\s+" + Q + "(diffusers(?:\\.\\w+)+)", "g");
+    while ((m = reNoMod.exec(rest))) add(null, modOf(m[1]));
+    rest = rest.replace(reNoMod, " ");
+    var reImp = /from\s+(diffusers(?:\.\w+)*)\s+import\s+(\([^)]*\)|[^\n;]+)/g;
+    while ((m = reImp.exec(rest))) {
+      var mod = modOf(m[1]);
+      m[2].replace(/#[^\n]*/g, " ").replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, mod);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    var rePlain = /(?:^|\n|;)\s*import\s+(diffusers(?:\.\w+)+)/g;
+    while ((m = rePlain.exec(rest))) add(null, modOf(m[1]));
+    rest = rest.replace(rePlain, " ");
+    if (!out.length) {
+      var dotted = rest.match(/diffusers(?:\.\w+)+/g) || [];
+      dotted.forEach(function (d) { add(null, modOf(d)); });
+      if (!dotted.length) (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w]) add(w, "?"); });
+    }
+    return out.slice(0, 30);
+  }
+
+  function rel(i) { return D.releases[i]; }
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(rel(i)[0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairsOf(ri) {
+    var r = D.ranges[ri], out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function chunkOf(m) {
+    var head = m.split(".")[0];
+    return head === "pipelines" ? "pipelines" : head === "modular_pipelines" ? "modular" : "core";
+  }
+  function namesOf(m) { return m === "" ? D.top : (CH[chunkOf(m)] || {})[m] || null; }
+  function modEver(m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
+  function modPairs(m) { return m === "" ? [[0, 0]] : pairsOf(D.mods[m]); }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function lastBefore(i) { return rel(i - 1)[2]; }
+  function rangeText(p) {
+    var a = rel(p[0]);
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
+    var b = rel(p[1]);
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + lastBefore(p[1]) + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  function staleFor(m, name) {
+    return D.stale.filter(function (s) { return s[0] === m && s[1] === name; });
+  }
+  function hintFor(m, name, p) {
+    var h = HINTS[m + ":" + name];
+    if (h) return h;
+    if (p && p[1]) {
+      var goneIn = rel(p[1])[0];
+      for (var i = 0; i < GROUPS.length; i++) {
+        var g = GROUPS[i];
+        if (g[0] === goneIn && new RegExp(g[1]).test(name)) return g[2];
+      }
+    }
+    return "";
+  }
+  function dist(a, b) {
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, keys) {
+    var low = name.toLowerCase(), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (k === name) return;
+      if (kl === low) exact.push(k);
+      else if (low.length >= 6 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 8)) sub.push(k);
+      else if (low.length >= 6 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+  function code(s) { return "<code>" + esc(s) + "</code>"; }
+
+  // where a name can be imported from in the newest release, apart from module `except`
+  function whereNow(name, except) {
+    var out = [];
+    if (except !== "" && D.top[name]) {
+      var tp = pairsOf(D.top[name]), tl = tp[tp.length - 1];
+      if (tl[1] === 0) out.push(code("from diffusers import " + name) + " (top level, since " + rel(tl[0])[0] + ")");
+    }
+    var w = W && W.names[name];
+    if (w) {
+      if (w[0] < 0) out.push("defined in " + (-w[0]) + " modules of " + W.release);
+      else {
+        var ms = w.map(function (i) { return W.modules[i]; }).filter(function (m) { return m !== except; });
+        if (ms.length) out.push("defined in " + ms.map(function (m) { return code(label(m)); }).join(", ") + " in " + W.release);
+      }
+    }
+    return out;
+  }
+  function movedModule(m) {
+    var leaf = m.split(".").pop(), last = D.releases.length - 1, out = [];
+    Object.keys(D.mods).forEach(function (k) {
+      if (k !== m && k.split(".").pop() === leaf && inRange(pairsOf(D.mods[k]), last)) out.push(k);
+    });
+    return out.slice(0, 5);
+  }
+  function mineText(has, what) {
+    return "<br><strong>Your " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+      (has ? " If the error still names " + what + ", another copy of diffusers is being imported: check <code>python -c \"import diffusers as d; print(d.__version__, d.__file__)\"</code>." : "");
+  }
+  function row(nameHtml, modLabel, status, cell) {
+    return "<tr><td>" + nameHtml + "<br><span class=\"note\">" + esc(modLabel) + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+  }
+
+  function answerModule(m, mine) {
+    var cell, status;
+    if (!modEver(m)) {
+      var mv = movedModule(m);
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release from " + rel(0)[0] + " to " + D.latest + " has a module " + code(label(m)) + "." +
+        (mv.length ? " Modules with the same last part in " + D.latest + ": " + mv.map(function (k) { return code(label(k)); }).join(", ") + "." : "");
+      return row(code(label(m)), "module", status, cell);
+    }
+    var ps = modPairs(m), last = ps[ps.length - 1], now = last[1] === 0;
+    status = now ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+    cell = "The module exists " + ps.map(rangeText).join("<br>") + ".";
+    if (!now) {
+      var mv2 = movedModule(m);
+      cell += "<br><span class=\"pin\">Keep it: <code>pip install \"diffusers" + (last[0] > 0 ? "&gt;=" + rel(last[0])[0] + "," : "") + "&lt;" + rel(last[1])[0] + "\"</code></span>" +
+        (mv2.length ? "<br>Now: " + mv2.map(function (k) { return code(label(k)); }).join(", ") + " (same file name, in " + D.latest + ")." : "");
+    } else if (last[0] > 0) {
+      cell += "<br><span class=\"pin\">Needs: <code>pip install \"diffusers&gt;=" + rel(last[0])[0] + "\"</code></span>";
+    }
+    if (mine !== null) cell += mineText(inRange(ps, mine), "the module");
+    return row(code(label(m)), "module", status, cell);
+  }
+
+  function answerName(m, name, mine) {
+    if (!modEver(m)) {
+      var wn0 = whereNow(name, null);
+      return row(code(name), label(m), "<span class=\"s n\">no such module</span>",
+        "No release from " + rel(0)[0] + " to " + D.latest + " has a module " + code(label(m)) + "." +
+        (wn0.length ? " " + code(name) + ": " + wn0.join("; ") + "." : ""));
+    }
+    var table = namesOf(m) || {}, ri = table[name], cell, status;
+    var st = staleFor(m, name);
+    if (ri === undefined) {
+      var nn = near(name, Object.keys(table)), wn = whereNow(name, m), mp = modPairs(m), mlast = mp[mp.length - 1];
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release from " + rel(0)[0] + " to " + D.latest + " lets you import this name from " + code(label(m)) + "." +
+        (mlast[1] ? " The module itself is gone since " + rel(mlast[1])[0] + "." : "") +
+        (wn.length ? "<br>Now: " + wn.join("; ") + "." : "") +
+        (nn.length ? "<br>Close names in this module: " + nn.map(code).join(", ") + "." : "") +
+        (!wn.length && !nn.length ? " It may come from a fork, from the development branch, or from a release newer than " + D.latest + "." : "");
+    } else {
+      var ps = pairsOf(ri), last = ps[ps.length - 1], now = last[1] === 0;
+      status = now ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+      cell = ps.map(rangeText).join("<br>");
+      if (!now) {
+        var hint = hintFor(m, name, last), wn2 = whereNow(name, m);
+        cell += "<br><span class=\"pin\">Keep it: <code>pip install \"diffusers" + (last[0] > 0 ? "&gt;=" + rel(last[0])[0] + "," : "") + "&lt;" + rel(last[1])[0] + "\"</code></span>" +
+          (wn2.length ? "<br>Now: " + wn2.join("; ") + "." : "") + (hint ? "<br>Instead: " + hint : "");
+      } else if (last[0] > 0) {
+        cell += "<br><span class=\"pin\">Needs: <code>pip install \"diffusers&gt;=" + rel(last[0])[0] + "\"</code></span>";
+      }
+      if (mine !== null) cell += mineText(inRange(ps, mine), "it");
+    }
+    st.forEach(function (s) {
+      cell += "<br><span class=\"note\">From " + rel(s[4])[0] + (s[5] ? " through " + lastBefore(s[5]) : " on") + " the module's lazy table still lists this name, but the entry points to " +
+        code(s[2]) + ", " + (s[3] === "nofile" ? "a file that is not there" : "which does not provide it") +
+        ": the import fails (ImportError, or \"RuntimeError: Failed to import ...\")." +
+        (m === "" ? " Without the optional backend installed, the same import hands back a placeholder instead." : "") + "</span>";
+    });
+    return row(code(name), label(m), status, cell);
+  }
+
+  function answerBare(name, mine) {
+    if (D.top[name]) return answerName("", name, mine);
+    var hits = [];
+    ["core", "pipelines", "modular"].forEach(function (c) {
+      var t = CH[c] || {};
+      Object.keys(t).forEach(function (m) { if (t[m][name] !== undefined) hits.push(m); });
+    });
+    var w = W && W.names[name], defs = {};
+    if (w && w[0] >= 0) w.forEach(function (i) { defs[W.modules[i]] = 1; });
+    hits.sort(function (a, b) { return (defs[b] || 0) - (defs[a] || 0) || a.split(".").length - b.split(".").length || (a < b ? -1 : 1); });
+    if (!hits.length) {
+      var nn = near(name, Object.keys(D.top));
+      return row(code(name), "any module", "<span class=\"s n\">never there</span>",
+        "No release from " + rel(0)[0] + " to " + D.latest + " has this name at the top level or in any module of diffusers." +
+        (nn.length ? " Close top-level names: " + nn.map(code).join(", ") + "." : "") +
+        " It may come from a fork, from the development branch, or from a release newer than " + D.latest + ".");
+    }
+    var head = row(code(name), "diffusers", "<span class=\"s n\">not top-level</span>",
+      "Never importable as " + code("from diffusers import " + name) + ". It is in " + hits.length + " module" + (hits.length > 1 ? "s" : "") +
+      (hits.length > 6 ? "; the first 6 follow (the modules that define it come first)." : ":"));
+    return head + hits.slice(0, 6).map(function (m) { return answerName(m, name, mine); }).join("");
+  }
+
+  function load(file) {
+    return fetch(file).then(function (r) { if (!r.ok) throw new Error(file + " " + r.status); return r.json(); });
+  }
+  function need(qs) {
+    var want = {}, jobs = [];
+    qs.forEach(function (q) {
+      if (q.mod === "?") { if (!D.top[q.name]) { want.core = want.pipelines = want.modular = 1; } }
+      else if (q.mod !== "" && q.name !== null) want[chunkOf(q.mod)] = 1;
+    });
+    Object.keys(want).forEach(function (c) {
+      if (!CH[c]) jobs.push(load(D.files[c]).then(function (d) { CH[c] = d; }));
+    });
+    if (!W) jobs.push(load(D.files.where).then(function (d) { W = d; }));
+    return Promise.all(jobs);
+  }
+
+  function done() { $("res").setAttribute("data-done", String(++SEQ)); }
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), mine = null;
+    $("status").textContent = "";
+    if (!D) { $("status").textContent = "The data is still loading."; return; }
+    if (v) {
+      if (!/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.31.0."; done(); return; }
+      mine = indexOfVersion(v.replace(/^v/, ""));
+      if (mine < 0) { $("status").textContent = "Releases before " + rel(0)[0] + " are not covered."; done(); return; }
+    }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
+    $("status").textContent = "Loading the names...";
+    need(qs).then(function () {
+      $("status").textContent = "";
+      $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+        qs.map(function (q) {
+          return q.name === null ? answerModule(q.mod, mine) : q.mod === "?" ? answerBare(q.name, mine) : answerName(q.mod, q.name, mine);
+        }).join("") + "</tbody></table></div>" +
+        "<p class=\"note\">Read at the first release of every minor version (" + D.releases.length + " releases, " + rel(0)[0] + " to " + D.latest +
+        "); patch releases in between are assumed to keep the names. \"Has it\" means the import statement succeeds with the optional backends installed.</p>";
+      done();
+    }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });
+  }
+
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  load("data.json").then(function (d) {
+    D = d; window.DF_DATA = d;
+    var q = new URLSearchParams(location.search).get("q");
+    if (q) { $("q").value = q; $("v").value = new URLSearchParams(location.search).get("v") || ""; run(); }
+  }).catch(function (e) { $("status").textContent = "Could not load data.json (" + e.message + "). The tables below still apply."; });
+})();
+</script>
+</body>
+</html>
