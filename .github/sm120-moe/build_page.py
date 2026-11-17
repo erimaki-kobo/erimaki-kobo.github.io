@@ -163,6 +163,7 @@ BODY = """<p class="mut"><a href="/en/">Answers for LLM inference engineers</a> 
 <tr><td><code>VLLM_USE_FLASHINFER_MOE_FP4=1</code> with <code>VLLM_FLASHINFER_MOE_BACKEND=throughput</code> on v0.15.0</td><td>NVFP4</td><td><code>@v0150_msg@</code> (the same variables and the same text as <a href="https://discuss.vllm.ai/t/running-nvfp4-nemotron-model-on-win11-wsl-rtx-5080-5070-ti/2310">this forum thread</a>; the text also appears in <a href="https://github.com/vllm-project/vllm/issues/33416">#33416</a>). Accepted from v0.15.1.</td></tr>
 <tr><td><code>VLLM_USE_FLASHINFER_MOE_FP4=1</code> alone on v0.15.0</td><td>NVFP4</td><td><code>@v0150_alone@</code> Accepted from v0.15.1.</td></tr>
 </tbody></table></div>
+@wording_note@
 <p>To fix the error, remove the flag or variable and let auto pick, or choose a backend the tool marks <b>yes</b> for your GPU and release.</p>
 
 <h2 id="works">Selected is not the same as working</h2>
@@ -236,7 +237,16 @@ assert v0150_alone.startswith("NotImplementedError: Found VLLM_USE_FLASHINFER_MO
 for k in ("env_fp4", "env_fp4_throughput", "env_fp4_latency"): assert F[f"v0.15.1|{k}|nvfp4"] == "ok:FLASHINFER_CUTLASS", k
 assert v0150 == "NvFp4 MoE backend 'FLASHINFER_CUTLASS' does not support the deployment configuration since kernel does not support current device.", v0150
 
-subs = {"FIRST": e(FIRST), "LATEST": e(LATEST), "LATEST_DATE": e(LATEST_DATE), "PUBLISHED": e(PUBLISHED), "H1": e(H1),
+# The wording of the FP8 rejection changed in v0.34.0. Both forms are shown because people search for the text they see.
+# forced_v0.33.0.json is the forced.json produced by the same script on v0.33.0 (kept in this directory).
+FP = json.load(open(os.path.join(HERE, "forced_v0.33.0.json")))
+old_fp8, new_fp8 = short(FP["cutlass|ct_fp8_channel"]), short(fmsg("cutlass|ct_fp8_channel"))
+assert old_fp8 == "FP8 MoE backend VLLM_CUTLASS does not support the deployment configuration since kernel does not support current device cuda.", old_fp8
+assert new_fp8 == "Fp8 MoE backend 'VLLM_CUTLASS' does not support the deployment configuration since kernel does not support current device cuda.", new_fp8
+assert FP["flashinfer_trtllm|nvfp4"] == F["flashinfer_trtllm|nvfp4"]   # the NVFP4 line did not change
+wording_note = ("<p class='mut'>Wording by release: up to v0.33.0 the FP8 lines read <code>%s</code> (upper-case FP8, no quotes). "
+                "From v0.34.0 they read <code>%s</code>, the same shape as the NVFP4 line. The condition behind them is the same.</p>" % (e(old_fp8), e(new_fp8)))
+subs = {"wording_note": wording_note, "FIRST": e(FIRST), "LATEST": e(LATEST), "LATEST_DATE": e(LATEST_DATE), "PUBLISHED": e(PUBLISHED), "H1": e(H1),
         "latest_table": latest_table, "hist_rows": hist_rows, "other_head": other_head, "other_rows": "".join(other_rows),
         "NTAGS": str(len(TAGS)), "faq_html": faq_html, "forced_rows": forced_rows, "v0150_msg": e(v0150), "v0150_alone": e(v0150_alone)}
 body = BODY

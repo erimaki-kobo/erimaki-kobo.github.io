@@ -23,6 +23,9 @@ node    .github/sm120-moe/check_browser.js en/vllm-sm120-moe-backend-lookup/inde
   `vllm/_custom_ops.py`, `csrc/quantization/w8a8/cutlass/scaled_mm_entry.cu` and `csrc/quantization/fp4/mxfp4_experts_quant.cu`.
 - `build_page.py` asserts every claim the prose makes about the data (auto picks, "the one break is v0.15.0 to v0.15.1",
   SM120 == SM121, Marlin always passes). If an assert fails, the prose has to change, not the assert.
+- `forced_v0.33.0.json` is the `forced.json` of the v0.33.0 build. v0.34.0 reworded the FP8 rejection
+  ("FP8 MoE backend X ..." became "Fp8 MoE backend 'X' ..."); `build_page.py` prints both forms and asserts them.
+- `batch.sh` is resumable: run it again until it prints "left 0" (about 25 minutes in total on 2 cores for 29 tags).
 - Dates are tag dates (`creatordate`), the same as the other vLLM pages.
 - Statements about public reports (issues, PRs, forum threads) are not generated; re-read them when rebuilding.
   "Not in any release up to X" for PR #43730 and #43814 was checked with `git log --grep` on the bare clone.
