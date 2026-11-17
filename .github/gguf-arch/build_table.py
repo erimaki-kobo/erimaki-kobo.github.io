@@ -6,7 +6,7 @@ one row per GGUF architecture string with
             ("via llama.cpp"), and/or first release whose Go engine registers the arch
             ("via Go engine"); the earlier of the two is the headline answer.
 Ancestry is checked with git merge-base --is-ancestor only where build numbers tie."""
-import json, re, subprocess
+import json, re, subprocess, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 LC = ROOT / "llama.cpp"
