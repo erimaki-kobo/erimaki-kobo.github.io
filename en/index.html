@@ -60,7 +60,7 @@ a{color:var(--acc)}
 </article>
 <article class="card">
 <h2><a href="vllm-kv-concurrency-planner/">How many concurrent requests fit in vLLM? KV cache planner</a></h2>
-<p>The calculation vLLM runs at startup (<code>GPU KV cache size</code>, <code>Maximum concurrency</code>) reproduced from a <code>config.json</code> or a startup log, including the layer grouping that makes Gemma 3 and gpt-oss need far less than "bytes per token &times; context". Checked against vLLM v0.33.0's own planning code and public logs. Includes a planner in the browser and <code>kvplan.py</code>.</p>
+<p>The calculation vLLM runs at startup (<code>GPU KV cache size</code>, <code>Maximum concurrency</code>) reproduced from a <code>config.json</code> or a startup log, including the layer grouping that makes Gemma 3 and gpt-oss need far less than "bytes per token &times; context". Follows vLLM v0.34.0 and, with a switch, v0.33.0 and earlier; checked against the planning code of both releases and public logs. Includes a planner in the browser and <code>kvplan.py</code>.</p>
 <p class="meta">Published 2026-11-12</p>
 </article>
 <article class="card">

@@ -2,6 +2,8 @@
 // Expected strings were worked out from the removal commits and the option table by hand, not from tool.js.
 const { chromium } = require(process.env.PW || "playwright");
 const BASE = process.argv[2];
+// The newest build the page read; pass LATEST_BUILD when testing a rebuilt page (run.sh does).
+const LATEST = "b" + (process.env.LATEST_BUILD || "12465");
 // [name, text, binary select, version, must appear, must not appear]
 const cases = [
   ["classic server line", "llama-server -m model.gguf --mlock --no-mmap --defrag-thold 0.1 -ngl 99", "auto", "",
@@ -23,8 +25,9 @@ const cases = [
   ["chosen binary overrides", "--interactive-first", "cli", "", ["but not for llama-cli", "stopped in b7348 (2025-12-10)", "llama-completion"], []],
   ["nothing", "hello world", "auto", "", ["Found no option"], ["names"]],
 ];
+for (const c of cases) for (const i of [4, 5]) c[i] = c[i].map(x => x.replace("b12465", LATEST));
 (async () => {
-  const b = await chromium.launch({ executablePath: "/usr/bin/google-chrome" });
+  const b = await chromium.launch({ executablePath: process.env.CHROME || "/usr/bin/google-chrome" });
   const errs = []; let fail = 0, n = 0;
   for (const w of [1200, 375]) {
     const p = await b.newPage({ viewport: { width: w, height: 900 } });

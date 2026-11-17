@@ -25,4 +25,7 @@ node .github/llama-args/check_browser.js http://127.0.0.1:8765
 - The Ollama paragraph rests on `llm/llama_server.go` at v0.32.5 (`--no-mmap`) and v0.32.6 (`--load-mode`), read by hand, and on the
   bundled builds in the GGUF page's `archs.json` (asserted).
 - `check_browser.js` expectations were written from the removal commits, not from the tool.
-- Candidate for the daily Action of the GGUF page (same clone); not wired up yet.
+- Daily: `.github/workflows/gguf-arch-refresh.yml` runs `run.sh` (all of the above, against a copy of the page in a scratch
+  directory) after the GGUF page and `finish.py` (publish when the tables changed or the data is 7 days old). When an assert
+  in `build_page.py` stops the build, the published page stays, the GGUF page is still published, and the run ends red.
+  `check_browser.js` takes the newest build from `LATEST_BUILD`, so a new build alone does not fail it.
