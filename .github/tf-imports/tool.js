@@ -60,11 +60,11 @@
     return null;
   }
   function lastBefore(i) { return rel(i - 1)[2]; }
-  function rangeText(p) {
+  function rangeText(p, aliased) {
     var a = rel(p[0]);
     if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
     var b = rel(p[1]);
-    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + lastBefore(p[1]) + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + lastBefore(p[1]) + "</strong>; " + (aliased === true ? "left the lists in " : "gone in ") + b[0] + " (" + b[1] + ")";
   }
   function hintFor(name, kind, p) {
     if (p[1] === 0) return "";
@@ -76,6 +76,17 @@
       if (g[0] === kind && g[1] === goneIn && new RegExp(g[2]).test(name)) return g[3];
     }
     return "";
+  }
+  function minor(v) { return v.split(".").slice(0, 2).join(".") + ".x"; }
+  function usersOf(kind, name) {
+    var u = (D.users || {})[kind + ":" + name];
+    if (!u) return "";
+    return "<br>Imported at module level by: " + Object.keys(u).sort().map(function (lib) {
+      return u[lib].map(function (r) {
+        return "<strong>" + esc(lib) + "</strong> " + r[0] + " to " + minor(r[1]) +
+          (r[3] ? " (no longer from " + r[3] + ")" : " (still, in the newest release)") + ", in <code>" + esc(r[2]) + "</code>";
+      }).join("; ");
+    }).join("; ") + ".";
   }
   function near(name, kind) {
     var low = name.toLowerCase(), keys = Object.keys(D[kind]), exact = [], sub = [];
@@ -114,7 +125,7 @@
         var nowAlias = k === "top" ? aliasAt(name, D.releases.length - 1) : null;
         status = now ? "<span class=\"s y\">in " + D.latest + "</span>"
           : nowAlias ? "<span class=\"s y\">imports in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
-        cell = ps.map(rangeText).join("<br>");
+        cell = ps.map(function (p) { return rangeText(p, !!(alias && p[1] && aliasAt(name, p[1]))); }).join("<br>");
         if (alias) {
           cell += (cell ? "<br>" : "") + alias.map(function (a) {
             return "From " + rel(a[0])[0] + (a[1] ? " through " + lastBefore(a[1]) : " on") + " it is in no list but still imports: the lazy module hands back <code>" + esc(a[2]) + "</code>.";
@@ -123,7 +134,7 @@
         if (last && !now && !nowAlias) {
           var hint = hintFor(name, k, last);
           cell += "<br><span class=\"pin\">Keep it: <code>pip install \"transformers&gt;=" + rel(last[0])[0] + ",&lt;" + rel(last[1])[0] + "\"</code></span>" +
-            (hint ? "<br>Instead: " + hint : "");
+            (hint ? "<br>Instead: " + hint : "") + usersOf(k, name);
         } else if (last && last[0] > 0 && (now || nowAlias)) {
           cell += "<br><span class=\"pin\">Needs: <code>pip install \"transformers&gt;=" + rel(last[0])[0] + "\"</code></span>";
         }

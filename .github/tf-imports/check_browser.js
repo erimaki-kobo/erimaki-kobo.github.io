@@ -8,7 +8,9 @@ const cases = [
   ["AdamW error", "ImportError: cannot import name 'AdamW' from 'transformers' (/usr/local/lib/python3.11/dist-packages/transformers/__init__.py)", "",
     ["2.0.0 (2019-09-26) through 4.49.0; gone in 4.50.0", "torch.optim.AdamW", 'pip install "transformers>=2.0.0,<4.50.0"', "transformers.optimization"], ["never there", "dist"]],
   ["old tutorial on a v5 install", "from transformers import TFBertModel, BertTokenizerFast, AutoModelWithLMHead", "5.23.0",
-    ["through 4.57.6; gone in 5.0.0", "v5 removed TensorFlow support", "Your 5.23.0: does not have it.", "hands back BertTokenizer", "Your 5.23.0: has it.", "AutoModelForCausalLM"], []],
+    ["through 4.57.6; gone in 5.0.0", "v5 removed TensorFlow support", "Your 5.23.0: does not have it.", "through 4.57.6; left the lists in 5.0.0", "hands back BertTokenizer", "Your 5.23.0: has it.", "AutoModelForCausalLM"], []],
+  ["used by trl", "cannot import name 'top_k_top_p_filtering' from 'transformers'", "", ["gone in 4.39.0", "trl 0.2.0 to 0.7.x (no longer from 0.8.0)", "TopKLogitsWarper"], []],
+  ["used by peft", "from transformers import HybridCache", "", ["gone in 5.0.0", "peft 0.16.0 to 0.17.x (no longer from 0.18.0)"], []],
   ["same on 4.57.6", "from transformers import TFBertModel, BertTokenizerFast", "4.57.6", ["Your 4.57.6: has it."], ["does not have it"]],
   ["utils module", "cannot import name 'FLAX_WEIGHTS_NAME' from 'transformers.utils'", "", ["transformers.utils", "4.18.0", "through 4.57.6; gone in 5.0.0"], ["never there"]],
   ["agents", "from transformers import ReactCodeAgent, Tool, load_tool", "", ["smolagents", 'pip install "transformers>=4.41.0,<4.52.1"', 'pip install "transformers>=4.29.0,<4.52.1"', "through 4.51.3"], []],
@@ -35,7 +37,7 @@ const cases = [
     const st = await p.evaluate(() => ({ h1: document.querySelectorAll("h1").length, tables: document.querySelectorAll("table.flt").length,
       ld: JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent)["@graph"].map(x => x["@type"]).join(","),
       latest: window.TF_DATA.latest, over: document.documentElement.scrollWidth - document.documentElement.clientWidth }));
-    if (st.h1 !== 1 || st.tables !== 2 || st.ld !== "TechArticle,WebApplication,Dataset,FAQPage,BreadcrumbList" || st.over > 0 || st.latest !== LATEST) { fail++; console.log("FAIL static", w, st); }
+    if (st.h1 !== 1 || st.tables !== 3 || st.ld !== "TechArticle,WebApplication,Dataset,FAQPage,BreadcrumbList" || st.over > 0 || st.latest !== LATEST) { fail++; console.log("FAIL static", w, st); }
     for (const [name, q, v, want, not] of cases) {
       n++;
       await p.fill("#q", q); await p.fill("#v", v); await p.click("#go");

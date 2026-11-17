@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """names_hist.json + tf_pypi.json -> data.json (what the page and its tool read).
 
-Usage: python3 -I build_data.py names_hist.json tf_pypi.json <as-of YYYY-MM-DD> > data.json
+Usage: python3 -I build_data.py names_hist.json tf_pypi.json <as-of YYYY-MM-DD> [lib=ds_lib.json ...] > data.json
+  ds_lib.json: written by ../hub-imports/downstream_hist.py with
+  TARGET_MODS=transformers:top,transformers.utils:utils,transformers.file_utils:file_utils
+  -> "users": for every name that no longer imports in the newest release, the versions of each library that import it
+  at module level, as runs [first minor's release, last minor's release, example file, release where it stopped or null].
 Ranges are pairs of indexes into "releases": [first release that has the name, first release after it that does not];
 the second is 0 while the name is still there. "alias" holds the v5 names that are in no list but still import
 because _LazyModule.__getattr__ maps them to another name (see names_hist.py).
 """
 import json, sys
 H, P, ASOF = json.load(open(sys.argv[1])), json.load(open(sys.argv[2])), sys.argv[3]
+LIBS = dict(x.split("=", 1) for x in sys.argv[4:])
 tags, finals = H["tags"], H["finals"]
 ver = lambda t: tuple(int(x) for x in t.lstrip("v").split("."))
 N = len(tags)
@@ -98,4 +103,41 @@ for key in ("utils", "file_utils"):
     out[key + "_until"] = gone[0] if gone else 0
 out["lazy_since"] = min(i for i, t in enumerate(tags) if H["top"][t]["kind"] == "lazy")
 out["scan_since"] = tags.index(H["scan_models"][0])
+
+
+def gone_now(kind, name):
+    d = out[kind].get(name)
+    if d is None:
+        return None                      # not a name of that module at any release
+    d = d[1:] if kind == "top" else d
+    if d[-1] == 0:
+        return False
+    return not (kind == "top" and name in alias and alias[name][-1][1] == 0)
+
+
+users, not_names = {}, {}
+for lib, path in LIBS.items():
+    S = json.load(open(path))
+    vs = S["versions"]
+    hits = {}
+    for vi, v in enumerate(vs):
+        for k, e in S["imports"][v].items():
+            if not e["hard"]:
+                continue
+            g = gone_now(*k.split(":"))
+            if g is None:
+                not_names.setdefault(k, set()).add(lib)
+            elif g:
+                hits.setdefault(k, []).append((vi, e["file"]))
+    for k, hh in hits.items():
+        rr = []
+        for vi, f in hh:
+            if rr and rr[-1][3] == vi - 1:
+                rr[-1][1], rr[-1][3] = vs[vi], vi
+            else:
+                rr.append([vs[vi], vs[vi], f, vi])
+        users.setdefault(k, {})[lib] = [[a, b, f, (vs[i + 1] if i + 1 < len(vs) else None)] for a, b, f, i in rr]
+out["users"] = users
+out["libs"] = {lib: json.load(open(p))["versions"][-1] for lib, p in LIBS.items()}
+out["not_names"] = {k: sorted(v) for k, v in sorted(not_names.items())}
 json.dump(out, sys.stdout, separators=(",", ":"), sort_keys=True)

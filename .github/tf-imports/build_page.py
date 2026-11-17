@@ -172,6 +172,39 @@ def common_row(kind, name):
 common_rows = "\n".join(common_row(k, n) for k, n in COMMON)
 assert span("top", "pipeline")[0] == "2.3.0" and span("top", "LlamaTokenizer") == ("4.28.0", None) and span("top", "BitsAndBytesConfig")[0] == "4.27.0"
 
+# ---- libraries that import a removed name at module level ----
+U = D["users"]
+
+
+def minor(v):
+    return ".".join(v.split(".")[:2]) + ".x"
+
+
+def urun(key, lib):
+    rr = U[key][lib]
+    assert len(rr) == 1, (key, lib, rr)
+    return rr[0][0], rr[0][1], rr[0][3]
+
+
+assert urun("top:top_k_top_p_filtering", "trl") == ("0.2.0", "0.7.0", "0.8.0")
+assert urun("top:HybridCache", "peft") == ("0.16.0", "0.17.0", "0.18.0")
+assert urun("top:CLIPFeatureExtractor", "diffusers") == ("0.3.0", "0.29.0", "0.30.0")
+assert urun("top:MT5Tokenizer", "diffusers") == ("0.29.0", "0.36.0", "0.37.0")
+assert all(r[3] for libs in U.values() for rr in libs.values() for r in rr), "a newest release still imports a removed name: say so in the prose"
+assert set(D["not_names"]) <= {"top:__version__", "utils:logging"}, D["not_names"]
+KLABEL = {"top": "transformers", "utils": "transformers.utils", "file_utils": "transformers.file_utils"}
+users_rows = []
+for key in sorted(U, key=lambda k: (["top", "utils", "file_utils"].index(k.split(":")[0]), k.split(":")[1].lower())):
+    kind, name = key.split(":")
+    ps = pairs(kind, name)
+    cells = []
+    for lib in sorted(U[key]):
+        for a, b, f, nxt in U[key][lib]:
+            cells.append("<strong>%s</strong> %s to %s, not from %s<br><span class=\"note\"><code>%s</code></span>" % (lib, a, minor(b), nxt, e(f)))
+    users_rows.append("<tr><td><code>%s</code><br><span class=\"note\">%s</span></td><td>%s</td><td>%s</td></tr>" % (
+        e(name), KLABEL[kind], R[ps[-1][1]][0], "<br>".join(cells)))
+libs_read = ", ".join("%s %s" % (l, v) for l, v in sorted(D["libs"].items()))
+
 n_top, n_top_now = len(D["top"]), sum(1 for n in D["top"] if pairs("top", n)[-1][1] == 0)
 n_gone = sum(1 for n in D["top"] if pairs("top", n)[-1][1] and not alias_at(n, N - 1))
 fu = D["file_utils"]
@@ -261,7 +294,7 @@ page = f"""<!DOCTYPE html>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>{e(H1, quote=False)}</h1>
 <p class="lede"><strong>The installed transformers release does not export that name: it is either older than the release that added it or newer than the last release that had it.</strong> The fix is to install a release inside the range that has the name, or to import the replacement. Paste the error below to get the range for any of the {n_top:,} names that <code>from transformers import ...</code> has resolved between {R[0][0]} and {D["latest"]}: {n_top_now:,} import in {D["latest"]}, and {n_gone:,} are gone ({tf5 + flax5:,} of them are the TensorFlow and Flax classes that 5.0.0 removed).</p>
-<p class="meta">Published {PUB} &middot; Data as of {D["asof"]} &middot; transformers {R[0][0]} to {D["latest"]}, the first release of each of {N} minor versions &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+<p class="meta">Published {PUB} &middot; Updated {MOD}: which versions of diffusers, peft, optimum and trl import a removed name &middot; Data as of {D["asof"]} &middot; transformers {R[0][0]} to {D["latest"]}, the first release of each of {N} minor versions &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
 
 <div class="card" id="lookup">
 <label for="q">The ImportError line, the import statement, or just the names</label>
@@ -282,6 +315,15 @@ page = f"""<!DOCTYPE html>
 <tbody>
 {common_rows}
 </tbody></table></div>
+
+<h2 id="users">Which library versions still import a removed name?</h2>
+<p><strong>When the traceback points into another library, upgrading that library is the lasting fix; the table gives the version from which it no longer imports the name.</strong> For example trl imports <code>top_k_top_p_filtering</code> from 0.2.0 to 0.7.x and not from 0.8.0; peft imports <code>HybridCache</code> in 0.16.x and 0.17.x and not from 0.18.0; diffusers imports <code>CLIPFeatureExtractor</code> from 0.3.0 to 0.29.x and not from 0.30.0. These are imports at module level, outside any <code>try</code> block or function, in the file shown; whether that file is loaded when you import the library depends on what you use (diffusers and optimum load most pipeline files on demand).</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Name</th><th>Gone in</th><th>Imported by</th></tr></thead>
+<tbody>
+{chr(10).join(users_rows)}
+</tbody></table></div>
+<p class="note">Read at the first release of each minor version of six libraries (newest read: {libs_read}). In those newest releases no module-level import of a removed name is left. accelerate and sentence-transformers never had one.</p>
 
 <h2 id="removed">Which releases removed the most names?</h2>
 <p><strong>Two releases account for most of it: 5.0.0 dropped TensorFlow and Flax, and 4.41.0 deleted the per-model lists of checkpoint names.</strong> Counts are names that <code>from transformers import</code> stopped resolving in that release; names that still import through an alias are not counted. {n_small} other releases removed fewer than five names each ({n_small_names} names in total); the lookup above knows them.</p>
@@ -314,9 +356,10 @@ page = f"""<!DOCTYPE html>
 <li>{scan} and later: <code>__init__.py</code> builds the model part of the lists with <code>define_import_structure</code>, from the <code>__all__</code> of every file under <code>models/</code>. Those are read too.</li>
 <li>5.x: the three alias rules of <code>_LazyModule.__getattr__</code> described above are applied; which rules a release has is read from that method's code, and the build stops if the method starts looking at name endings it did not look at before.</li>
 <li><code>transformers.utils</code> and <code>transformers.file_utils</code>: every name the module binds at module level.</li>
+<li>The six libraries in the table above: every <code>.py</code> file of the package at the first release of each minor version, looking for <code>from transformers import ...</code>, <code>from transformers.utils import ...</code> and <code>from transformers.file_utils import ...</code> at module level.</li>
 <li>Release dates and the list of yanked releases come from PyPI. Where the <code>.0</code> release of a minor version was yanked (4.14, 4.25, 4.46, 4.52, 4.57, 5.10) the first release that pip installs is used.</li>
 </ul>
-<p>Checks, all by a second reading rather than by running the library: (1) lazy releases keep a static copy of the lists for type checkers, the imports under <code>if TYPE_CHECKING:</code>; in all CHK_LAZY lazy releases every name of that copy is in our reading, and CHK_SAME of them are identical (the rest have up to CHK_MOST runtime names that upstream forgot to mirror; those do import). (2) <code>__all__</code> was read a second time line by line, the way the library's own <code>fetch__all__</code> does, for CHK_FILES model files of three releases, with no difference. (3) CHK_ANCHORS known facts from release notes and forum threads (for example AdamW gone in 4.50.0, LlamaTokenizer new in 4.28.0, TF classes gone in 5.0.0) all hold.</p>
+<p>Checks, all by a second reading rather than by running the library: (1) lazy releases keep a static copy of the lists for type checkers, the imports under <code>if TYPE_CHECKING:</code>; in all CHK_LAZY lazy releases every name of that copy is in our reading, and CHK_SAME of them are identical (the rest have up to CHK_MOST runtime names that upstream forgot to mirror; those do import). (2) <code>__all__</code> was read a second time line by line, the way the library's own <code>fetch__all__</code> does, for CHK_FILES model files of three releases, with no difference. (3) every "library imports a removed name" range (CHK_RUNS of them) was confirmed by a plain-text search of that library's files at both ends of the range and in the version after it. (4) CHK_ANCHORS known facts from release notes and forum threads (for example AdamW gone in 4.50.0, LlamaTokenizer new in 4.28.0, TF classes gone in 5.0.0) all hold.</p>
 
 <h2 id="limits">Limits</h2>
 <ul>
@@ -335,6 +378,7 @@ page = f"""<!DOCTYPE html>
 <li>huggingface/transformers, release tags v{R[0][0]} to v{D["latest"]}: <a href="{G}v{D["latest"]}/src/transformers/__init__.py">src/transformers/__init__.py</a>, <a href="{G}v{D["latest"]}/src/transformers/utils/__init__.py">utils/__init__.py</a>, <a href="{G}v{D["latest"]}/src/transformers/utils/import_utils.py">utils/import_utils.py</a> (<code>_LazyModule</code>, <code>define_import_structure</code>, <code>fetch__all__</code>), <a href="{G}v{D["latest"]}/src/transformers/convert_slow_tokenizer.py">convert_slow_tokenizer.py</a> (<code>SLOW_TO_FAST_CONVERTERS</code>), <a href="{G}v4.17.0/src/transformers/file_utils.py">file_utils.py at 4.17.0</a> and <a href="{G}v4.18.0/src/transformers/file_utils.py">at 4.18.0</a>.</li>
 <li>Deprecation messages quoted for replacements: <a href="{G}v4.49.0/src/transformers/optimization.py">optimization.py at 4.49.0</a> (AdamW), <a href="{G}v4.57.1/src/transformers/models/auto/modeling_auto.py">modeling_auto.py at 4.57.1</a> (AutoModelWithLMHead), <a href="{G}v4.38.0/src/transformers/generation/utils.py">generation/utils.py at 4.38.0</a> (top_k_top_p_filtering), <a href="{G}v4.41.0/src/transformers/pipelines/conversational.py">pipelines/conversational.py at 4.41.0</a>, <a href="{G}v4.51.0/src/transformers/agents/agents.py">agents/agents.py at 4.51.0</a>, <a href="{G}v4.57.1/src/transformers/cache_utils.py">cache_utils.py at 4.57.1</a>, <a href="{G}v5.19.0/src/transformers/data/processors/glue.py">data/processors/glue.py at 5.19.0</a>.</li>
 <li><a href="https://pypi.org/project/transformers/#history">PyPI release history of transformers</a> (dates, yanked releases).</li>
+<li>Release tags of <a href="https://github.com/huggingface/diffusers">huggingface/diffusers</a>, <a href="https://github.com/UKPLab/sentence-transformers">UKPLab/sentence-transformers</a>, <a href="https://github.com/huggingface/peft">huggingface/peft</a>, <a href="https://github.com/huggingface/accelerate">huggingface/accelerate</a>, <a href="https://github.com/huggingface/optimum">huggingface/optimum</a> and <a href="https://github.com/huggingface/trl">huggingface/trl</a>.</li>
 <li>Threads with the question this page answers: Hugging Face forum, <a href="https://discuss.huggingface.co/t/how-to-resolve-the-hugging-face-error-importerror-cannot-import-name-is-tokenizers-available-from-transformers-utils/23957">cannot import name 'is_tokenizers_available' from 'transformers.utils'</a>, <a href="https://discuss.huggingface.co/t/importerror-cannot-import-name-get-scheduler-from-transformers/15615">cannot import name 'get_scheduler' from 'transformers'</a>, <a href="https://discuss.huggingface.co/t/getting-errors-while-running-google-collabs-code-attached-to-chapter-3/160340">AdamW in the course notebooks</a>.</li>
 </ul>
 <p>The same data as JSON: <a href="data.json">data.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
@@ -347,7 +391,7 @@ page = f"""<!DOCTYPE html>
 </html>
 """
 checks = json.load(open(sys.argv[5]))       # written by test_data.py
-for k in ("CHK_LAZY", "CHK_SAME", "CHK_MOST", "CHK_FILES", "CHK_ANCHORS"):
+for k in ("CHK_LAZY", "CHK_SAME", "CHK_MOST", "CHK_FILES", "CHK_ANCHORS", "CHK_RUNS"):
     assert page.count(k) == 1, k
     page = page.replace(k, format(checks[k], ","))
 assert "</script" not in json.dumps(HINTS) + json.dumps(GROUPS)

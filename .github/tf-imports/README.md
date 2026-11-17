@@ -8,7 +8,13 @@ curl -sS https://pypi.org/pypi/transformers/json -o pypi.json
 python3 -I .github/tf-imports/pypi_dates.py pypi.json > tf_pypi.json                         # dates, yanked releases
 python3 -I .github/tf-imports/names_hist.py tf.git tf_pypi.json > names_hist.json            # ~1.5 min
 python3 -I .github/tf-imports/test_data.py tf.git names_hist.json checks.json                # second reading; ~1 min
-python3 -I .github/tf-imports/build_data.py names_hist.json tf_pypi.json <today> > data.json
+# which versions of other libraries import a removed name (same script as the huggingface_hub page; clones and dates as in ../hub-imports/README.md)
+export TARGET_MODS=transformers:top,transformers.utils:utils,transformers.file_utils:file_utils
+for spec in "diffusers src/diffusers" "sentence-transformers sentence_transformers" "peft src/peft" "accelerate src/accelerate" "optimum optimum" "trl trl"; do
+  set -- $spec; python3 -I .github/hub-imports/downstream_hist.py $1.git dates_$1.json $2 > ds_$1.json; done
+python3 -I .github/tf-imports/build_data.py names_hist.json tf_pypi.json <today> diffusers=ds_diffusers.json sentence-transformers=ds_sentence-transformers.json \
+  peft=ds_peft.json accelerate=ds_accelerate.json optimum=ds_optimum.json trl=ds_trl.json > data.json
+python3 -I .github/tf-imports/test_users.py data.json checks.json diffusers=diffusers.git:src/diffusers:ds_diffusers.json ...   # lib=<clone>:<package dir>:<ds json>, all six
 python3 -I .github/tf-imports/build_page.py data.json en/transformers-import-name-version-lookup <published> <today> checks.json
 python3 -m http.server 8771 &   # repository root
 node .github/tf-imports/check_browser.js http://127.0.0.1:8771        # LATEST_RELEASE=x.y.z when the newest release changed
@@ -29,3 +35,6 @@ node .github/tf-imports/check_browser.js http://127.0.0.1:8771        # LATEST_R
   Running it on a machine that allows it would be the stronger check, especially for the 5.x alias rules.
 - Results on 2026-11-17: 100 releases (2.0.0 to 5.23.0), 5,893 top-level names; test_data: 80 lazy releases, no mirrored name
   missing, `__all__` 4,932 files identical, 19 anchors; check_browser: 30 lookups x 2 widths.
+- 2026-11-18: added "users" (44 runs over 38 names, all confirmed by plain-text search; check_browser 34 lookups x 2 widths). No
+  "which transformers does library X need" table on purpose: diffusers and optimum load most files on demand, so the range
+  computed from all files contradicts itself there (a file needing >= 5.0.0 next to one needing < 5.0.0).

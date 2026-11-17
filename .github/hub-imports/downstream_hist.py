@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Which huggingface_hub names a library imports, at the first release of each of its minor versions.
+"""Which names of huggingface_hub (or of another package, see TARGET_MODS) a library imports, at the first release of each of its minor versions.
 
 Usage: python3 -I downstream_hist.py <bare blobless clone> <dates json from pypi_dates.py> <package dir[,dir2]> > out.json
 Reads every .py file under the package dir at each release tag with ast and records
@@ -11,7 +11,12 @@ Tags may be vX.Y.Z, X.Y.Z or <name>@X.Y.Z. Nothing is imported or run.
 import ast, json, re, subprocess, sys
 
 REPO, PYPI, DIRS = sys.argv[1], json.load(open(sys.argv[2])), sys.argv[3].split(",")
-MODS = {"huggingface_hub": "top", "huggingface_hub.utils": "utils", "huggingface_hub.errors": "errors"}
+import os
+# Which package's names to look for: "module:kind,..." (default: huggingface_hub). For the transformers page:
+#   TARGET_MODS=transformers:top,transformers.utils:utils,transformers.file_utils:file_utils
+MODS = dict(x.split(":") for x in os.environ.get(
+    "TARGET_MODS", "huggingface_hub:top,huggingface_hub.utils:utils,huggingface_hub.errors:errors").split(","))
+NEEDLE = next(iter(MODS)).encode()
 
 
 def git(*a, inp=None, binary=False):
@@ -60,7 +65,7 @@ for s in shas:
 
 def imports(src):
     """[(kind, name, hard)]"""
-    if b"huggingface_hub" not in src:
+    if NEEDLE not in src:
         return []
     try:
         tree = ast.parse(src)
