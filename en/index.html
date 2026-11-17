@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="peft-trl-args-version-lookup/">"__init__() got an unexpected keyword argument": the PEFT, TRL or Transformers release each argument needs</a></h2>
+<p>Which PEFT release each <code>adapter_config.json</code> key needs, and which <code>TrainingArguments</code>, <code>Trainer</code>, <code>SFTTrainer</code>, <code>SFTConfig</code> and <code>DPOConfig</code> arguments were removed, when, and what replaces them, read from every release's source. Explains why the same adapter is a TypeError before PEFT 0.14.0 and only a warning after. Includes a lookup: paste the error, the adapter config or your call.</p>
+<p class="meta">Published 2026-11-17</p>
+</article>
+<article class="card">
 <h2><a href="triton-ptxas-arch-lookup/">"ptxas fatal: Value 'sm_121a' is not defined for option 'gpu-name'": which Triton, PyTorch and vLLM release fixes it</a></h2>
 <p>The ptxas bundled in each Triton wheel from 3.0.0 to 3.9.0, read from the wheels themselves, and the GPU names each one knows. Shows the first Triton, PyTorch and vLLM release that works on RTX 50, DGX Spark, Jetson AGX Thor and B300, and for older releases which variable points Triton at a newer ptxas (it is not always <code>TRITON_PTXAS_PATH</code>). Includes a lookup by GPU and installed release.</p>
 <p class="meta">Published 2026-11-16</p>
