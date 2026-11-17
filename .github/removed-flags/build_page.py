@@ -225,7 +225,7 @@ body = f"""<main>
 {chr(10).join(f"<dt>{e(q)}</dt><dd>{e(a)}</dd>" for q, a in FAQ)}
 </dl>
 
-<p class="note">Related: <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM compatibility matrix: PyTorch, CUDA and driver by release</a> &middot; <a href="/en/model-arch-min-version/">Minimum vLLM version for a model</a> &middot; <a href="/en/vllm-structured-output-backend-cost/">vLLM structured output backends</a> &middot; <a href="/en/vllm-sm120-moe-backend-lookup/">vLLM MoE backend on SM120 and the old MoE environment variables</a> &middot; <a href="/en/peft-trl-args-version-lookup/">removed PEFT, TRL and TrainingArguments arguments ("unexpected keyword argument")</a>.</p>
+<p class="note">Related: <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM compatibility matrix: PyTorch, CUDA and driver by release</a> &middot; <a href="/en/model-arch-min-version/">Minimum vLLM version for a model</a> &middot; <a href="/en/vllm-structured-output-backend-cost/">vLLM structured output backends</a> &middot; <a href="/en/vllm-sm120-moe-backend-lookup/">vLLM MoE backend on SM120 and the old MoE environment variables</a> &middot; <a href="/en/peft-trl-args-version-lookup/">removed PEFT, TRL and TrainingArguments arguments ("unexpected keyword argument")</a> &middot; <a href="/en/llama-cpp-removed-args-lookup/">llama.cpp "error: invalid argument": which build removed each option</a>.</p>
 
 <h2 id="sources">Sources</h2>
 <ul>

@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="llama-cpp-removed-args-lookup/">"error: invalid argument" in llama.cpp: which build removed each llama-server and llama-cli option</a></h2>
+<p>Every option name llama.cpp has accepted since b3716, read from each of the 391 commits that changed the option table: the 50 that are gone and the commit that removed each, the ones that only answer "the argument has been removed", the ones llama-cli lost to llama-completion, and the <code>LLAMA_ARG_</code> variables that are now ignored without a word. Includes a lookup: paste the command line or the error, with your build or Ollama release.</p>
+<p class="meta">Published 2026-11-17</p>
+</article>
+<article class="card">
 <h2><a href="peft-trl-args-version-lookup/">"__init__() got an unexpected keyword argument": the PEFT, TRL or Transformers release each argument needs</a></h2>
 <p>Which PEFT release each <code>adapter_config.json</code> key needs, and which <code>TrainingArguments</code>, <code>Trainer</code>, <code>SFTTrainer</code>, <code>SFTConfig</code> and <code>DPOConfig</code> arguments were removed, when, and what replaces them, read from every release's source. Explains why the same adapter is a TypeError before PEFT 0.14.0 and only a warning after. Includes a lookup: paste the error, the adapter config or your call.</p>
 <p class="meta">Published 2026-11-17</p>

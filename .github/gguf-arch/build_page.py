@@ -554,7 +554,7 @@ vllm serve unsloth/Qwen3-0.6B-GGUF:Q4_K_M --tokenizer Qwen/Qwen3-0.6B</code></pr
 @@FAQ@@
 </dl>
 
-<p class="note">Related: <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM compatibility matrix: PyTorch, CUDA and driver by release</a> &middot; <a href="/en/model-arch-min-version/">minimum Transformers and vLLM version for a model architecture</a> &middot; <a href="/en/triton-ptxas-arch-lookup/">ptxas "sm_121a is not defined for option gpu-name": Triton, PyTorch and vLLM versions</a> &middot; <a href="/en/vllm-sm120-moe-backend-lookup/">vLLM MoE backend on SM120/SM121</a> &middot; <a href="/en/peft-trl-args-version-lookup/">LoraConfig "unexpected keyword argument": which PEFT release an adapter needs</a>.</p>
+<p class="note">Related: <a href="/en/vllm-torch-cuda-driver-matrix/">vLLM compatibility matrix: PyTorch, CUDA and driver by release</a> &middot; <a href="/en/model-arch-min-version/">minimum Transformers and vLLM version for a model architecture</a> &middot; <a href="/en/triton-ptxas-arch-lookup/">ptxas "sm_121a is not defined for option gpu-name": Triton, PyTorch and vLLM versions</a> &middot; <a href="/en/vllm-sm120-moe-backend-lookup/">vLLM MoE backend on SM120/SM121</a> &middot; <a href="/en/peft-trl-args-version-lookup/">LoraConfig "unexpected keyword argument": which PEFT release an adapter needs</a> &middot; <a href="/en/llama-cpp-removed-args-lookup/">llama.cpp "error: invalid argument": which build removed each option</a>.</p>
 
 <h2 id="sources">Sources</h2>
 <ul>
