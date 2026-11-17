@@ -1,6 +1,6 @@
 {
  "as_of": "2026-11-16",
- "llama_cpp_head": "b12436",
+ "llama_cpp_head": "b12447",
  "ollama_latest": {
   "tag": "v0.40.16",
   "date": "2026-11-08",
@@ -1649,6 +1649,789 @@
    "vllm_gguf_plugin_tested": false
   }
  ],
+ "comfyui_gguf": {
+  "loaders": [
+   {
+    "id": "city96",
+    "name": "city96/ComfyUI-GGUF",
+    "repo": "city96/ComfyUI-GGUF",
+    "kind": "original",
+    "stale": false,
+    "head_commit": "6ea2651e7df66d7585f6ffee804b20e92fb38b8a",
+    "head_date": "2026-01-12",
+    "head_subject": "Only include metadata on new comfy versions",
+    "registry_latest": {
+     "version": "1.1.10",
+     "date": "2026-01-12",
+     "commit": "c09b4b799b44efcc69d3b13ff1acad5a882c0d62"
+    },
+    "names": [
+     {
+      "list": "image",
+      "name": "aura",
+      "date": "2024-11-23",
+      "commit": "4a8432884167f2526d60ef36e985bdabebb9e1e0",
+      "subject": "Add AuraFlow support",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "cosmos",
+      "date": "2025-06-14",
+      "commit": "b3ec875a68d94b758914fd48d30571d953bb7a54",
+      "subject": "Cosmos convert logic",
+      "registry_version": "1.1.1",
+      "registry_date": "2025-06-14",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "flux",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "hidream",
+      "date": "2025-04-15",
+      "commit": "2ef5a66a9fbecc44f1928ea112a2505c9b16e38d",
+      "subject": "HiDream support",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "hyvid",
+      "date": "2024-12-17",
+      "commit": "0b65261cc4115d273829cd878f8a855e19c5435f",
+      "subject": "HunyuanVideo",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "ltxv",
+      "date": "2024-12-07",
+      "commit": "23b9817081bc56723a4be806e689e7d18e215a80",
+      "subject": "LTX-Video",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "lumina2",
+      "date": "2025-08-05",
+      "commit": "b1350f6f5a32b8554b7b58435a281c908b0de497",
+      "subject": "Merge pull request #304 from spawner1145/main",
+      "registry_version": "1.1.2",
+      "registry_date": "2025-08-05",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "qwen_image",
+      "date": "2025-08-05",
+      "commit": "79ba1d4b17933dbe0e1597201063ba1865f23759",
+      "subject": "Qwen image arch string",
+      "registry_version": "1.1.2",
+      "registry_date": "2025-08-05",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "sd1",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "sd3",
+      "date": "2024-10-22",
+      "commit": "0ef158d79348ba725a2ac76376d0273945386b43",
+      "subject": "Add SD3 to loader arch list",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "sdxl",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "wan",
+      "date": "2025-02-26",
+      "commit": "298192ed60f8ca821c6fe5f8030cae23424cada5",
+      "subject": "Wan model arch",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "gemma3",
+      "date": "2026-01-12",
+      "commit": "9ecc3c48e7ec48ec6fee95de90197ae7aee6644e",
+      "subject": "Add Gemma3 12B Support (#402)",
+      "registry_version": "1.1.10",
+      "registry_date": "2026-01-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "llama",
+      "date": "2024-12-20",
+      "commit": "8d1b56c5e2517219de12a01b742ed53cbaee463e",
+      "subject": "Loader logic for LLaMA models",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "qwen2vl",
+      "date": "2025-08-05",
+      "commit": "cf0573351ac260d629d460d97f09b09ac17d3726",
+      "subject": "Qwen2-VL text model support",
+      "registry_version": "1.1.3",
+      "registry_date": "2025-08-05",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "qwen3",
+      "date": "2025-11-26",
+      "commit": "fa48477de8643e70506676ea3d08969e646e3372",
+      "subject": "Qwen3-4B support for Z-Image",
+      "registry_version": "1.1.7",
+      "registry_date": "2025-11-26",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "qwen3vl",
+      "date": "2025-12-01",
+      "commit": "01f8845bf30d89fff293c7bd50187bc59d9d53ea",
+      "subject": "Add VL version of Qwen3 4B as valid arch",
+      "registry_version": "1.1.10",
+      "registry_date": "2026-01-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "t5",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "t5encoder",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2025-05-08",
+      "inherited": false
+     }
+    ]
+   },
+   {
+    "id": "leejet",
+    "name": "leejet/ComfyUI-GGUF",
+    "repo": "leejet/ComfyUI-GGUF",
+    "kind": "fork",
+    "stale": false,
+    "head_commit": "ff8d48666758866bcc9e93b22e1e07cb636e084f",
+    "head_date": "2026-11-12",
+    "head_subject": "feat: add Qwen3.5 GGUF text encoder support",
+    "registry_latest": null,
+    "names": [
+     {
+      "list": "image",
+      "name": "aura",
+      "date": "2024-11-23",
+      "commit": "4a8432884167f2526d60ef36e985bdabebb9e1e0",
+      "subject": "Add AuraFlow support",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "cosmos",
+      "date": "2025-06-14",
+      "commit": "b3ec875a68d94b758914fd48d30571d953bb7a54",
+      "subject": "Cosmos convert logic",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "flux",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "hidream",
+      "date": "2025-04-15",
+      "commit": "2ef5a66a9fbecc44f1928ea112a2505c9b16e38d",
+      "subject": "HiDream support",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "hyvid",
+      "date": "2024-12-17",
+      "commit": "0b65261cc4115d273829cd878f8a855e19c5435f",
+      "subject": "HunyuanVideo",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "ideogram4",
+      "date": "2026-07-12",
+      "commit": "118157e560c89e876f57a1663823366956322d68",
+      "subject": "feat: add ideogram4 support",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "krea2",
+      "date": "2026-07-12",
+      "commit": "a94b9a9ddd3b093aae4752bb566c94d3bc06b197",
+      "subject": "faet: add krea2 support",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "ltxv",
+      "date": "2024-12-07",
+      "commit": "23b9817081bc56723a4be806e689e7d18e215a80",
+      "subject": "LTX-Video",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "lumina2",
+      "date": "2025-08-05",
+      "commit": "b1350f6f5a32b8554b7b58435a281c908b0de497",
+      "subject": "Merge pull request #304 from spawner1145/main",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "minimax",
+      "date": "2026-08-30",
+      "commit": "5a947d34f231116b357299e812b6a58b5cc6e58c",
+      "subject": "feat: add minimax support",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "qwen_image",
+      "date": "2025-08-05",
+      "commit": "79ba1d4b17933dbe0e1597201063ba1865f23759",
+      "subject": "Qwen image arch string",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "qwen_image21",
+      "date": "2026-09-21",
+      "commit": "cee9bb157560e17708d93f2716e51a1a30d24f0b",
+      "subject": "fix: add qwen_image21 to IMG_ARCH_LIST",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "sd1",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "sd3",
+      "date": "2024-10-22",
+      "commit": "0ef158d79348ba725a2ac76376d0273945386b43",
+      "subject": "Add SD3 to loader arch list",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "sdxl",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "wan",
+      "date": "2025-02-26",
+      "commit": "298192ed60f8ca821c6fe5f8030cae23424cada5",
+      "subject": "Wan model arch",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "gemma3",
+      "date": "2026-01-12",
+      "commit": "9ecc3c48e7ec48ec6fee95de90197ae7aee6644e",
+      "subject": "Add Gemma3 12B Support (#402)",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "llama",
+      "date": "2024-12-20",
+      "commit": "8d1b56c5e2517219de12a01b742ed53cbaee463e",
+      "subject": "Loader logic for LLaMA models",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "qwen2vl",
+      "date": "2025-08-05",
+      "commit": "cf0573351ac260d629d460d97f09b09ac17d3726",
+      "subject": "Qwen2-VL text model support",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "qwen3",
+      "date": "2025-11-26",
+      "commit": "fa48477de8643e70506676ea3d08969e646e3372",
+      "subject": "Qwen3-4B support for Z-Image",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "qwen35",
+      "date": "2026-11-12",
+      "commit": "ff8d48666758866bcc9e93b22e1e07cb636e084f",
+      "subject": "feat: add Qwen3.5 GGUF text encoder support",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "qwen3vl",
+      "date": "2025-12-01",
+      "commit": "01f8845bf30d89fff293c7bd50187bc59d9d53ea",
+      "subject": "Add VL version of Qwen3 4B as valid arch",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "t5",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "t5encoder",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "inherited": true
+     }
+    ]
+   },
+   {
+    "id": "chriscoletech",
+    "name": "ChrisColeTech/ComfyUI-GGUF-Loader",
+    "repo": "ChrisColeTech/ComfyUI-GGUF-Loader",
+    "kind": "fork",
+    "stale": false,
+    "head_commit": "109a281b1a49570cb708f8543efea6383baba40a",
+    "head_date": "2026-10-22",
+    "head_subject": "2.21.0: port OmniVoice loader and short/long TTS nodes",
+    "registry_latest": {
+     "version": "2.21.0",
+     "date": "2026-10-22",
+     "commit": "109a281b1a49570cb708f8543efea6383baba40a"
+    },
+    "names": [
+     {
+      "list": "image",
+      "name": "aura",
+      "date": "2024-11-23",
+      "commit": "4a8432884167f2526d60ef36e985bdabebb9e1e0",
+      "subject": "Add AuraFlow support",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "cosmos",
+      "date": "2025-06-14",
+      "commit": "b3ec875a68d94b758914fd48d30571d953bb7a54",
+      "subject": "Cosmos convert logic",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "diffusion_model",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "flux",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "flux1",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "flux2",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "hidream",
+      "date": "2025-04-15",
+      "commit": "2ef5a66a9fbecc44f1928ea112a2505c9b16e38d",
+      "subject": "HiDream support",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "hyvid",
+      "date": "2024-12-17",
+      "commit": "0b65261cc4115d273829cd878f8a855e19c5435f",
+      "subject": "HunyuanVideo",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "ideogram4",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "krea2",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "ltxv",
+      "date": "2024-12-07",
+      "commit": "23b9817081bc56723a4be806e689e7d18e215a80",
+      "subject": "LTX-Video",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "lumina2",
+      "date": "2025-08-05",
+      "commit": "b1350f6f5a32b8554b7b58435a281c908b0de497",
+      "subject": "Merge pull request #304 from spawner1145/main",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "minimax_h3",
+      "date": "2026-08-17",
+      "commit": "ec927ea1524e4f1cbe1b7743f72ee52ab86ed68a",
+      "subject": "Add Qwen2.5-VL TE type validation and mmproj cleanup; MiniMax H3 node fixes",
+      "registry_version": "1.3.8",
+      "registry_date": "2026-08-17",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "minimax_music3",
+      "date": "2026-08-14",
+      "commit": "dab39f8a7973feef1d846722d0e1b4ebc16e8c7e",
+      "subject": "Add minimax_music3 arch support and tokenizer blob passthrough",
+      "registry_version": "1.2.0",
+      "registry_date": "2026-08-14",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "qwen_image",
+      "date": "2025-08-05",
+      "commit": "79ba1d4b17933dbe0e1597201063ba1865f23759",
+      "subject": "Qwen image arch string",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "sd1",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "sd3",
+      "date": "2024-10-22",
+      "commit": "0ef158d79348ba725a2ac76376d0273945386b43",
+      "subject": "Add SD3 to loader arch list",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "sdxl",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "sensenova_u15",
+      "date": "2026-09-11",
+      "commit": "3bf019b3375b8ee491705503d2124fda19709f5a",
+      "subject": "Add Checkpoint Loader (GGUF): MODEL+CLIP+VAE from one file, allowlist sensenova_u15",
+      "registry_version": "2.17.0",
+      "registry_date": "2026-09-11",
+      "inherited": false
+     },
+     {
+      "list": "image",
+      "name": "wan",
+      "date": "2025-02-26",
+      "commit": "298192ed60f8ca821c6fe5f8030cae23424cada5",
+      "subject": "Wan model arch",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "image",
+      "name": "zimage",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "clip",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "gemma3",
+      "date": "2026-01-12",
+      "commit": "9ecc3c48e7ec48ec6fee95de90197ae7aee6644e",
+      "subject": "Add Gemma3 12B Support (#402)",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "gemma4",
+      "date": "2026-08-12",
+      "commit": "8367926a0facdfae90323afa6fa85cadedcd06a3",
+      "subject": "Add ltx2 (MiniMax-H3 DiT) and gemma4 arch support",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "gemma4_unified",
+      "date": "2026-08-12",
+      "commit": "8367926a0facdfae90323afa6fa85cadedcd06a3",
+      "subject": "Add ltx2 (MiniMax-H3 DiT) and gemma4 arch support",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "llama",
+      "date": "2024-12-20",
+      "commit": "8d1b56c5e2517219de12a01b742ed53cbaee463e",
+      "subject": "Loader logic for LLaMA models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "minimax_music3",
+      "date": "2026-08-14",
+      "commit": "dab39f8a7973feef1d846722d0e1b4ebc16e8c7e",
+      "subject": "Add minimax_music3 arch support and tokenizer blob passthrough",
+      "registry_version": "1.2.0",
+      "registry_date": "2026-08-14",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "mistral3",
+      "date": "2026-08-12",
+      "commit": "063d678a4da7f973eda0df3caac608c0c32cd4a6",
+      "subject": "Cover all DiT arch tags used under image-models",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "qwen2",
+      "date": "2026-08-12",
+      "commit": "d797ca6e31192c6da331cfdcafa7af7c483d4e17",
+      "subject": "Port high-value open upstream PRs into the fork",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "qwen2vl",
+      "date": "2025-08-05",
+      "commit": "cf0573351ac260d629d460d97f09b09ac17d3726",
+      "subject": "Qwen2-VL text model support",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "qwen3",
+      "date": "2025-11-26",
+      "commit": "fa48477de8643e70506676ea3d08969e646e3372",
+      "subject": "Qwen3-4B support for Z-Image",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "qwen35",
+      "date": "2026-08-12",
+      "commit": "d797ca6e31192c6da331cfdcafa7af7c483d4e17",
+      "subject": "Port high-value open upstream PRs into the fork",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": false
+     },
+     {
+      "list": "text",
+      "name": "qwen3vl",
+      "date": "2025-12-01",
+      "commit": "01f8845bf30d89fff293c7bd50187bc59d9d53ea",
+      "subject": "Add VL version of Qwen3 4B as valid arch",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "t5",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     },
+     {
+      "list": "text",
+      "name": "t5encoder",
+      "date": "2024-09-03",
+      "commit": "69f0daffc5ed1c4721892ca503bffa9e7d6ebfbf",
+      "subject": "Merge pull request #92 from city96/ops_refactor",
+      "registry_version": "1.0.0",
+      "registry_date": "2026-08-12",
+      "inherited": true
+     }
+    ]
+   }
+  ]
+ },
  "ollama_releases": [
   {
    "release": "v0.1.18",

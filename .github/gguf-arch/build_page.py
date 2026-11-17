@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build en/gguf-arch-min-build-lookup/index.html from table.json.
 
-Usage: python3 -I build_page.py table.json out_dir
+Usage: python3 -I build_page.py table.json out_dir     (comfy.json is read from the directory of table.json)
 Writes out_dir/index.html and out_dir/archs.json (published next to the page).
 ASCII only. Every build number, date and version comes from table.json.
 The environment variable PAGE_MODIFIED (YYYY-MM-DD) sets dateModified; default is the publish date.
@@ -18,10 +18,10 @@ PUBLISHED = "2026-11-11"
 MODIFIED = os.environ.get("PAGE_MODIFIED") or PUBLISHED
 assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", MODIFIED), MODIFIED
 URL = "https://erimaki-kobo.github.io/en/gguf-arch-min-build-lookup/"
-TITLE = "GGUF Architecture Lookup: Minimum llama.cpp and Ollama"
+TITLE = "GGUF Architecture Lookup: llama.cpp, Ollama, ComfyUI-GGUF"
 H1 = "\"unknown model architecture\": which llama.cpp build and Ollama version a GGUF needs"
-DESC = ("Look up any GGUF architecture string: the first llama.cpp build (bNNNN) and the first Ollama "
-        "release that can load it, read from git history. All %d names." % len(A))
+DESC = ("Look up a GGUF architecture: the first llama.cpp build and Ollama release that load it, "
+        "and which ComfyUI-GGUF loader lists it. From git history; %d names." % len(A))
 assert len(TITLE) <= 60 and 140 <= len(DESC) <= 160, (len(TITLE), len(DESC))
 e = html.escape
 LC = "https://github.com/ggml-org/llama.cpp"
@@ -126,7 +126,67 @@ for g in reversed(ranges):
     PINROWS.append("<tr><td>%s</td><td>%s</td><td>%s</td></tr>" % (rel, g["date"], b))
 PINROWS = "\n".join(PINROWS)
 
+# ---- ComfyUI-GGUF allowlists (comfy.json, written by extract_comfy.py) ----
+C = json.load(open(src.parent / "comfy.json"))["loaders"]
+assert [x["id"] for x in C] == ["city96", "leejet", "chriscoletech"], [x["id"] for x in C]
+CL = {x["id"]: x for x in C}
+CBY = {x["id"]: {(r["list"], r["name"]): r for r in x["names"]} for x in C}
+GH = "https://github.com/"
+KIND_LABEL = {"text": "text encoder", "image": "image / video model"}
+ckeys = sorted({k for d in CBY.values() for k in d}, key=lambda k: k[1])
+ckeys.sort(key=lambda k: min(d[k]["date"] for d in CBY.values() if k in d), reverse=True)
+ckeys.sort(key=lambda k: k[0] != "text")
+for k in ckeys:
+    assert re.fullmatch(r"[A-Za-z0-9_.\-]{1,40}", k[1]) and k[0] in KIND_LABEL, k
+
+def creg(r):
+    return " (registry %s)" % r["registry_version"] if r.get("registry_version") else ""
+
+def ccell(lid, key):
+    L, r = CL[lid], CBY[lid].get(key)
+    if r is None:
+        return '<span class="s n">not listed</span>'
+    if r.get("inherited"):
+        return 'listed<br><span class="note">inherited from city96</span>'
+    out = '<a href="%s%s/commit/%s">%s</a>' % (GH, L["repo"], r["commit"][:10], r["date"])
+    if r.get("registry_version"):
+        out += '<br><span class="note">registry %s</span>' % e(r["registry_version"])
+    elif L["registry_latest"]:
+        out += '<br><span class="note">no registry release yet</span>'
+    return out
+
+def csent(kind, name):
+    """One sentence: which of the three loaders list this name, from the data."""
+    key, parts = (kind, name), []
+    L, r = CL["city96"], CBY["city96"].get((kind, name))
+    if r:
+        parts.append("city96/ComfyUI-GGUF has listed it since %s%s" % (r["date"], creg(r)))
+    else:
+        parts.append("city96/ComfyUI-GGUF, the original node, does not list it as of its latest commit (%s%s)"
+                     % (L["head_date"], ", registry %s" % L["registry_latest"]["version"] if L["registry_latest"] else ""))
+    for lid in ("leejet", "chriscoletech"):
+        F, r = CL[lid], CBY[lid].get(key)
+        if r and not r.get("inherited"):
+            parts.append("the fork %s has listed it since %s%s" % (F["name"], r["date"], creg(r)))
+        elif not r:
+            parts.append("the fork %s does not list it (latest commit %s)" % (F["name"], F["head_date"]))
+    return "; ".join(parts)
+
+CROWS = "\n".join(
+    '<tr id="c-%s-%s"><td><code>%s</code></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>'
+    % (k[0], e(k[1]), e(k[1]), KIND_LABEL[k[0]], ccell("city96", k), ccell("leejet", k), ccell("chriscoletech", k)) for k in ckeys)
+CHEADS = ", ".join('<a href="%s%s/commit/%s">%s %s</a> (%s)%s' % (GH, x["repo"], x["head_commit"][:10], e(x["name"]), x["head_commit"][:7],
+                                                           x["head_date"], " [not refreshed: repository unreadable]" if x.get("stale") else "") for x in C)
+Q35C = csent("text", "qwen35")
+N_CTEXT, N_CIMG = sum(1 for k in ckeys if k[0] == "text"), sum(1 for k in ckeys if k[0] == "image")
+
+def ctool(lid, key):
+    r = CBY[lid].get(key)
+    return [r["date"], r.get("registry_version") or "", 1 if r.get("inherited") else 0] if r else 0
+
 tool = {
+    "comfy": {"l": [[x["name"], x["head_date"], x["registry_latest"]["version"] if x["registry_latest"] else ""] for x in C],
+              "n": [[k[0][0], k[1], ctool("city96", k), ctool("leejet", k), ctool("chriscoletech", k)] for k in ckeys]},
     "asof": AS_OF, "head": bnum(HEAD_TAG),
     "arch": [[x["a"], x["b"], x["d"], x["ol"], x["gf"], x["gl"], 1 if x["a"] in VLLM_TESTED else 0, x["er"], 1 if x["pre"] else 0] for x in rows_data],
     "ot": [[t["tag"][1:], t["date"], bnum(t["pinned_build"]) if t["pinned_build"] else 0] for t in OT],
@@ -155,6 +215,10 @@ FAQ = [
      "A known architecture name is necessary, not sufficient. Later commits add tensors, metadata keys, tokenizer types or multimodal projectors for the same "
      "architecture, and re-uploaded GGUF files can depend on them. Use the newest build first; if it still fails, the cause is in the file or a missing "
      "feature, not the architecture table."),
+    ("What does \"Unexpected text model architecture type in GGUF file\" mean in ComfyUI?",
+     "The ComfyUI-GGUF custom node raises it when the file's <code>general.architecture</code> is not in the node's own list of text encoders "
+     "(<code>TXT_ARCH_LIST</code> in <code>loader.py</code>). llama.cpp is not involved, so the build numbers on this page do not apply. "
+     "For <code>qwen35</code>: %s. The ComfyUI table on this page has every name and the date each loader added it." % Q35C),
     ("Can vLLM load any GGUF architecture?",
      "No. From vLLM v0.24.0 GGUF loading lives in the separate <code>vllm-gguf-plugin</code>, which maps GGUF tensors onto vLLM's own model classes. Its README "
      "lists the families covered by tests (%d architecture strings in the table above) and says other models may or may not work."
@@ -170,7 +234,7 @@ ORG = {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-
 ld = {"@context": "https://schema.org", "@graph": [
     {"@type": "TechArticle", "@id": URL + "#article", "headline": H1, "description": DESC, "url": URL,
      "datePublished": PUBLISHED, "dateModified": MODIFIED, "inLanguage": "en", "author": ORG, "publisher": ORG,
-     "about": ["GGUF", "llama.cpp", "Ollama", "vLLM"], "isBasedOn": URL + "archs.json"},
+     "about": ["GGUF", "llama.cpp", "Ollama", "vLLM", "ComfyUI-GGUF"], "isBasedOn": URL + "archs.json"},
     {"@type": "WebApplication", "@id": URL + "#tool", "name": "GGUF architecture to minimum llama.cpp build and Ollama version lookup",
      "url": URL + "#lookup", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)",
      "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
@@ -231,6 +295,9 @@ th{color:var(--mut);font-weight:600;font-size:.8rem}
 #status{color:var(--bad);font-size:.88rem}
 dt{font-weight:600;margin-top:.8em}dd{margin:0}
 #filter{max-width:320px}
+#comfy{min-width:640px}
+#comfy td:nth-child(1),#comfy td:nth-child(2){white-space:nowrap}
+#comfy tr:target,#comfy tr.hit{outline:2px solid var(--acc)}
 #res .s{font-size:1em;white-space:normal}
 """
 
@@ -248,6 +315,19 @@ function extractArch(text){
   for(var i=0;i<pats.length;i++){m=t.match(pats[i]);if(m)return m[1].replace(/[.]+$/,"").toLowerCase()}
   if(/^['"`]?[A-Za-z0-9_.\-]+['"`]?$/.test(t))return t.replace(/['"`]/g,"").toLowerCase();
   return null}
+function comfyMsg(text){
+  var t=String(text||""),m;
+  m=t.match(/unexpected text model architecture type in gguf file:?\s*['"`]?([A-Za-z0-9_.\-]+)/i);
+  if(m)return {kind:"t",name:m[1].replace(/[.]+$/,"")};
+  m=t.match(/unexpected architecture type in gguf file(?:, expected one of [^'"`]* but got)?:?\s*['"`]?([A-Za-z0-9_.\-]+)/i);
+  if(m)return {kind:"i",name:m[1].replace(/[.]+$/,"")};
+  return null}
+function comfyLookup(D,ck){
+  var find=function(kind){for(var i=0;i<D.comfy.n.length;i++){var r=D.comfy.n[i];if(r[0]===kind&&r[1]===ck.name)return r}return null};
+  var rec=find(ck.kind),other=find(ck.kind==="t"?"i":"t"),ll=null;
+  for(var i=0;i<D.arch.length;i++){if(D.arch[i][0]===ck.name.toLowerCase()){ll=D.arch[i];break}}
+  return {error:null,comfy:true,kind:ck.kind,name:ck.name,cells:rec?[rec[2],rec[3],rec[4]]:[0,0,0],
+    otherList:!!other,llamaMin:ll?ll[1]:0}}
 function parseBuild(s){s=String(s||"").trim();if(!s)return 0;
   var m=s.match(/^b?(\d{3,6})$/i)||s.match(/version:?\s*(\d{3,6})\b/i)||s.match(/\bb(\d{3,6})\b/);
   return m?parseInt(m[1],10):-1}
@@ -256,6 +336,8 @@ function parseOllama(s){s=String(s||"").trim();if(!s)return "";
 function cmpV(a,b){a=a.split(".");b=b.split(".");for(var i=0;i<3;i++){var x=parseInt(a[i],10),y=parseInt(b[i],10);if(x!==y)return x<y?-1:1}return 0}
 function tagIndex(D,v){var best=-1;for(var i=0;i<D.ot.length;i++){if(cmpV(D.ot[i][0],v)<=0)best=i;else break}return best}
 function lookup(D,inp){
+  var ck=comfyMsg(inp.text);
+  if(ck)return comfyLookup(D,ck);
   var name=extractArch(inp.text);
   if(!name)return {error:"arch"};
   var build=parseBuild(inp.build);if(build<0)return {error:"build"};
@@ -279,10 +361,32 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp
 var LATEST=DATA.ot[DATA.ot.length-1];
 function run(){
   var inp={text:$("q").value,build:$("b").value,ollama:$("o").value},r=lookup(DATA,inp),x="";
-  Array.prototype.forEach.call(document.querySelectorAll("#archs tr.hit"),function(tr){tr.classList.remove("hit")});
+  Array.prototype.forEach.call(document.querySelectorAll("#archs tr.hit,#comfy tr.hit"),function(tr){tr.classList.remove("hit")});
   if(r.error){$("res").innerHTML="";$("status").textContent=r.error==="arch"?"Paste the error line, or type the architecture name (for example gemma4).":
     r.error==="build"?"llama.cpp build should look like b8637, 8637, or the line printed by llama-server --version.":"Ollama version should look like 0.30.0.";return}
   $("status").textContent="";
+  if(r.comfy){
+    var L=DATA.comfy.l,what=r.kind==="t"?"text-encoder":"image-model",nm='<code>'+esc(r.name)+'</code>',lines="",own=!!r.cells[0],fork=!!(r.cells[1]||r.cells[2]);
+    for(var j=0;j<3;j++){var c=r.cells[j];
+      lines+="<li><strong>"+esc(L[j][0])+":</strong> "+(c?(c[2]?"listed (inherited from city96)":"listed since "+esc(c[0])+(c[1]?", registry "+esc(c[1]):(L[j][2]?", no registry release yet":""))):
+        "not listed (latest commit "+esc(L[j][1])+(L[j][2]?", registry "+esc(L[j][2]):"")+")")+"</li>"}
+    var lead="This message comes from the ComfyUI-GGUF custom node, not from llama.cpp. ";
+    var kindRow=r.kind==="t"?"text":"image";
+    if(!own&&!fork&&r.otherList){
+      x+='<div class="verdict v-load">'+nm+' is on the '+(r.kind==="t"?"image-model":"text-encoder")+' list, not the '+what+' list<span>'+lead+'The file went into the wrong loader node: load it with '+(r.kind==="t"?"Unet Loader (GGUF)":"CLIPLoader (GGUF)")+' instead of '+(r.kind==="t"?"CLIPLoader (GGUF)":"Unet Loader (GGUF)")+'.</span></div>';
+      kindRow=r.kind==="t"?"image":"text";lines="";r.otherList=false}
+    else if(own)x+='<div class="verdict v-ok">'+nm+' is on the '+what+' list of city96/ComfyUI-GGUF since '+esc(r.cells[0][0])+'<span>'+lead+'Your copy of the node is older than that'+(r.cells[0][1]?' (registry '+esc(r.cells[0][1])+')':'')+'. Update the node, then restart ComfyUI.</span></div>';
+    else if(fork)x+='<div class="verdict v-load">'+nm+' is not on the '+what+' list of city96/ComfyUI-GGUF; a fork lists it<span>'+lead+'Updating the original node will not help.</span></div>';
+    else x+='<div class="verdict v-bad">'+nm+' is not on the '+what+' list of any of the three loaders<span>'+lead+'No update of these nodes accepts this file yet.</span></div>';
+    if(lines)x+="<ul>"+lines+"</ul>";
+    if(r.otherList)x+='<p>'+nm+' is on the '+(r.kind==="t"?"image-model":"text-encoder")+' list instead: load this file with '+(r.kind==="t"?"Unet Loader (GGUF)":"CLIPLoader (GGUF)")+', not '+(r.kind==="t"?"CLIPLoader (GGUF)":"Unet Loader (GGUF)")+'.</p>';
+    if(r.llamaMin)x+='<p class="note">llama.cpp has known '+nm+' since b'+r.llamaMin+'. That is a different table and does not affect this error.</p>';
+    x+='<p class="note"><a href="#comfyui">What the list is and what being listed does not guarantee</a></p>';
+    x+='<p class="note"><a href="#c-'+kindRow+'-'+esc(r.name)+'">Row in the ComfyUI table</a></p>';
+    $("res").innerHTML=x;
+    var ctr=document.getElementById("c-"+kindRow+"-"+r.name);if(ctr)ctr.classList.add("hit");
+    try{history.replaceState(null,"",location.pathname+"?q="+encodeURIComponent($("q").value.trim().slice(0,200))+"#lookup")}catch(err){}
+    return}
   if(!r.known){
     x+='<div class="verdict v-bad">"'+esc(r.name)+'" is not an architecture in upstream llama.cpp as of b'+DATA.head+' ('+esc(DATA.asof)+')<span>No upstream build can load it yet. Either support has not been merged, the file was made for a fork, or the name is misspelled.'+(r.near.length?' Similar names: '+r.near.map(function(n){return '<a href="#a-'+esc(n)+'"><code>'+esc(n)+'</code></a>'}).join(", ")+'.':'')+'</span></div>';
     $("res").innerHTML=x;return}
@@ -313,7 +417,8 @@ $("filter").addEventListener("input",function(){var f=this.value.trim().toLowerC
 try{var sp=new URLSearchParams(location.search);
   if(sp.get("build"))$("b").value=sp.get("build");
   if(sp.get("ollama"))$("o").value=sp.get("ollama");
-  if(sp.get("arch")){$("q").value=sp.get("arch");run()}}catch(err){}
+  if(sp.get("arch")){$("q").value=sp.get("arch");run()}
+  else if(sp.get("q")){$("q").value=sp.get("q");run()}}catch(err){}
 })();
 """
 
@@ -338,6 +443,7 @@ PAGE = """<!DOCTYPE html>
 <h1>@@H1@@</h1>
 <p class="lede"><strong>"unknown model architecture: 'X'" means the llama.cpp inside your runtime is older than the commit that added X. The fix is a build at or above the number in the table below.</strong> For example, <code>gemma4</code> needs llama.cpp b@@G4B@@ (@@G4D@@) and <code>qwen35</code>, used by Qwen 3.5 and 3.6, needs b@@Q35B@@ (@@Q35D@@). Ollama's bundled llama.cpp has both from @@G4OL@@. llama.cpp @@HEAD@@ knows @@N@@ architecture strings, @@N2026@@ of them added in 2026. The latest Ollama, @@LO@@, bundles @@LOB@@@@NOTYET@@.</p>
 <p class="meta">Published @@PUB@@ &middot; Data as of @@ASOF@@ &middot; llama.cpp up to @@HEAD@@ &middot; Ollama up to @@LO@@ &middot; read from git history, nothing was run &middot; dates are UTC commit dates</p>
+<p class="note">In ComfyUI the message is "Unexpected text model architecture type in GGUF file" instead. That is a different list with different dates: see <a href="#comfyui">the ComfyUI-GGUF table</a>, or paste the line below.</p>
 
 <h2 id="lookup">Which build does my GGUF need?</h2>
 <p>Paste the error line, or type the value of <code>general.architecture</code>. The two version fields are optional; fill them in to get a yes or no for your install.</p>
@@ -383,6 +489,29 @@ PAGE = """<!DOCTYPE html>
 <p>The loader at the <a href="@@OLREPO@@/blob/v0.24.0/llm/server.go#L148">v0.24.0 tag</a> tries the own engine for a fixed list of architectures, refuses models that come with a separate projector file ("split vision models aren't supported"), and on any failure switches to the bundled llama.cpp. So a model pulled from the Ollama library worked, while a Hugging Face GGUF with a separate <code>mmproj</code> file, or with a layout the own engine did not expect, reported "unknown model architecture" from the old llama.cpp. From @@NOGO@@ the own-engine model code is gone and the bundled llama.cpp column is the whole answer.</p>
 <p class="note">Ollama's own engine also used its own names in places: it registered <code>gptoss</code> first and added the upstream spelling <code>gpt-oss</code> later. The column above only counts exact matches with the upstream string.</p>
 
+<h2 id="comfyui">ComfyUI: "Unexpected text model architecture type in GGUF file". Which loader accepts it?</h2>
+<p><strong>That message comes from the ComfyUI-GGUF custom node, not from llama.cpp. The node compares <code>general.architecture</code> with a fixed list in its own <code>loader.py</code>, so no llama.cpp or Ollama update changes it.</strong> For <code>qwen35</code> (Qwen 3.5 and 3.6): @@Q35C@@.</p>
+<p>There are two lists and two messages. CLIPLoader (GGUF) and its dual, triple and quadruple variants check <code>TXT_ARCH_LIST</code> and raise "Unexpected text model architecture type in GGUF file: 'X'" (wording from 2025-05-07). Unet Loader (GGUF) checks <code>IMG_ARCH_LIST</code> and raises "Unexpected architecture type in GGUF file: 'X'"; until 2025-03-14 that line ended "expected one of flux, sd1, sdxl, t5encoder but got 'X'". A text encoder put into the Unet loader, or the reverse, gets the other loader's message.</p>
+<div class="tw"><table id="comfy">
+<thead><tr><th>general.architecture</th><th>List</th><th>city96/ComfyUI-GGUF</th><th>leejet/ComfyUI-GGUF (fork)</th><th>ChrisColeTech/ComfyUI-GGUF-Loader (fork)</th></tr></thead>
+<tbody>
+@@CROWS@@
+</tbody></table></div>
+<dl>
+<dt>Dates</dt><dd>The UTC date of the first commit on the repository's default branch whose list contains the name. Text encoders first (@@NCTEXT@@ names), then image and video models (@@NCIMG@@), newest first.</dd>
+<dt>registry N</dt><dd>The first numbered release on the Comfy Registry whose list contains the name. Both repositories publish a release when <code>pyproject.toml</code> changes; for city96 that happens on the <code>stable</code> branch. A git or nightly install follows the date, not the release.</dd>
+<dt>inherited from city96</dt><dd>The fork has the name because it carries the original commit; it did not add it.</dd>
+</dl>
+<p><strong>Being listed is the first gate, not a promise that the file works.</strong> After the list, the loader renames the GGUF tensors to the names ComfyUI's own model classes expect, and ComfyUI itself has to know the model. For Qwen 3.5 the two forks differ at the commits read here: leejet <a href="https://github.com/leejet/ComfyUI-GGUF/commit/ff8d486667">ff8d486</a> adds a tensor-name map and weight corrections written for the Qwen 3.5 layers, while ChrisColeTech <a href="https://github.com/ChrisColeTech/ComfyUI-GGUF-Loader/blob/109a281b1a/loader.py">109a281</a> sends <code>qwen35</code> through the same map as <code>llama</code>. Neither was run for this page.</p>
+<ul>
+<li><strong>Check which node you have.</strong> The folder under <code>ComfyUI/custom_nodes</code> and the traceback path name the repository. The lists differ between the three.</li>
+<li><strong>If city96 lists the name, update the node.</strong> The date and registry release in the table say how new it has to be.</li>
+<li><strong>If only a fork lists it,</strong> updating the original changes nothing. The choice is that fork or a non-GGUF file.</li>
+<li><strong>The safetensors text encoder never reaches this list.</strong> It goes through ComfyUI's built-in loader; ComfyUI has had Qwen 3.5 text encoder code since <a href="https://github.com/Comfy-Org/ComfyUI/commit/404d7b9978">404d7b9</a> (2026-03-26, first in v0.19.0).</li>
+<li><strong>Vision projector files are exempt.</strong> A GGUF whose <code>general.type</code> is <code>clip-vision</code> (from 2025-08-19) or <code>mmproj</code> (from 2025-11-04) skips the text-encoder list.</li>
+</ul>
+<p class="note">Read from git history, nothing was run: @@CHEADS@@. Other loader nodes that carry their own copy of the list are not covered.</p>
+
 <h2 id="still-fails">The build is new enough and the model still fails. What else is there?</h2>
 <ul>
 <li><strong>The app did not actually update its runtime.</strong> Desktop apps ship llama.cpp as a separate runtime package that can stay on an old version after the app updates. Check the runtime version the app reports, not the app version.</li>
@@ -406,6 +535,7 @@ vllm serve unsloth/Qwen3-0.6B-GGUF:Q4_K_M --tokenizer Qwen/Qwen3-0.6B</code></pr
 <li><strong>Ollama pin:</strong> at each of @@NOT@@ release tags, <code>LLAMA_CPP_VERSION</code>, or <code>FETCH_HEAD</code> in <code>Makefile.sync</code>, or <code>LLAMACPP_BASE_COMMIT</code> in <code>llama/vendoring</code>, or the <code>llm/llama.cpp</code> submodule commit, resolved against the llama.cpp history. @@NPIN@@ tags resolve.</li>
 <li><strong>Ollama patches:</strong> the architecture table in the vendored, already patched source at @@VF@@ to @@VL@@, and added <code>LLM_ARCH</code> entries in the patch directories of the other releases. This moves @@NPATCH@@ rows earlier than the pin alone would.</li>
 <li><strong>Own engine:</strong> <code>model.Register("...")</code> calls under <code>model/models</code> at each tag.</li>
+<li><strong>ComfyUI-GGUF:</strong> <code>IMG_ARCH_LIST</code> and <code>TXT_ARCH_LIST</code> parsed from <code>loader.py</code> (<code>nodes.py</code> before 2024-12-20) at every first-parent commit of the three repositories; registry releases from the <code>pyproject.toml</code> version at the commit that set it.</li>
 <li><strong>vLLM:</strong> the plugin README at v0.0.5 and the vLLM commit that moved GGUF out of the main repository.</li>
 </ul>
 
@@ -413,6 +543,7 @@ vllm serve unsloth/Qwen3-0.6B-GGUF:Q4_K_M --tokenizer Qwen/Qwen3-0.6B</code></pr
 <ul>
 <li>No model was loaded for this page. It reports when a name entered the source, which is the condition for the "unknown model architecture" error and nothing more.</li>
 <li>Ollama carries patches on top of its pinned llama.cpp. For releases that keep the patched source in the repository (@@VF@@ to @@VL@@) the table reads that source, and for the others it reads the architecture entries in Ollama's patch files; rows marked "Ollama patch" come from there. Other effects of those patches were not examined.</li>
+<li>The ComfyUI table covers the original ComfyUI-GGUF node and two forks. It reports the allowlist only; no file was loaded in ComfyUI.</li>
 <li>LM Studio, Jan, KoboldCpp, llama-cpp-python and other bundlers are not mapped. Each bundles some llama.cpp build; once you know that build number, the first table applies.</li>
 <li>Architectures removed from llama.cpp before @@HEAD@@, and names that exist only in forks, are not listed.</li>
 <li>Regenerated when new architectures land; the "as of" date at the top says how current it is.</li>
@@ -430,6 +561,7 @@ vllm serve unsloth/Qwen3-0.6B-GGUF:Q4_K_M --tokenizer Qwen/Qwen3-0.6B</code></pr
 <li>llama.cpp: <a href="@@LCREPO@@/blob/master/src/llama-arch.cpp">src/llama-arch.cpp</a>, <a href="@@LCREPO@@/releases">releases</a></li>
 <li>Ollama: <a href="@@OLREPO@@/blob/main/LLAMA_CPP_VERSION">LLAMA_CPP_VERSION</a>, <a href="@@OLREPO@@/blob/main/llama/README.md">llama/README.md</a>, <a href="@@OLREPO@@/releases">releases</a>, <a href="@@OLREPO@@/blob/v0.24.0/llm/server.go">llm/server.go at v0.24.0</a></li>
 <li>vLLM: <a href="https://docs.vllm.ai/en/latest/features/quantization/gguf/">GGUF page</a>, <a href="https://github.com/vllm-project/vllm-gguf-plugin">vllm-gguf-plugin</a>, issue <a href="https://github.com/vllm-project/vllm/issues/36456">#36456</a></li>
+<li>ComfyUI-GGUF: <a href="https://github.com/city96/ComfyUI-GGUF/blob/main/loader.py">city96 loader.py</a>, <a href="https://github.com/leejet/ComfyUI-GGUF/blob/main/loader.py">leejet loader.py</a>, <a href="https://github.com/ChrisColeTech/ComfyUI-GGUF-Loader/blob/main/loader.py">ChrisColeTech loader.py</a>, reports <a href="https://github.com/leejet/ComfyUI-GGUF/issues/6">leejet #6</a> and <a href="https://github.com/city96/ComfyUI-GGUF/issues/368">city96 #368</a></li>
 <li>Reports of the error: <a href="https://huggingface.co/unsloth/Qwen3.6-27B-GGUF/discussions">unsloth/Qwen3.6-27B-GGUF discussions</a>, LM Studio bug tracker <a href="https://github.com/lmstudio-ai/lmstudio-bug-tracker/issues/1728">#1728</a>, Ollama <a href="https://github.com/ollama/ollama/issues/16282">#16282</a></li>
 </ul>
 </main>
@@ -449,6 +581,7 @@ subs = {
     "G4B": str(g4["b"]), "G4D": g4["d"], "G4OL": g4["ol"][1:], "G4GF": g4["gf"][1:], "Q35B": str(q35["b"]), "Q35D": q35["d"],
     "FP": FIRST_PIN["tag"][1:], "FFP": FIRST_FILE_PIN["tag"][1:], "GOF": FIRST_GO_TAG["tag"][1:], "GOL": LAST_GO_TAG["tag"][1:],
     "NOGO": FIRST_NO_GO["tag"][1:], "NGO": str(len(go_earlier)), "NOT": str(len(OT)), "NPIN": str(len(pinned)),
+    "CROWS": CROWS, "CHEADS": CHEADS, "Q35C": Q35C, "NCTEXT": str(N_CTEXT), "NCIMG": str(N_CIMG),
     "LICENSE": LICENSE, "LCREPO": LC, "OLREPO": OL, "VF": "0.3.13", "VL": "0.24.0", "NPATCH": str(sum(1 for x in rows_data if x["patch"] or x["er"])),
 }
 page = PAGE
@@ -465,6 +598,7 @@ pub = {"as_of": AS_OF, "llama_cpp_head": HEAD_TAG, "ollama_latest": T["ollama_la
                           "llama_cpp_commit": next(r["llama_commit"] for r in A if r["arch"] == x["a"]),
                           "ollama_first_release_bundled_llama_cpp": x["ol"], "ollama_own_engine": [x["gf"], x["gl"]] if x["gf"] else None,
                           "vllm_gguf_plugin_tested": x["a"] in VLLM_TESTED} for x in rows_data],
+       "comfyui_gguf": {"loaders": C},
        "ollama_releases": [{"release": t["tag"], "date": t["date"], "llama_cpp_build": t["pinned_build"], "pin": t["pin"], "pin_is_exact_tag": t["pin_exact"]} for t in pinned]}
 (out_dir / "archs.json").write_text(json.dumps(pub, indent=1), encoding="ascii")
 print("index.html", len(page), "bytes;", len(A), "archs;", len(ranges), "pin ranges; go-earlier", len(go_earlier), "; not in ollama", not_in_ollama)

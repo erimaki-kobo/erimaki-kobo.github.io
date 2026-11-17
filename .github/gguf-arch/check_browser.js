@@ -40,6 +40,40 @@ const fs = require('fs');
   ok('0.40.16 cannot load kimi-k31', t.includes('Ollama 0.40.16 cannot load it'), t);
   t = await run('qwen9');
   ok('unknown arch message', t.includes('"qwen9" is not an architecture in upstream llama.cpp as of ' + data.llama_cpp_head), t);
+  // 2b) ComfyUI-GGUF messages. Expected values come from archs.json comfyui_gguf, not from the page's JS.
+  const cl = {}; for (const L of data.comfyui_gguf.loaders) cl[L.id] = L;
+  const crow = (id, list, name) => cl[id].names.find(r => r.list === list && r.name === name);
+  const ckeys = new Set(data.comfyui_gguf.loaders.flatMap(L => L.names.map(r => r.list + '/' + r.name)));
+  ok('comfy table rows = union of the three lists (' + ckeys.size + ')', await p.locator('#comfy tbody tr').count() === ckeys.size);
+  for (const k of ckeys) { const [list, name] = k.split('/'); if (await p.locator('[id="c-' + list + '-' + name + '"]').count() !== 1) ok('row for ' + k, false); }
+  const cline = (id, list, name) => { const r = crow(id, list, name), L = cl[id];
+    return r ? (r.inherited ? L.name + ': listed (inherited from city96)' : L.name + ': listed since ' + r.date + (r.registry_version ? ', registry ' + r.registry_version : ''))
+             : L.name + ': not listed (latest commit ' + L.head_date; };
+  for (const [msg, list, name] of [
+    ["ValueError: Unexpected text model architecture type in GGUF file: 'qwen35'", 'text', 'qwen35'],
+    ["unexpected text model architecture type in gguf file: 'qwen3vl'", 'text', 'qwen3vl'],
+    ["Unexpected text model architecture type in GGUF file: 'gemma4'", 'text', 'gemma4'],
+    ["Unexpected architecture type in GGUF file: 'qwen_image21'", 'image', 'qwen_image21'],
+    ["Unexpected architecture type in GGUF file, expected one of flux, sd1, sdxl, t5encoder but got 'hyvid'", 'image', 'hyvid'],
+  ]) {
+    const t = await run(msg);
+    ok(name + ': answered as ComfyUI-GGUF', t.includes('ComfyUI-GGUF custom node, not from llama.cpp') && !t.includes('needs llama.cpp'), t.slice(0, 200));
+    for (const id of ['city96', 'leejet', 'chriscoletech']) ok(name + ' ' + id, t.includes(cline(id, list, name)), cline(id, list, name) + ' :: ' + t);
+    const c = crow('city96', list, name), f = crow('leejet', list, name) || crow('chriscoletech', list, name);
+    const kind = list === 'text' ? 'text-encoder' : 'image-model';
+    ok(name + ' verdict', t.includes(c ? name + ' is on the ' + kind + ' list of city96/ComfyUI-GGUF since ' + c.date
+      : f ? name + ' is not on the ' + kind + ' list of city96/ComfyUI-GGUF; a fork lists it' : name + ' is not on the ' + kind + ' list of any of the three loaders'), t.slice(0, 200));
+    ok(name + ' row highlighted', await p.locator('[id="c-' + list + '-' + name + '"].hit').count() === 1);
+  }
+  t = await run("Unexpected architecture type in GGUF file: 'qwen3'");   // a text encoder put into the Unet loader
+  ok('wrong loader: text encoder in Unet loader', crow('city96', 'text', 'qwen3') && !crow('city96', 'image', 'qwen3')
+    && t.includes('qwen3 is on the text-encoder list, not the image-model list') && t.includes('load it with CLIPLoader (GGUF) instead of Unet Loader (GGUF)'), t);
+  t = await run("Unexpected text model architecture type in GGUF file: 'flux'");   // the reverse
+  ok('wrong loader: image model in CLIPLoader', t.includes('flux is on the image-model list, not the text-encoder list') && t.includes('load it with Unet Loader (GGUF) instead of CLIPLoader (GGUF)'), t);
+  t = await run("Unexpected text model architecture type in GGUF file: 'nosuch9'");
+  ok('comfy: name on no list', t.includes('nosuch9 is not on the text-encoder list of any of the three loaders'), t);
+  t = await run("llama_model_load: error loading model: unknown model architecture: 'qwen35'");
+  ok('llama.cpp message still answered as llama.cpp', t.includes('qwen35 needs llama.cpp ' + by['qwen35'].llama_cpp_first_build) && !t.includes('custom node'), t.slice(0, 200));
   // 3) mobile width, JS errors
   const m = await b.newPage({ viewport: { width: 390, height: 800 } });
   await m.goto(url + '?arch=gemma4&build=8500&ollama=0.24.0');
@@ -47,6 +81,10 @@ const fs = require('fs');
   ok('no horizontal overflow at 390px', ow <= 0, String(ow));
   const t2 = (await m.locator('#res').innerText()).replace(/\s+/g, ' ');
   ok('restore from URL', t2.includes('Your build b8500 is too old'), t2);
+  await m.goto(url + '?q=' + encodeURIComponent("Unexpected text model architecture type in GGUF file: 'qwen35'"));
+  const ow2 = await m.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  ok('no horizontal overflow at 390px with a ComfyUI answer', ow2 <= 0, String(ow2));
+  ok('ComfyUI answer restored from URL', (await m.locator('#res').innerText()).includes('custom node'));
   ok('no JS errors', errs.length === 0, errs.join(' | '));
   await b.close(); console.log(fail ? 'FAIL ' + fail : 'ALL PASS'); process.exit(fail ? 1 : 0);
 })();

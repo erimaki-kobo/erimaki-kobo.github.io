@@ -2,7 +2,7 @@
 """Decide whether the rebuilt page replaces the published one; if so, copy it into the site.
 
 Usage: python3 -I finish.py OUT_DIR SITE_ROOT [--force]
-Publishes when the architecture table or the Ollama table changed, when the published data is
+Publishes when the architecture table, the Ollama table or the ComfyUI-GGUF lists changed, when the published data is
 7 or more days old, or with --force. Refuses (exit 1) if either table shrank, because that means
 the extraction broke or upstream removed something a person should look at.
 Prints publish=true|false and message=... lines (for GITHUB_OUTPUT).
@@ -30,7 +30,24 @@ if gone_archs or gone_rel:
     print("refusing to publish: missing from the new build:", gone_archs, gone_rel, file=sys.stderr)
     sys.exit(1)
 
-changed = (new["architectures"], new["ollama_releases"]) != (old["architectures"], old["ollama_releases"])
+def comfy(d):
+    """{loader id: {(list, name)}} of the ComfyUI-GGUF allowlists; empty for a page built before they were added."""
+    return {x["id"]: {(r["list"], r["name"]) for r in x["names"]} for x in d.get("comfyui_gguf", {}).get("loaders", [])}
+
+def comfy_rows(d):
+    return [(x["id"], x["head_commit"], x["names"]) for x in d.get("comfyui_gguf", {}).get("loaders", [])]
+
+# A name leaving a ComfyUI-GGUF list is possible upstream (unlike a llama.cpp architecture), so it is reported, not refused.
+for lid, names in comfy(old).items():
+    gone = sorted(names - comfy(new).get(lid, set()))
+    if gone:
+        print("note: no longer on the %s list:" % lid, gone, file=sys.stderr)
+if comfy(old) and set(comfy(old)) - set(comfy(new)):
+    print("refusing to publish: ComfyUI-GGUF loader missing from the new build:", sorted(set(comfy(old)) - set(comfy(new))), file=sys.stderr)
+    sys.exit(1)
+
+changed = ((new["architectures"], new["ollama_releases"], comfy_rows(new))
+           != (old["architectures"], old["ollama_releases"], comfy_rows(old)))
 today = datetime.datetime.now(datetime.timezone.utc).date()
 age = (today - datetime.date.fromisoformat(old["as_of"])).days
 publish = force or changed or age >= 7
