@@ -1,6 +1,6 @@
 {
- "as_of": "2026-11-10",
- "scope": "Linux x86_64 prebuilt wheels and vllm/vllm-openai images, vLLM v0.8.0 to v0.33.0",
+ "as_of": "2026-11-17",
+ "scope": "Linux x86_64 prebuilt wheels and vllm/vllm-openai images, vLLM v0.8.0 to v0.34.0",
  "driver_min": {
   "11": "450.80.02",
   "12": "525.60.13",
@@ -2399,6 +2399,39 @@
     "default",
     "efa"
    ]
+  },
+  {
+   "v": "0.34.0",
+   "date": "2026-11-15",
+   "pypi_date": "2026-11-16",
+   "torch": "2.14.0",
+   "python": "<3.15,>=3.11",
+   "cuda_major": 13,
+   "soname": "libcudart.so.13",
+   "built_cuda": "13.0",
+   "torch_pypi_cuda": "13.0",
+   "platform": "manylinux_2_28",
+   "aarch64": true,
+   "archs": [
+    "7.5",
+    "8.0",
+    "8.6",
+    "8.9",
+    "9.0",
+    "10.0",
+    "12.0"
+   ],
+   "ptx": false,
+   "min_cc": "7.5",
+   "docs_cuda": "12.9",
+   "variants": [],
+   "index_variants": [
+    "cu130"
+   ],
+   "docker": [
+    "default",
+    "efa"
+   ]
   }
  ],
  "sources": {
@@ -2409,6 +2442,11 @@
   "pytorch_index": "https://download.pytorch.org/whl/torch/ (read 2026-11-10T09:07:26Z)",
   "wheels_vllm_ai": "https://wheels.vllm.ai/<version>/ (read 2026-11-10T09:15:37Z)",
   "docker_hub": "https://hub.docker.com/v2/repositories/vllm/vllm-openai/tags (724 tags) (read 2026-11-10T09:16:01Z)",
-  "nvidia": "https://docs.nvidia.com/cuda/archive/13.0.0/cuda-toolkit-release-notes/index.html (driver ranges)"
+  "nvidia": "https://docs.nvidia.com/cuda/archive/13.0.0/cuda-toolkit-release-notes/index.html (driver ranges)",
+  "v0.34.0": "read 2026-11-17: tag v0.34.0 (commit 62d4bc3c7e33, tag created 2026-11-15 -0800), https://pypi.org/pypi/vllm/0.34.0/json (uploaded 2026-11-16T23:51Z), DT_NEEDED of vllm/_flashmla_extension_C.abi3.so in the x86_64 wheel, https://github.com/vllm-project/vllm/releases/tag/v0.34.0 (published 2026-11-16T23:22Z; assets: +cpu, +xpu, plain manylinux_2_28 wheels, sdist), https://wheels.vllm.ai/0.34.0/ (cpu, cu130, vllm, xpu), Docker Hub tags v0.34.0*. The PyTorch index was not re-read (last read 2026-11-10)."
+ },
+ "pypi_x86_64_wheel_bytes": {
+  "0.33.0": 336361138,
+  "0.34.0": 239039932
  }
 }
