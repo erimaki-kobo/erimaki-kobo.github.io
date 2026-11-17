@@ -123,6 +123,10 @@ out = {"head": git("rev-parse", "HEAD").strip(), "head_date": git("log", "-1", "
        "latest_build": [tags[-1][1], tags[-1][2]], "n_tags": len(tags), "commits": []}
 cache = {}
 for h, d, subj in log:
+    if first_build(h) is None:
+        # common/arg.cpp changed after the newest release tag: no build ships it yet, so it is left for the next run
+        out["unreleased"] = out.get("unreleased", 0) + 1
+        continue
     sha = shas[h]
     if sha not in cache:
         src = git("cat-file", "blob", sha)

@@ -85,7 +85,7 @@ out = {"about": "Names importable from diffusers and from each of its modules at
        "lazy_from": lazy_first[""], "top": names[""], "stale": stale,
        "files": {"core": "names-core.json", "pipelines": "names-pipelines.json", "modular": "names-modular.json", "where": "where.json"}}
 # where.json: definitions in the newest release. Names defined in many modules (logger, EXAMPLE_DOC_STRING, copied helpers) keep a count only.
-own = H["own_latest"]
+own = {m: v for m, v in H["own_latest"].items() if not m.rsplit(".", 1)[-1].startswith("dummy_")}   # placeholders for a missing backend
 wm = sorted(own)
 where = {}
 for i, m in enumerate(wm):
