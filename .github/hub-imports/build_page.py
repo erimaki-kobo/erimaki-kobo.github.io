@@ -240,13 +240,13 @@ page = f"""<!DOCTYPE html>
 </div>
 
 <h2 id="libs">Which huggingface_hub does my diffusers, sentence-transformers, gradio, datasets or peft need?</h2>
-<p><strong>Each library version imports a fixed set of hub names at module level, and those names fix the range of hub releases it can even be imported with.</strong> "At least" is the newest first-release among the names it imports; "below" is the first hub release that dropped one of them. The name in parentheses is the one that sets the limit. The range is about imports only: a library's own dependency declaration can be narrower, and pip follows that.</p>
+<p><strong>Each library version imports a fixed set of hub names at module level, and those names fix the range of hub releases with which all of its files import.</strong> "At least" is the newest first-release among the names it imports; "below" is the first hub release that dropped one of them. The name in parentheses is the one that sets the limit. The range is about imports only: a library's own dependency declaration can be narrower, and pip follows that.</p>
 <div class="tw"><table class="flt">
 <thead><tr><th>Library</th><th>Versions</th><th>huggingface_hub at least</th><th>huggingface_hub below</th></tr></thead>
 <tbody>
 {needs_html}
 </tbody></table></div>
-<p class="note">Read at the first release of each minor version of each library ({n_lib_versions} releases; newest read: {libs_latest}). "0.28.x" means the 0.28 series. An import inside a <code>try</code> block, a function or <code>if TYPE_CHECKING:</code> is not counted, because it does not stop the library from importing.</p>
+<p class="note">Read at the first release of each minor version of each library ({n_lib_versions} releases; newest read: {libs_latest}). "0.28.x" means the 0.28 series. An import inside a <code>try</code> block, a function or <code>if TYPE_CHECKING:</code> is not counted, because it does not stop the library from importing. All files of the package are counted, including ones a library loads only on demand (diffusers loads most pipeline files that way), so "at least" can be stricter than what a plain <code>import</code> of the library needs; "below" for <code>cached_download</code> and <code>HfFolder</code> is confirmed by the public error reports linked under Sources.</p>
 
 <h2 id="common">Which release has the names people ask about most?</h2>
 <p><strong>The table gives the releases that export each name, the replacement named by the library's own deprecation message, and the libraries that import the name.</strong> "Through" is the last patch release before the name disappeared.</p>
