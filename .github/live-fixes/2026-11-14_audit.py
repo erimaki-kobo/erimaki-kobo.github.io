@@ -20,14 +20,16 @@ FIXES = {
  ],
 }
 MOD = "2026-11-14"
+MARKERS = {'<p class="meta">Published 2026-11-12 &middot; Follows': ["Corrected 2026-11-14: two rows of the version table"]}
 import re
 for path, pairs in FIXES.items():
     s = open(path, encoding="utf-8").read(); n = 0
     for old, new in pairs:
         if new and new in s and old not in s: continue
         if not new and old not in s: continue
+        if old not in s and any(m in s for m in MARKERS.get(old, [])): continue    # applied, and the line was extended later
         assert s.count(old) == 1, (path, s.count(old), old[:70])
         s = s.replace(old, new); n += 1
-    s2 = re.sub(r'("dateModified": ")\d{4}-\d\d-\d\d(")', lambda m: m.group(1) + MOD + m.group(2), s)
+    s2 = re.sub(r'("dateModified": ")(\d{4}-\d\d-\d\d)(")', lambda m: m.group(1) + max(MOD, m.group(2)) + m.group(3), s)   # never move the date back
     open(path, "w", encoding="utf-8").write(s2)
-    print(path, "applied", n, "dateModified", len(re.findall(r'"dateModified": "' + MOD, s2)))
+    print(path, "applied", n, "dateModified", re.findall(r'"dateModified": "([0-9-]+)', s2)[:1])
