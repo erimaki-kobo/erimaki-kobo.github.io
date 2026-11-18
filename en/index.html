@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="timm-import-name-version-lookup/">ImportError from 'timm.models.layers', No module named 'timm.layers' or 'timm.models.layers.norm': which timm versions have it</a></h2>
+<p>timm 0.9.0 moved <code>timm.models.layers</code> to <code>timm.layers</code> and removed 65 modules; this lists each one and where its file is now, explains the error when loading a pickled model, and which 127 names exist only under <code>timm.layers</code>. Every timm release 0.1.1 to 1.0.31 read from source. Includes a lookup: paste the error or the import line.</p>
+<p class="meta">Published 2026-11-18</p>
+</article>
+<article class="card">
 <h2><a href="datasets-import-name-version-lookup/">ImportError: cannot import name 'X' from 'datasets' (load_metric, list_datasets, ...): which releases have it</a></h2>
 <p>datasets 3.0.0 removed 30 top-level names: <code>load_metric</code> and <code>Metric</code> (use <code>evaluate.load</code>), <code>list_datasets</code> (use <code>huggingface_hub.list_datasets</code>), <code>set_caching_enabled</code>, the task templates. Every module of datasets 1.0.0 to 5.2.0, read from source: the range to pin and what replaces each name. Includes a lookup: paste the error or the import line.</p>
 <p class="meta">Published 2026-11-18</p>

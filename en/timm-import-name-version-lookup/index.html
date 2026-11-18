@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>timm.models.layers, timm.layers: import errors by version</title>
+<meta name="description" content="timm 0.9.0 moved timm.models.layers to timm.layers and removed 65 modules (timm.models.layers.norm among them). Paste the error: get the version and the fix.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="timm.models.layers, timm.layers: import errors by version">
+<meta property="og:description" content="timm 0.9.0 moved timm.models.layers to timm.layers and removed 65 modules (timm.models.layers.norm among them). Paste the error: get the version and the fix.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/#article", "headline": "ImportError: cannot import name 'X' from 'timm.models.layers', No module named 'timm.layers' or 'timm.models.l", "description": "timm 0.9.0 moved timm.models.layers to timm.layers and removed 65 modules (timm.models.layers.norm among them). Paste the error: get the version and the fix.", "url": "https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "inLanguage": "en", "about": ["timm", "PyTorch Image Models", "ImportError", "ModuleNotFoundError"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/"}, {"@type": "WebApplication", "name": "timm import name lookup", "url": "https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/#lookup", "description": "Paste an ImportError, a ModuleNotFoundError or an import statement and get the timm releases in which that module or name exists, the range to pin, and where it lives now.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from timm and its modules, by release", "url": "https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/timm.json", "dateModified": "2026-11-18", "description": "For 51 releases of timm (0.1.1 to 1.0.31): the names importable from every module as release ranges and the life of each module. Read from the source of each release tag.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/timm.json"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I fix \"No module named 'timm.models.layers.norm'\"?", "acceptedAnswer": {"@type": "Answer", "text": "timm 0.9.0 (2023-05-12) removed the submodules of timm.models.layers; the files moved to timm.layers (timm.layers.norm). The error usually comes from loading a model that was saved whole with torch.save(model) under timm 0.6.13 or older: pickle stores the old module path. Either install pip install \"timm<0.9.0\" to load it, or load it once there and save model.state_dict() instead, which does not depend on module paths."}}, {"@type": "Question", "name": "How do I fix \"No module named 'timm.layers'\"?", "acceptedAnswer": {"@type": "Answer", "text": "Your timm is older than 0.9.0. Upgrade with pip install -U \"timm>=0.9.0\", or, if you must stay on 0.6, import the same names from timm.models.layers."}}, {"@type": "Question", "name": "Does \"from timm.models.layers import X\" still work?", "acceptedAnswer": {"@type": "Answer", "text": "For the names that existed when timm.models.layers was moved, yes: timm keeps it as a mapping that warns \"Importing from timm.models.layers is deprecated, please import via timm.layers\". 127 public names added to timm.layers since then are not in the mapping, so for those the old path fails; import them from timm.layers."}}, {"@type": "Question", "name": "Why does this page read every timm release and not one per minor version?", "acceptedAnswer": {"@type": "Answer", "text": "timm has stayed at 1.0 since 2024 and ships its changes in patch releases (1.0.3 to 1.0.31), so a module or name can appear or go in any of them."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "timm.models.layers, timm.layers: import errors by version", "item": "https://erimaki-kobo.github.io/en/timm-import-name-version-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>ImportError: cannot import name 'X' from 'timm.models.layers', No module named 'timm.layers' or 'timm.models.layers.norm': which timm versions have it</h1>
+<p class="lede"><strong>Almost all of these come from timm 0.9.0 (2023-05-12), which moved <code>timm.models.layers</code> to <code>timm.layers</code> and removed 65 modules.</strong> <code>No module named 'timm.layers'</code> means your timm is older than 0.9.0: upgrade. <code>No module named 'timm.models.layers.norm'</code> (or <code>.helpers</code>, <code>.drop</code>, ...) means code or a pickled model from timm 0.6.13 or older: the file is now <code>timm.layers.norm</code>, or pin <code>pip install "timm&lt;0.9.0"</code>. <code>from timm.models.layers import X</code> still works for the names that existed in 0.9.0, with a FutureWarning, but not for the 127 names added to <code>timm.layers</code> since. For any other module or name, paste the error below.</p>
+<p class="meta">Published 2026-11-18 &middot; Data as of 2026-11-18 &middot; every timm release with a git tag, 0.1.1 to 1.0.31 (51 releases) &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The error line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ModuleNotFoundError: No module named 'timm.models.layers.norm'"></textarea>
+<div class="grid">
+<div><label for="v">Your timm version (optional; <code>pip show timm</code>)</label><input id="v" inputmode="decimal" placeholder="for example 0.6.13"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ModuleNotFoundError: No module named &#x27;timm.models.layers.norm&#x27;" data-v="">timm.models.layers.norm</button><button type="button" data-ex="ModuleNotFoundError: No module named &#x27;timm.layers&#x27;" data-v="0.6.13">timm.layers on 0.6.13</button><button type="button" data-ex="from timm.models.layers import DropPath, trunc_normal_, use_fused_attn" data-v="1.0.31">from timm.models.layers</button><button type="button" data-ex="from timm.models.efficientnet_blocks import SqueezeExcite" data-v="">efficientnet_blocks</button><button type="button" data-ex="ImportError: cannot import name &#x27;resample_abs_pos_embed&#x27; from &#x27;timm.layers&#x27;" data-v="0.9.0">resample_abs_pos_embed</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="timm.json">timm.json</a> (334 KB); nothing you paste is sent anywhere. Covers 12,776 module-and-name pairs in 382 modules.</p>
+</div>
+
+<h2 id="v09">Which modules did timm 0.9.0 remove, and where are they now?</h2>
+<p><strong>65 modules left in 0.9.0; for 61 of them a module with the same file exists in 1.0.31</strong>, under <code>timm.layers</code> for the old layer files and with a leading underscore for the builders and helpers under <code>timm.models</code>. An import that names one of these modules fails on 0.9.0 and later, and so does loading a model pickled with timm 0.6.13 or older that used them.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Removed in 0.9.0</th><th>Same file in 1.0.31</th></tr></thead>
+<tbody>
+<tr><td><code>timm.data.parsers</code></td><td><code>timm.data.readers</code></td></tr>
+<tr><td><code>timm.data.parsers.class_map</code></td><td><code>timm.data.readers.class_map</code></td></tr>
+<tr><td><code>timm.data.parsers.img_extensions</code></td><td><code>timm.data.readers.img_extensions</code></td></tr>
+<tr><td><code>timm.data.parsers.parser</code></td><td><code>timm.data.readers.reader</code></td></tr>
+<tr><td><code>timm.data.parsers.parser_factory</code></td><td><code>timm.data.readers.reader_factory</code></td></tr>
+<tr><td><code>timm.data.parsers.parser_image_folder</code></td><td><code>timm.data.readers.reader_image_folder</code></td></tr>
+<tr><td><code>timm.data.parsers.parser_image_in_tar</code></td><td><code>timm.data.readers.reader_image_in_tar</code></td></tr>
+<tr><td><code>timm.data.parsers.parser_image_tar</code></td><td><code>timm.data.readers.reader_image_tar</code></td></tr>
+<tr><td><code>timm.data.parsers.parser_tfds</code></td><td><code>timm.data.readers.reader_tfds</code></td></tr>
+<tr><td><code>timm.models.efficientnet_blocks</code></td><td><code>timm.models._efficientnet_blocks</code></td></tr>
+<tr><td><code>timm.models.efficientnet_builder</code></td><td><code>timm.models._efficientnet_builder</code></td></tr>
+<tr><td><code>timm.models.gluon_resnet</code></td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.gluon_xception</code></td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.layers.activations</code></td><td><code>timm.layers.activations</code></td></tr>
+<tr><td><code>timm.models.layers.activations_jit</code></td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.layers.activations_me</code></td><td><code>timm.layers.activations_me</code></td></tr>
+<tr><td><code>timm.models.layers.adaptive_avgmax_pool</code></td><td><code>timm.layers.adaptive_avgmax_pool</code></td></tr>
+<tr><td><code>timm.models.layers.attention_pool2d</code></td><td><code>timm.layers.attention_pool2d</code></td></tr>
+<tr><td><code>timm.models.layers.blur_pool</code></td><td><code>timm.layers.blur_pool</code></td></tr>
+<tr><td><code>timm.models.layers.bottleneck_attn</code></td><td><code>timm.layers.bottleneck_attn</code></td></tr>
+<tr><td><code>timm.models.layers.cbam</code></td><td><code>timm.layers.cbam</code></td></tr>
+<tr><td><code>timm.models.layers.classifier</code></td><td><code>timm.layers.classifier</code></td></tr>
+<tr><td><code>timm.models.layers.cond_conv2d</code></td><td><code>timm.layers.cond_conv2d</code></td></tr>
+<tr><td><code>timm.models.layers.config</code></td><td><code>timm.layers.config</code></td></tr>
+<tr><td><code>timm.models.layers.conv2d_same</code></td><td><code>timm.layers.conv2d_same</code></td></tr>
+<tr><td><code>timm.models.layers.conv_bn_act</code></td><td><code>timm.layers.conv_bn_act</code></td></tr>
+<tr><td><code>timm.models.layers.create_act</code></td><td><code>timm.layers.create_act</code></td></tr>
+<tr><td><code>timm.models.layers.create_attn</code></td><td><code>timm.layers.create_attn</code></td></tr>
+<tr><td><code>timm.models.layers.create_conv2d</code></td><td><code>timm.layers.create_conv2d</code></td></tr>
+<tr><td><code>timm.models.layers.create_norm</code></td><td><code>timm.layers.create_norm</code></td></tr>
+<tr><td><code>timm.models.layers.create_norm_act</code></td><td><code>timm.layers.create_norm_act</code></td></tr>
+<tr><td><code>timm.models.layers.drop</code></td><td><code>timm.layers.drop</code></td></tr>
+<tr><td><code>timm.models.layers.eca</code></td><td><code>timm.layers.eca</code></td></tr>
+<tr><td><code>timm.models.layers.evo_norm</code></td><td><code>timm.layers.evo_norm</code></td></tr>
+<tr><td><code>timm.models.layers.fast_norm</code></td><td><code>timm.layers.fast_norm</code></td></tr>
+<tr><td><code>timm.models.layers.filter_response_norm</code></td><td><code>timm.layers.filter_response_norm</code></td></tr>
+<tr><td><code>timm.models.layers.gather_excite</code></td><td><code>timm.layers.gather_excite</code></td></tr>
+<tr><td><code>timm.models.layers.global_context</code></td><td><code>timm.layers.global_context</code></td></tr>
+<tr><td><code>timm.models.layers.halo_attn</code></td><td><code>timm.layers.halo_attn</code></td></tr>
+<tr><td><code>timm.models.layers.helpers</code></td><td><code>timm.layers.helpers</code></td></tr>
+<tr><td><code>timm.models.layers.inplace_abn</code></td><td><code>timm.layers.inplace_abn</code></td></tr>
+<tr><td><code>timm.models.layers.lambda_layer</code></td><td><code>timm.layers.lambda_layer</code></td></tr>
+<tr><td><code>timm.models.layers.linear</code></td><td><code>timm.layers.linear</code></td></tr>
+<tr><td><code>timm.models.layers.median_pool</code></td><td><code>timm.layers.median_pool</code></td></tr>
+<tr><td><code>timm.models.layers.mixed_conv2d</code></td><td><code>timm.layers.mixed_conv2d</code></td></tr>
+<tr><td><code>timm.models.layers.ml_decoder</code></td><td><code>timm.layers.ml_decoder</code></td></tr>
+<tr><td><code>timm.models.layers.mlp</code></td><td><code>timm.layers.mlp</code></td></tr>
+<tr><td><code>timm.models.layers.non_local_attn</code></td><td><code>timm.layers.non_local_attn</code></td></tr>
+<tr><td><code>timm.models.layers.norm</code></td><td><code>timm.layers.norm</code></td></tr>
+<tr><td><code>timm.models.layers.norm_act</code></td><td><code>timm.layers.norm_act</code></td></tr>
+<tr><td><code>timm.models.layers.padding</code></td><td><code>timm.layers.padding</code></td></tr>
+<tr><td><code>timm.models.layers.patch_embed</code></td><td><code>timm.layers.patch_embed</code></td></tr>
+<tr><td><code>timm.models.layers.pool2d_same</code></td><td><code>timm.layers.pool2d_same</code></td></tr>
+<tr><td><code>timm.models.layers.pos_embed</code></td><td><code>timm.layers.pos_embed</code></td></tr>
+<tr><td><code>timm.models.layers.selective_kernel</code></td><td><code>timm.layers.selective_kernel</code></td></tr>
+<tr><td><code>timm.models.layers.separable_conv</code></td><td><code>timm.layers.separable_conv</code></td></tr>
+<tr><td><code>timm.models.layers.space_to_depth</code></td><td><code>timm.layers.space_to_depth</code></td></tr>
+<tr><td><code>timm.models.layers.split_attn</code></td><td><code>timm.layers.split_attn</code></td></tr>
+<tr><td><code>timm.models.layers.split_batchnorm</code></td><td><code>timm.layers.split_batchnorm</code></td></tr>
+<tr><td><code>timm.models.layers.squeeze_excite</code></td><td><code>timm.layers.squeeze_excite</code></td></tr>
+<tr><td><code>timm.models.layers.std_conv</code></td><td><code>timm.layers.std_conv</code></td></tr>
+<tr><td><code>timm.models.layers.test_time_pool</code></td><td><code>timm.layers.test_time_pool</code></td></tr>
+<tr><td><code>timm.models.layers.trace_utils</code></td><td><code>timm.layers.trace_utils</code></td></tr>
+<tr><td><code>timm.models.layers.weight_init</code></td><td><code>timm.layers.weight_init</code></td></tr>
+<tr><td><code>timm.models.poolformer</code></td><td>none with the same file name</td></tr>
+</tbody></table></div>
+
+<h2 id="other">Modules removed in other releases</h2>
+<div class="tw"><table class="flt">
+<thead><tr><th>Module</th><th>Gone in</th><th>Same file in 1.0.31</th></tr></thead>
+<tbody>
+<tr><td><code>timm.layers.activations_jit</code></td><td>1.0.3</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.data.parsers.constants</code></td><td>0.6.5</td><td><code>timm.data.constants</code></td></tr>
+<tr><td><code>timm.models.layers.involution</code></td><td>0.5.4</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.layers.swin_attn</code></td><td>0.5.4</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.optim.novograd</code></td><td>0.5.4</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.layers.create_self_attn</code></td><td>0.4.12</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.layers.se</code></td><td>0.4.12</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.layers.anti_aliasing</code></td><td>0.4.9</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.adaptive_avgmax_pool</code></td><td>0.2.1</td><td><code>timm.layers.adaptive_avgmax_pool</code></td></tr>
+<tr><td><code>timm.models.conv2d_same</code></td><td>0.2.1</td><td><code>timm.layers.conv2d_same</code></td></tr>
+<tr><td><code>timm.models.gen_efficientnet</code></td><td>0.2.1</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.median_pool</code></td><td>0.2.1</td><td><code>timm.layers.median_pool</code></td></tr>
+<tr><td><code>timm.models.model_factory</code></td><td>0.2.1</td><td>none with the same file name</td></tr>
+<tr><td><code>timm.models.test_time_pool</code></td><td>0.2.1</td><td><code>timm.layers.test_time_pool</code></td></tr>
+</tbody></table></div>
+<p class="note">79 of the 382 modules that have existed are gone from 1.0.31. Old paths such as <code>timm.models.helpers</code> and <code>timm.models.registry</code> still exist as mapping files that re-export the underscored modules.</p>
+
+<h2 id="pickle">The error appears when I load a saved model. What then?</h2>
+<p><strong>A model saved whole with <code>torch.save(model, path)</code> stores the module path of every class, and loading it imports those paths.</strong> A model saved under timm 0.6.13 or older names modules such as <code>timm.models.layers.norm</code>, so loading it with timm 0.9.0 or later raises <code>ModuleNotFoundError</code> from inside <code>pickle</code> (the traceback shows <code>find_class</code>). Load it once with <code>pip install "timm&lt;0.9.0"</code>, save <code>model.state_dict()</code>, and from then on build the model with <code>timm.create_model</code> and load the state dict.</p>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong> timm imports eagerly, so a module's names are everything it binds at module level, including what <code>from timm.layers.x import *</code> brings in. Dates come from PyPI.</p>
+<p>Checks, by a second reading: (1) each of the 28 top-level names is found as plain text in <code>__init__.py</code> (or the modules it star-imports) in every release of its range (1,090 name-and-release pairs). (2) A regular expression finds 43,256 definitions in 2,351 file versions; all are among the names read. (3) <code>timm.models.layers</code> was read a second time with regular expressions in all 38 releases where it is a mapping; the names match, apart from <code>torch</code>, <code>nn</code> and <code>F</code>, which a star import without <code>__all__</code> also passes along. (4) 8 known facts hold, among them the reports under Sources.</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. "Has it" means the import statement resolves in the source.</li>
+<li>Releases on PyPI without a git tag are not read: the early 0.1.x releases with even numbers and 0.3.0 to 0.3.2.</li>
+<li>A name that works through the 0.9 mapping also prints a FutureWarning; the lookup does not mark that.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>How do I fix "No module named 'timm.models.layers.norm'"?</h3>
+<p>timm 0.9.0 (2023-05-12) removed the submodules of timm.models.layers; the files moved to timm.layers (timm.layers.norm). The error usually comes from loading a model that was saved whole with torch.save(model) under timm 0.6.13 or older: pickle stores the old module path. Either install pip install "timm&lt;0.9.0" to load it, or load it once there and save model.state_dict() instead, which does not depend on module paths.</p>
+<h3>How do I fix "No module named 'timm.layers'"?</h3>
+<p>Your timm is older than 0.9.0. Upgrade with pip install -U "timm&gt;=0.9.0", or, if you must stay on 0.6, import the same names from timm.models.layers.</p>
+<h3>Does "from timm.models.layers import X" still work?</h3>
+<p>For the names that existed when timm.models.layers was moved, yes: timm keeps it as a mapping that warns "Importing from timm.models.layers is deprecated, please import via timm.layers". 127 public names added to timm.layers since then are not in the mapping, so for those the old path fails; import them from timm.layers.</p>
+<h3>Why does this page read every timm release and not one per minor version?</h3>
+<p>timm has stayed at 1.0 since 2024 and ships its changes in patch releases (1.0.3 to 1.0.31), so a module or name can appear or go in any of them.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>huggingface/pytorch-image-models, release tags v0.1.1 to v1.0.31: every <code>.py</code> file under <a href="https://github.com/huggingface/pytorch-image-models/blob/v1.0.31/timm/__init__.py">timm/</a>, including the mapping in <a href="https://github.com/huggingface/pytorch-image-models/blob/v1.0.31/timm/models/layers/__init__.py">timm/models/layers/__init__.py</a>; release dates from <a href="https://pypi.org/project/timm/#history">PyPI</a>.</li>
+<li>Reports: <a href="https://github.com/huggingface/pytorch-image-models/discussions/1772">No module named 'timm.layers'</a>, <a href="https://forums.fast.ai/t/suddenly-i-get-an-error-on-huggingface/106471">No module named 'timm.models.layers.norm' (fast.ai forums)</a>, <a href="https://huggingface.co/spaces/lowrollr/birds_of_prey_classifier">the same error while unpickling a model</a>.</li>
+</ul>
+<p>The same data as JSON: <a href="timm.json">timm.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/transformers-import-name-version-lookup/">"cannot import name ... from 'transformers'"</a> &middot; <a href="/en/huggingface-hub-import-name-version-lookup/">"... from 'huggingface_hub'"</a> &middot; <a href="/en/datasets-import-name-version-lookup/">"... from 'datasets'"</a> &middot; <a href="/en/diffusers-import-name-version-lookup/">"... from 'diffusers'"</a>.</p>
+</main>
+<script>window.LOOKUP_LIBS = ["timm"]; window.PTA_HINTS = {};</script>
+<script>
+(function () {
+  "use strict";
+  var LIBS = window.LOOKUP_LIBS || ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  function code(s) { return "<code>" + esc(s) + "</code>"; }
+  var STOP = {from: 1, "import": 1, ImportError: 1, cannot: 1, name: 1, as: 1, unknown: 1, location: 1, py: 1, __init__: 1,
+    site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
+    ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
+    following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
+  LIBS.forEach(function (l) { STOP[l] = 1; });
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.join("|") + ")", ALL = LIBS.join(", ");
+
+  function split(dotted) {
+    var i = dotted.indexOf(".");
+    return i < 0 ? {lib: dotted, mod: ""} : {lib: dotted.slice(0, i), mod: dotted.slice(i + 1)};
+  }
+  function label(lib, m) { return m ? lib + "." + m : lib; }
+
+  function parse(text) {
+    var out = [], seen = {}, m, rest = text;
+    function add(name, dotted) {
+      var s = typeof dotted === "string" ? split(dotted) : dotted, k = s.lib + ":" + s.mod + ":" + name;
+      if (!seen[k] && (name === null || /^[A-Za-z_]\w*$/.test(name))) { seen[k] = 1; out.push({lib: s.lib, mod: s.mod, name: name}); }
+    }
+    var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(" + LIBRX + "(?:\\.\\w+)*)", "g");
+    while ((m = reErr.exec(text))) add(m[1], m[2]);
+    rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reAttr = new RegExp("module " + Q + "(" + LIBRX + "(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
+    while ((m = reAttr.exec(rest))) add(m[3], m[1]);
+    rest = rest.replace(reAttr, " ");
+    var reNoMod = new RegExp("(?:No module named|Failed to import)\\s+" + Q + "(" + LIBRX + "(?:\\.\\w+)+)", "g");
+    while ((m = reNoMod.exec(rest))) add(null, m[1]);
+    rest = rest.replace(reNoMod, " ");
+    var reImp = new RegExp("from\\s+(" + LIBRX + "(?:\\.\\w+)*)\\s+import\\s+(\\([^)]*\\)|[^\\n;]+)", "g");
+    while ((m = reImp.exec(rest))) {
+      var where = m[1];
+      m[3].replace(/#[^\n]*/g, " ").replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, where);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    var rePlain = new RegExp("(?:^|\\n|;)\\s*import\\s+(" + LIBRX + "\\.\\w+(?:\\.\\w+)*)", "g");
+    while ((m = rePlain.exec(rest))) add(null, m[1]);
+    rest = rest.replace(rePlain, " ");
+    if (!out.length) {
+      var dotted = rest.match(new RegExp(LIBRX + "(?:\\.\\w+)+", "g")) || [];
+      dotted.forEach(function (d) { add(null, d); });
+      if (!dotted.length) (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w]) add(w, {lib: "?", mod: ""}); });
+    }
+    return out.slice(0, 30);
+  }
+
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(D, v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(D.releases[i][0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairs(D, ri) {
+    var r = D.ranges[ri], out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function modEver(D, m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
+  function modPairs(D, m) { return m === "" ? [[0, 0]] : pairs(D, D.mods[m]); }
+  function rangeText(D, p) {
+    var a = D.releases[p[0]];
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
+    var b = D.releases[p[1]];
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  function pin(D, lib, p) {
+    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "";
+    if (!p[1]) return "<span class=\"pin\">Needs: <code>pip install \"" + lib + lo + "\"</code></span>";
+    return "<span class=\"pin\">Keep it: <code>pip install \"" + lib + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
+  }
+  // other modules of the library that had the name in release i
+  function alsoAt(D, lib, name, except, i) {
+    var out = [];
+    Object.keys(D.names).forEach(function (m) {
+      var ri = D.names[m][name];
+      if (m !== except && ri !== undefined && inRange(pairs(D, ri), i)) out.push(m);
+    });
+    out.sort(function (a, b) { return a.split(".").length - b.split(".").length || (a < b ? -1 : 1); });
+    return out.slice(0, 4).map(function (m) { return code(label(lib, m)); });
+  }
+  function whereNow(D, lib, name, except) {
+    var out = [], last = D.releases.length - 1;
+    if (except !== "" && D.names[""][name] !== undefined && inRange(pairs(D, D.names[""][name]), last))
+      out.push(code("from " + lib + " import " + name) + " (top level)");
+    var w = D.where.names[name];
+    if (w) {
+      if (w[0] < 0) out.push("defined in " + (-w[0]) + " modules of " + lib + " " + D.latest);
+      else {
+        var ms = w.map(function (i) { return D.where.modules[i]; }).filter(function (m) { return m !== except; });
+        if (ms.length) out.push("defined in " + ms.map(function (m) { return code(label(lib, m)); }).join(", ") + " in " + D.latest);
+      }
+    }
+    return out;
+  }
+  function dist(a, b) {
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, keys) {
+    var low = name.toLowerCase(), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (k === name) return;
+      if (kl === low) exact.push(k);
+      else if (low.length >= 6 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 8)) sub.push(k);
+      else if (low.length >= 6 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+  function mineText(has, lib, what) {
+    return "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+      (has ? " If the error still names " + what + ", another copy of " + lib + " is being imported: check <code>python -c \"import " + lib + "; print(" + lib + ".__version__, " + lib + ".__file__)\"</code>." : "");
+  }
+  function row(nameHtml, sub, status, cell) {
+    return "<tr><td>" + nameHtml + "<br><span class=\"note\">" + esc(sub) + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+  }
+  function movedModule(D, m) {
+    var leaf = m.split(".").pop(), last = D.releases.length - 1, out = [];
+    Object.keys(D.mods).forEach(function (k) { if (k !== m && k.split(".").pop() === leaf && inRange(pairs(D, D.mods[k]), last)) out.push(k); });
+    return out.slice(0, 4);
+  }
+
+  function answerModule(lib, m, mine) {
+    var D = DATA[lib], cell, status;
+    if (!modEver(D, m)) {
+      var mv = movedModule(D, m);
+      return row(code(label(lib, m)), "module", "<span class=\"s n\">never there</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has this module." +
+        (mv.length ? " Modules with the same last part in " + D.latest + ": " + mv.map(function (k) { return code(label(lib, k)); }).join(", ") + "." : ""));
+    }
+    var ps = modPairs(D, m), last = ps[ps.length - 1];
+    status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+    cell = "The module exists " + ps.map(function (p) { return rangeText(D, p); }).join("<br>") + ".<br>" + pin(D, lib, last);
+    if (last[1]) {
+      var mv2 = movedModule(D, m);
+      if (mv2.length) cell += "<br>Now: " + mv2.map(function (k) { return code(label(lib, k)); }).join(", ") + " (same file name, in " + D.latest + ").";
+    }
+    if (mine !== null) cell += mineText(inRange(ps, mine), lib, "the module");
+    return row(code(label(lib, m)), "module", status, cell);
+  }
+
+  function answerName(lib, m, name, mine) {
+    var D = DATA[lib];
+    if (!modEver(D, m)) {
+      var wn0 = whereNow(D, lib, name, null);
+      return row(code(name), label(lib, m), "<span class=\"s n\">no such module</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has a module " + code(label(lib, m)) + "." +
+        (wn0.length ? " " + code(name) + ": " + wn0.join("; ") + "." : ""));
+    }
+    var table = D.names[m] || {}, ri = table[name], cell, status;
+    if (ri === undefined) {
+      var nn = near(name, Object.keys(table)), wn = whereNow(D, lib, name, m), mp = modPairs(D, m), ml = mp[mp.length - 1];
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " lets you import this name from " + code(label(lib, m)) + "." +
+        (ml[1] ? " The module itself is gone since " + D.releases[ml[1]][0] + "." : "") +
+        (wn.length ? "<br>Now: " + wn.join("; ") + "." : "") +
+        (nn.length ? "<br>Close names in this module: " + nn.map(code).join(", ") + "." : "") +
+        (!wn.length && !nn.length ? " It may come from a fork, from the development branch, or from a release newer than " + D.latest + "." : "");
+    } else {
+      var ps = pairs(D, ri), last = ps[ps.length - 1];
+      status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+      cell = ps.map(function (p) { return rangeText(D, p); }).join("<br>") + "<br>" + pin(D, lib, last);
+      if (last[1]) {
+        var at = alsoAt(D, lib, name, m, last[1]), wn2 = whereNow(D, lib, name, m), h = HINTS[lib + ":" + m + ":" + name];
+        if (at.length) cell += "<br>In " + D.releases[last[1]][0] + ", the release that dropped it here, it was still importable from " + at.join(", ") + ".";
+        if (wn2.length) cell += "<br>Now: " + wn2.join("; ") + ".";
+        if (h) cell += "<br>Instead: " + h;
+      }
+      if (mine !== null) cell += mineText(inRange(ps, mine), lib, "it");
+    }
+    D.stale.forEach(function (s) {
+      if (s[0] === m && s[1] === name)
+        cell += "<br><span class=\"note\">From " + D.releases[s[4]][0] + (s[5] ? " through " + D.releases[s[5] - 1][2] : " on") +
+          " the lazy table still lists this name, but the entry points to " + code(s[2]) + ", " +
+          (s[3] === "nofile" ? "a file that is not there" : "which does not provide it") + ": the import fails.</span>";
+    });
+    return row(code(name), label(lib, m), status, cell);
+  }
+
+  function answerBare(name, mine) {
+    var hits = [];
+    LIBS.forEach(function (lib) {
+      var D = DATA[lib];
+      Object.keys(D.names).forEach(function (m) { if (D.names[m][name] !== undefined) hits.push([lib, m]); });
+    });
+    if (!hits.length) {
+      var nn = [];
+      LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
+      return row(code(name), ALL, "<span class=\"s n\">never there</span>",
+        "No release of " + ALL + " has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package, see the related pages at the bottom.");
+    }
+    hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
+    return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +
+      (hits.length > 6 ? row(code(name), "", "", (hits.length - 6) + " more modules have this name; paste the import line to pick one.") : "");
+  }
+
+  function load(lib) {
+    if (DATA[lib]) return Promise.resolve();
+    return fetch(lib + ".json").then(function (r) { if (!r.ok) throw new Error(lib + ".json " + r.status); return r.json(); })
+      .then(function (d) { DATA[lib] = d; });
+  }
+  function done() { $("res").setAttribute("data-done", String(++SEQ)); }
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), want = {};
+    $("status").textContent = "";
+    if (v && !/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.13.2."; done(); return; }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
+    qs.forEach(function (q) { if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; }); else want[q.lib] = 1; });
+    $("status").textContent = "Loading the names...";
+    Promise.all(Object.keys(want).map(load)).then(function () {
+      $("status").textContent = "";
+      var libsSeen = {};
+      $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+        qs.map(function (q) {
+          if (q.lib === "?") return answerBare(q.name, null);
+          var D = DATA[q.lib], mine = v ? indexOfVersion(D, v.replace(/^v/, "")) : null;
+          libsSeen[q.lib] = 1;
+          if (mine !== null && mine < 0) mine = null;
+          return q.name === null ? answerModule(q.lib, q.mod, mine) : answerName(q.lib, q.mod, q.name, mine);
+        }).join("") + "</tbody></table></div>" +
+        "<p class=\"note\">" + Object.keys(want).map(function (l) {
+          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest;
+        }).join("; ") + ". The first release of every minor version is read; patch releases in between are assumed to keep the names." +
+        (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
+      done();
+    }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });
+  }
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  window.PTA_READY = true;
+  var p = new URLSearchParams(location.search);
+  if (p.get("q")) { $("q").value = p.get("q"); $("v").value = p.get("v") || ""; run(); }
+})();
+</script>
+</body>
+</html>
