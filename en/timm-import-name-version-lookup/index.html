@@ -220,7 +220,7 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
     following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
     initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
   LIBS.forEach(function (l) { STOP[l] = 1; });
-  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.join("|") + ")", ALL = LIBS.join(", ");
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.slice().sort(function (a, b) { return b.length - a.length; }).join("|") + ")(?!\\w)", ALL = LIBS.join(", ");
 
   function split(dotted) {
     var i = dotted.indexOf(".");
@@ -278,9 +278,14 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
   function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
   function modEver(D, m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
   function modPairs(D, m) { return m === "" ? [[0, 0]] : pairs(D, D.mods[m]); }
+  var PARTIAL = window.LOOKUP_PARTIAL || {};   // libraries whose first release read is not their first release
   function rangeText(D, p) {
-    var a = D.releases[p[0]];
-    if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
+    var a = D.releases[p[0]], early = p[0] === 0 && PARTIAL[D.lib] ? " or earlier (" + a[0] + " is the first release read)" : "";
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong>" + (early || " (" + a[1] + ")") + " and still in " + D.latest;
+    if (early) {
+      var b0 = D.releases[p[1]];
+      return "<strong>" + a[0] + "</strong>" + early + " through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b0[0] + " (" + b0[1] + ")";
+    }
     var b = D.releases[p[1]];
     return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
   }
@@ -368,6 +373,31 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
     return row(code(label(lib, m)), "module", status, cell);
   }
 
+  var SIB = window.LOOKUP_SIBLINGS || {};    // langchain -> [langchain_classic, langchain_core]: where a removed name went
+  function siblingsNow(lib, m, name) {
+    var out = [];
+    (SIB[lib] || []).forEach(function (o) {
+      var E = DATA[o];
+      if (!E) return;
+      var last = E.releases.length - 1, pkg = PIP[o] || o;
+      if (E.names[m] && E.names[m][name] !== undefined && inRange(pairs(E, E.names[m][name]), last))
+        out.push(code("from " + label(o, m) + " import " + name) + " (pip install " + pkg + ")");
+      else {
+        var w = E.where.names[name];
+        if (w && w[0] >= 0) out.push(w.slice(0, 3).map(function (i) { return code("from " + label(o, E.where.modules[i]) + " import " + name); }).join(", ") + " (pip install " + pkg + ")");
+        else if (E.names[""][name] !== undefined && inRange(pairs(E, E.names[""][name]), last)) out.push(code("from " + o + " import " + name) + " (pip install " + pkg + ")");
+      }
+    });
+    return out;
+  }
+  function deferredNote(D, m, name) {
+    var d = D.deferred && D.deferred[m] && D.deferred[m][name];
+    if (d === undefined) return "";
+    var via = D.via[m][name], top = via.split(".")[0], ps = pairs(D, d);
+    return "<br><span class=\"note\">In " + ps.map(function (p) { return D.releases[p[0]][0] + (p[1] ? " to " + D.releases[p[1] - 1][2] : " on"); }).join(", ") +
+      " this name is not defined here: the module forwards it to " + code(via) + " with a deprecation warning, so the import works only with " +
+      code(PIP[top] || top.replace(/_/g, "-")) + " installed. Importing it from " + code(via) + " directly is the lasting fix.</span>";
+  }
   function answerName(lib, m, name, mine) {
     var D = DATA[lib];
     if (!modEver(D, m)) {
@@ -379,6 +409,10 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
     var table = D.names[m] || {}, ri = table[name], cell, status;
     if (ri === undefined) {
       var nn = near(name, Object.keys(table)), wn = whereNow(D, lib, name, m), mp = modPairs(D, m), ml = mp[mp.length - 1];
+      var es = D.ext_star && D.ext_star[m];
+      if (es) return row(code(name), label(lib, m), "<span class=\"s\">not listed</span>",
+        code(label(lib, m)) + " passes along everything from " + es[1].map(code).join(" or ") + ", whose names this page does not list. The module exists " +
+        pairs(D, es[0]).map(function (p) { return rangeText(D, p); }).join(", ") + ".");
       status = "<span class=\"s n\">never there</span>";
       cell = "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " lets you import this name from " + code(label(lib, m)) + "." +
         (ml[1] ? " The module itself is gone since " + D.releases[ml[1]][0] + "." : "") +
@@ -393,8 +427,11 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
         var at = alsoAt(D, lib, name, m, last[1]), wn2 = whereNow(D, lib, name, m), h = HINTS[lib + ":" + m + ":" + name];
         if (at.length) cell += "<br>In " + D.releases[last[1]][0] + ", the release that dropped it here, it was still importable from " + at.join(", ") + ".";
         if (wn2.length) cell += "<br>Now: " + wn2.join("; ") + ".";
+        var sib = siblingsNow(lib, m, name);
+        if (sib.length) cell += "<br>Now in another package: " + sib.join("; ") + ".";
         if (h) cell += "<br>Instead: " + h;
       }
+      cell += deferredNote(D, m, name);
       if (mine !== null) cell += mineText(inRange(ps, mine), lib, "it");
     }
     D.stale.forEach(function (s) {
@@ -435,7 +472,10 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
     $("status").textContent = "";
     if (v && !/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.13.2."; done(); return; }
     if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
-    qs.forEach(function (q) { if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; }); else want[q.lib] = 1; });
+    qs.forEach(function (q) {
+      if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; });
+      else { want[q.lib] = 1; (SIB[q.lib] || []).forEach(function (l) { want[l] = 1; }); }
+    });
     $("status").textContent = "Loading the names...";
     Promise.all(Object.keys(want).map(load)).then(function () {
       $("status").textContent = "";
@@ -449,9 +489,9 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
           return q.name === null ? answerModule(q.lib, q.mod, mine) : answerName(q.lib, q.mod, q.name, mine);
         }).join("") + "</tbody></table></div>" +
         "<p class=\"note\">" + Object.keys(want).map(function (l) {
-          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest;
-        }).join("; ") + (Object.keys(want).every(function (l) { return DATA[l].every; }) ? ". Every tagged release is read." :
-          ". The first release of every minor version is read; patch releases in between are assumed to keep the names.") +
+          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest +
+            (D.every ? " (every tagged release)" : " (the first release of each minor version; patch releases in between are assumed to keep the names)");
+        }).join("; ") + "." +
         (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
       done();
     }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });

@@ -3,7 +3,7 @@
 const { chromium } = require(process.env.PW || "playwright");
 const BASE = process.argv[2], PATH = "/en/timm-import-name-version-lookup/";
 const cases = [
-  ["norm", "ModuleNotFoundError: No module named 'timm.models.layers.norm'", "", ["Every tagged release is read.", "module", "0.4.9", "gone in 0.9.0 (2023-05-12)", "timm.layers.norm", 'pip install "timm>=0.4.9,<0.9.0"'], ["never there"]],
+  ["norm", "ModuleNotFoundError: No module named 'timm.models.layers.norm'", "", ["(every tagged release)", "module", "0.4.9", "gone in 0.9.0 (2023-05-12)", "timm.layers.norm", 'pip install "timm>=0.4.9,<0.9.0"'], ["never there"]],
   ["layers old", "ModuleNotFoundError: No module named 'timm.layers'", "0.6.13", ["from 0.9.0", "Your timm 0.6.13: does not have it."], []],
   ["mapping", "from timm.models.layers import DropPath, use_fused_attn", "1.0.31", ["DropPath", "from 0.2.1", "Your timm 1.0.31: has it.", "never there", "timm.layers"], []],
   ["blocks", "from timm.models.efficientnet_blocks import SqueezeExcite", "", ["gone in 0.9.0", "timm.models._efficientnet_blocks"], []],

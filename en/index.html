@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="langchain-import-name-version-lookup/">ImportError: cannot import name 'X' from 'langchain.chains', 'langchain.schema', 'langchain.chat_models' ...: which version has it, and where it is now</a></h2>
+<p>LangChain 1.0 removed 39 top-level modules (<code>chains</code>, <code>schema</code>, <code>memory</code>, <code>llms</code>, <code>vectorstores</code> ...); 38 live on in langchain-classic under the same path. This gives the new import for each name, marks the 1,243 names that 0.1 to 0.3 only forwarded to langchain_community, and covers langchain_classic and langchain_core too. Every langchain release 0.1.0 to 1.5.0 read from source. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-18</p>
+</article>
+<article class="card">
 <h2><a href="sentence-transformers-import-name-version-lookup/">ImportError: cannot import name 'X' from 'sentence_transformers' (or .models, .util, .losses, ...): which versions have it</a></h2>
 <p>sentence-transformers 5.4.0 moved its modules but still serves 133 old import paths through a hook, so an old path that fails has another cause: <code>models.BERT</code> and the other per-architecture modules left in 2.0.0, <code>util.snapshot_download</code> in 5.1.0, and releases before 2.3.0 break on new huggingface_hub. Every module, 0.1.0 to 6.3.0, old paths included. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-18</p>
