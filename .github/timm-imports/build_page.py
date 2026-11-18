@@ -127,7 +127,7 @@ ld = {"@context": "https://schema.org", "@graph": [
 LD = json.dumps(ld)
 assert "</" not in LD
 css = (HERE.parent / "llama-args" / "style.css").read_text(encoding="ascii")
-css += "\n.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}\n#res td:first-child{min-width:9em}\n"
+css += "\n.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}\n#res td:first-child{min-width:9em}td code{overflow-wrap:anywhere}\n"
 js = (HERE.parent / "pta-imports" / "tool.js").read_text(encoding="ascii")
 assert "</script" not in js and "window.LOOKUP_LIBS" in js
 faq_html = "\n".join("<h3>%s</h3>\n<p>%s</p>" % (e(q, quote=False), e(a, quote=False)) for q, a in FAQ)

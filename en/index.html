@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="sentence-transformers-import-name-version-lookup/">ImportError: cannot import name 'X' from 'sentence_transformers' (or .models, .util, .losses, ...): which versions have it</a></h2>
+<p>sentence-transformers 5.4.0 moved its modules but still serves 133 old import paths through a hook, so an old path that fails has another cause: <code>models.BERT</code> and the other per-architecture modules left in 2.0.0, <code>util.snapshot_download</code> in 5.1.0, and releases before 2.3.0 break on new huggingface_hub. Every module, 0.1.0 to 6.3.0, old paths included. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-18</p>
+</article>
+<article class="card">
 <h2><a href="timm-import-name-version-lookup/">ImportError from 'timm.models.layers', No module named 'timm.layers' or 'timm.models.layers.norm': which timm versions have it</a></h2>
 <p>timm 0.9.0 moved <code>timm.models.layers</code> to <code>timm.layers</code> and removed 65 modules; this lists each one and where its file is now, explains the error when loading a pickled model, and which 127 names exist only under <code>timm.layers</code>. Every timm release 0.1.1 to 1.0.31 read from source. Includes a lookup: paste the error or the import line.</p>
 <p class="meta">Published 2026-11-18</p>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cannot import name from sentence_transformers: versions</title>
+<meta name="description" content="sentence-transformers 5.4.0 moved its modules but kept the old paths; models.BERT left in 2.0.0, util.snapshot_download in 5.1.0. Paste the error.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cannot import name from sentence_transformers: versions">
+<meta property="og:description" content="sentence-transformers 5.4.0 moved its modules but kept the old paths; models.BERT left in 2.0.0, util.snapshot_download in 5.1.0. Paste the error.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}td code{overflow-wrap:anywhere}main p,main h3,main li{overflow-wrap:break-word}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/#article", "headline": "ImportError: cannot import name 'X' from 'sentence_transformers' (or .models, .util, .losses, ...): which vers", "description": "sentence-transformers 5.4.0 moved its modules but kept the old paths; models.BERT left in 2.0.0, util.snapshot_download in 5.1.0. Paste the error.", "url": "https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "inLanguage": "en", "about": ["sentence-transformers", "ImportError", "embeddings"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/"}, {"@type": "WebApplication", "name": "sentence-transformers import name lookup", "url": "https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/#lookup", "description": "Paste an ImportError or an import statement and get the sentence-transformers releases in which that name can be imported from that module, the range to pin, and where it lives now.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from sentence-transformers and its modules, by release", "url": "https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/sentence_transformers.json", "dateModified": "2026-11-18", "description": "For 34 releases of sentence-transformers (0.1.0 to 6.3.0): the names importable from every module, including the old module paths served by its import hook. Read from the source of each release tag.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/sentence_transformers.json"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does \"from sentence_transformers.models import Transformer\" still work after 5.4.0?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. sentence-transformers 5.4.0 (2026-04-09) moved its modules, for example sentence_transformers.models to sentence_transformers.sentence_transformer.modules, and installs an import hook that serves 133 old paths from their new places, with a DeprecationWarning. An old path that fails on 5.4.0 or later fails for another reason: the name was removed, or it was never in that module."}}, {"@type": "Question", "name": "How do I fix \"cannot import name 'BERT' from 'sentence_transformers.models'\"?", "acceptedAnswer": {"@type": "Answer", "text": "sentence-transformers 2.0.0 (2021-06-24) removed the per-architecture modules (BERT, RoBERTa, DistilBERT, XLNet and others). Use models.Transformer(\"bert-base-uncased\"), which loads any Hugging Face model, or pin pip install \"sentence-transformers<2.0.0\"."}}, {"@type": "Question", "name": "Importing sentence_transformers fails with \"cannot import name 'cached_download' from 'huggingface_hub'\". What do I upgrade?", "acceptedAnswer": {"@type": "Answer", "text": "sentence-transformers. Releases before 2.3.0 (2024-01-29) import cached_download, which huggingface_hub removed in 0.26.0. pip install -U \"sentence-transformers>=2.3.0\" fixes it; the huggingface_hub page linked below has the details."}}, {"@type": "Question", "name": "Where did sentence_transformers.util.snapshot_download go?", "acceptedAnswer": {"@type": "Answer", "text": "sentence-transformers 5.1.0 (2025-08-06) turned util into a package and stopped passing snapshot_download along. Import it from huggingface_hub, where it always came from."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "cannot import name from sentence_transformers: versions", "item": "https://erimaki-kobo.github.io/en/sentence-transformers-import-name-version-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>ImportError: cannot import name 'X' from 'sentence_transformers' (or .models, .util, .losses, ...): which versions have it</h1>
+<p class="lede"><strong>Old import paths still work: sentence-transformers 5.4.0 (2026-04-09) moved its modules but serves 133 old paths through an import hook, with a DeprecationWarning.</strong> So an import that fails is usually one of these. <code>models.BERT</code>, <code>models.RoBERTa</code> and the other per-architecture modules left in 2.0.0 (2021-06-24); use <code>models.Transformer</code>. <code>util.snapshot_download</code> left in 5.1.0 (2025-08-06); import it from <code>huggingface_hub</code>. <code>cannot import name 'cached_download' from 'huggingface_hub'</code> while importing sentence_transformers means your sentence-transformers is older than 2.3.0 (2024-01-29): upgrade it. Your version can also be older than the name, for example <code>SparseEncoder</code> needs 5.0.0. For any other name, paste the error below.</p>
+<p class="meta">Published 2026-11-18 &middot; Data as of 2026-11-18 &middot; sentence-transformers 0.1.0 to 6.3.0, the first release of each of 34 minor versions &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The error line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ImportError: cannot import name 'BERT' from 'sentence_transformers.models'"></textarea>
+<div class="grid">
+<div><label for="v">Your sentence-transformers version (optional; <code>pip show sentence-transformers</code>)</label><input id="v" inputmode="decimal" placeholder="for example 2.2.2"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ImportError: cannot import name &#x27;BERT&#x27; from &#x27;sentence_transformers.models&#x27;" data-v="2.2.2">models.BERT</button><button type="button" data-ex="from sentence_transformers.util import snapshot_download" data-v="5.1.0">util.snapshot_download</button><button type="button" data-ex="from sentence_transformers import SparseEncoder" data-v="4.1.0">SparseEncoder</button><button type="button" data-ex="from sentence_transformers.models import Transformer, Pooling" data-v="6.3.0">models after 5.4.0</button><button type="button" data-ex="cannot import name &#x27;cached_download&#x27; from &#x27;sentence_transformers.util&#x27;" data-v="">util.cached_download</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="sentence_transformers.json">sentence_transformers.json</a> (166 KB); nothing you paste is sent anywhere. Covers 6,679 module-and-name pairs in 375 modules, old paths included.</p>
+</div>
+
+<h2 id="removed">Which names were really removed?</h2>
+<p><strong>These are the removals people hit; the lookup has all of them.</strong></p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Import</th><th>Works in</th><th>Fails from</th><th>Use instead</th></tr></thead>
+<tbody>
+<tr><td><code>from sentence_transformers.models import BERT</code></td><td>0.1.0 to 1.2.1</td><td>2.0.0</td><td><code>models.Transformer("model-name")</code>, which loads any Hugging Face model (since 0.3.0).</td></tr>
+<tr><td><code>from sentence_transformers.models import RoBERTa</code></td><td>0.3.0 to 1.2.1</td><td>2.0.0</td><td><code>models.Transformer("model-name")</code>, which loads any Hugging Face model (since 0.3.0).</td></tr>
+<tr><td><code>from sentence_transformers.models import T5</code></td><td>0.3.0 to 2.1.0</td><td>2.2.0</td><td><code>models.Transformer("model-name")</code>, which loads any Hugging Face model (since 0.3.0).</td></tr>
+<tr><td><code>from sentence_transformers.util import cached_download</code></td><td>2.0.0 to 2.2.2</td><td>2.3.0</td><td><code>huggingface_hub.hf_hub_download</code>; see the huggingface_hub page linked below.</td></tr>
+<tr><td><code>from sentence_transformers.util import hf_hub_url</code></td><td>2.0.0 to 2.2.2</td><td>2.3.0</td><td></td></tr>
+<tr><td><code>from sentence_transformers.util import snapshot_download</code></td><td>2.0.0 to 5.0.0</td><td>5.1.0</td><td><code>from huggingface_hub import snapshot_download</code>; sentence-transformers itself imports it from there.</td></tr>
+<tr><td><code>from sentence_transformers.util import hf_hub_download</code></td><td>2.3.0 to 5.0.0</td><td>5.1.0</td><td><code>from huggingface_hub import hf_hub_download</code>.</td></tr>
+</tbody></table></div>
+
+<h2 id="v54">Where did sentence-transformers 5.4.0 move each module?</h2>
+<p><strong>The old path keeps working; the new one avoids the warning.</strong> The hook prints "Importing from '...' is deprecated and will be removed in a future version. Please use '...' instead." These are the module-level moves; the hook also serves the old per-class files, such as <code>sentence_transformers.losses.MultipleNegativesRankingLoss</code>.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Old path (still works)</th><th>New path from 5.4.0</th></tr></thead>
+<tbody>
+<tr><td><code>sentence_transformers.data_collator</code></td><td><code>sentence_transformers.sentence_transformer.data_collator</code></td></tr>
+<tr><td><code>sentence_transformers.datasets</code></td><td><code>sentence_transformers.sentence_transformer.datasets</code></td></tr>
+<tr><td><code>sentence_transformers.evaluation</code></td><td><code>sentence_transformers.sentence_transformer.evaluation</code></td></tr>
+<tr><td><code>sentence_transformers.losses</code></td><td><code>sentence_transformers.sentence_transformer.losses</code></td></tr>
+<tr><td><code>sentence_transformers.model_card</code></td><td><code>sentence_transformers.sentence_transformer.model_card</code></td></tr>
+<tr><td><code>sentence_transformers.models</code></td><td><code>sentence_transformers.sentence_transformer.modules</code></td></tr>
+<tr><td><code>sentence_transformers.models.tokenizer</code></td><td><code>sentence_transformers.sentence_transformer.modules.tokenizer</code></td></tr>
+<tr><td><code>sentence_transformers.peft_mixin</code></td><td><code>sentence_transformers.base.peft_mixin</code></td></tr>
+<tr><td><code>sentence_transformers.quantization</code></td><td><code>sentence_transformers.util.quantization</code></td></tr>
+<tr><td><code>sentence_transformers.readers</code></td><td><code>sentence_transformers.sentence_transformer.readers</code></td></tr>
+<tr><td><code>sentence_transformers.sampler</code></td><td><code>sentence_transformers.base.sampler</code></td></tr>
+<tr><td><code>sentence_transformers.similarity_functions</code></td><td><code>sentence_transformers.util.similarity</code></td></tr>
+<tr><td><code>sentence_transformers.sparse_encoder.models</code></td><td><code>sentence_transformers.sparse_encoder.modules</code></td></tr>
+<tr><td><code>sentence_transformers.trainer</code></td><td><code>sentence_transformers.sentence_transformer.trainer</code></td></tr>
+<tr><td><code>sentence_transformers.training_args</code></td><td><code>sentence_transformers.sentence_transformer.training_args</code></td></tr>
+</tbody></table></div>
+
+<h2 id="modules">Which modules are gone for good?</h2>
+<div class="tw"><table class="flt">
+<thead><tr><th>Module</th><th>Gone in</th><th>Date (PyPI)</th></tr></thead>
+<tbody>
+<tr><td><code>sentence_transformers.evaluation.MSEEvaluatorFromDataFrame</code></td><td>5.4.0</td><td>2026-04-09</td></tr>
+<tr><td><code>sentence_transformers.fit_mixin</code></td><td>5.4.0</td><td>2026-04-09</td></tr>
+<tr><td><code>sentence_transformers.losses.GlobalOrthogonalRegularizationLoss</code></td><td>5.4.0</td><td>2026-04-09</td></tr>
+<tr><td><code>sentence_transformers.model_card_templates</code></td><td>5.4.0</td><td>2026-04-09</td></tr>
+<tr><td><code>sentence_transformers.models.T5</code></td><td>2.2.0</td><td>2022-02-10</td></tr>
+<tr><td><code>sentence_transformers.models.ALBERT</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.models.BERT</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.models.CamemBERT</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.models.DistilBERT</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.models.RoBERTa</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.models.WKPooling</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.models.XLMRoBERTa</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.models.XLNet</code></td><td>2.0.0</td><td>2021-06-24</td></tr>
+<tr><td><code>sentence_transformers.cross_encoder.evaluation.CRRerankingEvaluator</code></td><td>1.0.0</td><td>2021-03-18</td></tr>
+<tr><td><code>sentence_transformers.datasets.EncodeDataset</code></td><td>1.0.0</td><td>2021-03-18</td></tr>
+<tr><td><code>sentence_transformers.datasets.sampler</code></td><td>1.0.0</td><td>2021-03-18</td></tr>
+<tr><td><code>sentence_transformers.datasets.sampler.LabelSampler</code></td><td>1.0.0</td><td>2021-03-18</td></tr>
+<tr><td><code>sentence_transformers.data_samplers</code></td><td>0.4.0</td><td>2020-12-22</td></tr>
+<tr><td><code>sentence_transformers.evaluation.BinaryEmbeddingSimilarityEvaluator</code></td><td>0.4.0</td><td>2020-12-22</td></tr>
+<tr><td><code>sentence_transformers.evaluation.EnhancedBinaryEmbeddingSimilarityEvaluator</code></td><td>0.4.0</td><td>2020-12-22</td></tr>
+<tr><td><code>sentence_transformers.losses.test_batch_hard_triplet_loss</code></td><td>0.4.0</td><td>2020-12-22</td></tr>
+<tr><td><code>sentence_transformers.config</code></td><td>0.2.0</td><td>2019-08-16</td></tr>
+<tr><td><code>sentence_transformers.dataset_readers</code></td><td>0.2.0</td><td>2019-08-16</td></tr>
+<tr><td><code>sentence_transformers.encoder</code></td><td>0.2.0</td><td>2019-08-16</td></tr>
+<tr><td><code>sentence_transformers.input_example</code></td><td>0.2.0</td><td>2019-08-16</td></tr>
+<tr><td><code>sentence_transformers.models.TransformerModel</code></td><td>0.2.0</td><td>2019-08-16</td></tr>
+<tr><td><code>sentence_transformers.test_batch_hard_triplet_loss</code></td><td>0.2.0</td><td>2019-08-16</td></tr>
+</tbody></table></div>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong> A module's names are everything it binds at module level. The old paths come from the aliases each release installs: the <code>DEPRECATED_MODULE_PATHS</code> table and its import hook (5.4.0 on), and direct <code>sys.modules[...]</code> assignments (4.0.0 on); an old path gets the names of the module it points to. Dates come from PyPI.</p>
+<p>Checks, by a second reading: (1) each of the 79 top-level names is found as plain text in <code>__init__.py</code>, or is a module, in every release of its range (1,149 name-and-release pairs). (2) A regular expression finds 4,645 definitions in 1,700 file versions; all are among the names read. (3) A regular expression finds the same 1,100 aliases (summed over releases) as the reading. (4) 8 known facts hold.</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. "Has it" means the import statement resolves in the source.</li>
+<li>Only the first release of each minor version was read (and the newest). A change in a patch release is attributed to the next minor.</li>
+<li>The deprecated paths may be removed in a future release; the hook's message says so. The lookup follows the release you give.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>Does "from sentence_transformers.models import Transformer" still work after 5.4.0?</h3>
+<p>Yes. sentence-transformers 5.4.0 (2026-04-09) moved its modules, for example sentence_transformers.models to sentence_transformers.sentence_transformer.modules, and installs an import hook that serves 133 old paths from their new places, with a DeprecationWarning. An old path that fails on 5.4.0 or later fails for another reason: the name was removed, or it was never in that module.</p>
+<h3>How do I fix "cannot import name 'BERT' from 'sentence_transformers.models'"?</h3>
+<p>sentence-transformers 2.0.0 (2021-06-24) removed the per-architecture modules (BERT, RoBERTa, DistilBERT, XLNet and others). Use models.Transformer("bert-base-uncased"), which loads any Hugging Face model, or pin pip install "sentence-transformers&lt;2.0.0".</p>
+<h3>Importing sentence_transformers fails with "cannot import name 'cached_download' from 'huggingface_hub'". What do I upgrade?</h3>
+<p>sentence-transformers. Releases before 2.3.0 (2024-01-29) import cached_download, which huggingface_hub removed in 0.26.0. pip install -U "sentence-transformers&gt;=2.3.0" fixes it; the huggingface_hub page linked below has the details.</p>
+<h3>Where did sentence_transformers.util.snapshot_download go?</h3>
+<p>sentence-transformers 5.1.0 (2025-08-06) turned util into a package and stopped passing snapshot_download along. Import it from huggingface_hub, where it always came from.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>huggingface/sentence-transformers, release tags v0.1.0 to v6.3.0: every <code>.py</code> file under <a href="https://github.com/huggingface/sentence-transformers/blob/v6.3.0/sentence_transformers/__init__.py">sentence_transformers/</a>; the aliases in <a href="https://github.com/huggingface/sentence-transformers/blob/v6.3.0/sentence_transformers/util/deprecated_import.py">util/deprecated_import.py</a>; release dates from <a href="https://pypi.org/project/sentence-transformers/#history">PyPI</a>.</li>
+<li>Report: <a href="https://www.simplified.guide/sentence-transformers/import-fix-cached-download-error">cached_download error with sentence-transformers 2.2.2 and huggingface_hub 0.26.0</a>.</li>
+</ul>
+<p>The same data as JSON: <a href="sentence_transformers.json">sentence_transformers.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/huggingface-hub-import-name-version-lookup/">"cannot import name 'cached_download' from 'huggingface_hub'"</a> &middot; <a href="/en/transformers-import-name-version-lookup/">"... from 'transformers'"</a> &middot; <a href="/en/datasets-import-name-version-lookup/">"... from 'datasets'"</a> &middot; <a href="/en/peft-trl-accelerate-import-name-lookup/">"... from 'peft', 'trl' or 'accelerate'"</a>.</p>
+</main>
+<script>window.LOOKUP_LIBS = ["sentence_transformers"]; window.LOOKUP_PIP = {"sentence_transformers": "sentence-transformers"}; window.PTA_HINTS = {"sentence_transformers:util:snapshot_download": "<code>from huggingface_hub import snapshot_download</code>; sentence-transformers itself imports it from there.", "sentence_transformers:util:hf_hub_download": "<code>from huggingface_hub import hf_hub_download</code>.", "sentence_transformers:util:cached_download": "<code>huggingface_hub.hf_hub_download</code>; see the huggingface_hub page linked below.", "sentence_transformers:models:BERT": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0).", "sentence_transformers:models:RoBERTa": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0).", "sentence_transformers:models:DistilBERT": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0).", "sentence_transformers:models:ALBERT": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0).", "sentence_transformers:models:CamemBERT": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0).", "sentence_transformers:models:XLMRoBERTa": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0).", "sentence_transformers:models:XLNet": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0).", "sentence_transformers:models:T5": "<code>models.Transformer(\"model-name\")</code>, which loads any Hugging Face model (since 0.3.0)."};</script>
+<script>
+(function () {
+  "use strict";
+  var LIBS = window.LOOKUP_LIBS || ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  function code(s) { return "<code>" + esc(s) + "</code>"; }
+  var STOP = {from: 1, "import": 1, ImportError: 1, cannot: 1, name: 1, as: 1, unknown: 1, location: 1, py: 1, __init__: 1,
+    site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
+    ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
+    following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
+  LIBS.forEach(function (l) { STOP[l] = 1; });
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.join("|") + ")", ALL = LIBS.join(", ");
+
+  function split(dotted) {
+    var i = dotted.indexOf(".");
+    return i < 0 ? {lib: dotted, mod: ""} : {lib: dotted.slice(0, i), mod: dotted.slice(i + 1)};
+  }
+  function label(lib, m) { return m ? lib + "." + m : lib; }
+
+  function parse(text) {
+    var out = [], seen = {}, m, rest = text;
+    function add(name, dotted) {
+      var s = typeof dotted === "string" ? split(dotted) : dotted, k = s.lib + ":" + s.mod + ":" + name;
+      if (!seen[k] && (name === null || /^[A-Za-z_]\w*$/.test(name))) { seen[k] = 1; out.push({lib: s.lib, mod: s.mod, name: name}); }
+    }
+    var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(" + LIBRX + "(?:\\.\\w+)*)", "g");
+    while ((m = reErr.exec(text))) add(m[1], m[2]);
+    rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reAttr = new RegExp("module " + Q + "(" + LIBRX + "(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
+    while ((m = reAttr.exec(rest))) add(m[3], m[1]);
+    rest = rest.replace(reAttr, " ");
+    var reNoMod = new RegExp("(?:No module named|Failed to import)\\s+" + Q + "(" + LIBRX + "(?:\\.\\w+)+)", "g");
+    while ((m = reNoMod.exec(rest))) add(null, m[1]);
+    rest = rest.replace(reNoMod, " ");
+    var reImp = new RegExp("from\\s+(" + LIBRX + "(?:\\.\\w+)*)\\s+import\\s+(\\([^)]*\\)|[^\\n;]+)", "g");
+    while ((m = reImp.exec(rest))) {
+      var where = m[1];
+      m[3].replace(/#[^\n]*/g, " ").replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, where);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    var rePlain = new RegExp("(?:^|\\n|;)\\s*import\\s+(" + LIBRX + "\\.\\w+(?:\\.\\w+)*)", "g");
+    while ((m = rePlain.exec(rest))) add(null, m[1]);
+    rest = rest.replace(rePlain, " ");
+    if (!out.length) {
+      var dotted = rest.match(new RegExp(LIBRX + "(?:\\.\\w+)+", "g")) || [];
+      dotted.forEach(function (d) { add(null, d); });
+      if (!dotted.length) (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w]) add(w, {lib: "?", mod: ""}); });
+    }
+    return out.slice(0, 30);
+  }
+
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(D, v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(D.releases[i][0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairs(D, ri) {
+    var r = D.ranges[ri], out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function modEver(D, m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
+  function modPairs(D, m) { return m === "" ? [[0, 0]] : pairs(D, D.mods[m]); }
+  function rangeText(D, p) {
+    var a = D.releases[p[0]];
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
+    var b = D.releases[p[1]];
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  var PIP = window.LOOKUP_PIP || {};      // import name -> pip name, where they differ (sentence_transformers -> sentence-transformers)
+  function pin(D, lib, p) {
+    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "", pkg = PIP[lib] || lib;
+    if (!p[1]) return lo ? "<span class=\"pin\">Needs: <code>pip install \"" + pkg + lo + "\"</code></span>" : "<span class=\"pin\">In every release read.</span>";
+    return "<span class=\"pin\">Keep it: <code>pip install \"" + pkg + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
+  }
+  // other modules of the library that had the name in release i
+  function alsoAt(D, lib, name, except, i) {
+    var out = [];
+    Object.keys(D.names).forEach(function (m) {
+      var ri = D.names[m][name];
+      if (m !== except && ri !== undefined && inRange(pairs(D, ri), i)) out.push(m);
+    });
+    out.sort(function (a, b) { return a.split(".").length - b.split(".").length || (a < b ? -1 : 1); });
+    return out.slice(0, 4).map(function (m) { return code(label(lib, m)); });
+  }
+  function whereNow(D, lib, name, except) {
+    var out = [], last = D.releases.length - 1;
+    if (except !== "" && D.names[""][name] !== undefined && inRange(pairs(D, D.names[""][name]), last))
+      out.push(code("from " + lib + " import " + name) + " (top level)");
+    var w = D.where.names[name];
+    if (w) {
+      if (w[0] < 0) out.push("defined in " + (-w[0]) + " modules of " + lib + " " + D.latest);
+      else {
+        var ms = w.map(function (i) { return D.where.modules[i]; }).filter(function (m) { return m !== except; });
+        if (ms.length) out.push("defined in " + ms.map(function (m) { return code(label(lib, m)); }).join(", ") + " in " + D.latest);
+      }
+    }
+    return out;
+  }
+  function dist(a, b) {
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, keys) {
+    var low = name.toLowerCase(), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (k === name) return;
+      if (kl === low) exact.push(k);
+      else if (low.length >= 6 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 8)) sub.push(k);
+      else if (low.length >= 6 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+  function mineText(has, lib, what) {
+    return "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+      (has ? " If the error still names " + what + ", another copy of " + lib + " is being imported: check <code>python -c \"import " + lib + "; print(" + lib + ".__version__, " + lib + ".__file__)\"</code>." : "");
+  }
+  function row(nameHtml, sub, status, cell) {
+    return "<tr><td>" + nameHtml + "<br><span class=\"note\">" + esc(sub) + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+  }
+  function movedModule(D, m) {
+    var leaf = m.split(".").pop(), last = D.releases.length - 1, out = [];
+    Object.keys(D.mods).forEach(function (k) { if (k !== m && k.split(".").pop() === leaf && inRange(pairs(D, D.mods[k]), last)) out.push(k); });
+    return out.slice(0, 4);
+  }
+
+  function answerModule(lib, m, mine) {
+    var D = DATA[lib], cell, status;
+    if (!modEver(D, m)) {
+      var mv = movedModule(D, m);
+      return row(code(label(lib, m)), "module", "<span class=\"s n\">never there</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has this module." +
+        (mv.length ? " Modules with the same last part in " + D.latest + ": " + mv.map(function (k) { return code(label(lib, k)); }).join(", ") + "." : ""));
+    }
+    var ps = modPairs(D, m), last = ps[ps.length - 1];
+    status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+    cell = "The module exists " + ps.map(function (p) { return rangeText(D, p); }).join("<br>") + ".<br>" + pin(D, lib, last);
+    if (last[1]) {
+      var mv2 = movedModule(D, m);
+      if (mv2.length) cell += "<br>Now: " + mv2.map(function (k) { return code(label(lib, k)); }).join(", ") + " (same file name, in " + D.latest + ").";
+    }
+    if (mine !== null) cell += mineText(inRange(ps, mine), lib, "the module");
+    return row(code(label(lib, m)), "module", status, cell);
+  }
+
+  function answerName(lib, m, name, mine) {
+    var D = DATA[lib];
+    if (!modEver(D, m)) {
+      var wn0 = whereNow(D, lib, name, null);
+      return row(code(name), label(lib, m), "<span class=\"s n\">no such module</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has a module " + code(label(lib, m)) + "." +
+        (wn0.length ? " " + code(name) + ": " + wn0.join("; ") + "." : ""));
+    }
+    var table = D.names[m] || {}, ri = table[name], cell, status;
+    if (ri === undefined) {
+      var nn = near(name, Object.keys(table)), wn = whereNow(D, lib, name, m), mp = modPairs(D, m), ml = mp[mp.length - 1];
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " lets you import this name from " + code(label(lib, m)) + "." +
+        (ml[1] ? " The module itself is gone since " + D.releases[ml[1]][0] + "." : "") +
+        (wn.length ? "<br>Now: " + wn.join("; ") + "." : "") +
+        (nn.length ? "<br>Close names in this module: " + nn.map(code).join(", ") + "." : "") +
+        (!wn.length && !nn.length ? " It may come from a fork, from the development branch, or from a release newer than " + D.latest + "." : "");
+    } else {
+      var ps = pairs(D, ri), last = ps[ps.length - 1];
+      status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+      cell = ps.map(function (p) { return rangeText(D, p); }).join("<br>") + "<br>" + pin(D, lib, last);
+      if (last[1]) {
+        var at = alsoAt(D, lib, name, m, last[1]), wn2 = whereNow(D, lib, name, m), h = HINTS[lib + ":" + m + ":" + name];
+        if (at.length) cell += "<br>In " + D.releases[last[1]][0] + ", the release that dropped it here, it was still importable from " + at.join(", ") + ".";
+        if (wn2.length) cell += "<br>Now: " + wn2.join("; ") + ".";
+        if (h) cell += "<br>Instead: " + h;
+      }
+      if (mine !== null) cell += mineText(inRange(ps, mine), lib, "it");
+    }
+    D.stale.forEach(function (s) {
+      if (s[0] === m && s[1] === name)
+        cell += "<br><span class=\"note\">From " + D.releases[s[4]][0] + (s[5] ? " through " + D.releases[s[5] - 1][2] : " on") +
+          " the lazy table still lists this name, but the entry points to " + code(s[2]) + ", " +
+          (s[3] === "nofile" ? "a file that is not there" : "which does not provide it") + ": the import fails.</span>";
+    });
+    return row(code(name), label(lib, m), status, cell);
+  }
+
+  function answerBare(name, mine) {
+    var hits = [];
+    LIBS.forEach(function (lib) {
+      var D = DATA[lib];
+      Object.keys(D.names).forEach(function (m) { if (D.names[m][name] !== undefined) hits.push([lib, m]); });
+    });
+    if (!hits.length) {
+      var nn = [];
+      LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
+      return row(code(name), ALL, "<span class=\"s n\">never there</span>",
+        "No release of " + ALL + " has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package, see the related pages at the bottom.");
+    }
+    hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
+    return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +
+      (hits.length > 6 ? row(code(name), "", "", (hits.length - 6) + " more modules have this name; paste the import line to pick one.") : "");
+  }
+
+  function load(lib) {
+    if (DATA[lib]) return Promise.resolve();
+    return fetch(lib + ".json").then(function (r) { if (!r.ok) throw new Error(lib + ".json " + r.status); return r.json(); })
+      .then(function (d) { DATA[lib] = d; });
+  }
+  function done() { $("res").setAttribute("data-done", String(++SEQ)); }
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), want = {};
+    $("status").textContent = "";
+    if (v && !/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.13.2."; done(); return; }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
+    qs.forEach(function (q) { if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; }); else want[q.lib] = 1; });
+    $("status").textContent = "Loading the names...";
+    Promise.all(Object.keys(want).map(load)).then(function () {
+      $("status").textContent = "";
+      var libsSeen = {};
+      $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+        qs.map(function (q) {
+          if (q.lib === "?") return answerBare(q.name, null);
+          var D = DATA[q.lib], mine = v ? indexOfVersion(D, v.replace(/^v/, "")) : null;
+          libsSeen[q.lib] = 1;
+          if (mine !== null && mine < 0) mine = null;
+          return q.name === null ? answerModule(q.lib, q.mod, mine) : answerName(q.lib, q.mod, q.name, mine);
+        }).join("") + "</tbody></table></div>" +
+        "<p class=\"note\">" + Object.keys(want).map(function (l) {
+          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest;
+        }).join("; ") + (Object.keys(want).every(function (l) { return DATA[l].every; }) ? ". Every tagged release is read." :
+          ". The first release of every minor version is read; patch releases in between are assumed to keep the names.") +
+        (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
+      done();
+    }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });
+  }
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  window.PTA_READY = true;
+  var p = new URLSearchParams(location.search);
+  if (p.get("q")) { $("q").value = p.get("q"); $("v").value = p.get("v") || ""; run(); }
+})();
+</script>
+</body>
+</html>

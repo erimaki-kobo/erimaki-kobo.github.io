@@ -78,10 +78,11 @@
     var b = D.releases[p[1]];
     return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
   }
+  var PIP = window.LOOKUP_PIP || {};      // import name -> pip name, where they differ (sentence_transformers -> sentence-transformers)
   function pin(D, lib, p) {
-    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "";
-    if (!p[1]) return "<span class=\"pin\">Needs: <code>pip install \"" + lib + lo + "\"</code></span>";
-    return "<span class=\"pin\">Keep it: <code>pip install \"" + lib + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
+    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "", pkg = PIP[lib] || lib;
+    if (!p[1]) return lo ? "<span class=\"pin\">Needs: <code>pip install \"" + pkg + lo + "\"</code></span>" : "<span class=\"pin\">In every release read.</span>";
+    return "<span class=\"pin\">Keep it: <code>pip install \"" + pkg + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
   }
   // other modules of the library that had the name in release i
   function alsoAt(D, lib, name, except, i) {
