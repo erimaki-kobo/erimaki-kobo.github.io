@@ -428,7 +428,8 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
         }).join("") + "</tbody></table></div>" +
         "<p class=\"note\">" + Object.keys(want).map(function (l) {
           var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest;
-        }).join("; ") + ". The first release of every minor version is read; patch releases in between are assumed to keep the names." +
+        }).join("; ") + (Object.keys(want).every(function (l) { return DATA[l].every; }) ? ". Every tagged release is read." :
+          ". The first release of every minor version is read; patch releases in between are assumed to keep the names.") +
         (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
       done();
     }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });

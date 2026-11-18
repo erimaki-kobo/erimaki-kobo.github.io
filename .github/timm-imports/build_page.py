@@ -224,6 +224,7 @@ page = f"""<!DOCTYPE html>
 page.encode("ascii")
 out_dir.mkdir(parents=True, exist_ok=True)
 (out_dir / "index.html").write_text(page, encoding="ascii")
-shutil.copyfile(src / "timm.json", out_dir / "timm.json")
+D["every"] = True           # every tagged release was read (--every-release); the lookup says so under its answer
+(out_dir / "timm.json").write_text(json.dumps(D, separators=(",", ":"), sort_keys=True), encoding="ascii")
 print("index.html %d bytes | 0.9.0 removed %d (successor %d) | other gone %d | new-only %d | pairs %d" % (
     len(page), len(G09), n_succ, len(other_rows), n_new_only, n_pairs), file=sys.stderr)
