@@ -11,8 +11,8 @@ def git(repo, *a, inp=None, binary=False):
 ver = lambda t: tuple(int(x) for x in t.lstrip("v").split("."))
 
 def tags(repo, pypi):
-    finals = sorted((t for t in git(repo, "tag").split() if re.fullmatch(r"v\d+\.\d+\.\d+", t)
-                     and t[1:] in pypi["dates"] and t[1:] not in pypi["yanked"]), key=ver)
+    finals = sorted((t for t in git(repo, "tag").split() if re.fullmatch(r"v?\d+\.\d+\.\d+", t)
+                     and t.lstrip("v") in pypi["dates"] and t.lstrip("v") not in pypi["yanked"]), key=ver)
     first = {}
     for t in finals:
         first.setdefault(ver(t)[:2], t)

@@ -1,7 +1,8 @@
 # en/peft-trl-accelerate-import-name-lookup: how the page is built
 
 Nothing is installed, imported or run. `fetch.py` and `names_hist.py` are the diffusers ones (../df-imports) with the
-source root as a third argument; `pypi_dates.py` is in ../tf-imports.
+source root as a third argument (fetch.py here also reads tags without a `v`, as datasets has); `pypi_dates.py` is in
+../tf-imports. `tool.js` is shared: a page sets `window.LOOKUP_LIBS` (default peft, trl, accelerate) and `window.PTA_HINTS`.
 
 ```
 for r in accelerate:src/accelerate peft:src/peft trl:trl; do n=${r%%:*}; root=${r#*:}
@@ -21,6 +22,6 @@ node check_browser.js http://127.0.0.1:PORT        # serve the repository root
   every replacement in HINTS is for a name that is gone. Replacements are quoted from the source of the release before.
 - Results on 2026-11-18: peft 23 releases (0.0.1 to 0.21.3), trl 48 (0.2.0 to 1.18.1), accelerate 51 (0.1.0 to 1.16.0);
   14,806 module-and-name pairs; trl 11 stale lazy entries. test_data: trl type-checking copy identical in 214 of 231 lazy
-  packages (9 names in one place only), 7,221 top-level name-release pairs as text, 30,884 definitions by regular
-  expression, 18 anchors; check_browser 17 lookups x 2 widths.
+  packages (9 names in one place only), 7,221 top-level name-release pairs as text (star imports followed), 30,884 definitions by regular
+  expression (keywords such as `try` left out), 18 anchors; check_browser 17 lookups x 2 widths.
 - trl 0.9.2 is on PyPI without a git tag; the 0.9 line is read at 0.9.3. Not on the daily refresh.

@@ -204,7 +204,7 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
 
 <h2 id="how">How was this read, and how was it checked?</h2>
 <p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong> peft and accelerate import eagerly, so a module's names are everything it binds at module level (classes, functions, assignments, imports). trl replaces its packages with a lazy module from 0.8.0 on; for those, the names are the entries of the lazy table, each followed to the file it names. Code under <code>if TYPE_CHECKING:</code> is skipped. Dates and yanked releases come from PyPI.</p>
-<p>Checks, all by a second reading: (1) trl's lazy packages repeat their names as plain imports for type checkers; 214 of 231 package-and-release pairs match exactly, and the rest differ by 9 names that trl lists in only one of the two places (the lookup follows the table, which is what runs). (2) Each of the 369 top-level names is found as plain text in <code>__init__.py</code> of every release in its range (7,221 name-and-release pairs), and is not imported there in the release on either side (353 edges). (3) A regular expression finds 30,884 definitions in 4,557 file versions; all are among the names read. (4) 18 known facts hold, among them the releases in the public error reports under Sources.</p>
+<p>Checks, all by a second reading: (1) trl's lazy packages repeat their names as plain imports for type checkers; 214 of 231 package-and-release pairs match exactly, and the rest differ by 9 names that trl lists in only one of the two places (the lookup follows the table, which is what runs). (2) Each of the 369 top-level names is found as plain text in <code>__init__.py</code> of every release in its range (7,221 name-and-release pairs), and is not imported there in the release on either side (352 edges). (3) A regular expression finds 30,884 definitions in 4,557 file versions; all are among the names read. (4) 18 known facts hold, among them the releases in the public error reports under Sources.</p>
 
 <h2 id="limits">Limits</h2>
 <ul>
@@ -238,7 +238,7 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
 <script>
 (function () {
   "use strict";
-  var LIBS = ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  var LIBS = window.LOOKUP_LIBS || ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
   function $(id) { return document.getElementById(id); }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -250,8 +250,9 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
     site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
     ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
     following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
-    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, peft: 1, trl: 1, accelerate: 1, transformers: 1};
-  var Q = "['\"`\u2018\u2019]?", LIBRX = "(peft|trl|accelerate)";
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
+  LIBS.forEach(function (l) { STOP[l] = 1; });
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.join("|") + ")", ALL = LIBS.join(", ");
 
   function split(dotted) {
     var i = dotted.indexOf(".");
@@ -445,9 +446,9 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
     if (!hits.length) {
       var nn = [];
       LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
-      return row(code(name), "peft, trl, accelerate", "<span class=\"s n\">never there</span>",
-        "No release of peft, trl or accelerate has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
-        " If the error names another package (transformers, huggingface_hub, diffusers), see the links below the table.");
+      return row(code(name), ALL, "<span class=\"s n\">never there</span>",
+        "No release of " + ALL + " has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package, see the related pages at the bottom.");
     }
     hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
     return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +

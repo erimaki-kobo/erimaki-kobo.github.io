@@ -73,8 +73,27 @@ tc_only_top = {(n, t) for (k, m, n), ts in diff.items() if k == "type-checking o
 stale_top = {(n, i) for m, n, key, kind, a, b in D["stale"] if m == "" for i in range(a, b or len(R))}
 init = [text[want[t]["__init__.py"]] for t in tags]
 words = [set(re.findall(r"[A-Za-z_]\w*", s)) for s in init]
+# `from .features import *` in __init__.py (and stars inside those): the words of the starred modules count too
+def star_words(t, path, seen):
+    if path in seen or path not in want[t]:
+        return set()
+    seen.add(path)
+    src = text[want[t][path]]
+    pkg = path.rsplit("/", 1)[0] + "/" if "/" in path else ""
+    out = set()
+    for mod in re.findall(r"^\s*from \.([\w.]+) import \*", src, re.M):
+        base = pkg + mod.replace(".", "/")
+        for q in (base + ".py", base + "/__init__.py"):
+            if q in want[t]:
+                out |= set(re.findall(r"[A-Za-z_]\w*", text[want[t][q]])) | star_words(t, q, seen)
+    return out
+
+
+for i, t in enumerate(tags):
+    words[i] |= star_words(t, "__init__.py", set())
 files_at = [set(want[t]) for t in tags]
-is_sub = lambda n: any((n + ".py") in f or any(p.startswith(n + "/") for p in f) for f in files_at)
+# a submodule name (at the top, or one a star import of a package carries along)
+is_sub = lambda n: any(any(p == n + ".py" or p.endswith("/" + n + ".py") or p.startswith(n + "/") or ("/" + n + "/") in "/" + p for p in f) for f in files_at)
 n_inside = n_edges = 0
 for n, ri in D["names"][""].items():
     r = T[ri]
@@ -106,7 +125,7 @@ for t in tags:
             continue
         seen.add((sha, m))
         src = re.sub(r'("""|\'\'\')(.*?)\1', lambda q: "\n" * q.group(0).count("\n"), text[sha], flags=re.S)
-        found = {a or b for a, b in rx.findall(src)}
+        found = {a or b for a, b in rx.findall(src)} - set(__import__("keyword").kwlist)   # "try:  # Python >= 3.8" is not a definition
         miss = found - set(H["mods"][t][m])
         assert not miss, (t, p, sorted(miss)[:5])
         n_files += 1
@@ -135,6 +154,16 @@ A = {
         (span("", "AutoPeftModelForCausalLM"), [("0.4.0", None)]),
         (span("", "LoraConfig"), [("0.0.1", None)]),
         (span("", "BoneConfig")[-1][1], "0.19.0"),
+    ],
+    "datasets": lambda: [
+        (span("", "load_metric"), [("1.0.0", "3.0.0")]),                 # discuss.huggingface.co/t/.../107524 ("removed in datasets@3.0.0")
+        (span("", "list_datasets"), [("1.0.0", "3.0.0")]),
+        (span("", "set_caching_enabled"), [("1.3.0", "3.0.0")]),
+        (span("", "disable_caching"), [("2.0.0", None)]),
+        (span("", "load_dataset"), [("1.0.0", None)]),
+        (span("", "List"), [("4.0.0", None)]),
+        (span("arrow_writer", "SchemaInferenceError"), [("2.7.0", None)]),  # discuss.huggingface.co/t/trl-importation-error-on-kaggle/66817
+        (span("utils.py_utils", "asdict"), [("2.4.0", None)]),
     ],
     "trl": lambda: [
         (span("", "DataCollatorForCompletionOnlyLM"), [("0.5.0", "0.20.0")]),

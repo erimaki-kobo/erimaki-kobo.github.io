@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  var LIBS = ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  var LIBS = window.LOOKUP_LIBS || ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
   function $(id) { return document.getElementById(id); }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -12,8 +12,9 @@
     site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
     ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
     following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
-    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, peft: 1, trl: 1, accelerate: 1, transformers: 1};
-  var Q = "['\"`\u2018\u2019]?", LIBRX = "(peft|trl|accelerate)";
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
+  LIBS.forEach(function (l) { STOP[l] = 1; });
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.join("|") + ")", ALL = LIBS.join(", ");
 
   function split(dotted) {
     var i = dotted.indexOf(".");
@@ -207,9 +208,9 @@
     if (!hits.length) {
       var nn = [];
       LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
-      return row(code(name), "peft, trl, accelerate", "<span class=\"s n\">never there</span>",
-        "No release of peft, trl or accelerate has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
-        " If the error names another package (transformers, huggingface_hub, diffusers), see the links below the table.");
+      return row(code(name), ALL, "<span class=\"s n\">never there</span>",
+        "No release of " + ALL + " has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package, see the related pages at the bottom.");
     }
     hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
     return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +

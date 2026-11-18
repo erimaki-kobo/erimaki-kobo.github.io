@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cannot import name from 'datasets': the version that has it</title>
+<meta name="description" content="datasets 3.0.0 removed load_metric (use evaluate.load), list_datasets, Metric and set_caching_enabled; 2.21.0 is the last with them. Paste the error.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cannot import name from &#x27;datasets&#x27;: the version that has it">
+<meta property="og:description" content="datasets 3.0.0 removed load_metric (use evaluate.load), list_datasets, Metric and set_caching_enabled; 2.21.0 is the last with them. Paste the error.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/#article", "headline": "ImportError: cannot import name 'X' from 'datasets' (load_metric, list_datasets, ...): which releases have it", "description": "datasets 3.0.0 removed load_metric (use evaluate.load), list_datasets, Metric and set_caching_enabled; 2.21.0 is the last with them. Paste the error.", "url": "https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "inLanguage": "en", "about": ["Hugging Face Datasets", "ImportError", "load_metric"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/"}, {"@type": "WebApplication", "name": "datasets import name lookup", "url": "https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/#lookup", "description": "Paste an ImportError or an import statement and get the datasets releases in which that name can be imported from that module, the range to pin, and where the name lives now.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from datasets and its modules, by release", "url": "https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/datasets.json", "dateModified": "2026-11-18", "description": "For 60 releases of datasets (1.0.0 to 5.2.0): the names importable from every module as release ranges and the life of each module. Read from the source of each release tag.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/datasets.json"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I fix \"cannot import name 'load_metric' from 'datasets'\"?", "acceptedAnswer": {"@type": "Answer", "text": "datasets 3.0.0 (2024-09-11) removed load_metric; 2.21.0 is the last release with it. Install the Evaluate library and use evaluate.load: pip install evaluate, then import evaluate; metric = evaluate.load(\"accuracy\"). To keep old code unchanged, pin pip install \"datasets<3.0.0\"."}}, {"@type": "Question", "name": "What else did datasets 3.0.0 remove?", "acceptedAnswer": {"@type": "Answer", "text": "30 top-level names: load_metric, list_metrics, inspect_metric, Metric and MetricInfo (moved to Evaluate), list_datasets (use huggingface_hub.list_datasets), set_caching_enabled (use enable_caching or disable_caching), inspect_dataset, the task templates such as TextClassification, and a few modules. The full list is on this page."}}, {"@type": "Question", "name": "How do I fix \"cannot import name 'list_datasets' from 'datasets'\"?", "acceptedAnswer": {"@type": "Answer", "text": "Use huggingface_hub.list_datasets, which datasets 2.21.0 already pointed to. datasets 3.0.0 removed its own list_datasets."}}, {"@type": "Question", "name": "The error says \"cannot import name ... from 'datasets'\" and the path ends in a folder of my project. What is wrong?", "acceptedAnswer": {"@type": "Answer", "text": "A file or folder named datasets in your project (or an old datasets.py) is imported instead of the library. The path in parentheses shows which one; rename yours. The same holds for \"unknown location\", which means a datasets folder without __init__.py."}}, {"@type": "Question", "name": "Does this page cover names below the top level, like datasets.utils or datasets.arrow_writer?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: every module of datasets from 1.0.0 to 5.2.0, 4,933 module-and-name pairs in 189 modules."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "cannot import name from 'datasets': the version that has it", "item": "https://erimaki-kobo.github.io/en/datasets-import-name-version-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>ImportError: cannot import name 'X' from 'datasets' (load_metric, list_datasets, ...): which releases have it</h1>
+<p class="lede"><strong>Most of these errors come from datasets 3.0.0 (2024-09-11), which removed 30 top-level names; 2.21.0 is the last release that has them.</strong> <code>load_metric</code>, <code>list_metrics</code> and <code>Metric</code> moved to the Evaluate library (<code>evaluate.load</code>). <code>list_datasets</code> is now <code>huggingface_hub.list_datasets</code>. <code>set_caching_enabled</code> is now <code>enable_caching</code> or <code>disable_caching</code>. The task templates, such as <code>TextClassification</code>, were dropped with no replacement in datasets. To run old code unchanged, pin <code>pip install "datasets&lt;3.0.0"</code>. For any other name, in any module of datasets, paste the error below.</p>
+<p class="meta">Published 2026-11-18 &middot; Data as of 2026-11-18 &middot; datasets 1.0.0 to 5.2.0, the first release of each of 60 minor versions &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The error line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ImportError: cannot import name 'load_metric' from 'datasets' (/usr/lib/python3/site-packages/datasets/__init__.py)"></textarea>
+<div class="grid">
+<div><label for="v">Your datasets version (optional; <code>pip show datasets</code>)</label><input id="v" inputmode="decimal" placeholder="for example 3.0.1"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ImportError: cannot import name &#x27;load_metric&#x27; from &#x27;datasets&#x27; (/usr/local/lib/python3.10/site-packages/datasets/__init__.py)" data-v="3.0.1">load_metric</button><button type="button" data-ex="from datasets import list_datasets, set_caching_enabled" data-v="">list_datasets</button><button type="button" data-ex="from datasets.tasks import TextClassification" data-v="">task templates</button><button type="button" data-ex="ImportError: cannot import name &#x27;SchemaInferenceError&#x27; from &#x27;datasets.arrow_writer&#x27;" data-v="2.6.1">SchemaInferenceError</button><button type="button" data-ex="from datasets import List" data-v="3.6.0">List (4.0.0)</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="datasets.json">datasets.json</a> (133 KB); nothing you paste is sent anywhere. Covers 237 top-level names and 4,933 module-and-name pairs in 189 modules.</p>
+</div>
+
+<h2 id="v3">What did datasets 3.0.0 remove, and what replaces each name?</h2>
+<p><strong>These 30 names left <code>from datasets import ...</code> in 3.0.0; each replacement is quoted from the deprecation notes in 2.21.0.</strong></p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Removed in 3.0.0</th><th>Use instead</th></tr></thead>
+<tbody>
+<tr><td><code>AudioClassification</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>AutomaticSpeechRecognition</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>BeamBasedBuilder</code></td><td>none named</td></tr>
+<tr><td><code>ExpectedMoreDownloadedFiles</code></td><td>none named</td></tr>
+<tr><td><code>ExpectedMoreSplits</code></td><td>none named</td></tr>
+<tr><td><code>ImageClassification</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>LanguageModeling</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>Metric</code></td><td><code>evaluate (the object evaluate.load returns)</code></td></tr>
+<tr><td><code>MetricInfo</code></td><td><code>evaluate</code></td></tr>
+<tr><td><code>QuestionAnsweringExtractive</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>Summarization</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>TaskTemplate</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>TextClassification</code></td><td>none in datasets (task templates were dropped)</td></tr>
+<tr><td><code>UnexpectedDownloadedFile</code></td><td>none named</td></tr>
+<tr><td><code>UnexpectedSplits</code></td><td>none named</td></tr>
+<tr><td><code>_arrow_dataset</code></td><td>none named</td></tr>
+<tr><td><code>_deprecated_download_manager</code></td><td>none named</td></tr>
+<tr><td><code>_deprecated_info_utils</code></td><td>none named</td></tr>
+<tr><td><code>_utils</code></td><td>none named</td></tr>
+<tr><td><code>beam_utils</code></td><td>none named</td></tr>
+<tr><td><code>download_manager</code></td><td>none named</td></tr>
+<tr><td><code>inspect_dataset</code></td><td>none named</td></tr>
+<tr><td><code>inspect_metric</code></td><td><code>evaluate.inspect_evaluation_module</code></td></tr>
+<tr><td><code>list_datasets</code></td><td><code>huggingface_hub.list_datasets</code></td></tr>
+<tr><td><code>list_metrics</code></td><td><code>evaluate.list_evaluation_modules</code></td></tr>
+<tr><td><code>load_metric</code></td><td><code>evaluate.load</code></td></tr>
+<tr><td><code>metric</code></td><td>none named</td></tr>
+<tr><td><code>readme</code></td><td>none named</td></tr>
+<tr><td><code>set_caching_enabled</code></td><td><code>datasets.enable_caching / datasets.disable_caching</code></td></tr>
+<tr><td><code>tasks</code></td><td>none named</td></tr>
+</tbody></table></div>
+
+<h2 id="removed">What did each datasets release remove from <code>datasets</code> and <code>datasets.utils</code>?</h2>
+<p><strong>119 of the 237 names that <code>from datasets import</code> has ever accepted are gone from 5.2.0.</strong> Most of the rest left in 1.4.0 and 2.0.0, when the top level stopped passing along everything <code>datasets.utils</code> imported (names like <code>Optional</code> and <code>dill</code>). 36 of the 189 modules that have existed are gone as well; paste <code>No module named 'datasets...'</code> into the lookup for any of them.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Release</th><th>Date (PyPI)</th><th>Module</th><th>Names</th><th>Removed names</th></tr></thead>
+<tbody>
+<tr><td>4.5.0</td><td>2026-01-14</td><td><code>datasets</code></td><td>1</td><td><code>keyhash</code></td></tr>
+<tr><td>3.0.0</td><td>2024-09-11</td><td><code>datasets</code></td><td>30</td><td><code>AudioClassification</code>, <code>AutomaticSpeechRecognition</code>, <code>BeamBasedBuilder</code>, <code>ExpectedMoreDownloadedFiles</code>, <code>ExpectedMoreSplits</code>, <code>ImageClassification</code>, <code>LanguageModeling</code>, <code>Metric</code>, <code>MetricInfo</code>, <code>QuestionAnsweringExtractive</code>, <code>Summarization</code>, <code>TaskTemplate</code>, <code>TextClassification</code>, <code>UnexpectedDownloadedFile</code>, <code>UnexpectedSplits</code>, <code>_arrow_dataset</code>, <code>_deprecated_download_manager</code>, <code>_deprecated_info_utils</code>, <code>_utils</code>, <code>beam_utils</code>, <code>download_manager</code>, <code>inspect_dataset</code>, <code>inspect_metric</code>, <code>list_datasets</code>, <code>list_metrics</code>, <code>load_metric</code>, <code>metric</code>, <code>readme</code>, <code>set_caching_enabled</code>, <code>tasks</code></td></tr>
+<tr><td>3.0.0</td><td>2024-09-11</td><td><code>datasets.utils</code></td><td>3</td><td><code>beam_utils</code>, <code>download_manager</code>, <code>readme</code></td></tr>
+<tr><td>2.19.0</td><td>2024-04-19</td><td><code>datasets.utils</code></td><td>1</td><td><code>_datasets_server</code></td></tr>
+<tr><td>2.16.0</td><td>2023-12-22</td><td><code>datasets.utils</code></td><td>1</td><td><code>__all__</code></td></tr>
+<tr><td>2.14.0</td><td>2023-07-24</td><td><code>datasets</code></td><td>2</td><td><code>platform</code>, <code>pyarrow</code></td></tr>
+<tr><td>2.11.0</td><td>2023-03-29</td><td><code>datasets.utils</code></td><td>1</td><td><code>_hf_hub_fixes</code></td></tr>
+<tr><td>2.6.0</td><td>2022-10-13</td><td><code>datasets</code></td><td>1</td><td><code>SCRIPTS_VERSION</code></td></tr>
+<tr><td>2.3.0</td><td>2022-06-14</td><td><code>datasets.utils</code></td><td>5</td><td><code>DownloadConfig</code>, <code>DownloadManager</code>, <code>DownloadMode</code>, <code>mock_download_manager</code>, <code>streaming_download_manager</code></td></tr>
+<tr><td>2.0.0</td><td>2022-03-15</td><td><code>datasets</code></td><td>33</td><td><code>ArrowReader</code>, <code>ArrowWriter</code>, <code>GenerateMode</code>, <code>KeyHasher</code>, <code>MockDownloadManager</code>, <code>NonMutableDict</code>, <code>_version</code>, <code>cached_path</code>, <code>classproperty</code>, <code>copyfunc</code>, <code>dumps</code>, <code>first_non_null_value</code>, <code>flatten_nest_dict</code>, <code>has_sufficient_disk_space</code>, <code>hf_bucket_url</code>, <code>import_main_class</code>, <code>is_remote_url</code>, <code>map_nested</code>, <code>memoize</code>, <code>mock_download_manager</code>, <code>no_op_if_value_is_null</code>, <code>prepare_module</code>, <code>relative_to_absolute_path</code>, <code>set_progress_bar_enabled</code>, <code>size_str</code>, <code>streaming_download_manager</code>, <code>temp_seed</code>, <code>temporary_assignment</code>, <code>total_allocated_bytes</code>, <code>tqdm_utils</code>, <code>unique_values</code>, <code>zip_dict</code>, <code>zip_nested</code></td></tr>
+<tr><td>2.0.0</td><td>2022-03-15</td><td><code>datasets.utils</code></td><td>24</td><td><code>GenerateMode</code>, <code>MockDownloadManager</code>, <code>NonMutableDict</code>, <code>cached_path</code>, <code>classproperty</code>, <code>copyfunc</code>, <code>dumps</code>, <code>first_non_null_value</code>, <code>flatten_nest_dict</code>, <code>has_sufficient_disk_space</code>, <code>hf_bucket_url</code>, <code>is_remote_url</code>, <code>map_nested</code>, <code>memoize</code>, <code>no_op_if_value_is_null</code>, <code>relative_to_absolute_path</code>, <code>set_progress_bar_enabled</code>, <code>size_str</code>, <code>temp_seed</code>, <code>temporary_assignment</code>, <code>tqdm_utils</code>, <code>unique_values</code>, <code>zip_dict</code>, <code>zip_nested</code></td></tr>
+<tr><td>1.16.0</td><td>2021-11-26</td><td><code>datasets</code></td><td>1</td><td><code>hf_api</code></td></tr>
+<tr><td>1.14.0</td><td>2021-10-19</td><td><code>datasets</code></td><td>1</td><td><code>async_tqdm</code></td></tr>
+<tr><td>1.14.0</td><td>2021-10-19</td><td><code>datasets.utils</code></td><td>1</td><td><code>async_tqdm</code></td></tr>
+<tr><td>1.4.0</td><td>2021-03-03</td><td><code>datasets</code></td><td>42</td><td><code>Callable</code>, <code>ClassVar</code>, <code>CodeType</code>, <code>EmptyTqdm</code>, <code>Final</code>, <code>FunctionType</code>, <code>Generic</code>, <code>INFO</code>, <code>Literal</code>, <code>Optional</code>, <code>Pickler</code>, <code>Pool</code>, <code>RLock</code>, <code>StringIO</code>, <code>Tuple</code>, <code>Union</code>, <code>WARNING</code>, <code>abstractclassmethod</code>, <code>contextlib</code>, <code>datasets_dir</code>, <code>dill</code>, <code>disk_usage</code>, <code>dump</code>, <code>flatten_nested</code>, <code>functools</code>, <code>get_datasets_path</code>, <code>get_logger</code>, <code>get_verbosity</code>, <code>is_notebook</code>, <code>itertools</code>, <code>logger</code>, <code>memoized_property</code>, <code>np</code>, <code>os</code>, <code>pickle</code>, <code>pklregister</code>, <code>regex</code>, <code>save_function</code>, <code>set_verbosity_warning</code>, <code>sys</code>, <code>tqdm_lib</code>, <code>types</code></td></tr>
+<tr><td>1.4.0</td><td>2021-03-03</td><td><code>datasets.utils</code></td><td>42</td><td><code>Callable</code>, <code>ClassVar</code>, <code>CodeType</code>, <code>EmptyTqdm</code>, <code>Final</code>, <code>FunctionType</code>, <code>Generic</code>, <code>INFO</code>, <code>Literal</code>, <code>Optional</code>, <code>Pickler</code>, <code>Pool</code>, <code>RLock</code>, <code>StringIO</code>, <code>Tuple</code>, <code>Union</code>, <code>WARNING</code>, <code>abstractclassmethod</code>, <code>contextlib</code>, <code>datasets_dir</code>, <code>dill</code>, <code>disk_usage</code>, <code>dump</code>, <code>flatten_nested</code>, <code>functools</code>, <code>get_datasets_path</code>, <code>get_logger</code>, <code>get_verbosity</code>, <code>is_notebook</code>, <code>itertools</code>, <code>logger</code>, <code>memoized_property</code>, <code>np</code>, <code>os</code>, <code>pickle</code>, <code>pklregister</code>, <code>regex</code>, <code>save_function</code>, <code>set_verbosity_warning</code>, <code>sys</code>, <code>tqdm_lib</code>, <code>types</code></td></tr>
+<tr><td>1.3.0</td><td>2021-02-15</td><td><code>datasets</code></td><td>5</td><td><code>HF_DATASETS_CACHE</code>, <code>HF_METRICS_CACHE</code>, <code>is_beam_available</code>, <code>is_tf_available</code>, <code>is_torch_available</code></td></tr>
+<tr><td>1.3.0</td><td>2021-02-15</td><td><code>datasets.utils</code></td><td>5</td><td><code>HF_DATASETS_CACHE</code>, <code>HF_METRICS_CACHE</code>, <code>is_beam_available</code>, <code>is_tf_available</code>, <code>is_torch_available</code></td></tr>
+<tr><td>1.2.0</td><td>2021-01-04</td><td><code>datasets</code></td><td>2</td><td><code>datasets</code>, <code>metrics</code></td></tr>
+<tr><td>1.1.0</td><td>2020-10-02</td><td><code>datasets</code></td><td>1</td><td><code>SCRIPTS_VERIONS</code></td></tr>
+</tbody></table></div>
+
+<h2 id="read">How do I read the error?</h2>
+<ul>
+<li><strong>The path in parentheses</strong> is the copy of datasets that was imported. If it points into your project (a folder or a file named <code>datasets</code>), that shadows the library: rename yours. <code>(unknown location)</code> means a <code>datasets</code> folder without <code>__init__.py</code> was found first.</li>
+<li><strong>The module after "from"</strong> decides which table applies: <code>from 'datasets'</code> is the top level, <code>from 'datasets.arrow_writer'</code> is that module. When another library raises it (trl, for example, imports <code>SchemaInferenceError</code> from <code>datasets.arrow_writer</code>, which exists from 2.7.0), upgrade datasets, not that library.</li>
+<li>In a notebook, restart the kernel after <code>pip install -U datasets</code>; the old copy stays loaded until then.</li>
+</ul>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong> datasets imports eagerly, so a module's names are everything it binds at module level: classes, functions, assignments, imports, and what <code>from .x import *</code> brings in. Code under <code>if TYPE_CHECKING:</code> is skipped. Dates come from PyPI.</p>
+<p>Checks, by a second reading: (1) each of the 237 top-level names is found as plain text in <code>__init__.py</code> (or in the modules it star-imports) in every release of its range (7,032 name-and-release pairs), and is not imported there in the release on either side (178 edges). (2) A regular expression finds 23,287 definitions in 1,826 file versions; all are among the names read. (3) 8 known facts hold, among them the release named in the public reports under Sources.</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. "Has it" means the import statement resolves in the source.</li>
+<li>Only the first release of each minor version was read (and the newest). A change in a patch release is attributed to the next minor.</li>
+<li>A star import of a package carries along the submodules that package has loaded; the lookup counts all of its submodules, so for a few old releases it may list a submodule name at the top level that was not loaded yet.</li>
+<li>Errors that are not about import names, such as dataset loading scripts no longer being run, are not covered.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>How do I fix "cannot import name 'load_metric' from 'datasets'"?</h3>
+<p>datasets 3.0.0 (2024-09-11) removed load_metric; 2.21.0 is the last release with it. Install the Evaluate library and use evaluate.load: pip install evaluate, then import evaluate; metric = evaluate.load("accuracy"). To keep old code unchanged, pin pip install "datasets&lt;3.0.0".</p>
+<h3>What else did datasets 3.0.0 remove?</h3>
+<p>30 top-level names: load_metric, list_metrics, inspect_metric, Metric and MetricInfo (moved to Evaluate), list_datasets (use huggingface_hub.list_datasets), set_caching_enabled (use enable_caching or disable_caching), inspect_dataset, the task templates such as TextClassification, and a few modules. The full list is on this page.</p>
+<h3>How do I fix "cannot import name 'list_datasets' from 'datasets'"?</h3>
+<p>Use huggingface_hub.list_datasets, which datasets 2.21.0 already pointed to. datasets 3.0.0 removed its own list_datasets.</p>
+<h3>The error says "cannot import name ... from 'datasets'" and the path ends in a folder of my project. What is wrong?</h3>
+<p>A file or folder named datasets in your project (or an old datasets.py) is imported instead of the library. The path in parentheses shows which one; rename yours. The same holds for "unknown location", which means a datasets folder without __init__.py.</p>
+<h3>Does this page cover names below the top level, like datasets.utils or datasets.arrow_writer?</h3>
+<p>Yes: every module of datasets from 1.0.0 to 5.2.0, 4,933 module-and-name pairs in 189 modules.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>huggingface/datasets, release tags 1.0.0 to 5.2.0: every <code>.py</code> file under <a href="https://github.com/huggingface/datasets/blob/5.2.0/src/datasets/__init__.py">src/datasets</a>; release dates from <a href="https://pypi.org/project/datasets/#history">PyPI</a>.</li>
+<li>Notes quoted: <a href="https://github.com/huggingface/datasets/blob/2.21.0/src/datasets/load.py">load.py at 2.21.0</a> (load_metric), <a href="https://github.com/huggingface/datasets/blob/2.21.0/src/datasets/inspect.py">inspect.py at 2.21.0</a> (list_datasets, list_metrics, inspect_metric), <a href="https://github.com/huggingface/datasets/blob/2.21.0/src/datasets/fingerprint.py">fingerprint.py at 2.21.0</a> (set_caching_enabled).</li>
+<li>Reports: <a href="https://discuss.huggingface.co/t/cant-import-load-metric-from-datasets/107524">Can't import load_metric from datasets</a>, <a href="https://discuss.huggingface.co/t/trl-importation-error-on-kaggle/66817">SchemaInferenceError from datasets.arrow_writer, raised by trl</a>.</li>
+</ul>
+<p>The same data as JSON: <a href="datasets.json">datasets.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/transformers-import-name-version-lookup/">"cannot import name ... from 'transformers'"</a> &middot; <a href="/en/huggingface-hub-import-name-version-lookup/">"... from 'huggingface_hub'"</a> &middot; <a href="/en/peft-trl-accelerate-import-name-lookup/">"... from 'peft', 'trl' or 'accelerate'"</a> &middot; <a href="/en/diffusers-import-name-version-lookup/">"... from 'diffusers'"</a>.</p>
+</main>
+<script>window.LOOKUP_LIBS = ["datasets"]; window.PTA_HINTS = {"datasets::load_metric": "<code>import evaluate; evaluate.load(...)</code>. datasets 2.21.0 said: \"Use `evaluate.load` instead, from the new library Evaluate.\"", "datasets::list_metrics": "<code>evaluate.list_evaluation_modules()</code> (the datasets 2.21.0 note).", "datasets::inspect_metric": "<code>evaluate.inspect_evaluation_module(...)</code> (the datasets 2.21.0 note).", "datasets::Metric": "the Evaluate library (<code>evaluate.load</code> returns the metric object).", "datasets::list_datasets": "<code>from huggingface_hub import list_datasets</code>. datasets 2.21.0 said: \"Use 'huggingface_hub.list_datasets' instead.\"", "datasets::set_caching_enabled": "<code>datasets.enable_caching()</code> or <code>datasets.disable_caching()</code> (from 2.0.0), as the datasets 2.21.0 note says."};</script>
+<script>
+(function () {
+  "use strict";
+  var LIBS = window.LOOKUP_LIBS || ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  function code(s) { return "<code>" + esc(s) + "</code>"; }
+  var STOP = {from: 1, "import": 1, ImportError: 1, cannot: 1, name: 1, as: 1, unknown: 1, location: 1, py: 1, __init__: 1,
+    site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
+    ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
+    following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
+  LIBS.forEach(function (l) { STOP[l] = 1; });
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.join("|") + ")", ALL = LIBS.join(", ");
+
+  function split(dotted) {
+    var i = dotted.indexOf(".");
+    return i < 0 ? {lib: dotted, mod: ""} : {lib: dotted.slice(0, i), mod: dotted.slice(i + 1)};
+  }
+  function label(lib, m) { return m ? lib + "." + m : lib; }
+
+  function parse(text) {
+    var out = [], seen = {}, m, rest = text;
+    function add(name, dotted) {
+      var s = typeof dotted === "string" ? split(dotted) : dotted, k = s.lib + ":" + s.mod + ":" + name;
+      if (!seen[k] && (name === null || /^[A-Za-z_]\w*$/.test(name))) { seen[k] = 1; out.push({lib: s.lib, mod: s.mod, name: name}); }
+    }
+    var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(" + LIBRX + "(?:\\.\\w+)*)", "g");
+    while ((m = reErr.exec(text))) add(m[1], m[2]);
+    rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reAttr = new RegExp("module " + Q + "(" + LIBRX + "(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
+    while ((m = reAttr.exec(rest))) add(m[3], m[1]);
+    rest = rest.replace(reAttr, " ");
+    var reNoMod = new RegExp("(?:No module named|Failed to import)\\s+" + Q + "(" + LIBRX + "(?:\\.\\w+)+)", "g");
+    while ((m = reNoMod.exec(rest))) add(null, m[1]);
+    rest = rest.replace(reNoMod, " ");
+    var reImp = new RegExp("from\\s+(" + LIBRX + "(?:\\.\\w+)*)\\s+import\\s+(\\([^)]*\\)|[^\\n;]+)", "g");
+    while ((m = reImp.exec(rest))) {
+      var where = m[1];
+      m[3].replace(/#[^\n]*/g, " ").replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, where);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    var rePlain = new RegExp("(?:^|\\n|;)\\s*import\\s+(" + LIBRX + "\\.\\w+(?:\\.\\w+)*)", "g");
+    while ((m = rePlain.exec(rest))) add(null, m[1]);
+    rest = rest.replace(rePlain, " ");
+    if (!out.length) {
+      var dotted = rest.match(new RegExp(LIBRX + "(?:\\.\\w+)+", "g")) || [];
+      dotted.forEach(function (d) { add(null, d); });
+      if (!dotted.length) (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w]) add(w, {lib: "?", mod: ""}); });
+    }
+    return out.slice(0, 30);
+  }
+
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(D, v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(D.releases[i][0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairs(D, ri) {
+    var r = D.ranges[ri], out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function modEver(D, m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
+  function modPairs(D, m) { return m === "" ? [[0, 0]] : pairs(D, D.mods[m]); }
+  function rangeText(D, p) {
+    var a = D.releases[p[0]];
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
+    var b = D.releases[p[1]];
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  function pin(D, lib, p) {
+    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "";
+    if (!p[1]) return "<span class=\"pin\">Needs: <code>pip install \"" + lib + lo + "\"</code></span>";
+    return "<span class=\"pin\">Keep it: <code>pip install \"" + lib + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
+  }
+  // other modules of the library that had the name in release i
+  function alsoAt(D, lib, name, except, i) {
+    var out = [];
+    Object.keys(D.names).forEach(function (m) {
+      var ri = D.names[m][name];
+      if (m !== except && ri !== undefined && inRange(pairs(D, ri), i)) out.push(m);
+    });
+    out.sort(function (a, b) { return a.split(".").length - b.split(".").length || (a < b ? -1 : 1); });
+    return out.slice(0, 4).map(function (m) { return code(label(lib, m)); });
+  }
+  function whereNow(D, lib, name, except) {
+    var out = [], last = D.releases.length - 1;
+    if (except !== "" && D.names[""][name] !== undefined && inRange(pairs(D, D.names[""][name]), last))
+      out.push(code("from " + lib + " import " + name) + " (top level)");
+    var w = D.where.names[name];
+    if (w) {
+      if (w[0] < 0) out.push("defined in " + (-w[0]) + " modules of " + lib + " " + D.latest);
+      else {
+        var ms = w.map(function (i) { return D.where.modules[i]; }).filter(function (m) { return m !== except; });
+        if (ms.length) out.push("defined in " + ms.map(function (m) { return code(label(lib, m)); }).join(", ") + " in " + D.latest);
+      }
+    }
+    return out;
+  }
+  function dist(a, b) {
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, keys) {
+    var low = name.toLowerCase(), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (k === name) return;
+      if (kl === low) exact.push(k);
+      else if (low.length >= 6 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 8)) sub.push(k);
+      else if (low.length >= 6 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+  function mineText(has, lib, what) {
+    return "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+      (has ? " If the error still names " + what + ", another copy of " + lib + " is being imported: check <code>python -c \"import " + lib + "; print(" + lib + ".__version__, " + lib + ".__file__)\"</code>." : "");
+  }
+  function row(nameHtml, sub, status, cell) {
+    return "<tr><td>" + nameHtml + "<br><span class=\"note\">" + esc(sub) + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+  }
+  function movedModule(D, m) {
+    var leaf = m.split(".").pop(), last = D.releases.length - 1, out = [];
+    Object.keys(D.mods).forEach(function (k) { if (k !== m && k.split(".").pop() === leaf && inRange(pairs(D, D.mods[k]), last)) out.push(k); });
+    return out.slice(0, 4);
+  }
+
+  function answerModule(lib, m, mine) {
+    var D = DATA[lib], cell, status;
+    if (!modEver(D, m)) {
+      var mv = movedModule(D, m);
+      return row(code(label(lib, m)), "module", "<span class=\"s n\">never there</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has this module." +
+        (mv.length ? " Modules with the same last part in " + D.latest + ": " + mv.map(function (k) { return code(label(lib, k)); }).join(", ") + "." : ""));
+    }
+    var ps = modPairs(D, m), last = ps[ps.length - 1];
+    status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+    cell = "The module exists " + ps.map(function (p) { return rangeText(D, p); }).join("<br>") + ".<br>" + pin(D, lib, last);
+    if (last[1]) {
+      var mv2 = movedModule(D, m);
+      if (mv2.length) cell += "<br>Now: " + mv2.map(function (k) { return code(label(lib, k)); }).join(", ") + " (same file name, in " + D.latest + ").";
+    }
+    if (mine !== null) cell += mineText(inRange(ps, mine), lib, "the module");
+    return row(code(label(lib, m)), "module", status, cell);
+  }
+
+  function answerName(lib, m, name, mine) {
+    var D = DATA[lib];
+    if (!modEver(D, m)) {
+      var wn0 = whereNow(D, lib, name, null);
+      return row(code(name), label(lib, m), "<span class=\"s n\">no such module</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has a module " + code(label(lib, m)) + "." +
+        (wn0.length ? " " + code(name) + ": " + wn0.join("; ") + "." : ""));
+    }
+    var table = D.names[m] || {}, ri = table[name], cell, status;
+    if (ri === undefined) {
+      var nn = near(name, Object.keys(table)), wn = whereNow(D, lib, name, m), mp = modPairs(D, m), ml = mp[mp.length - 1];
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " lets you import this name from " + code(label(lib, m)) + "." +
+        (ml[1] ? " The module itself is gone since " + D.releases[ml[1]][0] + "." : "") +
+        (wn.length ? "<br>Now: " + wn.join("; ") + "." : "") +
+        (nn.length ? "<br>Close names in this module: " + nn.map(code).join(", ") + "." : "") +
+        (!wn.length && !nn.length ? " It may come from a fork, from the development branch, or from a release newer than " + D.latest + "." : "");
+    } else {
+      var ps = pairs(D, ri), last = ps[ps.length - 1];
+      status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+      cell = ps.map(function (p) { return rangeText(D, p); }).join("<br>") + "<br>" + pin(D, lib, last);
+      if (last[1]) {
+        var at = alsoAt(D, lib, name, m, last[1]), wn2 = whereNow(D, lib, name, m), h = HINTS[lib + ":" + m + ":" + name];
+        if (at.length) cell += "<br>In " + D.releases[last[1]][0] + ", the release that dropped it here, it was still importable from " + at.join(", ") + ".";
+        if (wn2.length) cell += "<br>Now: " + wn2.join("; ") + ".";
+        if (h) cell += "<br>Instead: " + h;
+      }
+      if (mine !== null) cell += mineText(inRange(ps, mine), lib, "it");
+    }
+    D.stale.forEach(function (s) {
+      if (s[0] === m && s[1] === name)
+        cell += "<br><span class=\"note\">From " + D.releases[s[4]][0] + (s[5] ? " through " + D.releases[s[5] - 1][2] : " on") +
+          " the lazy table still lists this name, but the entry points to " + code(s[2]) + ", " +
+          (s[3] === "nofile" ? "a file that is not there" : "which does not provide it") + ": the import fails.</span>";
+    });
+    return row(code(name), label(lib, m), status, cell);
+  }
+
+  function answerBare(name, mine) {
+    var hits = [];
+    LIBS.forEach(function (lib) {
+      var D = DATA[lib];
+      Object.keys(D.names).forEach(function (m) { if (D.names[m][name] !== undefined) hits.push([lib, m]); });
+    });
+    if (!hits.length) {
+      var nn = [];
+      LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
+      return row(code(name), ALL, "<span class=\"s n\">never there</span>",
+        "No release of " + ALL + " has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package, see the related pages at the bottom.");
+    }
+    hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
+    return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +
+      (hits.length > 6 ? row(code(name), "", "", (hits.length - 6) + " more modules have this name; paste the import line to pick one.") : "");
+  }
+
+  function load(lib) {
+    if (DATA[lib]) return Promise.resolve();
+    return fetch(lib + ".json").then(function (r) { if (!r.ok) throw new Error(lib + ".json " + r.status); return r.json(); })
+      .then(function (d) { DATA[lib] = d; });
+  }
+  function done() { $("res").setAttribute("data-done", String(++SEQ)); }
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), want = {};
+    $("status").textContent = "";
+    if (v && !/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.13.2."; done(); return; }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
+    qs.forEach(function (q) { if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; }); else want[q.lib] = 1; });
+    $("status").textContent = "Loading the names...";
+    Promise.all(Object.keys(want).map(load)).then(function () {
+      $("status").textContent = "";
+      var libsSeen = {};
+      $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+        qs.map(function (q) {
+          if (q.lib === "?") return answerBare(q.name, null);
+          var D = DATA[q.lib], mine = v ? indexOfVersion(D, v.replace(/^v/, "")) : null;
+          libsSeen[q.lib] = 1;
+          if (mine !== null && mine < 0) mine = null;
+          return q.name === null ? answerModule(q.lib, q.mod, mine) : answerName(q.lib, q.mod, q.name, mine);
+        }).join("") + "</tbody></table></div>" +
+        "<p class=\"note\">" + Object.keys(want).map(function (l) {
+          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest;
+        }).join("; ") + ". The first release of every minor version is read; patch releases in between are assumed to keep the names." +
+        (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
+      done();
+    }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });
+  }
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  window.PTA_READY = true;
+  var p = new URLSearchParams(location.search);
+  if (p.get("q")) { $("q").value = p.get("q"); $("v").value = p.get("v") || ""; run(); }
+})();
+</script>
+</body>
+</html>
