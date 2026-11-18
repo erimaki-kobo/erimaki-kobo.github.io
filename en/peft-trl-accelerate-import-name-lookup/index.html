@@ -204,7 +204,7 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
 
 <h2 id="how">How was this read, and how was it checked?</h2>
 <p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong> peft and accelerate import eagerly, so a module's names are everything it binds at module level (classes, functions, assignments, imports). trl replaces its packages with a lazy module from 0.8.0 on; for those, the names are the entries of the lazy table, each followed to the file it names. Code under <code>if TYPE_CHECKING:</code> is skipped. Dates and yanked releases come from PyPI.</p>
-<p>Checks, all by a second reading: (1) trl's lazy packages repeat their names as plain imports for type checkers; 214 of 231 package-and-release pairs match exactly, and the rest differ by 9 names that trl lists in only one of the two places (the lookup follows the table, which is what runs). (2) Each of the 369 top-level names is found as plain text in <code>__init__.py</code> of every release in its range (7,221 name-and-release pairs), and is not imported there in the release on either side (352 edges). (3) A regular expression finds 30,884 definitions in 4,557 file versions; all are among the names read. (4) 18 known facts hold, among them the releases in the public error reports under Sources.</p>
+<p>Checks, all by a second reading: (1) trl's lazy packages repeat their names as plain imports for type checkers; 214 of 231 package-and-release pairs match exactly, and the rest differ by 9 names that trl lists in only one of the two places (the lookup follows the table, which is what runs). (2) Each of the 369 top-level names is found as plain text in <code>__init__.py</code> of every release in its range (7,221 name-and-release pairs), and is not imported there in the release on either side (353 edges). (3) A regular expression finds 30,884 definitions in 4,557 file versions; all are among the names read. (4) 18 known facts hold, among them the releases in the public error reports under Sources.</p>
 
 <h2 id="limits">Limits</h2>
 <ul>
@@ -430,6 +430,17 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
       " this name is not defined here: the module forwards it to " + code(via) + " with a deprecation warning, so the import works only with " +
       code(PIP[top] || top.replace(/_/g, "-")) + " installed. Importing it from " + code(via) + " directly is the lasting fix.</span>";
   }
+  // names that import but raise when used (openai 1.x keeps the 0.x names as APIRemovedInV1 proxies)
+  function proxyPairs(D, m, name) {
+    var x = D.proxies && D.proxies[m] && D.proxies[m][name];
+    return x === undefined ? null : pairs(D, x);
+  }
+  function proxyNote(D, m, name) {
+    var ps = proxyPairs(D, m, name);
+    if (!ps) return "";
+    return "<br><span class=\"note\">From " + ps.map(function (p) { return D.releases[p[0]][0] + (p[1] ? " to " + D.releases[p[1] - 1][2] : " on"); }).join(", ") +
+      " the import succeeds but gives a placeholder: using it raises " + (window.LOOKUP_PROXY_MSG || "an error") + "</span>";
+  }
   function answerName(lib, m, name, mine) {
     var D = DATA[lib];
     if (!modEver(D, m)) {
@@ -463,8 +474,12 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
         if (sib.length) cell += "<br>Now in another package: " + sib.join("; ") + ".";
         if (h) cell += "<br>Instead: " + h;
       }
-      cell += deferredNote(D, m, name);
-      if (mine !== null) cell += mineText(inRange(ps, mine), lib, "it");
+      cell += deferredNote(D, m, name) + proxyNote(D, m, name);
+      var pp = proxyPairs(D, m, name);
+      if (pp && inRange(pp, D.releases.length - 1)) status = "<span class=\"s n\">placeholder</span>";
+      var hp = HINTS[lib + ":" + m + ":" + name];
+      if (pp && !last[1] && hp) cell += "<br>Instead: " + hp;
+      if (mine !== null) cell += pp && inRange(pp, mine) ? "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": has only the placeholder.</strong>" : mineText(inRange(ps, mine), lib, "it");
     }
     D.stale.forEach(function (s) {
       if (s[0] === m && s[1] === name)

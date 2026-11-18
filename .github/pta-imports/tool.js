@@ -192,6 +192,17 @@
       " this name is not defined here: the module forwards it to " + code(via) + " with a deprecation warning, so the import works only with " +
       code(PIP[top] || top.replace(/_/g, "-")) + " installed. Importing it from " + code(via) + " directly is the lasting fix.</span>";
   }
+  // names that import but raise when used (openai 1.x keeps the 0.x names as APIRemovedInV1 proxies)
+  function proxyPairs(D, m, name) {
+    var x = D.proxies && D.proxies[m] && D.proxies[m][name];
+    return x === undefined ? null : pairs(D, x);
+  }
+  function proxyNote(D, m, name) {
+    var ps = proxyPairs(D, m, name);
+    if (!ps) return "";
+    return "<br><span class=\"note\">From " + ps.map(function (p) { return D.releases[p[0]][0] + (p[1] ? " to " + D.releases[p[1] - 1][2] : " on"); }).join(", ") +
+      " the import succeeds but gives a placeholder: using it raises " + (window.LOOKUP_PROXY_MSG || "an error") + "</span>";
+  }
   function answerName(lib, m, name, mine) {
     var D = DATA[lib];
     if (!modEver(D, m)) {
@@ -225,8 +236,12 @@
         if (sib.length) cell += "<br>Now in another package: " + sib.join("; ") + ".";
         if (h) cell += "<br>Instead: " + h;
       }
-      cell += deferredNote(D, m, name);
-      if (mine !== null) cell += mineText(inRange(ps, mine), lib, "it");
+      cell += deferredNote(D, m, name) + proxyNote(D, m, name);
+      var pp = proxyPairs(D, m, name);
+      if (pp && inRange(pp, D.releases.length - 1)) status = "<span class=\"s n\">placeholder</span>";
+      var hp = HINTS[lib + ":" + m + ":" + name];
+      if (pp && !last[1] && hp) cell += "<br>Instead: " + hp;
+      if (mine !== null) cell += pp && inRange(pp, mine) ? "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": has only the placeholder.</strong>" : mineText(inRange(ps, mine), lib, "it");
     }
     D.stale.forEach(function (s) {
       if (s[0] === m && s[1] === name)

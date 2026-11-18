@@ -16,7 +16,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fetch
 LIB, REPO, PYPI, H, D, ROOT, CHK = sys.argv[1], sys.argv[2], json.load(open(sys.argv[3])), json.load(open(sys.argv[4])), json.load(open(sys.argv[5])), sys.argv[6], sys.argv[7]
 tags = H["tags"]
-want, text = fetch.load(REPO, tags, root=ROOT)   # tags come from names_hist.json, so --every-release carries over
+# ROOT may map versions to roots: "libs/langchain/langchain|1.=libs/langchain_v1/langchain"
+_default, _over = ROOT.split("|")[0], [x.split("=", 1) for x in ROOT.split("|")[1:]]
+def _root(t):
+    v = t.split("==")[-1].lstrip("v")
+    return next((r for pre, r in _over if v.startswith(pre)), _default)
+want, text = {}, {}
+for _r in sorted({_root(t) for t in tags}):
+    w, x = fetch.load(REPO, [t for t in tags if _root(t) == _r], root=_r)
+    want.update(w)
+    text.update(x)
 R, T = D["releases"], D["ranges"]
 checks = {}
 
@@ -81,8 +90,9 @@ def star_words(t, path, seen):
     src = text[want[t][path]]
     pkg = path.rsplit("/", 1)[0] + "/" if "/" in path else ""
     out = set()
-    for mod in re.findall(r"^\s*from \.([\w.]+) import \*", src, re.M):
-        base = pkg + mod.replace(".", "/")
+    PKGN = _default.rstrip("/").rsplit("/", 1)[-1]
+    for dot, mod in re.findall(r"^\s*from (\.|%s\.)([\w.]+) import \*" % PKGN, src, re.M):
+        base = (pkg if dot == "." else "") + mod.replace(".", "/")      # `from .x import *` or `from openai.x import *`
         for q in (base + ".py", base + "/__init__.py"):
             if q in want[t]:
                 out |= set(re.findall(r"[A-Za-z_]\w*", text[want[t][q]])) | star_words(t, q, seen)
@@ -108,7 +118,16 @@ for n, ri in D["names"][""].items():
             for l in init[i].splitlines():
                 if re.search(r"\b%s\b" % re.escape(n), l) and not l.lstrip().startswith("#"):
                     # a lazy module serves only its table: a name bound by an import at its head is not an attribute of it
-                    assert ('"' + n + '"' not in l) if lazy_i else ("import" not in l and '"' + n + '"' not in l), ("text has it", n, R[i][0], l)
+                    # the line must not bind the name: `import n`, `from x import n`, `... as n` (a `from n import y` line does not)
+                    imp = re.search(r"\bimport\b(.*)", l)
+                    bound = set()
+                    if imp:
+                        for part in re.sub(r"[()\\#].*$", "", imp.group(1)).split(","):
+                            w = part.split()
+                            if w:
+                                bound.add(w[-1] if len(w) >= 3 and w[-2] == "as" else w[0].split(".")[0])
+                    binds = n in bound
+                    assert ('"' + n + '"' not in l) if lazy_i else (not binds and '"' + n + '"' not in l), ("text has it", n, R[i][0], l)
             n_edges += 1
 print("2. top-level names:", len(D["names"][""]), "| name-release pairs found in the text:", n_inside, "| range edges checked:", n_edges)
 checks.update({"CHK_TOP": len(D["names"][""]), "CHK_TOP_PAIRS": n_inside, "CHK_TOP_EDGES": n_edges})
@@ -159,6 +178,49 @@ A = {
         (span("", "AutoPeftModelForCausalLM"), [("0.4.0", None)]),
         (span("", "LoraConfig"), [("0.0.1", None)]),
         (span("", "BoneConfig")[-1][1], "0.19.0"),
+    ],
+    "openai": lambda: [
+        (span("", "OpenAI"), [("1.0.0", None)]),                  # community.openai.com/t/.../486147 (fails on 0.27.4)
+        (span("", "AzureOpenAI"), [("1.0.0", None)]),             # community.openai.com/t/.../615606
+        (mspan("error"), [("0.2.6", "1.0.0")]),                    # "module 'openai' has no attribute 'error'" threads
+        (span("", "ChatCompletion"), [("0.27.0", "1.0.0"), ("1.2.0", None)]),
+        (span("", "InvalidRequestError"), [("0.2.6", "1.0.0")]),
+        (span("", "BadRequestError"), [("1.0.0", None)]),
+        (span("types.chat", "ChatCompletionMessageParam"), [("1.0.0", None)]),
+        (span("", "DefaultHttpxClient"), [("1.17.0", None)]),
+    ],
+    "langchain": lambda: [
+        (span("chains", "LLMChain"), [("0.1.0", "1.0.0")]),            # forum.langchain.com/t/.../2704: langchain.chains needs langchain-classic in v1
+        (span("chat_models", "ChatOpenAI"), [("0.1.0", "1.0.0")]),
+        (D["via"]["chat_models"]["ChatOpenAI"], "langchain_community.chat_models"),
+        (span("agents", "create_agent"), [("1.0.0", None)]),
+        (span("agents", "AgentExecutor"), [("0.1.0", "1.0.0")]),
+        (span("messages", "HumanMessage"), [("1.0.0", None)]),
+        (span("tools", "tool"), [("0.1.0", None)]),
+        (mspan("schema"), [("0.1.0", "1.0.0")]),
+    ],
+    "langchain_classic": lambda: [
+        (span("chains", "LLMChain"), [("1.0.0", None)]),
+        (span("agents", "AgentExecutor"), [("1.0.0", None)]),
+        (D["via"]["document_loaders"]["PyPDFLoader"], "langchain_community.document_loaders"),  # forum.langchain.com/t/.../2420
+        (span("memory", "ConversationBufferMemory"), [("1.0.0", None)]),
+    ],
+    "langchain_core": lambda: [
+        (span("messages", "HumanMessage"), [("0.1.47", None)]),
+        (span("messages", "content"), [("1.0.0", None)]),              # forum.langchain.com/t/.../1976: 'content' from langchain_core.messages
+        (mspan("memory"), [("0.1.47", "1.0.0")]),
+        (mspan("pydantic_v1"), [("0.1.47", "1.0.0")]),
+        (span("runnables", "RunnablePassthrough"), [("0.1.47", None)]),
+    ],
+    "sentence_transformers": lambda: [
+        (mspan("models"), [("0.1.0", None)]),                     # still importable after 5.4.0, through the deprecated-path finder
+        (span("models", "Transformer"), [("0.3.0", None)]),
+        (span("models", "BERT"), [("0.1.0", "2.0.0")]),
+        (span("util", "cached_download"), [("2.0.0", "2.3.0")]),   # simplified.guide: ST 2.2.2 imports cached_download
+        (span("util", "snapshot_download"), [("2.0.0", "5.1.0")]),
+        (span("", "SentenceTransformer"), [("0.1.0", None)]),
+        (span("", "SparseEncoder"), [("5.0.0", None)]),
+        (span("", "CrossEncoder"), [("0.4.0", None)]),
     ],
     "timm": lambda: [
         (mspan("layers"), [("0.9.0", None)]),                    # github.com/huggingface/pytorch-image-models/discussions/1772 (No module named 'timm.layers')

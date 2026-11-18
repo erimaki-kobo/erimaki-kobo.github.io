@@ -90,8 +90,9 @@ def star_words(t, path, seen):
     src = text[want[t][path]]
     pkg = path.rsplit("/", 1)[0] + "/" if "/" in path else ""
     out = set()
-    for mod in re.findall(r"^\s*from \.([\w.]+) import \*", src, re.M):
-        base = pkg + mod.replace(".", "/")
+    PKGN = _default.rstrip("/").rsplit("/", 1)[-1]
+    for dot, mod in re.findall(r"^\s*from (\.|%s\.)([\w.]+) import \*" % PKGN, src, re.M):
+        base = (pkg if dot == "." else "") + mod.replace(".", "/")      # `from .x import *` or `from openai.x import *`
         for q in (base + ".py", base + "/__init__.py"):
             if q in want[t]:
                 out |= set(re.findall(r"[A-Za-z_]\w*", text[want[t][q]])) | star_words(t, q, seen)
@@ -117,7 +118,16 @@ for n, ri in D["names"][""].items():
             for l in init[i].splitlines():
                 if re.search(r"\b%s\b" % re.escape(n), l) and not l.lstrip().startswith("#"):
                     # a lazy module serves only its table: a name bound by an import at its head is not an attribute of it
-                    assert ('"' + n + '"' not in l) if lazy_i else ("import" not in l and '"' + n + '"' not in l), ("text has it", n, R[i][0], l)
+                    # the line must not bind the name: `import n`, `from x import n`, `... as n` (a `from n import y` line does not)
+                    imp = re.search(r"\bimport\b(.*)", l)
+                    bound = set()
+                    if imp:
+                        for part in re.sub(r"[()\\#].*$", "", imp.group(1)).split(","):
+                            w = part.split()
+                            if w:
+                                bound.add(w[-1] if len(w) >= 3 and w[-2] == "as" else w[0].split(".")[0])
+                    binds = n in bound
+                    assert ('"' + n + '"' not in l) if lazy_i else (not binds and '"' + n + '"' not in l), ("text has it", n, R[i][0], l)
             n_edges += 1
 print("2. top-level names:", len(D["names"][""]), "| name-release pairs found in the text:", n_inside, "| range edges checked:", n_edges)
 checks.update({"CHK_TOP": len(D["names"][""]), "CHK_TOP_PAIRS": n_inside, "CHK_TOP_EDGES": n_edges})
@@ -168,6 +178,16 @@ A = {
         (span("", "AutoPeftModelForCausalLM"), [("0.4.0", None)]),
         (span("", "LoraConfig"), [("0.0.1", None)]),
         (span("", "BoneConfig")[-1][1], "0.19.0"),
+    ],
+    "openai": lambda: [
+        (span("", "OpenAI"), [("1.0.0", None)]),                  # community.openai.com/t/.../486147 (fails on 0.27.4)
+        (span("", "AzureOpenAI"), [("1.0.0", None)]),             # community.openai.com/t/.../615606
+        (mspan("error"), [("0.2.6", "1.0.0")]),                    # "module 'openai' has no attribute 'error'" threads
+        (span("", "ChatCompletion"), [("0.27.0", "1.0.0"), ("1.2.0", None)]),
+        (span("", "InvalidRequestError"), [("0.2.6", "1.0.0")]),
+        (span("", "BadRequestError"), [("1.0.0", None)]),
+        (span("types.chat", "ChatCompletionMessageParam"), [("1.0.0", None)]),
+        (span("", "DefaultHttpxClient"), [("1.17.0", None)]),
     ],
     "langchain": lambda: [
         (span("chains", "LLMChain"), [("0.1.0", "1.0.0")]),            # forum.langchain.com/t/.../2704: langchain.chains needs langchain-classic in v1
