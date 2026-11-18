@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="peft-trl-accelerate-import-name-lookup/">ImportError: cannot import name 'X' from 'peft', 'trl' or 'accelerate' (or their submodules): which releases have it</a></h2>
+<p>trl removed <code>DataCollatorForCompletionOnlyLM</code> in 0.20.0, <code>setup_chat_format</code> in 0.26.0 and 33 top-level names in 0.29.0 (<code>PPOTrainer</code>, <code>ORPOTrainer</code> ...; where each one went); peft removed <code>prepare_model_for_int8_training</code> in 0.10.0; <code>accelerate.utils</code> has <code>is_npu_available</code> from 0.21.0. Every module of the three libraries, 122 releases read from source: the range to pin and where a name lives now. Includes a lookup: paste the error or the import line.</p>
+<p class="meta">Published 2026-11-18</p>
+</article>
+<article class="card">
 <h2><a href="diffusers-import-name-version-lookup/">ImportError: cannot import name 'X' from 'diffusers' (or diffusers.utils, diffusers.models ...): which releases have it</a></h2>
 <p><code>FluxPipeline</code> needs diffusers 0.30.0; <code>randn_tensor</code> left <code>diffusers.utils</code> in 0.21.0; the ONNX pipelines left in 0.43.0 and the Flax classes in 0.40.0. Every name that every module of diffusers binds, from 0.0.2 to 0.43.0, read from the source of 43 releases: 798 top-level names, 1,380 modules, the range to pin and where a moved name lives now. Also lists 15 names that the lazy import tables advertise but cannot import. Includes a lookup: paste the error, <code>No module named 'diffusers...'</code>, or the import line.</p>
 <p class="meta">Published 2026-11-18</p>

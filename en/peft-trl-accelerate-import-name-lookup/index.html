@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cannot import name from peft, trl or accelerate: versions</title>
+<meta name="description" content="DataCollatorForCompletionOnlyLM left trl in 0.20.0, PPOTrainer in 0.29.0; prepare_model_for_int8_training left peft in 0.10.0. Paste the error for any name.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cannot import name from peft, trl or accelerate: versions">
+<meta property="og:description" content="DataCollatorForCompletionOnlyLM left trl in 0.20.0, PPOTrainer in 0.29.0; prepare_model_for_int8_training left peft in 0.10.0. Paste the error for any name.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/#article", "headline": "ImportError: cannot import name 'X' from 'peft', 'trl' or 'accelerate' (or their submodules): which releases h", "description": "DataCollatorForCompletionOnlyLM left trl in 0.20.0, PPOTrainer in 0.29.0; prepare_model_for_int8_training left peft in 0.10.0. Paste the error for any name.", "url": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "inLanguage": "en", "about": ["PEFT", "TRL", "Accelerate", "ImportError", "Hugging Face"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/"}, {"@type": "WebApplication", "name": "peft, trl and accelerate import name lookup", "url": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/#lookup", "description": "Paste an ImportError or an import statement and get the releases of peft, trl or accelerate in which that name can be imported from that module, the range to pin, and where the name lives now.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from peft, trl and accelerate, by release", "url": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/trl.json", "dateModified": "2026-11-18", "description": "For peft 0.0.1 to 0.21.3 (23 releases); trl 0.2.0 to 1.18.1 (48 releases); accelerate 0.1.0 to 1.16.0 (51 releases): the names importable from every module as release ranges, the life of each module, and the lazy-table entries that cannot resolve. Read from the source of each release tag.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/peft.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/trl.json"}, {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/accelerate.json"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I fix \"cannot import name 'DataCollatorForCompletionOnlyLM' from 'trl'\"?", "acceptedAnswer": {"@type": "Answer", "text": "trl 0.20.0 (2025-07-29) removed it; 0.19.1 is the last release with it. Either pin pip install \"trl<0.20.0\", or drop the collator and set SFTConfig(completion_only_loss=True), which is what trl 0.19.0 told you to use."}}, {"@type": "Question", "name": "Where did PPOTrainer, ORPOTrainer and the other trainers go in trl 0.29.0?", "acceptedAnswer": {"@type": "Answer", "text": "trl 0.29.0 (2026-02-25) removed 33 names from the top level. 30 of them were still importable from trl.experimental in 0.29.0, for example from trl.experimental.ppo import PPOTrainer; the full list is in the table on this page. Later releases removed some of the experimental modules as well, so the lookup also says whether each one is still there in 1.18.1."}}, {"@type": "Question", "name": "How do I fix \"cannot import name 'prepare_model_for_int8_training' from 'peft'\"?", "acceptedAnswer": {"@type": "Answer", "text": "Use prepare_model_for_kbit_training, which peft has had since 0.4.0. peft 0.10.0 (2024-03-21) removed the int8 name; 0.9.0 is the last release with it."}}, {"@type": "Question", "name": "I import from peft but the error says \"cannot import name 'is_npu_available' from 'accelerate.utils'\". Which package do I upgrade?", "acceptedAnswer": {"@type": "Answer", "text": "accelerate. The library in quotes after \"from\" is the one that lacks the name; the import that fails can sit inside another library. accelerate.utils has is_npu_available from 0.21.0 (2023-07-13), so pip install -U \"accelerate>=0.21.0\"."}}, {"@type": "Question", "name": "Does this page cover names below the top level, like trl.trainer.utils or accelerate.utils?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every module of the three libraries is covered: 14,806 module-and-name pairs in all, read from peft 0.0.1 to 0.21.3 (23 releases); trl 0.2.0 to 1.18.1 (48 releases); accelerate 0.1.0 to 1.16.0 (51 releases)."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "cannot import name from peft, trl or accelerate: versions", "item": "https://erimaki-kobo.github.io/en/peft-trl-accelerate-import-name-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>ImportError: cannot import name 'X' from 'peft', 'trl' or 'accelerate' (or their submodules): which releases have it</h1>
+<p class="lede"><strong>The library named after "from" is too old for the name, or too new because the name was removed.</strong> The common ones: trl removed <code>DataCollatorForCompletionOnlyLM</code> in 0.20.0 (use <code>SFTConfig(completion_only_loss=True)</code>), <code>setup_chat_format</code> in 0.26.0 (use <code>clone_chat_template</code>), and 33 top-level names in 0.29.0, <code>PPOTrainer</code> and <code>ORPOTrainer</code> among them, most of which were then importable from <code>trl.experimental</code>. peft removed <code>prepare_model_for_int8_training</code> in 0.10.0 (use <code>prepare_model_for_kbit_training</code>). <code>accelerate.utils</code> has <code>is_npu_available</code> only from 0.21.0, which is why an older accelerate breaks <code>import peft</code>. For any other name, in any module of the three libraries, paste the error below.</p>
+<p class="meta">Published 2026-11-18 &middot; Data as of 2026-11-18 &middot; peft 0.0.1 to 0.21.3 (23 releases); trl 0.2.0 to 1.18.1 (48 releases); accelerate 0.1.0 to 1.16.0 (51 releases), the first release of each minor version &middot; read from the source of each release tag, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The error line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ImportError: cannot import name 'DataCollatorForCompletionOnlyLM' from 'trl' (/usr/lib/python3/site-packages/trl/__init__.py)"></textarea>
+<div class="grid">
+<div><label for="v">Your version of that library (optional; <code>pip show trl</code>)</label><input id="v" inputmode="decimal" placeholder="for example 0.19.1"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ImportError: cannot import name &#x27;DataCollatorForCompletionOnlyLM&#x27; from &#x27;trl&#x27; (/usr/local/lib/python3.11/site-packages/trl/__init__.py)" data-v="0.20.0">DataCollatorForCompletionOnlyLM</button><button type="button" data-ex="from trl import PPOTrainer, PPOConfig, AutoModelForCausalLMWithValueHead" data-v="1.18.1">PPOTrainer</button><button type="button" data-ex="ImportError: cannot import name &#x27;prepare_model_for_int8_training&#x27; from &#x27;peft&#x27;" data-v="">prepare_model_for_int8_training</button><button type="button" data-ex="ImportError: cannot import name &#x27;is_npu_available&#x27; from &#x27;accelerate.utils&#x27;" data-v="0.20.3">is_npu_available</button><button type="button" data-ex="cannot import name &#x27;PartialState&#x27; from &#x27;accelerate&#x27;" data-v="">PartialState</button><button type="button" data-ex="from trl import setup_chat_format" data-v="">setup_chat_format</button><button type="button" data-ex="PPOv2Trainer" data-v="">a bare name</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="peft.json">peft.json</a>, <a href="trl.json">trl.json</a> and <a href="accelerate.json">accelerate.json</a> (398 KB in all, loaded as needed); nothing you paste is sent anywhere. Understands <code>cannot import name</code>, <code>No module named</code>, <code>module ... has no attribute</code>, <code>Failed to import</code> and plain import lines. Covers 14,806 module-and-name pairs.</p>
+</div>
+
+<h2 id="which">The import is inside another library. Which package do I change?</h2>
+<p><strong>The one in quotes after "from".</strong> <code>ImportError: cannot import name 'is_npu_available' from 'accelerate.utils'</code> raised while running <code>from peft import LoraConfig</code> means peft needs a newer accelerate, not that peft is broken: upgrade accelerate to 0.21.0 or later. <code>cannot import name 'PartialState' from 'accelerate'</code> raised from inside transformers means the same for accelerate 0.17.0. Pinning the other library down to match is the other way out, and the lookup gives the range for that too.</p>
+
+<h2 id="trl">What did each trl release remove from <code>from trl import ...</code>?</h2>
+<p><strong>85 of the 146 names that <code>from trl import</code> has ever accepted are gone from 1.18.1; this is every one, by the release that dropped it.</strong> To keep old code running, pin below that release, for example <code>pip install "trl&lt;0.20.0"</code> for <code>DataCollatorForCompletionOnlyLM</code>.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Release</th><th>Date (PyPI)</th><th>Module</th><th>Names</th><th>Removed names</th></tr></thead>
+<tbody>
+<tr><td>1.15.0</td><td>2026-10-08</td><td><code>trl</code></td><td>1</td><td><code>prepare_multimodal_messages_vllm</code></td></tr>
+<tr><td>1.14.0</td><td>2026-09-25</td><td><code>trl</code></td><td>1</td><td><code>losses</code></td></tr>
+<tr><td>1.11.0</td><td>2026-08-26</td><td><code>trl</code></td><td>1</td><td><code>skills</code></td></tr>
+<tr><td>1.8.0</td><td>2026-07-09</td><td><code>trl</code></td><td>1</td><td><code>get_kbit_device_map</code></td></tr>
+<tr><td>1.0.0</td><td>2026-03-30</td><td><code>trl</code></td><td>1</td><td><code>truncate_dataset</code></td></tr>
+<tr><td>0.29.0</td><td>2026-02-25</td><td><code>trl</code></td><td>33</td><td><code>AllTrueJudge</code>, <code>AutoModelForCausalLMWithValueHead</code>, <code>AutoModelForSeq2SeqLMWithValueHead</code>, <code>BCOConfig</code>, <code>BCOTrainer</code>, <code>BaseBinaryJudge</code>, <code>BaseJudge</code>, <code>BasePairwiseJudge</code>, <code>BaseRankJudge</code>, <code>CPOConfig</code>, <code>CPOTrainer</code>, <code>FDivergenceConstants</code>, <code>FDivergenceType</code>, <code>GKDConfig</code>, <code>GKDTrainer</code>, <code>HfPairwiseJudge</code>, <code>NashMDConfig</code>, <code>NashMDTrainer</code>, <code>ORPOConfig</code>, <code>ORPOTrainer</code>, <code>OnlineDPOConfig</code>, <code>OnlineDPOTrainer</code>, <code>OpenAIPairwiseJudge</code>, <code>PPOConfig</code>, <code>PPOTrainer</code>, <code>PRMConfig</code>, <code>PRMTrainer</code>, <code>PairRMJudge</code>, <code>PreTrainedModelWrapper</code>, <code>WinRateCallback</code>, <code>XPOConfig</code>, <code>XPOTrainer</code>, <code>mergekit_utils</code></td></tr>
+<tr><td>0.27.0</td><td>2026-01-16</td><td><code>trl</code></td><td>2</td><td><code>MergeModelCallback</code>, <code>SUPPORTED_ARCHITECTURES</code></td></tr>
+<tr><td>0.26.0</td><td>2025-12-09</td><td><code>trl</code></td><td>1</td><td><code>setup_chat_format</code></td></tr>
+<tr><td>0.25.0</td><td>2025-11-05</td><td><code>trl</code></td><td>2</td><td><code>BestOfNSampler</code>, <code>core</code></td></tr>
+<tr><td>0.24.0</td><td>2025-10-16</td><td><code>trl</code></td><td>10</td><td><code>AlignPropConfig</code>, <code>AlignPropTrainer</code>, <code>DDPOConfig</code>, <code>DDPOPipelineOutput</code>, <code>DDPOSchedulerOutput</code>, <code>DDPOStableDiffusionPipeline</code>, <code>DDPOTrainer</code>, <code>DefaultDDPOStableDiffusionPipeline</code>, <code>IterativeSFTConfig</code>, <code>IterativeSFTTrainer</code></td></tr>
+<tr><td>0.21.0</td><td>2025-08-05</td><td><code>trl</code></td><td>3</td><td><code>TextEnvironment</code>, <code>TextHistory</code>, <code>environment</code></td></tr>
+<tr><td>0.20.0</td><td>2025-07-29</td><td><code>trl</code></td><td>2</td><td><code>DataCollatorForCompletionOnlyLM</code>, <code>pack_examples</code></td></tr>
+<tr><td>0.17.0</td><td>2025-04-24</td><td><code>trl</code></td><td>7</td><td><code>is_deepspeed_available</code>, <code>is_diffusers_available</code>, <code>is_llm_blender_available</code>, <code>is_mergekit_available</code>, <code>is_rich_available</code>, <code>is_unsloth_available</code>, <code>is_vllm_available</code></td></tr>
+<tr><td>0.16.0</td><td>2025-03-22</td><td><code>trl</code></td><td>1</td><td><code>compute_token_accuracy</code></td></tr>
+<tr><td>0.14.0</td><td>2025-01-29</td><td><code>trl</code></td><td>1</td><td><code>set_seed</code></td></tr>
+<tr><td>0.13.0</td><td>2024-12-16</td><td><code>trl</code></td><td>9</td><td><code>DPOScriptArguments</code>, <code>PPOv2Config</code>, <code>PPOv2Trainer</code>, <code>RandomPairwiseJudge</code>, <code>RandomRankJudge</code>, <code>SFTScriptArguments</code>, <code>commands</code>, <code>env_utils</code>, <code>utils</code></td></tr>
+<tr><td>0.12.0</td><td>2024-11-01</td><td><code>trl</code></td><td>2</td><td><code>is_liger_kernel_available</code>, <code>is_llmblender_available</code></td></tr>
+<tr><td>0.11.0</td><td>2024-09-19</td><td><code>trl</code></td><td>7</td><td><code>is_bitsandbytes_available</code>, <code>is_npu_available</code>, <code>is_openai_available</code>, <code>is_peft_available</code>, <code>is_pil_available</code>, <code>is_wandb_available</code>, <code>is_xpu_available</code></td></tr>
+</tbody></table></div>
+
+<h2 id="experimental">trl 0.29.0: where did PPOTrainer, ORPOTrainer and the rest go?</h2>
+<p><strong>30 of the 33 names removed from the top level in 0.29.0 (2026-02-25) were importable from a module under <code>trl.experimental</code> in that release.</strong> trl 0.28.0 already pointed there: importing <code>PPOTrainer</code> from the old place warned that it "is now located in <code>trl.experimental</code>". Some experimental modules were removed later (<code>trl.experimental.ppo</code> is gone since 1.13.0); the lookup says which are still there in 1.18.1.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Removed from <code>trl</code> in 0.29.0</th><th>Importable in 0.29.0 from</th></tr></thead>
+<tbody>
+<tr><td><code>AllTrueJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code></td></tr>
+<tr><td><code>AutoModelForCausalLMWithValueHead</code></td><td><code>trl.experimental.ppo</code>, <code>trl.experimental.ppo.modeling_value_head</code></td></tr>
+<tr><td><code>AutoModelForSeq2SeqLMWithValueHead</code></td><td><code>trl.experimental.ppo</code>, <code>trl.experimental.ppo.modeling_value_head</code></td></tr>
+<tr><td><code>BCOConfig</code></td><td><code>trl.experimental.bco</code>, <code>trl.experimental.bco.bco_config</code>, <code>trl.experimental.bco.bco_trainer</code></td></tr>
+<tr><td><code>BCOTrainer</code></td><td><code>trl.experimental.bco</code>, <code>trl.experimental.bco.bco_trainer</code></td></tr>
+<tr><td><code>BaseBinaryJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code></td></tr>
+<tr><td><code>BaseJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code></td></tr>
+<tr><td><code>BasePairwiseJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code>, <code>trl.experimental.nash_md.nash_md_trainer</code>, <code>trl.experimental.online_dpo.online_dpo_trainer</code>, <code>trl.experimental.xpo.xpo_trainer</code></td></tr>
+<tr><td><code>BaseRankJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code></td></tr>
+<tr><td><code>CPOConfig</code></td><td><code>trl.experimental.cpo</code>, <code>trl.experimental.cpo.cpo_config</code>, <code>trl.experimental.cpo.cpo_trainer</code></td></tr>
+<tr><td><code>CPOTrainer</code></td><td><code>trl.experimental.cpo</code>, <code>trl.experimental.cpo.cpo_trainer</code></td></tr>
+<tr><td><code>FDivergenceConstants</code></td><td>not in trl.experimental</td></tr>
+<tr><td><code>FDivergenceType</code></td><td>not in trl.experimental</td></tr>
+<tr><td><code>GKDConfig</code></td><td><code>trl.experimental.gkd</code>, <code>trl.experimental.gkd.gkd_config</code>, <code>trl.experimental.gkd.gkd_trainer</code></td></tr>
+<tr><td><code>GKDTrainer</code></td><td><code>trl.experimental.gkd</code>, <code>trl.experimental.gkd.gkd_trainer</code></td></tr>
+<tr><td><code>HfPairwiseJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code></td></tr>
+<tr><td><code>NashMDConfig</code></td><td><code>trl.experimental.nash_md</code>, <code>trl.experimental.nash_md.nash_md_config</code>, <code>trl.experimental.nash_md.nash_md_trainer</code></td></tr>
+<tr><td><code>NashMDTrainer</code></td><td><code>trl.experimental.nash_md</code>, <code>trl.experimental.nash_md.nash_md_trainer</code></td></tr>
+<tr><td><code>ORPOConfig</code></td><td><code>trl.experimental.orpo</code>, <code>trl.experimental.orpo.orpo_config</code>, <code>trl.experimental.orpo.orpo_trainer</code></td></tr>
+<tr><td><code>ORPOTrainer</code></td><td><code>trl.experimental.orpo</code>, <code>trl.experimental.orpo.orpo_trainer</code></td></tr>
+<tr><td><code>OnlineDPOConfig</code></td><td><code>trl.experimental.online_dpo</code>, <code>trl.experimental.nash_md.nash_md_config</code>, <code>trl.experimental.online_dpo.online_dpo_config</code>, <code>trl.experimental.online_dpo.online_dpo_trainer</code>, <code>trl.experimental.xpo.xpo_config</code></td></tr>
+<tr><td><code>OnlineDPOTrainer</code></td><td><code>trl.experimental.online_dpo</code>, <code>trl.experimental.nash_md.nash_md_trainer</code>, <code>trl.experimental.online_dpo.online_dpo_trainer</code>, <code>trl.experimental.xpo.xpo_trainer</code></td></tr>
+<tr><td><code>OpenAIPairwiseJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code></td></tr>
+<tr><td><code>PPOConfig</code></td><td><code>trl.experimental.ppo</code>, <code>trl.experimental.ppo.ppo_config</code>, <code>trl.experimental.ppo.ppo_trainer</code></td></tr>
+<tr><td><code>PPOTrainer</code></td><td><code>trl.experimental.ppo</code>, <code>trl.experimental.ppo.ppo_trainer</code></td></tr>
+<tr><td><code>PRMConfig</code></td><td><code>trl.experimental.prm</code>, <code>trl.experimental.prm.prm_config</code>, <code>trl.experimental.prm.prm_trainer</code></td></tr>
+<tr><td><code>PRMTrainer</code></td><td><code>trl.experimental.prm</code>, <code>trl.experimental.prm.prm_trainer</code></td></tr>
+<tr><td><code>PairRMJudge</code></td><td><code>trl.experimental.judges</code>, <code>trl.experimental.judges.judges</code></td></tr>
+<tr><td><code>PreTrainedModelWrapper</code></td><td><code>trl.experimental.ppo</code>, <code>trl.experimental.ppo.modeling_value_head</code></td></tr>
+<tr><td><code>WinRateCallback</code></td><td><code>trl.experimental.winrate_callback</code></td></tr>
+<tr><td><code>XPOConfig</code></td><td><code>trl.experimental.xpo</code>, <code>trl.experimental.xpo.xpo_config</code>, <code>trl.experimental.xpo.xpo_trainer</code></td></tr>
+<tr><td><code>XPOTrainer</code></td><td><code>trl.experimental.xpo</code>, <code>trl.experimental.xpo.xpo_trainer</code></td></tr>
+<tr><td><code>mergekit_utils</code></td><td>not in trl.experimental</td></tr>
+</tbody></table></div>
+
+<h2 id="peft">What did peft remove?</h2>
+<p><strong>peft removes few names: 17 from <code>peft</code> and <code>peft.utils</code> in all.</strong> The one people hit is <code>prepare_model_for_int8_training</code>, gone in 0.10.0 (2024-03-21).</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Release</th><th>Date (PyPI)</th><th>Module</th><th>Names</th><th>Removed names</th></tr></thead>
+<tbody>
+<tr><td>0.19.0</td><td>2026-04-14</td><td><code>peft</code></td><td>2</td><td><code>BoneConfig</code>, <code>BoneModel</code></td></tr>
+<tr><td>0.19.0</td><td>2026-04-14</td><td><code>peft.utils</code></td><td>2</td><td><code>TRANSFORMERS_MODELS_TO_BONE_TARGET_MODULES_MAPPING</code>, <code>get_auto_gptq_quant_linear</code></td></tr>
+<tr><td>0.10.0</td><td>2024-03-21</td><td><code>peft</code></td><td>1</td><td><code>prepare_model_for_int8_training</code></td></tr>
+<tr><td>0.10.0</td><td>2024-03-21</td><td><code>peft.utils</code></td><td>1</td><td><code>prepare_model_for_int8_training</code></td></tr>
+<tr><td>0.8.0</td><td>2024-01-30</td><td><code>peft.utils</code></td><td>1</td><td><code>COMMON_LAYERS_PATTERN</code></td></tr>
+<tr><td>0.7.0</td><td>2023-12-06</td><td><code>peft.utils</code></td><td>2</td><td><code>hub_file_exists</code>, <code>hub_utils</code></td></tr>
+<tr><td>0.6.0</td><td>2023-11-03</td><td><code>peft.utils</code></td><td>1</td><td><code>add_library_to_model_card</code></td></tr>
+<tr><td>0.5.0</td><td>2023-08-22</td><td><code>peft.utils</code></td><td>4</td><td><code>CLAMP_QUANTILE</code>, <code>PeftConfig</code>, <code>PromptLearningConfig</code>, <code>config</code></td></tr>
+<tr><td>0.3.0</td><td>2023-05-03</td><td><code>peft.utils</code></td><td>1</td><td><code>adapters_utils</code></td></tr>
+<tr><td>0.1.0</td><td>2023-02-10</td><td><code>peft</code></td><td>1</td><td><code>peft_model_load_and_dispatch</code></td></tr>
+<tr><td>0.1.0</td><td>2023-02-10</td><td><code>peft.utils</code></td><td>1</td><td><code>peft_model_load_and_dispatch</code></td></tr>
+</tbody></table></div>
+
+<h2 id="accelerate">What did accelerate remove from <code>accelerate</code> and <code>accelerate.utils</code>?</h2>
+<p><strong>57 names, most of them in 0.8.0, when <code>accelerate.utils</code> became a package and stopped re-exporting what it imported.</strong> The ones that still turn up in errors: <code>is_safetensors_available</code> (gone in 0.25.0) and <code>is_tpu_available</code> (gone from <code>accelerate.utils</code> in 0.28.0; use <code>is_torch_xla_available</code>).</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Release</th><th>Date (PyPI)</th><th>Module</th><th>Names</th><th>Removed names</th></tr></thead>
+<tbody>
+<tr><td>1.16.0</td><td>2026-11-16</td><td><code>accelerate</code></td><td>2</td><td><code>inference</code>, <code>prepare_pippy</code></td></tr>
+<tr><td>1.16.0</td><td>2026-11-16</td><td><code>accelerate.utils</code></td><td>7</td><td><code>FP8RecipeKwargs</code>, <code>MITA_PROFILING_AVAILABLE_PYTORCH_VERSION</code>, <code>MSAMPRecipeKwargs</code>, <code>XPU_PROFILING_AVAILABLE_PYTORCH_VERSION</code>, <code>is_msamp_available</code>, <code>is_pippy_available</code>, <code>is_weights_only_available</code></td></tr>
+<tr><td>1.13.0</td><td>2026-03-04</td><td><code>accelerate.utils</code></td><td>3</td><td><code>get_ccl_version</code>, <code>is_ccl_available</code>, <code>is_ipex_available</code></td></tr>
+<tr><td>1.5.0</td><td>2025-03-12</td><td><code>accelerate.utils</code></td><td>1</td><td><code>check_fp8_capability</code></td></tr>
+<tr><td>1.0.0</td><td>2024-10-07</td><td><code>accelerate.utils</code></td><td>1</td><td><code>shard_checkpoint</code></td></tr>
+<tr><td>0.31.0</td><td>2024-06-07</td><td><code>accelerate.utils</code></td><td>1</td><td><code>megatron_lm_prepare_model</code></td></tr>
+<tr><td>0.28.0</td><td>2024-03-12</td><td><code>accelerate.utils</code></td><td>1</td><td><code>is_tpu_available</code></td></tr>
+<tr><td>0.25.0</td><td>2023-12-01</td><td><code>accelerate.utils</code></td><td>1</td><td><code>is_safetensors_available</code></td></tr>
+<tr><td>0.21.0</td><td>2023-07-13</td><td><code>accelerate.utils</code></td><td>1</td><td><code>get_launch_prefix</code></td></tr>
+<tr><td>0.20.0</td><td>2023-06-07</td><td><code>accelerate.utils</code></td><td>1</td><td><code>IntelPyTorchExtensionPlugin</code></td></tr>
+<tr><td>0.19.0</td><td>2023-05-08</td><td><code>accelerate.utils</code></td><td>1</td><td><code>is_apex_available</code></td></tr>
+<tr><td>0.10.0</td><td>2022-06-15</td><td><code>accelerate.utils</code></td><td>1</td><td><code>is_tensorflow_available</code></td></tr>
+<tr><td>0.8.0</td><td>2022-05-12</td><td><code>accelerate</code></td><td>2</td><td><code>deepspeed_utils</code>, <code>kwargs_handlers</code></td></tr>
+<tr><td>0.8.0</td><td>2022-05-12</td><td><code>accelerate.utils</code></td><td>34</td><td><code>AcceleratorState</code>, <code>Any</code>, <code>BaseEnum</code>, <code>Callable</code>, <code>ConvertOutputsToFp32</code>, <code>DeepSpeedEngine</code>, <code>Enum</code>, <code>EnumMeta</code>, <code>EnumWithContains</code>, <code>Iterable</code>, <code>List</code>, <code>Mapping</code>, <code>Optional</code>, <code>ReduceOp</code>, <code>Union</code>, <code>_cpu_gather</code>, <code>_cpu_gather_object</code>, <code>_gpu_broadcast</code>, <code>_gpu_gather</code>, <code>_gpu_gather_object</code>, <code>_tpu_broadcast</code>, <code>_tpu_gather</code>, <code>contextmanager</code>, <code>dataclass</code>, <code>field</code>, <code>functools</code>, <code>importlib</code>, <code>np</code>, <code>os</code>, <code>torch</code>, <code>typing</code>, <code>update_wrapper</code>, <code>version</code>, <code>xm</code></td></tr>
+</tbody></table></div>
+
+<h2 id="stale">Which trl names are listed but cannot be imported?</h2>
+<p><strong>11 entries of trl's lazy import tables point at a file that is not there or that lacks the name.</strong> The name shows up in <code>dir(trl)</code> and in autocompletion, but importing it fails. For example, <code>trl.trainer</code> in 0.13.0 still lists <code>PPOv2Trainer</code>, but the file behind it was already gone.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Import</th><th>Fails in</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td><code>from trl import DpoArgumentParser</code></td><td>0.8.0 to 0.8.6</td><td>the entry points to <code>commands.utils</code>, a file that is not there</td></tr>
+<tr><td><code>from trl import MultitaskPromptEmbedding</code></td><td>0.8.0 to 0.11.4</td><td>the entry points to <code>multitask_prompt_tuning</code>, a file that is not there</td></tr>
+<tr><td><code>from trl import MultitaskPromptTuningConfig</code></td><td>0.8.0 to 0.11.4</td><td>the entry points to <code>multitask_prompt_tuning</code>, a file that is not there</td></tr>
+<tr><td><code>from trl import MultitaskPromptTuningInit</code></td><td>0.8.0 to 0.11.4</td><td>the entry points to <code>multitask_prompt_tuning</code>, a file that is not there</td></tr>
+<tr><td><code>from trl import SftArgumentParser</code></td><td>0.8.0 to 0.8.6</td><td>the entry points to <code>commands.utils</code>, a file that is not there</td></tr>
+<tr><td><code>from trl import TrlParser</code></td><td>0.8.0 to 0.8.6</td><td>the entry points to <code>commands.utils</code>, a file that is not there</td></tr>
+<tr><td><code>from trl import init_zero_verbose</code></td><td>0.8.0 to 0.8.6</td><td>the entry points to <code>commands.utils</code>, a file that is not there</td></tr>
+<tr><td><code>from trl.commands import SftArgumentParser</code></td><td>0.8.0 to 0.8.6</td><td>the entry points to <code>cli_utils</code>, which does not define the name</td></tr>
+<tr><td><code>from trl.commands import YamlConfigParser</code></td><td>0.8.0 to 0.8.6</td><td>the entry points to <code>config_parser</code>, a file that is not there</td></tr>
+<tr><td><code>from trl.trainer import PPOv2Config</code></td><td>0.13.0 to 0.13.0</td><td>the entry points to <code>ppov2_config</code>, a file that is not there</td></tr>
+<tr><td><code>from trl.trainer import PPOv2Trainer</code></td><td>0.13.0 to 0.13.0</td><td>the entry points to <code>ppov2_trainer</code>, a file that is not there</td></tr>
+</tbody></table></div>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the source of each release tag, with Python's <code>ast</code> module; no release was installed or imported.</strong> peft and accelerate import eagerly, so a module's names are everything it binds at module level (classes, functions, assignments, imports). trl replaces its packages with a lazy module from 0.8.0 on; for those, the names are the entries of the lazy table, each followed to the file it names. Code under <code>if TYPE_CHECKING:</code> is skipped. Dates and yanked releases come from PyPI.</p>
+<p>Checks, all by a second reading: (1) trl's lazy packages repeat their names as plain imports for type checkers; 214 of 231 package-and-release pairs match exactly, and the rest differ by 9 names that trl lists in only one of the two places (the lookup follows the table, which is what runs). (2) Each of the 369 top-level names is found as plain text in <code>__init__.py</code> of every release in its range (7,221 name-and-release pairs), and is not imported there in the release on either side (353 edges). (3) A regular expression finds 30,884 definitions in 4,557 file versions; all are among the names read. (4) 18 known facts hold, among them the releases in the public error reports under Sources.</p>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. "Has it" means the import statement resolves in the source, with the optional packages installed.</li>
+<li>Only the first release of each minor version was read (and the newest release). A change made in a patch release is attributed to the next minor. Releases on PyPI without a git tag were skipped: trl 0.9.2, so trl's 0.9 line is read at 0.9.3.</li>
+<li>The import can still fail for another reason: the file that defines the name imports something your transformers does not have. That shows up as a second <code>cannot import name ... from 'transformers'</code>; see the related page below.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>How do I fix "cannot import name 'DataCollatorForCompletionOnlyLM' from 'trl'"?</h3>
+<p>trl 0.20.0 (2025-07-29) removed it; 0.19.1 is the last release with it. Either pin pip install "trl&lt;0.20.0", or drop the collator and set SFTConfig(completion_only_loss=True), which is what trl 0.19.0 told you to use.</p>
+<h3>Where did PPOTrainer, ORPOTrainer and the other trainers go in trl 0.29.0?</h3>
+<p>trl 0.29.0 (2026-02-25) removed 33 names from the top level. 30 of them were still importable from trl.experimental in 0.29.0, for example from trl.experimental.ppo import PPOTrainer; the full list is in the table on this page. Later releases removed some of the experimental modules as well, so the lookup also says whether each one is still there in 1.18.1.</p>
+<h3>How do I fix "cannot import name 'prepare_model_for_int8_training' from 'peft'"?</h3>
+<p>Use prepare_model_for_kbit_training, which peft has had since 0.4.0. peft 0.10.0 (2024-03-21) removed the int8 name; 0.9.0 is the last release with it.</p>
+<h3>I import from peft but the error says "cannot import name 'is_npu_available' from 'accelerate.utils'". Which package do I upgrade?</h3>
+<p>accelerate. The library in quotes after "from" is the one that lacks the name; the import that fails can sit inside another library. accelerate.utils has is_npu_available from 0.21.0 (2023-07-13), so pip install -U "accelerate&gt;=0.21.0".</p>
+<h3>Does this page cover names below the top level, like trl.trainer.utils or accelerate.utils?</h3>
+<p>Yes. Every module of the three libraries is covered: 14,806 module-and-name pairs in all, read from peft 0.0.1 to 0.21.3 (23 releases); trl 0.2.0 to 1.18.1 (48 releases); accelerate 0.1.0 to 1.16.0 (51 releases).</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Release tags of <a href="https://github.com/huggingface/peft">huggingface/peft</a> (src/peft), <a href="https://github.com/huggingface/trl">huggingface/trl</a> (trl/) and <a href="https://github.com/huggingface/accelerate">huggingface/accelerate</a> (src/accelerate); release dates from PyPI.</li>
+<li>Messages quoted: <a href="https://github.com/huggingface/peft/blob/v0.9.0/src/peft/utils/other.py">peft utils/other.py at 0.9.0</a>, <a href="https://github.com/huggingface/trl/blob/v0.19.0/trl/trainer/utils.py">trl trainer/utils.py at 0.19.0</a>, <a href="https://github.com/huggingface/trl/blob/v0.25.0/trl/models/utils.py">trl models/utils.py at 0.25.0</a>, <a href="https://github.com/huggingface/trl/blob/v0.28.0/trl/trainer/ppo_trainer.py">trl trainer/ppo_trainer.py at 0.28.0</a>, <a href="https://github.com/huggingface/trl/blob/v0.12.0/trl/commands/cli_utils.py">trl commands/cli_utils.py at 0.12.0</a>, <a href="https://github.com/huggingface/accelerate/blob/v0.28.0/src/accelerate/utils/imports.py">accelerate utils/imports.py at 0.28.0</a>.</li>
+<li>Reports of the errors this page answers: <a href="https://discuss.huggingface.co/t/getting-cannot-import-name-is-npu-available-from-accelerate-utils/51177">is_npu_available from accelerate.utils (raised by peft)</a>, <a href="https://discuss.huggingface.co/t/is-safetensors-available-function-can-not-be-imported-from-accelarate-utils/76621">is_safetensors_available from accelerate.utils</a>, <a href="https://discuss.huggingface.co/t/facing-issue-in-importing-pipelines-from-transformers/44605">PartialState from accelerate (raised by transformers)</a>.</li>
+</ul>
+<p>The same data as JSON: <a href="peft.json">peft.json</a>, <a href="trl.json">trl.json</a>, <a href="accelerate.json">accelerate.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/transformers-import-name-version-lookup/">"cannot import name ... from 'transformers'"</a> &middot; <a href="/en/huggingface-hub-import-name-version-lookup/">"cannot import name ... from 'huggingface_hub'"</a> &middot; <a href="/en/diffusers-import-name-version-lookup/">"cannot import name ... from 'diffusers'"</a> &middot; <a href="/en/peft-trl-args-version-lookup/">"got an unexpected keyword argument": PEFT, TRL and TrainingArguments</a>.</p>
+</main>
+<script>window.PTA_HINTS = {"peft::prepare_model_for_int8_training": "<code>prepare_model_for_kbit_training</code> (from 0.4.0). peft 0.9.0 warned: \"Use prepare_model_for_kbit_training instead.\"", "peft:utils:prepare_model_for_int8_training": "<code>from peft import prepare_model_for_kbit_training</code> (from 0.4.0).", "trl::DataCollatorForCompletionOnlyLM": "<code>SFTConfig(completion_only_loss=True)</code>. trl 0.19.0 warned: \"To train on completion only, please use the parameter `completion_only_loss` of `SFTConfig` instead.\"", "trl:trainer:DataCollatorForCompletionOnlyLM": "<code>SFTConfig(completion_only_loss=True)</code> (see the top-level entry).", "trl::setup_chat_format": "<code>clone_chat_template</code> (from 0.19.0). trl 0.25.0 said: \"This function is deprecated and will be removed in version 0.26.0. Please use clone_chat_template instead.\"", "trl::SFTScriptArguments": "<code>from trl import ScriptArguments</code> (from 0.12.0). trl 0.12.0 warned: \"Please use `ScriptArguments` instead.\"", "trl::DPOScriptArguments": "<code>from trl import ScriptArguments</code> (from 0.12.0).", "accelerate:utils:is_tpu_available": "<code>from accelerate.utils import is_torch_xla_available</code> (from 0.28.0). accelerate 0.28.0 warned: \"Please use the `is_torch_xla_available` instead.\"", "accelerate:utils:is_safetensors_available": "nothing: from 0.25.0 accelerate requires safetensors, so the check is gone. If the import is in your code, delete it and treat the answer as True."};</script>
+<script>
+(function () {
+  "use strict";
+  var LIBS = ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  function code(s) { return "<code>" + esc(s) + "</code>"; }
+  var STOP = {from: 1, "import": 1, ImportError: 1, cannot: 1, name: 1, as: 1, unknown: 1, location: 1, py: 1, __init__: 1,
+    site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
+    ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
+    following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, peft: 1, trl: 1, accelerate: 1, transformers: 1};
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(peft|trl|accelerate)";
+
+  function split(dotted) {
+    var i = dotted.indexOf(".");
+    return i < 0 ? {lib: dotted, mod: ""} : {lib: dotted.slice(0, i), mod: dotted.slice(i + 1)};
+  }
+  function label(lib, m) { return m ? lib + "." + m : lib; }
+
+  function parse(text) {
+    var out = [], seen = {}, m, rest = text;
+    function add(name, dotted) {
+      var s = typeof dotted === "string" ? split(dotted) : dotted, k = s.lib + ":" + s.mod + ":" + name;
+      if (!seen[k] && (name === null || /^[A-Za-z_]\w*$/.test(name))) { seen[k] = 1; out.push({lib: s.lib, mod: s.mod, name: name}); }
+    }
+    var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(" + LIBRX + "(?:\\.\\w+)*)", "g");
+    while ((m = reErr.exec(text))) add(m[1], m[2]);
+    rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reAttr = new RegExp("module " + Q + "(" + LIBRX + "(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
+    while ((m = reAttr.exec(rest))) add(m[3], m[1]);
+    rest = rest.replace(reAttr, " ");
+    var reNoMod = new RegExp("(?:No module named|Failed to import)\\s+" + Q + "(" + LIBRX + "(?:\\.\\w+)+)", "g");
+    while ((m = reNoMod.exec(rest))) add(null, m[1]);
+    rest = rest.replace(reNoMod, " ");
+    var reImp = new RegExp("from\\s+(" + LIBRX + "(?:\\.\\w+)*)\\s+import\\s+(\\([^)]*\\)|[^\\n;]+)", "g");
+    while ((m = reImp.exec(rest))) {
+      var where = m[1];
+      m[3].replace(/#[^\n]*/g, " ").replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, where);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    var rePlain = new RegExp("(?:^|\\n|;)\\s*import\\s+(" + LIBRX + "\\.\\w+(?:\\.\\w+)*)", "g");
+    while ((m = rePlain.exec(rest))) add(null, m[1]);
+    rest = rest.replace(rePlain, " ");
+    if (!out.length) {
+      var dotted = rest.match(new RegExp(LIBRX + "(?:\\.\\w+)+", "g")) || [];
+      dotted.forEach(function (d) { add(null, d); });
+      if (!dotted.length) (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w]) add(w, {lib: "?", mod: ""}); });
+    }
+    return out.slice(0, 30);
+  }
+
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(D, v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(D.releases[i][0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairs(D, ri) {
+    var r = D.ranges[ri], out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function modEver(D, m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
+  function modPairs(D, m) { return m === "" ? [[0, 0]] : pairs(D, D.mods[m]); }
+  function rangeText(D, p) {
+    var a = D.releases[p[0]];
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong> (" + a[1] + ") and still in " + D.latest;
+    var b = D.releases[p[1]];
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  function pin(D, lib, p) {
+    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "";
+    if (!p[1]) return "<span class=\"pin\">Needs: <code>pip install \"" + lib + lo + "\"</code></span>";
+    return "<span class=\"pin\">Keep it: <code>pip install \"" + lib + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
+  }
+  // other modules of the library that had the name in release i
+  function alsoAt(D, lib, name, except, i) {
+    var out = [];
+    Object.keys(D.names).forEach(function (m) {
+      var ri = D.names[m][name];
+      if (m !== except && ri !== undefined && inRange(pairs(D, ri), i)) out.push(m);
+    });
+    out.sort(function (a, b) { return a.split(".").length - b.split(".").length || (a < b ? -1 : 1); });
+    return out.slice(0, 4).map(function (m) { return code(label(lib, m)); });
+  }
+  function whereNow(D, lib, name, except) {
+    var out = [], last = D.releases.length - 1;
+    if (except !== "" && D.names[""][name] !== undefined && inRange(pairs(D, D.names[""][name]), last))
+      out.push(code("from " + lib + " import " + name) + " (top level)");
+    var w = D.where.names[name];
+    if (w) {
+      if (w[0] < 0) out.push("defined in " + (-w[0]) + " modules of " + lib + " " + D.latest);
+      else {
+        var ms = w.map(function (i) { return D.where.modules[i]; }).filter(function (m) { return m !== except; });
+        if (ms.length) out.push("defined in " + ms.map(function (m) { return code(label(lib, m)); }).join(", ") + " in " + D.latest);
+      }
+    }
+    return out;
+  }
+  function dist(a, b) {
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, keys) {
+    var low = name.toLowerCase(), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (k === name) return;
+      if (kl === low) exact.push(k);
+      else if (low.length >= 6 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 8)) sub.push(k);
+      else if (low.length >= 6 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+  function mineText(has, lib, what) {
+    return "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+      (has ? " If the error still names " + what + ", another copy of " + lib + " is being imported: check <code>python -c \"import " + lib + "; print(" + lib + ".__version__, " + lib + ".__file__)\"</code>." : "");
+  }
+  function row(nameHtml, sub, status, cell) {
+    return "<tr><td>" + nameHtml + "<br><span class=\"note\">" + esc(sub) + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+  }
+  function movedModule(D, m) {
+    var leaf = m.split(".").pop(), last = D.releases.length - 1, out = [];
+    Object.keys(D.mods).forEach(function (k) { if (k !== m && k.split(".").pop() === leaf && inRange(pairs(D, D.mods[k]), last)) out.push(k); });
+    return out.slice(0, 4);
+  }
+
+  function answerModule(lib, m, mine) {
+    var D = DATA[lib], cell, status;
+    if (!modEver(D, m)) {
+      var mv = movedModule(D, m);
+      return row(code(label(lib, m)), "module", "<span class=\"s n\">never there</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has this module." +
+        (mv.length ? " Modules with the same last part in " + D.latest + ": " + mv.map(function (k) { return code(label(lib, k)); }).join(", ") + "." : ""));
+    }
+    var ps = modPairs(D, m), last = ps[ps.length - 1];
+    status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+    cell = "The module exists " + ps.map(function (p) { return rangeText(D, p); }).join("<br>") + ".<br>" + pin(D, lib, last);
+    if (last[1]) {
+      var mv2 = movedModule(D, m);
+      if (mv2.length) cell += "<br>Now: " + mv2.map(function (k) { return code(label(lib, k)); }).join(", ") + " (same file name, in " + D.latest + ").";
+    }
+    if (mine !== null) cell += mineText(inRange(ps, mine), lib, "the module");
+    return row(code(label(lib, m)), "module", status, cell);
+  }
+
+  function answerName(lib, m, name, mine) {
+    var D = DATA[lib];
+    if (!modEver(D, m)) {
+      var wn0 = whereNow(D, lib, name, null);
+      return row(code(name), label(lib, m), "<span class=\"s n\">no such module</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has a module " + code(label(lib, m)) + "." +
+        (wn0.length ? " " + code(name) + ": " + wn0.join("; ") + "." : ""));
+    }
+    var table = D.names[m] || {}, ri = table[name], cell, status;
+    if (ri === undefined) {
+      var nn = near(name, Object.keys(table)), wn = whereNow(D, lib, name, m), mp = modPairs(D, m), ml = mp[mp.length - 1];
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " lets you import this name from " + code(label(lib, m)) + "." +
+        (ml[1] ? " The module itself is gone since " + D.releases[ml[1]][0] + "." : "") +
+        (wn.length ? "<br>Now: " + wn.join("; ") + "." : "") +
+        (nn.length ? "<br>Close names in this module: " + nn.map(code).join(", ") + "." : "") +
+        (!wn.length && !nn.length ? " It may come from a fork, from the development branch, or from a release newer than " + D.latest + "." : "");
+    } else {
+      var ps = pairs(D, ri), last = ps[ps.length - 1];
+      status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+      cell = ps.map(function (p) { return rangeText(D, p); }).join("<br>") + "<br>" + pin(D, lib, last);
+      if (last[1]) {
+        var at = alsoAt(D, lib, name, m, last[1]), wn2 = whereNow(D, lib, name, m), h = HINTS[lib + ":" + m + ":" + name];
+        if (at.length) cell += "<br>In " + D.releases[last[1]][0] + ", the release that dropped it here, it was still importable from " + at.join(", ") + ".";
+        if (wn2.length) cell += "<br>Now: " + wn2.join("; ") + ".";
+        if (h) cell += "<br>Instead: " + h;
+      }
+      if (mine !== null) cell += mineText(inRange(ps, mine), lib, "it");
+    }
+    D.stale.forEach(function (s) {
+      if (s[0] === m && s[1] === name)
+        cell += "<br><span class=\"note\">From " + D.releases[s[4]][0] + (s[5] ? " through " + D.releases[s[5] - 1][2] : " on") +
+          " the lazy table still lists this name, but the entry points to " + code(s[2]) + ", " +
+          (s[3] === "nofile" ? "a file that is not there" : "which does not provide it") + ": the import fails.</span>";
+    });
+    return row(code(name), label(lib, m), status, cell);
+  }
+
+  function answerBare(name, mine) {
+    var hits = [];
+    LIBS.forEach(function (lib) {
+      var D = DATA[lib];
+      Object.keys(D.names).forEach(function (m) { if (D.names[m][name] !== undefined) hits.push([lib, m]); });
+    });
+    if (!hits.length) {
+      var nn = [];
+      LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
+      return row(code(name), "peft, trl, accelerate", "<span class=\"s n\">never there</span>",
+        "No release of peft, trl or accelerate has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package (transformers, huggingface_hub, diffusers), see the links below the table.");
+    }
+    hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
+    return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +
+      (hits.length > 6 ? row(code(name), "", "", (hits.length - 6) + " more modules have this name; paste the import line to pick one.") : "");
+  }
+
+  function load(lib) {
+    if (DATA[lib]) return Promise.resolve();
+    return fetch(lib + ".json").then(function (r) { if (!r.ok) throw new Error(lib + ".json " + r.status); return r.json(); })
+      .then(function (d) { DATA[lib] = d; });
+  }
+  function done() { $("res").setAttribute("data-done", String(++SEQ)); }
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), want = {};
+    $("status").textContent = "";
+    if (v && !/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.13.2."; done(); return; }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
+    qs.forEach(function (q) { if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; }); else want[q.lib] = 1; });
+    $("status").textContent = "Loading the names...";
+    Promise.all(Object.keys(want).map(load)).then(function () {
+      $("status").textContent = "";
+      var libsSeen = {};
+      $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+        qs.map(function (q) {
+          if (q.lib === "?") return answerBare(q.name, null);
+          var D = DATA[q.lib], mine = v ? indexOfVersion(D, v.replace(/^v/, "")) : null;
+          libsSeen[q.lib] = 1;
+          if (mine !== null && mine < 0) mine = null;
+          return q.name === null ? answerModule(q.lib, q.mod, mine) : answerName(q.lib, q.mod, q.name, mine);
+        }).join("") + "</tbody></table></div>" +
+        "<p class=\"note\">" + Object.keys(want).map(function (l) {
+          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest;
+        }).join("; ") + ". The first release of every minor version is read; patch releases in between are assumed to keep the names." +
+        (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
+      done();
+    }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });
+  }
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  window.PTA_READY = true;
+  var p = new URLSearchParams(location.search);
+  if (p.get("q")) { $("q").value = p.get("q"); $("v").value = p.get("v") || ""; run(); }
+})();
+</script>
+</body>
+</html>
