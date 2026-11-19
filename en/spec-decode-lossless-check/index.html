@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is Speculative Decoding Lossless? Test Numerics vs Bugs</title>
+<meta name="description" content="Why greedy output changes with speculative decoding in vLLM, SGLang and llama.cpp, which settings are lossy, and a script that tells near-ties from bugs.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/spec-decode-lossless-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Is Speculative Decoding Lossless? Test Numerics vs Bugs">
+<meta property="og:description" content="Why greedy output changes with speculative decoding in vLLM, SGLang and llama.cpp, which settings are lossy, and a script that tells near-ties from bugs.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/spec-decode-lossless-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/#article", "headline": "Is speculative decoding lossless? Why greedy output changes, and a test that tells numerics from bugs", "description": "Why greedy output changes with speculative decoding in vLLM, SGLang and llama.cpp, which settings are lossy, and a script that tells near-ties from bugs.", "url": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/", "datePublished": "2026-11-19", "dateModified": "2026-11-19", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/"}, {"@type": "SoftwareSourceCode", "@id": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/#code", "name": "specdiff.py", "description": "Compares an OpenAI-compatible endpoint with and without speculative decoding: greedy divergence classified as near-tie or large-gap, a chi-square test of sampled answers, and draft acceptance counts.", "programmingLanguage": "Python", "codeRepository": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/", "url": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/specdiff.py", "version": "1.0.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/#faq", "mainEntity": [{"@type": "Question", "name": "Is speculative decoding lossless?", "acceptedAnswer": {"@type": "Answer", "text": "The algorithm is: with the standard acceptance rule, greedy output and the sampling distribution equal the target's. Implementations are lossless only up to floating-point rounding, which can flip near-tied tokens, and only when the speculative path has no bugs and no relaxed settings are on."}}, {"@type": "Question", "name": "Why does my output change at temperature 0 when I turn on speculative decoding?", "acceptedAnswer": {"@type": "Answer", "text": "Most often a near-tie flipped because the verify pass computes several tokens at once with different rounding. Once one token differs, the rest of the greedy continuation differs too. If the baseline's token was clearly ahead at the first difference, suspect a bug instead."}}, {"@type": "Question", "name": "Does n-gram speculation avoid the problem?", "acceptedAnswer": {"@type": "Answer", "text": "Not reliably. It adds no draft model, but the target still verifies in batches. In llama.cpp #25618 n-gram matched plain decoding on a Q4 target; in our CPU run an n-gram setup flipped one near-tie on Q4_0. vLLM #62304 and SGLang #50395 report n-gram-specific problems."}}, {"@type": "Question", "name": "Does a low acceptance rate mean lower quality?", "acceptedAnswer": {"@type": "Answer", "text": "No. Acceptance affects speed only. Quality changes come from numerics, bugs or lossy settings, none of which show up in the acceptance rate."}}, {"@type": "Question", "name": "Can I trust logprobs with speculative decoding on?", "acceptedAnswer": {"@type": "Answer", "text": "Check them. vLLM does not guarantee stable logprobs, and llama.cpp #27972 reports all-zero logprobs from llama-server with speculation. specdiff.py detects the all-zero case."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "Is speculative decoding lossless?", "item": "https://erimaki-kobo.github.io/en/spec-decode-lossless-check/"}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}.s.p{color:var(--warn)}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>Is speculative decoding lossless? Why greedy output changes, and a test that tells numerics from bugs</h1>
+<p class="lede"><strong>In exact arithmetic, yes: with the standard acceptance rule, speculative decoding returns the same greedy text and samples from the same distribution as the target model alone. On real engines, three things break that.</strong> (1) <em>Numerics:</em> the target checks k drafted tokens in one forward pass over k+1 rows, while ordinary decoding runs one row at a time, and the two do not round identically. Where the top two tokens are nearly tied, the choice flips and greedy output diverges from there on. This is expected and not a bug in the acceptance rule. (2) <em>Bugs</em> in the speculative path: open reports in llama.cpp, vLLM and SGLang (table below) show divergence where the baseline's token was a clear winner, or sampled answers that are measurably skewed. (3) <em>Settings that are lossy by design</em>, such as relaxed acceptance thresholds or synthetic acceptance. <a href="specdiff.py">specdiff.py</a> sends the same prompts to your endpoint with and without speculation and reports which of the three you have.</p>
+<p class="meta">Published 2026-11-19 &middot; Issue table as of 2026-11-18 &middot; Tool version 1.0.0 (Python 3.8+, standard library only)</p>
+
+<h2 id="why">Why can greedy output differ with speculative decoding on?</h2>
+<p><strong>Because the verify pass and plain decoding compute the same logits with different kernels or different launch shapes, and greedy decoding turns one flipped near-tie into a different continuation.</strong></p>
+<ul>
+<li>The acceptance rule itself is exact. At temperature 0 the target accepts a drafted token only if it is the target's own argmax; at temperature &gt; 0 the rejection-sampling rule of <a href="https://arxiv.org/abs/2211.17192">Leviathan et al.</a> and <a href="https://arxiv.org/abs/2302.01318">Chen et al.</a> keeps the target distribution. Neither depends on how good the draft is: a bad draft costs speed, not quality.</li>
+<li>The arithmetic is not exact. vLLM's documentation says speculative sampling is "theoretically lossless up to the precision limits of hardware numerics" and that vLLM "does not currently guarantee stable token log probabilities" (<a href="https://docs.vllm.ai/en/latest/features/speculative_decoding/">vLLM docs, latest</a>). vLLM RFC <a href="https://github.com/vllm-project/vllm/issues/54506">#54506</a> isolates the mechanism: the verify pass computes rows with M = k+1, decode with M = 1, and split-K GEMMs and M-dependent reductions give different bits for the same row. In the reporters' workload, that alone dropped acceptance from about 100% to 72%.</li>
+<li>Quantized targets make it more visible. In llama.cpp <a href="https://github.com/ggml-org/llama.cpp/issues/25618">#25618</a>, draft-model speculation (DSpark, MTP) diverged from plain decoding on Q4_K_M targets but matched on a bf16 target (Vulkan).</li>
+<li>Divergence at 100% acceptance is a tell. In llama.cpp <a href="https://github.com/ggml-org/llama.cpp/issues/31472">#31472</a>, 184 of 184 draft tokens were accepted and the output still differed, so every emitted token came from a multi-token verify batch. Rejections play no part in that.</li>
+</ul>
+
+<h2 id="classify">How do I tell a numerics flip from a real bug?</h2>
+<p><strong>Look at how far ahead the baseline's token was at the first divergent position.</strong> A flip caused by rounding needs a near-tie: the two candidates are within about the size of the numeric noise. A clear winner that gets replaced is a bug in the speculative path, or a lossy setting.</p>
+<div class="tw"><table>
+<thead><tr><th>What you observe</th><th>Most likely cause</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>Divergence at a position where the baseline's top two tokens are within the noise (specdiff: <code>near-tie</code>)</td><td>Verify-pass numerics (M = k+1 vs M = 1)</td><td>Accept it, or serve reproducibility-critical traffic without speculation. Test task metrics, not bytes.</td></tr>
+<tr><td>Divergence where the baseline's token was clearly ahead (<code>large-gap</code>)</td><td>Bug in the speculative path (state rollback, penalties, prefill path), or a lossy setting</td><td>Check the settings table, then the issue table; report with the specdiff JSON.</td></tr>
+<tr><td>Sampled answers differ beyond chance at temperature &gt; 0</td><td>Lossy setting, or a sampling bug (e.g. padded draft trees, SGLang <a href="https://github.com/sgl-project/sglang/issues/43725">#43725</a>)</td><td>Same as above. Near-ties cannot move a whole distribution.</td></tr>
+<tr><td>Output differs at the very first token</td><td>The prefill path differs between the two servers (vLLM <a href="https://github.com/vllm-project/vllm/issues/58973">#58973</a>); no draft is involved yet</td><td>Compare launch flags other than the speculative ones.</td></tr>
+<tr><td>Same request gives different output depending on what was served before</td><td>State shared across requests, e.g. an n-gram corpus (SGLang <a href="https://github.com/sgl-project/sglang/issues/50395">#50395</a>)</td><td>Restart and send the prompts in a fixed order, or use a per-request drafter.</td></tr>
+<tr><td>The baseline disagrees with itself</td><td>Not speculation at all: batching, prefix cache, other traffic</td><td>Fix that first: <a href="/en/llm-determinism-test/">vLLM batch invariance: what still breaks determinism</a>.</td></tr>
+<tr><td>No draft token was accepted</td><td>The test proves nothing: every token came from ordinary decoding</td><td>Use prompts the drafter can predict (repetition, code, copying).</td></tr>
+</tbody></table></div>
+
+<h2 id="settings">Is my speculative setting meant to be lossless?</h2>
+<p><strong>Not always. These options trade the guarantee for speed on purpose.</strong> Checked in each project's source on 2026-11-18 (vLLM <code>92fd8cc</code>, SGLang <code>21dae9b</code>, llama.cpp <code>10f173b</code>).</p>
+<div class="tw"><table>
+<thead><tr><th>Engine</th><th>Setting</th><th>Lossless?</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>vLLM</td><td><code>rejection_sample_method="standard"</code> (default)</td><td><span class="s y">yes</span></td><td>Probabilistic rejection sampling; the setting the documented guarantee covers.</td></tr>
+<tr><td>vLLM</td><td><code>rejection_sample_method="fly"</code></td><td><span class="s n">no</span></td><td>"FLy deliberately relaxes verification and is not distribution preserving" (docs).</td></tr>
+<tr><td>vLLM</td><td><code>rejection_sample_method="synthetic"</code></td><td><span class="s n">no</span></td><td>Accepts drafts "with a decaying probability calibrated to synthetic_acceptance_rate" (config docstring): a benchmarking mode.</td></tr>
+<tr><td>SGLang</td><td><code>--speculative-accept-threshold-single</code> / <code>-acc</code> below 1.0</td><td><span class="s n">no</span></td><td>Relaxed acceptance for EAGLE-family and DFlash verification. 1.0 is the default; rejection-sampling mode refuses other values.</td></tr>
+<tr><td>SGLang</td><td><code>repetition_penalty</code> &ne; 1 with EAGLE, EAGLE3, STANDALONE, NEXTN</td><td><span class="s n">no</span></td><td>The code applies "a relaxed version of penalties for speculative decoding"; output differs from plain decoding (<a href="https://github.com/sgl-project/sglang/issues/49403">#49403</a>, open).</td></tr>
+<tr><td>llama.cpp</td><td><code>--spec-synth-len</code>, <code>--spec-synth-rates</code></td><td><span class="s n">no</span></td><td>"benchmarking only": synthetic acceptance replaces verification entirely (<code>server-context.cpp</code>). Measured below.</td></tr>
+<tr><td>llama.cpp</td><td><code>--spec-draft-p-min</code></td><td><span class="s y">yes</span></td><td>Stops drafting when the draft's top probability is below P. It changes what gets drafted, not how the target verifies.</td></tr>
+</tbody></table></div>
+
+<h2 id="tool">specdiff.py: test your own endpoint</h2>
+<p><strong>Run the target twice, once without and once with speculation, then point the script at both.</strong> It needs nothing beyond Python 3.8. <a href="specdiff.py" download>Download specdiff.py</a>.</p>
+<pre><code># vLLM: same model, same flags, only the speculative config differs
+vllm serve MODEL --port 8000
+vllm serve MODEL --port 8001 --speculative-config '{"method":"ngram","num_speculative_tokens":4,"prompt_lookup_max":4}' \
+    --per-request-spec-decode-metrics summary
+
+# SGLang
+python -m sglang.launch_server --model-path MODEL --port 30000
+python -m sglang.launch_server --model-path MODEL --port 30001 --speculative-algorithm NGRAM
+
+# llama.cpp
+llama-server -m target.gguf --port 8080
+llama-server -m target.gguf --port 8081 -md draft.gguf --spec-type draft-simple
+
+curl -O https://erimaki-kobo.github.io/en/spec-decode-lossless-check/specdiff.py
+python specdiff.py --base http://localhost:8000/v1 --spec http://localhost:8001/v1 --json report.json</code></pre>
+<p>What it does:</p>
+<ol>
+<li><strong>Greedy test.</strong> Eight built-in prompts (or yours with <code>--prompts file.jsonl</code>) at temperature 0, sent twice to the baseline and once to the speculative endpoint, one request at a time so batching stays out of the picture. For each pair it reports the first divergent token, the baseline's logprob gap between its own token and the one the speculative side chose, and the drafted/accepted counts.</li>
+<li><strong>Near-tie threshold from your own data.</strong> On the tokens both sides agree on, the largest logprob difference is the numeric noise of your stack. A divergence counts as a near-tie when the baseline's gap is at most max(0.05, 4 &times; that noise) nats, and as large-gap otherwise, including when the other token is not even in the baseline's top-k. Override with <code>--tie-threshold</code>.</li>
+<li><strong>Sampling test.</strong> 200 samples per endpoint (<code>--samples</code>) at temperature 1 for prompts with short answers of several tokens, then a chi-square test of homogeneity, plus total variation distance as an effect size. The first token comes from prefill on both sides, so the test looks at whole answers, whose later tokens go through verification. Small cells are pooled so the test stays valid. With many distinct answers TV is biased upward even when nothing is wrong; read the p-value.</li>
+<li><strong>Did speculation run?</strong> Draft and accepted counts come from vLLM's <code>metrics.speculative_decoding</code> (needs <code>--per-request-spec-decode-metrics</code>), SGLang's <code>sglext.spec_tokens_details</code> (the script sends <code>return_spec_tokens_details</code>) and llama-server's <code>timings.draft_n</code> / <code>draft_n_accepted</code>. If nothing was accepted, the verdict is inconclusive.</li>
+<li><strong>Bad logprobs are caught.</strong> llama.cpp <a href="https://github.com/ggml-org/llama.cpp/issues/27972">#27972</a> (open) reports llama-server returning logprob 0.0 with empty <code>top_logprobs</code> for every token when speculation is on. If the speculative side does that, the script warns and classifies from the baseline's logprobs only. Our build at <code>10f173b</code> returned real logprobs with speculation on.</li>
+</ol>
+<div class="tw"><table>
+<thead><tr><th>Verdict</th><th>Exit</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>NO_DIFFERENCE_FOUND</code></td><td>0</td><td>Greedy outputs identical, sampled answers consistent, drafts accepted.</td></tr>
+<tr><td><code>SUSPECTED_BUG</code></td><td>1</td><td>A large-gap divergence, or a distribution difference at p &lt; 0.001.</td></tr>
+<tr><td><code>NEAR_TIE_DIVERGENCE</code></td><td>3</td><td>Every divergence began at a near-tie: numerics.</td></tr>
+<tr><td><code>INCONCLUSIVE_*</code></td><td>4</td><td>The baseline is not reproducible on its own, or no draft token was accepted.</td></tr>
+<tr><td>&ndash;</td><td>2</td><td>Could not run (connection, model id).</td></tr>
+</tbody></table></div>
+<p class="note">Use <code>--completions</code> for models without a chat template, <code>--extra '{"chat_template_kwargs":{"enable_thinking":false}}'</code> to pass engine-specific fields, <code>--skip-sample</code> for the greedy test only. Both endpoints must serve the same weights; the script cannot check that.</p>
+
+<h2 id="measured">What did the test find on a real engine?</h2>
+<p><strong>On llama.cpp's CPU backend, draft-model speculation matched plain decoding token for token; n-gram speculation on a Q4_0 target flipped one near-tie; the benchmarking-only synthetic mode skewed the sampled distribution by a wide margin.</strong></p>
+<p>Setup: llama.cpp built from <code>10f173b</code> (2026-11-18), CPU, 1 thread, <code>llama-server</code> with <code>-np 1</code>, <code>/v1/completions</code>. The target is a 4-layer Llama-architecture model with random weights (256 hidden, vocabulary 516, made with <a href="repro/make_toy_gguf.py">make_toy_gguf.py</a>), so the text is nonsense, but every token goes through llama.cpp's real decode and verify kernels. Eight prompts &times; 256 greedy tokens; sampling: 600 samples per endpoint of 3-token answers for two prompts.</p>
+<div class="tw"><table>
+<thead><tr><th>Target</th><th>Speculation</th><th>Greedy: identical</th><th>Drafts accepted</th><th>Max |&Delta;logprob| on matching tokens</th><th>Sampling (p-value)</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>Q4_0</td><td><code>draft-simple</code>, draft = same file, n_max 8</td><td>8 / 8</td><td>1656 / 1662</td><td>1.9e-6</td><td>0.73, 0.91</td><td>no difference</td></tr>
+<tr><td>Q4_0</td><td><code>ngram-mod</code></td><td>7 / 8 (diverged at token 148, gap 0.018 nats)</td><td>61 / 128</td><td>0.030</td><td>&ndash;</td><td>near-tie</td></tr>
+<tr><td>F32</td><td><code>ngram-mod</code></td><td>8 / 8</td><td>37 / 317</td><td>2.1e-5</td><td>&ndash;</td><td>no difference</td></tr>
+<tr><td>Q4_0</td><td><code>draft-simple</code> + <code>--spec-synth-len 4</code></td><td>8 / 8</td><td>1382 / 3803</td><td>1.9e-6</td><td>1.3e-37, 1.9e-15</td><td>suspected bug (lossy by design)</td></tr>
+</tbody></table></div>
+<ul>
+<li>The Q4_0 n-gram divergence reproduced at the same token on a second run, even though the drafted counts changed (156 / 532 accepted): ngram-mod keeps its n-gram state across requests, so what gets drafted depends on what was served before, but the flip itself was deterministic.</li>
+<li>In the synthetic row, greedy output still matched because the draft is the target itself, so every accepted token was the target's own argmax. At temperature 1 the most common answer appeared 122 times in 600 instead of 37. This is the kind of shift the greedy test alone would miss.</li>
+<li>Not measured here: GPU backends (CUDA, Vulkan, ROCm), real model weights, vLLM and SGLang. The issues below report those. The tool's classification and its statistics were also checked against a toy server in six failure modes plus clean runs (<a href="repro/mock_server.py">mock_server.py</a>, <a href="repro/run_mock_tests.sh">run_mock_tests.sh</a>).</li>
+</ul>
+
+<h2 id="issues">Which engines and methods are known to break greedy equivalence?</h2>
+<p><strong>As of 2026-11-18, every major engine has at least one open report.</strong> "Class" is our reading of the report: <em>numerics</em> means divergence at near-ties from verify-pass arithmetic; <em>bug</em> means output that is wrong beyond rounding; <em>design</em> means a deliberate relaxation.</p>
+<div class="tw"><table>
+<thead><tr><th>Engine</th><th>Report</th><th>Method / condition</th><th>What happens</th><th>Class</th><th>State</th></tr></thead>
+<tbody>
+<tr><td>llama.cpp</td><td><a href="https://github.com/ggml-org/llama.cpp/issues/25618">#25618</a></td><td>draft-mtp, draft-dspark; quantized target (Q4_K_M), Vulkan</td><td>Greedy text differs from plain decoding; bf16 target matches; n-gram matches on the same Q4 target</td><td>numerics (path-dependent quantized compute)</td><td>open</td></tr>
+<tr><td>llama.cpp</td><td><a href="https://github.com/ggml-org/llama.cpp/issues/27407">#27407</a></td><td>draft-simple and DFlash2, CUDA (RTX 3090 Ti), IQ2_M target</td><td>Deterministic near-tie flips under batched verification ("a bit-exactness concern only")</td><td>numerics</td><td>closed 2026-10-09</td></tr>
+<tr><td>llama.cpp</td><td><a href="https://github.com/ggml-org/llama.cpp/issues/31472">#31472</a></td><td>draft-dflash, draft-dspark on qwen35moe (Gated DeltaNet) targets; CPU and SYCL</td><td>Differs on 7 of 8 prompts, including with 100% acceptance</td><td>numerics or recurrent-state handling (not isolated)</td><td>open</td></tr>
+<tr><td>llama.cpp</td><td><a href="https://github.com/ggml-org/llama.cpp/issues/27972">#27972</a></td><td>llama-server, any spec type (reported with draft-mtp, Vulkan)</td><td>logprob 0.0 and empty top_logprobs for every token</td><td>bug (reporting only; tokens unaffected)</td><td>open</td></tr>
+<tr><td>vLLM</td><td><a href="https://github.com/vllm-project/vllm/issues/54506">#54506</a></td><td>Any method; MTP on a hybrid MoE model, TP4</td><td>Verify pass (M = k+1) and decode (M = 1) differ in bits; RFC, no fix proposed</td><td>numerics</td><td>open</td></tr>
+<tr><td>vLLM</td><td><a href="https://github.com/vllm-project/vllm/issues/62304">#62304</a></td><td>n-gram on Qwen3.5 (Gated DeltaNet), v0.31.0</td><td>Wrong greedy output when drafts are partly accepted; GDN state misses the last accepted token; reproduced with weights insensitive to reduction order</td><td>bug</td><td>open</td></tr>
+<tr><td>vLLM</td><td><a href="https://github.com/vllm-project/vllm/issues/54928">#54928</a></td><td>DFlash2 on Qwen3.8-27B with thinking, TP4</td><td>Diverges at generated token 30, including with K = 1 and <code>--enforce-eager</code></td><td>not isolated</td><td>open</td></tr>
+<tr><td>vLLM</td><td><a href="https://github.com/vllm-project/vllm/issues/58973">#58973</a></td><td>V2 speculative path, DFlash2 or DSpark drafters, Qwen3-4B</td><td>The first greedy token differs: target prefill picks a different RMSNorm autotune configuration</td><td>numerics (prefill path)</td><td>open</td></tr>
+<tr><td>vLLM</td><td><a href="https://github.com/vllm-project/vllm/issues/52071">#52071</a></td><td>Pipeline parallelism with <code>--no-async-scheduling</code></td><td>Wrong output or a CUDA fault; async scheduling avoids it</td><td>bug</td><td>open</td></tr>
+<tr><td>SGLang</td><td><a href="https://github.com/sgl-project/sglang/issues/45525">#45525</a></td><td>DSPARK on DeepSeek-V4-Flash</td><td>Verify and decode give different logits and next tokens for the same prefix</td><td>not isolated</td><td>open</td></tr>
+<tr><td>SGLang</td><td><a href="https://github.com/sgl-project/sglang/issues/49403">#49403</a></td><td>EAGLE family with <code>repetition_penalty</code> &ne; 1</td><td>Penalty applied to one token per verify step</td><td>design</td><td>open</td></tr>
+<tr><td>SGLang</td><td><a href="https://github.com/sgl-project/sglang/issues/50395">#50395</a></td><td>NGRAM with <code>--enable-deterministic-inference</code></td><td>Output depends on earlier requests (shared n-gram corpus); EAGLE3 and no-spec are bit-identical</td><td>numerics (tree layout)</td><td>open</td></tr>
+<tr><td>SGLang</td><td><a href="https://github.com/sgl-project/sglang/issues/43725">#43725</a></td><td>NGRAM at temperature &gt; 0, CUDA</td><td>Token id 0 sampled far too often (0.538 instead of 0.0485 in the report) when the corpus has few candidates</td><td>bug (distribution)</td><td>open</td></tr>
+<tr><td>SGLang</td><td><a href="https://github.com/sgl-project/sglang/issues/39597">#39597</a></td><td>DFLASH with FlashInfer autotune</td><td>Greedy output changes across server restarts; <code>--disable-flashinfer-autotune</code> fixes it</td><td>numerics</td><td>open</td></tr>
+</tbody></table></div>
+<p class="note">States read on 2026-11-18. A closed issue is not necessarily a fixed one: #27407 was filed as a documentation request with no fix claimed.</p>
+
+<h2 id="faq">FAQ</h2>
+<dl>
+<dt>Is speculative decoding lossless?</dt>
+<dd>The algorithm is: with the standard acceptance rule, greedy output and the sampling distribution equal the target's. Implementations are lossless only up to floating-point rounding, which can flip near-tied tokens, and only when the speculative path has no bugs and no relaxed settings are on.</dd>
+<dt>Why does my output change at temperature 0 when I turn on speculative decoding?</dt>
+<dd>Most often a near-tie flipped because the verify pass computes several tokens at once with different rounding. Once one token differs, the rest of the greedy continuation differs too. If the baseline's token was clearly ahead at the first difference, suspect a bug instead.</dd>
+<dt>Does n-gram speculation avoid the problem?</dt>
+<dd>Not reliably. It adds no draft model, but the target still verifies in batches. In llama.cpp #25618 n-gram matched plain decoding on a Q4 target; in our CPU run an n-gram setup flipped one near-tie on Q4_0. vLLM #62304 and SGLang #50395 report n-gram-specific problems.</dd>
+<dt>Does a low acceptance rate mean lower quality?</dt>
+<dd>No. Acceptance affects speed only. Quality changes come from numerics, bugs or lossy settings, none of which show up in the acceptance rate.</dd>
+<dt>Can I trust logprobs with speculative decoding on?</dt>
+<dd>Check them. vLLM does not guarantee stable logprobs, and llama.cpp #27972 reports all-zero logprobs from llama-server with speculation. specdiff.py detects the all-zero case.</dd>
+</dl>
+
+<h2 id="limits">Limitations</h2>
+<ul>
+<li>The near-tie threshold is a heuristic. A bug can produce a small-gap divergence and pass as numerics; repeated near-tie verdicts on many prompts are still worth a look.</li>
+<li>top_logprobs are capped (vLLM's default <code>--max-logprobs</code> is 20). If the speculative side's token is not in the baseline's list, the gap is a lower bound and the divergence is classed as large-gap.</li>
+<li>One request at a time isolates speculation from batching. Production traffic adds batch effects on top; test those separately.</li>
+<li>The measurements on this page are from a CPU build with a random-weight model. GPU numbers and real models are not measured here.</li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Leviathan, Kalman, Matias, <a href="https://arxiv.org/abs/2211.17192">Fast Inference from Transformers via Speculative Decoding</a>, 2022.</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2302.01318">Accelerating Large Language Model Decoding with Speculative Sampling</a>, 2023.</li>
+<li>vLLM docs: <a href="https://docs.vllm.ai/en/latest/features/speculative_decoding/">Speculative Decoding</a> (latest, dated 2026-11-16), <a href="https://docs.vllm.ai/en/latest/features/speculative_decoding/acceptance_metrics/">Per-Request Acceptance Metrics</a>.</li>
+<li>Source code read on 2026-11-18: <a href="https://github.com/vllm-project/vllm/blob/main/vllm/config/speculative.py">vllm/config/speculative.py</a>; <a href="https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/entrypoints/openai/protocol.py">sglang &hellip;/openai/protocol.py</a>; <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/server-context.cpp">llama.cpp tools/server/server-context.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/common/arg.cpp">common/arg.cpp</a>.</li>
+<li>Issues as linked in the table above.</li>
+<li>Related: <a href="/en/llm-determinism-test/">vLLM batch invariance: what still breaks determinism</a>; <a href="/en/engine-logprob-parity-check/">vLLM logprobs vs Hugging Face: what&rsquo;s normal</a>.</li>
+</ul>
+</main>
+</body>
+</html>

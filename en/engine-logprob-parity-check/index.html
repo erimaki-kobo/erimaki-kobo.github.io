@@ -255,6 +255,7 @@ report written to report.json</code></pre>
 
 <h2 id="alt">Related tools</h2>
 <ul>
+<li><a href="/en/spec-decode-lossless-check/">specdiff.py</a> compares one endpoint with and without speculative decoding and tells near-tie flips from bugs.</li>
 <li>llama.cpp ships <a href="https://github.com/ggml-org/llama.cpp/blob/master/scripts/compare-logprobs.py">scripts/compare-logprobs.py</a>, which dumps the top-1 logprob for a growing text prompt from two endpoints and diffs them. It uses text prompts and does not separate tokenization, meaning and numerics.</li>
 <li><code>llama-perplexity --kl-divergence</code> compares a quantized GGUF against saved logits of a base GGUF inside llama.cpp.</li>
 <li>NVIDIA NeMo RL has <a href="https://docs.nvidia.com/nemo/rl/0.7.0/adding-new-models.html">model diagnostics</a> for Hugging Face against vLLM inside its training stack, including a decode-versus-prefill check.</li>

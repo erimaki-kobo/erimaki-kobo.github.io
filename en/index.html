@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="spec-decode-lossless-check/">Is speculative decoding lossless? Why greedy output changes with vLLM, SGLang or llama.cpp speculation, and a test that tells numerics from bugs</a></h2>
+<p>The acceptance rule is exact, but the verify pass rounds differently from one-token decode, so near-ties flip. Which settings are lossy by design, 14 open and closed engine issues, and specdiff.py: compares your endpoint with and without speculation, classifies each divergence as near-tie or large-gap, and tests sampled answers with chi-square.</p>
+<p class="meta">Published 2026-11-19</p>
+</article>
+<article class="card">
 <h2><a href="openai-python-import-name-version-lookup/">ImportError: cannot import name 'OpenAI' from 'openai', module 'openai' has no attribute 'error', openai.ChatCompletion: which openai version has it</a></h2>
 <p><code>from openai import OpenAI</code> needs openai 1.0.0; <code>openai.error</code> is gone since then, and 15 0.x names such as <code>ChatCompletion</code> import again from 1.2.0 only as placeholders that raise when used. Where each 0.x exception went, and every module of openai 0.2.6 to 3.54.0, <code>openai.types</code> included. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-18</p>
