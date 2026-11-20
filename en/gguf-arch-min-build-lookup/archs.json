@@ -1,12 +1,21 @@
 {
- "as_of": "2026-11-18",
- "llama_cpp_head": "b12525",
+ "as_of": "2026-11-20",
+ "llama_cpp_head": "b12591",
  "ollama_latest": {
   "tag": "v0.40.16",
   "date": "2026-11-08",
   "pinned_build": "b12177"
  },
  "architectures": [
+  {
+   "architecture": "domynedge",
+   "llama_cpp_first_build": "b12568",
+   "llama_cpp_first_build_date": "2026-11-20",
+   "llama_cpp_commit": "55d323507de290f5baacf56082b087a6bccfc7d9",
+   "ollama_first_release_bundled_llama_cpp": null,
+   "ollama_own_engine": null,
+   "vllm_gguf_plugin_tested": false
+  },
   {
    "architecture": "zaya1",
    "llama_cpp_first_build": "b12520",
