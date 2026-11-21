@@ -1,12 +1,21 @@
 {
- "as_of": "2026-11-20",
- "llama_cpp_head": "b12591",
+ "as_of": "2026-11-21",
+ "llama_cpp_head": "b12614",
  "ollama_latest": {
-  "tag": "v0.40.16",
-  "date": "2026-11-08",
-  "pinned_build": "b12177"
+  "tag": "v0.40.17",
+  "date": "2026-11-21",
+  "pinned_build": "b12257"
  },
  "architectures": [
+  {
+   "architecture": "inkling2_loop",
+   "llama_cpp_first_build": "b12600",
+   "llama_cpp_first_build_date": "2026-11-20",
+   "llama_cpp_commit": "29b52d398b294509746ec0a3f28948a3107c0213",
+   "ollama_first_release_bundled_llama_cpp": null,
+   "ollama_own_engine": null,
+   "vllm_gguf_plugin_tested": false
+  },
   {
    "architecture": "domynedge",
    "llama_cpp_first_build": "b12568",
@@ -66,7 +75,7 @@
    "llama_cpp_first_build": "b12180",
    "llama_cpp_first_build_date": "2026-11-06",
    "llama_cpp_commit": "bcb0152876e8f0b684ba70d3defcab6cdf35adb5",
-   "ollama_first_release_bundled_llama_cpp": null,
+   "ollama_first_release_bundled_llama_cpp": "v0.40.17",
    "ollama_own_engine": null,
    "vllm_gguf_plugin_tested": false
   },
@@ -4105,6 +4114,13 @@
    "date": "2026-11-08",
    "llama_cpp_build": "b12177",
    "pin": "b12177",
+   "pin_is_exact_tag": true
+  },
+  {
+   "release": "v0.40.17",
+   "date": "2026-11-21",
+   "llama_cpp_build": "b12257",
+   "pin": "b12257",
    "pin_is_exact_tag": true
   }
  ]
