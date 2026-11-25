@@ -1,0 +1,480 @@
+{
+"members": {
+"subclip": [
+"clip.subclipped(start, end)",
+[
+"subclip",
+"audio subclip"
+]
+],
+"set_duration": [
+"clip.with_duration(t)",
+[
+"set_duration"
+]
+],
+"set_start": [
+"clip.with_start(t)",
+[
+"set_start"
+]
+],
+"set_end": [
+"clip.with_end(t)",
+[
+"set_end"
+]
+],
+"set_fps": [
+"clip.with_fps(fps)",
+[
+"set_fps"
+]
+],
+"set_audio": [
+"clip.with_audio(audioclip)",
+[
+"set_audio"
+]
+],
+"set_mask": [
+"clip.with_mask(maskclip)",
+[
+"set_mask"
+]
+],
+"set_opacity": [
+"clip.with_opacity(x)",
+[
+"set_opacity"
+]
+],
+"set_position": [
+"clip.with_position(pos)",
+[
+"set_position"
+]
+],
+"set_pos": [
+"clip.with_position(pos)",
+[
+"set_pos"
+]
+],
+"set_ismask": [
+"clip.with_is_mask(True)",
+[
+"set_ismask"
+]
+],
+"set_make_frame": [
+"clip.with_updated_frame_function(f)",
+[
+"set_make_frame"
+]
+],
+"set_memoize": [
+"clip.with_memoize(True)",
+[
+"set_memoize"
+]
+],
+"resize": [
+"clip.resized(0.5), clip.resized(width=320) or clip.resized((w, h)); as an effect: vfx.Resize(...)",
+[
+"resize",
+"resize(width=)",
+"vfx.resize"
+]
+],
+"crop": [
+"clip.cropped(x1=, y1=, x2=, y2=); as an effect: vfx.Crop(...)",
+[
+"crop",
+"vfx.crop"
+]
+],
+"rotate": [
+"clip.rotated(angle, expand=True), or clip.with_effects([vfx.Rotate(angle)]). Plain clip.rotated(90) kept the 64x48 frame where 1.x gave 48x64.",
+[
+"rotate (expand)",
+"vfx.rotate"
+]
+],
+"fl": [
+"clip.transform(lambda get_frame, t: ...)",
+[
+"fl"
+]
+],
+"fl_image": [
+"clip.image_transform(lambda frame: ...)",
+[
+"fl_image"
+]
+],
+"fl_time": [
+"clip.time_transform(lambda t: ...)",
+[
+"fl_time"
+]
+],
+"fx": [
+"clip.with_effects([vfx.MirrorX()]): effects are classes now, passed in a list (1.x: clip.fx(vfx.mirror_x))",
+[
+"fx"
+]
+],
+"fadein": [
+"clip.with_effects([vfx.FadeIn(duration)])",
+[
+"fadein",
+"vfx.fadein"
+]
+],
+"fadeout": [
+"clip.with_effects([vfx.FadeOut(duration)])",
+[
+"fadeout"
+]
+],
+"crossfadein": [
+"clip.with_effects([vfx.CrossFadeIn(duration)])",
+[
+"crossfadein"
+]
+],
+"crossfadeout": [
+"clip.with_effects([vfx.CrossFadeOut(duration)])",
+[
+"crossfadeout"
+]
+],
+"speedx": [
+"clip.with_speed_scaled(factor), or clip.with_effects([vfx.MultiplySpeed(factor)])",
+[
+"speedx",
+"speedx (effect)",
+"vfx.speedx"
+]
+],
+"volumex": [
+"clip.with_volume_scaled(factor), or clip.with_effects([afx.MultiplyVolume(factor)])",
+[
+"volumex",
+"audio volumex",
+"afx"
+]
+],
+"loop": [
+"clip.with_effects([vfx.Loop(n=2)]) or vfx.Loop(duration=...)",
+[
+"loop",
+"vfx.loop"
+]
+],
+"margin": [
+"clip.with_effects([vfx.Margin(size)])",
+[
+"margin",
+"vfx.margin"
+]
+],
+"invert_colors": [
+"clip.with_effects([vfx.InvertColors()])",
+[
+"invert_colors",
+"vfx.invert_colors"
+]
+],
+"on_color": [
+"clip.with_background_color(size=, color=, pos=, opacity=): the argument col_opacity is now opacity",
+[
+"on_color"
+]
+],
+"add_mask": [
+"clip.with_mask() with no argument",
+[
+"add_mask"
+]
+],
+"cutout": [
+"clip.with_section_cut_out(start, end)",
+[
+"cutout"
+]
+],
+"subfx": [
+"clip.with_effects_on_subclip([vfx.MirrorX()], start, end)",
+[
+"subfx"
+]
+],
+"afx": [
+"clip.with_effects([afx.MultiplyVolume(0.5)]): audio effects go in the same list",
+[
+"afx"
+]
+],
+"audio_fadein": [
+"clip.with_effects([afx.AudioFadeIn(duration)])",
+[
+"audio_fadein"
+]
+],
+"audio_fadeout": [
+"clip.with_effects([afx.AudioFadeOut(duration)])",
+[
+"audio_fadeout"
+]
+],
+"audio_normalize": [
+"clip.with_effects([afx.AudioNormalize()])",
+[
+"audio_normalize"
+]
+],
+"audio_loop": [
+"clip.with_effects([afx.AudioLoop(n_loops=2)])",
+[
+"audio_loop"
+]
+],
+"ismask": [
+"clip.is_mask",
+[
+"ismask attr"
+]
+],
+"make_frame": [
+"clip.frame_function",
+[
+"make_frame attr"
+]
+]
+},
+"member_names": {
+"ipython_display": "display_in_notebook",
+"memoize_frame": "memoized_frame",
+"preview": "audiopreview"
+},
+"vfx": {
+"accel_decel": [
+"AccelDecel",
+null
+],
+"blackwhite": [
+"BlackAndWhite",
+"vfx.blackwhite"
+],
+"blink": [
+"Blink",
+"vfx.blink"
+],
+"colorx": [
+"MultiplyColor",
+"vfx.colorx"
+],
+"crop": [
+"Crop",
+"vfx.crop"
+],
+"even_size": [
+"EvenSize",
+"vfx.even_size"
+],
+"fadein": [
+"FadeIn",
+"vfx.fadein"
+],
+"fadeout": [
+"FadeOut",
+"fadeout"
+],
+"freeze": [
+"Freeze",
+"vfx.freeze"
+],
+"freeze_region": [
+"FreezeRegion",
+null
+],
+"gamma_corr": [
+"GammaCorrection",
+"vfx.gamma_corr"
+],
+"headblur": [
+"HeadBlur",
+null
+],
+"invert_colors": [
+"InvertColors",
+"vfx.invert_colors"
+],
+"loop": [
+"Loop",
+"vfx.loop"
+],
+"lum_contrast": [
+"LumContrast",
+"vfx.lum_contrast"
+],
+"make_loopable": [
+"MakeLoopable",
+"vfx.make_loopable"
+],
+"margin": [
+"Margin",
+"vfx.margin"
+],
+"mask_and": [
+"MasksAnd",
+null
+],
+"mask_color": [
+"MaskColor",
+"vfx.mask_color"
+],
+"mask_or": [
+"MasksOr",
+null
+],
+"mirror_x": [
+"MirrorX",
+"fx"
+],
+"mirror_y": [
+"MirrorY",
+"vfx.mirror_y"
+],
+"painting": [
+"Painting",
+null
+],
+"resize": [
+"Resize",
+"vfx.resize"
+],
+"rotate": [
+"Rotate",
+"vfx.rotate"
+],
+"scroll": [
+"Scroll",
+null
+],
+"speedx": [
+"MultiplySpeed",
+"vfx.speedx"
+],
+"supersample": [
+"SuperSample",
+null
+],
+"time_mirror": [
+"TimeMirror",
+"vfx.time_mirror"
+],
+"time_symmetrize": [
+"TimeSymmetrize",
+"vfx.time_symmetrize"
+]
+},
+"afx": {
+"audio_fadein": [
+"AudioFadeIn",
+"audio_fadein"
+],
+"audio_fadeout": [
+"AudioFadeOut",
+"audio_fadeout"
+],
+"audio_left_right": [
+"MultiplyStereoVolume",
+"afx.audio_left_right"
+],
+"audio_loop": [
+"AudioLoop",
+"audio_loop"
+],
+"audio_normalize": [
+"AudioNormalize",
+"audio_normalize"
+],
+"volumex": [
+"MultiplyVolume",
+"afx"
+]
+},
+"editor": {
+"cvsecs": [
+"from moviepy import convert_to_seconds",
+[
+"cvsecs"
+]
+],
+"concatenate": [
+"from moviepy import concatenate_videoclips",
+[
+"concatenate"
+]
+],
+"ipython_display": [
+"from moviepy import display_in_notebook, or clip.display_in_notebook()",
+[]
+],
+"transfx": [
+"from moviepy import vfx: transfx.crossfadein is vfx.CrossFadeIn, transfx.slide_in is vfx.SlideIn (also CrossFadeOut, SlideOut)",
+[
+"transfx.crossfadein",
+"transfx.slide_in"
+]
+],
+"preview": [
+"clip.preview() (a method of the clip)",
+[]
+],
+"show": [
+"clip.show() (a method of the clip)",
+[]
+]
+},
+"modules": {
+"moviepy.editor": "from moviepy import VideoFileClip (every class is at the top now; from moviepy import * also works). 1.x: from moviepy.editor import *",
+"moviepy.video.fx.all": "from moviepy import vfx: the effects are classes in moviepy.video.fx (vfx.Resize, vfx.FadeIn, ...)",
+"moviepy.audio.fx.all": "from moviepy import afx: the effects are classes in moviepy.audio.fx (afx.MultiplyVolume, afx.AudioFadeIn, ...)",
+"moviepy.video.compositing.concatenate": "from moviepy import concatenate_videoclips (it now lives in moviepy.video.compositing.CompositeVideoClip)",
+"moviepy.video.compositing.transitions": "from moviepy import vfx: vfx.CrossFadeIn, vfx.CrossFadeOut, vfx.SlideIn, vfx.SlideOut",
+"moviepy.video.io.html_tools": "moviepy.video.io.display_in_notebook",
+"moviepy.video.io.preview": "moviepy.video.io.ffplay_previewer",
+"moviepy.utils": "close_all_clips is in moviepy.tools"
+},
+"params": {
+"TextClip()|txt": "text=",
+"TextClip()|fontsize": "font_size=",
+"TextClip()|align": "text_align= (also horizontal_align=, vertical_align=)",
+"ColorClip()|col": "color=",
+"ColorClip()|ismask": "is_mask=",
+"VideoClip()|make_frame": "frame_function=",
+"VideoClip()|ismask": "is_mask=",
+"AudioClip()|make_frame": "frame_function=",
+"ImageClip()|ismask": "is_mask=",
+"CompositeVideoClip()|ismask": "is_mask=",
+"VideoClip.write_videofile()|verbose": "drop it; logger=None silences the progress bar",
+"VideoClip.write_gif()|verbose": "drop it; logger=None silences the progress bar",
+"AudioClip.write_audiofile()|verbose": "drop it; logger=None silences the progress bar",
+"SubtitlesClip.in_subclip()|t_start": "start_time=",
+"SubtitlesClip.in_subclip()|t_end": "end_time="
+},
+"member_text": {
+"to_videofile": "clip.write_videofile(...), the name 1.0.3 already has",
+"to_gif": "clip.write_gif(...), the name 1.0.3 already has",
+"to_images_sequence": "clip.write_images_sequence(...), the name 1.0.3 already has",
+"to_audiofile": "clip.write_audiofile(...), the name 1.0.3 already has",
+"mask_and": "clip.with_effects([vfx.MasksAnd(other)]) (the class is there; not run)",
+"mask_or": "clip.with_effects([vfx.MasksOr(other)]) (the class is there; not run)",
+"list": "gone: 2.x draws text with Pillow, not ImageMagick; pass font=\"/path/to/font.ttf\"",
+"search": "gone: 2.x draws text with Pillow, not ImageMagick; pass font=\"/path/to/font.ttf\""
+}
+}

@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="moviepy-removed-name-lookup/">AttributeError: 'VideoFileClip' object has no attribute 'subclip' (or 'set_duration', 'resize', 'fx', 'volumex'), No module named 'moviepy.editor': every name MoviePy 2 changed and what to write instead</a></h2>
+<p>MoviePy 2.0 removed <code>moviepy.editor</code> and renamed the clip methods: <code>subclip</code> is <code>subclipped</code>, <code>set_duration</code> is <code>with_duration</code>, <code>resize</code> is <code>resized</code>, <code>clip.fx(vfx.fadein, 1)</code> is <code>clip.with_effects([vfx.FadeIn(1)])</code>. 53 removed clip members, 36 effects and the changed arguments (<code>fontsize</code>, <code>verbose</code>); 39 renames run in 1.0.3 and 2.2.1 with the same result. Includes a lookup: paste the error or the old code.</p>
+<p class="meta">Published 2026-11-26</p>
+</article>
+<article class="card">
 <h2><a href="opencv-removed-name-lookup/">AttributeError: module 'cv2' has no attribute 'CascadeClassifier' (or 'xfeatures2d', 'TrackerMOSSE_create', module 'cv2.aruco' has no attribute 'Dictionary_get', any name): which OpenCV package and release has it</a></h2>
 <p>opencv-python 5.0 no longer has <code>cv2.CascadeClassifier</code>, <code>HOGDescriptor</code>, <code>cv2.ml</code> or <code>cv2.gapi</code> (opencv-contrib-python 5 does); OpenCV 5 removed <code>dnn.readNetFromCaffe</code>, <code>readNetFromDarknet</code> (5.0) and <code>readNetFromTensorflow</code> (5.1.0); 4.7.0 removed <code>aruco.Dictionary_get</code>; <code>cv2.xfeatures2d</code> and <code>cv2.face</code> are contrib only. 81 releases of the two packages (3.4.8.29 to 5.1.0.95) installed and read. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-26</p>
