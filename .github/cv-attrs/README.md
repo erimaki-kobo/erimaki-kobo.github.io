@@ -23,4 +23,8 @@ in one venv -> `import cv2` raises "module 'cv2.gapi.wip.draw' has no attribute 
 Same result for 4.8.1.78 then 4.5.4.60, 4.9.0.80 then 4.5.5.64, 4.9.0.80 then 4.5.4.58. The DictValue variant did not appear.
 Direct check, not through build_page.py: 77 hasattr checks in 18 environments, and opencv-python (the GUI package)
 4.14.0.94, 5.0.0.93 and 5.1.0.95 for CascadeClassifier, HOGDescriptor, ml, gapi, dnn.readNetFromCaffe: all as the page says.
+Library table (probes/down.json): `python3 -I downstream_fetch.py packages.txt meta/ src/` downloads the newest sdist (or
+wheel) of each package in packages.txt and unpacks its .py files, each package in its own folder; nothing in them is run.
+`python3 -I downstream_scan.py <repo>/en/opencv-removed-name-lookup/opencv_names.json meta/ src/ > probes/down.json` parses
+them. The imutils row was also run (opencv-python-headless and opencv-contrib-python-headless 5.1.0.95 with imutils 0.5.4).
 The probe results are in probes.tar.xz (`tar xJf probes.tar.xz` gives probes/).

@@ -4,7 +4,8 @@
 Usage: python3 -I build_page.py probes/ notes.json out_dir PUBLISHED MODIFIED
 probes/: dir_<m|c>_<version>.json from probe.py (m = opencv-python-headless, c = opencv-contrib-python-headless, one file per
 installed release), doc_c_<version>.json from doc_probe.py (OpenCV's own @deprecated lines, read in the last release that has
-the name), dates.json (PyPI upload dates, latest versions), gui.json (what the non-headless packages add).
+the name), dates.json (PyPI upload dates, latest versions), gui.json (what the non-headless packages add),
+down.json from downstream_scan.py (what the newest release of 81 packages that use OpenCV calls).
 notes.json: the rows of the first table and their notes; every note was run in the release it names.
 ASCII only; the facts the prose names are asserted. style.css is shared with .github/llama-args."""
 import collections, glob, html, json, os, re, sys
@@ -280,6 +281,50 @@ for v in sorted(set(A) | set(B), key=key, reverse=True):
                          ("<p><em>Gone from opencv-python, still in opencv-contrib-python %s:</em></p>" % LATEST + names_html(b)) if b else ""))
 rel_html = "\n".join(rel_blocks)
 
+# libraries that use OpenCV: what their newest release calls that opencv-python LATEST lacks (downstream_scan.py; read, not run)
+DOWN = json.load(open(os.path.join(PD, "down.json")))
+assert DOWN["latest"] == LATEST
+DP = DOWN["packages"]
+n_dp, n_dp_cv = len(DP), sum(1 for p in DP.values() if p["cv2_files"])
+HIT = {k: p for k, p in DP.items() if any(u["status"] in ("c5", "x5") for u in p["uses"].values())}
+assert sorted(HIT) == ["cvlib", "deepface", "fer", "imutils"], sorted(HIT)
+STL = {"c5": "opencv-contrib-python %s has it; opencv-python does not" % LATEST, "x5": "neither package has it in %s" % LATEST}
+def use_of(pkg, key, st, first):
+    u = DP[pkg]["uses"][key]
+    assert u["status"] == st and u["first"] == first, (pkg, key, u)
+    return u
+use_of("deepface", "cv2|CascadeClassifier", "c5", "deepface/models/face_detection/opencv/OpenCv.py:176")
+u = use_of("deepface", "cv2.dnn|readNetFromCaffe", "x5", "deepface/models/face_detection/opencv/Ssd.py:57")
+assert u["guarded"] == u["count"] == 1
+use_of("fer", "cv2|CascadeClassifier", "c5", "src/fer/fer.py:138")
+assert use_of("cvlib", "cv2.dnn|readNetFromCaffe", "x5", "cvlib/face_detection.py:34")["files"] == 3
+use_of("imutils", "cv2|BRISK_create", "x5", "imutils/feature/factories.py:30")
+down_rows = []
+for pkg in sorted(HIT, key=lambda k: (HIT[k]["date"], k), reverse=True):
+    p = HIT[pkg]
+    first = True
+    for key, u in sorted(p["uses"].items(), key=lambda x: (x[1]["status"], x[0])):
+        if u["status"] not in STL:
+            continue
+        o, n = key.split("|")
+        where = u["first"] + (", %d files" % u["files"] if u["files"] > 1 else "") + (", inside try/except" if u["guarded"] == u["count"] else "")
+        down_rows.append("<tr><td>%s</td><td>%s</td><td><code>%s</code><br><span class=\"note\">%s</span></td><td>%s%s</td></tr>" % (
+            ("<strong>%s</strong> %s<br><span class=\"note\">%s</span>" % (e(pkg), e(p["version"]), p["date"])) if first else "",
+            (e("; ".join(p["requires"])) or "no OpenCV requirement declared") if first else "",
+            e(lab(o, n)), e(where), e(STL[u["status"]]),
+            (" <span class=\"note\">" + e(NOTES["down"][pkg]) + "</span>") if first and pkg in NOTES.get("down", {}) else ""))
+        first = False
+down_html = "\n".join(down_rows)
+CAPS = {"fiftyone": "opencv-python-headless<5", "norfair": "opencv-python<5.0.0", "simple-lama-inpainting": "<5.0.0.0", "vision-agent": "opencv-python==4.*",
+        "boxmot": "opencv-python==4.11.0.86", "inference": "opencv-python<4.13.0", "lerobot": "opencv-python-headless<4.14.0"}
+for k, frag in CAPS.items():
+    assert any(frag in r for r in DP[k]["requires"]), (k, DP[k]["requires"])
+assert any('extra == "video"' in r for r in DP["norfair"]["requires"])
+CONTRIB_ONLY = sorted(k for k, p in DP.items() if any(u["status"] == "contrib" for u in p["uses"].values()))
+assert CONTRIB_ONLY == ["img2table", "imutils"], CONTRIB_ONLY
+down_names = ", ".join(sorted(DP, key=str.lower))
+DOWN_DAY = MOD
+
 URL = "https://erimaki-kobo.github.io/en/opencv-removed-name-lookup/"
 TITLE = "module 'cv2' has no attribute 'CascadeClassifier' (OpenCV 5), any name: fix"
 H1 = ("AttributeError: module 'cv2' has no attribute 'CascadeClassifier' (or 'xfeatures2d', 'TrackerMOSSE_create', module 'cv2.aruco' has no attribute "
@@ -519,9 +564,18 @@ page = f"""<!DOCTYPE html>
 <p><strong>{n_A:,} names went from opencv-contrib-python (and from opencv-python, where it had them) and {n_B:,} more from opencv-python only</strong> (those are still in opencv-contrib-python {LATEST}). A module or class that went as a whole is listed once, not name by name. The lookup above answers for every one, and for names that are still there.</p>
 {rel_html}
 
+<h2 id="downstream">Which libraries still call the names OpenCV 5 dropped?</h2>
+<p><strong>Of {n_dp} computer-vision and ML packages on PyPI (picked by hand), read in their newest release on {DOWN_DAY}, {n_dp_cv} use <code>cv2</code> in library code, and {len(HIT)} of those call a name that opencv-python {LATEST} does not have.</strong> Tests, docs and examples were not read. The code was read, not run, unless the row says so: a call may sit on a path you never reach.</p>
+<div class="tw"><table>
+<thead><tr><th>Package</th><th>Declares</th><th>Calls</th><th>In OpenCV {LATEST}</th></tr></thead>
+<tbody>
+{down_html}
+</tbody></table></div>
+<p>{len(CAPS)} of the {n_dp} declare a requirement that keeps OpenCV 5 out ({e(", ".join("%s: %s%s" % (k, v, " (its video extra)" if k == "norfair" else "") for k, v in sorted(CAPS.items())))}). {e(" and ".join(CONTRIB_ONLY))} also call names that are only in opencv-contrib-python (<code>cv2.xfeatures2d</code>, <code>cv2.ximgproc</code>). Not counted: a call such as <code>cv2.dnn.readNet("model.caffemodel", ...)</code>, whose name exists in 5.x and fails only when it runs; objects reached through another variable. Packages read: {e(down_names)}. Details: <a href="opencv_downstream.json">opencv_downstream.json</a>.</p>
+
 <h2 id="how">How was this measured?</h2>
 <p><strong>Every release of opencv-python-headless ({n_m}) and opencv-contrib-python-headless ({n_c}) on PyPI from {VS[0]} to {LATEST} that is not yanked and has a wheel for Python 3.8 (cp38 or abi3) was installed in its own environment, and the names of <code>cv2</code>, of every submodule reachable from it, and of every class it defines were listed with <code>dir()</code>.</strong> The binding is a compiled extension module, so <code>dir()</code> lists every name it has; OpenCV raises no Python deprecation warnings, so there is no "warns" state. {py_note}. 4.0.0 to 4.1.1 have wheels only up to Python 3.7 and were not installed, so a name that the 3.4 line has and 4.1.2.30 does not is reported as "not in 4.1.2.30", not as removed in a particular 4.0 or 4.1 release.</p>
-<p>The headless packages are the same build without a GUI backend. Compared at 5.1.0.95 (both packages) and 4.6.0.66 (contrib), opencv-python and opencv-contrib-python have the same names plus <code>cv2.qt</code>. "OpenCV's own text" is the <code>@deprecated</code> line of the function's docstring in the last release that has it. <code>import cv2.&lt;name&gt;</code> was tried for each file in the package folder, each in its own process.</p>
+<p>The headless packages are the same build without a GUI backend. Compared at 5.1.0.95 (both packages) and 4.6.0.66 (contrib), opencv-python and opencv-contrib-python have the same names plus <code>cv2.qt</code>. "OpenCV's own text" is the <code>@deprecated</code> line of the function's docstring in the last release that has it. <code>import cv2.&lt;name&gt;</code> was tried for each file in the package folder, each in its own process. For the library table, the newest sdist (or wheel) of each package was unpacked and its <code>.py</code> files parsed: a use is an attribute chain that starts at a name bound to <code>cv2</code>, or a <code>from cv2 import</code>.</p>
 
 <h2 id="faq">Questions</h2>
 {faq_html}
@@ -544,5 +598,6 @@ page.encode("ascii")
 OUT.mkdir(parents=True, exist_ok=True)
 (OUT / "index.html").write_text(page, encoding="ascii")
 (OUT / "opencv_names.json").write_text(json.dumps(DATA, separators=(",", ":")), encoding="ascii")
+(OUT / "opencv_downstream.json").write_text(json.dumps(DOWN, indent=0, sort_keys=True), encoding="ascii")
 print("index.html %d bytes (data %d) | names %d, patterns %d, hints %d | gone from both %d, main only %d | releases %d (%d + %d)"
       % (len(page), len(data_json), n_names, len(POOL), len(HINT), n_A, n_B, len(R), n_m, n_c), file=sys.stderr)

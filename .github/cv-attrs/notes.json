@@ -225,5 +225,8 @@
 "cv2:aruco_Board|ids": "board.getIds().",
 "cv2:aruco_Board|objPoints": "board.getObjPoints().",
 "cv2:aruco_Board|dictionary": "board.getDictionary()."
+},
+"down": {
+"imutils": "Ran: with 5.1.0.95 of either package, import imutils works and from imutils.feature import factories raises this AttributeError."
 }
 }
