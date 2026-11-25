@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="networkx-removed-name-lookup/">AttributeError: module 'networkx' has no attribute 'from_numpy_matrix' (or 'read_gpickle', 'Graph' object has no attribute 'node', 'nodes_iter', any name): which networkx removed it and what to use</a></h2>
+<p>networkx 3.0 removed <code>from_numpy_matrix</code> (use <code>from_numpy_array</code>), <code>read_gpickle</code> (use <code>pickle</code>) and <code>nx.info</code>; 2.4 removed <code>G.node</code> (use <code>G.nodes</code>) and <code>connected_component_subgraphs</code>; 2.0 the <code>*_iter</code> methods. Every release from 1.11 to 3.7 (33) installed and run. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="matplotlib-removed-name-lookup/">AttributeError: module 'matplotlib.cm' has no attribute 'get_cmap' (or 'FigureCanvasAgg' object has no attribute 'tostring_rgb', 'seaborn' is not a valid package style, any name): which matplotlib removed it and what to use</a></h2>
 <p>matplotlib 3.11 removed <code>cm.get_cmap</code> (use <code>matplotlib.colormaps[name]</code>; 3.9.0 had dropped it once), 3.10 removed <code>tostring_rgb</code> (use <code>buffer_rgba</code>), 3.8 dropped the <code>'seaborn'</code> style names (use <code>'seaborn-v0_8-*'</code>). Every release from 3.1.2 to 3.11.2, patch releases included (48), installed and run. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>
