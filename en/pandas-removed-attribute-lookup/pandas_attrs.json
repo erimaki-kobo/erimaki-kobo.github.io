@@ -1,0 +1,12776 @@
+{
+"releases": [
+[
+"0.25.3",
+"2019-11-01",
+"3.8.20",
+"1.19.5"
+],
+[
+"1.0.0",
+"2020-01-30",
+"3.8.20",
+"1.19.5"
+],
+[
+"1.1.0",
+"2020-07-28",
+"3.8.20",
+"1.19.5"
+],
+[
+"1.2.0",
+"2020-12-26",
+"3.9.25",
+"1.19.5"
+],
+[
+"1.3.0",
+"2021-07-02",
+"3.9.25",
+"1.21.6"
+],
+[
+"1.4.0",
+"2022-01-22",
+"3.10.20",
+"1.22.4"
+],
+[
+"1.5.0",
+"2022-09-19",
+"3.10.20",
+"1.23.5"
+],
+[
+"2.0.0",
+"2023-04-03",
+"3.11.18",
+"1.24.4"
+],
+[
+"2.1.0",
+"2023-08-30",
+"3.11.18",
+"1.26.4"
+],
+[
+"2.2.0",
+"2024-01-20",
+"3.12.3",
+"1.26.4"
+],
+[
+"2.3.0",
+"2025-06-05",
+"3.12.3",
+"2.2.6"
+],
+[
+"3.0.0",
+"2026-01-21",
+"3.12.3",
+"2.5.5"
+],
+[
+"3.1.0",
+"2026-10-22",
+"3.12.3",
+"2.5.5"
+],
+[
+"3.1.1",
+"2026-11-04",
+"3.12.3",
+"2.5.5"
+]
+],
+"labels": {
+"pandas": "pd",
+"DataFrame": "DataFrame",
+"Series": "Series",
+"Index": "Index",
+"DatetimeIndex": "DatetimeIndex",
+"Timestamp": "Timestamp",
+"DataFrameGroupBy": "DataFrameGroupBy",
+"SeriesGroupBy": "SeriesGroupBy",
+"StringMethods": "Series.str"
+},
+"rows": {
+"pandas.Float64Index": {
+"obj": "pandas",
+"name": "Float64Index",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "pandas.Float64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.Int64Index": {
+"obj": "pandas",
+"name": "Int64Index",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.SparseArray": {
+"obj": "pandas",
+"name": "SparseArray",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"warn"
+],
+[
+"1.1.0",
+"warn"
+],
+[
+"1.2.0",
+"warn"
+],
+[
+"1.3.0",
+"warn"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The pandas.SparseArray class is deprecated and will be removed from pandas in a future version. Use pandas.arrays.SparseArray instead.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.SparseDataFrame": {
+"obj": "pandas",
+"name": "SparseDataFrame",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"warn"
+],
+[
+"1.1.0",
+"warn"
+],
+[
+"1.2.0",
+"warn"
+],
+[
+"1.3.0",
+"warn"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The SparseDataFrame class is removed from pandas. Accessing it from the top-level namespace will also be removed in the next version.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.SparseSeries": {
+"obj": "pandas",
+"name": "SparseSeries",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"warn"
+],
+[
+"1.1.0",
+"warn"
+],
+[
+"1.2.0",
+"warn"
+],
+[
+"1.3.0",
+"warn"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The SparseSeries class is removed from pandas. Accessing it from the top-level namespace will also be removed in the next version.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.UInt64Index": {
+"obj": "pandas",
+"name": "UInt64Index",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "pandas.UInt64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.datetime": {
+"obj": "pandas",
+"name": "datetime",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"warn"
+],
+[
+"1.1.0",
+"warn"
+],
+[
+"1.2.0",
+"warn"
+],
+[
+"1.3.0",
+"warn"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The pandas.datetime class is deprecated and will be removed from pandas in a future version. Import from datetime module instead.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.np": {
+"obj": "pandas",
+"name": "np",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"warn"
+],
+[
+"1.1.0",
+"warn"
+],
+[
+"1.2.0",
+"warn"
+],
+[
+"1.3.0",
+"warn"
+],
+[
+"1.4.0",
+"warn"
+],
+[
+"1.5.0",
+"warn"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The pandas.np module is deprecated and will be removed from pandas in a future version. Import numpy directly instead.",
+"src": "warning on access in 1.5.0",
+"back": false
+},
+"pandas.read_gbq": {
+"obj": "pandas",
+"name": "read_gbq",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "read_gbq is deprecated and will be removed in a future version. Please use pandas_gbq.read_gbq instead: https://pandas-gbq.readthedocs.io/en/latest/api.html#pandas_gbq.read_gbq",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"pandas.read_msgpack": {
+"obj": "pandas",
+"name": "read_msgpack",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "The read_msgpack is deprecated and will be removed in a future version. It is recommended to use pyarrow for on-the-wire transmission of pandas objects.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"pandas.to_msgpack": {
+"obj": "pandas",
+"name": "to_msgpack",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "to_msgpack is deprecated and will be removed in a future version. It is recommended to use pyarrow for on-the-wire transmission of pandas objects.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"pandas.value_counts": {
+"obj": "pandas",
+"name": "value_counts",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "pandas.value_counts is deprecated and will be removed in a future version. Use pd.Series(obj).value_counts() instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.append": {
+"obj": "DataFrame",
+"name": "append",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DataFrame.applymap": {
+"obj": "DataFrame",
+"name": "applymap",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrame.applymap has been deprecated. Use DataFrame.map instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.as_blocks": {
+"obj": "DataFrame",
+"name": "as_blocks",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "as_blocks is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.as_matrix": {
+"obj": "DataFrame",
+"name": "as_matrix",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Method .as_matrix will be removed in a future version. Use .values instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.backfill": {
+"obj": "DataFrame",
+"name": "backfill",
+"seq": [
+[
+"0.25.3",
+"gone"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrame.backfill/Series.backfill is deprecated. Use DataFrame.bfill/Series.bfill instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.blocks": {
+"obj": "DataFrame",
+"name": "blocks",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": null,
+"src": null,
+"back": false
+},
+"DataFrame.bool": {
+"obj": "DataFrame",
+"name": "bool",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrame.bool is now deprecated and will be removed in future version of pandas",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.clip_lower": {
+"obj": "DataFrame",
+"name": "clip_lower",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "clip_lower(threshold) is deprecated, use clip(lower=threshold) instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.clip_upper": {
+"obj": "DataFrame",
+"name": "clip_upper",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "clip_upper(threshold) is deprecated, use clip(upper=threshold) instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.compound": {
+"obj": "DataFrame",
+"name": "compound",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use (1 + df).prod() - 1.",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"DataFrame.first": {
+"obj": "DataFrame",
+"name": "first",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "first is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.from_items": {
+"obj": "DataFrame",
+"name": "from_items",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "from_items is deprecated. Please use DataFrame.from_dict(dict(items), ...) instead. DataFrame.from_dict(OrderedDict(items)) may be used to preserve the key order.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.ftypes": {
+"obj": "DataFrame",
+"name": "ftypes",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DataFrame.ftypes is deprecated and will be removed in a future version. Use DataFrame.dtypes instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.get_dtype_counts": {
+"obj": "DataFrame",
+"name": "get_dtype_counts",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "`get_dtype_counts` has been deprecated and will be removed in a future version. For DataFrames use `.dtypes.value_counts()",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.get_ftype_counts": {
+"obj": "DataFrame",
+"name": "get_ftype_counts",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "get_ftype_counts is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.get_value": {
+"obj": "DataFrame",
+"name": "get_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "get_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.get_values": {
+"obj": "DataFrame",
+"name": "get_values",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "The 'get_values' method is deprecated and will be removed in a future version. Use '.values' or 'np.asarray(..)' instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.is_copy": {
+"obj": "DataFrame",
+"name": "is_copy",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Attribute 'is_copy' is deprecated and will be removed in a future version.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.iteritems": {
+"obj": "DataFrame",
+"name": "iteritems",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "iteritems is deprecated and will be removed in a future version. Use .items instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DataFrame.ix": {
+"obj": "DataFrame",
+"name": "ix",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use .loc for labels, .iloc for positions.",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"DataFrame.last": {
+"obj": "DataFrame",
+"name": "last",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "last is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.lookup": {
+"obj": "DataFrame",
+"name": "lookup",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Use df.loc / df.at, or df.to_numpy()[row_positions, column_positions].",
+"src": "our note (1.5.0 gave no warning text)",
+"back": false
+},
+"DataFrame.mad": {
+"obj": "DataFrame",
+"name": "mad",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Use (df - df.mean()).abs().mean().",
+"src": "our note (1.5.0 gave no warning text)",
+"back": false
+},
+"DataFrame.pad": {
+"obj": "DataFrame",
+"name": "pad",
+"seq": [
+[
+"0.25.3",
+"gone"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrame.pad/Series.pad is deprecated. Use DataFrame.ffill/Series.ffill instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.set_value": {
+"obj": "DataFrame",
+"name": "set_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "set_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.slice_shift": {
+"obj": "DataFrame",
+"name": "slice_shift",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Use shift.",
+"src": "our note (1.5.0 gave no warning text)",
+"back": false
+},
+"DataFrame.swapaxes": {
+"obj": "DataFrame",
+"name": "swapaxes",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "'DataFrame.swapaxes' is deprecated and will be removed in a future version. Please use 'DataFrame.transpose' instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrame.to_dense": {
+"obj": "DataFrame",
+"name": "to_dense",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DataFrame/Series.to_dense is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.to_gbq": {
+"obj": "DataFrame",
+"name": "to_gbq",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "to_gbq is deprecated and will be removed in a future version. Please use pandas_gbq.to_gbq instead: https://pandas-gbq.readthedocs.io/en/latest/api.html#pandas_gbq.to_gbq",
+"src": "warning text in 2.3.0 that names it",
+"back": false
+},
+"DataFrame.to_msgpack": {
+"obj": "DataFrame",
+"name": "to_msgpack",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "to_msgpack is deprecated and will be removed in a future version. It is recommended to use pyarrow for on-the-wire transmission of pandas objects.",
+"src": "warning text in 0.25.3 that names it",
+"back": false
+},
+"DataFrame.to_sparse": {
+"obj": "DataFrame",
+"name": "to_sparse",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DataFrame.to_sparse is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DataFrame.tshift": {
+"obj": "DataFrame",
+"name": "tshift",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "tshift is deprecated and will be removed in a future version. Please use shift instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Series.append": {
+"obj": "Series",
+"name": "append",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The series.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Series.as_blocks": {
+"obj": "Series",
+"name": "as_blocks",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "as_blocks is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.as_matrix": {
+"obj": "Series",
+"name": "as_matrix",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Method .as_matrix will be removed in a future version. Use .values instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.asobject": {
+"obj": "Series",
+"name": "asobject",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "'asobject' is deprecated. Use 'astype(object)' instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.backfill": {
+"obj": "Series",
+"name": "backfill",
+"seq": [
+[
+"0.25.3",
+"gone"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrame.backfill/Series.backfill is deprecated. Use DataFrame.bfill/Series.bfill instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Series.base": {
+"obj": "Series",
+"name": "base",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.base is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.blocks": {
+"obj": "Series",
+"name": "blocks",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": null,
+"src": null,
+"back": false
+},
+"Series.bool": {
+"obj": "Series",
+"name": "bool",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Series.bool is now deprecated and will be removed in future version of pandas",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Series.clip_lower": {
+"obj": "Series",
+"name": "clip_lower",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "clip_lower(threshold) is deprecated, use clip(lower=threshold) instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.clip_upper": {
+"obj": "Series",
+"name": "clip_upper",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "clip_upper(threshold) is deprecated, use clip(upper=threshold) instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.compound": {
+"obj": "Series",
+"name": "compound",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use (1 + s).prod() - 1.",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"Series.compress": {
+"obj": "Series",
+"name": "compress",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use s[condition].",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"Series.data": {
+"obj": "Series",
+"name": "data",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.data is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.first": {
+"obj": "Series",
+"name": "first",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "first is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Series.flags": {
+"obj": "Series",
+"name": "flags",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"ok"
+],
+[
+"3.1.0",
+"ok"
+],
+[
+"3.1.1",
+"ok"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.flags is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": true
+},
+"Series.from_array": {
+"obj": "Series",
+"name": "from_array",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "'from_array' is deprecated and will be removed in a future version. Please use the pd.Series(..) constructor instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.ftype": {
+"obj": "Series",
+"name": "ftype",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.ftype is deprecated and will be removed in a future version. Use Series.dtype instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.ftypes": {
+"obj": "Series",
+"name": "ftypes",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.ftypes is deprecated and will be removed in a future version. Use Series.dtype instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.get_dtype_counts": {
+"obj": "Series",
+"name": "get_dtype_counts",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "`get_dtype_counts` has been deprecated and will be removed in a future version. For DataFrames use `.dtypes.value_counts()",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.get_ftype_counts": {
+"obj": "Series",
+"name": "get_ftype_counts",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "get_ftype_counts is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.get_value": {
+"obj": "Series",
+"name": "get_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "get_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.get_values": {
+"obj": "Series",
+"name": "get_values",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "The 'get_values' method is deprecated and will be removed in a future version. Use '.to_numpy()' or '.array' instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.imag": {
+"obj": "Series",
+"name": "imag",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "`imag` is deprecated and will be removed in a future version. To eliminate this warning for a Series `ser`, use `np.imag(ser.to_numpy())` or `ser.to_numpy().imag`.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.is_copy": {
+"obj": "Series",
+"name": "is_copy",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Attribute 'is_copy' is deprecated and will be removed in a future version.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.is_monotonic": {
+"obj": "Series",
+"name": "is_monotonic",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "is_monotonic is deprecated and will be removed in a future version. Use is_monotonic_increasing instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Series.itemsize": {
+"obj": "Series",
+"name": "itemsize",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.itemsize is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.iteritems": {
+"obj": "Series",
+"name": "iteritems",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "iteritems is deprecated and will be removed in a future version. Use .items instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Series.ix": {
+"obj": "Series",
+"name": "ix",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use .loc for labels, .iloc for positions.",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"Series.last": {
+"obj": "Series",
+"name": "last",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "last is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Series.mad": {
+"obj": "Series",
+"name": "mad",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Use (s - s.mean()).abs().mean().",
+"src": "our note (1.5.0 gave no warning text)",
+"back": false
+},
+"Series.nonzero": {
+"obj": "Series",
+"name": "nonzero",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use s.to_numpy().nonzero().",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"Series.pad": {
+"obj": "Series",
+"name": "pad",
+"seq": [
+[
+"0.25.3",
+"gone"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrame.pad/Series.pad is deprecated. Use DataFrame.ffill/Series.ffill instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Series.ptp": {
+"obj": "Series",
+"name": "ptp",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.",
+"src": "warning text in 0.25.3 that names it",
+"back": false
+},
+"Series.put": {
+"obj": "Series",
+"name": "put",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "`put` has been deprecated and will be removed in afuture version.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.ravel": {
+"obj": "Series",
+"name": "ravel",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Series.ravel is deprecated. The underlying array is already 1D, so ravel is not necessary. Use `to_numpy()` for conversion to a numpy array instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Series.real": {
+"obj": "Series",
+"name": "real",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "`real` is deprecated and will be removed in a future version. To eliminate this warning for a Series `ser`, use `np.real(ser.to_numpy())` or `ser.to_numpy().real`.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.set_value": {
+"obj": "Series",
+"name": "set_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "set_value is deprecated and will be removed in a future release. Please use .at[] or .iat[] accessors instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.slice_shift": {
+"obj": "Series",
+"name": "slice_shift",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Use shift.",
+"src": "our note (1.5.0 gave no warning text)",
+"back": false
+},
+"Series.strides": {
+"obj": "Series",
+"name": "strides",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.strides is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.swapaxes": {
+"obj": "Series",
+"name": "swapaxes",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "'Series.swapaxes' is deprecated and will be removed in a future version. Please use 'Series.transpose' instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Series.to_dense": {
+"obj": "Series",
+"name": "to_dense",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DataFrame/Series.to_dense is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.to_msgpack": {
+"obj": "Series",
+"name": "to_msgpack",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "to_msgpack is deprecated and will be removed in a future version. It is recommended to use pyarrow for on-the-wire transmission of pandas objects.",
+"src": "warning text in 0.25.3 that names it",
+"back": false
+},
+"Series.to_sparse": {
+"obj": "Series",
+"name": "to_sparse",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Series.to_sparse is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.tshift": {
+"obj": "Series",
+"name": "tshift",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "tshift is deprecated and will be removed in a future version. Please use shift instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Series.valid": {
+"obj": "Series",
+"name": "valid",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Method .valid will be removed in a future version. Use .dropna instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Series.view": {
+"obj": "Series",
+"name": "view",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Series.view is deprecated and will be removed in a future version. Use ``astype`` as an alternative to change the dtype.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.asi8": {
+"obj": "Index",
+"name": "asi8",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Index.asi8 is deprecated and will be removed in a future version.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Index.base": {
+"obj": "Index",
+"name": "base",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Index.base is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.contains": {
+"obj": "Index",
+"name": "contains",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "The 'contains' method is deprecated and will be removed in a future version. Use 'key in index' instead of 'index.contains(key)'",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.data": {
+"obj": "Index",
+"name": "data",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Index.data is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.dtype_str": {
+"obj": "Index",
+"name": "dtype_str",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "`dtype_str` has been deprecated. Call `str` on the dtype attribute instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.flags": {
+"obj": "Index",
+"name": "flags",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Index.flags is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.format": {
+"obj": "Index",
+"name": "format",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.format is deprecated and will be removed in a future version. Convert using index.astype(str) or index.map(formatter) instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.get_duplicates": {
+"obj": "Index",
+"name": "get_duplicates",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "'get_duplicates' is deprecated and will be removed in a future release. You can use idx[idx.duplicated()].unique() instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.get_value": {
+"obj": "Index",
+"name": "get_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "get_value is deprecated and will be removed in a future version. Use Series[key] instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Index.get_values": {
+"obj": "Index",
+"name": "get_values",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "The 'get_values' method is deprecated and will be removed in a future version. Use '.to_numpy()' or '.array' instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.holds_integer": {
+"obj": "Index",
+"name": "holds_integer",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.holds_integer is deprecated. Use pandas.api.types.infer_dtype instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_all_dates": {
+"obj": "Index",
+"name": "is_all_dates",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Index.is_all_dates is deprecated, will be removed in a future version. check index.inferred_type instead.",
+"src": "warning text in 1.5.0 that names it",
+"back": false
+},
+"Index.is_boolean": {
+"obj": "Index",
+"name": "is_boolean",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.is_boolean is deprecated. Use pandas.api.types.is_bool_type instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_categorical": {
+"obj": "Index",
+"name": "is_categorical",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.is_categorical is deprecated.Use pandas.api.types.is_categorical_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_floating": {
+"obj": "Index",
+"name": "is_floating",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.is_floating is deprecated. Use pandas.api.types.is_float_dtype instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_integer": {
+"obj": "Index",
+"name": "is_integer",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.is_integer is deprecated. Use pandas.api.types.is_integer_dtype instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_interval": {
+"obj": "Index",
+"name": "is_interval",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.is_interval is deprecated.Use pandas.api.types.is_interval_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_lexsorted_for_tuple": {
+"obj": "Index",
+"name": "is_lexsorted_for_tuple",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": null,
+"src": null,
+"back": false
+},
+"Index.is_mixed": {
+"obj": "Index",
+"name": "is_mixed",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Index.is_mixed is deprecated and will be removed in a future version. Check index.inferred_type directly instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Index.is_monotonic": {
+"obj": "Index",
+"name": "is_monotonic",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "is_monotonic is deprecated and will be removed in a future version. Use is_monotonic_increasing instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Index.is_numeric": {
+"obj": "Index",
+"name": "is_numeric",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.is_numeric is deprecated. Use pandas.api.types.is_any_real_numeric_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_object": {
+"obj": "Index",
+"name": "is_object",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Index.is_object is deprecated.Use pandas.api.types.is_object_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"Index.is_type_compatible": {
+"obj": "Index",
+"name": "is_type_compatible",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Index.is_type_compatible is deprecated and will be removed in a future version.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Index.itemsize": {
+"obj": "Index",
+"name": "itemsize",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Index.itemsize is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.set_value": {
+"obj": "Index",
+"name": "set_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The 'set_value' method is deprecated, and will be removed in a future version.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"Index.sort": {
+"obj": "Index",
+"name": "sort",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Use sort_values.",
+"src": "our note (2.3.0 gave no warning text)",
+"back": false
+},
+"Index.strides": {
+"obj": "Index",
+"name": "strides",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Index.strides is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.summary": {
+"obj": "Index",
+"name": "summary",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "'summary' is deprecated and will be removed in a future version.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"Index.to_native_types": {
+"obj": "Index",
+"name": "to_native_types",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The 'to_native_types' method is deprecated and will be removed in a future version. Use 'astype(str)' instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.asobject": {
+"obj": "DatetimeIndex",
+"name": "asobject",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "'asobject' is deprecated. Use 'astype(object)' instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.base": {
+"obj": "DatetimeIndex",
+"name": "base",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DatetimeIndex.base is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.contains": {
+"obj": "DatetimeIndex",
+"name": "contains",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "The 'contains' method is deprecated and will be removed in a future version. Use 'key in index' instead of 'index.contains(key)'",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.data": {
+"obj": "DatetimeIndex",
+"name": "data",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DatetimeIndex.data is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.dtype_str": {
+"obj": "DatetimeIndex",
+"name": "dtype_str",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "`dtype_str` has been deprecated. Call `str` on the dtype attribute instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.flags": {
+"obj": "DatetimeIndex",
+"name": "flags",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DatetimeIndex.flags is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.format": {
+"obj": "DatetimeIndex",
+"name": "format",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.format is deprecated and will be removed in a future version. Convert using index.astype(str) or index.map(formatter) instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.get_duplicates": {
+"obj": "DatetimeIndex",
+"name": "get_duplicates",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "'get_duplicates' is deprecated and will be removed in a future release. You can use idx[idx.duplicated()].unique() instead",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.get_value": {
+"obj": "DatetimeIndex",
+"name": "get_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "get_value is deprecated and will be removed in a future version. Use Series[key] instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.get_value_maybe_box": {
+"obj": "DatetimeIndex",
+"name": "get_value_maybe_box",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.1.0",
+"last": "1.0.0",
+"fix": null,
+"src": null,
+"back": false
+},
+"DatetimeIndex.get_values": {
+"obj": "DatetimeIndex",
+"name": "get_values",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "The 'get_values' method is deprecated and will be removed in a future version. Use '.to_numpy()' or '.array' instead.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.holds_integer": {
+"obj": "DatetimeIndex",
+"name": "holds_integer",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.holds_integer is deprecated. Use pandas.api.types.infer_dtype instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_all_dates": {
+"obj": "DatetimeIndex",
+"name": "is_all_dates",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Index.is_all_dates is deprecated, will be removed in a future version. check index.inferred_type instead.",
+"src": "warning text in 1.5.0 that names it",
+"back": false
+},
+"DatetimeIndex.is_boolean": {
+"obj": "DatetimeIndex",
+"name": "is_boolean",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.is_boolean is deprecated. Use pandas.api.types.is_bool_type instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_categorical": {
+"obj": "DatetimeIndex",
+"name": "is_categorical",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.is_categorical is deprecated.Use pandas.api.types.is_categorical_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_floating": {
+"obj": "DatetimeIndex",
+"name": "is_floating",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.is_floating is deprecated. Use pandas.api.types.is_float_dtype instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_integer": {
+"obj": "DatetimeIndex",
+"name": "is_integer",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.is_integer is deprecated. Use pandas.api.types.is_integer_dtype instead.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_interval": {
+"obj": "DatetimeIndex",
+"name": "is_interval",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.is_interval is deprecated.Use pandas.api.types.is_interval_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_lexsorted_for_tuple": {
+"obj": "DatetimeIndex",
+"name": "is_lexsorted_for_tuple",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": null,
+"src": null,
+"back": false
+},
+"DatetimeIndex.is_mixed": {
+"obj": "DatetimeIndex",
+"name": "is_mixed",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Index.is_mixed is deprecated and will be removed in a future version. Check index.inferred_type directly instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.is_monotonic": {
+"obj": "DatetimeIndex",
+"name": "is_monotonic",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "is_monotonic is deprecated and will be removed in a future version. Use is_monotonic_increasing instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.is_numeric": {
+"obj": "DatetimeIndex",
+"name": "is_numeric",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.is_numeric is deprecated. Use pandas.api.types.is_any_real_numeric_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_object": {
+"obj": "DatetimeIndex",
+"name": "is_object",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DatetimeIndex.is_object is deprecated.Use pandas.api.types.is_object_dtype instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DatetimeIndex.is_type_compatible": {
+"obj": "DatetimeIndex",
+"name": "is_type_compatible",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "DatetimeIndex.is_type_compatible is deprecated and will be removed in a future version.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.itemsize": {
+"obj": "DatetimeIndex",
+"name": "itemsize",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DatetimeIndex.itemsize is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.offset": {
+"obj": "DatetimeIndex",
+"name": "offset",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use freq.",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"DatetimeIndex.set_value": {
+"obj": "DatetimeIndex",
+"name": "set_value",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The 'set_value' method is deprecated, and will be removed in a future version.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.sort": {
+"obj": "DatetimeIndex",
+"name": "sort",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "Use sort_values.",
+"src": "our note (2.3.0 gave no warning text)",
+"back": false
+},
+"DatetimeIndex.strides": {
+"obj": "DatetimeIndex",
+"name": "strides",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "DatetimeIndex.strides is deprecated and will be removed in a future version",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.summary": {
+"obj": "DatetimeIndex",
+"name": "summary",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "'summary' is deprecated and will be removed in a future version.",
+"src": "warning in the code of 0.25.3",
+"back": false
+},
+"DatetimeIndex.to_native_types": {
+"obj": "DatetimeIndex",
+"name": "to_native_types",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "The 'to_native_types' method is deprecated and will be removed in a future version. Use 'astype(str)' instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.to_perioddelta": {
+"obj": "DatetimeIndex",
+"name": "to_perioddelta",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "to_perioddelta is deprecated and will be removed in a future version. Use `dtindex - dtindex.to_period(freq).to_timestamp()` instead.",
+"src": "warning text in 1.5.0 that names it",
+"back": false
+},
+"DatetimeIndex.union_many": {
+"obj": "DatetimeIndex",
+"name": "union_many",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "DatetimeIndex.union_many is deprecated and will be removed in a future version. Use obj.union instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DatetimeIndex.week": {
+"obj": "DatetimeIndex",
+"name": "week",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Series.dt.weekofyear and Series.dt.week have been deprecated. Please use Series.dt.isocalendar().week instead.",
+"src": "warning text in 1.5.0 that names it",
+"back": false
+},
+"DatetimeIndex.weekday_name": {
+"obj": "DatetimeIndex",
+"name": "weekday_name",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use day_name().",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"DatetimeIndex.weekofyear": {
+"obj": "DatetimeIndex",
+"name": "weekofyear",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Series.dt.weekofyear and Series.dt.week have been deprecated. Please use Series.dt.isocalendar().week instead.",
+"src": "warning text in 1.5.0 that names it",
+"back": false
+},
+"Timestamp.freq": {
+"obj": "Timestamp",
+"name": "freq",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": null,
+"src": null,
+"back": false
+},
+"Timestamp.freqstr": {
+"obj": "Timestamp",
+"name": "freqstr",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": null,
+"src": null,
+"back": false
+},
+"Timestamp.weekday_name": {
+"obj": "Timestamp",
+"name": "weekday_name",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "1.0.0",
+"last": "0.25.3",
+"fix": "Use day_name().",
+"src": "our note (0.25.3 gave no warning text)",
+"back": false
+},
+"DataFrameGroupBy.backfill": {
+"obj": "DataFrameGroupBy",
+"name": "backfill",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "backfill is deprecated and will be removed in a future version. Use bfill instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DataFrameGroupBy.dtypes": {
+"obj": "DataFrameGroupBy",
+"name": "dtypes",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrameGroupBy.dtypes is deprecated and will be removed in a future version. Check the dtypes on the base object instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrameGroupBy.fillna": {
+"obj": "DataFrameGroupBy",
+"name": "fillna",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrameGroupBy.fillna is deprecated and will be removed in a future version. Use obj.ffill() or obj.bfill() for forward or backward filling instead. If you want to fill with a single value, use {type(self.obj).__name__}.fillna instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrameGroupBy.grouper": {
+"obj": "DataFrameGroupBy",
+"name": "grouper",
+"seq": [
+[
+"0.25.3",
+"gone"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "DataFrameGroupBy.grouper is deprecated and will be removed in a future version of pandas.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"DataFrameGroupBy.mad": {
+"obj": "DataFrameGroupBy",
+"name": "mad",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Use an explicit agg, e.g. .agg(lambda x: (x - x.mean()).abs().mean()).",
+"src": "our note (1.5.0 gave no warning text)",
+"back": false
+},
+"DataFrameGroupBy.pad": {
+"obj": "DataFrameGroupBy",
+"name": "pad",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "pad is deprecated and will be removed in a future version. Use ffill instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"DataFrameGroupBy.tshift": {
+"obj": "DataFrameGroupBy",
+"name": "tshift",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "tshift is deprecated and will be removed in a future version. Please use shift instead.",
+"src": "warning text in 1.5.0 that names it",
+"back": false
+},
+"SeriesGroupBy.backfill": {
+"obj": "SeriesGroupBy",
+"name": "backfill",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "backfill is deprecated and will be removed in a future version. Use bfill instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"SeriesGroupBy.fillna": {
+"obj": "SeriesGroupBy",
+"name": "fillna",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"ok"
+],
+[
+"2.1.0",
+"ok"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "SeriesGroupBy.fillna is deprecated and will be removed in a future version. Use obj.ffill() or obj.bfill() for forward or backward filling instead. If you want to fill with a single value, use {type(self.obj).__name__}.fillna instead",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"SeriesGroupBy.grouper": {
+"obj": "SeriesGroupBy",
+"name": "grouper",
+"seq": [
+[
+"0.25.3",
+"gone"
+],
+[
+"1.0.0",
+"gone"
+],
+[
+"1.1.0",
+"gone"
+],
+[
+"1.2.0",
+"gone"
+],
+[
+"1.3.0",
+"gone"
+],
+[
+"1.4.0",
+"gone"
+],
+[
+"1.5.0",
+"gone"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"ok"
+],
+[
+"2.3.0",
+"ok"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "3.0.0",
+"last": "2.3.0",
+"fix": "SeriesGroupBy.grouper is deprecated and will be removed in a future version of pandas.",
+"src": "warning in the code of 2.3.0",
+"back": false
+},
+"SeriesGroupBy.mad": {
+"obj": "SeriesGroupBy",
+"name": "mad",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "Use an explicit agg, e.g. .agg(lambda x: (x - x.mean()).abs().mean()).",
+"src": "our note (1.5.0 gave no warning text)",
+"back": false
+},
+"SeriesGroupBy.pad": {
+"obj": "SeriesGroupBy",
+"name": "pad",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "pad is deprecated and will be removed in a future version. Use ffill instead.",
+"src": "warning in the code of 1.5.0",
+"back": false
+},
+"SeriesGroupBy.tshift": {
+"obj": "SeriesGroupBy",
+"name": "tshift",
+"seq": [
+[
+"0.25.3",
+"ok"
+],
+[
+"1.0.0",
+"ok"
+],
+[
+"1.1.0",
+"ok"
+],
+[
+"1.2.0",
+"ok"
+],
+[
+"1.3.0",
+"ok"
+],
+[
+"1.4.0",
+"ok"
+],
+[
+"1.5.0",
+"ok"
+],
+[
+"2.0.0",
+"gone"
+],
+[
+"2.1.0",
+"gone"
+],
+[
+"2.2.0",
+"gone"
+],
+[
+"2.3.0",
+"gone"
+],
+[
+"3.0.0",
+"gone"
+],
+[
+"3.1.0",
+"gone"
+],
+[
+"3.1.1",
+"gone"
+]
+],
+"removed": "2.0.0",
+"last": "1.5.0",
+"fix": "tshift is deprecated and will be removed in a future version. Please use shift instead.",
+"src": "warning text in 1.5.0 that names it",
+"back": false
+}
+},
+"names": {
+"pandas": [
+"ArrowDtype",
+"BooleanDtype",
+"Categorical",
+"CategoricalDtype",
+"CategoricalIndex",
+"DataFrame",
+"DateOffset",
+"DatetimeIndex",
+"DatetimeTZDtype",
+"ExcelFile",
+"ExcelWriter",
+"Flags",
+"Float32Dtype",
+"Float64Dtype",
+"Float64Index",
+"Grouper",
+"HDFStore",
+"Index",
+"IndexSlice",
+"Int16Dtype",
+"Int32Dtype",
+"Int64Dtype",
+"Int64Index",
+"Int8Dtype",
+"Interval",
+"IntervalDtype",
+"IntervalIndex",
+"MultiIndex",
+"NA",
+"NaT",
+"NamedAgg",
+"NamedFunc",
+"Period",
+"PeriodDtype",
+"PeriodIndex",
+"RangeIndex",
+"Series",
+"SparseArray",
+"SparseDataFrame",
+"SparseDtype",
+"SparseSeries",
+"StringDtype",
+"Timedelta",
+"TimedeltaIndex",
+"Timestamp",
+"UInt16Dtype",
+"UInt32Dtype",
+"UInt64Dtype",
+"UInt64Index",
+"UInt8Dtype",
+"annotations",
+"api",
+"array",
+"arrays",
+"bdate_range",
+"col",
+"compat",
+"concat",
+"core",
+"crosstab",
+"cut",
+"date_range",
+"datetime",
+"describe_option",
+"errors",
+"eval",
+"factorize",
+"from_dummies",
+"get_dummies",
+"get_option",
+"infer_freq",
+"interval_range",
+"io",
+"isna",
+"isnull",
+"json_normalize",
+"lreshape",
+"melt",
+"merge",
+"merge_asof",
+"merge_ordered",
+"notna",
+"notnull",
+"np",
+"offsets",
+"option_context",
+"options",
+"pandas",
+"period_range",
+"pivot",
+"pivot_table",
+"plotting",
+"qcut",
+"read_clipboard",
+"read_csv",
+"read_excel",
+"read_feather",
+"read_fwf",
+"read_gbq",
+"read_hdf",
+"read_html",
+"read_iceberg",
+"read_json",
+"read_msgpack",
+"read_orc",
+"read_parquet",
+"read_pickle",
+"read_sas",
+"read_spss",
+"read_sql",
+"read_sql_query",
+"read_sql_table",
+"read_stata",
+"read_table",
+"read_xml",
+"reset_option",
+"set_eng_float_format",
+"set_option",
+"show_versions",
+"test",
+"testing",
+"timedelta_range",
+"to_datetime",
+"to_msgpack",
+"to_numeric",
+"to_pickle",
+"to_timedelta",
+"tseries",
+"unique",
+"util",
+"value_counts",
+"wide_to_long"
+],
+"DataFrame": [
+"T",
+"abs",
+"add",
+"add_prefix",
+"add_suffix",
+"agg",
+"aggregate",
+"align",
+"all",
+"any",
+"append",
+"apply",
+"applymap",
+"as_blocks",
+"as_matrix",
+"asfreq",
+"asof",
+"assign",
+"astype",
+"at",
+"at_time",
+"attrs",
+"axes",
+"backfill",
+"between_time",
+"bfill",
+"blocks",
+"bool",
+"boxplot",
+"clip",
+"clip_lower",
+"clip_upper",
+"columns",
+"combine",
+"combine_first",
+"compare",
+"compound",
+"convert_dtypes",
+"copy",
+"corr",
+"corrwith",
+"count",
+"cov",
+"cummax",
+"cummin",
+"cumprod",
+"cumsum",
+"describe",
+"diff",
+"div",
+"divide",
+"dot",
+"drop",
+"drop_duplicates",
+"droplevel",
+"dropna",
+"dtypes",
+"duplicated",
+"empty",
+"eq",
+"equals",
+"eval",
+"ewm",
+"expanding",
+"explode",
+"ffill",
+"fillna",
+"filter",
+"first",
+"first_valid_index",
+"flags",
+"floordiv",
+"from_arrow",
+"from_dict",
+"from_items",
+"from_records",
+"ftypes",
+"ge",
+"get",
+"get_dtype_counts",
+"get_ftype_counts",
+"get_value",
+"get_values",
+"groupby",
+"gt",
+"head",
+"hist",
+"iat",
+"idxmax",
+"idxmin",
+"iloc",
+"index",
+"infer_objects",
+"info",
+"insert",
+"interpolate",
+"is_copy",
+"isetitem",
+"isin",
+"isna",
+"isnull",
+"items",
+"iteritems",
+"iterrows",
+"itertuples",
+"ix",
+"join",
+"keys",
+"kurt",
+"kurtosis",
+"last",
+"last_valid_index",
+"le",
+"loc",
+"lookup",
+"lt",
+"mad",
+"map",
+"mask",
+"max",
+"mean",
+"median",
+"melt",
+"memory_usage",
+"merge",
+"min",
+"mod",
+"mode",
+"mul",
+"multiply",
+"ndim",
+"ne",
+"nlargest",
+"notna",
+"notnull",
+"nsmallest",
+"nunique",
+"pad",
+"pct_change",
+"pipe",
+"pivot",
+"pivot_table",
+"plot",
+"pop",
+"pow",
+"prod",
+"product",
+"quantile",
+"query",
+"radd",
+"rank",
+"rdiv",
+"reindex",
+"reindex_like",
+"rename",
+"rename_axis",
+"reorder_levels",
+"replace",
+"resample",
+"reset_index",
+"rfloordiv",
+"rmod",
+"rmul",
+"rolling",
+"round",
+"rpow",
+"rsub",
+"rtruediv",
+"sample",
+"select",
+"select_dtypes",
+"sem",
+"set_axis",
+"set_flags",
+"set_index",
+"set_value",
+"shape",
+"shift",
+"size",
+"skew",
+"slice_shift",
+"sort_index",
+"sort_values",
+"sparse",
+"squeeze",
+"stack",
+"std",
+"style",
+"sub",
+"subtract",
+"sum",
+"swapaxes",
+"swaplevel",
+"tail",
+"take",
+"to_clipboard",
+"to_csv",
+"to_dense",
+"to_dict",
+"to_excel",
+"to_feather",
+"to_gbq",
+"to_hdf",
+"to_html",
+"to_iceberg",
+"to_json",
+"to_latex",
+"to_markdown",
+"to_msgpack",
+"to_numpy",
+"to_orc",
+"to_parquet",
+"to_period",
+"to_pickle",
+"to_records",
+"to_sparse",
+"to_sql",
+"to_stata",
+"to_string",
+"to_timestamp",
+"to_xarray",
+"to_xml",
+"transform",
+"transpose",
+"truediv",
+"truncate",
+"tshift",
+"tz_convert",
+"tz_localize",
+"unstack",
+"update",
+"value_counts",
+"values",
+"var",
+"where",
+"xs"
+],
+"Series": [
+"T",
+"abs",
+"add",
+"add_prefix",
+"add_suffix",
+"agg",
+"aggregate",
+"align",
+"all",
+"any",
+"append",
+"apply",
+"argmax",
+"argmin",
+"argsort",
+"array",
+"as_blocks",
+"as_matrix",
+"asfreq",
+"asobject",
+"asof",
+"astype",
+"at",
+"at_time",
+"attrs",
+"autocorr",
+"axes",
+"backfill",
+"base",
+"between",
+"between_time",
+"bfill",
+"blocks",
+"bool",
+"case_when",
+"cat",
+"clip",
+"clip_lower",
+"clip_upper",
+"combine",
+"combine_first",
+"compare",
+"compound",
+"compress",
+"convert_dtypes",
+"copy",
+"corr",
+"count",
+"cov",
+"cummax",
+"cummin",
+"cumprod",
+"cumsum",
+"data",
+"describe",
+"diff",
+"div",
+"divide",
+"divmod",
+"dot",
+"drop",
+"drop_duplicates",
+"droplevel",
+"dropna",
+"dt",
+"dtype",
+"dtypes",
+"duplicated",
+"empty",
+"eq",
+"equals",
+"ewm",
+"expanding",
+"explode",
+"factorize",
+"ffill",
+"fillna",
+"filter",
+"first",
+"first_valid_index",
+"flags",
+"floordiv",
+"from_array",
+"from_arrow",
+"ftype",
+"ftypes",
+"ge",
+"get",
+"get_dtype_counts",
+"get_ftype_counts",
+"get_value",
+"get_values",
+"groupby",
+"gt",
+"hasnans",
+"head",
+"hist",
+"iat",
+"idxmax",
+"idxmin",
+"iloc",
+"imag",
+"index",
+"infer_objects",
+"info",
+"interpolate",
+"is_copy",
+"is_monotonic",
+"is_monotonic_decreasing",
+"is_monotonic_increasing",
+"is_unique",
+"isin",
+"isna",
+"isnull",
+"item",
+"items",
+"itemsize",
+"iteritems",
+"ix",
+"keys",
+"kurt",
+"kurtosis",
+"last",
+"last_valid_index",
+"le",
+"list",
+"loc",
+"lt",
+"mad",
+"map",
+"mask",
+"max",
+"mean",
+"median",
+"memory_usage",
+"min",
+"mod",
+"mode",
+"mul",
+"multiply",
+"name",
+"nbytes",
+"ndim",
+"ne",
+"nlargest",
+"nonzero",
+"notna",
+"notnull",
+"nsmallest",
+"nunique",
+"pad",
+"pct_change",
+"pipe",
+"plot",
+"pop",
+"pow",
+"prod",
+"product",
+"ptp",
+"put",
+"quantile",
+"radd",
+"rank",
+"ravel",
+"rdiv",
+"rdivmod",
+"real",
+"reindex",
+"reindex_like",
+"rename",
+"rename_axis",
+"reorder_levels",
+"repeat",
+"replace",
+"resample",
+"reset_index",
+"rfloordiv",
+"rmod",
+"rmul",
+"rolling",
+"round",
+"rpow",
+"rsub",
+"rtruediv",
+"sample",
+"searchsorted",
+"sem",
+"set_axis",
+"set_flags",
+"set_value",
+"shape",
+"shift",
+"size",
+"skew",
+"slice_shift",
+"sort_index",
+"sort_values",
+"sparse",
+"squeeze",
+"std",
+"str",
+"strides",
+"struct",
+"sub",
+"subtract",
+"sum",
+"swapaxes",
+"swaplevel",
+"tail",
+"take",
+"to_clipboard",
+"to_csv",
+"to_dense",
+"to_dict",
+"to_excel",
+"to_frame",
+"to_hdf",
+"to_json",
+"to_latex",
+"to_list",
+"to_markdown",
+"to_msgpack",
+"to_numpy",
+"to_period",
+"to_pickle",
+"to_sparse",
+"to_sql",
+"to_string",
+"to_timestamp",
+"to_xarray",
+"tolist",
+"transform",
+"transpose",
+"truediv",
+"truncate",
+"tshift",
+"tz_convert",
+"tz_localize",
+"unique",
+"unstack",
+"update",
+"valid",
+"value_counts",
+"values",
+"var",
+"view",
+"where",
+"xs"
+],
+"Index": [
+"T",
+"all",
+"any",
+"append",
+"argmax",
+"argmin",
+"argsort",
+"array",
+"asi8",
+"asof",
+"asof_locs",
+"astype",
+"base",
+"contains",
+"copy",
+"data",
+"delete",
+"diff",
+"difference",
+"drop",
+"drop_duplicates",
+"droplevel",
+"dropna",
+"dtype",
+"dtype_str",
+"duplicated",
+"empty",
+"equals",
+"factorize",
+"fillna",
+"flags",
+"format",
+"get_duplicates",
+"get_indexer",
+"get_indexer_for",
+"get_indexer_non_unique",
+"get_level_values",
+"get_loc",
+"get_slice_bound",
+"get_value",
+"get_values",
+"groupby",
+"has_duplicates",
+"hasnans",
+"holds_integer",
+"identical",
+"infer_objects",
+"inferred_type",
+"insert",
+"intersection",
+"is_",
+"is_all_dates",
+"is_boolean",
+"is_categorical",
+"is_floating",
+"is_integer",
+"is_interval",
+"is_lexsorted_for_tuple",
+"is_mixed",
+"is_monotonic",
+"is_monotonic_decreasing",
+"is_monotonic_increasing",
+"is_numeric",
+"is_object",
+"is_type_compatible",
+"is_unique",
+"isin",
+"isna",
+"isnull",
+"item",
+"itemsize",
+"join",
+"map",
+"max",
+"memory_usage",
+"min",
+"name",
+"names",
+"nbytes",
+"ndim",
+"nlevels",
+"notna",
+"notnull",
+"nunique",
+"putmask",
+"ravel",
+"reindex",
+"rename",
+"repeat",
+"replace",
+"round",
+"searchsorted",
+"set_names",
+"set_value",
+"shape",
+"shift",
+"size",
+"slice_indexer",
+"slice_locs",
+"sort",
+"sort_values",
+"sortlevel",
+"str",
+"strides",
+"summary",
+"symmetric_difference",
+"take",
+"to_flat_index",
+"to_frame",
+"to_list",
+"to_native_types",
+"to_numpy",
+"to_series",
+"tolist",
+"transpose",
+"union",
+"unique",
+"value_counts",
+"values",
+"view",
+"where"
+],
+"DatetimeIndex": [
+"T",
+"all",
+"any",
+"append",
+"argmax",
+"argmin",
+"argsort",
+"array",
+"as_unit",
+"asi8",
+"asobject",
+"asof",
+"asof_locs",
+"astype",
+"base",
+"ceil",
+"contains",
+"copy",
+"data",
+"date",
+"day",
+"day_name",
+"day_of_week",
+"day_of_year",
+"dayofweek",
+"dayofyear",
+"days_in_month",
+"daysinmonth",
+"delete",
+"diff",
+"difference",
+"drop",
+"drop_duplicates",
+"droplevel",
+"dropna",
+"dtype",
+"dtype_str",
+"duplicated",
+"empty",
+"equals",
+"factorize",
+"fillna",
+"flags",
+"floor",
+"format",
+"freq",
+"freqstr",
+"get_duplicates",
+"get_indexer",
+"get_indexer_for",
+"get_indexer_non_unique",
+"get_level_values",
+"get_loc",
+"get_slice_bound",
+"get_value",
+"get_value_maybe_box",
+"get_values",
+"groupby",
+"has_duplicates",
+"hasnans",
+"holds_integer",
+"hour",
+"identical",
+"indexer_at_time",
+"indexer_between_time",
+"infer_objects",
+"inferred_freq",
+"inferred_type",
+"insert",
+"intersection",
+"is_",
+"is_all_dates",
+"is_boolean",
+"is_categorical",
+"is_floating",
+"is_integer",
+"is_interval",
+"is_leap_year",
+"is_lexsorted_for_tuple",
+"is_mixed",
+"is_monotonic",
+"is_monotonic_decreasing",
+"is_monotonic_increasing",
+"is_month_end",
+"is_month_start",
+"is_normalized",
+"is_numeric",
+"is_object",
+"is_quarter_end",
+"is_quarter_start",
+"is_type_compatible",
+"is_unique",
+"is_year_end",
+"is_year_start",
+"isin",
+"isna",
+"isnull",
+"isocalendar",
+"item",
+"itemsize",
+"join",
+"map",
+"max",
+"mean",
+"memory_usage",
+"microsecond",
+"min",
+"minute",
+"month",
+"month_name",
+"name",
+"names",
+"nanosecond",
+"nbytes",
+"ndim",
+"nlevels",
+"normalize",
+"notna",
+"notnull",
+"nunique",
+"offset",
+"putmask",
+"quarter",
+"ravel",
+"reindex",
+"rename",
+"repeat",
+"replace",
+"resolution",
+"round",
+"searchsorted",
+"second",
+"set_names",
+"set_value",
+"shape",
+"shift",
+"size",
+"slice_indexer",
+"slice_locs",
+"snap",
+"sort",
+"sort_values",
+"sortlevel",
+"std",
+"str",
+"strftime",
+"strides",
+"summary",
+"symmetric_difference",
+"take",
+"time",
+"timetz",
+"to_flat_index",
+"to_frame",
+"to_julian_date",
+"to_list",
+"to_native_types",
+"to_numpy",
+"to_period",
+"to_perioddelta",
+"to_pydatetime",
+"to_series",
+"tolist",
+"transpose",
+"tz",
+"tz_convert",
+"tz_localize",
+"tzinfo",
+"union",
+"union_many",
+"unique",
+"unit",
+"value_counts",
+"values",
+"view",
+"week",
+"weekday",
+"weekday_name",
+"weekofyear",
+"where",
+"year"
+],
+"Timestamp": [
+"as_unit",
+"asm8",
+"astimezone",
+"ceil",
+"combine",
+"ctime",
+"date",
+"day",
+"day_name",
+"day_of_week",
+"day_of_year",
+"dayofweek",
+"dayofyear",
+"days_in_month",
+"daysinmonth",
+"dst",
+"floor",
+"fold",
+"freq",
+"freqstr",
+"fromisocalendar",
+"fromisoformat",
+"fromordinal",
+"fromtimestamp",
+"hour",
+"is_leap_year",
+"is_month_end",
+"is_month_start",
+"is_quarter_end",
+"is_quarter_start",
+"is_year_end",
+"is_year_start",
+"isocalendar",
+"isoformat",
+"isoweekday",
+"max",
+"microsecond",
+"min",
+"minute",
+"month",
+"month_name",
+"nanosecond",
+"normalize",
+"now",
+"quarter",
+"replace",
+"resolution",
+"round",
+"second",
+"strftime",
+"strptime",
+"time",
+"timestamp",
+"timetuple",
+"timetz",
+"to_datetime64",
+"to_julian_date",
+"to_numpy",
+"to_period",
+"to_pydatetime",
+"today",
+"toordinal",
+"tz",
+"tz_convert",
+"tz_localize",
+"tzinfo",
+"tzname",
+"unit",
+"utcfromtimestamp",
+"utcnow",
+"utcoffset",
+"utctimetuple",
+"value",
+"week",
+"weekday",
+"weekday_name",
+"weekofyear",
+"year"
+],
+"DataFrameGroupBy": [
+"agg",
+"aggregate",
+"all",
+"any",
+"apply",
+"backfill",
+"bfill",
+"boxplot",
+"corr",
+"corrwith",
+"count",
+"cov",
+"cumcount",
+"cummax",
+"cummin",
+"cumprod",
+"cumsum",
+"describe",
+"diff",
+"dtypes",
+"ewm",
+"expanding",
+"ffill",
+"fillna",
+"filter",
+"first",
+"get_group",
+"grouper",
+"groups",
+"head",
+"hist",
+"idxmax",
+"idxmin",
+"indices",
+"keys",
+"kurt",
+"last",
+"level",
+"mad",
+"max",
+"mean",
+"median",
+"min",
+"ndim",
+"ngroup",
+"ngroups",
+"nth",
+"nunique",
+"ohlc",
+"pad",
+"pct_change",
+"pipe",
+"plot",
+"prod",
+"quantile",
+"rank",
+"resample",
+"rolling",
+"sample",
+"sem",
+"shift",
+"size",
+"skew",
+"std",
+"sum",
+"tail",
+"take",
+"transform",
+"tshift",
+"value_counts",
+"var"
+],
+"SeriesGroupBy": [
+"agg",
+"aggregate",
+"all",
+"any",
+"apply",
+"backfill",
+"bfill",
+"corr",
+"count",
+"cov",
+"cumcount",
+"cummax",
+"cummin",
+"cumprod",
+"cumsum",
+"describe",
+"diff",
+"dtype",
+"ewm",
+"expanding",
+"ffill",
+"fillna",
+"filter",
+"first",
+"get_group",
+"grouper",
+"groups",
+"head",
+"hist",
+"idxmax",
+"idxmin",
+"indices",
+"is_monotonic_decreasing",
+"is_monotonic_increasing",
+"keys",
+"kurt",
+"last",
+"level",
+"mad",
+"max",
+"mean",
+"median",
+"min",
+"ndim",
+"ngroup",
+"ngroups",
+"nlargest",
+"nsmallest",
+"nth",
+"nunique",
+"ohlc",
+"pad",
+"pct_change",
+"pipe",
+"plot",
+"prod",
+"quantile",
+"rank",
+"resample",
+"rolling",
+"sample",
+"sem",
+"shift",
+"size",
+"skew",
+"std",
+"sum",
+"tail",
+"take",
+"transform",
+"tshift",
+"unique",
+"value_counts",
+"var"
+],
+"StringMethods": [
+"capitalize",
+"casefold",
+"cat",
+"center",
+"contains",
+"count",
+"decode",
+"encode",
+"endswith",
+"extract",
+"extractall",
+"find",
+"findall",
+"fullmatch",
+"get",
+"get_dummies",
+"index",
+"isalnum",
+"isalpha",
+"isascii",
+"isdecimal",
+"isdigit",
+"islower",
+"isnumeric",
+"isspace",
+"istitle",
+"isupper",
+"join",
+"len",
+"ljust",
+"lower",
+"lstrip",
+"match",
+"normalize",
+"pad",
+"partition",
+"removeprefix",
+"removesuffix",
+"repeat",
+"replace",
+"rfind",
+"rindex",
+"rjust",
+"rpartition",
+"rsplit",
+"rstrip",
+"slice",
+"slice_replace",
+"split",
+"startswith",
+"strip",
+"swapcase",
+"title",
+"translate",
+"upper",
+"wrap",
+"zfill"
+]
+}
+}

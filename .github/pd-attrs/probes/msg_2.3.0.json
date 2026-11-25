@@ -1,0 +1,57 @@
+{
+"pandas": {
+"read_gbq": "read_gbq is deprecated and will be removed in a future version. Please use pandas_gbq.read_gbq instead: https://pandas-gbq.readthedocs.io/en/latest/api.html#pandas_gbq.read_gbq",
+"value_counts": "pandas.value_counts is deprecated and will be removed in a future version. Use pd.Series(obj).value_counts() instead."
+},
+"DataFrame": {
+"applymap": "DataFrame.applymap has been deprecated. Use DataFrame.map instead.",
+"backfill": "DataFrame.backfill/Series.backfill is deprecated. Use DataFrame.bfill/Series.bfill instead",
+"bool": "{type(self).__name__}.bool is now deprecated and will be removed in future version of pandas",
+"first": "first is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"last": "last is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"pad": "DataFrame.pad/Series.pad is deprecated. Use DataFrame.ffill/Series.ffill instead",
+"swapaxes": "'{type(self).__name__}.swapaxes' is deprecated and will be removed in a future version. Please use '{type(self).__name__}.transpose' instead.",
+"to_gbq": "to_gbq is deprecated and will be removed in a future version. Please use pandas_gbq.to_gbq instead: https://pandas-gbq.readthedocs.io/en/latest/api.html#pandas_gbq.to_gbq [found by text search]"
+},
+"Series": {
+"backfill": "DataFrame.backfill/Series.backfill is deprecated. Use DataFrame.bfill/Series.bfill instead",
+"bool": "{type(self).__name__}.bool is now deprecated and will be removed in future version of pandas",
+"first": "first is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"last": "last is deprecated and will be removed in a future version. Please create a mask and filter using `.loc` instead",
+"pad": "DataFrame.pad/Series.pad is deprecated. Use DataFrame.ffill/Series.ffill instead",
+"ravel": "Series.ravel is deprecated. The underlying array is already 1D, so ravel is not necessary. Use `to_numpy()` for conversion to a numpy array instead.",
+"swapaxes": "'{type(self).__name__}.swapaxes' is deprecated and will be removed in a future version. Please use '{type(self).__name__}.transpose' instead.",
+"view": "Series.view is deprecated and will be removed in a future version. Use ``astype`` as an alternative to change the dtype."
+},
+"Index": {
+"format": "{type(self).__name__}.format is deprecated and will be removed in a future version. Convert using index.astype(str) or index.map(formatter) instead.",
+"holds_integer": "{type(self).__name__}.holds_integer is deprecated. Use pandas.api.types.infer_dtype instead.",
+"is_boolean": "{type(self).__name__}.is_boolean is deprecated. Use pandas.api.types.is_bool_type instead.",
+"is_categorical": "{type(self).__name__}.is_categorical is deprecated.Use pandas.api.types.is_categorical_dtype instead",
+"is_floating": "{type(self).__name__}.is_floating is deprecated. Use pandas.api.types.is_float_dtype instead.",
+"is_integer": "{type(self).__name__}.is_integer is deprecated. Use pandas.api.types.is_integer_dtype instead.",
+"is_interval": "{type(self).__name__}.is_interval is deprecated.Use pandas.api.types.is_interval_dtype instead",
+"is_numeric": "{type(self).__name__}.is_numeric is deprecated. Use pandas.api.types.is_any_real_numeric_dtype instead",
+"is_object": "{type(self).__name__}.is_object is deprecated.Use pandas.api.types.is_object_dtype instead"
+},
+"DatetimeIndex": {
+"format": "{type(self).__name__}.format is deprecated and will be removed in a future version. Convert using index.astype(str) or index.map(formatter) instead.",
+"holds_integer": "{type(self).__name__}.holds_integer is deprecated. Use pandas.api.types.infer_dtype instead.",
+"is_boolean": "{type(self).__name__}.is_boolean is deprecated. Use pandas.api.types.is_bool_type instead.",
+"is_categorical": "{type(self).__name__}.is_categorical is deprecated.Use pandas.api.types.is_categorical_dtype instead",
+"is_floating": "{type(self).__name__}.is_floating is deprecated. Use pandas.api.types.is_float_dtype instead.",
+"is_integer": "{type(self).__name__}.is_integer is deprecated. Use pandas.api.types.is_integer_dtype instead.",
+"is_interval": "{type(self).__name__}.is_interval is deprecated.Use pandas.api.types.is_interval_dtype instead",
+"is_numeric": "{type(self).__name__}.is_numeric is deprecated. Use pandas.api.types.is_any_real_numeric_dtype instead",
+"is_object": "{type(self).__name__}.is_object is deprecated.Use pandas.api.types.is_object_dtype instead"
+},
+"DataFrameGroupBy": {
+"dtypes": "{type(self).__name__}.dtypes is deprecated and will be removed in a future version. Check the dtypes on the base object instead",
+"fillna": "{type(self).__name__}.fillna is deprecated and will be removed in a future version. Use obj.ffill() or obj.bfill() for forward or backward filling instead. If you want to fill with a single value, use {type(self.obj).__name__}.fillna instead",
+"grouper": "{type(self).__name__}.grouper is deprecated and will be removed in a future version of pandas."
+},
+"SeriesGroupBy": {
+"fillna": "{type(self).__name__}.fillna is deprecated and will be removed in a future version. Use obj.ffill() or obj.bfill() for forward or backward filling instead. If you want to fill with a single value, use {type(self.obj).__name__}.fillna instead",
+"grouper": "{type(self).__name__}.grouper is deprecated and will be removed in a future version of pandas."
+}
+}

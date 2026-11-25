@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="pandas-removed-attribute-lookup/">AttributeError: 'DataFrame' object has no attribute 'append' (or 'iteritems', 'ix', 'applymap', any name): which pandas removed it and what to use</a></h2>
+<p>pandas 2.0 removed <code>DataFrame.append</code> (use <code>pd.concat</code>), <code>iteritems</code> and <code>Int64Index</code>; 3.0 removed <code>applymap</code> (use <code>map</code>); 1.0 removed <code>.ix</code>. 170 removals across 14 releases from 0.25.3 to 3.1.1, installed and run, with pandas' own deprecation text. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="numpy-removed-attribute-lookup/">AttributeError: module 'numpy' has no attribute 'float_' (or 'float', 'NaN', 'product', any name): which NumPy removed it and what to use</a></h2>
 <p>NumPy 1.24 removed <code>np.float</code>, <code>np.int</code>, <code>np.bool</code>; 2.0 removed 77 names such as <code>np.float_</code>, <code>np.NaN</code>, <code>np.product</code>; 2.4 <code>np.trapz</code> and <code>np.in1d</code>. 15 releases from 1.19.5 to 2.5.5 installed and run. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>

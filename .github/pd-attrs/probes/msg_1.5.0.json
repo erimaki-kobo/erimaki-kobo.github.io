@@ -1,0 +1,52 @@
+{
+"DataFrame": {
+"append": "The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.",
+"iteritems": "iteritems is deprecated and will be removed in a future version. Use .items instead.",
+"tshift": "tshift is deprecated and will be removed in a future version. Please use shift instead."
+},
+"Series": {
+"append": "The series.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.",
+"is_monotonic": "is_monotonic is deprecated and will be removed in a future version. Use is_monotonic_increasing instead.",
+"iteritems": "iteritems is deprecated and will be removed in a future version. Use .items instead.",
+"tshift": "tshift is deprecated and will be removed in a future version. Please use shift instead."
+},
+"Index": {
+"asi8": "Index.asi8 is deprecated and will be removed in a future version.",
+"get_value": "get_value is deprecated and will be removed in a future version. Use Series[key] instead.",
+"is_mixed": "Index.is_mixed is deprecated and will be removed in a future version. Check index.inferred_type directly instead.",
+"is_monotonic": "is_monotonic is deprecated and will be removed in a future version. Use is_monotonic_increasing instead.",
+"is_type_compatible": "Index.is_type_compatible is deprecated and will be removed in a future version.",
+"set_value": "The 'set_value' method is deprecated, and will be removed in a future version.",
+"to_native_types": "The 'to_native_types' method is deprecated and will be removed in a future version. Use 'astype(str)' instead.",
+"is_all_dates": "Index.is_all_dates is deprecated, will be removed in a future version. check index.inferred_type instead. [found by text search]"
+},
+"DatetimeIndex": {
+"get_value": "get_value is deprecated and will be removed in a future version. Use Series[key] instead.",
+"is_mixed": "Index.is_mixed is deprecated and will be removed in a future version. Check index.inferred_type directly instead.",
+"is_monotonic": "is_monotonic is deprecated and will be removed in a future version. Use is_monotonic_increasing instead.",
+"is_type_compatible": "{type(self).__name__}.is_type_compatible is deprecated and will be removed in a future version.",
+"set_value": "The 'set_value' method is deprecated, and will be removed in a future version.",
+"to_native_types": "The 'to_native_types' method is deprecated and will be removed in a future version. Use 'astype(str)' instead.",
+"union_many": "DatetimeIndex.union_many is deprecated and will be removed in a future version. Use obj.union instead.",
+"is_all_dates": "Index.is_all_dates is deprecated, will be removed in a future version. check index.inferred_type instead. [found by text search]",
+"to_perioddelta": "to_perioddelta is deprecated and will be removed in a future version. Use `dtindex - dtindex.to_period(freq).to_timestamp()` instead. [found by text search]",
+"week": "Series.dt.weekofyear and Series.dt.week have been deprecated. Please use Series.dt.isocalendar().week instead. [found by text search]",
+"weekofyear": "Series.dt.weekofyear and Series.dt.week have been deprecated. Please use Series.dt.isocalendar().week instead. [found by text search]"
+},
+"DataFrameGroupBy": {
+"backfill": "backfill is deprecated and will be removed in a future version. Use bfill instead.",
+"pad": "pad is deprecated and will be removed in a future version. Use ffill instead.",
+"tshift": "tshift is deprecated and will be removed in a future version. Please use shift instead. [found by text search]"
+},
+"SeriesGroupBy": {
+"backfill": "backfill is deprecated and will be removed in a future version. Use bfill instead.",
+"pad": "pad is deprecated and will be removed in a future version. Use ffill instead.",
+"tshift": "tshift is deprecated and will be removed in a future version. Please use shift instead. [found by text search]"
+},
+"pandas": {
+"Float64Index": "Treating integers as positional in Series.__setitem__ with a Float64Index is deprecated. In a future version, `series[an_int] = val` will insert a new key into the Series. Use `series.iloc[an_int] = val` to treat the key as positional. [found by text search]",
+"SparseArray": "The pandas.SparseArray class is deprecated and will be removed from pandas in a future version. Use pandas.arrays.SparseArray instead. [found by text search]",
+"datetime": "The pandas.datetime class is deprecated and will be removed from pandas in a future version. Import from datetime module instead. [found by text search]",
+"np": "The pandas.np module is deprecated and will be removed from pandas in a future version. Import numpy directly instead. [found by text search]"
+}
+}
