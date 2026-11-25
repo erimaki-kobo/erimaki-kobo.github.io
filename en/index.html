@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="tool-call-parser-conformance-check/">vLLM returns the tool call in content, or tool_calls is empty: what each --tool-call-parser does with the same model output, v0.15 to v0.34, and a script to test your server</a></h2>
+<p>vLLM's own parser code from 20 releases, run on the same model outputs. A mismatched <code>--tool-call-parser</code> leaves the call in <code>content</code> or drops it (<code>qwen3_coder</code> reading a JSON call from v0.24.0); <code>llama3_json</code> and <code>pythonic</code> miss a call after any text; with <code>--reasoning-parser qwen3</code> a call inside the thinking block stays in <code>reasoning</code> until v0.20 (unclosed) or v0.24 (closed); a call cut by <code>max_tokens</code> comes back with keys missing and, before v0.33.0, <code>finish_reason: "tool_calls"</code>. Includes toolcheck.py to test any OpenAI-compatible server.</p>
+<p class="meta">Published 2026-11-26</p>
+</article>
+<article class="card">
 <h2><a href="scikit-image-removed-name-lookup/">ImportError: cannot import name 'compare_ssim' from 'skimage.measure' (or 'greycomatrix', TypeError: unexpected keyword argument 'multichannel', 'selem'): which scikit-image release removed it and what to use</a></h2>
 <p>scikit-image 0.18.0 removed <code>compare_ssim</code> and <code>compare_psnr</code> (use <code>structural_similarity</code> and <code>peak_signal_noise_ratio</code> from <code>skimage.metrics</code>); 0.19.0 removed <code>rgb2grey</code> and <code>draw.circle</code>; 0.20.0 removed <code>greycomatrix</code>, <code>skimage.viewer</code>, <code>skimage.future.graph</code> and the arguments <code>multichannel=</code> (<code>channel_axis=</code>) and <code>selem=</code> (<code>footprint=</code>). 58 removed names and 133 removed arguments across 22 installed releases (0.16.2 to 0.26.0); 18 renames run both ways with the same result. Includes a lookup: paste the error or the old code.</p>
 <p class="meta">Published 2026-11-26</p>
