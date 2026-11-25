@@ -1,0 +1,142 @@
+{
+"0.3.0": {
+"wheel": "torchvision-0.3.0-cp27-cp27m-manylinux1_x86_64.whl",
+"sha256": "a5bcbee4baf4b027e3872ebcbe1c33cce9b4edbccbd5fb739a1c25c54ce734a0",
+"py_files": 64
+},
+"0.4.0": {
+"wheel": "torchvision-0.4.0-cp27-cp27m-manylinux1_x86_64.whl",
+"sha256": "740b3718470aa4ec0b389df876eb25117df1952dd2e8105b7828a02aa5bce73b",
+"py_files": 75
+},
+"0.5.0": {
+"wheel": "torchvision-0.5.0-cp27-cp27m-manylinux1_x86_64.whl",
+"sha256": "323500d349d8d91ce2662de41212e8eb1845c68dbf5d4f215ca1e94c7f20723b",
+"py_files": 93
+},
+"0.6.0": {
+"wheel": "torchvision-0.6.0-cp35-cp35m-manylinux1_x86_64.whl",
+"sha256": "a9b08435fdadd89520a78f5a54d196c05878d1a15e37f760d43f72f10bae308f",
+"py_files": 93
+},
+"0.7.0": {
+"wheel": "torchvision-0.7.0-cp36-cp36m-manylinux1_x86_64.whl",
+"sha256": "14c0bf60fa26aabaea64ef30b8e5d441ee78d1a5eed568c30806af19bbe6b638",
+"py_files": 94
+},
+"0.8.0": {
+"wheel": "torchvision-0.8.0-cp36-cp36m-manylinux1_x86_64.whl",
+"sha256": "5e458baa818de6454a25ba558f88e0b97922bcd08ce4c137a0205c0c6a64c4f7",
+"py_files": 100
+},
+"0.9.0": {
+"wheel": "torchvision-0.9.0-cp36-cp36m-manylinux1_x86_64.whl",
+"sha256": "874714f30822d4c1160071dac004d48ae641bfdccccbb497098c86f6589ec0f1",
+"py_files": 106
+},
+"0.10.0": {
+"wheel": "torchvision-0.10.0-cp36-cp36m-manylinux1_x86_64.whl",
+"sha256": "d5c80cf058c0ecb010a97dc71225f5274e45c596bfad7505e0d000abcccb7063",
+"py_files": 110
+},
+"0.11.1": {
+"wheel": "torchvision-0.11.1-cp36-cp36m-manylinux1_x86_64.whl",
+"sha256": "b56285c3da0abd11cdf86cad82c4aebbb57ab6975673a4f87d686c612dda66b7",
+"py_files": 115
+},
+"0.12.0": {
+"wheel": "torchvision-0.12.0-cp310-cp310-manylinux1_x86_64.whl",
+"sha256": "ebfb47adf65bf3926b990b2c4767e291f135e259e03232e0e1a30ecdb05eb087",
+"py_files": 138
+},
+"0.13.0": {
+"wheel": "torchvision-0.13.0-cp310-cp310-manylinux1_x86_64.whl",
+"sha256": "acb72a40e5dc0cd454d28514dbdd589a5057afd9bb5c785b87a54718b999bfa1",
+"py_files": 148
+},
+"0.14.0": {
+"wheel": "torchvision-0.14.0-cp310-cp310-manylinux1_x86_64.whl",
+"sha256": "7dbb54b47edfc08f51df3fb8c66a917b07897d9e3f2fa739aa9ccb36a38fe1bc",
+"py_files": 151
+},
+"0.15.1": {
+"wheel": "torchvision-0.15.1-cp311-cp311-manylinux1_x86_64.whl",
+"sha256": "13f71a3372d9168b01481a754ebaa171207f3dc455bf2fd86906c69222443738",
+"py_files": 185
+},
+"0.16.0": {
+"wheel": "torchvision-0.16.0-cp311-cp311-manylinux1_x86_64.whl",
+"sha256": "6a24a1e83e4bc7a31b39ef05d2ca4cd2182e95ff10f525edffe1473f7ce16ca1",
+"py_files": 236
+},
+"0.17.0": {
+"wheel": "torchvision-0.17.0-cp312-cp312-manylinux1_x86_64.whl",
+"sha256": "8fe14d580557aef2c45dd462c069ff936b6507b215c4b496f30973ae8cff917d",
+"py_files": 185
+},
+"0.18.0": {
+"wheel": "torchvision-0.18.0-cp312-cp312-manylinux1_x86_64.whl",
+"sha256": "b657d052d146f24cb3b2a78219bfc82ae70a9706671c50f632528907d10cccec",
+"py_files": 185
+},
+"0.19.0": {
+"wheel": "torchvision-0.19.0-cp312-cp312-manylinux1_x86_64.whl",
+"sha256": "02f1dd5cfc897957535b41b0258ec452d30de044e20c2de2c75869f7708e7656",
+"py_files": 185
+},
+"0.20.0": {
+"wheel": "torchvision-0.20.0-cp312-cp312-manylinux1_x86_64.whl",
+"sha256": "c8f3bc399d9c3e4ba05d74ca6dd5e63fed08ad5c5b302a946c8fcaa56216220f",
+"py_files": 185
+},
+"0.21.0": {
+"wheel": "torchvision-0.21.0-cp312-cp312-manylinux1_x86_64.whl",
+"sha256": "b578bcad8a4083b40d34f689b19ca9f7c63e511758d806510ea03c29ac568f7b",
+"py_files": 185
+},
+"0.22.0": {
+"wheel": "torchvision-0.22.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "ce4dc334ebd508de2c534817c9388e928bc2500cf981906ae8d6e2ca3bf4727a",
+"py_files": 236
+},
+"0.23.0": {
+"wheel": "torchvision-0.23.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "4e7d31c43bc7cbecbb1a5652ac0106b436aa66e26437585fc2c4b2cf04d6014c",
+"py_files": 187
+},
+"0.24.0": {
+"wheel": "torchvision-0.24.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "26b9dd9c083f8e5f7ac827de6d5b88c615d9c582dc87666770fbdf16887e4c25",
+"py_files": 187
+},
+"0.25.0": {
+"wheel": "torchvision-0.25.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "f25aa9e380865b11ea6e9d99d84df86b9cc959f1a007cd966fc6f1ab2ed0e248",
+"py_files": 187
+},
+"0.26.0": {
+"wheel": "torchvision-0.26.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "d61a5abb6b42a0c0c311996c2ac4b83a94418a97182c83b055a2a4ae985e05aa",
+"py_files": 182
+},
+"0.27.0": {
+"wheel": "torchvision-0.27.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "7a9966a088d06b4cf6c610e03be62de469efa6f2cd2e7c7eed8e925ed6af59ac",
+"py_files": 183
+},
+"0.28.0": {
+"wheel": "torchvision-0.28.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "028a3d481b37d785605620d7cdad897064c5a55bae2aa1f2658766333e291940",
+"py_files": 185
+},
+"0.29.0": {
+"wheel": "torchvision-0.29.0-cp312-cp312-manylinux_2_28_x86_64.whl",
+"sha256": "0e631a2f8b24732672d35224d2574ff89a78d56bef5364ef6094a625fa5f1771",
+"py_files": 185
+},
+"0.29.2": {
+"wheel": "torchvision-0.29.2-py3-none-manylinux_2_28_x86_64.whl",
+"sha256": "0875f7a23bd298813240f716c56df44ce72ddb45146589442a38edd0e1f59637",
+"py_files": 185
+}
+}

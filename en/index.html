@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="torchvision-import-name-version-lookup/">No module named 'torchvision.transforms.functional_tensor', cannot import name 'read_video' (or any name) from 'torchvision...': which torchvision releases have it</a></h2>
+<p>torchvision 0.17.0 removed <code>transforms.functional_tensor</code> (basicsr 1.4.2, Real-ESRGAN, GFPGAN) and 0.26.0 removed <code>io.read_video</code> and <code>VideoReader</code> (use TorchCodec). Every minor of 0.3.0 to 0.29.2, and the torch release each torchvision requires. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="llama-index-import-name-version-lookup/">ImportError: cannot import name 'VectorStoreIndex' (or ServiceContext, OpenAI, any name) from 'llama_index...': which LlamaIndex releases have it</a></h2>
 <p>LlamaIndex 0.10.0 moved the old top level to <code>llama_index.core</code> and split integrations into packages such as <code>llama-index-llms-openai</code>; 0.11.0, 0.13.0 and 0.14.21 ended ServiceContext, the old agents and download_loader. Every release of llama-index 0.7.0 to 0.9.48 and llama-index-core 0.10.0 to 0.14.26. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>
