@@ -1,0 +1,23 @@
+{
+"sklearn.calibration": {
+"check_array": "Arrays of bytes/strings is being converted to decimal numbers if dtype='numeric'. This behavior is deprecated in 0.24 and will be removed in 1.1 (renaming of 0.26). Please convert your data to numeric values explicitly instead."
+},
+"sklearn.discriminant_analysis": {
+"check_array": "Arrays of bytes/strings is being converted to decimal numbers if dtype='numeric'. This behavior is deprecated in 0.24 and will be removed in 1.1 (renaming of 0.26). Please convert your data to numeric values explicitly instead."
+},
+"sklearn.model_selection": {
+"fit_grid_point": "fit_grid_point is deprecated in version 0.23 and will be removed in version 1.0 (renaming of 0.25)"
+},
+"sklearn.multiclass": {
+"check_array": "Arrays of bytes/strings is being converted to decimal numbers if dtype='numeric'. This behavior is deprecated in 0.24 and will be removed in 1.1 (renaming of 0.26). Please convert your data to numeric values explicitly instead."
+},
+"sklearn.multioutput": {
+"check_array": "Arrays of bytes/strings is being converted to decimal numbers if dtype='numeric'. This behavior is deprecated in 0.24 and will be removed in 1.1 (renaming of 0.26). Please convert your data to numeric values explicitly instead."
+},
+"sklearn.naive_bayes": {
+"check_array": "Arrays of bytes/strings is being converted to decimal numbers if dtype='numeric'. This behavior is deprecated in 0.24 and will be removed in 1.1 (renaming of 0.26). Please convert your data to numeric values explicitly instead."
+},
+"sklearn.random_projection": {
+"check_array": "Arrays of bytes/strings is being converted to decimal numbers if dtype='numeric'. This behavior is deprecated in 0.24 and will be removed in 1.1 (renaming of 0.26). Please convert your data to numeric values explicitly instead."
+}
+}

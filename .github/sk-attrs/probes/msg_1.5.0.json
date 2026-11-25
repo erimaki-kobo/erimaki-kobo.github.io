@@ -1,0 +1,8 @@
+{
+"sklearn.utils.extmath": {
+"log_logistic": "The function `log_logistic` is deprecated and will be removed in 1.6. Use `-np.logaddexp(0, -x)` instead."
+},
+"sklearn.utils.estimator_checks": {
+"LogisticRegression": "'multi_class' was deprecated in version 1.5 and will be removed in 1.7. From then on, binary problems will be fit as proper binary logistic regression models (as if multi_class='ovr' were set). Leave it to its default value to avoid this warning."
+}
+}

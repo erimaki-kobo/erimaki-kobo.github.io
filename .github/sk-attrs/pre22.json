@@ -1,0 +1,37 @@
+{
+"sklearn.cross_validation": {
+"obj": "sklearn",
+"name": "cross_validation",
+"removed": "0.20.0",
+"last": "0.19.2",
+"module": true,
+"message": "This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.",
+"file": "sklearn/cross_validation.py"
+},
+"sklearn.grid_search": {
+"obj": "sklearn",
+"name": "grid_search",
+"removed": "0.20.0",
+"last": "0.19.2",
+"module": true,
+"message": "This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. This module will be removed in 0.20.",
+"file": "sklearn/grid_search.py"
+},
+"sklearn.learning_curve": {
+"obj": "sklearn",
+"name": "learning_curve",
+"removed": "0.20.0",
+"last": "0.19.2",
+"module": true,
+"message": "This module was deprecated in version 0.18 in favor of the model_selection module into which all the functions are moved. This module will be removed in 0.20",
+"file": "sklearn/learning_curve.py"
+},
+"sklearn.preprocessing.Imputer": {
+"obj": "sklearn.preprocessing",
+"name": "Imputer",
+"removed": "0.22",
+"last": "0.21.3",
+"message": "Imputer was deprecated in version 0.20 and will be removed in 0.22. Import impute.SimpleImputer from sklearn instead.",
+"file": "sklearn/preprocessing/imputation.py"
+}
+}

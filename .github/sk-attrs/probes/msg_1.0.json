@@ -1,0 +1,6 @@
+{
+"sklearn.exceptions": {
+"ChangedBehaviorWarning": "ChangedBehaviorWarning is deprecated in 0.24 and will be removed in 1.1",
+"NonBLASDotWarning": "NonBLASDotWarning is deprecated in 0.24 and will be removed in 1.1"
+}
+}

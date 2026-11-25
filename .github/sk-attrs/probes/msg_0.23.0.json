@@ -1,0 +1,30 @@
+{
+"sklearn.feature_extraction.text": {
+"VectorizerMixin": "VectorizerMixin is deprecated in version 0.22 and will be removed in version 0.24."
+},
+"sklearn.multioutput": {
+"MultiOutputEstimator": "MultiOutputEstimator is deprecated in version 0.22 and will be removed in version 0.24."
+},
+"sklearn.naive_bayes": {
+"BaseDiscreteNB": "BaseDiscreteNB is deprecated in version 0.22 and will be removed in version 0.24.",
+"BaseNB": "BaseNB is deprecated in version 0.22 and will be removed in version 0.24."
+},
+"sklearn.random_projection": {
+"gaussian_random_matrix": "gaussian_random_matrix is deprecated in 0.22 and will be removed in version 0.24.",
+"sparse_random_matrix": "gaussian_random_matrix is deprecated in 0.22 and will be removed in version 0.24."
+},
+"sklearn.utils": {
+"safe_indexing": "safe_indexing is deprecated in version 0.22 and will be removed in version 0.24."
+},
+"sklearn.utils.extmath": {
+"safe_min": "safe_min is deprecated in version 0.22 and will be removed in version 0.24."
+},
+"sklearn.utils.estimator_checks": {
+"NotAnArray": "NotAnArray is deprecated in version 0.22 and will be removed in version 0.24.",
+"choose_check_classifiers_labels": "choose_check_classifiers_labels is deprecated in version 0.22 and will be removed in version 0.24.",
+"enforce_estimator_tags_y": "enforce_estimator_tags_y is deprecated in version 0.22 and will be removed in version 0.24.",
+"is_public_parameter": "is_public_parameter is deprecated in version 0.22 and will be removed in version 0.24.",
+"pairwise_estimator_convert_X": "pairwise_estimator_convert_X is deprecated in version 0.22 and will be removed in version 0.24.",
+"set_checking_parameters": "set_checking_parameters is deprecated in version 0.22 and will be removed in version 0.24."
+}
+}

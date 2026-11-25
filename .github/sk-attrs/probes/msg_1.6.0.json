@@ -1,0 +1,7 @@
+{
+"sklearn.utils": {
+"parallel_backend": "deprecated in 1.5 to be removed in 1.7. Use joblib.{} instead.",
+"tosequence": "tosequence was deprecated in 1.5 and will be removed in 1.7",
+"IS_PYPY": "IS_PYPY is deprecated and will be removed in 1.7. [found by text search]"
+}
+}

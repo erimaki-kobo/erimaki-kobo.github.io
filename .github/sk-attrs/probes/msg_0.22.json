@@ -1,0 +1,20 @@
+{
+"sklearn.ensemble": {
+"partial_dependence": "The function ensemble.partial_dependence has been deprecated in favour of inspection.partial_dependence in 0.21 and will be removed in 0.23."
+},
+"sklearn.kernel_ridge": {
+"check_array": "'warn_on_dtype' is deprecated in version 0.21 and will be removed in 0.23. Don't set `warn_on_dtype` to remove this warning."
+},
+"sklearn.linear_model": {
+"logistic_regression_path": "logistic_regression_path was deprecated in version 0.21 and will be removed in version 0.23.0"
+},
+"sklearn.metrics": {
+"jaccard_similarity_score": "jaccard_similarity_score has been deprecated and replaced with jaccard_score. It will be removed in version 0.23. This implementation has surprising behavior for binary and multiclass classification tasks."
+},
+"sklearn.externals": {
+"joblib": "sklearn.externals.joblib is deprecated in 0.21 [found by text search]"
+},
+"sklearn.utils": {
+"linear_assignment_": "The linear_assignment_ module is deprecated in 0.21 and will be removed from 0.23. Use scipy.optimize.linear_sum_assignment instead. [found by text search]"
+}
+}

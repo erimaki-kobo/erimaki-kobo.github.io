@@ -1,0 +1,17 @@
+{
+"sklearn.datasets": {
+"load_boston": "`load_boston` is deprecated in 1.0 and will be removed in 1.2. The Boston housing prices dataset has an ethical problem. You can refer to the documentation of this function for further details. The scikit-learn maintainers therefore strongly discourage the use of this dataset unless the purpose of the code is to study and educate about ethical issues in data science and machine learning. In this special case, you can fetch the dataset from the original source:: import pandas as pd import numpy as np data_url = \"http://lib.stat.cmu.edu/datasets/boston\" raw_df = pd.read_csv(data_url, sep=\"\\s+\", skiprows=22, header=None) data = np.hstack([raw_df.values[::2, :], raw_df.values[1::2, :2]]) target = raw_df.values[1::2, 2] Alternative datasets include the California housing dataset (i.e. :func:`~sklearn.datasets.fetch_california_housing`) and the Ames housing dataset. You can load the datasets as follows:: from sklearn.datasets import fetch_california_housing housing = fetch_california_housing() for the California housing dataset and:: from sklearn.datasets import fetch_openml housing = fetch_openml(name=\"house_prices\", as_frame=True) for the Ames housing dataset."
+},
+"sklearn.inspection": {
+"plot_partial_dependence": "Function `plot_partial_dependence` is deprecated in 1.0 and will be removed in 1.2. Use PartialDependenceDisplay.from_estimator instead"
+},
+"sklearn.metrics": {
+"plot_confusion_matrix": "Function `plot_confusion_matrix` is deprecated in 1.0 and will be removed in 1.2. Use one of the class methods: ConfusionMatrixDisplay.from_predictions or ConfusionMatrixDisplay.from_estimator.",
+"plot_det_curve": "Function plot_det_curve is deprecated in 1.0 and will be removed in 1.2. Use one of the class methods: DetCurveDisplay.from_predictions or DetCurveDisplay.from_estimator.",
+"plot_precision_recall_curve": "Function `plot_precision_recall_curve` is deprecated in 1.0 and will be removed in 1.2. Use one of the class methods: PrecisionRecallDisplay.from_predictions or PrecisionRecallDisplay.from_estimator.",
+"plot_roc_curve": "Function :func:`plot_roc_curve` is deprecated in 1.0 and will be removed in 1.2. Use one of the class methods: :meth:`sklearn.metric.RocCurveDisplay.from_predictions` or :meth:`sklearn.metric.RocCurveDisplay.from_estimator`."
+},
+"sklearn.utils": {
+"Path": "pathlib.Path.link_to() is deprecated and is scheduled for removal in Python 3.12. Use pathlib.Path.hardlink_to() instead."
+}
+}
