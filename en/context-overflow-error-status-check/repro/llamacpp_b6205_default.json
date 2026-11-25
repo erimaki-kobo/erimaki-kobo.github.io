@@ -1,0 +1,73 @@
+{
+ "base_url": "http://127.0.0.1:8096/v1",
+ "model": "toy",
+ "ctx": 2048,
+ "rows": [
+  {
+   "test": "prompt_over",
+   "sent_prompt_tokens": 2109,
+   "max_tokens": 16,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 1085,
+   "completion_tokens": 16,
+   "finish_reason": "length",
+   "verdict": "accepted with HTTP 200: the prompt was truncated without an error",
+   "seconds": 0.07,
+   "clients": {
+    "openai_python": "no exception",
+    "litellm_openai": "no exception",
+    "litellm_hosted_vllm": "no exception"
+   }
+  },
+  {
+   "test": "prompt_over_stream",
+   "sent_prompt_tokens": 2109,
+   "max_tokens": 16,
+   "status": 200,
+   "content_type": "text/event-stream",
+   "first_sse_event": "{\"choices\":[{\"finish_reason\":null,\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":null}}],\"created\":1795600923,\"id\":\"chatcmpl-o93KmxGiG8bpdkpWAsGqHrGQuMMlRQqe\",\"model\":\"toy\",\"system_fingerprint\":\"b6205-a6d3cfe7f\",\"object\":\"chat.completion.chunk\"}",
+   "verdict": "200 stream started normally (prompt was accepted: truncated or shifted?)",
+   "seconds": 1.82,
+   "clients": {
+    "openai_python": "no exception; first chunk object='chat.completion.chunk'",
+    "litellm_openai": "no exception",
+    "litellm_hosted_vllm": "no exception"
+   }
+  },
+  {
+   "test": "total_over",
+   "sent_prompt_tokens": 1845,
+   "max_tokens": 1000,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 1845,
+   "completion_tokens": 1000,
+   "finish_reason": "length",
+   "verdict": "accepted with HTTP 200: max_tokens is not checked against the context",
+   "seconds": 0.49,
+   "clients": {
+    "openai_python": "no exception",
+    "litellm_openai": "no exception",
+    "litellm_hosted_vllm": "no exception"
+   }
+  },
+  {
+   "test": "max_tokens_over",
+   "sent_prompt_tokens": 53,
+   "max_tokens": 2049,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 53,
+   "completion_tokens": 2049,
+   "finish_reason": "length",
+   "verdict": "accepted with HTTP 200: max_tokens is not checked against the context",
+   "seconds": 4.52,
+   "clients": {
+    "openai_python": "no exception",
+    "litellm_openai": "no exception",
+    "litellm_hosted_vllm": "no exception"
+   }
+  }
+ ]
+}

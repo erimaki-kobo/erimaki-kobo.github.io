@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="context-overflow-error-status-check/">Context length exceeded: what vLLM, SGLang, llama.cpp, Ollama, TGI and Dynamo return (400, 422, 500 or a silent 200), and what openai-python and LiteLLM do with it</a></h2>
+<p>&ldquo;the request exceeds the available context size, try increasing it&rdquo;, &ldquo;This model's maximum context length is&rdquo;, &ldquo;is longer than the model's context length&rdquo;: status code and message by engine version, where the prompt is cut without an error (Ollama, llama.cpp up to b6205), vLLM v0.32.0 lowering <code>max_tokens</code>, SGLang's error inside a 200 stream, which errors openai-python retries and which ones LiteLLM raises as <code>ContextWindowExceededError</code>. Includes overflow_check.py for your own server.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="spec-decode-lossless-check/">Is speculative decoding lossless? Why greedy output changes with vLLM, SGLang or llama.cpp speculation, and a test that tells numerics from bugs</a></h2>
 <p>The acceptance rule is exact, but the verify pass rounds differently from one-token decode, so near-ties flip. Which settings are lossy by design, 14 open and closed engine issues, and specdiff.py: compares your endpoint with and without speculation, classifies each divergence as near-tie or large-gap, and tests sampled answers with chi-square.</p>
 <p class="meta">Published 2026-11-19</p>

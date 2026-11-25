@@ -1,0 +1,55 @@
+{
+ "base_url": "http://127.0.0.1:8097/v1",
+ "model": "toy",
+ "ctx": 2048,
+ "rows": [
+  {
+   "test": "prompt_over",
+   "sent_prompt_tokens": 2109,
+   "max_tokens": 16,
+   "status": 400,
+   "content_type": "application/json; charset=utf-8",
+   "error_type": "invalid_request_error",
+   "error_code": 400,
+   "message": "the request exceeds the available context size. try increasing the context size or enable context shift",
+   "openai_python_retries": false,
+   "litellm_message_check": true,
+   "verdict": "HTTP 400",
+   "seconds": 0.0
+  },
+  {
+   "test": "prompt_over_stream",
+   "sent_prompt_tokens": 2109,
+   "max_tokens": 16,
+   "status": 200,
+   "content_type": "text/event-stream",
+   "first_sse_event": "[DONE]",
+   "verdict": "200 stream started normally (prompt was accepted: truncated or shifted?)",
+   "seconds": 0.0
+  },
+  {
+   "test": "total_over",
+   "sent_prompt_tokens": 1845,
+   "max_tokens": 1000,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 1845,
+   "completion_tokens": 203,
+   "finish_reason": "length",
+   "verdict": "accepted with HTTP 200: generation stopped at the context limit after 203 of 1000 requested tokens (finish_reason=length, no error)",
+   "seconds": 0.23
+  },
+  {
+   "test": "max_tokens_over",
+   "sent_prompt_tokens": 53,
+   "max_tokens": 2049,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 53,
+   "completion_tokens": 1995,
+   "finish_reason": "length",
+   "verdict": "accepted with HTTP 200: generation stopped at the context limit after 1995 of 2049 requested tokens (finish_reason=length, no error)",
+   "seconds": 0.63
+  }
+ ]
+}

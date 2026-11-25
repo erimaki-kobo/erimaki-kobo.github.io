@@ -1,0 +1,87 @@
+{
+ "base_url": "http://127.0.0.1:8095/v1",
+ "model": "toy",
+ "ctx": 2048,
+ "rows": [
+  {
+   "test": "prompt_over",
+   "sent_prompt_tokens": 2112,
+   "max_tokens": 16,
+   "status": 400,
+   "content_type": "application/json; charset=utf-8",
+   "error_type": "exceed_context_size_error",
+   "error_code": 400,
+   "message": "request (2112 tokens) exceeds the available context size (2048 tokens), try increasing it",
+   "error_extra": {
+    "n_prompt_tokens": 2112,
+    "n_ctx": 2048
+   },
+   "openai_python_retries": false,
+   "litellm_message_check": true,
+   "verdict": "HTTP 400",
+   "seconds": 0.01,
+   "clients": {
+    "openai_python": "BadRequestError",
+    "litellm_openai": "ContextWindowExceededError",
+    "litellm_hosted_vllm": "ContextWindowExceededError"
+   }
+  },
+  {
+   "test": "prompt_over_stream",
+   "sent_prompt_tokens": 2112,
+   "max_tokens": 16,
+   "status": 400,
+   "content_type": "application/json; charset=utf-8",
+   "error_type": "exceed_context_size_error",
+   "error_code": 400,
+   "message": "request (2112 tokens) exceeds the available context size (2048 tokens), try increasing it",
+   "error_extra": {
+    "n_prompt_tokens": 2112,
+    "n_ctx": 2048
+   },
+   "openai_python_retries": false,
+   "litellm_message_check": true,
+   "verdict": "HTTP 400",
+   "seconds": 0.0,
+   "clients": {
+    "openai_python": "BadRequestError",
+    "litellm_openai": "ContextWindowExceededError",
+    "litellm_hosted_vllm": "ContextWindowExceededError"
+   }
+  },
+  {
+   "test": "total_over",
+   "sent_prompt_tokens": 1848,
+   "max_tokens": 1000,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 1848,
+   "completion_tokens": 200,
+   "finish_reason": "length",
+   "verdict": "accepted with HTTP 200: generation stopped at the context limit after 200 of 1000 requested tokens (finish_reason=length, no error)",
+   "seconds": 6.78,
+   "clients": {
+    "openai_python": "no exception",
+    "litellm_openai": "no exception",
+    "litellm_hosted_vllm": "no exception"
+   }
+  },
+  {
+   "test": "max_tokens_over",
+   "sent_prompt_tokens": 20,
+   "max_tokens": 2049,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 20,
+   "completion_tokens": 237,
+   "finish_reason": "stop",
+   "verdict": "accepted with HTTP 200: max_tokens is not checked against the context",
+   "seconds": 0.03,
+   "clients": {
+    "openai_python": "no exception",
+    "litellm_openai": "no exception",
+    "litellm_hosted_vllm": "no exception"
+   }
+  }
+ ]
+}

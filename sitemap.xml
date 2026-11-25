@@ -38,7 +38,7 @@
 </url>
 <url>
 <loc>https://erimaki-kobo.github.io/en/</loc>
-<lastmod>2026-11-17</lastmod>
+<lastmod>2026-11-25</lastmod>
 </url>
 <url>
 <loc>https://erimaki-kobo.github.io/en/llm-determinism-test/</loc>
@@ -87,6 +87,10 @@
 <url>
 <loc>https://erimaki-kobo.github.io/en/vllm-sm120-moe-backend-lookup/</loc>
 <lastmod>2026-11-17</lastmod>
+</url>
+<url>
+<loc>https://erimaki-kobo.github.io/en/context-overflow-error-status-check/</loc>
+<lastmod>2026-11-25</lastmod>
 </url>
 <url>
 <loc>https://erimaki-kobo.github.io/en/spec-decode-lossless-check/</loc>

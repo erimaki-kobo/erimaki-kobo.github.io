@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context Length Exceeded: Status Codes by LLM Engine</title>
+<meta name="description" content="What vLLM, SGLang, llama.cpp, Ollama, TGI and Dynamo return when a prompt is too long, which ones answer 200 or 500, and how openai-python and LiteLLM react.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/context-overflow-error-status-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Context Length Exceeded: Status Codes by LLM Engine">
+<meta property="og:description" content="What vLLM, SGLang, llama.cpp, Ollama, TGI and Dynamo return when a prompt is too long, which ones answer 200 or 500, and how openai-python and LiteLLM react.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/context-overflow-error-status-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/#article", "headline": "Context length exceeded: what vLLM, SGLang, llama.cpp, Ollama, TGI and Dynamo return, and what openai-python and LiteLLM do with it", "description": "What vLLM, SGLang, llama.cpp, Ollama, TGI and Dynamo return when a prompt is too long, which ones answer 200 or 500, and how openai-python and LiteLLM react.", "url": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/", "datePublished": "2026-11-25", "dateModified": "2026-11-25", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/"}, {"@type": "SoftwareSourceCode", "@id": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/#code", "name": "overflow_check.py", "description": "Sends over-long requests to an OpenAI-compatible server and reports the HTTP status, error type and message, silent truncation, errors inside a 200 stream, and whether openai-python retries and LiteLLM classifies the error as ContextWindowExceededError.", "programmingLanguage": "Python", "codeRepository": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/", "url": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/overflow_check.py", "version": "1.0.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/#faq", "mainEntity": [{"@type": "Question", "name": "Should a context overflow be HTTP 400 or 500?", "acceptedAnswer": {"@type": "Answer", "text": "400 (or another 4xx). It is a property of the request, so retrying cannot help, and SDKs such as openai-python retry every 5xx automatically. LiteLLM's phrase list also contains OpenAI's own error code context_length_exceeded."}}, {"@type": "Question", "name": "Why does llama-server say 512 tokens when I started it with -c 2048?", "acceptedAnswer": {"@type": "Answer", "text": "You set -np 4, which splits the KV cache into four slots of 512. Without -np (or with --kv-unified) each slot can use the full context."}}, {"@type": "Question", "name": "Why doesn't Ollama return an error for a long prompt?", "acceptedAnswer": {"@type": "Answer", "text": "It truncates by default: old messages are dropped and an over-long message is cut in the middle. Raise num_ctx or OLLAMA_CONTEXT_LENGTH, and check usage.prompt_tokens against what you sent."}}, {"@type": "Question", "name": "Why did my vLLM request stop returning 400 after upgrading?", "acceptedAnswer": {"@type": "Answer", "text": "From v0.32.0 a prompt that fits is accepted even if max_tokens does not; the output stops at the context with finish_reason: \"length\". Check finish_reason instead of waiting for a 400."}}, {"@type": "Question", "name": "Why doesn't LiteLLM raise ContextWindowExceededError for my server?", "acceptedAnswer": {"@type": "Answer", "text": "LiteLLM looks for fixed phrases in the error text. Ollama's message and some vLLM and llama.cpp messages are not in its list, a 200 with truncation has no error at all, and a 422 through the openai/ provider loses the text."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "Context length exceeded: status codes by engine", "item": "https://erimaki-kobo.github.io/en/context-overflow-error-status-check/"}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}.s.p{color:var(--warn)}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+.tw table{min-width:760px}
+td.ok{box-shadow:inset 3px 0 var(--ok)}td.bad{box-shadow:inset 3px 0 var(--bad)}td.warn{box-shadow:inset 3px 0 var(--warn)}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>Context length exceeded: what vLLM, SGLang, llama.cpp, Ollama, TGI and Dynamo return, and what openai-python and LiteLLM do with it</h1>
+
+<p class="lede"><strong>Most current engines reject a prompt that does not fit with HTTP 400, which openai-python raises as <code>BadRequestError</code> without retrying. The exceptions are the ones that cause trouble.</strong> Ollama and llama.cpp before build b6207 (2025-08-19) cut the prompt and answer <code>200</code>. vLLM since v0.32.0 shortens an oversized <code>max_tokens</code> without an error. SGLang up to v0.5.9 puts the error inside a <code>200</code> stream. TGI answers <code>422</code>. Any engine that answers <code>500</code> makes openai-python send the request three times. LiteLLM raises <code>ContextWindowExceededError</code> only when the message contains one of its known phrases, so several real messages come through as a plain <code>BadRequestError</code>. <a href="overflow_check.py">overflow_check.py</a> sends four over-long requests to your server and shows which case you have.</p>
+<p class="meta">Published 2026-11-25 &middot; Engine source read on 2026-11-25 &middot; Clients tested: openai-python 3.59.0, LiteLLM 1.111.0 &middot; Tool version 1.0.0 (Python 3.8+, standard library only)</p>
+
+<h2 id="table">What does each engine return when the prompt is too long?</h2>
+<p><strong>The status code and message depend on the engine and its version. The two right-hand columns are measured: each engine's exact response was replayed to the clients (see <a href="#method">method</a>).</strong></p>
+<div class="tw"><table>
+<thead><tr><th>Engine, versions</th><th>Prompt longer than the context</th><th>Prompt fits, prompt + <code>max_tokens</code> does not</th><th>openai-python</th><th>LiteLLM <code>ContextWindowExceededError</code>?</th></tr></thead>
+<tbody>
+<tr><td>llama.cpp b7481+ (2025-12-19)</td><td><code>400</code>, type <code>exceed_context_size_error</code>, &ldquo;request (N tokens) exceeds the available context size (M tokens), try increasing it&rdquo;, plus <code>n_prompt_tokens</code> and <code>n_ctx</code>. Streaming requests get the same 400.</td><td><code>200</code>; generation stops at the context with <code>finish_reason: "length"</code></td><td><code>BadRequestError</code>, 1 request</td><td class="ok">yes</td></tr>
+<tr><td>llama.cpp b6380&ndash;b7480</td><td><code>400</code>, <code>exceed_context_size_error</code>, &ldquo;the request exceeds the available context size. try increasing the context size or enable context shift&rdquo;</td><td><code>200</code></td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>llama.cpp b6207&ndash;b6379</td><td><code>400</code>, <code>invalid_request_error</code>, same message (no token counts)</td><td><code>200</code></td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>llama.cpp up to b6205, default settings</td><td class="bad"><code>200</code>. The prompt is cut in half and processed (context shift was on by default). Measured: 2,109 tokens sent, <code>usage.prompt_tokens</code> 1,085.</td><td><code>200</code>; the context shifts and generation continues</td><td>no exception</td><td class="bad">no error to classify</td></tr>
+<tr><td>vLLM v0.32.0+ (2026-10-18)</td><td><code>400</code>, <code>BadRequestError</code>, &ldquo;This model's maximum context length is M tokens. However, your prompt contains N input tokens, which exceeds this limit even without any output tokens.&rdquo;</td><td class="warn"><code>200</code>; <code>max_tokens</code> is lowered to what fits (PR #57035). Only <code>max_tokens</code> larger than the whole context is a 400.</td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>vLLM v0.18.0&ndash;v0.31.0</td><td><code>400</code>, &ldquo;This model's maximum context length is M tokens. However, you requested K output tokens and your prompt contains N input tokens, for a total of T tokens.&rdquo;</td><td><code>400</code>, same message</td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>vLLM v0.10.1&ndash;v0.17.1</td><td><code>400</code>, &ldquo;This model's maximum context length is M tokens. However, your request has N input tokens.&rdquo;</td><td><code>400</code>, &ldquo;'max_tokens' or 'max_completion_tokens' is too large: K. This model's maximum context length is M tokens and your request has N input tokens (K &gt; M - N).&rdquo;</td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>vLLM up to v0.10.0</td><td><code>400</code>, flat body <code>{"object":"error","message":...}</code>, &ldquo;This model's maximum context length is M tokens. However, you requested N tokens ...&rdquo;</td><td><code>400</code>, &ldquo;... However, you requested T tokens (N in the messages, K in the completion).&rdquo;</td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>SGLang v0.5.10+ (2026-04-05)</td><td><code>400</code>, flat body, &ldquo;The input (N tokens) is longer than the model's context length (M tokens).&rdquo; Streaming requests also get 400.</td><td><code>400</code>, &ldquo;Requested token count exceeds the model's maximum context length of M tokens.&rdquo; (since v0.4.1.post7)</td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>SGLang up to v0.5.9, <code>stream: true</code></td><td class="bad"><code>200</code>, then one SSE event <code>{"object":"error","message":...}</code> (non-streaming requests get 400)</td><td>same</td><td class="bad">no exception: one chunk with <code>object: "error"</code> and <code>choices: null</code></td><td class="bad">no. <code>openai/</code>: <code>MidStreamFallbackError</code>; <code>hosted_vllm/</code>: an empty chunk with <code>finish_reason: "stop"</code></td></tr>
+<tr><td>Ollama, <code>/v1/chat/completions</code> (all versions)</td><td class="bad"><code>200</code>. Oldest messages are dropped (logged only at debug level); a single message still too long is cut in the middle, keeping the first <code>num_keep</code> tokens (default 4) and the end (&ldquo;truncating input prompt&rdquo; warning in the server log).</td><td><code>200</code></td><td>no exception</td><td class="bad">no error to classify</td></tr>
+<tr><td>Ollama v0.30.9+ with context shift off</td><td><code>400</code>, <code>invalid_request_error</code>, &ldquo;the prompt is longer than the context length currently available to the model; ...&rdquo;</td><td>&mdash;</td><td><code>BadRequestError</code></td><td class="bad">no (plain <code>BadRequestError</code>, also with <code>ollama_chat/</code>)</td></tr>
+<tr><td>TGI 3.x (Text Generation Inference)</td><td colspan="2"><code>422</code>, body <code>{"error": "Input validation error: `inputs` tokens + `max_new_tokens` must be &lt;= M. ...", "error_type": "validation"}</code></td><td><code>UnprocessableEntityError</code> with message &ldquo;Error code: 422&rdquo; only</td><td class="warn">only with <code>hosted_vllm/</code>; <code>openai/</code> gives <code>BadRequestError</code> and loses the text</td></tr>
+<tr><td>NVIDIA Dynamo v1.0.0+ frontend</td><td><code>400</code>, &ldquo;This model's maximum context length is M tokens. However, your messages resulted in N tokens.&rdquo;</td><td><code>400</code>, &ldquo;... your request would use N prompt tokens plus K ...&rdquo;</td><td><code>BadRequestError</code></td><td class="ok">yes</td></tr>
+<tr><td>Any engine that answers <code>500</code> (Dynamo up to v1.6.1 with TensorRT-LLM over <code>max_num_tokens</code>)</td><td colspan="2" class="bad"><code>500</code></td><td class="bad"><code>InternalServerError</code> after <strong>3 requests</strong> (2 retries, 1.2 s)</td><td class="bad">no (<code>InternalServerError</code>; with <code>openai/</code> also 3 requests)</td></tr>
+</tbody></table></div>
+<p class="meta">Dates are the PyPI release dates (vLLM, SGLang) or the tag dates (llama.cpp, Ollama, Dynamo). Versions in this table were found by reading every release tag of each engine; the first version is the first tag that has the code.</p>
+
+<h2 id="llamacpp">&ldquo;the request exceeds the available context size, try increasing it&rdquo; (llama.cpp)</h2>
+<p><strong>The number in the message is the context of one slot, not the <code>-c</code> you passed.</strong> llama-server checks the prompt against the slot it runs in. With the default settings (build 12733), all four slots share one unified KV cache and each can use the whole <code>-c</code>. If you pass <code>-np 4</code> yourself, the cache is split: with <code>-c 2048 -np 4</code> we got &ldquo;request (576 tokens) exceeds the available context size (512 tokens)&rdquo;. Use a larger <code>-c</code>, fewer slots, or <code>--kv-unified</code>.</p>
+<ul>
+<li>The check is <code>&gt;=</code>: a prompt of exactly <code>n_ctx</code> tokens is rejected, because no token would be left to generate.</li>
+<li>The error has <code>n_prompt_tokens</code> and <code>n_ctx</code> fields next to <code>message</code> (since b6380). A client can read them to trim and retry instead of parsing the text.</li>
+<li>Models that cannot split a prompt across batches give a different message: &ldquo;input (N tokens) is larger than the max context size (M tokens). skipping&rdquo;. LiteLLM does <em>not</em> recognize that one (plain <code>BadRequestError</code>).</li>
+<li>Up to b6205, context shift was on by default and an over-long prompt was silently truncated (log line <code>input truncated, n_ctx = 2048, n_keep = 0 ...</code>). From b6207 it is off by default and the request fails; from b6724 (2025-10-09) the prompt is never truncated, even with <code>--context-shift</code>. If an old guide tells you to enable context shift to make long prompts work, that no longer applies.</li>
+<li>A prompt that fits with too large a <code>max_tokens</code> is not an error: generation stops when the context is full, with <code>finish_reason: "length"</code> (measured: 1,848 prompt tokens + 200 generated = 2,048).</li>
+</ul>
+
+<h2 id="vllm">vLLM: &ldquo;This model's maximum context length is ... tokens&rdquo; and the v0.32.0 change</h2>
+<p><strong>Since v0.32.0, vLLM no longer counts <code>max_tokens</code> against the context when it checks the prompt. A request whose prompt fits but whose <code>max_tokens</code> does not is accepted, and the output is cut at the context with <code>finish_reason: "length"</code>.</strong> Before v0.32.0 the same request was a 400. Code that relied on that 400 to detect &ldquo;too long&rdquo; now gets a truncated answer instead (<a href="https://github.com/vllm-project/vllm/pull/57035">#57035</a>, in v0.32.0).</p>
+<ul>
+<li>vLLM answers 400 with type <code>BadRequestError</code>. The length check runs while the request is rendered, before the stream starts, so <code>stream: true</code> requests also get a normal 400 (read in v0.34.0).</li>
+<li>v0.10.1 changed the body from <code>{"object":"error","message":...}</code> to <code>{"error":{"message":...,"type":...,"param":...,"code":400}}</code>. Code that reads <code>body["message"]</code> broke then.</li>
+<li>Since v0.32.0 two other length messages do not contain &ldquo;maximum context length is&rdquo; and LiteLLM gives a plain <code>BadRequestError</code> for them: <code>max_tokens=K cannot be greater than max_model_len=M</code>, and (from the source; not run) a prompt of exactly <code>max_model_len</code> tokens leaves 0 tokens for output and fails with &ldquo;max_tokens must be at least 1, got 0.&rdquo;</li>
+<li>Very long text is rejected before tokenizing, by character count: &ldquo;However, your prompt contains N characters (more than ... characters, which is the upper bound for M input tokens)&rdquo;. It is still a 400 and LiteLLM still recognizes it.</li>
+</ul>
+
+<h2 id="ollama">Ollama: no error, the prompt is cut</h2>
+<p><strong>On <code>/v1/chat/completions</code> Ollama does not reject an over-long prompt. It drops the oldest messages until the rest fits and, if the last message alone is too long, cuts it in the middle. The answer is a normal <code>200</code>.</strong> This is the usual reason a model &ldquo;forgets&rdquo; the start of a long document. The context size is the model's <code>num_ctx</code> or <code>OLLAMA_CONTEXT_LENGTH</code> (default 4k, 32k or 256k depending on VRAM), not the model's maximum.</p>
+<ul>
+<li>The only sign is in the server log: message dropping is logged at debug level, token cutting as a warning &ldquo;truncating input prompt&rdquo;. Compare <code>usage.prompt_tokens</code> with what you sent; overflow_check.py does that.</li>
+<li>A 400 (&ldquo;the prompt is longer than the context length currently available to the model&rdquo;) appears only when context shift is off for that request (since v0.30.9). LiteLLM does not classify that message as a context error.</li>
+<li>Raising the context: set <code>num_ctx</code> in the model options or <code>OLLAMA_CONTEXT_LENGTH</code>; there is no request field on <code>/v1/chat/completions</code> that turns the truncation off.</li>
+</ul>
+
+<h2 id="sglang">SGLang: the error inside a 200 stream (up to v0.5.9)</h2>
+<p><strong>Up to v0.5.9, SGLang validated the length after the stream had started, so a streaming request got <code>200</code> and then a single event <code>data: {"object":"error","message":"The input (N tokens) is longer than the model's context length (M tokens).", ...}</code>.</strong> openai-python does not raise on it: it yields one chunk whose <code>object</code> is <code>"error"</code> and whose <code>choices</code> is <code>None</code>, so code that reads <code>chunk.choices[0]</code> fails with a <code>TypeError</code> far from the cause. v0.5.10 reads the first chunk before sending headers and returns a proper 400. Non-streaming requests got a 400 in both versions. SGLang can truncate instead with <code>--allow-auto-truncate</code>.</p>
+
+<h2 id="tgi">What do TGI and Dynamo return?</h2>
+<ul>
+<li><strong>TGI answers <code>422</code> with <code>error</code> as a string</strong>, not an object. openai-python turns it into <code>UnprocessableEntityError</code> whose message is only &ldquo;Error code: 422&rdquo;; the explanation is in <code>e.body</code>. TGI's message checks prompt + <code>max_new_tokens</code> against <code>--max-total-tokens</code> and the prompt alone against <code>--max-input-tokens</code> (&ldquo;`inputs` must have less than M tokens&rdquo;).</li>
+<li><strong>Dynamo's frontend writes its own context message so that clients recognize it</strong>: the source says the sentence must contain &ldquo;maximum context length is&rdquo; because LiteLLM matches that substring. With the TensorRT-LLM backend, prompts over <code>max_num_tokens</code> were reported as a server error until v1.6.2 (2026-11-04) turned them into a 400, so SDKs retried them (<a href="https://github.com/ai-dynamo/dynamo/pull/16193">#16193</a>).</li>
+</ul>
+
+<h2 id="clients">Does openai-python retry it, and does LiteLLM raise ContextWindowExceededError?</h2>
+<p><strong>openai-python retries 408, 409, 429 and every 5xx (twice by default, with backoff), or whatever the <code>x-should-retry</code> response header says. It never retries 400 or 422.</strong> A context overflow reported as 500 is therefore sent three times and fails three times. LiteLLM decides <code>ContextWindowExceededError</code> by searching the error text for fixed phrases (<code>is_error_str_context_window_exceeded</code>); the status code alone does not make it a context error.</p>
+<div class="tw"><table>
+<thead><tr><th>Phrase in the message (LiteLLM 1.111.0)</th><th>Engine that writes it</th></tr></thead>
+<tbody>
+<tr><td><code>this model's maximum context length is</code></td><td>vLLM (all versions), Dynamo</td></tr>
+<tr><td><code>is longer than the model's context length</code>, <code>requested token count exceeds the model's maximum context length</code></td><td>SGLang</td></tr>
+<tr><td><code>exceeds the available context size</code></td><td>llama.cpp (both wordings)</td></tr>
+<tr><td><code>`inputs` tokens + `max_new_tokens` must be</code></td><td>TGI (but see the 422 note: only when the text reaches LiteLLM)</td></tr>
+<tr><td><em>not in the list</em></td><td>Ollama &ldquo;the prompt is longer than the context length&rdquo;; llama.cpp &ldquo;is larger than the max context size&rdquo;; vLLM &ldquo;cannot be greater than max_model_len&rdquo;, &ldquo;max_tokens must be at least 1&rdquo;</td></tr>
+</tbody></table></div>
+<p>If you catch overflows yourself, catch <code>openai.BadRequestError</code> and <code>openai.UnprocessableEntityError</code>, and look at the status code and the body (<code>e.body</code>), not only the message. For llama.cpp, <code>e.body["n_ctx"]</code> gives the limit directly.</p>
+
+<h2 id="tool">Check your own server: overflow_check.py</h2>
+<p><strong>The script reads the context length from the server (vLLM and SGLang <code>/v1/models</code>, llama.cpp <code>/props</code>) or takes <code>--ctx</code>, measures how many tokens a repeated word costs, and sends four requests.</strong> For each it prints the status, error type and message, the first SSE event of the streaming request, and for a 200 the usage counts, which reveal silent truncation. It says whether openai-python would retry and whether LiteLLM's phrase check matches. With <code>--clients</code> it also calls the installed openai-python and LiteLLM and prints what they raised.</p>
+<pre><code>curl -O https://erimaki-kobo.github.io/en/context-overflow-error-status-check/overflow_check.py
+python overflow_check.py --base-url http://localhost:8000/v1 --model MODEL
+python overflow_check.py --base-url http://localhost:11434/v1 --model llama3.2 --ctx 4096   # Ollama: pass num_ctx
+pip install openai litellm &amp;&amp; python overflow_check.py --base-url ... --model ... --clients --json out.json</code></pre>
+<p>Output against llama.cpp build b6205 with default settings (CPU, a tiny random-weight model):</p>
+<pre><code>context 2048 (/props n_ctx (per slot)); 'the ' = 4.000 tokens, template overhead ~49 tokens
+
+[prompt_over] sent ~2109 prompt tokens, max_tokens=16
+  verdict                accepted with HTTP 200: the prompt was truncated without an error
+  status                 200
+  prompt_tokens          1085
+  completion_tokens      16
+  finish_reason          length
+  clients                {'openai_python': 'no exception', 'litellm_openai': 'no exception', 'litellm_hosted_vllm': 'no exception'}</code></pre>
+<p>The same request against the current build:</p>
+<pre><code>[prompt_over] sent ~2112 prompt tokens, max_tokens=16
+  verdict                HTTP 400
+  error_type             exceed_context_size_error
+  message                request (2112 tokens) exceeds the available context size (2048 tokens), try increasing it
+  error_extra            {'n_prompt_tokens': 2112, 'n_ctx': 2048}
+  openai_python_retries  False
+  litellm_message_check  True
+  clients                {'openai_python': 'BadRequestError', 'litellm_openai': 'ContextWindowExceededError', 'litellm_hosted_vllm': 'ContextWindowExceededError'}</code></pre>
+<p>The four requests use a few thousand prompt tokens in total; on a GPU server that takes seconds. Point it at a test instance if a 400 on your production server pages someone.</p>
+
+<h2 id="method">How this was measured</h2>
+<ul>
+<li><strong>Run:</strong> llama.cpp llama-server built from source on CPU at build 12733 (commit de30697, 2026-11-25) and at b6205, with a 2-layer random-weight Llama GGUF, through overflow_check.py with <code>--clients</code>. Settings: <code>-c 2048</code>, default slots; <code>-c 2048 -np 4</code>; b6205 with and without <code>--no-context-shift</code>.</li>
+<li><strong>Read, then replayed:</strong> for vLLM, SGLang, Ollama, TGI and Dynamo the status, body and message were taken from the source of each release tag (paths in <a href="#sources">Sources</a>), served by a local mock server, and sent to openai-python 3.59.0 and LiteLLM 1.111.0 (<code>openai/</code>, <code>hosted_vllm/</code> and <code>ollama_chat/</code> providers). The mock counts requests, which is how the retries were measured. The cases and results are in <a href="repro/">repro/</a> (<code>cases.json</code>, <code>replay.py</code>, <code>replay_results.json</code>).</li>
+<li>Version boundaries were found by scanning every release tag for the code that produces each message.</li>
+</ul>
+
+<h2 id="faq">FAQ</h2>
+<dl>
+<dt>Should a context overflow be HTTP 400 or 500?</dt>
+<dd>400 (or another 4xx). It is a property of the request, so retrying cannot help, and SDKs such as openai-python retry every 5xx automatically. LiteLLM's phrase list also contains OpenAI's own error code <code>context_length_exceeded</code>.</dd>
+<dt>Why does llama-server say 512 tokens when I started it with -c 2048?</dt>
+<dd>You set <code>-np 4</code>, which splits the KV cache into four slots of 512. Without <code>-np</code> (or with <code>--kv-unified</code>) each slot can use the full context.</dd>
+<dt>Why doesn't Ollama return an error for a long prompt?</dt>
+<dd>It truncates by default: old messages are dropped and an over-long message is cut in the middle. Raise <code>num_ctx</code> or <code>OLLAMA_CONTEXT_LENGTH</code>, and check <code>usage.prompt_tokens</code> against what you sent.</dd>
+<dt>Why did my vLLM request stop returning 400 after upgrading?</dt>
+<dd>From v0.32.0 a prompt that fits is accepted even if <code>max_tokens</code> does not; the output stops at the context with <code>finish_reason: "length"</code>. Check <code>finish_reason</code> instead of waiting for a 400.</dd>
+<dt>Why doesn't LiteLLM raise ContextWindowExceededError for my server?</dt>
+<dd>LiteLLM looks for fixed phrases in the error text. Ollama's message and some vLLM and llama.cpp messages are not in its list, a 200 with truncation has no error at all, and a 422 through the <code>openai/</code> provider loses the text.</dd>
+</dl>
+
+<h2 id="limits">Limitations</h2>
+<ul>
+<li>Only llama.cpp was run. The other engines' rows come from their source and were replayed to the clients; their actual servers were not started here. Middleware such as a proxy or gateway in front of the engine can change the status code.</li>
+<li>Ollama was read on its current code (v0.40.18), whose runner is llama-server; older Ollama runners also truncated (&ldquo;truncating input prompt&rdquo;) but were not traced version by version.</li>
+<li>The vLLM boundary case (prompt of exactly <code>max_model_len</code> tokens) is from the source only.</li>
+<li>LiteLLM's phrase list changes between versions; the table is for 1.111.0. overflow_check.py carries a copy of that list and says so.</li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>llama.cpp: <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/server-context.cpp">tools/server/server-context.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/server-common.cpp">server-common.cpp</a> (<code>format_error_response</code>), <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/server-task.cpp">server-task.cpp</a>; release tags b3812, b6205, b6207, b6380, b6724, b7481.</li>
+<li>vLLM: <a href="https://github.com/vllm-project/vllm/blob/main/vllm/renderers/params.py">vllm/renderers/params.py</a>, <a href="https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/serve/exception_handling/error_response.py">entrypoints/serve/exception_handling/error_response.py</a>, <a href="https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/serve/utils/api_utils.py">entrypoints/serve/utils/api_utils.py</a> (<code>get_max_tokens</code>); <a href="https://github.com/vllm-project/vllm/pull/57035">PR #57035</a>; tags v0.10.0, v0.10.1, v0.17.1, v0.18.0, v0.31.0, v0.32.0, v0.34.0.</li>
+<li>SGLang: <a href="https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/managers/tokenizer_manager.py">srt/managers/tokenizer_manager.py</a>, <a href="https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/entrypoints/openai/serving_chat.py">srt/entrypoints/openai/serving_chat.py</a>, <a href="https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/entrypoints/openai/serving_base.py">serving_base.py</a>; tags v0.4.1.post7, v0.5.9, v0.5.10.</li>
+<li>Ollama: <a href="https://github.com/ollama/ollama/blob/main/server/prompt.go">server/prompt.go</a>, <a href="https://github.com/ollama/ollama/blob/main/llm/llama_server.go">llm/llama_server.go</a>, <a href="https://github.com/ollama/ollama/blob/main/openai/openai.go">openai/openai.go</a>, <a href="https://github.com/ollama/ollama/blob/main/envconfig/config.go">envconfig/config.go</a>; tags v0.30.8, v0.30.9, v0.40.18.</li>
+<li>TGI: <a href="https://github.com/huggingface/text-generation-inference/blob/main/router/src/validation.rs">router/src/validation.rs</a>, <a href="https://github.com/huggingface/text-generation-inference/blob/main/router/src/server.rs">router/src/server.rs</a>.</li>
+<li>Dynamo: <a href="https://github.com/ai-dynamo/dynamo/blob/main/lib/llm/src/http/service/error.rs">lib/llm/src/http/service/error.rs</a>; <a href="https://github.com/ai-dynamo/dynamo/pull/16193">PR #16193</a> (cherry-picked to v1.6.2).</li>
+<li>LiteLLM: <a href="https://github.com/BerriAI/litellm/blob/main/litellm/litellm_core_utils/exception_mapping_utils.py">litellm_core_utils/exception_mapping_utils.py</a>. openai-python: <a href="https://github.com/openai/openai-python/blob/main/src/openai/_base_client.py">src/openai/_base_client.py</a> (<code>_should_retry</code>).</li>
+<li>Related: <a href="/en/llama-cpp-removed-args-lookup/">llama.cpp arguments removed by build</a>; <a href="/en/vllm-kv-concurrency-planner/">how many requests fit in vLLM's KV cache</a>; <a href="/en/generation-stop-tokens-check/">why a model does not stop generating</a>.</li>
+</ul>
+</main>
+</body>
+</html>

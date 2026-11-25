@@ -1,0 +1,764 @@
+{
+ "openai": "3.59.0",
+ "litellm": "1.111.0",
+ "results": [
+  {
+   "id": "vllm_v0.32+_prompt_over",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - This model's maximum context length is 4096 tokens. However, your prompt contains 5000 input tokens, which exceeds this limit even without any output tokens. Please reduce the length of the input prompt. (parameter=input_tokens, value=5000)",
+    "requests": 1,
+    "seconds": 0.04
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - This model's maximum context length is 4096 tokens. However, your prompt contains 5000 input tokens, which exceeds this limit even without any output tokens. Please reduce the length of the inp",
+    "requests": 1,
+    "seconds": 0.37
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"error\": {\"message\": \"This model's maximum context length is 4096 tokens. However, your prompt contains 5000 input tokens, which exceeds this limit even without any output tokens. Please ",
+    "requests": 1,
+    "seconds": 0.19
+   }
+  },
+  {
+   "id": "vllm_v0.32+_prompt_equals_limit",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - max_tokens must be at least 1, got 0. (parameter=max_tokens, value=0)",
+    "requests": 1,
+    "seconds": 0.01
+   },
+   "litellm_openai": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: OpenAIException - max_tokens must be at least 1, got 0. (parameter=max_tokens, value=0)",
+    "requests": 1,
+    "seconds": 0.03
+   },
+   "litellm_hosted_vllm": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: Hosted_vllmException - {\"error\": {\"message\": \"max_tokens must be at least 1, got 0. (parameter=max_tokens, value=0)\", \"type\": \"BadRequestError\", \"param\": \"max_tokens\", \"code\": 400}}",
+    "requests": 1,
+    "seconds": 0.02
+   }
+  },
+  {
+   "id": "vllm_v0.32+_max_tokens_over_limit",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - max_tokens=4097 cannot be greater than max_model_len=4096. Please request fewer output tokens. (parameter=max_tokens, value=4097)",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: OpenAIException - max_tokens=4097 cannot be greater than max_model_len=4096. Please request fewer output tokens. (parameter=max_tokens, value=4097)",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: Hosted_vllmException - {\"error\": {\"message\": \"max_tokens=4097 cannot be greater than max_model_len=4096. Please request fewer output tokens. (parameter=max_tokens, value=4097)\", \"type\": \"BadRequestError\", \"param\": \"max_tokens\", \"code\": 400}}",
+    "requests": 1,
+    "seconds": 0.02
+   }
+  },
+  {
+   "id": "vllm_v0.10-v0.31_prompt_plus_max_tokens",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - 'max_tokens' or 'max_completion_tokens' is too large: 1000. This model's maximum context length is 4096 tokens and your request has 3596 input tokens (1000 > 4096 - 3596). (parameter=max_tokens, value=1000)",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - 'max_tokens' or 'max_completion_tokens' is too large: 1000. This model's maximum context length is 4096 tokens and your request has 3596 input tokens (1000 > 4096 - 3596). (parameter=max_tokens",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"error\": {\"message\": \"'max_tokens' or 'max_completion_tokens' is too large: 1000. This model's maximum context length is 4096 tokens and your request has 3596 input tokens (1000 > 4096 - ",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "vllm_v0.10-v0.31_prompt_over",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - This model's maximum context length is 4096 tokens. However, your request has 5000 input tokens. Please reduce the length of the input messages. (parameter=input_tokens, value=5000)",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - This model's maximum context length is 4096 tokens. However, your request has 5000 input tokens. Please reduce the length of the input messages. (parameter=input_tokens, value=5000)",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"error\": {\"message\": \"This model's maximum context length is 4096 tokens. However, your request has 5000 input tokens. Please reduce the length of the input messages. (parameter=input_tok",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "vllm_v0.9_and_older",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - This model's maximum context length is 4096 tokens. However, you requested 6000 tokens (5000 in the messages, 1000 in the completion). Please reduce the length of the messages or completion.",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - This model's maximum context length is 4096 tokens. However, you requested 6000 tokens (5000 in the messages, 1000 in the completion). Please reduce the length of the messages or completion.",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"object\": \"error\", \"message\": \"This model's maximum context length is 4096 tokens. However, you requested 6000 tokens (5000 in the messages, 1000 in the completion). Please reduce the len",
+    "requests": 1,
+    "seconds": 0.02
+   }
+  },
+  {
+   "id": "sglang_prompt_over",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - The input (5000 tokens) is longer than the model's context length (4096 tokens).",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - The input (5000 tokens) is longer than the model's context length (4096 tokens).",
+    "requests": 1,
+    "seconds": 0.01
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"object\": \"error\", \"message\": \"The input (5000 tokens) is longer than the model's context length (4096 tokens).\", \"type\": \"BadRequestError\", \"param\": null, \"code\": 400}",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "sglang_prompt_plus_max_tokens",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - Requested token count exceeds the model's maximum context length of 4096 tokens. You requested a total of 4596 tokens: 3596 tokens from the input messages and 1000 tokens for the completion. Please reduce the number of tokens in the input messages or the completion to fit within th",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - Requested token count exceeds the model's maximum context length of 4096 tokens. You requested a total of 4596 tokens: 3596 tokens from the input messages and 1000 tokens for the completion. Pl",
+    "requests": 1,
+    "seconds": 0.01
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"object\": \"error\", \"message\": \"Requested token count exceeds the model's maximum context length of 4096 tokens. You requested a total of 4596 tokens: 3596 tokens from the input messages a",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "sglang_v0.5.9_and_older_stream",
+   "openai_python": {
+    "raised": null,
+    "chunks": 1,
+    "first_chunk": {
+     "id": null,
+     "choices": null,
+     "created": null,
+     "model": null,
+     "object": "error",
+     "moderation": null,
+     "obfuscation": null,
+     "service_tier": null,
+     "system_fingerprint": null,
+     "usage": null,
+     "message": "The input (5000 tokens) is longer than the model's context length (4096 tokens).",
+     "type": "BadRequestError",
+     "param": null,
+     "code": 400
+    },
+    "requests": 1,
+    "seconds": 0.01
+   },
+   "litellm_openai": {
+    "raised": "MidStreamFallbackError",
+    "mro": [
+     "MidStreamFallbackError",
+     "ServiceUnavailableError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.MidStreamFallbackError: litellm.APIConnectionError: APIConnectionError: OpenAIException - Stream ended before a finish_reason was received Original exception: APIConnectionError: litellm.APIConnectionError: APIConnectionError: OpenAIException - Stream ended before a finish_reason was receive",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": null,
+    "chunks": 1,
+    "first_chunk": {
+     "id": "chatcmpl-a1f4a167-052b-45d6-a2fa-9aa7bb18098f",
+     "created": 1795600314,
+     "model": "m",
+     "object": "chat.completion.chunk",
+     "choices": [
+      {
+       "finish_reason": "stop",
+       "index": 0,
+       "delta": {
+        "content": null,
+        "role": null,
+        "function_call": null,
+        "tool_calls": null,
+        "audio": null
+       },
+       "logprobs": null
+      }
+     ],
+     "provider_specific_fields": null
+    },
+    "requests": 1,
+    "seconds": 0.02
+   }
+  },
+  {
+   "id": "llamacpp_b7481+",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - request (5000 tokens) exceeds the available context size (4096 tokens), try increasing it",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - request (5000 tokens) exceeds the available context size (4096 tokens), try increasing it",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"error\": {\"code\": 400, \"message\": \"request (5000 tokens) exceeds the available context size (4096 tokens), try increasing it\", \"type\": \"exceed_context_size_error\", \"n_prompt_tokens\": 5000",
+    "requests": 1,
+    "seconds": 0.02
+   }
+  },
+  {
+   "id": "llamacpp_b6380-b7480",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - the request exceeds the available context size. try increasing the context size or enable context shift",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - the request exceeds the available context size. try increasing the context size or enable context shift",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"error\": {\"code\": 400, \"message\": \"the request exceeds the available context size. try increasing the context size or enable context shift\", \"type\": \"exceed_context_size_error\", \"n_prompt",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "llamacpp_no_split_model",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - input (5000 tokens) is larger than the max context size (4096 tokens). skipping",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: OpenAIException - input (5000 tokens) is larger than the max context size (4096 tokens). skipping",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: Hosted_vllmException - {\"error\": {\"code\": 400, \"message\": \"input (5000 tokens) is larger than the max context size (4096 tokens). skipping\", \"type\": \"exceed_context_size_error\", \"n_prompt_tokens\": 5000, \"n_ctx\": 4096}}",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "ollama_v1_shift_off",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - the prompt is longer than the context length currently available to the model; shorten the prompt, adjust the context length in settings, or use a model with a longer context length",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: OpenAIException - the prompt is longer than the context length currently available to the model; shorten the prompt, adjust the context length in settings, or use a model with a longer context length",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: Hosted_vllmException - {\"error\": {\"message\": \"the prompt is longer than the context length currently available to the model; shorten the prompt, adjust the context length in settings, or use a model with a longer context length\", \"type\": \"invalid_request_error\", \"param\": nul",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "ollama_native_shift_off",
+   "litellm_ollama_chat": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: Ollama_chatException - {\"error\": \"the prompt is longer than the context length currently available to the model; shorten the prompt, adjust the context length in settings, or use a model with a longer context length\"}",
+    "requests": 1,
+    "seconds": 0.02
+   }
+  },
+  {
+   "id": "tgi",
+   "openai_python": {
+    "raised": "UnprocessableEntityError",
+    "mro": [
+     "UnprocessableEntityError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 422",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.BadRequestError: OpenAIException - Error code: 422",
+    "requests": 1,
+    "seconds": 0.01
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"error\": \"Input validation error: `inputs` tokens + `max_new_tokens` must be <= 4096. Given: 3596 `inputs` tokens and 1000 `max_new_tokens`\", \"error_type\": \"validation\"}",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "dynamo_frontend",
+   "openai_python": {
+    "raised": "BadRequestError",
+    "mro": [
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 400 - This model's maximum context length is 4096 tokens. However, your messages resulted in 5000 tokens. Please reduce the length of the messages.",
+    "requests": 1,
+    "seconds": 0.0
+   },
+   "litellm_openai": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: OpenAIException - This model's maximum context length is 4096 tokens. However, your messages resulted in 5000 tokens. Please reduce the length of the messages.",
+    "requests": 1,
+    "seconds": 0.01
+   },
+   "litellm_hosted_vllm": {
+    "raised": "ContextWindowExceededError",
+    "mro": [
+     "ContextWindowExceededError",
+     "BadRequestError",
+     "BadRequestError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError"
+    ],
+    "message": "litellm.ContextWindowExceededError: litellm.BadRequestError: ContextWindowExceededError: Hosted_vllmException - {\"error\": {\"message\": \"This model's maximum context length is 4096 tokens. However, your messages resulted in 5000 tokens. Please reduce the length of the messages.\", \"type\": \"invalid_requ",
+    "requests": 1,
+    "seconds": 0.01
+   }
+  },
+  {
+   "id": "generic_500_overflow",
+   "openai_python": {
+    "raised": "InternalServerError",
+    "mro": [
+     "InternalServerError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception",
+     "BaseException"
+    ],
+    "message": "Error code: 500 - prompt length 5000 exceeds max_num_tokens 4096",
+    "requests": 3,
+    "seconds": 1.21
+   },
+   "litellm_openai": {
+    "raised": "InternalServerError",
+    "mro": [
+     "InternalServerError",
+     "InternalServerError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.InternalServerError: InternalServerError: OpenAIException - prompt length 5000 exceeds max_num_tokens 4096",
+    "requests": 1,
+    "seconds": 0.02
+   },
+   "litellm_hosted_vllm": {
+    "raised": "InternalServerError",
+    "mro": [
+     "InternalServerError",
+     "InternalServerError",
+     "APIStatusError",
+     "APIError",
+     "OpenAIError",
+     "Exception"
+    ],
+    "message": "litellm.InternalServerError: InternalServerError: Hosted_vllmException - {\"error\": {\"message\": \"prompt length 5000 exceeds max_num_tokens 4096\", \"type\": \"internal_server_error\", \"param\": null, \"code\": 500}}",
+    "requests": 1,
+    "seconds": 0.02
+   }
+  }
+ ]
+}

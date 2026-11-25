@@ -1,0 +1,216 @@
+[
+ {
+  "id": "vllm_v0.32+_prompt_over",
+  "src": "vllm v0.34.0 vllm/renderers/params.py _token_len_check",
+  "status": 400,
+  "body": {
+   "error": {
+    "message": "This model's maximum context length is 4096 tokens. However, your prompt contains 5000 input tokens, which exceeds this limit even without any output tokens. Please reduce the length of the input prompt. (parameter=input_tokens, value=5000)",
+    "type": "BadRequestError",
+    "param": "input_tokens",
+    "code": 400
+   }
+  }
+ },
+ {
+  "id": "vllm_v0.32+_prompt_equals_limit",
+  "src": "vllm v0.34.0 sampling_params.py (max_tokens clamped to 0 by get_max_tokens)",
+  "status": 400,
+  "body": {
+   "error": {
+    "message": "max_tokens must be at least 1, got 0. (parameter=max_tokens, value=0)",
+    "type": "BadRequestError",
+    "param": "max_tokens",
+    "code": 400
+   }
+  }
+ },
+ {
+  "id": "vllm_v0.32+_max_tokens_over_limit",
+  "src": "vllm v0.34.0 vllm/renderers/params.py __post_init__",
+  "status": 400,
+  "body": {
+   "error": {
+    "message": "max_tokens=4097 cannot be greater than max_model_len=4096. Please request fewer output tokens. (parameter=max_tokens, value=4097)",
+    "type": "BadRequestError",
+    "param": "max_tokens",
+    "code": 400
+   }
+  }
+ },
+ {
+  "id": "vllm_v0.10-v0.31_prompt_plus_max_tokens",
+  "src": "vllm v0.17.1 entrypoints/openai/engine/serving.py",
+  "status": 400,
+  "body": {
+   "error": {
+    "message": "'max_tokens' or 'max_completion_tokens' is too large: 1000. This model's maximum context length is 4096 tokens and your request has 3596 input tokens (1000 > 4096 - 3596). (parameter=max_tokens, value=1000)",
+    "type": "BadRequestError",
+    "param": "max_tokens",
+    "code": 400
+   }
+  }
+ },
+ {
+  "id": "vllm_v0.10-v0.31_prompt_over",
+  "src": "vllm v0.17.1 entrypoints/openai/engine/serving.py",
+  "status": 400,
+  "body": {
+   "error": {
+    "message": "This model's maximum context length is 4096 tokens. However, your request has 5000 input tokens. Please reduce the length of the input messages. (parameter=input_tokens, value=5000)",
+    "type": "BadRequestError",
+    "param": "input_tokens",
+    "code": 400
+   }
+  }
+ },
+ {
+  "id": "vllm_v0.9_and_older",
+  "src": "vllm v0.9.2 entrypoints/openai/serving_engine.py (flat ErrorResponse)",
+  "status": 400,
+  "body": {
+   "object": "error",
+   "message": "This model's maximum context length is 4096 tokens. However, you requested 6000 tokens (5000 in the messages, 1000 in the completion). Please reduce the length of the messages or completion.",
+   "type": "BadRequestError",
+   "param": null,
+   "code": 400
+  }
+ },
+ {
+  "id": "sglang_prompt_over",
+  "src": "sglang tokenizer_manager.py _validate_input_ids_in_context_length; serving_base.py create_error_response",
+  "status": 400,
+  "body": {
+   "object": "error",
+   "message": "The input (5000 tokens) is longer than the model's context length (4096 tokens).",
+   "type": "BadRequestError",
+   "param": null,
+   "code": 400
+  }
+ },
+ {
+  "id": "sglang_prompt_plus_max_tokens",
+  "src": "sglang tokenizer_manager.py (v0.4.1.post7+)",
+  "status": 400,
+  "body": {
+   "object": "error",
+   "message": "Requested token count exceeds the model's maximum context length of 4096 tokens. You requested a total of 4596 tokens: 3596 tokens from the input messages and 1000 tokens for the completion. Please reduce the number of tokens in the input messages or the completion to fit within the limit.",
+   "type": "BadRequestError",
+   "param": null,
+   "code": 400
+  }
+ },
+ {
+  "id": "sglang_v0.5.9_and_older_stream",
+  "src": "sglang v0.5.9 serving_chat.py _generate_chat_stream (HTTP 200, error inside SSE)",
+  "sse": [
+   {
+    "object": "error",
+    "message": "The input (5000 tokens) is longer than the model's context length (4096 tokens).",
+    "type": "BadRequestError",
+    "param": null,
+    "code": 400
+   },
+   "[DONE]"
+  ]
+ },
+ {
+  "id": "llamacpp_b7481+",
+  "src": "llama.cpp tools/server/server-context.cpp + server-task.cpp",
+  "status": 400,
+  "body": {
+   "error": {
+    "code": 400,
+    "message": "request (5000 tokens) exceeds the available context size (4096 tokens), try increasing it",
+    "type": "exceed_context_size_error",
+    "n_prompt_tokens": 5000,
+    "n_ctx": 4096
+   }
+  }
+ },
+ {
+  "id": "llamacpp_b6380-b7480",
+  "src": "llama.cpp b6724 tools/server/server.cpp",
+  "status": 400,
+  "body": {
+   "error": {
+    "code": 400,
+    "message": "the request exceeds the available context size. try increasing the context size or enable context shift",
+    "type": "exceed_context_size_error",
+    "n_prompt_tokens": 5000,
+    "n_ctx": 4096
+   }
+  }
+ },
+ {
+  "id": "llamacpp_no_split_model",
+  "src": "llama.cpp server-context.cpp (models that cannot split the prompt)",
+  "status": 400,
+  "body": {
+   "error": {
+    "code": 400,
+    "message": "input (5000 tokens) is larger than the max context size (4096 tokens). skipping",
+    "type": "exceed_context_size_error",
+    "n_prompt_tokens": 5000,
+    "n_ctx": 4096
+   }
+  }
+ },
+ {
+  "id": "ollama_v1_shift_off",
+  "src": "ollama llm/llama_server.go promptTooLongMessage; openai/openai.go NewError",
+  "status": 400,
+  "body": {
+   "error": {
+    "message": "the prompt is longer than the context length currently available to the model; shorten the prompt, adjust the context length in settings, or use a model with a longer context length",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": null
+   }
+  }
+ },
+ {
+  "id": "ollama_native_shift_off",
+  "src": "ollama /api/chat",
+  "path": "/api/chat",
+  "status": 400,
+  "body": {
+   "error": "the prompt is longer than the context length currently available to the model; shorten the prompt, adjust the context length in settings, or use a model with a longer context length"
+  }
+ },
+ {
+  "id": "tgi",
+  "src": "text-generation-inference router/src/validation.rs, server.rs (422)",
+  "status": 422,
+  "body": {
+   "error": "Input validation error: `inputs` tokens + `max_new_tokens` must be <= 4096. Given: 3596 `inputs` tokens and 1000 `max_new_tokens`",
+   "error_type": "validation"
+  }
+ },
+ {
+  "id": "dynamo_frontend",
+  "src": "dynamo lib/llm/src/http/service/error.rs openai_context_length_message",
+  "status": 400,
+  "body": {
+   "error": {
+    "message": "This model's maximum context length is 4096 tokens. However, your messages resulted in 5000 tokens. Please reduce the length of the messages.",
+    "type": "invalid_request_error",
+    "param": null,
+    "code": 400
+   }
+  }
+ },
+ {
+  "id": "generic_500_overflow",
+  "src": "any engine that maps the overflow to 500 (e.g. Dynamo <=1.6.1 with TensorRT-LLM, PR #16193)",
+  "status": 500,
+  "body": {
+   "error": {
+    "message": "prompt length 5000 exceeds max_num_tokens 4096",
+    "type": "internal_server_error",
+    "param": null,
+    "code": 500
+   }
+  }
+ }
+]

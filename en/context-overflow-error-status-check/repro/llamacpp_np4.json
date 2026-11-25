@@ -1,0 +1,67 @@
+{
+ "base_url": "http://127.0.0.1:8098/v1",
+ "model": "toy",
+ "ctx": 512,
+ "rows": [
+  {
+   "test": "prompt_over",
+   "sent_prompt_tokens": 576,
+   "max_tokens": 16,
+   "status": 400,
+   "content_type": "application/json; charset=utf-8",
+   "error_type": "exceed_context_size_error",
+   "error_code": 400,
+   "message": "request (576 tokens) exceeds the available context size (512 tokens), try increasing it",
+   "error_extra": {
+    "n_prompt_tokens": 576,
+    "n_ctx": 512
+   },
+   "openai_python_retries": false,
+   "litellm_message_check": true,
+   "verdict": "HTTP 400",
+   "seconds": 0.0
+  },
+  {
+   "test": "prompt_over_stream",
+   "sent_prompt_tokens": 576,
+   "max_tokens": 16,
+   "status": 400,
+   "content_type": "application/json; charset=utf-8",
+   "error_type": "exceed_context_size_error",
+   "error_code": 400,
+   "message": "request (576 tokens) exceeds the available context size (512 tokens), try increasing it",
+   "error_extra": {
+    "n_prompt_tokens": 576,
+    "n_ctx": 512
+   },
+   "openai_python_retries": false,
+   "litellm_message_check": true,
+   "verdict": "HTTP 400",
+   "seconds": 0.0
+  },
+  {
+   "test": "total_over",
+   "sent_prompt_tokens": 312,
+   "max_tokens": 1000,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 312,
+   "completion_tokens": 200,
+   "finish_reason": "length",
+   "verdict": "accepted with HTTP 200: generation stopped at the context limit after 200 of 1000 requested tokens (finish_reason=length, no error)",
+   "seconds": 0.04
+  },
+  {
+   "test": "max_tokens_over",
+   "sent_prompt_tokens": 20,
+   "max_tokens": 513,
+   "status": 200,
+   "content_type": "application/json; charset=utf-8",
+   "prompt_tokens": 20,
+   "completion_tokens": 237,
+   "finish_reason": "stop",
+   "verdict": "accepted with HTTP 200: max_tokens is not checked against the context",
+   "seconds": 0.04
+  }
+ ]
+}
