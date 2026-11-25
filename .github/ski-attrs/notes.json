@@ -1,0 +1,6 @@
+{"notes": {
+ "skimage|external": "The bundled copy of tifffile went with it: use the tifffile package itself (import tifffile), which scikit-image 0.17.1 and later install as a dependency.",
+ "skimage.external|tifffile": "Use the tifffile package itself (import tifffile), which scikit-image 0.17.1 and later install as a dependency.",
+ "skimage.measure|simple_metrics": "Import from skimage.metrics: mean_squared_error, normalized_root_mse, peak_signal_noise_ratio.",
+ "skimage.transform|histogram_matching": "Import match_histograms from skimage.exposure."
+}}

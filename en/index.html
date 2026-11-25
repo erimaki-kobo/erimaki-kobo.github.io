@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="scikit-image-removed-name-lookup/">ImportError: cannot import name 'compare_ssim' from 'skimage.measure' (or 'greycomatrix', TypeError: unexpected keyword argument 'multichannel', 'selem'): which scikit-image release removed it and what to use</a></h2>
+<p>scikit-image 0.18.0 removed <code>compare_ssim</code> and <code>compare_psnr</code> (use <code>structural_similarity</code> and <code>peak_signal_noise_ratio</code> from <code>skimage.metrics</code>); 0.19.0 removed <code>rgb2grey</code> and <code>draw.circle</code>; 0.20.0 removed <code>greycomatrix</code>, <code>skimage.viewer</code>, <code>skimage.future.graph</code> and the arguments <code>multichannel=</code> (<code>channel_axis=</code>) and <code>selem=</code> (<code>footprint=</code>). 58 removed names and 133 removed arguments across 22 installed releases (0.16.2 to 0.26.0); 18 renames run both ways with the same result. Includes a lookup: paste the error or the old code.</p>
+<p class="meta">Published 2026-11-26</p>
+</article>
+<article class="card">
 <h2><a href="moviepy-removed-name-lookup/">AttributeError: 'VideoFileClip' object has no attribute 'subclip' (or 'set_duration', 'resize', 'fx', 'volumex'), No module named 'moviepy.editor': every name MoviePy 2 changed and what to write instead</a></h2>
 <p>MoviePy 2.0 removed <code>moviepy.editor</code> and renamed the clip methods: <code>subclip</code> is <code>subclipped</code>, <code>set_duration</code> is <code>with_duration</code>, <code>resize</code> is <code>resized</code>, <code>clip.fx(vfx.fadein, 1)</code> is <code>clip.with_effects([vfx.FadeIn(1)])</code>. 53 removed clip members, 36 effects and the changed arguments (<code>fontsize</code>, <code>verbose</code>); 39 renames run in 1.0.3 and 2.2.1 with the same result. Includes a lookup: paste the error or the old code.</p>
 <p class="meta">Published 2026-11-26</p>

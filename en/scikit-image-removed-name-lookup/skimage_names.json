@@ -1,0 +1,4583 @@
+{
+"releases": [
+[
+"0.16.2",
+"2019-10-22",
+"3.8.20",
+"1.19.5"
+],
+[
+"0.17.1",
+"2020-05-08",
+"3.8.20",
+"1.19.5"
+],
+[
+"0.17.2",
+"2020-05-13",
+"3.8.20",
+"1.19.5"
+],
+[
+"0.18.0",
+"2020-12-15",
+"3.8.20",
+"1.21.6"
+],
+[
+"0.18.1",
+"2020-12-23",
+"3.8.20",
+"1.21.6"
+],
+[
+"0.18.2",
+"2021-06-29",
+"3.8.20",
+"1.21.6"
+],
+[
+"0.18.3",
+"2021-08-24",
+"3.8.20",
+"1.21.6"
+],
+[
+"0.19.0",
+"2021-12-03",
+"3.8.20",
+"1.22.4"
+],
+[
+"0.19.1",
+"2021-12-15",
+"3.8.20",
+"1.22.4"
+],
+[
+"0.19.2",
+"2022-02-17",
+"3.8.20",
+"1.22.4"
+],
+[
+"0.19.3",
+"2022-06-12",
+"3.8.20",
+"1.22.4"
+],
+[
+"0.20.0",
+"2023-02-28",
+"3.8.20",
+"1.24.4"
+],
+[
+"0.21.0",
+"2023-06-02",
+"3.8.20",
+"1.24.4"
+],
+[
+"0.22.0",
+"2023-10-03",
+"3.9.25",
+"1.26.4"
+],
+[
+"0.23.0",
+"2024-04-10",
+"3.10.20",
+"1.26.4"
+],
+[
+"0.23.1",
+"2024-04-10",
+"3.10.20",
+"1.26.4"
+],
+[
+"0.23.2",
+"2024-04-20",
+"3.10.20",
+"1.26.4"
+],
+[
+"0.24.0",
+"2024-06-18",
+"3.10.20",
+"1.26.4"
+],
+[
+"0.25.0",
+"2024-12-13",
+"3.10.20",
+"2.2.6"
+],
+[
+"0.25.1",
+"2025-01-26",
+"3.10.20",
+"2.2.6"
+],
+[
+"0.25.2",
+"2025-02-18",
+"3.10.20",
+"2.2.6"
+],
+[
+"0.26.0",
+"2025-12-20",
+"3.11.18",
+"2.4.6"
+]
+],
+"yanked": [
+"0.23.0"
+],
+"rows": {
+"skimage.external": {
+"obj": "skimage",
+"name": "external",
+"seq": "oggggggggggggggggggggg",
+"removed": "0.17.1",
+"last": "0.16.2",
+"fix": "The bundled copy of tifffile went with it: use the tifffile package itself (import tifffile), which scikit-image 0.17.1 and later install as a dependency.",
+"src": "our note",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer": {
+"obj": "skimage",
+"name": "viewer",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`viewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.color.grey2rgb": {
+"obj": "skimage.color",
+"name": "grey2rgb",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "grey2rgb is deprecated. It will be removed in version 0.19.Please use gray2rgb instead.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.18.3",
+"color.gray2rgb"
+]
+},
+"skimage.color.guess_spatial_dimensions": {
+"obj": "skimage.color",
+"name": "guess_spatial_dimensions",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "This function is deprecated and will be removed in 0.18",
+"src": "scikit-image's deprecation text in 0.17.2",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.color.rgb2grey": {
+"obj": "skimage.color",
+"name": "rgb2grey",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "rgb2grey is deprecated. It will be removed in version 0.19.Please use rgb2gray instead.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.18.3",
+"color.rgb2gray"
+]
+},
+"skimage.data.create_image_fetcher": {
+"obj": "skimage.data",
+"name": "create_image_fetcher",
+"seq": "ggooooogoooogggggggggg",
+"removed": "0.21.0",
+"last": "0.20.0",
+"fix": null,
+"src": null,
+"module": false,
+"gaps": [
+"0.19.0"
+],
+"eq": null
+},
+"skimage.data.image_fetcher": {
+"obj": "skimage.data",
+"name": "image_fetcher",
+"seq": "goooooogoooogggggggggg",
+"removed": "0.21.0",
+"last": "0.20.0",
+"fix": null,
+"src": null,
+"module": false,
+"gaps": [
+"0.19.0"
+],
+"eq": null
+},
+"skimage.data.load": {
+"obj": "skimage.data",
+"name": "load",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "This function is deprecated and will be removed in 0.18. Use `skimage.io.load` or `imageio.imread` directly.",
+"src": "scikit-image's deprecation text in 0.17.2",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.data.rough_wall": {
+"obj": "skimage.data",
+"name": "rough_wall",
+"seq": "oogggggggggggggggggggg",
+"removed": "0.17.2",
+"last": "0.17.1",
+"fix": null,
+"src": null,
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.draw.circle": {
+"obj": "skimage.draw",
+"name": "circle",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "`draw.circle` is deprecated in favor of `draw.disk`.`draw.circle` will be removed in version 0.19",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.17.1 to 0.18.3",
+"draw.disk((5, 5), 2)"
+]
+},
+"skimage.feature.greycomatrix": {
+"obj": "skimage.feature",
+"name": "greycomatrix",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "Deprecated function. Use `skimage.feature.graycomatrix` instead.",
+"src": "scikit-image's deprecation text in 0.19.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.19.0 to 0.19.3",
+"feature.graycomatrix"
+]
+},
+"skimage.feature.greycoprops": {
+"obj": "skimage.feature",
+"name": "greycoprops",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "Deprecated function. Use `skimage.feature.graycoprops` instead.",
+"src": "scikit-image's deprecation text in 0.19.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.19.0 to 0.19.3",
+"feature.graycoprops"
+]
+},
+"skimage.feature.masked_register_translation": {
+"obj": "skimage.feature",
+"name": "masked_register_translation",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "Deprecated function. Use `skimage.registration.phase_cross_correlation` instead.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.feature.plot_matches": {
+"obj": "skimage.feature",
+"name": "plot_matches",
+"seq": "oooooooooooooooooogggg",
+"removed": "0.25.0",
+"last": "0.24.0",
+"fix": "`plot_matches` is deprecated since version 0.23 and will be removed in version 0.25. Use `skimage.feature.plot_matched_features` instead.",
+"src": "scikit-image's deprecation text in 0.24.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.feature.register_translation": {
+"obj": "skimage.feature",
+"name": "register_translation",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "Deprecated function. Use `skimage.registration.phase_cross_correlation` instead.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.17.1 to 0.18.3",
+"registration.phase_cross_correlation"
+]
+},
+"skimage.feature.structure_tensor_eigvals": {
+"obj": "skimage.feature",
+"name": "structure_tensor_eigvals",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "the function structure_tensor_eigvals is deprecated and will be removed in version 0.20. Please use structure_tensor_eigenvalues instead.",
+"src": "scikit-image's deprecation text in 0.19.3",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.filters.compute_hessian_eigenvalues": {
+"obj": "skimage.filters",
+"name": "compute_hessian_eigenvalues",
+"seq": "gggggggggggooggggggggg",
+"removed": "0.22.0",
+"last": "0.21.0",
+"fix": "`compute_hessian_eigenvalues` is deprecated since version 0.20 and will be removed in version 0.22. Use `skimage.feature.hessian_matrix_eigvals` on the results of `skimage.feature.hessian_matrix` instead.",
+"src": "scikit-image's deprecation text in 0.21.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.filters.inverse": {
+"obj": "skimage.filters",
+"name": "inverse",
+"seq": "oooooooooooooggggggggg",
+"removed": "0.22.0",
+"last": "0.21.0",
+"fix": "`inverse` is deprecated since version 0.20 and will be removed in version 0.22. Use `skimage.filters.filter_inverse` instead.",
+"src": "scikit-image's deprecation text in 0.21.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.filters.rank.bottomhat": {
+"obj": "skimage.filters.rank",
+"name": "bottomhat",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "rank.bottomhat is deprecated. This filter is named incorrectly, which can be confusing. As we believe that the usefulness is narrow, this function will be removed in 0.19.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.filters.rank.tophat": {
+"obj": "skimage.filters.rank",
+"name": "tophat",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "rank.tophat is deprecated. This filter is named incorrectly, which can be confusing. As we believe that the usefulness is narrow, this function will be removed in 0.19.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph": {
+"obj": "skimage.future",
+"name": "graph",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.measure.compare_mse": {
+"obj": "skimage.measure",
+"name": "compare_mse",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "skimage.measure.compare_mse has been moved to skimage.metrics.mean_squared_error. It will be removed from skimage.measure in version 0.18.",
+"src": "scikit-image's deprecation text in 0.17.2",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.17.2",
+"metrics.mean_squared_error"
+]
+},
+"skimage.measure.compare_nrmse": {
+"obj": "skimage.measure",
+"name": "compare_nrmse",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "skimage.measure.compare_nrmse has been moved to skimage.metrics.normalized_root_mse. It will be removed from skimage.measure in version 0.18.",
+"src": "scikit-image's deprecation text in 0.17.2",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.17.2",
+"metrics.normalized_root_mse"
+]
+},
+"skimage.measure.compare_psnr": {
+"obj": "skimage.measure",
+"name": "compare_psnr",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "skimage.measure.compare_psnr has been moved to skimage.metrics.peak_signal_noise_ratio. It will be removed from skimage.measure in version 0.18.",
+"src": "scikit-image's deprecation text in 0.17.2",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.17.2",
+"metrics.peak_signal_noise_ratio"
+]
+},
+"skimage.measure.compare_ssim": {
+"obj": "skimage.measure",
+"name": "compare_ssim",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "skimage.measure.compare_ssim has been moved to skimage.metrics.structural_similarity. It will be removed from skimage.measure in version 0.18.",
+"src": "scikit-image's deprecation text in 0.17.2",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.17.2",
+"metrics.structural_similarity"
+]
+},
+"skimage.measure.marching_cubes_classic": {
+"obj": "skimage.measure",
+"name": "marching_cubes_classic",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "marching_cubes_classic is deprecated in favor of marching_cubes with `method='_lorensen'` to apply Lorensen et al. algorithm. marching_cubes_classic will be removed in version 0.19",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.measure.marching_cubes_lewiner": {
+"obj": "skimage.measure",
+"name": "marching_cubes_lewiner",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "marching_cubes_lewiner is deprecated in favor of marching_cubes. marching_cubes_lewiner will be removed in version 0.19",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.17.1 to 0.18.3",
+"measure.marching_cubes"
+]
+},
+"skimage.measure.simple_metrics": {
+"obj": "skimage.measure",
+"name": "simple_metrics",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "Import from skimage.metrics: mean_squared_error, normalized_root_mse, peak_signal_noise_ratio.",
+"src": "our note",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.morphology.grey": {
+"obj": "skimage.morphology",
+"name": "grey",
+"seq": "ooooooowwwwggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "Importing from skimage.morphology.grey is deprecated. Please import from skimage.morphology instead.",
+"src": "scikit-image's warning on import",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.morphology.greyreconstruct": {
+"obj": "skimage.morphology",
+"name": "greyreconstruct",
+"seq": "ooooooowwwwggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "Importing from skimage.morphology.greyreconstruct is deprecated. Please import from skimage.morphology instead.",
+"src": "scikit-image's warning on import",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.morphology.selem": {
+"obj": "skimage.morphology",
+"name": "selem",
+"seq": "ooooooowwwwggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.morphology.selem` module is deprecated and will be removed in scikit-image 1.0 (`skimage.morphology.selem` has been moved to `skimage.morphology.footprints`).",
+"src": "scikit-image's warning on import",
+"module": true,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.19.3",
+"morphology.disk(2)"
+]
+},
+"skimage.morphology.skeletonize_3d": {
+"obj": "skimage.morphology",
+"name": "skeletonize_3d",
+"seq": "oooooooooooooooooogggg",
+"removed": "0.25.0",
+"last": "0.24.0",
+"fix": "`skeletonize_3d` is deprecated since version 0.23 and will be removed in version 0.25. Use `skimage.morphology.skeletonize` instead.",
+"src": "scikit-image's deprecation text in 0.24.0",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.24.0",
+"morphology.skeletonize"
+]
+},
+"skimage.morphology.watershed": {
+"obj": "skimage.morphology",
+"name": "watershed",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "Deprecated function. Use `skimage.segmentation.watershed` instead.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.18.3",
+"segmentation.watershed"
+]
+},
+"skimage.segmentation.circle_level_set": {
+"obj": "skimage.segmentation",
+"name": "circle_level_set",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "circle_level_set is deprecated in favor of disk_level_set.circle_level_set will be removed in version 0.19",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.segmentation.relabel_from_one": {
+"obj": "skimage.segmentation",
+"name": "relabel_from_one",
+"seq": "oggggggggggggggggggggg",
+"removed": "0.17.1",
+"last": "0.16.2",
+"fix": "Deprecated function. Use `relabel_sequential` instead.",
+"src": "scikit-image's deprecation text in 0.16.2",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.transform.histogram_matching": {
+"obj": "skimage.transform",
+"name": "histogram_matching",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "Import match_histograms from skimage.exposure.",
+"src": "our note",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.transform.match_histograms": {
+"obj": "skimage.transform",
+"name": "match_histograms",
+"seq": "oooggggggggggggggggggg",
+"removed": "0.18.0",
+"last": "0.17.2",
+"fix": "skimage.transform.match_histograms has been moved to skimage.exposure.match_histograms. It will be removed from skimage.transform in version 0.18.",
+"src": "scikit-image's deprecation text in 0.17.2",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.17.2",
+"exposure.match_histograms"
+]
+},
+"skimage.util.pad": {
+"obj": "skimage.util",
+"name": "pad",
+"seq": "oooooooggggggggggggggg",
+"removed": "0.19.0",
+"last": "0.18.3",
+"fix": "skimage.util.pad is deprecated and will be removed in version 0.19. Please use numpy.pad instead.",
+"src": "scikit-image's deprecation text in 0.18.3",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 to 0.18.3",
+"numpy.pad"
+]
+},
+"skimage.future.graph.RAG": {
+"obj": "skimage.future.graph",
+"name": "RAG",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.cut_normalized": {
+"obj": "skimage.future.graph",
+"name": "cut_normalized",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.cut_threshold": {
+"obj": "skimage.future.graph",
+"name": "cut_threshold",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.graph_cut": {
+"obj": "skimage.future.graph",
+"name": "graph_cut",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.graph_merge": {
+"obj": "skimage.future.graph",
+"name": "graph_merge",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.merge_hierarchical": {
+"obj": "skimage.future.graph",
+"name": "merge_hierarchical",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.ncut": {
+"obj": "skimage.future.graph",
+"name": "ncut",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.rag": {
+"obj": "skimage.future.graph",
+"name": "rag",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.rag_boundary": {
+"obj": "skimage.future.graph",
+"name": "rag_boundary",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.future.graph.rag_mean_color": {
+"obj": "skimage.future.graph",
+"name": "rag_mean_color",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": [
+"same",
+"0.19.3 against 0.20.0",
+"graph.rag_mean_color"
+]
+},
+"skimage.future.graph.show_rag": {
+"obj": "skimage.future.graph",
+"name": "show_rag",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "The `skimage.future.graph` submodule was moved to `skimage.graph` in v0.20. `ncut` was removed in favor of the identical function `cut_normalized`. Please update your import paths accordingly.",
+"src": "scikit-image's error text in 0.20.0",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.CollectionViewer": {
+"obj": "skimage.viewer",
+"name": "CollectionViewer",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`CollectionViewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.ImageViewer": {
+"obj": "skimage.viewer",
+"name": "ImageViewer",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`viewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3, for the whole module",
+"module": false,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.canvastools": {
+"obj": "skimage.viewer",
+"name": "canvastools",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`viewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3, for the whole module",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.plugins": {
+"obj": "skimage.viewer",
+"name": "plugins",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`viewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3, for the whole module",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.qt": {
+"obj": "skimage.viewer",
+"name": "qt",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`qt` plugin is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.utils": {
+"obj": "skimage.viewer",
+"name": "utils",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`viewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3, for the whole module",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.viewers": {
+"obj": "skimage.viewer",
+"name": "viewers",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`viewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3, for the whole module",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.viewer.widgets": {
+"obj": "skimage.viewer",
+"name": "widgets",
+"seq": "oooooooooooggggggggggg",
+"removed": "0.20.0",
+"last": "0.19.3",
+"fix": "`viewer` is deprecated and will be removed in 0.20. For alternatives, refer to https://scikit-image.org/docs/stable/user_guide/visualization.html",
+"src": "scikit-image's deprecation text in 0.19.3, for the whole module",
+"module": true,
+"gaps": [],
+"eq": null
+},
+"skimage.external.tifffile": {
+"obj": "skimage.external",
+"name": "tifffile",
+"seq": "oggggggggggggggggggggg",
+"removed": "0.17.1",
+"last": "0.16.2",
+"fix": "Use the tifffile package itself (import tifffile), which scikit-image 0.17.1 and later install as a dependency.",
+"src": "our note",
+"module": true,
+"gaps": [],
+"eq": [
+"same",
+"0.16.2 against 0.17.1",
+"tifffile.imread"
+]
+}
+},
+"args": [
+[
+"skimage.color",
+"gray2rgb",
+"alpha",
+null,
+"0.19.0",
+[
+"0.16.2",
+"0.18.3"
+],
+null,
+null,
+false
+],
+[
+"skimage.data",
+"binary_blobs",
+"seed",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.draw",
+"random_shapes",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.draw",
+"random_shapes",
+"random_seed",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.exposure",
+"match_histograms",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.feature",
+"BRIEF",
+"sample_seed",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.feature",
+"draw_haar_like_feature",
+"random_state",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.feature",
+"hog",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`multichannel` is a deprecated argument name for `hog`. It will be removed in version 1.0. Please use `channel_axis` instead.",
+true
+],
+[
+"skimage.feature",
+"multiscale_basic_features",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.18.0",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.feature",
+"multiscale_basic_features",
+"num_workers",
+null,
+"0.26.0",
+[
+"0.18.0",
+"0.25.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.feature",
+"peak_local_max",
+"indices",
+null,
+"0.20.0",
+[
+"0.16.2",
+"0.17.2"
+],
+[
+"0.18.0",
+"0.19.3"
+],
+"indices argument is deprecated and will be removed in version 0.20. To avoid this warning, please do not use the indices argument. Please see peak_local_max documentation for more details.",
+true
+],
+[
+"skimage.filters",
+"difference_of_gaussians",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.17.1",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters",
+"frangi",
+"beta1",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+true
+],
+[
+"skimage.filters",
+"frangi",
+"beta2",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+false
+],
+[
+"skimage.filters",
+"gaussian",
+"output",
+"out",
+"0.25.0",
+[
+"0.16.2",
+"0.22.0"
+],
+[
+"0.23.0",
+"0.24.0"
+],
+"Parameter `output` is deprecated since version 0.23 and will be removed in 0.25 (or later). To avoid this warning, please use the parameter `out` instead. For more details, see the documentation of `gaussian`.",
+true
+],
+[
+"skimage.filters",
+"gaussian",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`multichannel` is a deprecated argument name for `gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.",
+true
+],
+[
+"skimage.filters",
+"hessian",
+"beta1",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+false
+],
+[
+"skimage.filters",
+"hessian",
+"beta2",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+false
+],
+[
+"skimage.filters",
+"median",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`selem` is a deprecated argument name for `median`. It will be removed in version 1.0. Please use `footprint` instead.",
+true
+],
+[
+"skimage.filters",
+"median",
+"mask",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+false
+],
+[
+"skimage.filters",
+"median",
+"shift_x",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+false
+],
+[
+"skimage.filters",
+"median",
+"shift_y",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+false
+],
+[
+"skimage.filters",
+"threshold_minimum",
+"max_iter",
+"max_num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`max_iter` is a deprecated argument name for `threshold_minimum`. It will be removed in version 1.0. Please use `max_num_iter` instead.",
+true
+],
+[
+"skimage.filters",
+"unsharp_mask",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"autolevel",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"autolevel_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"enhance_contrast",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"enhance_contrast_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"entropy",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"equalize",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"geometric_mean",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"gradient",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"gradient_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"majority",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"maximum",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"mean",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`selem` is a deprecated argument name for `mean`. It will be removed in version 1.0. Please use `footprint` instead.",
+true
+],
+[
+"skimage.filters.rank",
+"mean_bilateral",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"mean_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"median",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`selem` is a deprecated argument name for `median`. It will be removed in version 1.0. Please use `footprint` instead.",
+false
+],
+[
+"skimage.filters.rank",
+"minimum",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"modal",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"noise_filter",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"otsu",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"pop",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"pop_bilateral",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"pop_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"subtract_mean",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"subtract_mean_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"sum",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"sum_bilateral",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"sum_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"threshold",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"threshold_percentile",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.filters.rank",
+"windowed_histogram",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.graph",
+"cut_normalized",
+"random_state",
+"rng",
+"0.23.0",
+[
+"0.20.0",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.measure",
+"find_contours",
+"array",
+"image",
+"0.20.0",
+[
+"0.16.2",
+"0.17.2"
+],
+[
+"0.18.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.measure",
+"label",
+"input",
+"label_image",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`input` is a deprecated argument name for `label`. It will be removed in version 1.0. Please use `label_image` instead.",
+true
+],
+[
+"skimage.measure",
+"label",
+"neighbors",
+"connectivity",
+"0.18.0",
+[
+"0.16.2",
+"0.17.2"
+],
+null,
+"The argument 'neighbors' is deprecated and will be removed in scikit-image 0.18, use 'connectivity' instead. For neighbors=8, use connectivity=2",
+true
+],
+[
+"skimage.measure",
+"perimeter",
+"neighbourhood",
+null,
+"0.20.0",
+[
+"0.16.2",
+"0.19.3"
+],
+null,
+null,
+false
+],
+[
+"skimage.measure",
+"ransac",
+"random_state",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+"`random_state` is a deprecated argument name for `ransac`. It will be removed in version 0.23. Please use `rng` instead.",
+true
+],
+[
+"skimage.measure",
+"regionprops",
+"coordinates",
+null,
+"0.20.0",
+[
+"0.16.2",
+"0.19.3"
+],
+null,
+"The coordinates keyword argument to skimage.measure.regionprops is deprecated. All features are now computed in rc (row-column) coordinates. Please remove `coordinates=\"rc\"` from all calls to regionprops before updating scikit-image.",
+true
+],
+[
+"skimage.morphology",
+"binary_closing",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"binary_dilation",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"binary_erosion",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`selem` is a deprecated argument name for `binary_erosion`. It will be removed in version 1.0. Please use `footprint` instead.",
+true
+],
+[
+"skimage.morphology",
+"binary_opening",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"black_tophat",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"closing",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"convex_hull_object",
+"neighbors",
+null,
+"0.18.0",
+[
+"0.16.2",
+"0.17.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.morphology",
+"dilation",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`selem` is a deprecated argument name for `dilation`. It will be removed in version 1.0. Please use `footprint` instead.",
+true
+],
+[
+"skimage.morphology",
+"dilation",
+"shift_x",
+null,
+"0.26.0",
+[
+"0.16.2",
+"0.25.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.morphology",
+"dilation",
+"shift_y",
+null,
+"0.26.0",
+[
+"0.16.2",
+"0.25.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.morphology",
+"erosion",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"erosion",
+"shift_x",
+null,
+"0.26.0",
+[
+"0.16.2",
+"0.25.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.morphology",
+"erosion",
+"shift_y",
+null,
+"0.26.0",
+[
+"0.16.2",
+"0.25.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.morphology",
+"flood",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"flood_fill",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"flood_fill",
+"inplace",
+null,
+"0.19.0",
+[
+"0.16.2",
+"0.18.3"
+],
+null,
+null,
+true
+],
+[
+"skimage.morphology",
+"h_maxima",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"h_minima",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"label",
+"input",
+"label_image",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`input` is a deprecated argument name for `label`. It will be removed in version 1.0. Please use `label_image` instead.",
+false
+],
+[
+"skimage.morphology",
+"label",
+"neighbors",
+"connectivity",
+"0.18.0",
+[
+"0.16.2",
+"0.17.2"
+],
+null,
+"The argument 'neighbors' is deprecated and will be removed in scikit-image 0.18, use 'connectivity' instead. For neighbors=8, use connectivity=2",
+false
+],
+[
+"skimage.morphology",
+"local_maxima",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"local_minima",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"medial_axis",
+"random_state",
+"rng",
+"0.23.0",
+[
+"0.19.0",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"opening",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"reconstruction",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"rectangle",
+"width",
+"nrows",
+"0.20.0",
+[
+"0.16.2",
+"0.17.2"
+],
+[
+"0.18.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"rectangle",
+"height",
+"ncols",
+"0.20.0",
+[
+"0.16.2",
+"0.17.2"
+],
+[
+"0.18.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"remove_small_holes",
+"in_place",
+"out",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"in_place argument is deprecated and will be removed in version 1.0. To avoid this warning, please do not use the in_place argument. Please see remove_small_holes documentation for more details. Please use out argument instead.",
+true
+],
+[
+"skimage.morphology",
+"remove_small_objects",
+"in_place",
+"out",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"in_place argument is deprecated and will be removed in version 1.0. To avoid this warning, please do not use the in_place argument. Please see remove_small_objects documentation for more details. Please use out argument instead.",
+true
+],
+[
+"skimage.morphology",
+"skeletonize_3d",
+"img",
+null,
+"0.17.2",
+[
+"0.16.2",
+"0.17.1"
+],
+null,
+null,
+false
+],
+[
+"skimage.morphology",
+"thin",
+"max_iter",
+"max_num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.morphology",
+"white_tophat",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.registration",
+"phase_cross_correlation",
+"return_error",
+null,
+"0.23.0",
+[
+"0.17.1",
+"0.21.0"
+],
+[
+"0.22.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"cycle_spin",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"denoise_bilateral",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"denoise_nl_means",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"denoise_tv_bregman",
+"max_iter",
+"max_num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"denoise_tv_bregman",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.17.1",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"denoise_tv_chambolle",
+"n_iter_max",
+"max_num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.19.1"
+],
+[
+"0.19.2",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"denoise_tv_chambolle",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`multichannel` is a deprecated argument name for `denoise_tv_chambolle`. It will be removed in version 1.0. Please use `channel_axis` instead.",
+true
+],
+[
+"skimage.restoration",
+"denoise_wavelet",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"estimate_sigma",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"inpaint_biharmonic",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"richardson_lucy",
+"iterations",
+"num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`iterations` is a deprecated argument name for `richardson_lucy`. It will be removed in version 1.0. Please use `num_iter` instead.",
+true
+],
+[
+"skimage.restoration",
+"unsupervised_wiener",
+"random_state",
+"rng",
+"0.23.0",
+[
+"0.19.0",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.restoration",
+"unwrap_phase",
+"seed",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"active_contour",
+"bc",
+null,
+"0.18.0",
+[
+"0.16.2",
+"0.17.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.segmentation",
+"active_contour",
+"max_iterations",
+"max_num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`max_iterations` is a deprecated argument name for `active_contour`. It will be removed in version 1.0. Please use `max_num_iter` instead.",
+true
+],
+[
+"skimage.segmentation",
+"active_contour",
+"coordinates",
+null,
+"0.20.0",
+[
+"0.16.2",
+"0.19.3"
+],
+null,
+null,
+false
+],
+[
+"skimage.segmentation",
+"chan_vese",
+"max_iter",
+"max_num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"clear_border",
+"in_place",
+"out",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"Please use out argument instead.",
+false
+],
+[
+"skimage.segmentation",
+"felzenszwalb",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"flood",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"flood_fill",
+"selem",
+"footprint",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"flood_fill",
+"inplace",
+null,
+"0.19.0",
+[
+"0.16.2",
+"0.18.3"
+],
+null,
+null,
+false
+],
+[
+"skimage.segmentation",
+"morphological_chan_vese",
+"iterations",
+"num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"morphological_geodesic_active_contour",
+"iterations",
+"num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"quickshift",
+"random_seed",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"random_walker",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.segmentation",
+"slic",
+"max_iter",
+"max_num_iter",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`max_iter` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `max_num_iter` instead.",
+true
+],
+[
+"skimage.segmentation",
+"slic",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`multichannel` is a deprecated argument name for `slic`. It will be removed in version 1.0. Please use `channel_axis` instead.",
+true
+],
+[
+"skimage.transform",
+"iradon",
+"filter",
+"filter_name",
+"0.19.0",
+[
+"0.16.2",
+"0.16.2"
+],
+[
+"0.17.1",
+"0.18.3"
+],
+null,
+false
+],
+[
+"skimage.transform",
+"probabilistic_hough_line",
+"seed",
+"rng",
+"0.23.0",
+[
+"0.16.2",
+"0.20.0"
+],
+[
+"0.21.0",
+"0.22.0"
+],
+null,
+false
+],
+[
+"skimage.transform",
+"pyramid_expand",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.transform",
+"pyramid_gaussian",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`multichannel` is a deprecated argument name for `pyramid_gaussian`. It will be removed in version 1.0. Please use `channel_axis` instead.",
+true
+],
+[
+"skimage.transform",
+"pyramid_laplacian",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.transform",
+"pyramid_reduce",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.transform",
+"rescale",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`multichannel` is a deprecated argument name for `rescale`. It will be removed in version 1.0. Please use `channel_axis` instead.",
+true
+],
+[
+"skimage.util",
+"apply_parallel",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.18.0",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+null,
+false
+],
+[
+"skimage.util",
+"compare_images",
+"image2",
+null,
+"0.24.0",
+[
+"0.16.2",
+"0.23.2"
+],
+null,
+null,
+false
+],
+[
+"skimage.util",
+"montage",
+"multichannel",
+"channel_axis",
+"0.20.0",
+[
+"0.16.2",
+"0.18.3"
+],
+[
+"0.19.0",
+"0.19.3"
+],
+"`multichannel` is a deprecated argument name for `montage`. It will be removed in version 1.0. Please use `channel_axis` instead.",
+true
+]
+],
+"argeq": {
+"multichannel": [
+[
+"gaussian multichannel=True | channel_axis=-1",
+"same",
+"0.19.0 to 0.19.3"
+],
+[
+"gaussian multichannel=False | channel_axis=None",
+"same",
+"0.19.0 to 0.19.3"
+],
+[
+"rescale multichannel=True | channel_axis=-1",
+"same",
+"0.19.0 to 0.19.3"
+],
+[
+"structural_similarity multichannel=True | channel_axis=-1",
+"same",
+"0.19.0 to 0.19.3"
+]
+],
+"selem": [
+[
+"binary_erosion selem= | footprint=",
+"same",
+"0.19.0 to 0.19.3"
+],
+[
+"dilation selem= | footprint=",
+"same",
+"0.19.0 to 0.19.3"
+],
+[
+"rank.mean selem= | footprint=",
+"same",
+"0.19.0 to 0.19.3"
+]
+],
+"neighbors": [
+[
+"label neighbors=8 | connectivity=2",
+"same",
+"0.16.2 to 0.17.2"
+],
+[
+"label neighbors=4 | connectivity=1",
+"same",
+"0.16.2 to 0.17.2"
+]
+],
+"iterations": [
+[
+"richardson_lucy iterations=2 | num_iter=2",
+"same",
+"0.19.0 to 0.19.3"
+]
+],
+"output": [
+[
+"gaussian output= | out=",
+"same",
+"0.23.0 to 0.24.0"
+]
+]
+},
+"names": {
+"skimage": [
+"color",
+"conftest",
+"data",
+"data_dir",
+"draw",
+"dtype_limits",
+"ensure_python_version",
+"exposure",
+"external",
+"feature",
+"filters",
+"future",
+"graph",
+"img_as_bool",
+"img_as_float",
+"img_as_float32",
+"img_as_float64",
+"img_as_int",
+"img_as_ubyte",
+"img_as_uint",
+"io",
+"lookfor",
+"measure",
+"metrics",
+"morphology",
+"registration",
+"restoration",
+"scripts",
+"segmentation",
+"setup",
+"transform",
+"util",
+"viewer"
+],
+"skimage.color": [
+"adapt_rgb",
+"ahx_from_rgb",
+"bex_from_rgb",
+"bpx_from_rgb",
+"bro_from_rgb",
+"color_dict",
+"colorconv",
+"colorlabel",
+"combine_stains",
+"convert_colorspace",
+"deltaE_cie76",
+"deltaE_ciede2000",
+"deltaE_ciede94",
+"deltaE_cmc",
+"delta_e",
+"fgx_from_rgb",
+"gdx_from_rgb",
+"gray2rgb",
+"gray2rgba",
+"grey2rgb",
+"guess_spatial_dimensions",
+"hax_from_rgb",
+"hdx_from_rgb",
+"hed2rgb",
+"hed_from_rgb",
+"hpx_from_rgb",
+"hsv2rgb",
+"lab2lch",
+"lab2rgb",
+"lab2xyz",
+"label2rgb",
+"lch2lab",
+"luv2rgb",
+"luv2xyz",
+"rbd_from_rgb",
+"rgb2gray",
+"rgb2grey",
+"rgb2hed",
+"rgb2hsv",
+"rgb2lab",
+"rgb2luv",
+"rgb2rgbcie",
+"rgb2xyz",
+"rgb2ycbcr",
+"rgb2ydbdr",
+"rgb2yiq",
+"rgb2ypbpr",
+"rgb2yuv",
+"rgb_colors",
+"rgb_from_ahx",
+"rgb_from_bex",
+"rgb_from_bpx",
+"rgb_from_bro",
+"rgb_from_fgx",
+"rgb_from_gdx",
+"rgb_from_hax",
+"rgb_from_hdx",
+"rgb_from_hed",
+"rgb_from_hpx",
+"rgb_from_rbd",
+"rgba2rgb",
+"rgbcie2rgb",
+"separate_stains",
+"xyz2lab",
+"xyz2luv",
+"xyz2rgb",
+"xyz_tristimulus_values",
+"ycbcr2rgb",
+"ydbdr2rgb",
+"yiq2rgb",
+"ypbpr2rgb",
+"yuv2rgb"
+],
+"skimage.data": [
+"LooseVersion",
+"Version",
+"astronaut",
+"binary_blobs",
+"brain",
+"brick",
+"camera",
+"cat",
+"cell",
+"cells3d",
+"checkerboard",
+"chelsea",
+"clock",
+"coffee",
+"coins",
+"colorwheel",
+"create_image_fetcher",
+"data_dir",
+"download_all",
+"eagle",
+"file_hash",
+"filename",
+"grass",
+"gravel",
+"has_pooch",
+"horse",
+"hubble_deep_field",
+"human_mitosis",
+"image_fetcher",
+"img_as_bool",
+"immunohistochemistry",
+"kidney",
+"lbp_frontal_face_cascade_filename",
+"legacy_data_dir",
+"legacy_registry",
+"lfw_subset",
+"lily",
+"load",
+"logo",
+"microaneurysms",
+"moon",
+"nickel_solidification",
+"np",
+"os",
+"osp",
+"page",
+"palisades_of_vogt",
+"pooch",
+"pooch_version",
+"protein_transport",
+"registry",
+"registry_urls",
+"retina",
+"rocket",
+"rough_wall",
+"setup",
+"shepp_logan_phantom",
+"shutil",
+"skimage_distribution_dir",
+"skin",
+"stereo_motorcycle",
+"sys",
+"text",
+"url",
+"vortex",
+"warn",
+"warnings"
+],
+"skimage.draw": [
+"bezier_curve",
+"circle",
+"circle_perimeter",
+"circle_perimeter_aa",
+"disk",
+"draw",
+"draw3d",
+"draw_nd",
+"ellipse",
+"ellipse_perimeter",
+"ellipsoid",
+"ellipsoid_stats",
+"line",
+"line_aa",
+"line_nd",
+"polygon",
+"polygon2mask",
+"polygon_perimeter",
+"random_shapes",
+"rectangle",
+"rectangle_perimeter",
+"set_color",
+"setup"
+],
+"skimage.exposure": [
+"adjust_gamma",
+"adjust_log",
+"adjust_sigmoid",
+"cumulative_distribution",
+"equalize_adapthist",
+"equalize_hist",
+"exposure",
+"histogram",
+"histogram_matching",
+"is_low_contrast",
+"match_histograms",
+"rescale_intensity",
+"setup"
+],
+"skimage.feature": [
+"BRIEF",
+"CENSURE",
+"Cascade",
+"ORB",
+"SIFT",
+"blob",
+"blob_dog",
+"blob_doh",
+"blob_log",
+"brief",
+"brief_cy",
+"brief_pythran",
+"canny",
+"censure",
+"censure_cy",
+"corner",
+"corner_cy",
+"corner_fast",
+"corner_foerstner",
+"corner_harris",
+"corner_kitchen_rosenfeld",
+"corner_moravec",
+"corner_orientations",
+"corner_peaks",
+"corner_shi_tomasi",
+"corner_subpix",
+"daisy",
+"deprecated",
+"draw_haar_like_feature",
+"draw_multiblock_lbp",
+"fisher_vector",
+"graycomatrix",
+"graycoprops",
+"greycomatrix",
+"greycoprops",
+"haar",
+"haar_like_feature",
+"haar_like_feature_coord",
+"hessian_matrix",
+"hessian_matrix_det",
+"hessian_matrix_eigvals",
+"hog",
+"learn_gmm",
+"local_binary_pattern",
+"masked_register_translation",
+"match",
+"match_descriptors",
+"match_template",
+"multiblock_lbp",
+"multiscale_basic_features",
+"orb",
+"orb_cy",
+"peak",
+"peak_local_max",
+"plot_matched_features",
+"plot_matches",
+"register_translation",
+"setup",
+"shape_index",
+"sift",
+"structure_tensor",
+"structure_tensor_eigenvalues",
+"structure_tensor_eigvals",
+"template",
+"texture",
+"util"
+],
+"skimage.filters": [
+"LPIFilter2D",
+"apply_hysteresis_threshold",
+"butterworth",
+"compute_hessian_eigenvalues",
+"correlate_sparse",
+"difference_of_gaussians",
+"edges",
+"farid",
+"farid_h",
+"farid_v",
+"filter_forward",
+"filter_inverse",
+"frangi",
+"gabor",
+"gabor_kernel",
+"gaussian",
+"hessian",
+"inverse",
+"laplace",
+"lpi_filter",
+"median",
+"meijering",
+"prewitt",
+"prewitt_h",
+"prewitt_v",
+"rank",
+"rank_order",
+"ridges",
+"roberts",
+"roberts_neg_diag",
+"roberts_pos_diag",
+"sato",
+"scharr",
+"scharr_h",
+"scharr_v",
+"setup",
+"sobel",
+"sobel_h",
+"sobel_v",
+"threshold_isodata",
+"threshold_li",
+"threshold_local",
+"threshold_mean",
+"threshold_minimum",
+"threshold_multiotsu",
+"threshold_niblack",
+"threshold_otsu",
+"threshold_sauvola",
+"threshold_triangle",
+"threshold_yen",
+"thresholding",
+"try_all_threshold",
+"unsharp_mask",
+"wiener",
+"window"
+],
+"skimage.filters.rank": [
+"autolevel",
+"autolevel_percentile",
+"bilateral",
+"bilateral_cy",
+"bottomhat",
+"core_cy",
+"core_cy_3d",
+"enhance_contrast",
+"enhance_contrast_percentile",
+"entropy",
+"equalize",
+"generic",
+"generic_cy",
+"geometric_mean",
+"gradient",
+"gradient_percentile",
+"majority",
+"maximum",
+"mean",
+"mean_bilateral",
+"mean_percentile",
+"median",
+"minimum",
+"modal",
+"noise_filter",
+"otsu",
+"percentile",
+"percentile_cy",
+"pop",
+"pop_bilateral",
+"pop_percentile",
+"subtract_mean",
+"subtract_mean_percentile",
+"sum",
+"sum_bilateral",
+"sum_percentile",
+"threshold",
+"threshold_percentile",
+"tophat",
+"windowed_histogram"
+],
+"skimage.future": [
+"TrainableSegmenter",
+"fit_segmenter",
+"graph",
+"manual_lasso_segmentation",
+"manual_polygon_segmentation",
+"manual_segmentation",
+"predict_segmenter",
+"setup",
+"trainable_segmentation"
+],
+"skimage.graph": [
+"MCP",
+"MCP_Connect",
+"MCP_Flexible",
+"MCP_Geometric",
+"RAG",
+"central_pixel",
+"cut_normalized",
+"cut_threshold",
+"heap",
+"mcp",
+"merge_hierarchical",
+"pixel_graph",
+"rag_boundary",
+"rag_mean_color",
+"route_through_array",
+"setup",
+"shortest_path",
+"show_rag",
+"spath"
+],
+"skimage.io": [
+"ImageCollection",
+"MultiImage",
+"WRAP_LEN",
+"available_plugins",
+"call_plugin",
+"collection",
+"concatenate_images",
+"find_available_plugins",
+"image_stack",
+"imread",
+"imread_collection",
+"imread_collection_wrapper",
+"imsave",
+"imshow",
+"imshow_collection",
+"load_sift",
+"load_surf",
+"manage_plugins",
+"plugin_info",
+"plugin_order",
+"pop",
+"push",
+"reset_plugins",
+"setup",
+"show",
+"sift",
+"use_plugin",
+"util",
+"warnings"
+],
+"skimage.measure": [
+"CircleModel",
+"EllipseModel",
+"LineModelND",
+"RansacModelProtocol",
+"approximate_polygon",
+"block",
+"block_reduce",
+"blur_effect",
+"centroid",
+"compare_mse",
+"compare_nrmse",
+"compare_psnr",
+"compare_ssim",
+"entropy",
+"euler_number",
+"find_contours",
+"fit",
+"grid_points_in_poly",
+"inertia_tensor",
+"inertia_tensor_eigvals",
+"intersection_coeff",
+"label",
+"manders_coloc_coeff",
+"manders_overlap_coeff",
+"marching_cubes",
+"marching_cubes_classic",
+"marching_cubes_lewiner",
+"mesh_surface_area",
+"moments",
+"moments_central",
+"moments_coords",
+"moments_coords_central",
+"moments_hu",
+"moments_normalized",
+"pearson_corr_coeff",
+"perimeter",
+"perimeter_crofton",
+"pnpoly",
+"points_in_poly",
+"profile",
+"profile_line",
+"ransac",
+"regionprops",
+"regionprops_table",
+"setup",
+"shannon_entropy",
+"simple_metrics",
+"subdivide_polygon"
+],
+"skimage.metrics": [
+"adapted_rand_error",
+"contingency_table",
+"hausdorff_distance",
+"hausdorff_pair",
+"mean_squared_error",
+"normalized_mutual_information",
+"normalized_root_mse",
+"peak_signal_noise_ratio",
+"set_metrics",
+"simple_metrics",
+"structural_similarity",
+"variation_of_information"
+],
+"skimage.morphology": [
+"area_closing",
+"area_opening",
+"ball",
+"binary",
+"binary_closing",
+"binary_dilation",
+"binary_erosion",
+"binary_opening",
+"black_tophat",
+"closing",
+"convex_hull",
+"convex_hull_image",
+"convex_hull_object",
+"cube",
+"diameter_closing",
+"diameter_opening",
+"diamond",
+"dilation",
+"disk",
+"ellipse",
+"erosion",
+"extrema",
+"flood",
+"flood_fill",
+"footprint_from_sequence",
+"footprint_rectangle",
+"footprints",
+"gray",
+"grayreconstruct",
+"grey",
+"greyreconstruct",
+"h_maxima",
+"h_minima",
+"isotropic",
+"isotropic_closing",
+"isotropic_dilation",
+"isotropic_erosion",
+"isotropic_opening",
+"label",
+"local_maxima",
+"local_minima",
+"max_tree",
+"max_tree_local_maxima",
+"medial_axis",
+"mirror_footprint",
+"misc",
+"octagon",
+"octahedron",
+"opening",
+"pad_footprint",
+"reconstruction",
+"rectangle",
+"remove_objects_by_distance",
+"remove_small_holes",
+"remove_small_objects",
+"selem",
+"setup",
+"skeletonize",
+"skeletonize_3d",
+"square",
+"star",
+"thin",
+"watershed",
+"white_tophat"
+],
+"skimage.registration": [
+"optical_flow_ilk",
+"optical_flow_tvl1",
+"phase_cross_correlation"
+],
+"skimage.restoration": [
+"ball_kernel",
+"calibrate_denoiser",
+"cycle_spin",
+"deconvolution",
+"denoise_bilateral",
+"denoise_invariant",
+"denoise_nl_means",
+"denoise_tv_bregman",
+"denoise_tv_chambolle",
+"denoise_wavelet",
+"ellipsoid_kernel",
+"estimate_sigma",
+"inpaint",
+"inpaint_biharmonic",
+"j_invariant",
+"non_local_means",
+"richardson_lucy",
+"rolling_ball",
+"setup",
+"uft",
+"unsupervised_wiener",
+"unwrap",
+"unwrap_phase",
+"wiener"
+],
+"skimage.segmentation": [
+"active_contour",
+"active_contour_model",
+"boundaries",
+"chan_vese",
+"checkerboard_level_set",
+"circle_level_set",
+"clear_border",
+"disk_level_set",
+"expand_labels",
+"felzenszwalb",
+"find_boundaries",
+"flood",
+"flood_fill",
+"inverse_gaussian_gradient",
+"join_segmentations",
+"mark_boundaries",
+"morphological_chan_vese",
+"morphological_geodesic_active_contour",
+"morphsnakes",
+"quickshift",
+"random_walker",
+"random_walker_segmentation",
+"relabel_from_one",
+"relabel_sequential",
+"setup",
+"slic",
+"slic_superpixels",
+"watershed"
+],
+"skimage.transform": [
+"AffineTransform",
+"EssentialMatrixTransform",
+"EuclideanTransform",
+"FundamentalMatrixTransform",
+"PiecewiseAffineTransform",
+"PolynomialTransform",
+"ProjectiveTransform",
+"SimilarityTransform",
+"ThinPlateSplineTransform",
+"downscale_local_mean",
+"estimate_transform",
+"finite_radon_transform",
+"frt2",
+"histogram_matching",
+"hough_circle",
+"hough_circle_peaks",
+"hough_ellipse",
+"hough_line",
+"hough_line_peaks",
+"hough_transform",
+"ifrt2",
+"integral",
+"integral_image",
+"integrate",
+"iradon",
+"iradon_sart",
+"match_histograms",
+"matrix_transform",
+"order_angles_golden_ratio",
+"probabilistic_hough_line",
+"pyramid_expand",
+"pyramid_gaussian",
+"pyramid_laplacian",
+"pyramid_reduce",
+"pyramids",
+"radon",
+"radon_transform",
+"rescale",
+"resize",
+"resize_local_mean",
+"rotate",
+"setup",
+"swirl",
+"warp",
+"warp_coords",
+"warp_polar"
+],
+"skimage.util": [
+"FailedEstimationAccessError",
+"PendingSkimage2Change",
+"apply_parallel",
+"arraycrop",
+"compare",
+"compare_images",
+"copy_func",
+"crop",
+"dtype",
+"dtype_limits",
+"functools",
+"img_as_bool",
+"img_as_float",
+"img_as_float32",
+"img_as_float64",
+"img_as_int",
+"img_as_ubyte",
+"img_as_uint",
+"invert",
+"label_points",
+"lookfor",
+"map_array",
+"montage",
+"noise",
+"np",
+"numpy_pad",
+"pad",
+"random_noise",
+"regular_grid",
+"regular_seeds",
+"setup",
+"shape",
+"slice_along_axes",
+"unique",
+"unique_rows",
+"view_as_blocks",
+"view_as_windows",
+"warnings"
+],
+"skimage.future.graph": [
+"RAG",
+"cut_normalized",
+"cut_threshold",
+"graph_cut",
+"graph_merge",
+"merge_hierarchical",
+"ncut",
+"rag",
+"rag_boundary",
+"rag_mean_color",
+"setup",
+"show_rag"
+],
+"skimage.viewer": [
+"CollectionViewer",
+"ImageViewer",
+"canvastools",
+"has_mpl",
+"has_qt",
+"plugins",
+"qt",
+"utils",
+"viewers",
+"warn",
+"widgets"
+],
+"skimage.external": [
+"setup",
+"test_tifffile",
+"tifffile"
+]
+},
+"latest_names": {
+"skimage": [
+"color",
+"data",
+"data_dir",
+"draw",
+"dtype_limits",
+"exposure",
+"feature",
+"filters",
+"future",
+"graph",
+"img_as_bool",
+"img_as_float",
+"img_as_float32",
+"img_as_float64",
+"img_as_int",
+"img_as_ubyte",
+"img_as_uint",
+"io",
+"lookfor",
+"measure",
+"metrics",
+"morphology",
+"registration",
+"restoration",
+"segmentation",
+"transform",
+"util"
+],
+"skimage.color": [
+"adapt_rgb",
+"ahx_from_rgb",
+"bex_from_rgb",
+"bpx_from_rgb",
+"bro_from_rgb",
+"color_dict",
+"colorconv",
+"colorlabel",
+"combine_stains",
+"convert_colorspace",
+"deltaE_cie76",
+"deltaE_ciede2000",
+"deltaE_ciede94",
+"deltaE_cmc",
+"delta_e",
+"fgx_from_rgb",
+"gdx_from_rgb",
+"gray2rgb",
+"gray2rgba",
+"hax_from_rgb",
+"hdx_from_rgb",
+"hed2rgb",
+"hed_from_rgb",
+"hpx_from_rgb",
+"hsv2rgb",
+"lab2lch",
+"lab2rgb",
+"lab2xyz",
+"label2rgb",
+"lch2lab",
+"luv2rgb",
+"luv2xyz",
+"rbd_from_rgb",
+"rgb2gray",
+"rgb2hed",
+"rgb2hsv",
+"rgb2lab",
+"rgb2luv",
+"rgb2rgbcie",
+"rgb2xyz",
+"rgb2ycbcr",
+"rgb2ydbdr",
+"rgb2yiq",
+"rgb2ypbpr",
+"rgb2yuv",
+"rgb_colors",
+"rgb_from_ahx",
+"rgb_from_bex",
+"rgb_from_bpx",
+"rgb_from_bro",
+"rgb_from_fgx",
+"rgb_from_gdx",
+"rgb_from_hax",
+"rgb_from_hdx",
+"rgb_from_hed",
+"rgb_from_hpx",
+"rgb_from_rbd",
+"rgba2rgb",
+"rgbcie2rgb",
+"separate_stains",
+"xyz2lab",
+"xyz2luv",
+"xyz2rgb",
+"xyz_tristimulus_values",
+"ycbcr2rgb",
+"ydbdr2rgb",
+"yiq2rgb",
+"ypbpr2rgb",
+"yuv2rgb"
+],
+"skimage.data": [
+"astronaut",
+"binary_blobs",
+"brain",
+"brick",
+"camera",
+"cat",
+"cell",
+"cells3d",
+"checkerboard",
+"chelsea",
+"clock",
+"coffee",
+"coins",
+"colorwheel",
+"data_dir",
+"download_all",
+"eagle",
+"file_hash",
+"grass",
+"gravel",
+"horse",
+"hubble_deep_field",
+"human_mitosis",
+"immunohistochemistry",
+"kidney",
+"lbp_frontal_face_cascade_filename",
+"lfw_subset",
+"lily",
+"logo",
+"microaneurysms",
+"moon",
+"nickel_solidification",
+"page",
+"palisades_of_vogt",
+"protein_transport",
+"retina",
+"rocket",
+"shepp_logan_phantom",
+"skin",
+"stereo_motorcycle",
+"text",
+"vortex"
+],
+"skimage.draw": [
+"bezier_curve",
+"circle_perimeter",
+"circle_perimeter_aa",
+"disk",
+"draw",
+"draw3d",
+"draw_nd",
+"ellipse",
+"ellipse_perimeter",
+"ellipsoid",
+"ellipsoid_stats",
+"line",
+"line_aa",
+"line_nd",
+"polygon",
+"polygon2mask",
+"polygon_perimeter",
+"random_shapes",
+"rectangle",
+"rectangle_perimeter",
+"set_color"
+],
+"skimage.exposure": [
+"adjust_gamma",
+"adjust_log",
+"adjust_sigmoid",
+"cumulative_distribution",
+"equalize_adapthist",
+"equalize_hist",
+"exposure",
+"histogram",
+"histogram_matching",
+"is_low_contrast",
+"match_histograms",
+"rescale_intensity"
+],
+"skimage.feature": [
+"BRIEF",
+"CENSURE",
+"Cascade",
+"ORB",
+"SIFT",
+"blob",
+"blob_dog",
+"blob_doh",
+"blob_log",
+"brief",
+"brief_cy",
+"canny",
+"censure",
+"censure_cy",
+"corner",
+"corner_cy",
+"corner_fast",
+"corner_foerstner",
+"corner_harris",
+"corner_kitchen_rosenfeld",
+"corner_moravec",
+"corner_orientations",
+"corner_peaks",
+"corner_shi_tomasi",
+"corner_subpix",
+"daisy",
+"draw_haar_like_feature",
+"draw_multiblock_lbp",
+"fisher_vector",
+"graycomatrix",
+"graycoprops",
+"haar",
+"haar_like_feature",
+"haar_like_feature_coord",
+"hessian_matrix",
+"hessian_matrix_det",
+"hessian_matrix_eigvals",
+"hog",
+"learn_gmm",
+"local_binary_pattern",
+"match",
+"match_descriptors",
+"match_template",
+"multiblock_lbp",
+"multiscale_basic_features",
+"orb",
+"orb_cy",
+"peak",
+"peak_local_max",
+"plot_matched_features",
+"shape_index",
+"sift",
+"structure_tensor",
+"structure_tensor_eigenvalues",
+"template",
+"texture",
+"util"
+],
+"skimage.filters": [
+"LPIFilter2D",
+"apply_hysteresis_threshold",
+"butterworth",
+"correlate_sparse",
+"difference_of_gaussians",
+"edges",
+"farid",
+"farid_h",
+"farid_v",
+"filter_forward",
+"filter_inverse",
+"frangi",
+"gabor",
+"gabor_kernel",
+"gaussian",
+"hessian",
+"laplace",
+"lpi_filter",
+"median",
+"meijering",
+"prewitt",
+"prewitt_h",
+"prewitt_v",
+"rank",
+"rank_order",
+"ridges",
+"roberts",
+"roberts_neg_diag",
+"roberts_pos_diag",
+"sato",
+"scharr",
+"scharr_h",
+"scharr_v",
+"sobel",
+"sobel_h",
+"sobel_v",
+"threshold_isodata",
+"threshold_li",
+"threshold_local",
+"threshold_mean",
+"threshold_minimum",
+"threshold_multiotsu",
+"threshold_niblack",
+"threshold_otsu",
+"threshold_sauvola",
+"threshold_triangle",
+"threshold_yen",
+"thresholding",
+"try_all_threshold",
+"unsharp_mask",
+"wiener",
+"window"
+],
+"skimage.filters.rank": [
+"autolevel",
+"autolevel_percentile",
+"bilateral",
+"bilateral_cy",
+"core_cy",
+"core_cy_3d",
+"enhance_contrast",
+"enhance_contrast_percentile",
+"entropy",
+"equalize",
+"generic",
+"generic_cy",
+"geometric_mean",
+"gradient",
+"gradient_percentile",
+"majority",
+"maximum",
+"mean",
+"mean_bilateral",
+"mean_percentile",
+"median",
+"minimum",
+"modal",
+"noise_filter",
+"otsu",
+"percentile",
+"percentile_cy",
+"pop",
+"pop_bilateral",
+"pop_percentile",
+"subtract_mean",
+"subtract_mean_percentile",
+"sum",
+"sum_bilateral",
+"sum_percentile",
+"threshold",
+"threshold_percentile",
+"windowed_histogram"
+],
+"skimage.future": [
+"TrainableSegmenter",
+"fit_segmenter",
+"manual_lasso_segmentation",
+"manual_polygon_segmentation",
+"manual_segmentation",
+"predict_segmenter",
+"trainable_segmentation"
+],
+"skimage.graph": [
+"MCP",
+"MCP_Connect",
+"MCP_Flexible",
+"MCP_Geometric",
+"RAG",
+"central_pixel",
+"cut_normalized",
+"cut_threshold",
+"heap",
+"mcp",
+"merge_hierarchical",
+"pixel_graph",
+"rag_boundary",
+"rag_mean_color",
+"route_through_array",
+"shortest_path",
+"show_rag",
+"spath"
+],
+"skimage.io": [
+"ImageCollection",
+"MultiImage",
+"available_plugins",
+"call_plugin",
+"collection",
+"concatenate_images",
+"find_available_plugins",
+"image_stack",
+"imread",
+"imread_collection",
+"imread_collection_wrapper",
+"imsave",
+"imshow",
+"imshow_collection",
+"load_sift",
+"load_surf",
+"manage_plugins",
+"plugin_info",
+"plugin_order",
+"pop",
+"push",
+"reset_plugins",
+"show",
+"sift",
+"use_plugin",
+"util",
+"warnings"
+],
+"skimage.measure": [
+"CircleModel",
+"EllipseModel",
+"LineModelND",
+"RansacModelProtocol",
+"approximate_polygon",
+"block",
+"block_reduce",
+"blur_effect",
+"centroid",
+"entropy",
+"euler_number",
+"find_contours",
+"fit",
+"grid_points_in_poly",
+"inertia_tensor",
+"inertia_tensor_eigvals",
+"intersection_coeff",
+"label",
+"manders_coloc_coeff",
+"manders_overlap_coeff",
+"marching_cubes",
+"mesh_surface_area",
+"moments",
+"moments_central",
+"moments_coords",
+"moments_coords_central",
+"moments_hu",
+"moments_normalized",
+"pearson_corr_coeff",
+"perimeter",
+"perimeter_crofton",
+"pnpoly",
+"points_in_poly",
+"profile",
+"profile_line",
+"ransac",
+"regionprops",
+"regionprops_table",
+"shannon_entropy",
+"subdivide_polygon"
+],
+"skimage.metrics": [
+"adapted_rand_error",
+"contingency_table",
+"hausdorff_distance",
+"hausdorff_pair",
+"mean_squared_error",
+"normalized_mutual_information",
+"normalized_root_mse",
+"peak_signal_noise_ratio",
+"set_metrics",
+"simple_metrics",
+"structural_similarity",
+"variation_of_information"
+],
+"skimage.morphology": [
+"area_closing",
+"area_opening",
+"ball",
+"binary",
+"binary_closing",
+"binary_dilation",
+"binary_erosion",
+"binary_opening",
+"black_tophat",
+"closing",
+"convex_hull",
+"convex_hull_image",
+"convex_hull_object",
+"cube",
+"diameter_closing",
+"diameter_opening",
+"diamond",
+"dilation",
+"disk",
+"ellipse",
+"erosion",
+"extrema",
+"flood",
+"flood_fill",
+"footprint_from_sequence",
+"footprint_rectangle",
+"footprints",
+"gray",
+"grayreconstruct",
+"h_maxima",
+"h_minima",
+"isotropic",
+"isotropic_closing",
+"isotropic_dilation",
+"isotropic_erosion",
+"isotropic_opening",
+"label",
+"local_maxima",
+"local_minima",
+"max_tree",
+"max_tree_local_maxima",
+"medial_axis",
+"mirror_footprint",
+"misc",
+"octagon",
+"octahedron",
+"opening",
+"pad_footprint",
+"reconstruction",
+"rectangle",
+"remove_objects_by_distance",
+"remove_small_holes",
+"remove_small_objects",
+"skeletonize",
+"square",
+"star",
+"thin",
+"white_tophat"
+],
+"skimage.registration": [
+"optical_flow_ilk",
+"optical_flow_tvl1",
+"phase_cross_correlation"
+],
+"skimage.restoration": [
+"ball_kernel",
+"calibrate_denoiser",
+"cycle_spin",
+"deconvolution",
+"denoise_bilateral",
+"denoise_invariant",
+"denoise_nl_means",
+"denoise_tv_bregman",
+"denoise_tv_chambolle",
+"denoise_wavelet",
+"ellipsoid_kernel",
+"estimate_sigma",
+"inpaint",
+"inpaint_biharmonic",
+"j_invariant",
+"non_local_means",
+"richardson_lucy",
+"rolling_ball",
+"uft",
+"unsupervised_wiener",
+"unwrap",
+"unwrap_phase",
+"wiener"
+],
+"skimage.segmentation": [
+"active_contour",
+"active_contour_model",
+"boundaries",
+"chan_vese",
+"checkerboard_level_set",
+"clear_border",
+"disk_level_set",
+"expand_labels",
+"felzenszwalb",
+"find_boundaries",
+"flood",
+"flood_fill",
+"inverse_gaussian_gradient",
+"join_segmentations",
+"mark_boundaries",
+"morphological_chan_vese",
+"morphological_geodesic_active_contour",
+"morphsnakes",
+"quickshift",
+"random_walker",
+"random_walker_segmentation",
+"relabel_sequential",
+"slic",
+"slic_superpixels",
+"watershed"
+],
+"skimage.transform": [
+"AffineTransform",
+"EssentialMatrixTransform",
+"EuclideanTransform",
+"FundamentalMatrixTransform",
+"PiecewiseAffineTransform",
+"PolynomialTransform",
+"ProjectiveTransform",
+"SimilarityTransform",
+"ThinPlateSplineTransform",
+"downscale_local_mean",
+"estimate_transform",
+"finite_radon_transform",
+"frt2",
+"hough_circle",
+"hough_circle_peaks",
+"hough_ellipse",
+"hough_line",
+"hough_line_peaks",
+"hough_transform",
+"ifrt2",
+"integral",
+"integral_image",
+"integrate",
+"iradon",
+"iradon_sart",
+"matrix_transform",
+"order_angles_golden_ratio",
+"probabilistic_hough_line",
+"pyramid_expand",
+"pyramid_gaussian",
+"pyramid_laplacian",
+"pyramid_reduce",
+"pyramids",
+"radon",
+"radon_transform",
+"rescale",
+"resize",
+"resize_local_mean",
+"rotate",
+"swirl",
+"warp",
+"warp_coords",
+"warp_polar"
+],
+"skimage.util": [
+"FailedEstimationAccessError",
+"PendingSkimage2Change",
+"apply_parallel",
+"arraycrop",
+"compare",
+"compare_images",
+"crop",
+"dtype",
+"dtype_limits",
+"functools",
+"img_as_bool",
+"img_as_float",
+"img_as_float32",
+"img_as_float64",
+"img_as_int",
+"img_as_ubyte",
+"img_as_uint",
+"invert",
+"label_points",
+"lookfor",
+"map_array",
+"montage",
+"noise",
+"np",
+"random_noise",
+"regular_grid",
+"regular_seeds",
+"shape",
+"slice_along_axes",
+"unique",
+"unique_rows",
+"view_as_blocks",
+"view_as_windows",
+"warnings"
+],
+"skimage.future.graph": [],
+"skimage.viewer": [],
+"skimage.external": []
+}
+}
