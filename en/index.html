@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="opencv-removed-name-lookup/">AttributeError: module 'cv2' has no attribute 'CascadeClassifier' (or 'xfeatures2d', 'TrackerMOSSE_create', module 'cv2.aruco' has no attribute 'Dictionary_get', any name): which OpenCV package and release has it</a></h2>
+<p>opencv-python 5.0 no longer has <code>cv2.CascadeClassifier</code>, <code>HOGDescriptor</code>, <code>cv2.ml</code> or <code>cv2.gapi</code> (opencv-contrib-python 5 does); OpenCV 5 removed <code>dnn.readNetFromCaffe</code>, <code>readNetFromDarknet</code> (5.0) and <code>readNetFromTensorflow</code> (5.1.0); 4.7.0 removed <code>aruco.Dictionary_get</code>; <code>cv2.xfeatures2d</code> and <code>cv2.face</code> are contrib only. 81 releases of the two packages (3.4.8.29 to 5.1.0.95) installed and read. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-26</p>
+</article>
+<article class="card">
 <h2><a href="networkx-removed-name-lookup/">AttributeError: module 'networkx' has no attribute 'from_numpy_matrix' (or 'read_gpickle', 'Graph' object has no attribute 'node', 'nodes_iter', any name): which networkx removed it and what to use</a></h2>
 <p>networkx 3.0 removed <code>from_numpy_matrix</code> (use <code>from_numpy_array</code>), <code>read_gpickle</code> (use <code>pickle</code>) and <code>nx.info</code>; 2.4 removed <code>G.node</code> (use <code>G.nodes</code>) and <code>connected_component_subgraphs</code>; 2.0 the <code>*_iter</code> methods. Every release from 1.11 to 3.7 (33) installed and run. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>

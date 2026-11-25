@@ -1,0 +1,229 @@
+{
+"rows": [
+[
+"cv2",
+"CascadeClassifier",
+"opencv-contrib-python 5 has it at the same name, and its cv2.data folder has the haarcascade XML files (opencv-python 5.1.0.95 has neither). Or pip install \"opencv-python<5\"."
+],
+[
+"cv2",
+"HOGDescriptor",
+"The same name in opencv-contrib-python 5, or pip install \"opencv-python<5\"."
+],
+[
+"cv2",
+"ml",
+"cv2.ml (SVM_create, KNearest_create, ...) is in opencv-contrib-python 5, or pip install \"opencv-python<5\"."
+],
+[
+"cv2",
+"gapi",
+"In opencv-contrib-python 5, or pip install \"opencv-python<5\"."
+],
+[
+"cv2.dnn",
+"readNetFromCaffe",
+"Gone with the Caffe importer: in 5.1.0, cv2.dnn.readNet on a .caffemodel raises \"Caffe importer has been removed\" and asks for an ONNX-converted model or an older OpenCV. cv2.dnn.readNetFromONNX is still there; or pip install \"opencv-python<5\"."
+],
+[
+"cv2.dnn",
+"readNetFromDarknet",
+"Gone with the Darknet importer (5.1.0's readNet on a .weights file: \"Darknet importer has been removed\"). Convert the model to ONNX and use cv2.dnn.readNetFromONNX, or pip install \"opencv-python<5\"."
+],
+[
+"cv2.dnn",
+"readNetFromTorch",
+"Removed in the same release as the Caffe and Darknet readers. cv2.dnn.readNetFromONNX is still there; or pip install \"opencv-python<5\"."
+],
+[
+"cv2.dnn",
+"readNetFromTensorflow",
+"5.0.0.93 still has it. In 5.1.0, cv2.dnn.readNet on a .pb raises \"TensorFlow importer has been removed\" and asks for an ONNX-converted model or an older OpenCV; readNetFromTFLite and readNetFromONNX are still there."
+],
+[
+"cv2",
+"KAZE_create",
+"cv2.xfeatures2d.KAZE_create() in opencv-contrib-python 5. cv2.ORB_create and cv2.SIFT_create stay in opencv-python."
+],
+[
+"cv2",
+"AKAZE_create",
+"cv2.xfeatures2d.AKAZE_create() in opencv-contrib-python 5."
+],
+[
+"cv2",
+"BRISK_create",
+"cv2.xfeatures2d.BRISK_create() in opencv-contrib-python 5."
+],
+[
+"cv2",
+"logPolar",
+"cv2.warpPolar(src, dsize, center, maxRadius, cv2.WARP_POLAR_LOG); OpenCV's docstring in 4.14 says the two give the same result."
+],
+[
+"cv2",
+"linearPolar",
+"cv2.warpPolar(src, dsize, center, maxRadius, cv2.WARP_POLAR_LINEAR)."
+],
+[
+"cv2.aruco",
+"detectMarkers",
+"cv2.aruco.ArucoDetector(dictionary, parameters).detectMarkers(image), there from 4.7.0. OpenCV's own text in 4.14: \"Use class ArucoDetector::detectMarkers\"."
+],
+[
+"cv2.aruco",
+"estimatePoseSingleMarkers",
+"OpenCV's own text in 4.14: \"Use cv::solvePnP\" (cv2.solvePnP, once per marker, with the marker's four corners)."
+],
+[
+"cv2",
+"setLogLevel",
+"cv2.utils.logging.setLogLevel(cv2.utils.logging.LOG_LEVEL_ERROR); likewise cv2.utils.logging.getLogLevel()."
+],
+[
+"cv2.aruco",
+"Dictionary_get",
+"cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)."
+],
+[
+"cv2.aruco",
+"DetectorParameters_create",
+"cv2.aruco.DetectorParameters()."
+],
+[
+"cv2.aruco",
+"drawMarker",
+"cv2.aruco.generateImageMarker(dictionary, id, sidePixels)."
+],
+[
+"cv2.aruco",
+"CharucoBoard_create",
+"cv2.aruco.CharucoBoard((squaresX, squaresY), squareLength, markerLength, dictionary); then board.getChessboardCorners() and board.generateImage(size)."
+],
+[
+"cv2.aruco",
+"GridBoard_create",
+"cv2.aruco.GridBoard((markersX, markersY), markerLength, markerSeparation, dictionary)."
+],
+[
+"cv2.aruco",
+"Board_create",
+"cv2.aruco.Board(objPoints, dictionary, ids)."
+],
+[
+"cv2.aruco",
+"custom_dictionary",
+"cv2.aruco.extendDictionary(nMarkers, markerSize)."
+],
+[
+"cv2.aruco",
+"drawAxis",
+"cv2.drawFrameAxes(image, cameraMatrix, distCoeffs, rvec, tvec, length). OpenCV's own text in 4.5.5: \"use cv::drawFrameAxes\"."
+],
+[
+"cv2",
+"aruco",
+"opencv-python has cv2.aruco from 4.7.0.72 (ArucoDetector, getPredefinedDictionary). Before that, and for the old functions, install opencv-contrib-python."
+],
+[
+"cv2.aruco",
+"ArucoDetector",
+"New in 4.7.0. On an older release use cv2.aruco.detectMarkers(image, dictionary, parameters=parameters) from opencv-contrib-python, or upgrade."
+],
+[
+"cv2",
+"TrackerMOSSE_create",
+"cv2.legacy.TrackerMOSSE_create() in opencv-contrib-python 4.5.1 or later."
+],
+[
+"cv2",
+"MultiTracker_create",
+"cv2.legacy.MultiTracker_create() in opencv-contrib-python 4.5.1 or later."
+],
+[
+"cv2",
+"TrackerKCF_create",
+"Only ever in opencv-contrib-python (top level, every release read)."
+],
+[
+"cv2",
+"TrackerCSRT_create",
+"Only ever in opencv-contrib-python (top level, every release read)."
+],
+[
+"cv2",
+"estimateRigidTransform",
+"cv2.estimateAffinePartial2D(src, dst) (what fullAffine=False did) or cv2.estimateAffine2D(src, dst) (fullAffine=True). Both return (matrix, inliers), not the matrix alone."
+],
+[
+"cv2",
+"createStitcher",
+"cv2.Stitcher_create()."
+],
+[
+"cv2",
+"createOptFlow_DualTVL1",
+"cv2.optflow.DualTVL1OpticalFlow_create() in opencv-contrib-python."
+],
+[
+"cv2",
+"createShapeContextDistanceExtractor",
+"Still at the same name in opencv-contrib-python."
+],
+[
+"cv2",
+"xfeatures2d",
+"Only in opencv-contrib-python. For SIFT alone, cv2.SIFT_create() is in opencv-python from 4.4.0.46. cv2.xfeatures2d.SURF_create exists but raises \"This algorithm is patented and is excluded in this configuration\" in the PyPI wheels."
+],
+[
+"cv2",
+"face",
+"Only in opencv-contrib-python (cv2.face.LBPHFaceRecognizer_create(), ...)."
+],
+[
+"cv2",
+"ximgproc",
+"Only in opencv-contrib-python."
+],
+[
+"cv2",
+"legacy",
+"Only in opencv-contrib-python, from 4.5.1.48."
+],
+[
+"cv2",
+"bgsegm",
+"Only in opencv-contrib-python."
+],
+[
+"cv2",
+"SIFT_create",
+"In opencv-python from 4.4.0.46 (and in the 3.4 line from 3.4.11.43). On an older install: upgrade, or cv2.xfeatures2d.SIFT_create() from opencv-contrib-python."
+],
+[
+"cv2",
+"barcode",
+"opencv-python has it from 4.8.0.76, opencv-contrib-python from 4.5.3.56."
+],
+[
+"cv2",
+"haarcascades",
+"cv2.data.haarcascades (the folder path as a string)."
+],
+[
+"cv2",
+"cv2",
+"Write import cv2. import cv2.cv2 works up to 4.5.5.64 (3.4.17.63 in the 3.4 line); from 4.6.0.66 it raises \"ImportError: Bindings generation error\"."
+]
+],
+"more": {
+"cv2|getLogLevel": "cv2.utils.logging.getLogLevel().",
+"cv2.dnn|DictValue": "A clean install has it. This error usually means the files of two OpenCV packages are mixed: cv2/typing (shipped from 4.8.0.76) reads this name when cv2 is imported. Uninstall every OpenCV package and install one.",
+"cv2.gapi.wip.draw|Text": "A clean install has it. This error usually means the files of two OpenCV packages are mixed: cv2/typing (shipped from 4.8.0.76) reads this name when cv2 is imported. Uninstall every OpenCV package and install one.",
+"cv2|groupRectangles": "The same name in opencv-contrib-python 5, or pip install \"opencv-python<5\".",
+"cv2:aruco_CharucoBoard|chessboardCorners": "board.getChessboardCorners().",
+"cv2:aruco_Board|ids": "board.getIds().",
+"cv2:aruco_Board|objPoints": "board.getObjPoints().",
+"cv2:aruco_Board|dictionary": "board.getDictionary()."
+}
+}
