@@ -1,0 +1,14 @@
+{
+"PIL.ImageSequence": {
+"Image": "Image.Image.getdata is deprecated and will be removed in Pillow 14. Use get_flattened_data instead."
+},
+"PIL.ImageCms": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.PngImagePlugin": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.Image:Image": {
+"get_child_images": "Image.Image.get_child_images is deprecated and will be removed in Pillow 13."
+}
+}

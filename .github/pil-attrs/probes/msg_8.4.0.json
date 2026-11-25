@@ -1,0 +1,5 @@
+{
+"PIL.ImageFile": {
+"raise_ioerror": "raise_ioerror is deprecated and will be removed in Pillow 9 (2022-01-02). Use raise_oserror instead."
+}
+}

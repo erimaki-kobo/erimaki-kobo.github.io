@@ -1,0 +1,40 @@
+{
+"PIL.Image": {
+"coerce_e": "coerce_e is deprecated and will be removed in Pillow 10.",
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.ImageDraw": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.ImageFont": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.ImageCms": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.ImagePalette": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.ImageShow": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.PngImagePlugin": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.JpegImagePlugin": {
+"convert_dict_qtables": "convert_dict_qtables is deprecated and will be removed in Pillow 10. Use Conversion is no longer needed instead.",
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.ImageDraw:ImageDraw": {
+"multiline_textsize": "multiline_textsize is deprecated and will be removed in Pillow 10. Use multiline_textbbox instead.",
+"textsize": "textsize is deprecated and will be removed in Pillow 10. Use textbbox or textlength instead."
+},
+"PIL.ImageFont:FreeTypeFont": {
+"getoffset": "getoffset is deprecated and will be removed in Pillow 10. Use getbbox instead.",
+"getsize": "getsize is deprecated and will be removed in Pillow 10. Use getbbox or getlength instead.",
+"getsize_multiline": "getsize_multiline is deprecated and will be removed in Pillow 10. Use ImageDraw.multiline_textbbox instead."
+},
+"PIL.ImageFont:ImageFont": {
+"getsize": "getsize is deprecated and will be removed in Pillow 10. Use getbbox or getlength instead."
+}
+}

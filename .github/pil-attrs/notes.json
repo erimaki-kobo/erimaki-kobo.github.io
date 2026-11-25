@@ -1,0 +1,4 @@
+{"keep": [["PIL.Image:Image", "tostring"], ["PIL.Image:Image", "fromstring"], ["PIL.Image", "fromstring"]],
+ "notes": {"PIL.Image:Image|tostring": "Use im.tobytes().",
+           "PIL.Image:Image|fromstring": "Use im.frombytes(...).",
+           "PIL.Image|fromstring": "Use Image.frombytes(mode, size, data)."}}

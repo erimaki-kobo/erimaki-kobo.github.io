@@ -1,0 +1,28 @@
+{
+"PIL.Image": {
+"isImageType": "Image.isImageType(im) is deprecated and will be removed in Pillow 12. Use isinstance(im, Image.Image) instead."
+},
+"PIL.ImageDraw": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.ImageFile": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}",
+"raise_oserror": "raise_oserror is deprecated and will be removed in Pillow 12. Use It is only useful for translating error codes returned by a codec's decode() method, which ImageFile already does automatically. instead."
+},
+"PIL.ImageMath": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}",
+"eval": "ImageMath.eval is deprecated and will be removed in Pillow 12. Use ImageMath.lambda_eval or ImageMath.unsafe_eval instead."
+},
+"PIL.ImageCms": {
+"versions": "PIL.ImageCms.versions() is deprecated and will be removed in Pillow 12. Use (PIL.features.version(\"littlecms2\"), sys.version, PIL.__version__) instead."
+},
+"PIL.features": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.JpegImagePlugin": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+},
+"PIL.TiffImagePlugin": {
+"deprecate": "{...} {...} deprecated and will be removed in {...}{...}"
+}
+}
