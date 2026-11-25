@@ -215,6 +215,9 @@ dt{font-weight:600;margin-top:.8em}dd{margin:0}
     var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(" + LIBRX + "(?:\\.\\w+)*)", "g");
     while ((m = reErr.exec(text))) add(m[1], m[2]);
     rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reColon = new RegExp("`(" + LIBRX + "(?:\\.\\w+)*):([A-Za-z_]\\w*)`", "g");   // pydantic 2: "`pydantic:Required` has been removed in V2."
+    while ((m = reColon.exec(rest))) add(m[m.length - 1], m[1]);
+    rest = rest.replace(reColon, " ");
     var reAttr = new RegExp("module " + Q + "(" + LIBRX + "(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
     while ((m = reAttr.exec(rest))) add(m[3], m[1]);
     rest = rest.replace(reAttr, " ");

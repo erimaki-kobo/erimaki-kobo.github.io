@@ -25,3 +25,5 @@ node check_browser.js http://127.0.0.1:PORT        # serve the repository root
   packages (9 names in one place only), 7,221 top-level name-release pairs as text (star imports followed), 30,884 definitions by regular
   expression (keywords such as `try` left out), 18 anchors; check_browser 17 lookups x 2 widths.
 - trl 0.9.2 is on PyPI without a git tag; the 0.9 line is read at 0.9.3. Not on the daily refresh.
+
+- 2026-11-25: parse() also reads the pydantic 2 form "`pydantic:Required` has been removed in V2." (reColon).
