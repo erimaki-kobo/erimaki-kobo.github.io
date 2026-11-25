@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="triton-import-name-version-lookup/">No module named 'triton.ops', cannot import name 'libdevice' or 'triton_key' from 'triton...': which Triton releases have it</a></h2>
+<p>Triton 3.2.0 removed <code>triton.ops</code>, which bitsandbytes 0.45.0 and older import (fixed in 0.45.1); <code>triton.language.extra.cuda.libdevice</code> needs Triton 3.0.0; PyTorch 2.6 to 2.8 do not see Triton 3.5 and newer. The Triton each PyTorch release pins, and every module the Triton wheels 2.0.0 to 3.9.0 install. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="vllm-import-name-version-lookup/">ImportError: cannot import name 'GuidedDecodingParams' (or get_open_port, ChatCompletionRequest, any name) from 'vllm...': which vLLM releases have it</a></h2>
 <p>vLLM 0.12.0 removed <code>GuidedDecodingParams</code> and split <code>vllm.utils</code> (<code>get_open_port</code> is in <code>vllm.utils.network_utils</code>, with a deprecated alias until 0.13); 0.15.0 split <code>vllm.entrypoints.openai.protocol</code>. Which TRL works with which vLLM, and every module of vLLM 0.1.0 to 0.34.0. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>

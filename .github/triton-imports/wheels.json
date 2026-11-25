@@ -1,0 +1,72 @@
+{
+"2.0.0": {
+"wheel": "triton-2.0.0-1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+"sha256": "226941c7b8595219ddef59a1fdb821e8c744289a132415ddd584facedeb475b1",
+"py_files": 27
+},
+"2.1.0": {
+"wheel": "triton-2.1.0-0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+"sha256": "919b06453f0033ea52c13eaf7833de0e57db3178d23d4e04f9fc71c4f2c32bf8",
+"py_files": 43
+},
+"2.2.0": {
+"wheel": "triton-2.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+"sha256": "0af58716e721460a61886668b205963dc4d1e4ac20508cc3f623aef0d70283d5",
+"py_files": 40
+},
+"2.3.0": {
+"wheel": "triton-2.3.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+"sha256": "218d742e67480d9581bafb73ed598416cc8a56f6316152e5562ee65e33de01c0",
+"py_files": 41
+},
+"3.0.0": {
+"wheel": "triton-3.0.0-1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+"sha256": "34e509deb77f1c067d8640725ef00c5cbfcb2052a1a3cb6a6d343841f92624eb",
+"py_files": 57
+},
+"3.1.0": {
+"wheel": "triton-3.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+"sha256": "c8182f42fd8080a7d39d666814fa36c5e30cc00ea7eeeb1a2983dbb4c99a0fdc",
+"py_files": 57
+},
+"3.2.0": {
+"wheel": "triton-3.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+"sha256": "8d9b215efc1c26fa7eefb9a157915c92d52e000d2bf83e5f69704047e63f125c",
+"py_files": 53
+},
+"3.3.0": {
+"wheel": "triton-3.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+"sha256": "b68c778f6c4218403a6bd01be7484f6dc9e20fe2083d22dd8aef33e3b87a10a3",
+"py_files": 58
+},
+"3.4.0": {
+"wheel": "triton-3.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+"sha256": "31c1d84a5c0ec2c0f8e8a072d7fd150cab84a9c239eaddc6706c081bfae4eb04",
+"py_files": 81
+},
+"3.5.0": {
+"wheel": "triton-3.5.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+"sha256": "c9e71db82261c4ffa3921cd050cd5faa18322d2d405c30eb56084afaff3b0833",
+"py_files": 98
+},
+"3.6.0": {
+"wheel": "triton-3.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+"sha256": "74caf5e34b66d9f3a429af689c1c7128daba1d8208df60e81106b115c00d6fca",
+"py_files": 110
+},
+"3.7.0": {
+"wheel": "triton-3.7.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+"sha256": "8f111161d49bf903c0eaedde3962353a3d841c08a836839b7cc1025b8426efcf",
+"py_files": 115
+},
+"3.8.0": {
+"wheel": "triton-3.8.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+"sha256": "e91ffa46d095b252248297292dd22bcbacd53a125a0c2eefbbbf74925a320bc3",
+"py_files": 140
+},
+"3.9.0": {
+"wheel": "triton-3.9.0-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+"sha256": "5e52ab4e2f1d64f0ac494c9aa723697b793f81a91c4cae4c36608ca0bc4267bf",
+"py_files": 149
+}
+}

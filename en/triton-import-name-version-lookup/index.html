@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cannot import name from 'triton': the version that has it</title>
+<meta name="description" content="Triton 3.2.0 removed triton.ops (bitsandbytes 0.45.0 and older import it); libdevice is in triton.language.extra.cuda from 3.0.0. Paste the error.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cannot import name from &#x27;triton&#x27;: the version that has it">
+<meta property="og:description" content="Triton 3.2.0 removed triton.ops (bitsandbytes 0.45.0 and older import it); libdevice is in triton.language.extra.cuda from 3.0.0. Paste the error.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}td code,p code,li code,h1{overflow-wrap:anywhere}main p,main li{overflow-wrap:break-word}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/#article", "headline": "No module named 'triton.ops', cannot import name 'libdevice' or 'triton_key' from 'triton...': which Triton re", "description": "Triton 3.2.0 removed triton.ops (bitsandbytes 0.45.0 and older import it); libdevice is in triton.language.extra.cuda from 3.0.0. Paste the error.", "url": "https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/", "datePublished": "2026-11-25", "dateModified": "2026-11-25", "inLanguage": "en", "about": ["Triton", "ImportError", "PyTorch", "bitsandbytes"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/"}, {"@type": "WebApplication", "name": "Triton import name lookup", "url": "https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/#lookup", "description": "Paste an ImportError or an import statement and get the Triton releases in which that name can be imported from that module, the range to pin, and where the name lives now.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from triton and its modules, by release", "url": "https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/triton.json", "dateModified": "2026-11-25", "description": "For 14 releases of Triton (2.0.0 to 3.9.0): the names importable from every installed module as release ranges and the life of each module. Read from the Python files of the PyPI wheels.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/triton.json"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I fix \"No module named 'triton.ops'\"?", "acceptedAnswer": {"@type": "Answer", "text": "Triton 3.2.0 (2025-01-22) removed triton.ops; 3.1.0 is the last release with it. The import is usually in bitsandbytes: 0.45.0 and older import triton.ops.matmul_perf_model when Triton is installed, so import bitsandbytes fails on PyTorch 2.6 and later, which install Triton 3.2 or newer. Upgrade bitsandbytes to 0.45.1 or later. Pinning Triton below 3.2 would break PyTorch's own pin."}}, {"@type": "Question", "name": "How do I fix \"cannot import name 'libdevice' from 'triton.language.extra.cuda'\"?", "acceptedAnswer": {"@type": "Answer", "text": "That path exists from Triton 3.0.0 (2024-07-19). The installed Triton is 2.x, usually because PyTorch is older than 2.4 (PyTorch 2.4.0 pins Triton 3.0.0). Upgrade PyTorch, which brings the matching Triton. In Triton 2.1 to 2.3 the same functions are in triton.language.math."}}, {"@type": "Question", "name": "Why does PyTorch say \"Cannot find a working triton installation\" when Triton is installed?", "acceptedAnswer": {"@type": "Answer", "text": "PyTorch 2.6 to 2.8 check for Triton by importing triton_key from triton.compiler.compiler, which Triton 3.5.0 (2025-10-13) removed. With Triton 3.5 or newer next to PyTorch 2.8 or older, torch.compile thinks Triton is missing. Install the Triton that your PyTorch pins, or upgrade PyTorch (2.9.0 only imports triton)."}}, {"@type": "Question", "name": "Which Triton does my PyTorch need?", "acceptedAnswer": {"@type": "Answer", "text": "Each PyTorch wheel on PyPI pins one Triton release on Linux: 2.4.0 needs 3.0.0, 2.6.0 needs 3.2.0, 2.9.0 needs 3.5.0, and so on. The table on this page lists them from the PyPI metadata."}}, {"@type": "Question", "name": "Does this page cover the backends and experimental modules too?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: every module that the Triton wheel installs, 2.0.0 to 3.9.0, 5,531 module-and-name pairs in 187 modules, including triton.backends and triton.language.extra, which are copied in at build time and are not under python/triton in the repository."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "cannot import name from 'triton': the version that has it", "item": "https://erimaki-kobo.github.io/en/triton-import-name-version-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>No module named 'triton.ops', cannot import name 'libdevice' or 'triton_key' from 'triton...': which Triton releases have it</h1>
+<p class="lede"><strong>Triton 3.2.0 (2025-01-22) removed <code>triton.ops</code> (<code>matmul</code>, <code>flash_attention</code>, <code>blocksparse</code>, <code>matmul_perf_model</code>); 3.1.0 is the last release with it. Most "No module named 'triton.ops'" errors come from bitsandbytes 0.45.0 and older, which import it as soon as Triton is installed; PyTorch 2.6.0 and later install Triton 3.2 or newer. Upgrade bitsandbytes to 0.45.1 or later.</strong> The other common ones: <code>from triton.language.extra.cuda import libdevice</code> needs Triton 3.0.0 or newer (PyTorch 2.4.0 or newer), and PyTorch 2.6 to 2.8 report "Cannot find a working triton installation" with Triton 3.5.0 or newer, because they look for <code>triton_key</code>, which 3.5.0 removed. Install the Triton your PyTorch pins (table below). For any other name, in any module of Triton, paste the error below.</p>
+<p class="meta">Published 2026-11-25 &middot; Data as of 2026-11-25 &middot; Triton 2.0.0 to 3.9.0, the first release of each of 14 minor versions &middot; read from the Python files of the PyPI wheels, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The error line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ModuleNotFoundError: No module named 'triton.ops'"></textarea>
+<div class="grid">
+<div><label for="v">Your Triton version (optional; <code>pip show triton</code>)</label><input id="v" inputmode="decimal" placeholder="for example 3.2.0"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ModuleNotFoundError: No module named &#x27;triton.ops&#x27;" data-v="3.2.0">triton.ops</button><button type="button" data-ex="ImportError: cannot import name &#x27;libdevice&#x27; from &#x27;triton.language.extra.cuda&#x27; (/usr/local/lib/python3.10/site-packages/triton/language/extra/cuda/__init__.py)" data-v="2.3.1">libdevice</button><button type="button" data-ex="from triton.compiler.compiler import triton_key" data-v="3.5.0">triton_key</button><button type="button" data-ex="from triton.ops.matmul_perf_model import early_config_prune, estimate_matmul_time" data-v="">matmul_perf_model</button><button type="button" data-ex="from triton.language.extra.cuda import experimental_device_tensormap_create1d" data-v="3.4.0">tensormap</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="triton.json">triton.json</a> (142 KB); nothing you paste is sent anywhere. Covers 48 top-level names and 5,531 module-and-name pairs in 187 modules.</p>
+</div>
+
+<h2 id="pins">Which Triton does each PyTorch release install?</h2>
+<p><strong>Each PyTorch wheel on PyPI pins one Triton release on Linux; a different Triton next to it is where most of these errors start.</strong> From the <code>Requires-Dist</code> of each PyTorch release on PyPI:</p>
+<div class="tw"><table>
+<thead><tr><th>PyTorch</th><th>Triton</th></tr></thead>
+<tbody>
+<tr><td>2.0.0</td><td>2.0.0</td></tr>
+<tr><td>2.2.0</td><td>2.2.0</td></tr>
+<tr><td>2.3.0</td><td>2.3.0</td></tr>
+<tr><td>2.4.0</td><td>3.0.0</td></tr>
+<tr><td>2.5.0</td><td>3.1.0</td></tr>
+<tr><td>2.6.0</td><td>3.2.0</td></tr>
+<tr><td>2.7.0</td><td>3.3.0</td></tr>
+<tr><td>2.8.0</td><td>3.4.0</td></tr>
+<tr><td>2.9.0</td><td>3.5.0</td></tr>
+<tr><td>2.10.0</td><td>3.6.0</td></tr>
+<tr><td>2.11.0</td><td>3.6.0</td></tr>
+<tr><td>2.12.0</td><td>3.7.0</td></tr>
+<tr><td>2.13.0</td><td>3.7.1</td></tr>
+<tr><td>2.14.0</td><td>3.8.x (~=3.8.0)</td></tr>
+<tr><td>2.15.0</td><td>3.9.x (~=3.9.0)</td></tr>
+</tbody></table></div>
+<p>PyTorch 2.1.0 lists no Triton requirement in its PyPI metadata and is left out. <code>pip show triton</code> and <code>python -c "import torch; print(torch.__version__)"</code> tell you which pair you have.</p>
+
+<h2 id="removed">Which Triton modules disappeared, and in which release?</h2>
+<p><strong>39 of the 187 modules that a Triton wheel has installed are gone from 3.9.0.</strong> Experimental Gluon modules for AMD gfx1250 are left out of this table but are in the lookup.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Gone in</th><th>Date (PyPI)</th><th>Modules</th></tr></thead>
+<tbody>
+<tr><td>2.1.0</td><td>2023-09-01</td><td><code>triton.impl</code>, <code>triton.impl.base</code>, <code>triton.language.extern</code>, <code>triton.language.libdevice</code>, <code>triton.tools.aot</code>, <code>triton.utils</code></td></tr>
+<tr><td>2.2.0</td><td>2024-01-10</td><td><code>triton.interpreter</code>, <code>triton.interpreter.core</code>, <code>triton.interpreter.interpreter</code>, <code>triton.interpreter.memory_map</code>, <code>triton.interpreter.tl_lang</code>, <code>triton.interpreter.torch_wrapper</code></td></tr>
+<tr><td>2.3.0</td><td>2024-04-05</td><td><code>triton.compiler.target</code></td></tr>
+<tr><td>3.0.0</td><td>2024-07-19</td><td><code>triton.common</code>, <code>triton.common.backend</code>, <code>triton.common.build</code>, <code>triton.compiler.backends</code>, <code>triton.compiler.backends.cuda</code>, <code>triton.compiler.utils</code></td></tr>
+<tr><td>3.2.0</td><td>2025-01-22</td><td><code>triton.ops</code>, <code>triton.ops.blocksparse</code>, <code>triton.ops.blocksparse.matmul</code>, <code>triton.ops.blocksparse.softmax</code>, <code>triton.ops.cross_entropy</code>, <code>triton.ops.flash_attention</code>, <code>triton.ops.matmul</code>, <code>triton.ops.matmul_perf_model</code></td></tr>
+<tr><td>3.4.0</td><td>2025-07-30</td><td><code>triton.language._utils</code>, <code>triton.language.extra.cuda._experimental_tma</code>, <code>triton.tools.experimental_descriptor</code></td></tr>
+<tr><td>3.5.0</td><td>2025-10-13</td><td><code>triton.profiler.hook</code></td></tr>
+<tr><td>3.8.0</td><td>2026-08-28</td><td><code>triton.experimental.gluon.language.nvidia.blackwell.float2</code>, <code>triton.tools.triton_to_gluon_translater.translator</code>, <code>triton.tools.triton_to_gluon_translater.translator_helpers</code></td></tr>
+</tbody></table></div>
+
+<h2 id="read">How do I read the error?</h2>
+<ul>
+<li><strong>The file in the traceback</strong> tells you whose import it is. <code>bitsandbytes/triton/...</code> means bitsandbytes (upgrade it); <code>torch/utils/_triton.py</code> or <code>torch/_inductor/...</code> means a PyTorch and Triton pair that do not match.</li>
+<li><strong>Windows</strong>: the <code>triton</code> package on PyPI has Linux wheels only. Community builds such as <code>triton-windows</code> have their own version numbers; compare by the Triton version they report.</li>
+<li><strong>The NVIDIA parts</strong> (<code>triton.backends.nvidia</code>, <code>triton.language.extra.cuda</code>) are copied into the wheel at build time from <code>third_party/nvidia</code>; in the repository they are not under <code>python/triton</code>. Reading the repository alone misses them, which is why this page reads the wheels.</li>
+</ul>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the Python files that <code>pip install triton</code> puts on disk: for the first release of each minor version, the <code>triton/**/*.py</code> of the Linux x86_64 wheel on PyPI were read (by HTTP range requests, without downloading the whole wheel) and parsed with Python's <code>ast</code> module.</strong> A module's names are everything it binds at module level and what <code>from .x import *</code> brings in; code under <code>if TYPE_CHECKING:</code> is skipped. Dates come from PyPI. The PyTorch pins and PyTorch's <code>has_triton_package()</code> were read from the PyTorch wheels and metadata on PyPI; the bitsandbytes imports from its release tags.</p>
+<p>Checks: (1) each of the 48 top-level names is found as plain text in <code>triton/__init__.py</code> in every release of its range (424 name-and-release pairs) and not on either side (10 edges). (2) A regular expression finds 10,635 definitions in 689 file versions; all are among the names read. (3) Against a different source, the triton git tags, 12 release checks agree:</p>
+<div class="tw"><table>
+<thead><tr><th>Name or module</th><th>Release</th><th>Git and data</th></tr></thead>
+<tbody>
+<tr><td><code>triton.ops.matmul</code></td><td>3.1.0</td><td>has it</td></tr>
+<tr><td><code>triton.ops.matmul</code></td><td>3.2.0</td><td>does not</td></tr>
+<tr><td><code>triton.language.libdevice</code></td><td>2.0.0</td><td>has it</td></tr>
+<tr><td><code>triton.language.libdevice</code></td><td>2.1.0</td><td>does not</td></tr>
+<tr><td><code>triton.language.extra.cuda.libdevice</code></td><td>3.0.0</td><td>has it</td></tr>
+<tr><td><code>triton.language.extra.cuda.libdevice</code></td><td>2.3.0</td><td>does not</td></tr>
+<tr><td><code>triton.compiler.compiler.triton_key</code></td><td>3.4.0</td><td>has it</td></tr>
+<tr><td><code>triton.compiler.compiler.triton_key</code></td><td>3.5.0</td><td>does not</td></tr>
+<tr><td><code>triton.runtime.autotuner.PTXASError</code></td><td>3.3.0</td><td>has it</td></tr>
+<tr><td><code>triton.runtime.autotuner.PTXASError</code></td><td>3.2.0</td><td>does not</td></tr>
+<tr><td><code>triton.language.make_tensor_descriptor</code></td><td>3.4.0</td><td>has it</td></tr>
+<tr><td><code>triton.language.make_tensor_descriptor</code></td><td>3.3.0</td><td>does not</td></tr>
+</tbody></table></div>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. "Has it" means the import statement resolves in the Python files; Triton's compiled extension (<code>triton._C</code>) is not read.</li>
+<li>Only the first release of each minor version was read (and the newest). A change in a patch release is attributed to the next minor.</li>
+<li>Only the Linux x86_64 wheel (CPython 3.12, or 3.11 for older releases) was read. Other wheels of the same release should carry the same Python files.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>How do I fix "No module named 'triton.ops'"?</h3>
+<p>Triton 3.2.0 (2025-01-22) removed triton.ops; 3.1.0 is the last release with it. The import is usually in bitsandbytes: 0.45.0 and older import triton.ops.matmul_perf_model when Triton is installed, so import bitsandbytes fails on PyTorch 2.6 and later, which install Triton 3.2 or newer. Upgrade bitsandbytes to 0.45.1 or later. Pinning Triton below 3.2 would break PyTorch's own pin.</p>
+<h3>How do I fix "cannot import name 'libdevice' from 'triton.language.extra.cuda'"?</h3>
+<p>That path exists from Triton 3.0.0 (2024-07-19). The installed Triton is 2.x, usually because PyTorch is older than 2.4 (PyTorch 2.4.0 pins Triton 3.0.0). Upgrade PyTorch, which brings the matching Triton. In Triton 2.1 to 2.3 the same functions are in triton.language.math.</p>
+<h3>Why does PyTorch say "Cannot find a working triton installation" when Triton is installed?</h3>
+<p>PyTorch 2.6 to 2.8 check for Triton by importing triton_key from triton.compiler.compiler, which Triton 3.5.0 (2025-10-13) removed. With Triton 3.5 or newer next to PyTorch 2.8 or older, torch.compile thinks Triton is missing. Install the Triton that your PyTorch pins, or upgrade PyTorch (2.9.0 only imports triton).</p>
+<h3>Which Triton does my PyTorch need?</h3>
+<p>Each PyTorch wheel on PyPI pins one Triton release on Linux: 2.4.0 needs 3.0.0, 2.6.0 needs 3.2.0, 2.9.0 needs 3.5.0, and so on. The table on this page lists them from the PyPI metadata.</p>
+<h3>Does this page cover the backends and experimental modules too?</h3>
+<p>Yes: every module that the Triton wheel installs, 2.0.0 to 3.9.0, 5,531 module-and-name pairs in 187 modules, including triton.backends and triton.language.extra, which are copied in at build time and are not under python/triton in the repository.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>The triton wheels on <a href="https://pypi.org/project/triton/#history">PyPI</a>, 2.0.0 to 3.9.0 (file names and sha256 in the build notes); triton-lang/triton release tags for the checks, for example <a href="https://github.com/triton-lang/triton/blob/v3.1.0/python/triton/ops/__init__.py">python/triton/ops at v3.1.0</a> and <a href="https://github.com/triton-lang/triton/blob/v3.4.0/python/triton/compiler/compiler.py">compiler.py at v3.4.0</a>.</li>
+<li>PyTorch: the <code>Requires-Dist</code> of each release on <a href="https://pypi.org/project/torch/#history">PyPI</a>; <code>torch/utils/_triton.py</code> in the 2.6.0 to 2.9.0 wheels.</li>
+<li>bitsandbytes: <a href="https://github.com/bitsandbytes-foundation/bitsandbytes/blob/0.45.0/bitsandbytes/triton/int8_matmul_mixed_dequantize.py">bitsandbytes/triton/int8_matmul_mixed_dequantize.py at 0.45.0</a> (imports <code>triton.ops.matmul_perf_model</code>) and <a href="https://github.com/bitsandbytes-foundation/bitsandbytes/blob/0.45.1/bitsandbytes/triton/int8_matmul_mixed_dequantize.py">at 0.45.1</a> (its own copy).</li>
+</ul>
+<p>The same data as JSON: <a href="triton.json">triton.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/triton-ptxas-arch-lookup/">"ptxas fatal: Value 'sm_121a' is not defined"</a> (which Triton and PyTorch support a GPU) &middot; <a href="/en/vllm-torch-cuda-driver-matrix/">which PyTorch and CUDA each vLLM release needs</a> &middot; <a href="/en/vllm-import-name-version-lookup/">"cannot import name ... from 'vllm'"</a>.</p>
+</main>
+<script>window.LOOKUP_LIBS = ["triton"]; window.PTA_HINTS = {"triton::ops": "nothing in Triton; the kernels in triton.ops (matmul, flash_attention, blocksparse, matmul_perf_model) were removed. bitsandbytes 0.45.1 and later ship their own copy of matmul_perf_model.", "triton:ops:matmul": "nothing in Triton. The tutorials in the Triton repository (python/tutorials/03-matrix-multiplication.py) show the kernel.", "triton:language:libdevice": "<code>triton.language.math</code> (2.1 to 2.3) or <code>from triton.language.extra.cuda import libdevice</code> (from 3.0.0).", "triton:compiler.compiler:triton_key": "nothing; PyTorch 2.6 to 2.8 look for it to decide whether Triton works. Install the Triton that PyTorch pins (the table on this page).", "triton:language.extra.cuda:experimental_device_tensormap_create1d": "the tensor descriptor API: <code>triton.language.make_tensor_descriptor</code> or <code>triton.tools.tensor_descriptor.TensorDescriptor</code> (from 3.4.0)."};</script>
+<script>
+(function () {
+  "use strict";
+  var LIBS = window.LOOKUP_LIBS || ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  function code(s) { return "<code>" + esc(s) + "</code>"; }
+  var STOP = {from: 1, "import": 1, ImportError: 1, cannot: 1, name: 1, as: 1, unknown: 1, location: 1, py: 1, __init__: 1,
+    site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
+    ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
+    following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
+  LIBS.forEach(function (l) { STOP[l] = 1; });
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.slice().sort(function (a, b) { return b.length - a.length; }).join("|") + ")(?!\\w)", ALL = LIBS.join(", ");
+
+  function split(dotted) {
+    var i = dotted.indexOf(".");
+    return i < 0 ? {lib: dotted, mod: ""} : {lib: dotted.slice(0, i), mod: dotted.slice(i + 1)};
+  }
+  function label(lib, m) { return m ? lib + "." + m : lib; }
+
+  function parse(text) {
+    var out = [], seen = {}, m, rest = text;
+    function add(name, dotted) {
+      var s = typeof dotted === "string" ? split(dotted) : dotted, k = s.lib + ":" + s.mod + ":" + name;
+      if (!seen[k] && (name === null || /^[A-Za-z_]\w*$/.test(name))) { seen[k] = 1; out.push({lib: s.lib, mod: s.mod, name: name}); }
+    }
+    var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(" + LIBRX + "(?:\\.\\w+)*)", "g");
+    while ((m = reErr.exec(text))) add(m[1], m[2]);
+    rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reAttr = new RegExp("module " + Q + "(" + LIBRX + "(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
+    while ((m = reAttr.exec(rest))) add(m[3], m[1]);
+    rest = rest.replace(reAttr, " ");
+    var reNoMod = new RegExp("(?:No module named|Failed to import)\\s+" + Q + "(" + LIBRX + "(?:\\.\\w+)+)", "g");
+    while ((m = reNoMod.exec(rest))) add(null, m[1]);
+    rest = rest.replace(reNoMod, " ");
+    var reImp = new RegExp("from\\s+(" + LIBRX + "(?:\\.\\w+)*)\\s+import\\s+(\\([^)]*\\)|[^\\n;]+)", "g");
+    while ((m = reImp.exec(rest))) {
+      var where = m[1];
+      m[3].replace(/#[^\n]*/g, " ").replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, where);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    var rePlain = new RegExp("(?:^|\\n|;)\\s*import\\s+(" + LIBRX + "\\.\\w+(?:\\.\\w+)*)", "g");
+    while ((m = rePlain.exec(rest))) add(null, m[1]);
+    rest = rest.replace(rePlain, " ");
+    if (!out.length) {
+      var dotted = rest.match(new RegExp(LIBRX + "(?:\\.\\w+)+", "g")) || [];
+      dotted.forEach(function (d) { add(null, d); });
+      if (!dotted.length) (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w]) add(w, {lib: "?", mod: ""}); });
+    }
+    return out.slice(0, 30);
+  }
+
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(D, v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(D.releases[i][0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairs(D, ri) {
+    var r = D.ranges[ri], out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function modEver(D, m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
+  function modPairs(D, m) { return m === "" ? [[0, 0]] : pairs(D, D.mods[m]); }
+  var PARTIAL = window.LOOKUP_PARTIAL || {};   // libraries whose first release read is not their first release
+  function rangeText(D, p) {
+    var a = D.releases[p[0]], early = p[0] === 0 && PARTIAL[D.lib] ? " or earlier (" + a[0] + " is the first release read)" : "";
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong>" + (early || " (" + a[1] + ")") + " and still in " + D.latest;
+    if (early) {
+      var b0 = D.releases[p[1]];
+      return "<strong>" + a[0] + "</strong>" + early + " through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b0[0] + " (" + b0[1] + ")";
+    }
+    var b = D.releases[p[1]];
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  var PIP = window.LOOKUP_PIP || {};      // import name -> pip name, where they differ (sentence_transformers -> sentence-transformers)
+  function pin(D, lib, p) {
+    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "", pkg = PIP[lib] || lib;
+    if (!p[1]) return lo ? "<span class=\"pin\">Needs: <code>pip install \"" + pkg + lo + "\"</code></span>" : "<span class=\"pin\">In every release read.</span>";
+    return "<span class=\"pin\">Keep it: <code>pip install \"" + pkg + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
+  }
+  // other modules of the library that had the name in release i
+  function alsoAt(D, lib, name, except, i) {
+    var out = [];
+    Object.keys(D.names).forEach(function (m) {
+      var ri = D.names[m][name];
+      if (m !== except && ri !== undefined && inRange(pairs(D, ri), i)) out.push(m);
+    });
+    out.sort(function (a, b) { return a.split(".").length - b.split(".").length || (a < b ? -1 : 1); });
+    return out.slice(0, 4).map(function (m) { return code(label(lib, m)); });
+  }
+  function whereNow(D, lib, name, except) {
+    var out = [], last = D.releases.length - 1;
+    if (except !== "" && D.names[""][name] !== undefined && inRange(pairs(D, D.names[""][name]), last))
+      out.push(code("from " + lib + " import " + name) + " (top level)");
+    var w = D.where.names[name];
+    if (w) {
+      if (w[0] < 0) out.push("defined in " + (-w[0]) + " modules of " + lib + " " + D.latest);
+      else {
+        var ms = w.map(function (i) { return D.where.modules[i]; }).filter(function (m) { return m !== except; });
+        if (ms.length) out.push("defined in " + ms.map(function (m) { return code(label(lib, m)); }).join(", ") + " in " + D.latest);
+      }
+    }
+    return out;
+  }
+  function dist(a, b) {
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, keys) {
+    var low = name.toLowerCase(), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (k === name) return;
+      if (kl === low) exact.push(k);
+      else if (low.length >= 6 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 8)) sub.push(k);
+      else if (low.length >= 6 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+  function mineText(has, lib, what) {
+    return "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+      (has ? " If the error still names " + what + ", another copy of " + lib + " is being imported: check <code>python -c \"import " + lib + "; print(" + lib + ".__version__, " + lib + ".__file__)\"</code>." : "");
+  }
+  function row(nameHtml, sub, status, cell) {
+    return "<tr><td>" + nameHtml + "<br><span class=\"note\">" + esc(sub) + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+  }
+  function movedModule(D, m) {
+    var leaf = m.split(".").pop(), last = D.releases.length - 1, out = [];
+    Object.keys(D.mods).forEach(function (k) { if (k !== m && k.split(".").pop() === leaf && inRange(pairs(D, D.mods[k]), last)) out.push(k); });
+    return out.slice(0, 4);
+  }
+
+  function answerModule(lib, m, mine) {
+    var D = DATA[lib], cell, status;
+    if (!modEver(D, m)) {
+      var mv = movedModule(D, m);
+      return row(code(label(lib, m)), "module", "<span class=\"s n\">never there</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has this module." +
+        (mv.length ? " Modules with the same last part in " + D.latest + ": " + mv.map(function (k) { return code(label(lib, k)); }).join(", ") + "." : ""));
+    }
+    var ps = modPairs(D, m), last = ps[ps.length - 1];
+    status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+    cell = "The module exists " + ps.map(function (p) { return rangeText(D, p); }).join("<br>") + ".<br>" + pin(D, lib, last);
+    if (last[1]) {
+      var mv2 = movedModule(D, m);
+      if (mv2.length) cell += "<br>Now: " + mv2.map(function (k) { return code(label(lib, k)); }).join(", ") + " (same file name, in " + D.latest + ").";
+    }
+    if (mine !== null) cell += mineText(inRange(ps, mine), lib, "the module");
+    return row(code(label(lib, m)), "module", status, cell);
+  }
+
+  var SIB = window.LOOKUP_SIBLINGS || {};    // langchain -> [langchain_classic, langchain_core]: where a removed name went
+  function siblingsNow(lib, m, name) {
+    var out = [];
+    (SIB[lib] || []).forEach(function (o) {
+      var E = DATA[o];
+      if (!E) return;
+      var last = E.releases.length - 1, pkg = PIP[o] || o;
+      if (E.names[m] && E.names[m][name] !== undefined && inRange(pairs(E, E.names[m][name]), last))
+        out.push(code("from " + label(o, m) + " import " + name) + " (pip install " + pkg + ")");
+      else {
+        var w = E.where.names[name];
+        if (w && w[0] >= 0) out.push(w.slice(0, 3).map(function (i) { return code("from " + label(o, E.where.modules[i]) + " import " + name); }).join(", ") + " (pip install " + pkg + ")");
+        else if (E.names[""][name] !== undefined && inRange(pairs(E, E.names[""][name]), last)) out.push(code("from " + o + " import " + name) + " (pip install " + pkg + ")");
+      }
+    });
+    return out;
+  }
+  function deferredNote(D, m, name) {
+    var d = D.deferred && D.deferred[m] && D.deferred[m][name];
+    if (d === undefined) return "";
+    var via = D.via[m][name], top = via.split(".")[0], ps = pairs(D, d);
+    return "<br><span class=\"note\">In " + ps.map(function (p) { return D.releases[p[0]][0] + (p[1] ? " to " + D.releases[p[1] - 1][2] : " on"); }).join(", ") +
+      " this name is not defined here: the module forwards it to " + code(via) + " with a deprecation warning, so the import works only with " +
+      code(PIP[top] || top.replace(/_/g, "-")) + " installed. Importing it from " + code(via) + " directly is the lasting fix.</span>";
+  }
+  // names that import but raise when used (openai 1.x keeps the 0.x names as APIRemovedInV1 proxies)
+  function proxyPairs(D, m, name) {
+    var x = D.proxies && D.proxies[m] && D.proxies[m][name];
+    return x === undefined ? null : pairs(D, x);
+  }
+  function proxyNote(D, m, name) {
+    var ps = proxyPairs(D, m, name);
+    if (!ps) return "";
+    return "<br><span class=\"note\">From " + ps.map(function (p) { return D.releases[p[0]][0] + (p[1] ? " to " + D.releases[p[1] - 1][2] : " on"); }).join(", ") +
+      " the import succeeds but gives a placeholder: using it raises " + (window.LOOKUP_PROXY_MSG || "an error") + "</span>";
+  }
+  function answerName(lib, m, name, mine) {
+    var D = DATA[lib];
+    if (!modEver(D, m)) {
+      var wn0 = whereNow(D, lib, name, null);
+      return row(code(name), label(lib, m), "<span class=\"s n\">no such module</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has a module " + code(label(lib, m)) + "." +
+        (wn0.length ? " " + code(name) + ": " + wn0.join("; ") + "." : ""));
+    }
+    var table = D.names[m] || {}, ri = table[name], cell, status;
+    if (ri === undefined) {
+      var nn = near(name, Object.keys(table)), wn = whereNow(D, lib, name, m), mp = modPairs(D, m), ml = mp[mp.length - 1];
+      var es = D.ext_star && D.ext_star[m];
+      if (es) return row(code(name), label(lib, m), "<span class=\"s\">not listed</span>",
+        code(label(lib, m)) + " passes along everything from " + es[1].map(code).join(" or ") + ", whose names this page does not list. The module exists " +
+        pairs(D, es[0]).map(function (p) { return rangeText(D, p); }).join(", ") + ".");
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " lets you import this name from " + code(label(lib, m)) + "." +
+        (ml[1] ? " The module itself is gone since " + D.releases[ml[1]][0] + "." : "") +
+        (wn.length ? "<br>Now: " + wn.join("; ") + "." : "") +
+        (nn.length ? "<br>Close names in this module: " + nn.map(code).join(", ") + "." : "") +
+        (!wn.length && !nn.length ? " It may come from a fork, from the development branch, or from a release newer than " + D.latest + "." : "");
+    } else {
+      var ps = pairs(D, ri), last = ps[ps.length - 1];
+      status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+      cell = ps.map(function (p) { return rangeText(D, p); }).join("<br>") + "<br>" + pin(D, lib, last);
+      if (last[1]) {
+        var at = alsoAt(D, lib, name, m, last[1]), wn2 = whereNow(D, lib, name, m), h = HINTS[lib + ":" + m + ":" + name];
+        if (at.length) cell += "<br>In " + D.releases[last[1]][0] + ", the release that dropped it here, it was still importable from " + at.join(", ") + ".";
+        if (wn2.length) cell += "<br>Now: " + wn2.join("; ") + ".";
+        var sib = siblingsNow(lib, m, name);
+        if (sib.length) cell += "<br>Now in another package: " + sib.join("; ") + ".";
+        if (h) cell += "<br>Instead: " + h;
+      }
+      cell += deferredNote(D, m, name) + proxyNote(D, m, name);
+      var pp = proxyPairs(D, m, name);
+      if (pp && inRange(pp, D.releases.length - 1)) status = "<span class=\"s n\">placeholder</span>";
+      var hp = HINTS[lib + ":" + m + ":" + name];
+      if (pp && !last[1] && hp) cell += "<br>Instead: " + hp;
+      if (mine !== null) cell += pp && inRange(pp, mine) ? "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": has only the placeholder.</strong>" : mineText(inRange(ps, mine), lib, "it");
+    }
+    D.stale.forEach(function (s) {
+      if (s[0] === m && s[1] === name)
+        cell += "<br><span class=\"note\">From " + D.releases[s[4]][0] + (s[5] ? " through " + D.releases[s[5] - 1][2] : " on") +
+          " the lazy table still lists this name, but the entry points to " + code(s[2]) + ", " +
+          (s[3] === "nofile" ? "a file that is not there" : "which does not provide it") + ": the import fails.</span>";
+    });
+    return row(code(name), label(lib, m), status, cell);
+  }
+
+  function answerBare(name, mine) {
+    var hits = [];
+    LIBS.forEach(function (lib) {
+      var D = DATA[lib];
+      Object.keys(D.names).forEach(function (m) { if (D.names[m][name] !== undefined) hits.push([lib, m]); });
+    });
+    if (!hits.length) {
+      var nn = [];
+      LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
+      return row(code(name), ALL, "<span class=\"s n\">never there</span>",
+        "No release of " + ALL + " has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package, see the related pages at the bottom.");
+    }
+    hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
+    return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +
+      (hits.length > 6 ? row(code(name), "", "", (hits.length - 6) + " more modules have this name; paste the import line to pick one.") : "");
+  }
+
+  function load(lib) {
+    if (DATA[lib]) return Promise.resolve();
+    return fetch(lib + ".json").then(function (r) { if (!r.ok) throw new Error(lib + ".json " + r.status); return r.json(); })
+      .then(function (d) { DATA[lib] = d; });
+  }
+  function done() { $("res").setAttribute("data-done", String(++SEQ)); }
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), want = {};
+    $("status").textContent = "";
+    if (v && !/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.13.2."; done(); return; }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
+    qs.forEach(function (q) {
+      if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; });
+      else { want[q.lib] = 1; (SIB[q.lib] || []).forEach(function (l) { want[l] = 1; }); }
+    });
+    $("status").textContent = "Loading the names...";
+    Promise.all(Object.keys(want).map(load)).then(function () {
+      $("status").textContent = "";
+      var libsSeen = {};
+      $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+        qs.map(function (q) {
+          if (q.lib === "?") return answerBare(q.name, null);
+          var D = DATA[q.lib], mine = v ? indexOfVersion(D, v.replace(/^v/, "")) : null;
+          libsSeen[q.lib] = 1;
+          if (mine !== null && mine < 0) mine = null;
+          return q.name === null ? answerModule(q.lib, q.mod, mine) : answerName(q.lib, q.mod, q.name, mine);
+        }).join("") + "</tbody></table></div>" +
+        "<p class=\"note\">" + Object.keys(want).map(function (l) {
+          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest +
+            (D.every ? " (every tagged release)" : " (the first release of each minor version; patch releases in between are assumed to keep the names)");
+        }).join("; ") + "." +
+        (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
+      done();
+    }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });
+  }
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  window.PTA_READY = true;
+  var p = new URLSearchParams(location.search);
+  if (p.get("q")) { $("q").value = p.get("q"); $("v").value = p.get("v") || ""; run(); }
+})();
+</script>
+</body>
+</html>
