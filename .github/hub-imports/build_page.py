@@ -148,6 +148,8 @@ n_lib_versions = sum(len(D["needs"][l]["dates"]) for l in D["needs"])
 assert not any(r[4] for r in D["needs"]["peft"]["runs"])
 assert set(D["not_names"]) <= {"top:constants", "utils:insecure_hashlib"}, D["not_names"]
 
+i_bucket = D["errors"]["BucketNotFoundError"][0]
+assert R[i_bucket][0] == "1.5.0", R[i_bucket]
 FAQ = [
     ("Which huggingface_hub version removed cached_download?",
      "huggingface_hub 0.26.0 (%s). cached_download is importable through %s. Its deprecation message names the replacement: "
@@ -160,6 +162,11 @@ FAQ = [
      "huggingface_hub 1.0.0 (%s) removed HfFolder; %s is the last release that has it. Use login() to store a token and get_token() to "
      "read one. gradio imports HfFolder at module level from 4.9.0 to 5.7.x and stops in 5.8.0; datasets from 1.13.0 to 2.15.x and "
      "stops in 2.16.0." % (R[i10][1], last0)),
+    ("How do I fix \"cannot import name 'BucketNotFoundError' from 'huggingface_hub.errors'\"?",
+     "BucketNotFoundError first appears in huggingface_hub %s (%s). datasets 5.1.0 and later import it at module level and declare "
+     "huggingface-hub>=1.31.0, so the error means the hub was kept older than %s, often below 1.0 for transformers 4.x. Upgrade the hub "
+     "(pip install -U \"huggingface_hub>=1.31.0\"), or, if it has to stay on 0.x, use datasets 5.0.1: 4.8.0 to 5.0.1 import the name only "
+     "when the installed hub is 1.6.0 or newer." % (R[i_bucket][0], R[i_bucket][1], R[i_bucket][0])),
     ("Does pinning huggingface_hub break anything else?",
      "It can. Newer releases of the same libraries import names that old hub releases do not have: for example diffusers 0.33.0 and later "
      "need huggingface_hub 0.27.0 or newer for DDUFEntry. Pick a hub release inside the range of every library you have installed; the "
@@ -246,7 +253,7 @@ page = f"""<!DOCTYPE html>
 <tbody>
 {needs_html}
 </tbody></table></div>
-<p class="note">Read at the first release of each minor version of each library ({n_lib_versions} releases; newest read: {libs_latest}). "0.28.x" means the 0.28 series. An import inside a <code>try</code> block, a function or <code>if TYPE_CHECKING:</code> is not counted, because it does not stop the library from importing. All files of the package are counted, including ones a library loads only on demand (diffusers loads most pipeline files that way), so "at least" can be stricter than what a plain <code>import</code> of the library needs; "below" for <code>cached_download</code> and <code>HfFolder</code> is confirmed by the public error reports linked under Sources.</p>
+<p class="note">Read at the first release of each minor version of each library ({n_lib_versions} releases; newest read: {libs_latest}). "0.28.x" means the 0.28 series. An import inside a <code>try</code> block, a function, <code>if TYPE_CHECKING:</code> or an <code>if</code> on the installed hub version (datasets 4.8.0 to 5.0.x) is not counted, because it does not stop the library from importing. All files of the package are counted, including ones a library loads only on demand (diffusers loads most pipeline files that way), so "at least" can be stricter than what a plain <code>import</code> of the library needs; "below" for <code>cached_download</code> and <code>HfFolder</code> is confirmed by the public error reports linked under Sources.</p>
 
 <h2 id="common">Which release has the names people ask about most?</h2>
 <p><strong>The table gives the releases that export each name, the replacement named by the library's own deprecation message, and the libraries that import the name.</strong> "Through" is the last patch release before the name disappeared.</p>

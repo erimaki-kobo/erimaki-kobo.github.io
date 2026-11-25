@@ -78,8 +78,12 @@ def imports(src):
             if isinstance(n, ast.ImportFrom) and n.level == 0 and n.module in MODS:
                 out.extend((MODS[n.module], a.name, hard) for a in n.names if a.name != "*")
             elif isinstance(n, ast.If):
-                tc = "TYPE_CHECKING" in ast.dump(n.test)
-                walk(n.body, hard and not tc)
+                dump = ast.dump(n.test)
+                # TYPE_CHECKING, and gates on the installed hub's version or on
+                # an is_*_available() check (datasets 4.8.0: `if config.HF_HUB_VERSION
+                # >= version.parse("1.6.0"):`), do not stop the file from importing
+                soft = "TYPE_CHECKING" in dump or ("version_info" not in dump and re.search(r"version|available", dump, re.I))
+                walk(n.body, hard and not soft)
                 walk(n.orelse, hard)
             elif isinstance(n, ast.Try):
                 walk(n.body, False)

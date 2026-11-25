@@ -33,3 +33,7 @@ node check_browser.js http://127.0.0.1:PORT        # serve the repository root; 
   copy identical in 66 of 66 lazy releases, 8 runs confirmed by plain-text search, 16 anchors; check_browser 24 lookups x 2 widths.
 - Not done: nothing was installed. More libraries (transformers, timm, open_clip, accelerate) could be added with one
   `downstream_hist.py` line each; transformers needs all `.py` blobs of 100 releases, so it was left out.
+- 2026-11-25: imports under an `if` on the installed hub version or an `is_*_available()` check now count as soft
+  (datasets 4.8.0 to 5.0.x gate `BucketNotFoundError` on `config.HF_HUB_VERSION >= 1.6.0`; the table had said they need hub 1.5.0).
+  Checked by installing: datasets 5.0.1 imports with hub 0.36.0; datasets 5.1.0 with hub 1.4.1 or 0.36.0 fails with
+  "cannot import name 'BucketNotFoundError' from 'huggingface_hub.errors'". peft 0.22.0 added.
