@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="vllm-import-name-version-lookup/">ImportError: cannot import name 'GuidedDecodingParams' (or get_open_port, ChatCompletionRequest, any name) from 'vllm...': which vLLM releases have it</a></h2>
+<p>vLLM 0.12.0 removed <code>GuidedDecodingParams</code> and split <code>vllm.utils</code> (<code>get_open_port</code> is in <code>vllm.utils.network_utils</code>, with a deprecated alias until 0.13); 0.15.0 split <code>vllm.entrypoints.openai.protocol</code>. Which TRL works with which vLLM, and every module of vLLM 0.1.0 to 0.34.0. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="gradio-import-name-version-lookup/">ImportError: cannot import name 'inputs' (or Box, IOComponent, ChatInterface, any name) from 'gradio': which gradio version has it</a></h2>
 <p>gradio 4.0.0 removed <code>gr.inputs</code>, <code>gr.outputs</code>, <code>Box</code>, <code>Variable</code>, <code>Carousel</code> and <code>gradio.components.IOComponent</code>; 3.50.2 is the last release with them. What replaces each one, which release added <code>ChatInterface</code> (3.37.0) and <code>ChatMessage</code> (4.38.0), and every module of gradio 3.0.1 to 6.32.0. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>
