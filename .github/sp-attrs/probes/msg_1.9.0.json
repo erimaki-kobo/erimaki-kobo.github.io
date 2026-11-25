@@ -1,0 +1,5 @@
+{
+"scipy.stats": {
+"NumericalInverseHermite": "NumericalInverseHermite has been deprecated from `scipy.stats` and will be removed in SciPy 1.10.0. To use `NumericalInverseHermite`, import/use it from `scipy.stats.sampling` module instead. i.e. `from scipy.stats.sampling import NumericalInverseHermite` [found by text search]"
+}
+}

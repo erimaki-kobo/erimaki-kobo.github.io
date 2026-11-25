@@ -1,0 +1,5 @@
+{
+"scipy.stats": {
+"trapz": "`trapz` is deprecated in favour of `trapezoid` and will be removed in SciPy 1.16.0. [found by text search]"
+}
+}

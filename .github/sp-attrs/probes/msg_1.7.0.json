@@ -1,0 +1,10 @@
+{
+"scipy": {
+"loads": "np.loads is deprecated, use pickle.loads instead",
+"mafromtxt": "np.mafromtxt is a deprecated alias of np.genfromtxt, prefer the latter.",
+"ndfromtxt": "np.ndfromtxt is a deprecated alias of np.genfromtxt, prefer the latter."
+},
+"scipy.spatial.distance": {
+"wminkowski": "scipy.distance.wminkowski is deprecated and will be removed in SciPy 1.8.0, use scipy.distance.minkowski instead."
+}
+}

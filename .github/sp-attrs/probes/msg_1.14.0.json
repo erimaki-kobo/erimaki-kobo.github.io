@@ -1,0 +1,32 @@
+{
+"scipy.integrate": {
+"quadrature": "`scipy.integrate.quadrature` is deprecated as of SciPy 1.12.0and will be removed in SciPy 1.15.0. Please use`scipy.integrate.quad` instead.",
+"romberg": "`scipy.integrate.romberg` is deprecated as of SciPy 1.12.0and will be removed in SciPy 1.15.0. Please use`scipy.integrate.quad` instead."
+},
+"scipy.misc": {
+"ascent": "scipy.misc.ascent has been deprecated in SciPy v1.10.0; and will be completely removed in SciPy v1.12.0. Dataset methods have moved into the scipy.datasets module. Use scipy.datasets.ascent instead.",
+"central_diff_weights": "scipy.misc.central_diff_weights is deprecated in SciPy v1.10.0; and will be completely removed in SciPy v1.12.0. You may consider using findiff: https://github.com/maroba/findiff or numdifftools: https://github.com/pbrod/numdifftools",
+"derivative": "scipy.misc.derivative is deprecated in SciPy v1.10.0; and will be completely removed in SciPy v1.12.0. You may consider using findiff: https://github.com/maroba/findiff or numdifftools: https://github.com/pbrod/numdifftools",
+"electrocardiogram": "scipy.misc.electrocardiogram has been deprecated in SciPy v1.10.0; and will be completely removed in SciPy v1.12.0. Dataset methods have moved into the scipy.datasets module. Use scipy.datasets.electrocardiogram instead.",
+"face": "scipy.misc.face has been deprecated in SciPy v1.10.0; and will be completely removed in SciPy v1.12.0. Dataset methods have moved into the scipy.datasets module. Use scipy.datasets.face instead.",
+"doccer": "`; furthermore, `scipy.misc.doccer` is deprecated and will be removed in SciPy 2.0.0. [found by text search]"
+},
+"scipy.signal": {
+"cascade": "scipy.signal.%s is deprecated in SciPy 1.12 and will be removed in SciPy 1.15. We recommend using PyWavelets instead.",
+"cmplx_sort": "cmplx_sort was deprecated in SciPy 1.12 and will be removed in SciPy 1.15. The exact equivalent for a numpy array argument is >>> def cmplx_sort(p): ... idx = np.argsort(abs(p)) ... return np.take(p, idx, 0), idx",
+"cwt": "scipy.signal.%s is deprecated in SciPy 1.12 and will be removed in SciPy 1.15. We recommend using PyWavelets instead.",
+"daub": "scipy.signal.%s is deprecated in SciPy 1.12 and will be removed in SciPy 1.15. We recommend using PyWavelets instead.",
+"morlet": "scipy.signal.%s is deprecated in SciPy 1.12 and will be removed in SciPy 1.15. We recommend using PyWavelets instead.",
+"morlet2": "scipy.signal.%s is deprecated in SciPy 1.12 and will be removed in SciPy 1.15. We recommend using PyWavelets instead.",
+"qmf": "scipy.signal.%s is deprecated in SciPy 1.12 and will be removed in SciPy 1.15. We recommend using PyWavelets instead.",
+"ricker": "scipy.signal.%s is deprecated in SciPy 1.12 and will be removed in SciPy 1.15. We recommend using PyWavelets instead."
+},
+"scipy.special": {
+"btdtr": "This function was deprecated in SciPy 1.12.0, and will be removed in SciPy 1.14.0. Use scipy.special.{} instead.",
+"btdtri": "This function was deprecated in SciPy 1.12.0, and will be removed in SciPy 1.14.0. Use scipy.special.{} instead."
+},
+"scipy.stats": {
+"rvs_ratio_uniforms": "Please use `RatioUniforms` from the `scipy.stats.sampling` namespace. The `scipy.stats.rvs_ratio_uniforms` namespace is deprecated and will be removed in SciPy 1.15.0",
+"sampling": "Please use `RatioUniforms` from the `scipy.stats.sampling` namespace. The `scipy.stats.rvs_ratio_uniforms` namespace is deprecated and will be removed in SciPy 1.15.0 [found by text search]"
+}
+}

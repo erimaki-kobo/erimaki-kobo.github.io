@@ -1,0 +1,10 @@
+{
+"scipy": {
+"rank": "`rank` is deprecated; use the `ndim` attribute or function instead. To find the rank of a matrix see `numpy.linalg.matrix_rank`."
+},
+"scipy.special": {
+"hyp1f2": "hyp1f2 is deprecated in SciPy 1.2 [found by text search]",
+"hyp2f0": "hyp2f0 is deprecated in SciPy 1.2 [found by text search]",
+"hyp3f0": "hyp3f0 is deprecated in SciPy 1.2 [found by text search]"
+}
+}

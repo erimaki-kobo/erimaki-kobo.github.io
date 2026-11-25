@@ -1,0 +1,14 @@
+{
+"scipy": {
+"alen": "`np.alen` is deprecated, use `len` instead"
+},
+"scipy.linalg": {
+"pinv2": "scipy.linalg.pinv2 is deprecated since SciPy 1.7.0, use scipy.linalg.pinv instead"
+},
+"scipy.spatial.distance": {
+"matching": "spatial.distance.matching is deprecated in scipy 1.0.0; use spatial.distance.hamming instead. [found by text search]"
+},
+"scipy.stats": {
+"itemfreq": "`itemfreq` is deprecated and will be removed in a future version. Use instead `np.unique(..., return_counts=True)` [found by text search]"
+}
+}

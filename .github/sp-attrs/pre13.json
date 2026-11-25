@@ -1,0 +1,58 @@
+{
+"bytescale": {
+"message": "`bytescale` is deprecated in SciPy 1.0.0, and will be removed in 1.2.0.",
+"file": "scipy/misc/pilutil.py"
+},
+"imread": {
+"message": "`imread` is deprecated in SciPy 1.0.0, and will be removed in 1.2.0. Use ``imageio.imread`` instead.",
+"file": "scipy/misc/pilutil.py"
+},
+"imsave": {
+"message": "`imsave` is deprecated in SciPy 1.0.0, and will be removed in 1.2.0. Use ``imageio.imwrite`` instead.",
+"file": "scipy/misc/pilutil.py"
+},
+"fromimage": {
+"message": "`fromimage` is deprecated in SciPy 1.0.0. and will be removed in 1.2.0. Use ``np.asarray(im)`` instead.",
+"file": "scipy/misc/pilutil.py"
+},
+"toimage": {
+"message": "`toimage` is deprecated in SciPy 1.0.0, and will be removed in 1.2.0. Use Pillow's ``Image.fromarray`` directly instead.",
+"file": "scipy/misc/pilutil.py"
+},
+"imrotate": {
+"message": "`imrotate` is deprecated in SciPy 1.0.0, and will be removed in 1.2.0. Use ``skimage.transform.rotate`` instead.",
+"file": "scipy/misc/pilutil.py"
+},
+"imshow": {
+"message": "`imshow` is deprecated in SciPy 1.0.0, and will be removed in 1.2.0. Use ``matplotlib.pyplot.imshow`` instead.",
+"file": "scipy/misc/pilutil.py"
+},
+"imresize": {
+"message": "`imresize` is deprecated in SciPy 1.0.0, and will be removed in 1.3.0. Use Pillow instead: ``numpy.array(Image.fromarray(arr).resize())``.",
+"file": "scipy/misc/pilutil.py"
+},
+"imfilter": {
+"message": "`imfilter` is deprecated in SciPy 1.0.0, and will be removed in 1.2.0. Use Pillow filtering functionality directly.",
+"file": "scipy/misc/pilutil.py"
+},
+"comb": {
+"message": "Importing `comb` from scipy.misc is deprecated in scipy 1.0.0. Use `scipy.special.comb` instead.",
+"file": "scipy/misc/__init__.py"
+},
+"factorial": {
+"message": "Importing `factorial` from scipy.misc is deprecated in scipy 1.0.0. Use `scipy.special.factorial` instead.",
+"file": "scipy/misc/__init__.py"
+},
+"factorial2": {
+"message": "Importing `factorial2` from scipy.misc is deprecated in scipy 1.0.0. Use `scipy.special.factorial2` instead.",
+"file": "scipy/misc/__init__.py"
+},
+"factorialk": {
+"message": "Importing `factorialk` from scipy.misc is deprecated in scipy 1.0.0. Use `scipy.special.factorialk` instead.",
+"file": "scipy/misc/__init__.py"
+},
+"logsumexp": {
+"message": "Importing `logsumexp` from scipy.misc is deprecated in scipy 1.0.0. Use `scipy.special.logsumexp` instead.",
+"file": "scipy/misc/__init__.py"
+}
+}

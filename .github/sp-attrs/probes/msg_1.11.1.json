@@ -1,0 +1,30 @@
+{
+"scipy": {
+"array2string": "'style' argument is deprecated and no longer functional except in 1.13 'legacy' mode",
+"corrcoef": "bias and ddof have no effect and are deprecated",
+"find_common_type": "np.find_common_type is deprecated. Please use `np.result_type` or `np.promote_types`. See https://numpy.org/devdocs/release/1.25.0-notes.html and the docs for more information. (Deprecated NumPy 1.25)",
+"genfromtxt": "Reading unicode strings without specifying the encoding argument is deprecated. Set the encoding, use None for the system default.",
+"msort": "msort is deprecated, use np.sort(a, axis=0) instead",
+"sum": "Calling np.sum(generator) is deprecated, and in the future will give a different result. Use np.sum(np.fromiter(generator)) or the python sum builtin instead.",
+"array": "Get shape of a sparse array. .. deprecated:: 1.11.0 This method will be removed in SciPy 1.13.0. Use `X.shape` instead. [found by text search]",
+"copy": "Returns a copy of row i of the array, as a (1 x n) sparse array (row vector). .. deprecated:: 1.11.0 This method will be removed in SciPy 1.13.0. Use array indexing instead. [found by text search]",
+"dtype": "Using medfilt with arrays of dtype {...} is deprecated in SciPy 1.11 and will be removed in SciPy 1.13 [found by text search]",
+"extract": "scipy.sparse.extract is deprecated and has no attribute [found by text search]",
+"floating": "Upcast array to a floating point format (if necessary) .. deprecated:: 1.11.0 This method is for internal use only, and will be removed from the public API in SciPy 1.13.0. [found by text search]",
+"ifft": "scipy.ifft is deprecated and will be removed in SciPy 2.0.0, use scipy.fft.ifft instead [found by text search]",
+"integer": "Non-integer arrays (e.g. due to presence of NaNs) together with exact=True are deprecated. Either ensure that the the array has integer dtype or use exact=False. [found by text search]",
+"number": "Maximum number of elements to display when printed. .. deprecated:: 1.11.0 This method is for internal use only, and will be removed from the public API in SciPy 1.13.0. [found by text search]",
+"polyint": "scipy.interpolate.polyint is deprecated and has no attribute [found by text search]",
+"reshape": "See `reshape`. .. deprecated:: 1.11.0 This method will be removed in SciPy 1.13.0. Use `X.reshape` instead. [found by text search]",
+"shape": "Get shape of a sparse array. .. deprecated:: 1.11.0 This method will be removed in SciPy 1.13.0. Use `X.shape` instead. [found by text search]",
+"transpose": "Return the Hermitian transpose of this array. .. deprecated:: 1.11.0 This method will be removed in SciPy 1.13.0. Use `X.conj().T` instead. [found by text search]",
+"tri": "'tri'/'tril/'triu' are deprecated as of SciPy 1.11.0 and will be removed in v1.13.0. Please use numpy.(tri/tril/triu) instead. [found by text search]",
+"tril": "'tri'/'tril/'triu' are deprecated as of SciPy 1.11.0 and will be removed in v1.13.0. Please use numpy.(tri/tril/triu) instead. [found by text search]",
+"triu": "'tri'/'tril/'triu' are deprecated as of SciPy 1.11.0 and will be removed in v1.13.0. Please use numpy.(tri/tril/triu) instead. [found by text search]",
+"zeros": "scipy.optimize.zeros is deprecated and has no attribute [found by text search]"
+},
+"scipy.stats": {
+"binom_test": "'binom_test' is deprecated in favour of 'binomtest' from version 1.7.0 and will be removed in Scipy 1.12.0.",
+"statlib": "scipy.stats.statlib is deprecated and has no attribute [found by text search]"
+}
+}

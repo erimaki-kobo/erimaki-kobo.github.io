@@ -1,0 +1,8 @@
+{
+"scipy.spatial.distance": {
+"kulsinski": "Kulsinski has been deprecated from scipy.spatial.distance in SciPy 1.9.0 and it will be removed in SciPy 1.11.0. It is superseded by scipy.spatial.distance.kulczynski1."
+},
+"scipy.stats": {
+"gilbrat": "`gilbrat` is deprecated, use `gibrat` instead! [found by text search]"
+}
+}

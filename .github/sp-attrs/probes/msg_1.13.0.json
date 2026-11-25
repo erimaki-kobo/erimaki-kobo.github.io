@@ -1,0 +1,19 @@
+{
+"scipy.integrate": {
+"cumtrapz": "'scipy.integrate.cumtrapz' is deprecated in favour of 'scipy.integrate.cumulative_trapezoid' and will be removed in SciPy 1.14.0 [found by text search]",
+"simps": "'scipy.integrate.simps' is deprecated in favour of 'scipy.integrate.simpson' and will be removed in SciPy 1.14.0 [found by text search]",
+"trapz": "'scipy.integrate.trapz' is deprecated in favour of 'scipy.integrate.trapezoid' and will be removed in SciPy 1.14.0 [found by text search]"
+},
+"scipy.sparse:csr_matrix": {
+"A": "`.A` is deprecated and will be removed in v1.14.0. Use `.toarray()` instead. [found by text search]",
+"H": "`.H` is deprecated and will be removed in v1.14.0. Please use `.T.conjugate()` instead. [found by text search]"
+},
+"scipy.sparse:coo_matrix": {
+"A": "`.A` is deprecated and will be removed in v1.14.0. Use `.toarray()` instead. [found by text search]",
+"H": "`.H` is deprecated and will be removed in v1.14.0. Please use `.T.conjugate()` instead. [found by text search]"
+},
+"scipy.sparse:lil_matrix": {
+"A": "`.A` is deprecated and will be removed in v1.14.0. Use `.toarray()` instead. [found by text search]",
+"H": "`.H` is deprecated and will be removed in v1.14.0. Please use `.T.conjugate()` instead. [found by text search]"
+}
+}

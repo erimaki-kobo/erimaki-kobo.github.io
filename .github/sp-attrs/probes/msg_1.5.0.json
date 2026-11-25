@@ -1,0 +1,12 @@
+{
+"scipy.signal.windows": {
+"slepian": "slepian is deprecated and will be removed in a future version, use dpss instead"
+},
+"scipy.signal": {
+"slepian": "slepian is deprecated and will be removed in a future version, use dpss instead [found by text search]"
+},
+"scipy.stats": {
+"frechet_l": "The distribution `frechet_l` is a synonym for `weibull_max`; this historical usage is deprecated because of possible confusion with the (quite different) Frechet distribution. To preserve the existing behavior of the program, use `scipy.stats.weibull_max`. For the Frechet distribution (i.e. the Type II extreme value distribution), use `scipy.stats.invweibull`. [found by text search]",
+"frechet_r": "The distribution `frechet_r` is a synonym for `weibull_min`; this historical usage is deprecated because of possible confusion with the (quite different) Frechet distribution. To preserve the existing behavior of the program, use `scipy.stats.weibull_min`. For the Frechet distribution (i.e. the Type II extreme value distribution), use `scipy.stats.invweibull`. [found by text search]"
+}
+}

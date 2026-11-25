@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="scipy-removed-name-lookup/">ImportError: cannot import name 'triu' from 'scipy.linalg' (or 'simps', 'imread', any name): which SciPy removed it and what to use</a></h2>
+<p>SciPy 1.13 removed <code>linalg.triu</code> (gensim 4.3.2 breaks; use <code>numpy.triu</code>), 1.14 <code>integrate.simps</code> and the sparse <code>.A</code>, 1.12 the NumPy names on <code>scipy</code>, 1.3 <code>misc.imread</code>. 17 releases from 1.3.3 to 1.18.1 installed and run. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="pandas-removed-attribute-lookup/">AttributeError: 'DataFrame' object has no attribute 'append' (or 'iteritems', 'ix', 'applymap', any name): which pandas removed it and what to use</a></h2>
 <p>pandas 2.0 removed <code>DataFrame.append</code> (use <code>pd.concat</code>), <code>iteritems</code> and <code>Int64Index</code>; 3.0 removed <code>applymap</code> (use <code>map</code>); 1.0 removed <code>.ix</code>. 170 removals across 14 releases from 0.25.3 to 3.1.1, installed and run, with pandas' own deprecation text. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>
