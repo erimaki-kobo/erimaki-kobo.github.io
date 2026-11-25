@@ -1,0 +1,52 @@
+{
+"product": {
+"tag": "v1.25.0",
+"file": "numpy/core/fromnumeric.py",
+"message": "`product` is deprecated as of NumPy 1.25.0, and will be removed in NumPy 2.0. Please use `prod` instead."
+},
+"cumproduct": {
+"tag": "v1.25.0",
+"file": "numpy/core/fromnumeric.py",
+"message": "`cumproduct` is deprecated as of NumPy 1.25.0, and will be removed in NumPy 2.0. Please use `cumprod` instead."
+},
+"alltrue": {
+"tag": "v1.25.0",
+"file": "numpy/core/fromnumeric.py",
+"message": "`alltrue` is deprecated as of NumPy 1.25.0, and will be removed in NumPy 2.0. Please use `all` instead."
+},
+"sometrue": {
+"tag": "v1.25.0",
+"file": "numpy/core/fromnumeric.py",
+"message": "`sometrue` is deprecated as of NumPy 1.25.0, and will be removed in NumPy 2.0. Please use `any` instead."
+},
+"msort": {
+"tag": "v1.24.0",
+"file": "numpy/lib/function_base.py",
+"message": "msort is deprecated, use np.sort(a, axis=0) instead"
+},
+"in1d": {
+"tag": "v2.0.0",
+"file": "numpy/lib/_arraysetops_impl.py",
+"message": "`in1d` is deprecated. Use `np.isin` instead."
+},
+"trapz": {
+"tag": "v2.0.0",
+"file": "numpy/lib/_function_base_impl.py",
+"message": "`trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`."
+},
+"row_stack": {
+"tag": "v2.0.0",
+"file": "numpy/lib/_shape_base_impl.py",
+"message": "`row_stack` alias is deprecated. Use `np.vstack` directly."
+},
+"asscalar": {
+"tag": "v1.22.0",
+"file": "numpy/lib/type_check.py",
+"message": "np.asscalar(a) is deprecated since NumPy v1.16, use a.item() instead"
+},
+"chararray": {
+"tag": "v2.0.0",
+"file": "numpy/__init__.py",
+"message": "`np.chararray` is deprecated and will be removed from the main namespace in the future. Use an array with a string or bytes dtype instead."
+}
+}

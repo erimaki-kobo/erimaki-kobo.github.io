@@ -1,0 +1,515 @@
+{
+"numpy": "2.2.0",
+"python": "3.12.3",
+"names": {
+"DataSource": {
+"ok": false,
+"error": "`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`.",
+"warn": []
+},
+"Inf": {
+"ok": false,
+"error": "`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead.",
+"warn": []
+},
+"Infinity": {
+"ok": false,
+"error": "`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead.",
+"warn": []
+},
+"MachAr": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'MachAr'",
+"warn": []
+},
+"NINF": {
+"ok": false,
+"error": "`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead.",
+"warn": []
+},
+"NZERO": {
+"ok": false,
+"error": "`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead.",
+"warn": []
+},
+"NaN": {
+"ok": false,
+"error": "`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead.",
+"warn": []
+},
+"PINF": {
+"ok": false,
+"error": "`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead.",
+"warn": []
+},
+"PZERO": {
+"ok": false,
+"error": "`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead.",
+"warn": []
+},
+"_core": {
+"ok": true,
+"warn": []
+},
+"add_docstring": {
+"ok": false,
+"error": "`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`.",
+"warn": []
+},
+"add_newdoc": {
+"ok": false,
+"error": "`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`.",
+"warn": []
+},
+"add_newdoc_ufunc": {
+"ok": false,
+"error": "`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement.",
+"warn": []
+},
+"alltrue": {
+"ok": false,
+"error": "`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead.",
+"warn": []
+},
+"array_api": {
+"ok": false,
+"error": "`numpy.array_api` is not available from numpy 2.0 onwards",
+"warn": []
+},
+"asfarray": {
+"ok": false,
+"error": "`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead.",
+"warn": []
+},
+"asscalar": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'asscalar'",
+"warn": []
+},
+"bool": {
+"ok": true,
+"warn": []
+},
+"bool8": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'bool8'",
+"warn": []
+},
+"bool_": {
+"ok": true,
+"warn": []
+},
+"byte_bounds": {
+"ok": false,
+"error": "`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`",
+"warn": []
+},
+"bytes": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'bytes'",
+"warn": [
+"FutureWarning"
+]
+},
+"bytes0": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'bytes0'",
+"warn": []
+},
+"cast": {
+"ok": false,
+"error": "`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead.",
+"warn": []
+},
+"cfloat": {
+"ok": false,
+"error": "`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead.",
+"warn": []
+},
+"chararray": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"clongfloat": {
+"ok": false,
+"error": "`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead.",
+"warn": []
+},
+"compare_chararrays": {
+"ok": false,
+"error": "`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`.",
+"warn": []
+},
+"compat": {
+"ok": false,
+"error": "`np.compat` was removed in the NumPy 2.0 release. There's no replacement, as Python 2 is no longer supported.",
+"warn": []
+},
+"complex": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": []
+},
+"complex_": {
+"ok": false,
+"error": "`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead.",
+"warn": []
+},
+"core": {
+"ok": true,
+"warn": []
+},
+"cumproduct": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'cumproduct'",
+"warn": []
+},
+"deprecate": {
+"ok": false,
+"error": "`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`.",
+"warn": []
+},
+"deprecate_with_doc": {
+"ok": false,
+"error": "`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`.",
+"warn": []
+},
+"disp": {
+"ok": false,
+"error": "`np.disp` was removed in the NumPy 2.0 release. Use your own printing function instead.",
+"warn": []
+},
+"distutils": {
+"ok": false,
+"error": "`numpy.distutils` is not available from Python 3.12 onwards",
+"warn": []
+},
+"fastCopyAndTranspose": {
+"ok": false,
+"error": "`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead.",
+"warn": []
+},
+"find_common_type": {
+"ok": false,
+"error": "`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`.",
+"warn": []
+},
+"float": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": []
+},
+"float32": {
+"ok": true,
+"warn": []
+},
+"float64": {
+"ok": true,
+"warn": []
+},
+"float_": {
+"ok": false,
+"error": "`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead.",
+"warn": []
+},
+"format_parser": {
+"ok": false,
+"error": "`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`.",
+"warn": []
+},
+"fv": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'fv'",
+"warn": []
+},
+"get_array_wrap": {
+"ok": false,
+"error": "`np.get_array_wrap` was removed in the NumPy 2.0 release. ",
+"warn": []
+},
+"geterrobj": {
+"ok": false,
+"error": "`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead.",
+"warn": []
+},
+"in1d": {
+"ok": true,
+"warn": []
+},
+"infty": {
+"ok": false,
+"error": "`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead.",
+"warn": []
+},
+"int": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": []
+},
+"int0": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'int0'",
+"warn": []
+},
+"int_": {
+"ok": true,
+"warn": []
+},
+"ipmt": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'ipmt'",
+"warn": []
+},
+"irr": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'irr'",
+"warn": []
+},
+"issctype": {
+"ok": false,
+"error": "`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead.",
+"warn": []
+},
+"issubclass_": {
+"ok": false,
+"error": "`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead.",
+"warn": []
+},
+"issubsctype": {
+"ok": false,
+"error": "`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead.",
+"warn": []
+},
+"long": {
+"ok": true,
+"warn": []
+},
+"longcomplex": {
+"ok": false,
+"error": "`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead.",
+"warn": []
+},
+"longfloat": {
+"ok": false,
+"error": "`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead.",
+"warn": []
+},
+"lookfor": {
+"ok": false,
+"error": "`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly.",
+"warn": []
+},
+"mat": {
+"ok": false,
+"error": "`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead.",
+"warn": []
+},
+"math": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'math'",
+"warn": []
+},
+"maximum_sctype": {
+"ok": false,
+"error": "`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code.",
+"warn": []
+},
+"mirr": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'mirr'",
+"warn": []
+},
+"msort": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'msort'",
+"warn": []
+},
+"nbytes": {
+"ok": false,
+"error": "`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead.",
+"warn": []
+},
+"nper": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'nper'",
+"warn": []
+},
+"npv": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'npv'",
+"warn": []
+},
+"obj2sctype": {
+"ok": false,
+"error": "`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead.",
+"warn": []
+},
+"object": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": [
+"FutureWarning"
+]
+},
+"object0": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'object0'",
+"warn": []
+},
+"pmt": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'pmt'",
+"warn": []
+},
+"ppmt": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'ppmt'",
+"warn": []
+},
+"product": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'product'",
+"warn": []
+},
+"pv": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'pv'",
+"warn": []
+},
+"rate": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'rate'",
+"warn": []
+},
+"recfromcsv": {
+"ok": false,
+"error": "`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead.",
+"warn": []
+},
+"recfromtxt": {
+"ok": false,
+"error": "`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead.",
+"warn": []
+},
+"round": {
+"ok": true,
+"warn": []
+},
+"round_": {
+"ok": false,
+"error": "`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead.",
+"warn": []
+},
+"row_stack": {
+"ok": true,
+"warn": []
+},
+"safe_eval": {
+"ok": false,
+"error": "`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead.",
+"warn": []
+},
+"sctype2char": {
+"ok": false,
+"error": "`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead.",
+"warn": []
+},
+"sctypes": {
+"ok": false,
+"error": "`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead.",
+"warn": []
+},
+"set_numeric_ops": {
+"ok": false,
+"error": "`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc.",
+"warn": []
+},
+"set_string_function": {
+"ok": false,
+"error": "`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects.",
+"warn": []
+},
+"seterrobj": {
+"ok": false,
+"error": "`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead.",
+"warn": []
+},
+"singlecomplex": {
+"ok": false,
+"error": "`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead.",
+"warn": []
+},
+"sometrue": {
+"ok": false,
+"error": "`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead.",
+"warn": []
+},
+"source": {
+"ok": false,
+"error": "`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead.",
+"warn": []
+},
+"str": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": [
+"FutureWarning"
+]
+},
+"str0": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'str0'",
+"warn": []
+},
+"string_": {
+"ok": false,
+"error": "`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead.",
+"warn": []
+},
+"tracemalloc_domain": {
+"ok": false,
+"error": "`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`.",
+"warn": []
+},
+"trapz": {
+"ok": true,
+"warn": []
+},
+"typeDict": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'typeDict'",
+"warn": []
+},
+"uint0": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'uint0'",
+"warn": []
+},
+"ulong": {
+"ok": true,
+"warn": []
+},
+"unicode": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'unicode'",
+"warn": []
+},
+"unicode_": {
+"ok": false,
+"error": "`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead.",
+"warn": []
+},
+"void0": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'void0'",
+"warn": []
+},
+"who": {
+"ok": false,
+"error": "`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead.",
+"warn": []
+}
+}
+}

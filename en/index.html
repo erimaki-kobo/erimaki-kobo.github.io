@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="numpy-removed-attribute-lookup/">AttributeError: module 'numpy' has no attribute 'float_' (or 'float', 'NaN', 'product', any name): which NumPy removed it and what to use</a></h2>
+<p>NumPy 1.24 removed <code>np.float</code>, <code>np.int</code>, <code>np.bool</code>; 2.0 removed 77 names such as <code>np.float_</code>, <code>np.NaN</code>, <code>np.product</code>; 2.4 <code>np.trapz</code> and <code>np.in1d</code>. 15 releases from 1.19.5 to 2.5.5 installed and run. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="pydantic-import-name-version-lookup/">ImportError: cannot import name 'BaseSettings' (or ModelMetaclass, field_validator, any name) from 'pydantic...': which pydantic releases have it</a></h2>
 <p>pydantic 2.0 moved <code>BaseSettings</code> to <code>pydantic-settings</code> and removed 197 names, which raise <code>PydanticImportError</code>; the whole 1.x API stays in <code>pydantic.v1</code> (also in 1.10.15 and later). Every minor of 0.0.2 to 2.14.4, with the moved names that still import. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>

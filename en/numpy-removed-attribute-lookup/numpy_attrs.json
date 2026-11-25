@@ -1,0 +1,8321 @@
+{
+"releases": [
+[
+"1.19.5",
+"2021-01-05",
+"3.9.25"
+],
+[
+"1.20.0",
+"2021-01-30",
+"3.9.25"
+],
+[
+"1.21.0",
+"2021-06-22",
+"3.9.25"
+],
+[
+"1.22.0",
+"2021-12-31",
+"3.10.20"
+],
+[
+"1.23.0",
+"2022-06-22",
+"3.10.20"
+],
+[
+"1.24.0",
+"2022-12-18",
+"3.11.18"
+],
+[
+"1.25.0",
+"2023-06-17",
+"3.11.18"
+],
+[
+"1.26.0",
+"2023-09-16",
+"3.11.18"
+],
+[
+"2.0.0",
+"2024-06-16",
+"3.12.3"
+],
+[
+"2.1.0",
+"2024-08-18",
+"3.12.3"
+],
+[
+"2.2.0",
+"2024-12-08",
+"3.12.3"
+],
+[
+"2.3.0",
+"2025-06-07",
+"3.12.3"
+],
+[
+"2.4.1",
+"2026-01-10",
+"3.12.3"
+],
+[
+"2.5.0",
+"2026-06-21",
+"3.12.3"
+],
+[
+"2.5.5",
+"2026-11-15",
+"3.12.3"
+]
+],
+"names": {
+"DataSource": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+],
+[
+"2.1.0",
+"msg",
+"`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+],
+[
+"2.2.0",
+"msg",
+"`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+],
+[
+"2.3.0",
+"msg",
+"`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+],
+[
+"2.4.1",
+"msg",
+"`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+],
+[
+"2.5.0",
+"msg",
+"`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+],
+[
+"2.5.5",
+"msg",
+"`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+]
+],
+"fix": "`np.DataSource` was removed in the NumPy 2.0 release. It's still available as `np.lib.npyio.DataSource`."
+},
+"Inf": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+]
+],
+"fix": "`np.Inf` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+},
+"Infinity": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+]
+],
+"fix": "`np.Infinity` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+},
+"MachAr": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'MachAr'"
+]
+],
+"fix": "`np.MachAr` is deprecated (NumPy 1.22)."
+},
+"NINF": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+]
+],
+"fix": "`np.NINF` was removed in the NumPy 2.0 release. Use `-np.inf` instead."
+},
+"NZERO": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+]
+],
+"fix": "`np.NZERO` was removed in the NumPy 2.0 release. Use `-0.0` instead."
+},
+"NaN": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+]
+],
+"fix": "`np.NaN` was removed in the NumPy 2.0 release. Use `np.nan` instead."
+},
+"PINF": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+]
+],
+"fix": "`np.PINF` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+},
+"PZERO": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+]
+],
+"fix": "`np.PZERO` was removed in the NumPy 2.0 release. Use `0.0` instead."
+},
+"_core": {
+"seq": [
+[
+"1.19.5",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"1.20.0",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"1.21.0",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"1.22.0",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"1.23.0",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute '_core'"
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"add_docstring": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+],
+[
+"2.1.0",
+"msg",
+"`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+],
+[
+"2.2.0",
+"msg",
+"`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+],
+[
+"2.3.0",
+"msg",
+"`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+],
+[
+"2.4.1",
+"msg",
+"`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+],
+[
+"2.5.0",
+"msg",
+"`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+],
+[
+"2.5.5",
+"msg",
+"`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+]
+],
+"fix": "`np.add_docstring` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_docstring`."
+},
+"add_newdoc": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+],
+[
+"2.1.0",
+"msg",
+"`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+],
+[
+"2.2.0",
+"msg",
+"`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+],
+[
+"2.3.0",
+"msg",
+"`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+],
+[
+"2.4.1",
+"msg",
+"`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+],
+[
+"2.5.0",
+"msg",
+"`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+],
+[
+"2.5.5",
+"msg",
+"`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+]
+],
+"fix": "`np.add_newdoc` was removed in the NumPy 2.0 release. It's still available as `np.lib.add_newdoc`."
+},
+"add_newdoc_ufunc": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+],
+[
+"2.1.0",
+"msg",
+"`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+],
+[
+"2.2.0",
+"msg",
+"`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+],
+[
+"2.3.0",
+"msg",
+"`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+],
+[
+"2.4.1",
+"msg",
+"`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+],
+[
+"2.5.0",
+"msg",
+"`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+],
+[
+"2.5.5",
+"msg",
+"`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+]
+],
+"fix": "`np.add_newdoc_ufunc` was removed in the NumPy 2.0 release. It's an internal function and doesn't have a replacement."
+},
+"alltrue": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'alltrue'"
+],
+[
+"2.1.0",
+"msg",
+"`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead."
+]
+],
+"fix": "`np.alltrue` was removed in the NumPy 2.0 release. Use `np.all` instead."
+},
+"array_api": {
+"seq": [
+[
+"1.19.5",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"1.20.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"1.21.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"1.22.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"1.23.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"2.0.0",
+"msg",
+"`numpy.array_api` is not available from numpy 2.0 onwards"
+],
+[
+"2.1.0",
+"msg",
+"`numpy.array_api` is not available from numpy 2.0 onwards"
+],
+[
+"2.2.0",
+"msg",
+"`numpy.array_api` is not available from numpy 2.0 onwards"
+],
+[
+"2.3.0",
+"msg",
+"`numpy.array_api` is not available from numpy 2.0 onwards"
+],
+[
+"2.4.1",
+"msg",
+"`numpy.array_api` is not available from numpy 2.0 onwards"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'array_api'"
+]
+],
+"fix": "`numpy.array_api` is not available from numpy 2.0 onwards"
+},
+"asfarray": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+]
+],
+"fix": "`np.asfarray` was removed in the NumPy 2.0 release. Use `np.asarray` with a proper dtype instead."
+},
+"asscalar": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'asscalar'"
+]
+],
+"fix": "np.asscalar(a) is deprecated since NumPy v1.16, use a.item() instead"
+},
+"bool": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'bool'"
+],
+[
+"1.25.0",
+"msg",
+"module 'numpy' has no attribute 'bool'.\n`np.bool` was a deprecated alias for the builtin `bool`. To avoid this error in existing code, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"1.26.0",
+"msg",
+"module 'numpy' has no attribute 'bool'.\n`np.bool` was a deprecated alias for the builtin `bool`. To avoid this error in existing code, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": "module 'numpy' has no attribute 'bool'.\n`np.bool` was a deprecated alias for the builtin `bool`. To avoid this error in existing code, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"bool8": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'bool8'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'bool8'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'bool8'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'bool8'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'bool8'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'bool8'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'bool8'"
+]
+],
+"fix": "`np.bool8` is a deprecated alias for `np.bool_`.  (Deprecated NumPy 1.24)"
+},
+"bool_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"byte_bounds": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+],
+[
+"2.1.0",
+"msg",
+"`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+],
+[
+"2.2.0",
+"msg",
+"`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+],
+[
+"2.3.0",
+"msg",
+"`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+],
+[
+"2.4.1",
+"msg",
+"`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+],
+[
+"2.5.0",
+"msg",
+"`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+],
+[
+"2.5.5",
+"msg",
+"`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+]
+],
+"fix": "`np.byte_bounds` was removed in the NumPy 2.0 release. Now it's available under `np.lib.array_utils.byte_bounds`"
+},
+"bytes": {
+"seq": [
+[
+"1.19.5",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"1.20.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"1.21.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"1.22.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"1.23.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'bytes'"
+]
+],
+"fix": null
+},
+"bytes0": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'bytes0'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'bytes0'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'bytes0'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'bytes0'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'bytes0'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'bytes0'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'bytes0'"
+]
+],
+"fix": "`np.bytes0` is a deprecated alias for `np.bytes_`.  (Deprecated NumPy 1.24)"
+},
+"cast": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+]
+],
+"fix": "`np.cast` was removed in the NumPy 2.0 release. Use `np.asarray(arr, dtype=dtype)` instead."
+},
+"cfloat": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+]
+],
+"fix": "`np.cfloat` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+},
+"chararray": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.1.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.2.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.3.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.4.1",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'chararray'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'chararray'"
+]
+],
+"fix": "`np.chararray` is deprecated and will be removed from the main namespace in the future. Use an array with a string or bytes dtype instead."
+},
+"clongfloat": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+]
+],
+"fix": "`np.clongfloat` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+},
+"compare_chararrays": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+],
+[
+"2.1.0",
+"msg",
+"`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+],
+[
+"2.2.0",
+"msg",
+"`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+],
+[
+"2.3.0",
+"msg",
+"`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+],
+[
+"2.4.1",
+"msg",
+"`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+],
+[
+"2.5.0",
+"msg",
+"`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+],
+[
+"2.5.5",
+"msg",
+"`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+]
+],
+"fix": "`np.compare_chararrays` was removed in the NumPy 2.0 release. It's still available as `np.char.compare_chararrays`."
+},
+"compat": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.compat` was removed in the NumPy 2.0 release. There's no replacement, as Python 2 is no longer supported."
+],
+[
+"2.1.0",
+"msg",
+"`np.compat` was removed in the NumPy 2.0 release. There's no replacement, as Python 2 is no longer supported."
+],
+[
+"2.2.0",
+"msg",
+"`np.compat` was removed in the NumPy 2.0 release. There's no replacement, as Python 2 is no longer supported."
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'compat'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'compat'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'compat'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'compat'"
+]
+],
+"fix": "`np.compat` was removed in the NumPy 2.0 release. There's no replacement, as Python 2 is no longer supported."
+},
+"complex": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'complex'"
+],
+[
+"1.25.0",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"1.26.0",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.0.0",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.1.0",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.2.0",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.3.0",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.4.1",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.0",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.5",
+"msg",
+"module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+]
+],
+"fix": "module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"complex_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+]
+],
+"fix": "`np.complex_` was removed in the NumPy 2.0 release. Use `np.complex128` instead."
+},
+"core": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"cumproduct": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'cumproduct'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'cumproduct'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'cumproduct'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'cumproduct'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'cumproduct'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'cumproduct'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'cumproduct'"
+]
+],
+"fix": "`cumproduct` is deprecated as of NumPy 1.25.0, and will be removed in NumPy 2.0. Please use `cumprod` instead."
+},
+"deprecate": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.1.0",
+"msg",
+"`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.2.0",
+"msg",
+"`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.3.0",
+"msg",
+"`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.4.1",
+"msg",
+"`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.5.0",
+"msg",
+"`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `warnings.deprecated`."
+],
+[
+"2.5.5",
+"msg",
+"`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `warnings.deprecated`."
+]
+],
+"fix": "`np.deprecate` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `warnings.deprecated`."
+},
+"deprecate_with_doc": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.1.0",
+"msg",
+"`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.2.0",
+"msg",
+"`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.3.0",
+"msg",
+"`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.4.1",
+"msg",
+"`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `typing.deprecated`."
+],
+[
+"2.5.0",
+"msg",
+"`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `warnings.deprecated`."
+],
+[
+"2.5.5",
+"msg",
+"`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `warnings.deprecated`."
+]
+],
+"fix": "`np.deprecate_with_doc` was removed in the NumPy 2.0 release. Emit `DeprecationWarning` with `warnings.warn` directly, or use `warnings.deprecated`."
+},
+"disp": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.disp` was removed in the NumPy 2.0 release. Use your own printing function instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.disp` was removed in the NumPy 2.0 release. Use your own printing function instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.disp` was removed in the NumPy 2.0 release. Use your own printing function instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.disp` was removed in the NumPy 2.0 release. Use your own printing function instead."
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'disp'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'disp'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'disp'"
+]
+],
+"fix": "`np.disp` was removed in the NumPy 2.0 release. Use your own printing function instead."
+},
+"distutils": {
+"seq": [
+[
+"1.19.5",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"1.20.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"1.21.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"1.22.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"1.23.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"2.0.0",
+"msg",
+"`numpy.distutils` is not available from Python 3.12 onwards"
+],
+[
+"2.1.0",
+"msg",
+"`numpy.distutils` is not available from Python 3.12 onwards"
+],
+[
+"2.2.0",
+"msg",
+"`numpy.distutils` is not available from Python 3.12 onwards"
+],
+[
+"2.3.0",
+"msg",
+"`numpy.distutils` is not available from Python 3.12 onwards"
+],
+[
+"2.4.1",
+"msg",
+"`numpy.distutils` is not available from Python 3.12 onwards"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'distutils'"
+]
+],
+"fix": "`numpy.distutils` is not available from Python 3.12 onwards"
+},
+"fastCopyAndTranspose": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+]
+],
+"fix": "`np.fastCopyAndTranspose` was removed in the NumPy 2.0 release. Use `arr.T.copy()` instead."
+},
+"find_common_type": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+],
+[
+"2.1.0",
+"msg",
+"`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+],
+[
+"2.2.0",
+"msg",
+"`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+],
+[
+"2.3.0",
+"msg",
+"`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+],
+[
+"2.4.1",
+"msg",
+"`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+],
+[
+"2.5.0",
+"msg",
+"`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+],
+[
+"2.5.5",
+"msg",
+"`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+]
+],
+"fix": "`np.find_common_type` was removed in the NumPy 2.0 release. Use `numpy.promote_types` or `numpy.result_type` instead. To achieve semantics for the `scalar_types` argument, use `numpy.result_type` and pass the Python values `0`, `0.0`, or `0j`."
+},
+"float": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'float'"
+],
+[
+"1.25.0",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"1.26.0",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.0.0",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.1.0",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.2.0",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.3.0",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.4.1",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.0",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.5",
+"msg",
+"module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+]
+],
+"fix": "module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"float32": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"float64": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"float_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+]
+],
+"fix": "`np.float_` was removed in the NumPy 2.0 release. Use `np.float64` instead."
+},
+"format_parser": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+],
+[
+"2.1.0",
+"msg",
+"`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+],
+[
+"2.2.0",
+"msg",
+"`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+],
+[
+"2.3.0",
+"msg",
+"`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+],
+[
+"2.4.1",
+"msg",
+"`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+],
+[
+"2.5.0",
+"msg",
+"`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+],
+[
+"2.5.5",
+"msg",
+"`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+]
+],
+"fix": "`np.format_parser` was removed in the NumPy 2.0 release. It's still available as `np.rec.format_parser`."
+},
+"fv": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'fv'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'fv'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'fv'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'fv'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'fv'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'fv'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'fv'"
+]
+],
+"fix": "In accordance with NEP 32, the function fv was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"get_array_wrap": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+],
+[
+"2.1.0",
+"msg",
+"`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+],
+[
+"2.2.0",
+"msg",
+"`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+],
+[
+"2.3.0",
+"msg",
+"`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+],
+[
+"2.4.1",
+"msg",
+"`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+],
+[
+"2.5.0",
+"msg",
+"`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+],
+[
+"2.5.5",
+"msg",
+"`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+]
+],
+"fix": "`np.get_array_wrap` was removed in the NumPy 2.0 release. "
+},
+"geterrobj": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+]
+],
+"fix": "`np.geterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+},
+"in1d": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'in1d'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'in1d'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'in1d'"
+]
+],
+"fix": "`in1d` is deprecated. Use `np.isin` instead."
+},
+"infty": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+]
+],
+"fix": "`np.infty` was removed in the NumPy 2.0 release. Use `np.inf` instead."
+},
+"int": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'int'"
+],
+[
+"1.25.0",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"1.26.0",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.0.0",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.1.0",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.2.0",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.3.0",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.4.1",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.0",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.5",
+"msg",
+"module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+]
+],
+"fix": "module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"int0": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'int0'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'int0'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'int0'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'int0'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'int0'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'int0'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'int0'"
+]
+],
+"fix": "`np.int0` is a deprecated alias for `np.intp`.  (Deprecated NumPy 1.24)"
+},
+"int_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"ipmt": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'ipmt'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'ipmt'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'ipmt'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'ipmt'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'ipmt'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'ipmt'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'ipmt'"
+]
+],
+"fix": "In accordance with NEP 32, the function ipmt was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"irr": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'irr'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'irr'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'irr'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'irr'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'irr'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'irr'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'irr'"
+]
+],
+"fix": "In accordance with NEP 32, the function irr was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"issctype": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+]
+],
+"fix": "`np.issctype` was removed in the NumPy 2.0 release. Use `issubclass(rep, np.generic)` instead."
+},
+"issubclass_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+]
+],
+"fix": "`np.issubclass_` was removed in the NumPy 2.0 release. Use `issubclass` builtin instead."
+},
+"issubsctype": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+]
+],
+"fix": "`np.issubsctype` was removed in the NumPy 2.0 release. Use `np.issubdtype` instead."
+},
+"long": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'long'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'long'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'long'"
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": "`np.long` is a deprecated alias for `np.compat.long`. To silence this warning, use `np.compat.long` by itself. In the likely event your code does not need to work on Python 2 you can use the builtin `int` for which `np.compat.long` is itself an alias. Doing this will not modify any behaviour and is safe. When replacing `np.long`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nDeprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"longcomplex": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+]
+],
+"fix": "`np.longcomplex` was removed in the NumPy 2.0 release. Use `np.clongdouble` instead."
+},
+"longfloat": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+]
+],
+"fix": "`np.longfloat` was removed in the NumPy 2.0 release. Use `np.longdouble` instead."
+},
+"lookfor": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+],
+[
+"2.1.0",
+"msg",
+"`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+],
+[
+"2.2.0",
+"msg",
+"`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+],
+[
+"2.3.0",
+"msg",
+"`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+],
+[
+"2.4.1",
+"msg",
+"`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+],
+[
+"2.5.0",
+"msg",
+"`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+],
+[
+"2.5.5",
+"msg",
+"`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+]
+],
+"fix": "`np.lookfor` was removed in the NumPy 2.0 release. Search NumPy's documentation directly."
+},
+"mat": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+]
+],
+"fix": "`np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead."
+},
+"math": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'math'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'math'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'math'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'math'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'math'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'math'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'math'"
+]
+],
+"fix": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+},
+"maximum_sctype": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+],
+[
+"2.1.0",
+"msg",
+"`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+],
+[
+"2.2.0",
+"msg",
+"`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+],
+[
+"2.3.0",
+"msg",
+"`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+],
+[
+"2.4.1",
+"msg",
+"`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+],
+[
+"2.5.0",
+"msg",
+"`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+],
+[
+"2.5.5",
+"msg",
+"`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+]
+],
+"fix": "`np.maximum_sctype` was removed in the NumPy 2.0 release. Use a specific dtype instead. You should avoid relying on any implicit mechanism and select the largest dtype of a kind explicitly in the code."
+},
+"mirr": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'mirr'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'mirr'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'mirr'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'mirr'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'mirr'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'mirr'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'mirr'"
+]
+],
+"fix": "In accordance with NEP 32, the function mirr was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"msort": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'msort'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'msort'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'msort'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'msort'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'msort'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'msort'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'msort'"
+]
+],
+"fix": "msort is deprecated, use np.sort(a, axis=0) instead"
+},
+"nbytes": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+]
+],
+"fix": "`np.nbytes` was removed in the NumPy 2.0 release. Use `np.dtype(<dtype>).itemsize` instead."
+},
+"nper": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'nper'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'nper'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'nper'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'nper'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'nper'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'nper'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'nper'"
+]
+],
+"fix": "In accordance with NEP 32, the function nper was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"npv": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'npv'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'npv'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'npv'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'npv'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'npv'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'npv'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'npv'"
+]
+],
+"fix": "In accordance with NEP 32, the function npv was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"obj2sctype": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+]
+],
+"fix": "`np.obj2sctype` was removed in the NumPy 2.0 release. Use `np.dtype(obj).type` instead."
+},
+"object": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'object'"
+],
+[
+"1.25.0",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"1.26.0",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.0.0",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.1.0",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.2.0",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.3.0",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.4.1",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.0",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.5",
+"msg",
+"module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+]
+],
+"fix": "module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"object0": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'object0'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'object0'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'object0'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'object0'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'object0'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'object0'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'object0'"
+]
+],
+"fix": "`np.object0` is a deprecated alias for ``np.object0` is a deprecated alias for `np.object_`. `object` can be used instead.  (Deprecated NumPy 1.24)`.  (Deprecated NumPy 1.24)"
+},
+"pmt": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'pmt'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'pmt'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'pmt'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'pmt'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'pmt'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'pmt'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'pmt'"
+]
+],
+"fix": "In accordance with NEP 32, the function pmt was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"ppmt": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'ppmt'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'ppmt'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'ppmt'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'ppmt'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'ppmt'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'ppmt'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'ppmt'"
+]
+],
+"fix": "In accordance with NEP 32, the function ppmt was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"product": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'product'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'product'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'product'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'product'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'product'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'product'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'product'"
+]
+],
+"fix": "`product` is deprecated as of NumPy 1.25.0, and will be removed in NumPy 2.0. Please use `prod` instead."
+},
+"pv": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'pv'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'pv'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'pv'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'pv'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'pv'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'pv'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'pv'"
+]
+],
+"fix": "In accordance with NEP 32, the function pv was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"rate": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'rate'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'rate'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'rate'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'rate'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'rate'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'rate'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'rate'"
+]
+],
+"fix": "In accordance with NEP 32, the function rate was removed from NumPy version 1.20.  A replacement for this function is available in the numpy_financial library: https://pypi.org/project/numpy-financial"
+},
+"recfromcsv": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+]
+],
+"fix": "`np.recfromcsv` was removed in the NumPy 2.0 release. Use `np.genfromtxt` with comma delimiter instead."
+},
+"recfromtxt": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+]
+],
+"fix": "`np.recfromtxt` was removed in the NumPy 2.0 release. Use `np.genfromtxt` instead."
+},
+"round": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"round_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+]
+],
+"fix": "`np.round_` was removed in the NumPy 2.0 release. Use `np.round` instead."
+},
+"row_stack": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'row_stack'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'row_stack'"
+]
+],
+"fix": "`row_stack` alias is deprecated. Use `np.vstack` directly."
+},
+"safe_eval": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+]
+],
+"fix": "`np.safe_eval` was removed in the NumPy 2.0 release. Use `ast.literal_eval` instead."
+},
+"sctype2char": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+]
+],
+"fix": "`np.sctype2char` was removed in the NumPy 2.0 release. Use `np.dtype(obj).char` instead."
+},
+"sctypes": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+]
+],
+"fix": "`np.sctypes` was removed in the NumPy 2.0 release. Access dtypes explicitly instead."
+},
+"set_numeric_ops": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+],
+[
+"2.1.0",
+"msg",
+"`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+],
+[
+"2.2.0",
+"msg",
+"`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+],
+[
+"2.3.0",
+"msg",
+"`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+],
+[
+"2.4.1",
+"msg",
+"`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+],
+[
+"2.5.0",
+"msg",
+"`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+],
+[
+"2.5.5",
+"msg",
+"`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+]
+],
+"fix": "`np.set_numeric_ops` was removed in the NumPy 2.0 release. For the general case, use `PyUFunc_ReplaceLoopBySignature`. For ndarray subclasses, define the ``__array_ufunc__`` method and override the relevant ufunc."
+},
+"set_string_function": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+],
+[
+"2.1.0",
+"msg",
+"`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+],
+[
+"2.2.0",
+"msg",
+"`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+],
+[
+"2.3.0",
+"msg",
+"`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+],
+[
+"2.4.1",
+"msg",
+"`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+],
+[
+"2.5.0",
+"msg",
+"`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+],
+[
+"2.5.5",
+"msg",
+"`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+]
+],
+"fix": "`np.set_string_function` was removed in the NumPy 2.0 release. Use `np.set_printoptions` instead with a formatter for custom printing of NumPy objects."
+},
+"seterrobj": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+]
+],
+"fix": "`np.seterrobj` was removed in the NumPy 2.0 release. Use the np.errstate context manager instead."
+},
+"singlecomplex": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+]
+],
+"fix": "`np.singlecomplex` was removed in the NumPy 2.0 release. Use `np.complex64` instead."
+},
+"sometrue": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'sometrue'"
+],
+[
+"2.1.0",
+"msg",
+"`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead."
+]
+],
+"fix": "`np.sometrue` was removed in the NumPy 2.0 release. Use `np.any` instead."
+},
+"source": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+]
+],
+"fix": "`np.source` was removed in the NumPy 2.0 release. Use `inspect.getsource` instead."
+},
+"str": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'str'"
+],
+[
+"1.25.0",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"1.26.0",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.0.0",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.1.0",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.2.0",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.3.0",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.4.1",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.0",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+],
+[
+"2.5.5",
+"msg",
+"module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+]
+],
+"fix": "module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"str0": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'str0'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'str0'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'str0'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'str0'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'str0'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'str0'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'str0'"
+]
+],
+"fix": "`np.str0` is a deprecated alias for `np.str_`.  (Deprecated NumPy 1.24)"
+},
+"string_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+]
+],
+"fix": "`np.string_` was removed in the NumPy 2.0 release. Use `np.bytes_` instead."
+},
+"tracemalloc_domain": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+],
+[
+"2.1.0",
+"msg",
+"`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+],
+[
+"2.2.0",
+"msg",
+"`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+],
+[
+"2.3.0",
+"msg",
+"`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+],
+[
+"2.4.1",
+"msg",
+"`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+],
+[
+"2.5.0",
+"msg",
+"`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+],
+[
+"2.5.5",
+"msg",
+"`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+]
+],
+"fix": "`np.tracemalloc_domain` was removed in the NumPy 2.0 release. It's now available from `np.lib`."
+},
+"trapz": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'trapz'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'trapz'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'trapz'"
+]
+],
+"fix": "`trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`."
+},
+"typeDict": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'typeDict'"
+]
+],
+"fix": "`np.typeDict` is a deprecated alias for `np.sctypeDict`."
+},
+"uint0": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'uint0'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'uint0'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'uint0'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'uint0'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'uint0'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'uint0'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'uint0'"
+]
+],
+"fix": "`np.uint0` is a deprecated alias for `np.uintp`.  (Deprecated NumPy 1.24)"
+},
+"ulong": {
+"seq": [
+[
+"1.19.5",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"1.20.0",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"1.21.0",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"1.22.0",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"1.23.0",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'ulong'"
+],
+[
+"2.0.0",
+"ok",
+""
+],
+[
+"2.1.0",
+"ok",
+""
+],
+[
+"2.2.0",
+"ok",
+""
+],
+[
+"2.3.0",
+"ok",
+""
+],
+[
+"2.4.1",
+"ok",
+""
+],
+[
+"2.5.0",
+"ok",
+""
+],
+[
+"2.5.5",
+"ok",
+""
+]
+],
+"fix": null
+},
+"unicode": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.21.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.22.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.23.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.24.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"1.25.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"1.26.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'unicode'"
+]
+],
+"fix": "`np.unicode` is a deprecated alias for `np.compat.unicode`. To silence this warning, use `np.compat.unicode` by itself. In the likely event your code does not need to work on Python 2 you can use the builtin `str` for which `np.compat.unicode` is itself an alias. Doing this will not modify any behaviour and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nDeprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations"
+},
+"unicode_": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+]
+],
+"fix": "`np.unicode_` was removed in the NumPy 2.0 release. Use `np.str_` instead."
+},
+"void0": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.25.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"1.26.0",
+"warn",
+"DeprecationWarning"
+],
+[
+"2.0.0",
+"gone",
+"module 'numpy' has no attribute 'void0'"
+],
+[
+"2.1.0",
+"gone",
+"module 'numpy' has no attribute 'void0'"
+],
+[
+"2.2.0",
+"gone",
+"module 'numpy' has no attribute 'void0'"
+],
+[
+"2.3.0",
+"gone",
+"module 'numpy' has no attribute 'void0'"
+],
+[
+"2.4.1",
+"gone",
+"module 'numpy' has no attribute 'void0'"
+],
+[
+"2.5.0",
+"gone",
+"module 'numpy' has no attribute 'void0'"
+],
+[
+"2.5.5",
+"gone",
+"module 'numpy' has no attribute 'void0'"
+]
+],
+"fix": "`np.void0` is a deprecated alias for `np.void`.  (Deprecated NumPy 1.24)"
+},
+"who": {
+"seq": [
+[
+"1.19.5",
+"ok",
+""
+],
+[
+"1.20.0",
+"ok",
+""
+],
+[
+"1.21.0",
+"ok",
+""
+],
+[
+"1.22.0",
+"ok",
+""
+],
+[
+"1.23.0",
+"ok",
+""
+],
+[
+"1.24.0",
+"ok",
+""
+],
+[
+"1.25.0",
+"ok",
+""
+],
+[
+"1.26.0",
+"ok",
+""
+],
+[
+"2.0.0",
+"msg",
+"`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+],
+[
+"2.1.0",
+"msg",
+"`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+],
+[
+"2.2.0",
+"msg",
+"`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+],
+[
+"2.3.0",
+"msg",
+"`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+],
+[
+"2.4.1",
+"msg",
+"`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+],
+[
+"2.5.0",
+"msg",
+"`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+],
+[
+"2.5.5",
+"msg",
+"`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+]
+],
+"fix": "`np.who` was removed in the NumPy 2.0 release. Use an IDE variable explorer or `locals()` instead."
+}
+}
+}

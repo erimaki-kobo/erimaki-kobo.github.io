@@ -1,0 +1,459 @@
+{
+"numpy": "1.20.0",
+"python": "3.9.25",
+"names": {
+"DataSource": {
+"ok": true,
+"warn": []
+},
+"Inf": {
+"ok": true,
+"warn": []
+},
+"Infinity": {
+"ok": true,
+"warn": []
+},
+"MachAr": {
+"ok": true,
+"warn": []
+},
+"NINF": {
+"ok": true,
+"warn": []
+},
+"NZERO": {
+"ok": true,
+"warn": []
+},
+"NaN": {
+"ok": true,
+"warn": []
+},
+"PINF": {
+"ok": true,
+"warn": []
+},
+"PZERO": {
+"ok": true,
+"warn": []
+},
+"_core": {
+"ok": false,
+"error": "module 'numpy' has no attribute '_core'",
+"warn": []
+},
+"add_docstring": {
+"ok": true,
+"warn": []
+},
+"add_newdoc": {
+"ok": true,
+"warn": []
+},
+"add_newdoc_ufunc": {
+"ok": true,
+"warn": []
+},
+"alltrue": {
+"ok": true,
+"warn": []
+},
+"array_api": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'array_api'",
+"warn": []
+},
+"asfarray": {
+"ok": true,
+"warn": []
+},
+"asscalar": {
+"ok": true,
+"warn": []
+},
+"bool": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"bool8": {
+"ok": true,
+"warn": []
+},
+"bool_": {
+"ok": true,
+"warn": []
+},
+"byte_bounds": {
+"ok": true,
+"warn": []
+},
+"bytes": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'bytes'",
+"warn": []
+},
+"bytes0": {
+"ok": true,
+"warn": []
+},
+"cast": {
+"ok": true,
+"warn": []
+},
+"cfloat": {
+"ok": true,
+"warn": []
+},
+"chararray": {
+"ok": true,
+"warn": []
+},
+"clongfloat": {
+"ok": true,
+"warn": []
+},
+"compare_chararrays": {
+"ok": true,
+"warn": []
+},
+"compat": {
+"ok": true,
+"warn": []
+},
+"complex": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"complex_": {
+"ok": true,
+"warn": []
+},
+"core": {
+"ok": true,
+"warn": []
+},
+"cumproduct": {
+"ok": true,
+"warn": []
+},
+"deprecate": {
+"ok": true,
+"warn": []
+},
+"deprecate_with_doc": {
+"ok": true,
+"warn": []
+},
+"disp": {
+"ok": true,
+"warn": []
+},
+"distutils": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'distutils'",
+"warn": []
+},
+"fastCopyAndTranspose": {
+"ok": true,
+"warn": []
+},
+"find_common_type": {
+"ok": true,
+"warn": []
+},
+"float": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"float32": {
+"ok": true,
+"warn": []
+},
+"float64": {
+"ok": true,
+"warn": []
+},
+"float_": {
+"ok": true,
+"warn": []
+},
+"format_parser": {
+"ok": true,
+"warn": []
+},
+"fv": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"get_array_wrap": {
+"ok": true,
+"warn": []
+},
+"geterrobj": {
+"ok": true,
+"warn": []
+},
+"in1d": {
+"ok": true,
+"warn": []
+},
+"infty": {
+"ok": true,
+"warn": []
+},
+"int": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"int0": {
+"ok": true,
+"warn": []
+},
+"int_": {
+"ok": true,
+"warn": []
+},
+"ipmt": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"irr": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"issctype": {
+"ok": true,
+"warn": []
+},
+"issubclass_": {
+"ok": true,
+"warn": []
+},
+"issubsctype": {
+"ok": true,
+"warn": []
+},
+"long": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"longcomplex": {
+"ok": true,
+"warn": []
+},
+"longfloat": {
+"ok": true,
+"warn": []
+},
+"lookfor": {
+"ok": true,
+"warn": []
+},
+"mat": {
+"ok": true,
+"warn": []
+},
+"math": {
+"ok": true,
+"warn": []
+},
+"maximum_sctype": {
+"ok": true,
+"warn": []
+},
+"mirr": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"msort": {
+"ok": true,
+"warn": []
+},
+"nbytes": {
+"ok": true,
+"warn": []
+},
+"nper": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"npv": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"obj2sctype": {
+"ok": true,
+"warn": []
+},
+"object": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"object0": {
+"ok": true,
+"warn": []
+},
+"pmt": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"ppmt": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"product": {
+"ok": true,
+"warn": []
+},
+"pv": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"rate": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"recfromcsv": {
+"ok": true,
+"warn": []
+},
+"recfromtxt": {
+"ok": true,
+"warn": []
+},
+"round": {
+"ok": true,
+"warn": []
+},
+"round_": {
+"ok": true,
+"warn": []
+},
+"row_stack": {
+"ok": true,
+"warn": []
+},
+"safe_eval": {
+"ok": true,
+"warn": []
+},
+"sctype2char": {
+"ok": true,
+"warn": []
+},
+"sctypes": {
+"ok": true,
+"warn": []
+},
+"set_numeric_ops": {
+"ok": true,
+"warn": []
+},
+"set_string_function": {
+"ok": true,
+"warn": []
+},
+"seterrobj": {
+"ok": true,
+"warn": []
+},
+"singlecomplex": {
+"ok": true,
+"warn": []
+},
+"sometrue": {
+"ok": true,
+"warn": []
+},
+"source": {
+"ok": true,
+"warn": []
+},
+"str": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"str0": {
+"ok": true,
+"warn": []
+},
+"string_": {
+"ok": true,
+"warn": []
+},
+"tracemalloc_domain": {
+"ok": true,
+"warn": []
+},
+"trapz": {
+"ok": true,
+"warn": []
+},
+"typeDict": {
+"ok": true,
+"warn": []
+},
+"uint0": {
+"ok": true,
+"warn": []
+},
+"ulong": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'ulong'",
+"warn": []
+},
+"unicode": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"unicode_": {
+"ok": true,
+"warn": []
+},
+"void0": {
+"ok": true,
+"warn": []
+},
+"who": {
+"ok": true,
+"warn": []
+}
+}
+}

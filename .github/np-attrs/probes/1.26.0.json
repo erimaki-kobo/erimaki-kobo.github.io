@@ -1,0 +1,482 @@
+{
+"numpy": "1.26.0",
+"python": "3.11.18",
+"names": {
+"DataSource": {
+"ok": true,
+"warn": []
+},
+"Inf": {
+"ok": true,
+"warn": []
+},
+"Infinity": {
+"ok": true,
+"warn": []
+},
+"MachAr": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'MachAr'",
+"warn": []
+},
+"NINF": {
+"ok": true,
+"warn": []
+},
+"NZERO": {
+"ok": true,
+"warn": []
+},
+"NaN": {
+"ok": true,
+"warn": []
+},
+"PINF": {
+"ok": true,
+"warn": []
+},
+"PZERO": {
+"ok": true,
+"warn": []
+},
+"_core": {
+"ok": false,
+"error": "module 'numpy' has no attribute '_core'",
+"warn": []
+},
+"add_docstring": {
+"ok": true,
+"warn": []
+},
+"add_newdoc": {
+"ok": true,
+"warn": []
+},
+"add_newdoc_ufunc": {
+"ok": true,
+"warn": []
+},
+"alltrue": {
+"ok": true,
+"warn": []
+},
+"array_api": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'array_api'",
+"warn": []
+},
+"asfarray": {
+"ok": true,
+"warn": []
+},
+"asscalar": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'asscalar'",
+"warn": []
+},
+"bool": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'bool'.\n`np.bool` was a deprecated alias for the builtin `bool`. To avoid this error in existing code, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": [
+"FutureWarning"
+]
+},
+"bool8": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"bool_": {
+"ok": true,
+"warn": []
+},
+"byte_bounds": {
+"ok": true,
+"warn": []
+},
+"bytes": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'bytes'",
+"warn": [
+"FutureWarning"
+]
+},
+"bytes0": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"cast": {
+"ok": true,
+"warn": []
+},
+"cfloat": {
+"ok": true,
+"warn": []
+},
+"chararray": {
+"ok": true,
+"warn": []
+},
+"clongfloat": {
+"ok": true,
+"warn": []
+},
+"compare_chararrays": {
+"ok": true,
+"warn": []
+},
+"compat": {
+"ok": true,
+"warn": []
+},
+"complex": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'complex'.\n`np.complex` was a deprecated alias for the builtin `complex`. To avoid this error in existing code, use `complex` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.complex128` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": []
+},
+"complex_": {
+"ok": true,
+"warn": []
+},
+"core": {
+"ok": true,
+"warn": []
+},
+"cumproduct": {
+"ok": true,
+"warn": []
+},
+"deprecate": {
+"ok": true,
+"warn": []
+},
+"deprecate_with_doc": {
+"ok": true,
+"warn": []
+},
+"disp": {
+"ok": true,
+"warn": []
+},
+"distutils": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'distutils'",
+"warn": []
+},
+"fastCopyAndTranspose": {
+"ok": true,
+"warn": []
+},
+"find_common_type": {
+"ok": true,
+"warn": []
+},
+"float": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'float'.\n`np.float` was a deprecated alias for the builtin `float`. To avoid this error in existing code, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": []
+},
+"float32": {
+"ok": true,
+"warn": []
+},
+"float64": {
+"ok": true,
+"warn": []
+},
+"float_": {
+"ok": true,
+"warn": []
+},
+"format_parser": {
+"ok": true,
+"warn": []
+},
+"fv": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"get_array_wrap": {
+"ok": true,
+"warn": []
+},
+"geterrobj": {
+"ok": true,
+"warn": []
+},
+"in1d": {
+"ok": true,
+"warn": []
+},
+"infty": {
+"ok": true,
+"warn": []
+},
+"int": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'int'.\n`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": []
+},
+"int0": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"int_": {
+"ok": true,
+"warn": []
+},
+"ipmt": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"irr": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"issctype": {
+"ok": true,
+"warn": []
+},
+"issubclass_": {
+"ok": true,
+"warn": []
+},
+"issubsctype": {
+"ok": true,
+"warn": []
+},
+"long": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'long'",
+"warn": [
+"FutureWarning"
+]
+},
+"longcomplex": {
+"ok": true,
+"warn": []
+},
+"longfloat": {
+"ok": true,
+"warn": []
+},
+"lookfor": {
+"ok": true,
+"warn": []
+},
+"mat": {
+"ok": true,
+"warn": []
+},
+"math": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"maximum_sctype": {
+"ok": true,
+"warn": []
+},
+"mirr": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"msort": {
+"ok": true,
+"warn": []
+},
+"nbytes": {
+"ok": true,
+"warn": []
+},
+"nper": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"npv": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"obj2sctype": {
+"ok": true,
+"warn": []
+},
+"object": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'object'.\n`np.object` was a deprecated alias for the builtin `object`. To avoid this error in existing code, use `object` by itself. Doing this will not modify any behavior and is safe. \nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": [
+"FutureWarning"
+]
+},
+"object0": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"pmt": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"ppmt": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"product": {
+"ok": true,
+"warn": []
+},
+"pv": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"rate": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"recfromcsv": {
+"ok": true,
+"warn": []
+},
+"recfromtxt": {
+"ok": true,
+"warn": []
+},
+"round": {
+"ok": true,
+"warn": []
+},
+"round_": {
+"ok": true,
+"warn": []
+},
+"row_stack": {
+"ok": true,
+"warn": []
+},
+"safe_eval": {
+"ok": true,
+"warn": []
+},
+"sctype2char": {
+"ok": true,
+"warn": []
+},
+"sctypes": {
+"ok": true,
+"warn": []
+},
+"set_numeric_ops": {
+"ok": true,
+"warn": []
+},
+"set_string_function": {
+"ok": true,
+"warn": []
+},
+"seterrobj": {
+"ok": true,
+"warn": []
+},
+"singlecomplex": {
+"ok": true,
+"warn": []
+},
+"sometrue": {
+"ok": true,
+"warn": []
+},
+"source": {
+"ok": true,
+"warn": []
+},
+"str": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'str'.\n`np.str` was a deprecated alias for the builtin `str`. To avoid this error in existing code, use `str` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.str_` here.\nThe aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:\n    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations",
+"warn": [
+"FutureWarning"
+]
+},
+"str0": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"string_": {
+"ok": true,
+"warn": []
+},
+"tracemalloc_domain": {
+"ok": true,
+"warn": []
+},
+"trapz": {
+"ok": true,
+"warn": []
+},
+"typeDict": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'typeDict'",
+"warn": []
+},
+"uint0": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"ulong": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'ulong'",
+"warn": [
+"FutureWarning"
+]
+},
+"unicode": {
+"ok": false,
+"error": "module 'numpy' has no attribute 'unicode'",
+"warn": []
+},
+"unicode_": {
+"ok": true,
+"warn": []
+},
+"void0": {
+"ok": true,
+"warn": [
+"DeprecationWarning"
+]
+},
+"who": {
+"ok": true,
+"warn": []
+}
+}
+}
