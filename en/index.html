@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="llama-index-import-name-version-lookup/">ImportError: cannot import name 'VectorStoreIndex' (or ServiceContext, OpenAI, any name) from 'llama_index...': which LlamaIndex releases have it</a></h2>
+<p>LlamaIndex 0.10.0 moved the old top level to <code>llama_index.core</code> and split integrations into packages such as <code>llama-index-llms-openai</code>; 0.11.0, 0.13.0 and 0.14.21 ended ServiceContext, the old agents and download_loader. Every release of llama-index 0.7.0 to 0.9.48 and llama-index-core 0.10.0 to 0.14.26. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="flash-attn-import-name-version-lookup/">ImportError: cannot import name 'flash_attn_unpadded_func' (or FlashMHA, flash_attn_func, any name) from 'flash_attn...': which flash-attn releases have it</a></h2>
 <p>flash-attn 2.0 renamed <code>flash_attn_unpadded_*</code> to <code>flash_attn_varlen_*</code> and removed <code>flash_attn.flash_attention</code>; 1.0.9 is the last release with the old names. Every module of flash-attn 0.2.1 to 2.8.3. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>
