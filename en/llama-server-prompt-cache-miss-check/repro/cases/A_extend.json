@@ -1,0 +1,31 @@
+{
+ "temperature": 0,
+ "max_tokens": 16,
+ "cache_prompt": true,
+ "messages": [
+  {
+   "role": "system",
+   "content": "Current time: 12:01. an then on after it many would up call may but by used to years some part the error would they their while at other to and to call known of may write first city to national one world many university their during their read one where two and over united tool by or user two it there can city can file had she her while many can more while in such new most over file be school university error read time as world result state at which about more time used to up is been code three while number more tool this this can their of not known university their most state during made into where they result university"
+  },
+  {
+   "role": "user",
+   "content": "would one national call to more read made when result user city for she his first was been that that been she which over then after his of united in while first then where this code system state in may not during by but made read some while had many"
+  },
+  {
+   "role": "assistant",
+   "content": "at file years two can many and when three most her and which not when"
+  },
+  {
+   "role": "user",
+   "content": "part the years state his about united but city for such school then university not can only used into over during the out known system three there where american to their assistant be university number or as university after in read that with and would of has new they from system or during two on this which after national this result they tool two where error when many up from to been years all over had who at after state"
+  },
+  {
+   "role": "assistant",
+   "content": "{{REPLY}}"
+  },
+  {
+   "role": "user",
+   "content": "but part some and one and more were in which would code can read city known one user line about"
+  }
+ ]
+}

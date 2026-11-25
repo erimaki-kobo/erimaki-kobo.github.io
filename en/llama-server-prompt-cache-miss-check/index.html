@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llama-server: forcing full prompt re-processing, explained</title>
+<meta name="description" content="Why llama-server reprocesses the whole prompt (&quot;lack of cache data&quot;) on SWA, hybrid and recurrent models, measured, plus a script that finds the changed token.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="llama-server: forcing full prompt re-processing, explained">
+<meta property="og:description" content="Why llama-server reprocesses the whole prompt every turn on SWA, hybrid and recurrent models, measured on four kinds of memory, with a script that finds the first changed token.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [
+{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/#article", "headline": "llama-server \"forcing full prompt re-processing due to lack of cache data\": why the whole prompt is processed again, and how to find the cause", "description": "Why llama-server reprocesses the whole prompt every turn on SWA, hybrid and recurrent models, measured on four kinds of memory, with a script that finds the first changed token.", "url": "https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/", "datePublished": "2026-11-25", "dateModified": "2026-11-25", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/"},
+{"@type": "SoftwareSourceCode", "@id": "https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/#code", "name": "cachecheck.py", "description": "Compares two consecutive llama-server requests token by token, sends them and compares timings.cache_n with what could have been reused, explains the prompt-cache lines of a server log, and reads a GGUF header to tell full-attention, SWA, recurrent and hybrid models apart.", "programmingLanguage": "Python", "url": "https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/cachecheck.py", "version": "1.0.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true},
+{"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/#faq", "mainEntity": [
+{"@type": "Question", "name": "Is \"forcing full prompt re-processing due to lack of cache data\" a bug?", "acceptedAnswer": {"@type": "Answer", "text": "Usually not. It means the new prompt differs from the cached one at a position the server cannot roll back to: SWA, hybrid and recurrent models keep only part of the past, and no context checkpoint was saved before the first changed token. Find the changed token first; most often the client changed the prompt."}},
+{"@type": "Question", "name": "Why can't I see the message any more?", "acceptedAnswer": {"@type": "Answer", "text": "Since build b9829 (2026-06-28, PR #25078) it and the checkpoint lines are trace level. The default verbosity is 3, so start llama-server with -lv 4 to see them. cache_n in the response timings shows the effect without any log."}},
+{"@type": "Question", "name": "Does --swa-full fix it?", "acceptedAnswer": {"@type": "Answer", "text": "Only for SWA models such as Gemma. It keeps the full KV cache for the sliding-window layers, so reuse works like full attention up to the first changed token, at the cost of memory. It does nothing for hybrid and recurrent models (Qwen3.5, Qwen3-Next, Nemotron-H, Granite hybrid, LFM2, Mamba, RWKV)."}},
+{"@type": "Question", "name": "Does --cache-reuse help?", "acceptedAnswer": {"@type": "Answer", "text": "Rarely. The server disables it for SWA models unless --swa-full is set, because the two KV caches have different sizes. Where it runs, it moves cached chunks that follow a deletion, but it only skips over cached tokens, so it recovers nothing after an insertion or a replaced word."}}
+]},
+{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "llama-server: forcing full prompt re-processing, explained", "item": "https://erimaki-kobo.github.io/en/llama-server-prompt-cache-miss-check/"}]}
+]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em;overflow-wrap:anywhere}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch;overflow-wrap:break-word}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw table{min-width:720px}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+td.ok{box-shadow:inset 3px 0 var(--ok)}td.bad{box-shadow:inset 3px 0 var(--bad)}td.warn{box-shadow:inset 3px 0 var(--warn)}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>llama-server &ldquo;forcing full prompt re-processing due to lack of cache data&rdquo;: why the whole prompt is processed again, and how to find the cause</h1>
+
+<p class="lede"><strong>The message means the new prompt is not a pure continuation of the cached one, and the model's memory cannot be rolled back to the first changed token.</strong> A full-attention model (Llama, dense Qwen3) then re-processes only the tokens after the change. A sliding-window (SWA) model such as Gemma keeps only the last window of KV, and a hybrid or recurrent model (Qwen3.5, Qwen3-Next, Nemotron-H, Granite hybrid, LFM2, Mamba, RWKV) keeps one state at the end. Without a context checkpoint before the change, llama-server starts again from token 0. In our tests the same early edit cost 960 tokens on a full-attention model and the whole 1,821 to 1,852-token prompt on SWA and recurrent models. So the first question is not which flag to set but <em>where the prompt changed</em>. <a href="cachecheck.py">cachecheck.py</a> answers that from two requests or from the server's own prompt log.</p>
+<p class="meta">Published 2026-11-25 &middot; llama.cpp source read at master <code>ab16df3</code> (b12723 + 18 commits, 2026-11-25), build history read from all <code>b*</code> tags; the measurements were run again on build b12733 with identical numbers &middot; Tool version 1.0.0 (Python 3.8+, standard library only)</p>
+
+<h2 id="steps">How do I find out why llama-server reprocesses the whole prompt?</h2>
+<p><strong>Check three numbers: where two consecutive prompts stop sharing tokens, how many tokens the server reused (<code>timings.cache_n</code>), and what kind of memory the model has.</strong></p>
+<ol>
+<li><strong>Find the first changed token.</strong> Start the server with <code>--log-prompts-dir DIR</code> (build b9577 and later; it writes every rendered prompt as a <code>.txt</code>), make two turns in your client, then:
+<pre><code>python cachecheck.py diff DIR/&lt;first&gt;.txt DIR/&lt;second&gt;.txt --server http://127.0.0.1:8080</code></pre>
+It prints the shared prefix in tokens and the text around the first difference, e.g.
+<pre><code>turn 1: 1647 tokens   turn 2: 1821 tokens   shared prefix: 898 tokens
+PREFIX CHANGED at token 898 of 1647 (55% into turn 1).
+  turn 1: ... united in  &#9475; while firs
+  turn 2: ... united in  &#9475; error first</code></pre>
+With saved request bodies instead (<code>/v1/chat/completions</code> JSON) it renders them through the server's own <code>/apply-template</code>, so the chat template, tools and reasoning handling are exactly the server's.</li>
+<li><strong>Compare with what the server reused.</strong> Every llama-server response carries <code>timings.cache_n</code> (tokens taken from the cache) and <code>timings.prompt_n</code> (tokens processed). <code>cachecheck.py live turn1.json turn2.json</code> sends both requests and prints a verdict (below). If the shared prefix equals turn 1 and <code>cache_n</code> is still 0, the problem is on the server side.</li>
+<li><strong>Know the model's memory.</strong> <code>python cachecheck.py gguf model.gguf</code> reads the GGUF header: full attention, SWA (with the window size), recurrent or hybrid. The server's startup log says the same in <code>print_info: n_swa = ...</code>.</li>
+</ol>
+<p>To read the server's own reasoning, restart it with <strong><code>-lv 4</code></strong> and run <code>python cachecheck.py log server.log</code>. Since build b9829 (2026-06-28, PR #25078) &ldquo;forcing full prompt re-processing&rdquo; and all checkpoint lines are trace level, so at the default <code>-lv 3</code> the log shows nothing (checked: 0 lines at <code>-lv 3</code>, 1 line at <code>-lv 4</code> for the same request).</p>
+
+<h2 id="measured">How much is re-processed on each kind of model?</h2>
+<p><strong>A change inside the conversation costs the tokens after it on full attention, but the whole prompt on SWA and recurrent models when it lies before the last usable checkpoint.</strong> Two-turn chat, turn 1 = 1,647 tokens, turn 2 = turn 1 + the model's reply + a new user message. Each cell: tokens processed for turn 2 (<code>prompt_n</code>) / prompt length. Fresh server per cell, <code>-c 4096 -np 1</code>, everything else default.</p>
+<div class="tw"><table>
+<thead><tr><th>What the client changed in turn 2</th><th>Shared prefix</th><th>Full attention (Llama)</th><th>SWA, window 64 (Gemma 2)</th><th>SWA + <code>--swa-full</code></th><th>Recurrent (Mamba)</th><th>Recurrent, <code>--ctx-checkpoints 0</code></th></tr></thead>
+<tbody>
+<tr><td>Nothing (appends reply + new message)</td><td class="n">1,647</td><td class="n ok">212 / 1,859</td><td class="n ok">160 / 1,822</td><td class="n ok">160 / 1,822</td><td class="n ok">210 / 1,853</td><td class="n bad">1,853 / 1,853</td></tr>
+<tr><td>Rewrote the previous assistant reply</td><td class="n">1,647</td><td class="n ok">183 / 1,830</td><td class="n ok">183 / 1,830</td><td class="n ok">183 / 1,830</td><td class="n ok">187 / 1,830</td><td class="n bad">1,830 / 1,830</td></tr>
+<tr><td>Edited a word 243 tokens before the end of turn 1</td><td class="n">1,404</td><td class="n ok">455 / 1,859</td><td class="n ok">418 / 1,822</td><td class="n ok">418 / 1,822</td><td class="n warn">722 / 1,853</td><td class="n bad">1,853 / 1,853</td></tr>
+<tr><td>Edited a word in an early message (token 898)</td><td class="n">898</td><td class="n warn">960 / 1,858</td><td class="n bad">1,821 / 1,821</td><td class="n warn">923 / 1,821</td><td class="n bad">1,852 / 1,852</td><td class="n bad">1,852 / 1,852</td></tr>
+<tr><td>Changed the system prompt (a timestamp, token 45)</td><td class="n">45</td><td class="n bad">1,814 / 1,859</td><td class="n bad">1,822 / 1,822</td><td class="n bad">1,777 / 1,822</td><td class="n bad">1,853 / 1,853</td><td class="n bad">1,853 / 1,853</td></tr>
+</tbody></table></div>
+<p class="note">Random-weight F32 models built with <a href="repro/make_toy_models.py">make_toy_models.py</a> (4 layers, width 128) and run on CPU, so only the cache behaviour is meaningful, not speed. Turn-2 lengths differ by column because each model generated a different 16-token reply. The runner is <a href="repro/run_matrix.sh">repro/run_matrix.sh</a>, the requests are in <code>repro/cases/</code> and the raw numbers in <a href="repro/results.jsonl">repro/results.jsonl</a>. A real hybrid model (attention + recurrent layers) was not run; its reuse rule in the source is the recurrent one.</p>
+<p>What the table shows:</p>
+<ul>
+<li><strong>Normal multi-turn chat is fine on every kind of model with default settings</strong>, because llama-server saves a checkpoint a few tokens before the end of each prompt (4 and 4 + <code>n_ubatch</code> tokens before it, PR #20288). The recurrent model rolled back 4 tokens. With checkpoints off, every turn was a full re-process even though the client changed nothing.</li>
+<li><strong>The SWA model reused up to 1,404 tokens although its window is 64.</strong> The SWA part of the KV cache is <code>n_swa + n_ubatch</code> cells rounded up to 256 (here 64 + 512 &rarr; 768, <code>src/llama-kv-cache-iswa.cpp</code>), so a change in roughly the last <code>n_swa + n_ubatch</code> tokens is still cheap. Further back it needs a checkpoint, and there was none before token 898.</li>
+<li><strong>An early change is the expensive one everywhere.</strong> On full attention it costs everything after the change; on SWA and recurrent models it usually costs everything. <code>--swa-full</code> turned the SWA model into the full-attention case (923 instead of 1,821) and did not help the system-prompt change, because nothing after token 45 can be reused on any model.</li>
+</ul>
+
+<h2 id="causes">Causes and fixes</h2>
+<div class="tw"><table>
+<thead><tr><th>cachecheck verdict</th><th>Cause</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td>CLIENT CHANGED THE PREFIX, early</td><td>Something near the start differs every request: a timestamp, request id or token count in the system prompt, a tool list in a different order, a client that rewrites its header per request.</td><td>Make the system prompt and the tool list byte-identical between turns; put changing data at the end of the last user message. No server flag can reuse tokens after a change.</td></tr>
+<tr><td>CLIENT CHANGED THE PREFIX, inside the history</td><td>The client trims or summarises old tool output, drops old turns to fit the context, or re-serialises earlier tool calls differently.</td><td>On full attention this costs only the tail. On SWA models <code>--swa-full</code> limits it to the same tail (more memory). On hybrid/recurrent models only a checkpoint before the change helps: avoid rewriting old messages, or trim in large, rare steps.</td></tr>
+<tr><td>FULL RE-PROCESSING ON THE SERVER SIDE (turn 2 extends turn 1, <code>cache_n</code> 0)</td><td>No usable checkpoint: <code>--ctx-checkpoints 0</code>, a build older than b6685 for a hybrid or recurrent model (checkpoints were SWA-only before), or the cached prompt was evicted.</td><td>Keep the default <code>--ctx-checkpoints 32</code>; update the build (several checkpoint fixes landed in b9310&ndash;b12699, table below); keep <code>--cache-ram</code> on.</td></tr>
+<tr><td>DIFFERENT SLOT</td><td>With <code>-np</code> &gt; 1, the next turn went to another slot (another conversation took the slot, or the prompt similarity was below <code>--slot-prompt-similarity</code>, default 0.1).</td><td>Send <code>"id_slot"</code> in the request, run <code>-np 1</code> for a single agent, keep <code>--cache-ram</code> (default 8192 MiB) so a slot's prompt can be restored from host memory.</td></tr>
+<tr><td>PARTIAL REUSE, small</td><td>The server rolled back to the checkpoint a few tokens before the old prompt's end.</td><td>Nothing to fix.</td></tr>
+</tbody></table></div>
+<p><strong>What about <code>--cache-reuse N</code>?</strong> The server disables it at load when the memory cannot be shifted; for SWA models that is the case unless <code>--swa-full</code> is set, because the SWA and full KV caches differ in size (logged as <code>cache_reuse is not supported by this context, it will be disabled</code>; seen with the SWA model). Recurrent memory accepts it. Where it runs, it moves cached chunks of at least N tokens that follow the change, but its loop only skips cached tokens, so it recovers text after a <em>deletion</em> and nothing after an insertion or a replaced word. Measured with <code>--cache-reuse 256</code>: 4 deleted words &rarr; <code>cache_n</code> 1,616 instead of 895; 1 replaced word &rarr; 898 either way (<a href="repro/results_cache_reuse.txt">results_cache_reuse.txt</a>). The shifted chunks keep KV that was computed with the deleted text in front of them, so their output is not identical to a fresh run.</p>
+
+<h2 id="flags">The flags that matter, with defaults and the build that added them</h2>
+<div class="tw"><table>
+<thead><tr><th>Flag (env)</th><th>Default at b12723</th><th>What it does</th><th>Since</th></tr></thead>
+<tbody>
+<tr><td><code>--swa-full</code> (<code>LLAMA_ARG_SWA_FULL</code>)</td><td>off</td><td>Full-size KV for the SWA layers; reuse then works like full attention. Ignored with a warning on models without SWA, and no help for hybrid/recurrent.</td><td class="n">b5429 (2025-05-20, #13194)</td></tr>
+<tr><td><code>-ctxcp, --ctx-checkpoints, --swa-checkpoints</code> (<code>LLAMA_ARG_CTX_CHECKPOINTS</code>)</td><td>32 per slot</td><td>Maximum number of saved partial states per slot. 0 disables them.</td><td class="n">b6173 as <code>--swa-checkpoints</code> (2025-08-14, #15293, default 3); hybrid/recurrent from b6685 (2025-10-03, #16382); default 8 at b6724, 32 from b8218 (2026-03-06)</td></tr>
+<tr><td><code>-cms, --checkpoint-min-step</code> (<code>LLAMA_ARG_CHECKPOINT_MIN_SPACING_NT</code>)</td><td>8192 tokens</td><td>Minimum spacing between checkpoints; checkpoints closer than this are evicted only when the list is full (b10864, #28302). The last user message and the prompt end are exempt.</td><td class="n">b9310 (2026-05-25, #22929, default 256); 8192 from b9765 (2026-06-23, #24176)</td></tr>
+<tr><td><code>-cram, --cache-ram</code> (<code>LLAMA_ARG_CACHE_RAM</code>)</td><td>8192 MiB</td><td>Host-memory prompt cache: idle slots' prompts are saved and restored. A state bigger than the limit is skipped (<code>exceeds cache size limit</code>). -1 = no limit, 0 = off.</td><td class="n">b6724 (2025-10-09, #16391)</td></tr>
+<tr><td><code>--cache-idle-slots</code></td><td>on</td><td>Save idle slots to the prompt cache when a new task starts (needs <code>--cache-ram</code>).</td><td class="n">b8852 (2026-04-20, renamed from <code>--clear-idle</code>, #21741)</td></tr>
+<tr><td><code>--cache-reuse N</code> (<code>LLAMA_ARG_CACHE_REUSE</code>)</td><td>0 (off)</td><td>KV shifting of chunks &ge; N tokens after a deletion; disabled for SWA models without <code>--swa-full</code> (see above).</td><td class="n">b3914 or earlier</td></tr>
+<tr><td><code>-lv, --verbosity N</code></td><td>3</td><td>4 shows the trace lines: &ldquo;forcing full prompt re-processing&rdquo;, &ldquo;created / restored / erased invalidated context checkpoint&rdquo;.</td><td class="n">trace level since b9829 (2026-06-28, #25078); before it the message was a warning</td></tr>
+<tr><td><code>--log-prompts-dir DIR</code></td><td>off</td><td>Writes each rendered prompt to <code>DIR/&lt;ms&gt;.txt</code>; input for <code>cachecheck.py diff</code>.</td><td class="n">b9577 (2026-06-09, #22031)</td></tr>
+<tr><td><code>LLAMA_SERVER_SLOTS_DEBUG=1</code> (env)</td><td>unset</td><td>Prints the old and new tokens around the first mismatch in the log (width set by <code>LLAMA_SERVER_SLOTS_N_DIFF</code>), and puts prompt text in <code>/slots</code>.</td><td class="n">b6724 (2025-10-09)</td></tr>
+</tbody></table></div>
+<p class="note">&ldquo;Since&rdquo; is the first <code>b*</code> tag whose source contains the flag or default, found by bisecting all 8,792 tags of ggml-org/llama.cpp; the PR is the commit that introduced it.</p>
+
+<h2 id="history">Checkpoint and prompt-cache fixes by build</h2>
+<p><strong>If you run a build from before mid-2026, update before tuning flags:</strong> the reuse logic changed many times.</p>
+<div class="tw"><table>
+<thead><tr><th>Build (date)</th><th>PR</th><th>Change</th></tr></thead>
+<tbody>
+<tr><td class="n">b5429 (2025-05-20)</td><td>#13194</td><td>SWA KV cache; the &ldquo;forcing full prompt re-processing&rdquo; message and <code>--swa-full</code> appear.</td></tr>
+<tr><td class="n">b6173 (2025-08-14)</td><td>#15293</td><td>SWA checkpoints.</td></tr>
+<tr><td class="n">b6685 (2025-10-03)</td><td>#16382</td><td>Context checkpoints for hybrid and recurrent models.</td></tr>
+<tr><td class="n">b6724 (2025-10-09)</td><td>#16391</td><td>Host-memory prompt cache (<code>--cache-ram</code>).</td></tr>
+<tr><td class="n">b9310 (2026-05-25)</td><td>#22929</td><td>Fix checkpoint creation; <code>--checkpoint-min-step</code> replaces <code>--checkpoint-every-n-tokens</code> (in b8218&ndash;b9309).</td></tr>
+<tr><td class="n">b9509 (2026-06-04)</td><td>#24110</td><td>Avoid an unnecessary checkpoint restore when new tokens are present.</td></tr>
+<tr><td class="n">b9594 (2026-06-11)</td><td>#24411</td><td>Skip checkpoints beyond the resume position.</td></tr>
+<tr><td class="n">b9765 (2026-06-23)</td><td>#24176</td><td>Better user-message detection; a checkpoint at every user message.</td></tr>
+<tr><td class="n">b9829 (2026-06-28)</td><td>#25078</td><td>Cache messages become trace level (need <code>-lv 4</code>).</td></tr>
+<tr><td class="n">b9908 (2026-07-07)</td><td>#25070</td><td>Prompt cache RAM limit enforced.</td></tr>
+<tr><td class="n">b9978 (2026-07-12)</td><td>#25472</td><td>Evict checkpoints within min-step of each other.</td></tr>
+<tr><td class="n">b10864 (2026-09-08)</td><td>#28302</td><td>&hellip;only when the checkpoint list is full.</td></tr>
+<tr><td class="n">b11669 (2026-10-15)</td><td>#30580</td><td>Off-by-two in the SWA reuse threshold.</td></tr>
+<tr><td class="n">b11738 (2026-10-19)</td><td>#30666</td><td>SWA checkpoint invalidation logic.</td></tr>
+<tr><td class="n">b12498 (2026-11-18)</td><td>#32434</td><td>Reuse threshold for hybrid and recurrent models fixed (their window is treated as 0).</td></tr>
+<tr><td class="n">b12675 &ndash; b12699 (2026-11-23/24)</td><td>#32828, #28992, #30997</td><td>Prompt-cache restore fixes (keep an entry until the restore succeeds, skipped lookups, retry after clearing idle slots).</td></tr>
+</tbody></table></div>
+
+<h2 id="rule">The rule llama-server applies</h2>
+<p><strong>It reuses the cached tokens up to the first difference only if the memory still holds the state for that position.</strong> In <code>server_prompt::get_reuse()</code> (<code>tools/server/server-slot-sched.cpp</code>): let <code>p</code> be the position of the first token to evaluate. The live memory is usable when its smallest kept position is below <code>p</code> (recurrent, hybrid, full attention) or below <code>p &minus; n_swa + 2</code> (SWA). Otherwise the server looks for the newest checkpoint that ends at or before <code>p</code> and starts early enough, restores it and re-processes from there. If none qualifies, <code>n_past</code> becomes 0 and the message is logged. Checkpoints that cover tokens the new prompt does not share are then erased (&ldquo;erased invalidated context checkpoint&rdquo;), which is why one early change also throws away the checkpoints that later turns could have used.</p>
+<p>Checkpoints are created before decoding a batch: near the end of each prompt and at batches that start a user message, spaced at least <code>--checkpoint-min-step</code> tokens apart except for the last user message and the prompt end.</p>
+
+<h2 id="tool">cachecheck.py</h2>
+<p><a href="cachecheck.py">Download cachecheck.py</a> (MIT, one file, standard library only, ~400 lines). Four commands:</p>
+<pre><code>python cachecheck.py diff  A B  --server URL   # A, B: request JSON or --log-prompts-dir .txt; --offline compares characters
+python cachecheck.py live  turn1.json turn2.json --server URL   # "{{REPLY}}" in turn2 = turn 1's answer
+python cachecheck.py log   server.log            # explains cache lines; start the server with -lv 4
+python cachecheck.py gguf  model.gguf            # full attention / SWA / recurrent / hybrid</code></pre>
+<p><code>live</code> exits 0 when the reuse was as good as possible, 1 when the client changed the prefix, 3 for a different slot, 4 for a full server-side re-process and 5 for a large rollback, so it can run in CI against a pinned build.</p>
+
+<h2 id="faq">FAQ</h2>
+<dl>
+<dt>Is &ldquo;forcing full prompt re-processing due to lack of cache data&rdquo; a bug?</dt>
+<dd>Usually not. It means the new prompt differs from the cached one at a position the server cannot roll back to and no checkpoint is earlier. In issue #24714 (build 9642) one commenter calls it expected behaviour and others report it as a bug; no maintainer had answered when we read the thread. Find the changed token first.</dd>
+<dt>Why can't I see the message any more?</dt>
+<dd>Since b9829 it is trace level. Use <code>-lv 4</code>, or read <code>timings.cache_n</code> in the response.</dd>
+<dt>Does <code>--swa-full</code> fix it?</dt>
+<dd>For SWA models only, at the cost of a full-size KV cache for the sliding-window layers. It does nothing for hybrid or recurrent models.</dd>
+<dt>My agent (Claude Code, Qwen Code, OpenCode...) triggers it every turn.</dt>
+<dd>Run the server with <code>--log-prompts-dir</code>, take two consecutive prompts and run <code>cachecheck.py diff</code>. If the shared prefix is small, the client puts something variable near the start; if it covers the old prompt, look at slots and checkpoints instead.</dd>
+<dt>Does <code>--cache-reuse</code> help?</dt>
+<dd>Rarely. It is disabled for SWA models without <code>--swa-full</code>, and where it runs it recovers text after a deletion only, not after an insertion or a replaced word.</dd>
+</dl>
+
+<h2 id="limits">Limitations</h2>
+<ul>
+<li>Measured on random-weight toy models on CPU at master <code>ab16df3</code> and build b12733. A real hybrid model (attention + recurrent layers) and real GPU runs were not measured; the hybrid behaviour above is from the source.</li>
+<li>The DIFFERENT SLOT verdict is covered by unit tests only (<a href="repro/test_classify.py">test_classify.py</a>); we did not reproduce slot switching with several clients.</li>
+<li><code>cachecheck.py</code> reads <code>/slots</code> to see which slot served a turn; with <code>--no-slots</code> that verdict is not available.</li>
+<li>Multimodal prompts are not handled by <code>diff</code> (images are not text).</li>
+</ul>
+
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/en/llama-cpp-removed-args-lookup/">llama-server and llama-cli arguments removed by build</a> (if a flag above is rejected by your build)</li>
+<li><a href="/en/context-overflow-error-status-check/">What each engine returns when the prompt exceeds the context</a></li>
+<li><a href="/en/vllm-kv-concurrency-planner/">How many sequences fit in vLLM's KV cache</a></li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/server-context.cpp">llama.cpp tools/server/server-context.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/server-slot-sched.cpp">server-slot-sched.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/common/arg.cpp">common/arg.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/src/llama-kv-cache-iswa.cpp">src/llama-kv-cache-iswa.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/src/llama-arch.cpp">src/llama-arch.cpp</a></li>
+<li><a href="https://github.com/ggml-org/llama.cpp/pull/13194">PR #13194 (SWA)</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/15293">#15293</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/16382">#16382</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/16391">#16391</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/22929">#22929</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/24176">#24176</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/25078">#25078</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/32434">#32434</a></li>
+<li><a href="https://github.com/ggml-org/llama.cpp/issues/24714">Issue #24714</a>, <a href="https://github.com/ggml-org/llama.cpp/issues/22450">#22450</a>, <a href="https://github.com/ggml-org/llama.cpp/issues/24587">#24587</a>, <a href="https://github.com/ggml-org/llama.cpp/issues/23013">#23013</a></li>
+</ul>
+</main>
+</body>
+</html>

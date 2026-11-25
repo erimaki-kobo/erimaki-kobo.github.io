@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="llama-server-prompt-cache-miss-check/">llama-server "forcing full prompt re-processing due to lack of cache data": why the whole prompt is processed again, and how to find the cause</a></h2>
+<p>Measured on full-attention, SWA (Gemma) and recurrent models: an early edit costs only the tail on full attention but the whole prompt on SWA and recurrent models. The message is trace level since b9829 (<code>-lv 4</code>). Includes <code>cachecheck.py</code>, which finds the first changed token and compares it with <code>timings.cache_n</code>.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="pillow-removed-name-lookup/">AttributeError: module 'PIL.Image' has no attribute 'ANTIALIAS' (or 'ImageDraw' object has no attribute 'textsize', 'getsize', any name): which Pillow removed it and what to use</a></h2>
 <p>Pillow 10 removed <code>Image.ANTIALIAS</code> (use <code>Image.LANCZOS</code>), <code>ImageDraw.textsize</code> and <code>font.getsize</code> (use <code>textbbox</code>, <code>getbbox</code>); 12 removed <code>ImageMath.eval</code>. Every minor from 7.0.0 to 13.0.0 (28 releases) installed and run. Includes a lookup: paste the error.</p>
 <p class="meta">Published 2026-11-25</p>

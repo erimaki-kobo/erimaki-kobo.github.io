@@ -1,0 +1,9 @@
+--cache-reuse check, toy-llama (full attention), master ab16df3, CPU, -c 4096 -np 1, fresh server per value.
+turn 1 = cases/turn1.json (1647 tokens). Turn 2 tokens, cache_n, prompt_n:
+--cache-reuse 0   F_early_delete (4 words deleted in message 2):  1828, cache_n  895, prompt_n  933
+--cache-reuse 0   E_early_edit   (1 word replaced in message 2):  1858, cache_n  898, prompt_n  960
+--cache-reuse 256 F_early_delete:                                  1828, cache_n 1616, prompt_n  212
+--cache-reuse 256 E_early_edit:                                    1858, cache_n  898, prompt_n  960
+toy-gemma2-swa64 --cache-reuse 256: log "cache_reuse is not supported by this context, it will be disabled"; E: cache_n 0, prompt_n 1821
+toy-mamba --cache-reuse 256: no warning; E: cache_n 0, prompt_n 1852
+Re-run on build 12733 (de3069728), 2026-11-25: the two --cache-reuse 256 rows gave the same numbers.
