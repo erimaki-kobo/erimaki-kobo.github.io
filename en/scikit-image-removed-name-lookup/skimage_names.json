@@ -922,7 +922,7 @@ null,
 "0.18.3"
 ],
 null,
-null,
+"alpha argument is deprecated and will be removed in version 0.19. Please use the gray2rgba function insteadto obtain an RGBA image.",
 false
 ],
 [
@@ -1113,28 +1113,28 @@ false
 "skimage.filters",
 "frangi",
 "beta1",
-null,
+"beta",
 "0.17.2",
 [
 "0.16.2",
 "0.17.1"
 ],
 null,
-null,
+"Use keyword parameter `beta` instead of `beta1` which will be removed in version 0.17.",
 true
 ],
 [
 "skimage.filters",
 "frangi",
 "beta2",
-null,
+"gamma",
 "0.17.2",
 [
 "0.16.2",
 "0.17.1"
 ],
 null,
-null,
+"Use keyword parameter `gamma` instead of `beta2` which will be removed in version 0.17.",
 false
 ],
 [
@@ -1227,7 +1227,7 @@ null,
 "0.17.1"
 ],
 null,
-null,
+"Change 'behavior' to 'rank' if you want to use the parameters 'mask', 'shift_x', 'shift_y'. They will be discarded otherwise.",
 false
 ],
 [
@@ -1241,7 +1241,7 @@ null,
 "0.17.1"
 ],
 null,
-null,
+"Change 'behavior' to 'rank' if you want to use the parameters 'mask', 'shift_x', 'shift_y'. They will be discarded otherwise.",
 false
 ],
 [
@@ -1255,7 +1255,7 @@ null,
 "0.17.1"
 ],
 null,
-null,
+"Change 'behavior' to 'rank' if you want to use the parameters 'mask', 'shift_x', 'shift_y'. They will be discarded otherwise.",
 false
 ],
 [
@@ -2035,14 +2035,14 @@ false
 "skimage.morphology",
 "convex_hull_object",
 "neighbors",
-null,
+"connectivity",
 "0.18.0",
 [
 "0.16.2",
 "0.17.2"
 ],
 null,
-null,
+"The argument `neighbors` is deprecated and will be removed in scikit-image 0.18, use `connectivity` instead.",
 false
 ],
 [
@@ -2173,14 +2173,14 @@ false
 "skimage.morphology",
 "flood_fill",
 "inplace",
-null,
+"in_place",
 "0.19.0",
 [
 "0.16.2",
 "0.18.3"
 ],
 null,
-null,
+"The `inplace` parameter is depreciated and will be removed in version 0.19.0. Use `in_place` instead.",
 true
 ],
 [
@@ -2405,14 +2405,14 @@ true
 "skimage.morphology",
 "skeletonize_3d",
 "img",
-null,
+"image",
 "0.17.2",
 [
 "0.16.2",
 "0.17.1"
 ],
 null,
-null,
+"Using img as a keyword argument to skeletonize_3d is deprecated. Use image instead.",
 false
 ],
 [
@@ -2729,7 +2729,7 @@ null,
 "0.19.3"
 ],
 null,
-null,
+"Coordinate values must be set in a row column format. `coordinates` must be set to \"rc\".",
 false
 ],
 [
@@ -2821,14 +2821,14 @@ false
 "skimage.segmentation",
 "flood_fill",
 "inplace",
-null,
+"in_place",
 "0.19.0",
 [
 "0.16.2",
 "0.18.3"
 ],
 null,
-null,
+"The `inplace` parameter is depreciated and will be removed in version 0.19.0. Use `in_place` instead.",
 false
 ],
 [

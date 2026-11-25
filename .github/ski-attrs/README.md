@@ -13,6 +13,8 @@ Releases before 0.16.2 have no wheel for Python 3.8+ and are not covered.
   (deprecate_kwarg, deprecate_multichannel_kwarg, remove_arg, deprecate_parameter, deprecate_func) with their mapping and versions.
 - kwprobe.py: real calls on a 32x32 test image: old-argument calls (does it raise TypeError for that argument?), the new spellings,
   and old/new pairs whose results are compared by digest ("same result" on the page only when the digests are equal).
+- argtext_probe.py: for the removed arguments no wrapper or call gave a text for, the warn/raise message in the function's source
+  that names the argument, read in the last release that accepted it (want list: rows of skimage_names.json without text).
 - build_page.py: removed names; removed arguments (accepted in one release; later neither in the signature, nor wrapped, nor
   **kwargs), with that rule asserted against every real call; what the latest release still wraps as deprecated. notes.json: the
   four names scikit-image gave no text for.
@@ -25,6 +27,7 @@ v_$V/bin/python -I probe.py get names.json > probes/get_$V.json
 v_$V/bin/python -I msg_probe.py want_$V.json > probes/msg_$V.json   # want_$V.json: names whose last release is $V
 v_$V/bin/python -I sig_probe.py > probes/sig_$V.json
 (mkdir kw_$V && cd kw_$V && ../v_$V/bin/python -I kwprobe.py > ../probes/kw_$V.json)
+v_$V/bin/python -I argtext_probe.py wantargs_$V.json > probes/argtext_$V.json   # after a first build; then build again
 python3 -I build_page.py probes notes.json probes/pypi.json <repo>/en/scikit-image-removed-name-lookup <published> <today>
 node check_browser.js http://127.0.0.1:PORT
 ```

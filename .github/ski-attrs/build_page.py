@@ -177,9 +177,18 @@ for lab in KW[LATEST]["old"]:
             AR[(m, n, p)]["called"] = True
             if c["ok"] and c.get("warn") and p in c["warn"]:
                 AR[(m, n, p)]["text"] = clean(c["warn"])
+ATXT = {}   # argtext_<v>.json: the warn/raise text that names the argument, in the last release that accepted it
+for f in sorted(os.listdir(PD)):
+    if f.startswith("argtext_") and f.endswith(".json"):
+        for kk, ms in json.load(open(os.path.join(PD, f))).items():
+            ATXT[tuple(kk.split("|"))] = ms[0]
+for a in ARGS:
+    if not a["text"] and (a["mod"], a["fn"], a["p"]) in ATXT:
+        a["text"] = " ".join(x for x in re.split(r"(?<=\.)\s+", clean(ATXT[(a["mod"], a["fn"], a["p"])])) if "{" not in x)
 for a in ARGS:
     if not a["new"] and a["text"]:
-        mm = re.search(r"[Uu]se (?:the parameter )?[`']?(\w+)[`']? (?:argument )?instead", a["text"])
+        mm = (re.search(r"[Uu]se (?:the parameter )?[`']?(\w+)[`']? (?:argument )?instead", a["text"])
+              or re.search(r"[Uu]se keyword parameter [`'](\w+)[`'] instead of [`']%s[`']" % re.escape(a["p"]), a["text"]))
         if mm and mm.group(1) != a["p"]:
             a["new"] = mm.group(1)
 for a in ARGS:   # the same function exported from a second module
@@ -233,6 +242,9 @@ for m, n, p, new, v in [("skimage.filters", "gaussian", "multichannel", "channel
                         ("skimage.morphology", "remove_small_objects", "in_place", "out", "0.20.0")]:
     a = AR[(m, n, p)]
     assert a["removed"] == v and a["new"] == new, (m, n, p, a)
+for m, n, p, new in [("skimage.filters", "frangi", "beta1", "beta"), ("skimage.filters", "frangi", "beta2", "gamma"), ("skimage.morphology", "flood_fill", "inplace", "in_place"),
+                     ("skimage.morphology", "convex_hull_object", "neighbors", "connectivity"), ("skimage.morphology", "skeletonize_3d", "img", "image")]:
+    assert AR[(m, n, p)]["new"] == new, (m, n, p, AR[(m, n, p)])
 assert AR[("skimage.filters", "gaussian", "multichannel")]["map"] == ["0.19.0", "0.19.3"] and AR[("skimage.morphology", "binary_erosion", "selem")]["map"] == ["0.19.0", "0.19.3"]
 for v in VS:
     assert KW[v]["deps"]["tifffile"] == (key(v) >= key("0.17.1")), (v, KW[v]["deps"])
