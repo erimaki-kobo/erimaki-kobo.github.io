@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cannot import name from 'gradio': the version that has it</title>
+<meta name="description" content="gradio 4.0.0 removed gr.inputs, gr.outputs, Box and IOComponent (3.50.2 is the last with them); ChatInterface needs 3.37.0. Paste the error for any name.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cannot import name from &#x27;gradio&#x27;: the version that has it">
+<meta property="og:description" content="gradio 4.0.0 removed gr.inputs, gr.outputs, Box and IOComponent (3.50.2 is the last with them); ChatInterface needs 3.37.0. Paste the error for any name.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+#archs{min-width:860px}
+#archs td:nth-child(1),#archs td:nth-child(2),#archs td:nth-child(5){white-space:nowrap}
+#archs tr:target,#archs tr.hit{outline:2px solid var(--acc)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#filter{max-width:320px}
+#res .s{font-size:1em;white-space:normal}
+.pin code{white-space:nowrap}.ex button{font-size:.82rem;padding:3px 9px;margin:0 4px 6px 0;background:transparent;color:var(--acc)}
+#res td:first-child{min-width:9em}td code{overflow-wrap:anywhere}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/#article", "headline": "ImportError: cannot import name 'X' from 'gradio' (inputs, Box, IOComponent, ChatInterface, ...): which releas", "description": "gradio 4.0.0 removed gr.inputs, gr.outputs, Box and IOComponent (3.50.2 is the last with them); ChatInterface needs 3.37.0. Paste the error for any name.", "url": "https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/", "datePublished": "2026-11-25", "dateModified": "2026-11-25", "inLanguage": "en", "about": ["Gradio", "ImportError", "Hugging Face Spaces"], "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/"}, {"@type": "WebApplication", "name": "gradio import name lookup", "url": "https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/#lookup", "description": "Paste an ImportError or an import statement and get the gradio releases in which that name can be imported from that module, the range to pin, and where the name lives now.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "Dataset", "name": "Names importable from gradio and its modules, by release", "url": "https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/gradio.json", "dateModified": "2026-11-25", "description": "For 170 releases of gradio (3.0.1 to 6.32.0): the names importable from every module as release ranges and the life of each module. Read from the source of each release.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "Erimaki Kobo"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/gradio.json"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I fix \"cannot import name 'inputs' from 'gradio'\" (or 'outputs')?", "acceptedAnswer": {"@type": "Answer", "text": "gradio 4.0.0 (2023-10-31) removed gradio.inputs and gradio.outputs; 3.50.2 is the last release with them. Replace gr.inputs.Textbox(...) with gr.Textbox(...), gr.outputs.Label(...) with gr.Label(...), and so on, as the 3.50.2 deprecation message said. To run the old code unchanged, pin pip install \"gradio<4.0.0\"; on a Hugging Face Space, set sdk_version in README.md."}}, {"@type": "Question", "name": "How do I fix \"cannot import name 'IOComponent' from 'gradio.components'\"?", "acceptedAnswer": {"@type": "Answer", "text": "IOComponent was removed in gradio 4.0.0 (3.50.2 is the last release with it). Code that subclasses it, usually a custom component or an old extension, has to subclass gradio.components.Component instead, or pin gradio<4.0.0."}}, {"@type": "Question", "name": "Why does \"from gradio import ChatInterface\" fail?", "acceptedAnswer": {"@type": "Answer", "text": "Your gradio is older than 3.37.0, the first release (of each minor version read) that has ChatInterface. Upgrade gradio. The same holds for ChatMessage (4.38.0), Sidebar (5.14.0) and the other names in the table of additions."}}, {"@type": "Question", "name": "gradio fails with \"cannot import name 'HfFolder' from 'huggingface_hub'\". Is that gradio's fault?", "acceptedAnswer": {"@type": "Answer", "text": "It is the combination: gradio 4.9.0 to 5.7.x import HfFolder, which huggingface_hub 1.0.0 removed. Upgrade gradio to 5.8.0 or later, or pin huggingface_hub below 1.0.0. The huggingface_hub page on this site has the details."}}, {"@type": "Question", "name": "Does this page cover gradio.components, gradio.utils and the other modules?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: every module of gradio from 3.0.1 to 6.32.0, 6,066 module-and-name pairs in 213 modules."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "cannot import name from 'gradio': the version that has it", "item": "https://erimaki-kobo.github.io/en/gradio-import-name-version-lookup/"}]}]}</script>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>ImportError: cannot import name 'X' from 'gradio' (inputs, Box, IOComponent, ChatInterface, ...): which releases have it</h1>
+<p class="lede"><strong>Most of these errors come from gradio 4.0.0 (2023-10-31), which removed <code>gr.inputs</code>, <code>gr.outputs</code>, <code>Box</code>, <code>Carousel</code>, <code>Variable</code>, <code>StatusTracker</code>, interpretation and 13 more top-level names, and <code>IOComponent</code> from <code>gradio.components</code>; 3.50.2 is the last release that has them.</strong> Replace <code>gr.inputs.Textbox(...)</code> with <code>gr.Textbox(...)</code> (the same for every input and output class), <code>Variable</code> with <code>State</code> and <code>Carousel</code> with <code>Gallery</code>. To run old code unchanged, pin <code>pip install "gradio&lt;4.0.0"</code>; on a Hugging Face Space the gradio version comes from <code>sdk_version</code> in the Space's README.md. The opposite error, a new name on an old gradio, means upgrading: <code>ChatInterface</code> needs 3.37.0, <code>ChatMessage</code> 4.38.0. For any other name, in any module of gradio, paste the error below.</p>
+<p class="meta">Published 2026-11-25 &middot; Data as of 2026-11-25 &middot; gradio 3.0.1 to 6.32.0, the first release of each of 170 minor versions &middot; read from the source of each release, nothing was installed or run (<a href="#how">how</a>, <a href="#limits">limits</a>)</p>
+
+<div class="card" id="lookup">
+<label for="q">The error line, the import statement, or just the names</label>
+<textarea id="q" spellcheck="false" placeholder="ImportError: cannot import name 'inputs' from 'gradio' (/usr/local/lib/python3.10/site-packages/gradio/__init__.py)"></textarea>
+<div class="grid">
+<div><label for="v">Your gradio version (optional; <code>pip show gradio</code>)</label><input id="v" inputmode="decimal" placeholder="for example 4.44.1"></div>
+<div class="row"><button type="button" id="go">Look up</button> <span id="status" role="status"></span></div>
+</div>
+<p class="ex note">Examples: <button type="button" data-ex="ImportError: cannot import name &#x27;inputs&#x27; from &#x27;gradio&#x27; (/usr/local/lib/python3.10/site-packages/gradio/__init__.py)" data-v="4.44.1">inputs</button><button type="button" data-ex="from gradio.components import IOComponent" data-v="">IOComponent</button><button type="button" data-ex="from gradio import ChatInterface" data-v="3.35.2">ChatInterface</button><button type="button" data-ex="ImportError: cannot import name &#x27;make_waveform&#x27; from &#x27;gradio&#x27;" data-v="5.4.0">make_waveform</button><button type="button" data-ex="with gr.Box():" data-v="">Box</button></p>
+<div id="res" aria-live="polite"></div>
+<p class="note">Runs in your browser on <a href="gradio.json">gradio.json</a> (153 KB); nothing you paste is sent anywhere. Covers 246 top-level names and 6,066 module-and-name pairs in 213 modules.</p>
+</div>
+
+<h2 id="v4">What did gradio 4.0.0 remove, and what replaces each name?</h2>
+<p><strong>These 21 names left <code>from gradio import ...</code> (and <code>gr.X</code>) in 4.0.0, together with <code>gradio.components.IOComponent</code>.</strong> Where gradio named a replacement, it is quoted from the deprecation messages of 3.50.2; the lookup shows the same hints.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Removed in 4.0.0</th><th>Use instead</th></tr></thead>
+<tbody>
+<tr><td><code>gr.inputs</code></td><td>the components themselves: <code>gr.Textbox()</code>, <code>gr.Image()</code> and so on. gradio 3.50.2 said: "Usage of gradio.inputs is deprecated, and will not be supported in the future, please import your component from gradio.components".</td></tr>
+<tr><td><code>gr.outputs</code></td><td>the components themselves (<code>gr.Textbox()</code>, <code>gr.Label()</code>, ...); gradio.outputs was deprecated in 3.50.2 like gradio.inputs.</td></tr>
+<tr><td><code>gr.Box</code></td><td>no named replacement; 3.50.2 marks Box "DEPRECATED". <code>gr.Group()</code> or <code>gr.Column()</code> are the layouts that remain.</td></tr>
+<tr><td><code>gr.Carousel</code></td><td><code>gr.Gallery()</code>. gradio 3.50.2 said: "The Carousel component is deprecated. Please consider using the Gallery component".</td></tr>
+<tr><td><code>gr.Variable</code></td><td><code>gr.State()</code>. gradio 3.50.2 said: "Variable was renamed to State".</td></tr>
+<tr><td><code>gr.StatusTracker</code></td><td>nothing; it was deprecated in 3.50.2 and removed.</td></tr>
+<tr><td><code>gr.Webcam</code></td><td><code>gr.Image(sources=["webcam"])</code> (4.0.0 renamed <code>source</code> to <code>sources</code>).</td></tr>
+<tr><td><code>gr.Interpretation</code></td><td>nothing; gradio 4.0.0 removed interpretation.</td></tr>
+<tr><td><code>gr.interpretation</code></td><td>nothing; gradio 4.0.0 removed interpretation.</td></tr>
+<tr><td><code>gr.Parallel</code></td><td>nothing in gradio; Parallel and Series (gradio.mix) were removed in 4.0.0.</td></tr>
+<tr><td><code>gr.Series</code></td><td>nothing in gradio; Parallel and Series (gradio.mix) were removed in 4.0.0.</td></tr>
+<tr><td><code>gradio.components.IOComponent</code></td><td><code>gradio.components.Component</code> (custom components subclass it from 4.0.0).</td></tr>
+</tbody></table></div>
+<p>gradio 5.0.0 (2024-10-09) removed <code>make_waveform</code> and <code>HuggingFaceDatasetSaver</code> (and <code>LogoutButton</code>) from the top level; 4.44.1 is the last release with them.</p>
+
+<h2 id="added">Which gradio release added the newer names?</h2>
+<p><strong>"cannot import name" for a name that appears in current examples means the installed gradio is too old.</strong> The first release of each minor version that has the name:</p>
+<div class="tw"><table>
+<thead><tr><th>Name</th><th>First release</th><th>Date (PyPI)</th></tr></thead>
+<tbody>
+<tr><td><code>gr.ChatInterface</code></td><td>3.37.0</td><td>2023-07-17</td></tr>
+<tr><td><code>gr.LoginButton</code></td><td>3.40.0</td><td>2023-08-10</td></tr>
+<tr><td><code>gr.on</code></td><td>3.45.0</td><td>2023-09-26</td></tr>
+<tr><td><code>gr.http_server</code></td><td>4.23.0</td><td>2024-03-25</td></tr>
+<tr><td><code>gr.render</code></td><td>4.31.0</td><td>2024-05-10</td></tr>
+<tr><td><code>gr.ChatMessage</code></td><td>4.38.0</td><td>2024-07-12</td></tr>
+<tr><td><code>gr.load_chat</code></td><td>5.10.0</td><td>2025-01-07</td></tr>
+<tr><td><code>gr.Sidebar</code></td><td>5.14.0</td><td>2025-01-30</td></tr>
+<tr><td><code>gr.Navbar</code></td><td>5.45.0</td><td>2025-09-10</td></tr>
+<tr><td><code>gr.Server</code></td><td>6.10.0</td><td>2026-03-24</td></tr>
+</tbody></table></div>
+
+<h2 id="removed">What did each gradio release remove from <code>gradio</code> and <code>gradio.components</code>?</h2>
+<p><strong>41 of the 246 names that <code>from gradio import</code> has ever accepted are gone from 6.32.0.</strong> 32 of the 213 modules that have existed are gone as well; paste <code>No module named 'gradio...'</code> into the lookup for any of them. Names that <code>gradio.components</code> only passed along from other packages (typing names, <code>numpy</code>, <code>PIL</code> and similar) are left out of this table but are in the lookup.</p>
+<div class="tw"><table class="flt">
+<thead><tr><th>Release</th><th>Date (PyPI)</th><th>Module</th><th>Names</th><th>Removed names</th></tr></thead>
+<tbody>
+<tr><td>6.0.0</td><td>2025-11-21</td><td><code>gradio</code></td><td>1</td><td><code>sketch</code></td></tr>
+<tr><td>5.46.0</td><td>2025-09-16</td><td><code>gradio</code></td><td>2</td><td><code>IS_WASM</code>, <code>wasm_utils</code></td></tr>
+<tr><td>5.26.0</td><td>2025-04-23</td><td><code>gradio</code></td><td>1</td><td><code>strings</code></td></tr>
+<tr><td>5.0.0</td><td>2024-10-09</td><td><code>gradio</code></td><td>3</td><td><code>HuggingFaceDatasetSaver</code>, <code>LogoutButton</code>, <code>make_waveform</code></td></tr>
+<tr><td>5.0.0</td><td>2024-10-09</td><td><code>gradio.components</code></td><td>1</td><td><code>LogoutButton</code></td></tr>
+<tr><td>4.37.1</td><td>2024-06-25</td><td><code>gradio</code></td><td>1</td><td><code>analytics_dashboard</code></td></tr>
+<tr><td>4.0.0</td><td>2023-10-31</td><td><code>gradio</code></td><td>21</td><td><code>Box</code>, <code>Carousel</code>, <code>HuggingFaceDatasetJSONSaver</code>, <code>ImagePaint</code>, <code>Interpretation</code>, <code>Parallel</code>, <code>Pil</code>, <code>Series</code>, <code>StatusTracker</code>, <code>TimeSeries</code>, <code>Timeseries</code>, <code>Variable</code>, <code>Webcam</code>, <code>cli_env_info</code>, <code>deploy_space</code>, <code>deprecation</code>, <code>inputs</code>, <code>interpretation</code>, <code>mix</code>, <code>outputs</code>, <code>reload</code></td></tr>
+<tr><td>4.0.0</td><td>2023-10-31</td><td><code>gradio.components</code></td><td>9</td><td><code>Carousel</code>, <code>Column</code>, <code>IOComponent</code>, <code>Interpretation</code>, <code>Row</code>, <code>StatusTracker</code>, <code>TimeSeries</code>, <code>Timeseries</code>, <code>Variable</code></td></tr>
+<tr><td>3.45.0</td><td>2023-09-26</td><td><code>gradio</code></td><td>2</td><td><code>current_pkg_version</code>, <code>pkgutil</code></td></tr>
+<tr><td>3.35.0</td><td>2023-06-15</td><td><code>gradio.components</code></td><td>32</td><td><code>AltairPlot</code>, <code>Block</code>, <code>BlockContext</code>, <code>Blurrable</code>, <code>BooleanSerializable</code>, <code>Changeable</code>, <code>Clearable</code>, <code>Clickable</code>, <code>Editable</code>, <code>EventListener</code>, <code>EventListenerMethod</code>, <code>FileData</code>, <code>FileSerializable</code>, <code>GallerySerializable</code>, <code>ImgSerializable</code>, <code>Inputable</code>, <code>JSONSerializable</code>, <code>ListStringSerializable</code>, <code>NeighborInterpretable</code>, <code>NumberSerializable</code>, <code>Playable</code>, <code>Releaseable</code>, <code>Selectable</code>, <code>Serializable</code>, <code>SimpleSerializable</code>, <code>Streamable</code>, <code>StringSerializable</code>, <code>Submittable</code>, <code>TokenInterpretable</code>, <code>Uploadable</code>, <code>VideoSerializable</code>, <code>_Image</code></td></tr>
+<tr><td>3.26.0</td><td>2023-04-13</td><td><code>gradio</code></td><td>1</td><td><code>media_data</code></td></tr>
+<tr><td>3.25.0</td><td>2023-04-10</td><td><code>gradio</code></td><td>1</td><td><code>documentation</code></td></tr>
+<tr><td>3.24.0</td><td>2023-03-30</td><td><code>gradio</code></td><td>1</td><td><code>serializing</code></td></tr>
+<tr><td>3.21.0</td><td>2023-03-14</td><td><code>gradio</code></td><td>1</td><td><code>encryptor</code></td></tr>
+<tr><td>3.16.0</td><td>2023-01-05</td><td><code>gradio</code></td><td>3</td><td><code>dataclasses</code>, <code>examples</code>, <code>queue</code></td></tr>
+<tr><td>3.1.0</td><td>2022-07-19</td><td><code>gradio</code></td><td>3</td><td><code>load_interface</code>, <code>pkg_resources</code>, <code>process_examples</code></td></tr>
+</tbody></table></div>
+
+<h2 id="read">How do I read the error?</h2>
+<ul>
+<li><strong>On a Hugging Face Space</strong>, the gradio version is the <code>sdk_version</code> in the Space's README.md, not what <code>requirements.txt</code> says. A Space that stopped working after a rebuild usually got a newer gradio there.</li>
+<li><strong>The path in parentheses</strong> is the copy of gradio that was imported. If it points into your project (a file named <code>gradio.py</code>), rename yours.</li>
+<li><strong>The module after "from"</strong> decides which table applies: <code>from 'gradio'</code> is the top level, <code>from 'gradio.components'</code> that module. When the import is in another package (an extension or an old app template), upgrade or pin gradio to the range that package was written for.</li>
+</ul>
+
+<h2 id="how">How was this read, and how was it checked?</h2>
+<p><strong>From the source of each release, with Python's <code>ast</code> module; no release was installed or imported.</strong> gradio's git tags (<code>gradio@X.Y.Z</code>) start at 3.41.0; for 3.0 to 3.40 the package files were read from the wheels on PyPI (only the needed parts of each wheel, by HTTP range requests). gradio imports eagerly, so a module's names are everything it binds at module level: classes, functions, assignments, imports, and what <code>from .x import *</code> brings in. Code under <code>if TYPE_CHECKING:</code> is skipped. Dates come from PyPI.</p>
+<p>Checks, by a second reading of the same files: (1) each of the 236 top-level names read from the git tags is found as plain text in <code>__init__.py</code> (or the modules it star-imports) in every release of its range (26,624 name-and-release pairs with the wheel part), and is not imported there in the release on either side (128 edges). (2) A regular expression finds 29,937 definitions in 3,331 file versions; all are among the names read. (3) Against a different source, the wheels on PyPI, 22 release checks of the facts on this page agree:</p>
+<div class="tw"><table>
+<thead><tr><th>Name</th><th>Release</th><th>Wheel and data</th></tr></thead>
+<tbody>
+<tr><td><code>gradio.inputs</code></td><td>3.50.2</td><td>has it</td></tr>
+<tr><td><code>gradio.inputs</code></td><td>4.0.0</td><td>does not</td></tr>
+<tr><td><code>gradio.outputs</code></td><td>3.50.2</td><td>has it</td></tr>
+<tr><td><code>gradio.outputs</code></td><td>4.0.0</td><td>does not</td></tr>
+<tr><td><code>gradio.Box</code></td><td>3.50.2</td><td>has it</td></tr>
+<tr><td><code>gradio.Box</code></td><td>4.0.0</td><td>does not</td></tr>
+<tr><td><code>gradio.Interpretation</code></td><td>3.50.2</td><td>has it</td></tr>
+<tr><td><code>gradio.Interpretation</code></td><td>4.0.0</td><td>does not</td></tr>
+<tr><td><code>gradio.components.IOComponent</code></td><td>3.50.2</td><td>has it</td></tr>
+<tr><td><code>gradio.components.IOComponent</code></td><td>4.0.0</td><td>does not</td></tr>
+<tr><td><code>gradio.make_waveform</code></td><td>4.44.1</td><td>has it</td></tr>
+<tr><td><code>gradio.make_waveform</code></td><td>5.0.0</td><td>does not</td></tr>
+<tr><td><code>gradio.HuggingFaceDatasetSaver</code></td><td>4.44.1</td><td>has it</td></tr>
+<tr><td><code>gradio.HuggingFaceDatasetSaver</code></td><td>5.0.0</td><td>does not</td></tr>
+<tr><td><code>gradio.ChatInterface</code></td><td>3.37.0</td><td>has it</td></tr>
+<tr><td><code>gradio.ChatInterface</code></td><td>3.36.1</td><td>does not</td></tr>
+<tr><td><code>gradio.http_server</code></td><td>4.23.0</td><td>has it</td></tr>
+<tr><td><code>gradio.http_server</code></td><td>4.22.0</td><td>does not</td></tr>
+<tr><td><code>gradio.ChatMessage</code></td><td>4.38.0</td><td>has it</td></tr>
+<tr><td><code>gradio.ChatMessage</code></td><td>4.37.2</td><td>does not</td></tr>
+<tr><td><code>gradio.Sidebar</code></td><td>5.14.0</td><td>has it</td></tr>
+<tr><td><code>gradio.Sidebar</code></td><td>5.13.2</td><td>does not</td></tr>
+</tbody></table></div>
+
+<h2 id="limits">Limits</h2>
+<ul>
+<li>Nothing was installed or run. "Has it" means the import statement resolves in the source.</li>
+<li>Only the first release of each minor version was read (and the newest). A name added in a patch release is attributed to the next minor; a name removed in a patch release shows its removal one minor later.</li>
+<li>Releases before 3.0.1 are not covered.</li>
+<li>Errors that are not about import names, such as a component argument that was renamed (<code>source</code> to <code>sources</code> in 4.0.0), are not covered.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<h3>How do I fix "cannot import name 'inputs' from 'gradio'" (or 'outputs')?</h3>
+<p>gradio 4.0.0 (2023-10-31) removed gradio.inputs and gradio.outputs; 3.50.2 is the last release with them. Replace gr.inputs.Textbox(...) with gr.Textbox(...), gr.outputs.Label(...) with gr.Label(...), and so on, as the 3.50.2 deprecation message said. To run the old code unchanged, pin pip install "gradio&lt;4.0.0"; on a Hugging Face Space, set sdk_version in README.md.</p>
+<h3>How do I fix "cannot import name 'IOComponent' from 'gradio.components'"?</h3>
+<p>IOComponent was removed in gradio 4.0.0 (3.50.2 is the last release with it). Code that subclasses it, usually a custom component or an old extension, has to subclass gradio.components.Component instead, or pin gradio&lt;4.0.0.</p>
+<h3>Why does "from gradio import ChatInterface" fail?</h3>
+<p>Your gradio is older than 3.37.0, the first release (of each minor version read) that has ChatInterface. Upgrade gradio. The same holds for ChatMessage (4.38.0), Sidebar (5.14.0) and the other names in the table of additions.</p>
+<h3>gradio fails with "cannot import name 'HfFolder' from 'huggingface_hub'". Is that gradio's fault?</h3>
+<p>It is the combination: gradio 4.9.0 to 5.7.x import HfFolder, which huggingface_hub 1.0.0 removed. Upgrade gradio to 5.8.0 or later, or pin huggingface_hub below 1.0.0. The huggingface_hub page on this site has the details.</p>
+<h3>Does this page cover gradio.components, gradio.utils and the other modules?</h3>
+<p>Yes: every module of gradio from 3.0.1 to 6.32.0, 6,066 module-and-name pairs in 213 modules.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>gradio-app/gradio, release tags gradio@3.41.0 to gradio@6.32.0: every <code>.py</code> file under <a href="https://github.com/gradio-app/gradio/blob/gradio@6.32.0/gradio/__init__.py">gradio/</a>; gradio 3.0.1 to 3.40.0 from the wheels on <a href="https://pypi.org/project/gradio/#history">PyPI</a>, which also gives the release dates.</li>
+<li>Deprecation messages quoted: <a href="https://github.com/gradio-app/gradio/blob/gradio@3.50.2/gradio/inputs.py">inputs.py at 3.50.2</a>, <a href="https://github.com/gradio-app/gradio/blob/gradio@3.50.2/gradio/components/carousel.py">components/carousel.py</a>, <a href="https://github.com/gradio-app/gradio/blob/gradio@3.50.2/gradio/components/state.py">components/state.py</a>, <a href="https://github.com/gradio-app/gradio/blob/gradio@3.50.2/gradio/layouts.py">layouts.py</a> (Box).</li>
+</ul>
+<p>The same data as JSON: <a href="gradio.json">gradio.json</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p class="note">Related: <a href="/en/huggingface-hub-import-name-version-lookup/">"cannot import name 'HfFolder' from 'huggingface_hub'"</a> (gradio 4.9.0 to 5.7.x) &middot; <a href="/en/transformers-import-name-version-lookup/">"... from 'transformers'"</a> &middot; <a href="/en/diffusers-import-name-version-lookup/">"... from 'diffusers'"</a> &middot; <a href="/en/datasets-import-name-version-lookup/">"... from 'datasets'"</a>.</p>
+</main>
+<script>window.LOOKUP_LIBS = ["gradio"]; window.PTA_HINTS = {"gradio::inputs": "the components themselves: <code>gr.Textbox()</code>, <code>gr.Image()</code> and so on. gradio 3.50.2 said: \"Usage of gradio.inputs is deprecated, and will not be supported in the future, please import your component from gradio.components\".", "gradio::outputs": "the components themselves (<code>gr.Textbox()</code>, <code>gr.Label()</code>, ...); gradio.outputs was deprecated in 3.50.2 like gradio.inputs.", "gradio::Box": "no named replacement; 3.50.2 marks Box \"DEPRECATED\". <code>gr.Group()</code> or <code>gr.Column()</code> are the layouts that remain.", "gradio::Carousel": "<code>gr.Gallery()</code>. gradio 3.50.2 said: \"The Carousel component is deprecated. Please consider using the Gallery component\".", "gradio::Variable": "<code>gr.State()</code>. gradio 3.50.2 said: \"Variable was renamed to State\".", "gradio::StatusTracker": "nothing; it was deprecated in 3.50.2 and removed.", "gradio::Webcam": "<code>gr.Image(sources=[\"webcam\"])</code> (4.0.0 renamed <code>source</code> to <code>sources</code>).", "gradio::Interpretation": "nothing; gradio 4.0.0 removed interpretation.", "gradio::interpretation": "nothing; gradio 4.0.0 removed interpretation.", "gradio::Parallel": "nothing in gradio; Parallel and Series (gradio.mix) were removed in 4.0.0.", "gradio::Series": "nothing in gradio; Parallel and Series (gradio.mix) were removed in 4.0.0.", "gradio:components:IOComponent": "<code>gradio.components.Component</code> (custom components subclass it from 4.0.0)."};</script>
+<script>
+(function () {
+  "use strict";
+  var LIBS = window.LOOKUP_LIBS || ["peft", "trl", "accelerate"], DATA = {}, SEQ = 0, HINTS = window.PTA_HINTS;
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c];
+    });
+  }
+  function code(s) { return "<code>" + esc(s) + "</code>"; }
+  var STOP = {from: 1, "import": 1, ImportError: 1, cannot: 1, name: 1, as: 1, unknown: 1, location: 1, py: 1, __init__: 1,
+    site: 1, packages: 1, lib: 1, python: 1, usr: 1, local: 1, dist: 1, module: 1, has: 1, no: 1, attribute: 1,
+    ModuleNotFoundError: 1, AttributeError: 1, RuntimeError: 1, No: 1, named: 1, Failed: 1, to: 1, because: 1, of: 1, the: 1,
+    following: 1, error: 1, look: 1, up: 1, see: 1, its: 1, traceback: 1, most: 1, likely: 1, due: 1, circular: 1, partially: 1,
+    initialized: 1, Did: 1, you: 1, mean: 1, File: 1, line: 1, "in": 1, transformers: 1};
+  LIBS.forEach(function (l) { STOP[l] = 1; });
+  var Q = "['\"`\u2018\u2019]?", LIBRX = "(" + LIBS.slice().sort(function (a, b) { return b.length - a.length; }).join("|") + ")(?!\\w)", ALL = LIBS.join(", ");
+
+  function split(dotted) {
+    var i = dotted.indexOf(".");
+    return i < 0 ? {lib: dotted, mod: ""} : {lib: dotted.slice(0, i), mod: dotted.slice(i + 1)};
+  }
+  function label(lib, m) { return m ? lib + "." + m : lib; }
+
+  function parse(text) {
+    var out = [], seen = {}, m, rest = text;
+    function add(name, dotted) {
+      var s = typeof dotted === "string" ? split(dotted) : dotted, k = s.lib + ":" + s.mod + ":" + name;
+      if (!seen[k] && (name === null || /^[A-Za-z_]\w*$/.test(name))) { seen[k] = 1; out.push({lib: s.lib, mod: s.mod, name: name}); }
+    }
+    var reErr = new RegExp("cannot import name " + Q + "([A-Za-z_]\\w*)" + Q + "\\s+from\\s+(?:partially initialized module\\s+)?" + Q + "(" + LIBRX + "(?:\\.\\w+)*)", "g");
+    while ((m = reErr.exec(text))) add(m[1], m[2]);
+    rest = rest.replace(reErr, " ").replace(/\([^()]*(?:site-packages|dist-packages|__init__\.py)[^()]*\)/g, " ");
+    var reAttr = new RegExp("module " + Q + "(" + LIBRX + "(?:\\.\\w+)*)" + Q + " has no attribute " + Q + "([A-Za-z_]\\w*)", "g");
+    while ((m = reAttr.exec(rest))) add(m[3], m[1]);
+    rest = rest.replace(reAttr, " ");
+    var reNoMod = new RegExp("(?:No module named|Failed to import)\\s+" + Q + "(" + LIBRX + "(?:\\.\\w+)+)", "g");
+    while ((m = reNoMod.exec(rest))) add(null, m[1]);
+    rest = rest.replace(reNoMod, " ");
+    var reImp = new RegExp("from\\s+(" + LIBRX + "(?:\\.\\w+)*)\\s+import\\s+(\\([^)]*\\)|[^\\n;]+)", "g");
+    while ((m = reImp.exec(rest))) {
+      var where = m[1];
+      m[3].replace(/#[^\n]*/g, " ").replace(/[()\\]/g, " ").split(",").forEach(function (p) {
+        var n = p.trim().split(/\s+as\s+/)[0].trim();
+        if (n) add(n, where);
+      });
+    }
+    rest = rest.replace(reImp, " ");
+    var rePlain = new RegExp("(?:^|\\n|;)\\s*import\\s+(" + LIBRX + "\\.\\w+(?:\\.\\w+)*)", "g");
+    while ((m = rePlain.exec(rest))) add(null, m[1]);
+    rest = rest.replace(rePlain, " ");
+    if (!out.length) {
+      var dotted = rest.match(new RegExp(LIBRX + "(?:\\.\\w+)+", "g")) || [];
+      dotted.forEach(function (d) { add(null, d); });
+      if (!dotted.length) (rest.match(/[A-Za-z_]\w{2,}/g) || []).forEach(function (w) { if (!STOP[w]) add(w, {lib: "?", mod: ""}); });
+    }
+    return out.slice(0, 30);
+  }
+
+  function vkey(v) { return v.split(".").map(function (x) { return parseInt(x, 10) || 0; }); }
+  function cmp(a, b) { for (var i = 0; i < 3; i++) { if ((a[i] || 0) !== (b[i] || 0)) return (a[i] || 0) - (b[i] || 0); } return 0; }
+  function indexOfVersion(D, v) {
+    var k = vkey(v), idx = -1;
+    for (var i = 0; i < D.releases.length; i++) if (cmp(vkey(D.releases[i][0]), k) <= 0) idx = i;
+    return idx;
+  }
+  function pairs(D, ri) {
+    var r = D.ranges[ri], out = [];
+    for (var i = 0; i < r.length; i += 2) out.push([r[i], r[i + 1]]);
+    return out;
+  }
+  function inRange(ps, i) { return ps.some(function (p) { return p[0] <= i && (p[1] === 0 || i < p[1]); }); }
+  function modEver(D, m) { return m === "" || Object.prototype.hasOwnProperty.call(D.mods, m); }
+  function modPairs(D, m) { return m === "" ? [[0, 0]] : pairs(D, D.mods[m]); }
+  var PARTIAL = window.LOOKUP_PARTIAL || {};   // libraries whose first release read is not their first release
+  function rangeText(D, p) {
+    var a = D.releases[p[0]], early = p[0] === 0 && PARTIAL[D.lib] ? " or earlier (" + a[0] + " is the first release read)" : "";
+    if (p[1] === 0) return "from <strong>" + a[0] + "</strong>" + (early || " (" + a[1] + ")") + " and still in " + D.latest;
+    if (early) {
+      var b0 = D.releases[p[1]];
+      return "<strong>" + a[0] + "</strong>" + early + " through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b0[0] + " (" + b0[1] + ")";
+    }
+    var b = D.releases[p[1]];
+    return "<strong>" + a[0] + "</strong> (" + a[1] + ") through <strong>" + D.releases[p[1] - 1][2] + "</strong>; gone in " + b[0] + " (" + b[1] + ")";
+  }
+  var PIP = window.LOOKUP_PIP || {};      // import name -> pip name, where they differ (sentence_transformers -> sentence-transformers)
+  function pin(D, lib, p) {
+    var lo = p[0] > 0 ? "&gt;=" + D.releases[p[0]][0] : "", pkg = PIP[lib] || lib;
+    if (!p[1]) return lo ? "<span class=\"pin\">Needs: <code>pip install \"" + pkg + lo + "\"</code></span>" : "<span class=\"pin\">In every release read.</span>";
+    return "<span class=\"pin\">Keep it: <code>pip install \"" + pkg + lo + (lo ? "," : "") + "&lt;" + D.releases[p[1]][0] + "\"</code></span>";
+  }
+  // other modules of the library that had the name in release i
+  function alsoAt(D, lib, name, except, i) {
+    var out = [];
+    Object.keys(D.names).forEach(function (m) {
+      var ri = D.names[m][name];
+      if (m !== except && ri !== undefined && inRange(pairs(D, ri), i)) out.push(m);
+    });
+    out.sort(function (a, b) { return a.split(".").length - b.split(".").length || (a < b ? -1 : 1); });
+    return out.slice(0, 4).map(function (m) { return code(label(lib, m)); });
+  }
+  function whereNow(D, lib, name, except) {
+    var out = [], last = D.releases.length - 1;
+    if (except !== "" && D.names[""][name] !== undefined && inRange(pairs(D, D.names[""][name]), last))
+      out.push(code("from " + lib + " import " + name) + " (top level)");
+    var w = D.where.names[name];
+    if (w) {
+      if (w[0] < 0) out.push("defined in " + (-w[0]) + " modules of " + lib + " " + D.latest);
+      else {
+        var ms = w.map(function (i) { return D.where.modules[i]; }).filter(function (m) { return m !== except; });
+        if (ms.length) out.push("defined in " + ms.map(function (m) { return code(label(lib, m)); }).join(", ") + " in " + D.latest);
+      }
+    }
+    return out;
+  }
+  function dist(a, b) {
+    var prev = [], i, j;
+    for (j = 0; j <= b.length; j++) prev[j] = j;
+    for (i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+  function near(name, keys) {
+    var low = name.toLowerCase(), exact = [], sub = [];
+    keys.forEach(function (k) {
+      var kl = k.toLowerCase();
+      if (k === name) return;
+      if (kl === low) exact.push(k);
+      else if (low.length >= 6 && (kl.indexOf(low) >= 0 || low.indexOf(kl) >= 0 && kl.length >= 8)) sub.push(k);
+      else if (low.length >= 6 && Math.abs(kl.length - low.length) <= 2 && dist(kl, low) <= 2) exact.push(k);
+    });
+    sub.sort(function (a, b) { return Math.abs(a.length - name.length) - Math.abs(b.length - name.length); });
+    return exact.concat(sub).slice(0, 6);
+  }
+  function mineText(has, lib, what) {
+    return "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": " + (has ? "has it" : "does not have it") + ".</strong>" +
+      (has ? " If the error still names " + what + ", another copy of " + lib + " is being imported: check <code>python -c \"import " + lib + "; print(" + lib + ".__version__, " + lib + ".__file__)\"</code>." : "");
+  }
+  function row(nameHtml, sub, status, cell) {
+    return "<tr><td>" + nameHtml + "<br><span class=\"note\">" + esc(sub) + "</span></td><td>" + status + "</td><td>" + cell + "</td></tr>";
+  }
+  function movedModule(D, m) {
+    var leaf = m.split(".").pop(), last = D.releases.length - 1, out = [];
+    Object.keys(D.mods).forEach(function (k) { if (k !== m && k.split(".").pop() === leaf && inRange(pairs(D, D.mods[k]), last)) out.push(k); });
+    return out.slice(0, 4);
+  }
+
+  function answerModule(lib, m, mine) {
+    var D = DATA[lib], cell, status;
+    if (!modEver(D, m)) {
+      var mv = movedModule(D, m);
+      return row(code(label(lib, m)), "module", "<span class=\"s n\">never there</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has this module." +
+        (mv.length ? " Modules with the same last part in " + D.latest + ": " + mv.map(function (k) { return code(label(lib, k)); }).join(", ") + "." : ""));
+    }
+    var ps = modPairs(D, m), last = ps[ps.length - 1];
+    status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+    cell = "The module exists " + ps.map(function (p) { return rangeText(D, p); }).join("<br>") + ".<br>" + pin(D, lib, last);
+    if (last[1]) {
+      var mv2 = movedModule(D, m);
+      if (mv2.length) cell += "<br>Now: " + mv2.map(function (k) { return code(label(lib, k)); }).join(", ") + " (same file name, in " + D.latest + ").";
+    }
+    if (mine !== null) cell += mineText(inRange(ps, mine), lib, "the module");
+    return row(code(label(lib, m)), "module", status, cell);
+  }
+
+  var SIB = window.LOOKUP_SIBLINGS || {};    // langchain -> [langchain_classic, langchain_core]: where a removed name went
+  function siblingsNow(lib, m, name) {
+    var out = [];
+    (SIB[lib] || []).forEach(function (o) {
+      var E = DATA[o];
+      if (!E) return;
+      var last = E.releases.length - 1, pkg = PIP[o] || o;
+      if (E.names[m] && E.names[m][name] !== undefined && inRange(pairs(E, E.names[m][name]), last))
+        out.push(code("from " + label(o, m) + " import " + name) + " (pip install " + pkg + ")");
+      else {
+        var w = E.where.names[name];
+        if (w && w[0] >= 0) out.push(w.slice(0, 3).map(function (i) { return code("from " + label(o, E.where.modules[i]) + " import " + name); }).join(", ") + " (pip install " + pkg + ")");
+        else if (E.names[""][name] !== undefined && inRange(pairs(E, E.names[""][name]), last)) out.push(code("from " + o + " import " + name) + " (pip install " + pkg + ")");
+      }
+    });
+    return out;
+  }
+  function deferredNote(D, m, name) {
+    var d = D.deferred && D.deferred[m] && D.deferred[m][name];
+    if (d === undefined) return "";
+    var via = D.via[m][name], top = via.split(".")[0], ps = pairs(D, d);
+    return "<br><span class=\"note\">In " + ps.map(function (p) { return D.releases[p[0]][0] + (p[1] ? " to " + D.releases[p[1] - 1][2] : " on"); }).join(", ") +
+      " this name is not defined here: the module forwards it to " + code(via) + " with a deprecation warning, so the import works only with " +
+      code(PIP[top] || top.replace(/_/g, "-")) + " installed. Importing it from " + code(via) + " directly is the lasting fix.</span>";
+  }
+  // names that import but raise when used (openai 1.x keeps the 0.x names as APIRemovedInV1 proxies)
+  function proxyPairs(D, m, name) {
+    var x = D.proxies && D.proxies[m] && D.proxies[m][name];
+    return x === undefined ? null : pairs(D, x);
+  }
+  function proxyNote(D, m, name) {
+    var ps = proxyPairs(D, m, name);
+    if (!ps) return "";
+    return "<br><span class=\"note\">From " + ps.map(function (p) { return D.releases[p[0]][0] + (p[1] ? " to " + D.releases[p[1] - 1][2] : " on"); }).join(", ") +
+      " the import succeeds but gives a placeholder: using it raises " + (window.LOOKUP_PROXY_MSG || "an error") + "</span>";
+  }
+  function answerName(lib, m, name, mine) {
+    var D = DATA[lib];
+    if (!modEver(D, m)) {
+      var wn0 = whereNow(D, lib, name, null);
+      return row(code(name), label(lib, m), "<span class=\"s n\">no such module</span>",
+        "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " has a module " + code(label(lib, m)) + "." +
+        (wn0.length ? " " + code(name) + ": " + wn0.join("; ") + "." : ""));
+    }
+    var table = D.names[m] || {}, ri = table[name], cell, status;
+    if (ri === undefined) {
+      var nn = near(name, Object.keys(table)), wn = whereNow(D, lib, name, m), mp = modPairs(D, m), ml = mp[mp.length - 1];
+      var es = D.ext_star && D.ext_star[m];
+      if (es) return row(code(name), label(lib, m), "<span class=\"s\">not listed</span>",
+        code(label(lib, m)) + " passes along everything from " + es[1].map(code).join(" or ") + ", whose names this page does not list. The module exists " +
+        pairs(D, es[0]).map(function (p) { return rangeText(D, p); }).join(", ") + ".");
+      status = "<span class=\"s n\">never there</span>";
+      cell = "No release of " + lib + " from " + D.releases[0][0] + " to " + D.latest + " lets you import this name from " + code(label(lib, m)) + "." +
+        (ml[1] ? " The module itself is gone since " + D.releases[ml[1]][0] + "." : "") +
+        (wn.length ? "<br>Now: " + wn.join("; ") + "." : "") +
+        (nn.length ? "<br>Close names in this module: " + nn.map(code).join(", ") + "." : "") +
+        (!wn.length && !nn.length ? " It may come from a fork, from the development branch, or from a release newer than " + D.latest + "." : "");
+    } else {
+      var ps = pairs(D, ri), last = ps[ps.length - 1];
+      status = last[1] === 0 ? "<span class=\"s y\">in " + D.latest + "</span>" : "<span class=\"s n\">gone</span>";
+      cell = ps.map(function (p) { return rangeText(D, p); }).join("<br>") + "<br>" + pin(D, lib, last);
+      if (last[1]) {
+        var at = alsoAt(D, lib, name, m, last[1]), wn2 = whereNow(D, lib, name, m), h = HINTS[lib + ":" + m + ":" + name];
+        if (at.length) cell += "<br>In " + D.releases[last[1]][0] + ", the release that dropped it here, it was still importable from " + at.join(", ") + ".";
+        if (wn2.length) cell += "<br>Now: " + wn2.join("; ") + ".";
+        var sib = siblingsNow(lib, m, name);
+        if (sib.length) cell += "<br>Now in another package: " + sib.join("; ") + ".";
+        if (h) cell += "<br>Instead: " + h;
+      }
+      cell += deferredNote(D, m, name) + proxyNote(D, m, name);
+      var pp = proxyPairs(D, m, name);
+      if (pp && inRange(pp, D.releases.length - 1)) status = "<span class=\"s n\">placeholder</span>";
+      var hp = HINTS[lib + ":" + m + ":" + name];
+      if (pp && !last[1] && hp) cell += "<br>Instead: " + hp;
+      if (mine !== null) cell += pp && inRange(pp, mine) ? "<br><strong>Your " + lib + " " + esc($("v").value.trim()) + ": has only the placeholder.</strong>" : mineText(inRange(ps, mine), lib, "it");
+    }
+    D.stale.forEach(function (s) {
+      if (s[0] === m && s[1] === name)
+        cell += "<br><span class=\"note\">From " + D.releases[s[4]][0] + (s[5] ? " through " + D.releases[s[5] - 1][2] : " on") +
+          " the lazy table still lists this name, but the entry points to " + code(s[2]) + ", " +
+          (s[3] === "nofile" ? "a file that is not there" : "which does not provide it") + ": the import fails.</span>";
+    });
+    return row(code(name), label(lib, m), status, cell);
+  }
+
+  function answerBare(name, mine) {
+    var hits = [];
+    LIBS.forEach(function (lib) {
+      var D = DATA[lib];
+      Object.keys(D.names).forEach(function (m) { if (D.names[m][name] !== undefined) hits.push([lib, m]); });
+    });
+    if (!hits.length) {
+      var nn = [];
+      LIBS.forEach(function (lib) { near(name, Object.keys(DATA[lib].names[""])).forEach(function (k) { nn.push(code(k) + " (" + lib + ")"); }); });
+      return row(code(name), ALL, "<span class=\"s n\">never there</span>",
+        "No release of " + ALL + " has this name in any module." + (nn.length ? " Close top-level names: " + nn.slice(0, 6).join(", ") + "." : "") +
+        " If the error names another package, see the related pages at the bottom.");
+    }
+    hits.sort(function (a, b) { return (a[1] === "" ? 0 : 1) - (b[1] === "" ? 0 : 1) || a[1].split(".").length - b[1].split(".").length; });
+    return hits.slice(0, 6).map(function (h) { return answerName(h[0], h[1], name, mine); }).join("") +
+      (hits.length > 6 ? row(code(name), "", "", (hits.length - 6) + " more modules have this name; paste the import line to pick one.") : "");
+  }
+
+  function load(lib) {
+    if (DATA[lib]) return Promise.resolve();
+    return fetch(lib + ".json").then(function (r) { if (!r.ok) throw new Error(lib + ".json " + r.status); return r.json(); })
+      .then(function (d) { DATA[lib] = d; });
+  }
+  function done() { $("res").setAttribute("data-done", String(++SEQ)); }
+  function run() {
+    var qs = parse($("q").value), v = $("v").value.trim(), want = {};
+    $("status").textContent = "";
+    if (v && !/^v?\d+\.\d+(\.\d+)?/.test(v)) { $("status").textContent = "Version should look like 0.13.2."; done(); return; }
+    if (!qs.length) { $("res").innerHTML = "<p class=\"note\">Found no name. Paste the ImportError line, the import statement, or just the name.</p>"; done(); return; }
+    qs.forEach(function (q) {
+      if (q.lib === "?") LIBS.forEach(function (l) { want[l] = 1; });
+      else { want[q.lib] = 1; (SIB[q.lib] || []).forEach(function (l) { want[l] = 1; }); }
+    });
+    $("status").textContent = "Loading the names...";
+    Promise.all(Object.keys(want).map(load)).then(function () {
+      $("status").textContent = "";
+      var libsSeen = {};
+      $("res").innerHTML = "<div class=\"tw\"><table><thead><tr><th>Name</th><th>Now</th><th>Releases that have it</th></tr></thead><tbody>" +
+        qs.map(function (q) {
+          if (q.lib === "?") return answerBare(q.name, null);
+          var D = DATA[q.lib], mine = v ? indexOfVersion(D, v.replace(/^v/, "")) : null;
+          libsSeen[q.lib] = 1;
+          if (mine !== null && mine < 0) mine = null;
+          return q.name === null ? answerModule(q.lib, q.mod, mine) : answerName(q.lib, q.mod, q.name, mine);
+        }).join("") + "</tbody></table></div>" +
+        "<p class=\"note\">" + Object.keys(want).map(function (l) {
+          var D = DATA[l]; return l + ": " + D.releases.length + " releases read, " + D.releases[0][0] + " to " + D.latest +
+            (D.every ? " (every tagged release)" : " (the first release of each minor version; patch releases in between are assumed to keep the names)");
+        }).join("; ") + "." +
+        (v && Object.keys(libsSeen).length > 1 ? " Your version was compared with every library named; give one library per lookup for a clean comparison." : "") + "</p>";
+      done();
+    }).catch(function (e) { $("status").textContent = "Could not load the names (" + e.message + "). The tables below still apply."; done(); });
+  }
+  $("go").addEventListener("click", run);
+  $("q").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) run(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ex]"), function (b) {
+    b.addEventListener("click", function () { $("q").value = b.getAttribute("data-ex"); $("v").value = b.getAttribute("data-v") || ""; run(); });
+  });
+  window.PTA_READY = true;
+  var p = new URLSearchParams(location.search);
+  if (p.get("q")) { $("q").value = p.get("q"); $("v").value = p.get("v") || ""; run(); }
+})();
+</script>
+</body>
+</html>

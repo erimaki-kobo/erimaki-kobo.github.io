@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="gradio-import-name-version-lookup/">ImportError: cannot import name 'inputs' (or Box, IOComponent, ChatInterface, any name) from 'gradio': which gradio version has it</a></h2>
+<p>gradio 4.0.0 removed <code>gr.inputs</code>, <code>gr.outputs</code>, <code>Box</code>, <code>Variable</code>, <code>Carousel</code> and <code>gradio.components.IOComponent</code>; 3.50.2 is the last release with them. What replaces each one, which release added <code>ChatInterface</code> (3.37.0) and <code>ChatMessage</code> (4.38.0), and every module of gradio 3.0.1 to 6.32.0. Includes a lookup: paste the error.</p>
+<p class="meta">Published 2026-11-25</p>
+</article>
+<article class="card">
 <h2><a href="context-overflow-error-status-check/">Context length exceeded: what vLLM, SGLang, llama.cpp, Ollama, TGI and Dynamo return (400, 422, 500 or a silent 200), and what openai-python and LiteLLM do with it</a></h2>
 <p>&ldquo;the request exceeds the available context size, try increasing it&rdquo;, &ldquo;This model's maximum context length is&rdquo;, &ldquo;is longer than the model's context length&rdquo;: status code and message by engine version, where the prompt is cut without an error (Ollama, llama.cpp up to b6205), vLLM v0.32.0 lowering <code>max_tokens</code>, SGLang's error inside a 200 stream, which errors openai-python retries and which ones LiteLLM raises as <code>ContextWindowExceededError</code>. Includes overflow_check.py for your own server.</p>
 <p class="meta">Published 2026-11-25</p>
