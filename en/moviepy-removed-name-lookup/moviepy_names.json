@@ -2558,7 +2558,7 @@
 "txt": "text=",
 "fontsize": "font_size=",
 "kerning": "",
-"align": "text_align= (also horizontal_align=, vertical_align=)",
+"align": "gone (2.x has text_align=, horizontal_align=, vertical_align=)",
 "tempfilename": "",
 "temptxt": "",
 "remove_temp": "",
@@ -2593,7 +2593,7 @@
 "verbose": ""
 },
 "clips_array()": {
-"cols_widths": ""
+"cols_widths": "gone (2.x has cols_heights=)"
 },
 "concatenate_videoclips()": {
 "ismask": "is_mask="

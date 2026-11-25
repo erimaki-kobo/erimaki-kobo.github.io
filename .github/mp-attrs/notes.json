@@ -453,7 +453,7 @@ null
 "params": {
 "TextClip()|txt": "text=",
 "TextClip()|fontsize": "font_size=",
-"TextClip()|align": "text_align= (also horizontal_align=, vertical_align=)",
+"TextClip()|align": "gone (2.x has text_align=, horizontal_align=, vertical_align=)",
 "ColorClip()|col": "color=",
 "ColorClip()|ismask": "is_mask=",
 "VideoClip()|make_frame": "frame_function=",
@@ -465,7 +465,8 @@ null
 "VideoClip.write_gif()|verbose": "drop it; logger=None silences the progress bar",
 "AudioClip.write_audiofile()|verbose": "drop it; logger=None silences the progress bar",
 "SubtitlesClip.in_subclip()|t_start": "start_time=",
-"SubtitlesClip.in_subclip()|t_end": "end_time="
+"SubtitlesClip.in_subclip()|t_end": "end_time=",
+"clips_array()|cols_widths": "gone (2.x has cols_heights=)"
 },
 "member_text": {
 "to_videofile": "clip.write_videofile(...), the name 1.0.3 already has",

@@ -92,6 +92,8 @@ for n in NOTES["members"]:
 for n, new in (("set_duration", "with_duration"), ("subclip", "subclipped"), ("resize", "resized"), ("crop", "cropped"), ("rotate", "rotated"), ("volumex", "with_volume_scaled"),
                ("fx", "with_effects"), ("fl_image", "image_transform"), ("set_position", "with_position"), ("set_audio", "with_audio"), ("on_color", "with_background_color")):
     assert all(new in CLS[NEW][c] and new not in CLS[OLD][c] for c in GONE[n]), (n, new)
+SETX = sorted(n for n in GONE if n.startswith("set_"))
+assert [n for n in SETX if not all("with_" + n[4:] in CLS[NEW][c] for c in GONE[n])] == ["set_ismask", "set_make_frame", "set_pos"], SETX
 assert R[OLD]["mparams"]["VideoClip"]["on_color"] == ["size", "color", "pos", "col_opacity"] and R[NEW]["mparams"]["VideoClip"]["with_background_color"] == ["size", "color", "pos", "opacity"]
 for n in ("subclip", "set_duration", "set_position", "set_audio", "resize", "crop", "fl_image", "fx", "fadein", "speedx", "volumex", "set_opacity", "on_color", "margin", "loop"):
     assert MEM[n]["st"] == "same", (n, MEM[n])
@@ -226,7 +228,7 @@ for k in ["TextClip()", "ColorClip()", "VideoClip()", "AudioClip()", "ImageClip(
           "VideoClip.write_videofile()", "VideoClip.write_gif()", "VideoClip.write_images_sequence()", "VideoClip.save_frame()", "AudioClip.write_audiofile()", "SubtitlesClip.in_subclip()"]:
     if k in PAR:
         par_rows.append("<tr><td><code>%s</code></td><td>%s</td></tr>" % (e(k.replace("VideoClip.", "clip.").replace("AudioClip.", "audioclip.")),
-                        "; ".join("<code>%s</code> %s" % (e(p), ("&rarr; " + e(f)) if f else "gone") for p, f in PAR[k].items())))
+                        "; ".join("<code>%s</code> %s" % (e(p), (e(f) if f.startswith("gone") or f.startswith("drop") else "&rarr; " + e(f)) if f.strip() else "gone") for p, f in PAR[k].items())))
 assert len(par_rows) >= 14
 par_html = "\n".join(par_rows)
 D20 = DATE["2.0.0"]
@@ -244,7 +246,7 @@ FAQ = [
      "from moviepy import vfx, afx. clip.fx(vfx.mirror_x) becomes clip.with_effects([vfx.MirrorX()])."),
     ("How do I fix \"TextClip got an unexpected keyword argument 'fontsize'\" or \"multiple values for argument 'font'\"?",
      "In 2.x the first parameter of TextClip is font, a path to a font file, and the others were renamed: TextClip(text=\"hi\", font=\"/path/DejaVuSans.ttf\", "
-     "font_size=20, color=\"white\") ran in 2.2.1. txt is text, fontsize is font_size, align is text_align. TextClip(\"hi\", font=...) raises \"multiple values "
+     "font_size=20, color=\"white\") ran in 2.2.1. txt is text and fontsize is font_size. TextClip(\"hi\", font=...) raises \"multiple values "
      "for argument 'font'\" because \"hi\" lands on font."),
     ("How do I fix \"write_videofile() got an unexpected keyword argument 'verbose'\"?",
      "2.x dropped verbose (and rewrite_audio) from write_videofile, and verbose from write_audiofile and write_gif. Remove the argument; logger=None silences the progress bar."),
@@ -370,7 +372,7 @@ page = f"""<!DOCTYPE html>
 <main>
 <p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
 <h1>{e(H1, quote=False)}</h1>
-<p class="lede"><strong>MoviePy 2.0.0 ({D20}) removed <code>moviepy.editor</code> and renamed the clip methods. Write <code>from moviepy import VideoFileClip</code>; <code>subclip</code> is <code>subclipped</code>, every <code>set_x</code> is <code>with_x</code> (<code>with_duration</code>, <code>with_position</code>, <code>with_audio</code>), <code>resize</code> / <code>crop</code> / <code>rotate</code> are <code>resized</code> / <code>cropped</code> / <code>rotated</code>, <code>volumex</code> is <code>with_volume_scaled</code>, and <code>clip.fx(vfx.fadein, 1)</code> is <code>clip.with_effects([vfx.FadeIn(1)])</code>.</strong> Or keep the old names with <code>pip install "moviepy&lt;2"</code>. Code from tutorials and from AI assistants is often still 1.x: paste the error or the code below.</p>
+<p class="lede"><strong>MoviePy 2.0.0 ({D20}) removed <code>moviepy.editor</code> and renamed the clip methods. Write <code>from moviepy import VideoFileClip</code>; <code>subclip</code> is <code>subclipped</code>, the <code>set_x</code> methods are <code>with_x</code> (<code>with_duration</code>, <code>with_position</code>, <code>with_audio</code>), <code>resize</code> / <code>crop</code> / <code>rotate</code> are <code>resized</code> / <code>cropped</code> / <code>rotated</code>, <code>volumex</code> is <code>with_volume_scaled</code>, and <code>clip.fx(vfx.fadein, 1)</code> is <code>clip.with_effects([vfx.FadeIn(1)])</code>.</strong> Or keep the old names with <code>pip install "moviepy&lt;2"</code>. Many tutorials still show 1.x code: paste the error or the code below.</p>
 <p class="meta">Published {PUB} &middot; MoviePy {VS[0]} to {VS[-1]} installed ({len(VS)} releases) &middot; {n_same} of the {len(MEM)} removed clip members gave the same result under their 2.x name &middot; <a href="#how">how</a></p>
 <pre><code># MoviePy 1.x
 from moviepy.editor import *
