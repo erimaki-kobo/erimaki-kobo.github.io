@@ -116,26 +116,26 @@
       if (o.off !== t.off) tensors.moved++;
     }
     for (const n of ta.keys()) if (!tb.has(n)) tensors.removed.push(n);
-    const layoutSame = !tensors.added.length && !tensors.removed.length && !tensors.type.length && !tensors.shape.length && !tensors.moved;
+    const layoutSame = !tensors.added.length && !tensors.removed.length && !tensors.type.length && !tensors.shape.length;
     return { kv, tensors, layoutSame };
   }
 
-  // same tensor layout: compare n ranges of 4 KiB of tensor data, spread over the tensors
-  async function sameData(srcA, hA, srcB, hB, n = 12) {
+  // same tensors (names, types, shapes): compare the first 4 KiB of n tensors, each at its own offset in each file.
+  // Picks are spread over the tensor list and always include the first and last tensor.
+  async function sameData(srcA, hA, srcB, hB, n = 16) {
     const ra = source(srcA), rb = source(srcB);
-    const T = hA.tensors;
-    const picks = [];
-    for (let i = 0; i < n; i++) {
-      const t = T[Math.floor((i + 0.5) * T.length / n)];
-      picks.push({ name: t.name, off: t.off });
-    }
+    const tb = new Map(hB.tensors.map(t => [t.name, t]));
+    const T = hA.tensors.filter(t => tb.has(t.name));
+    const idx = new Set([0, T.length - 1]);
+    for (let i = 0; idx.size < Math.min(n, T.length) && i < n * 4; i++) idx.add(Math.floor((i + 0.5) * T.length / n) % T.length);
     const out = [];
-    for (const p of picks) {
-      const [x, y] = await Promise.all([ra(hA.dataStart + p.off, hA.dataStart + p.off + 4096), rb(hB.dataStart + p.off, hB.dataStart + p.off + 4096)]);
+    await Promise.all([...idx].sort((x, y) => x - y).map(async i => {
+      const t = T[i], u = tb.get(t.name);
+      const [x, y] = await Promise.all([ra(hA.dataStart + t.off, hA.dataStart + t.off + 4096), rb(hB.dataStart + u.off, hB.dataStart + u.off + 4096)]);
       let same = x.length === y.length;
-      for (let i = 0; same && i < x.length; i++) if (x[i] !== y[i]) same = false;
-      out.push({ name: p.name, same });
-    }
+      for (let k = 0; same && k < x.length; k++) if (x[k] !== y[k]) same = false;
+      out.push({ name: t.name, same });
+    }));
     return out;
   }
 
