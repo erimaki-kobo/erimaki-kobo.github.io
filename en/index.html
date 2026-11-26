@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="gguf-redownload-check/">Do I need to redownload my GGUF? Check which upload you have and what changed</a></h2>
+<p>Paste a Hugging Face repository and your file's sha256, pick the file, or give your Ollama tag: see which upload you have and whether later re-uploads changed the tensors or only metadata, with the <code>gguf-new-metadata</code> command to patch a template fix. With a survey of 68 re-uploads in 23 popular repositories.</p>
+<p class="meta">Published 2026-11-26</p>
+</article>
+<article class="card">
 <h2><a href="llama-cpp-pre-tokenizer-lookup/">"BPE pre-tokenizer was not recognized" and "unknown pre-tokenizer type": which llama.cpp build fixes it</a></h2>
 <p>Every <code>chkhsh</code> in llama.cpp's converter and every <code>tokenizer.ggml.pre</code> name its loader accepts, with the first build, the first Ollama and llama-cpp-python release, read from git history. Paste the warning or the load error to get the build you need, names you can re-tag to when you cannot upgrade, and why a StableLM 2 conversion now says <code>domyn-edge</code>.</p>
 <p class="meta">Published 2026-11-26</p>
