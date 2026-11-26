@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="llama-cpp-pre-tokenizer-lookup/">"BPE pre-tokenizer was not recognized" and "unknown pre-tokenizer type": which llama.cpp build fixes it</a></h2>
+<p>Every <code>chkhsh</code> in llama.cpp's converter and every <code>tokenizer.ggml.pre</code> name its loader accepts, with the first build, the first Ollama and llama-cpp-python release, read from git history. Paste the warning or the load error to get the build you need, names you can re-tag to when you cannot upgrade, and why a StableLM 2 conversion now says <code>domyn-edge</code>.</p>
+<p class="meta">Published 2026-11-26</p>
+</article>
+<article class="card">
 <h2><a href="tool-call-parser-conformance-check/">vLLM returns the tool call in content, or tool_calls is empty: what each --tool-call-parser does with the same model output, v0.15 to v0.34, and a script to test your server</a></h2>
 <p>vLLM's own parser code from 20 releases, run on the same model outputs. A mismatched <code>--tool-call-parser</code> leaves the call in <code>content</code> or drops it (<code>qwen3_coder</code> reading a JSON call from v0.24.0); <code>llama3_json</code> and <code>pythonic</code> miss a call after any text; with <code>--reasoning-parser qwen3</code> a call inside the thinking block stays in <code>reasoning</code> until v0.20 (unclosed) or v0.24 (closed); a call cut by <code>max_tokens</code> comes back with keys missing and, before v0.33.0, <code>finish_reason: "tool_calls"</code>. Includes toolcheck.py to test any OpenAI-compatible server.</p>
 <p class="meta">Published 2026-11-26</p>

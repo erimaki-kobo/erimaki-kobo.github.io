@@ -1,0 +1,5434 @@
+{
+ "as_of": "2026-11-25",
+ "llama_cpp_latest_build": "b12754",
+ "ollama_latest": {
+  "version": "0.40.18",
+  "date": "2026-11-24",
+  "bundled_build": "b12651"
+ },
+ "llama_cpp_python_latest": {
+  "version": "0.3.38",
+  "date": "2026-11-23",
+  "bundled_build": "b12651"
+ },
+ "chkhsh": {
+  "ffdae2f611dc6903980be2fbb108467cb97376d7d03cd332bb7e2602f87fa1f1": {
+   "name": "raon",
+   "ref": "https://huggingface.co/KRAFTON/Raon-1-mini-preview",
+   "first_build": null,
+   "date": "2026-11-25",
+   "commit": "5a09582d80600fb5b0a8966e870061bddc8a3732",
+   "absent_in": []
+  },
+  "5635e1c8d621dff7b4825f41f2f97b6ceb39bcf2d5c541db28577080d6efd5e5": {
+   "name": "inkling2",
+   "ref": "https://huggingface.co/thinkingmachines/Inkling-2-Small",
+   "first_build": "b12406",
+   "date": "2026-11-14",
+   "commit": "5c008e00085f4d3e394f9a1be649284999de1326",
+   "absent_in": []
+  },
+  "df1bc34a6366466bcb36a9a1b1cc0afdb08cfe21c9250602c930f159085390a9": {
+   "name": "gpt-2",
+   "ref": "https://huggingface.co/Lernex/Metis-1.6-Logos",
+   "first_build": "b12089",
+   "date": "2026-11-03",
+   "commit": "9309bf1bcfe8d52b0fb7ef906474db94041a5e0c",
+   "absent_in": []
+  },
+  "6e4d72c6e5260b90606e26a0931fa15e4b42ec6e97719d12919f2b1f93478262": {
+   "name": "domyn-small",
+   "ref": "https://huggingface.co/domyn/Domyn-Small-v1.0",
+   "first_build": "b11819",
+   "date": "2026-10-22",
+   "commit": "0693dbfb915f33233818373b5f6969396658d02c",
+   "absent_in": []
+  },
+  "d5420e601e979078c670bc503d9ac411c311fa76b76a76267c31e0d6ba816637": {
+   "name": "flint",
+   "ref": "https://huggingface.co/RecursiveSI/flint",
+   "first_build": "b11803",
+   "date": "2026-10-21",
+   "commit": "a37cc46104eb50900d5ab4a9ba02a0abdac039db",
+   "absent_in": []
+  },
+  "6e040dfe72e4b85855588c53acf4909ac4e98e55bc3a33cd7db499180dc42a78": {
+   "name": "qwen2",
+   "ref": "https://huggingface.co/Aleph-Alpha/Kolibri-1",
+   "first_build": "b11709",
+   "date": "2026-10-17",
+   "commit": "62318cd57dc63900ecb153272c0b10f78550855d",
+   "absent_in": []
+  },
+  "f5c965e4198da6e7525072d87d1ecf4c51d981fd486c7c4ec728ef9cec7e03fc": {
+   "name": "gpt-4o",
+   "ref": "https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B",
+   "first_build": "b11671",
+   "date": "2026-10-15",
+   "commit": "ba3c05f71da85cd0439e84ba42b0478b24d5db16",
+   "absent_in": []
+  },
+  "a9af07a84191f55098b248ae6f3dfe9e32d3190bebe8eafd91c1ddec9bc3449f": {
+   "name": "k2-horizon",
+   "ref": "https://huggingface.co/IFM/K2-Horizon-36B",
+   "first_build": "b11454",
+   "date": "2026-10-06",
+   "commit": "4625240437c6821ee5c2da99e12d4817c6a8f07f",
+   "absent_in": []
+  },
+  "1f9825a388f700a6b591722f17d470cbbcf10973ece35d2fd14239a14110ae1a": {
+   "name": "k2-horizon",
+   "ref": "https://huggingface.co/IFM/K2-Horizon-0.9B",
+   "first_build": "b11454",
+   "date": "2026-10-06",
+   "commit": "4625240437c6821ee5c2da99e12d4817c6a8f07f",
+   "absent_in": []
+  },
+  "4b05e02dad1c5ae07d266fd3342ddb644c6f6be058d728bc0a33af31a1d6ee66": {
+   "name": "mmbert",
+   "ref": "https://huggingface.co/jhu-clsp/mmBERT-base",
+   "first_build": "b11361",
+   "date": "2026-10-02",
+   "commit": "a4cb4c61fd9d9c2066c7c1747821d3d65b8943bd",
+   "absent_in": []
+  },
+  "653660222fb704f61cbf2b618a8ae6502b7f8b20c980f9a5de07ed78e13319cd": {
+   "name": "ufakzeka",
+   "ref": "https://huggingface.co/ufakai/ufakzeka-1",
+   "first_build": "b11034",
+   "date": "2026-09-18",
+   "commit": "dc85f89c7ee2150c408dea82aeebc799b99ad0cc",
+   "absent_in": []
+  },
+  "846deafc5b0fa786186fa4ae6c7b49903cf2f1d1895bdb80b9120d60be135252": {
+   "name": "gemma4",
+   "ref": "https://huggingface.co/danish-foundation-models/DFM-Mimir",
+   "first_build": "b11003",
+   "date": "2026-09-16",
+   "commit": "7d6f5d02bb40fca0ab29e65fe4eb86eab6886f19",
+   "absent_in": []
+  },
+  "0a766d034107bc736a3f2dc4968fd62e54a3570f1454443e0c5a4cc6bd7941ed": {
+   "name": "spark2_5",
+   "ref": "https://huggingface.co/XHToken/Spark-X2.5-1.7B",
+   "first_build": "b10828",
+   "date": "2026-09-06",
+   "commit": "3ad1ba7336986d98592d3e28cafd1a406715351f",
+   "absent_in": []
+  },
+  "e6ddf9c6686791c12d698d34c31ab9be1fea9af5a3d9a6909783ab382198ae1c": {
+   "name": "hy_v4",
+   "ref": "https://huggingface.co/tencent/Hy4-preview",
+   "first_build": "b10813",
+   "date": "2026-09-04",
+   "commit": "49c0dc82b849344f945b14ab997386bd793369ae",
+   "absent_in": []
+  },
+  "972da7b59cec44d1f0a490a86c96df53859e486e481563e5dddac155013d87ac": {
+   "name": "laguna",
+   "ref": "https://huggingface.co/poolside/Laguna-XS.2",
+   "first_build": "b10087",
+   "date": "2026-07-22",
+   "commit": "1f66c3ce1c26c95db3fadb734086c7d9fba23bb9",
+   "absent_in": []
+  },
+  "52df12b4c8d4176e7481aab4b6e8454d1fd0a210a04a574f6d4e067d10e23c3e": {
+   "name": "cohere2moe",
+   "ref": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0",
+   "first_build": "b9626",
+   "date": "2026-06-13",
+   "commit": "4988f6e866057afd130c1515ecef0c9bab9a15f8",
+   "absent_in": []
+  },
+  "9dcf830ee9990cdbf78cc523a5f7bd9ad8f3f9890c2d3581d2785ad10f07049d": {
+   "name": "mellum2",
+   "ref": "https://huggingface.co/JetBrains/Mellum2-12B-A2.5B-Base",
+   "first_build": "b9482",
+   "date": "2026-06-02",
+   "commit": "4fb16eccce5e451b40014355f97374d692480a4d",
+   "absent_in": []
+  },
+  "f241072145675bf8322086f115aebad05e9f869557a238bf2150a2a417d1bf60": {
+   "name": "granite-embed-multi-97m",
+   "ref": "https://huggingface.co/ibm-granite/granite-embedding-97m-multilingual-r2",
+   "first_build": "b9481",
+   "date": "2026-06-02",
+   "commit": "bfb4308b058b334c6e68085c661ec9eb7e3d59f4",
+   "absent_in": []
+  },
+  "789696f5946cc0fc59371f39f6097cafed196b3acded6140432f26bbb1ae1669": {
+   "name": "granite-embed-multi-311m",
+   "ref": "https://huggingface.co/ibm-granite/granite-embedding-311m-multilingual-r2",
+   "first_build": "b9481",
+   "date": "2026-06-02",
+   "commit": "bfb4308b058b334c6e68085c661ec9eb7e3d59f4",
+   "absent_in": []
+  },
+  "9e454714343b69b99b71795c1d27a68c2a1d15dab111f4d353109f966af29da7": {
+   "name": "lfm2",
+   "ref": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
+   "first_build": "b9426",
+   "date": "2026-05-30",
+   "commit": "2084434e666c5b08cd5e2a2f256e583a0f85a44c",
+   "absent_in": []
+  },
+  "36f3066e97b7f3994b379aaacde306c1444c6ae84e81a5ae3cd2b7ed3b8c42d4": {
+   "name": "minicpm5",
+   "ref": "https://huggingface.co/openbmb/MiniCPM5-1B",
+   "first_build": "b9354",
+   "date": "2026-05-27",
+   "commit": "9777256c3130fa3201327bfab44bae187f7caea2",
+   "absent_in": []
+  },
+  "f728162c1315c26e40249849799b4ba3fe584c32084b4795b03eb295e63cb5af": {
+   "name": "talkie",
+   "ref": "https://huggingface.co/lewtun/talkie-1930-13b-it-hf",
+   "first_build": "b9341",
+   "date": "2026-05-26",
+   "commit": "c9d98295a3a371c5a9277b54be493ec74317b387",
+   "absent_in": []
+  },
+  "62f6fb0a6fd5098caeabb19b07a5c1099cafc8b9c40eab6ea89ece4ec02fbc57": {
+   "name": "sarvam-moe",
+   "ref": "https://huggingface.co/sarvamai/sarvam-30b",
+   "first_build": "b9093",
+   "date": "2026-05-09",
+   "commit": "1e5ad35d560b90a8ac447d149c8f8447ae1fcaa0",
+   "absent_in": []
+  },
+  "1444df51289cfa8063b96f0e62b1125440111bc79a52003ea14b6eac7016fd5f": {
+   "name": "qwen35",
+   "ref": "https://huggingface.co/openbmb/MiniCPM-V-4_6",
+   "first_build": "b9049",
+   "date": "2026-05-06",
+   "commit": "2496f9c14965c39589f53eea31bdb6d762b1d360",
+   "absent_in": []
+  },
+  "0fe1cf6eda062318a1af7270f3331a85c539a01778ff948e24388e949c5282f4": {
+   "name": "gpt-2",
+   "ref": "https://huggingface.co/evilfreelancer/ruGPT3XL",
+   "first_build": "b8545",
+   "date": "2026-03-26",
+   "commit": "3d5acab3e774c3d30748d1e60093f19f0c80506e",
+   "absent_in": []
+  },
+  "862f827721df956049dff5ca81a57f29e575280bc622e290d3bf4e35eca29015": {
+   "name": "f2llmv2",
+   "ref": "https://huggingface.co/codefuse-ai/F2LLM-v2-4B",
+   "first_build": "b8526",
+   "date": "2026-03-25",
+   "commit": "80322ebdaf8ab41fe3e66a17d7a4ec9360c54eac",
+   "absent_in": []
+  },
+  "a023e9fdc5a11f034d3ef515b92350e56fb2af1f66c6b6811a4444ea9bf8763d": {
+   "name": "jina-v5-nano",
+   "ref": "https://huggingface.co/jinaai/jina-embeddings-v5-text-nano",
+   "first_build": "b8161",
+   "date": "2026-02-26",
+   "commit": "66287bdaaca3042bd4df5fc8f7bd4d58bfcd208c",
+   "absent_in": []
+  },
+  "e4d54df1ebc1f2b91acd986c5b51aa50837d5faf7c7398e73c1f9e9ee5d19869": {
+   "name": "kanana2",
+   "ref": "https://huggingface.co/kakaocorp/kanana-2-30b-a3b-instruct-2601",
+   "first_build": "b8128",
+   "date": "2026-02-22",
+   "commit": "ae2368e74eb2c280629ce6cf80edb88d72d23495",
+   "absent_in": []
+  },
+  "bc5108ee1eb6a3d600cadd065f63190fbd0554dbc9e4bbd6a0d977970afc8d2a": {
+   "name": "jais-2",
+   "ref": "https://huggingface.co/inceptionai/Jais-2-8B-Chat",
+   "first_build": "b8106",
+   "date": "2026-02-19",
+   "commit": "2bf318fd2f690f12ba0ee87ac63157f5b9300886",
+   "absent_in": []
+  },
+  "b4b8ca1f9769494fbd956ebc4c249de6131fb277a4a3345a7a92c7dd7a55808d": {
+   "name": "joyai-llm",
+   "ref": "https://huggingface.co/jdopensource/JoyAI-LLM-Flash",
+   "first_build": "b8077",
+   "date": "2026-02-16",
+   "commit": "05fa625eac5bbdbe88b43f857156c35501421d6e",
+   "absent_in": []
+  },
+  "d772b220ace2baec124bed8cfafce0ead7d6c38a4b65ef11261cf9d5d62246d1": {
+   "name": "tiny_aya",
+   "ref": "https://huggingface.co/CohereLabs/tiny-aya-base",
+   "first_build": "b8073",
+   "date": "2026-02-16",
+   "commit": "5f28c53d11210f3521328d6dac620c4b6ae0044b",
+   "absent_in": []
+  },
+  "d30d75d9059f1aa2c19359de71047b3ae408c70875e8a3ccf8c5fba56c9d8af4": {
+   "name": "qwen35",
+   "ref": "https://huggingface.co/Qwen/Qwen3.5-9B-Instruct",
+   "first_build": "b7990",
+   "date": "2026-02-10",
+   "commit": "fc0fe4004985d6749a7a05e250d161f9dbe41d65",
+   "absent_in": []
+  },
+  "cdf5f35325780597efd76153d4d1c16778f766173908894c04afc20108536267": {
+   "name": "glm4",
+   "ref": "https://huggingface.co/zai-org/GLM-4.7-Flash",
+   "first_build": "b7779",
+   "date": "2026-01-19",
+   "commit": "1706a6d7c68fc54374b0807324079b2c6ebf674a",
+   "absent_in": []
+  },
+  "6c81ce329e0802883b22eabab0d3fa48357337ef1ecb45443828bf1f6254833f": {
+   "name": "exaone-moe",
+   "ref": "https://huggingface.co/LGAI-EXAONE/K-EXAONE-236B-A23B",
+   "first_build": "b7727",
+   "date": "2026-01-13",
+   "commit": "60591f01d433f3fc7603d5273fbe361bd05a3507",
+   "absent_in": []
+  },
+  "9d70134b369a70e5735009b6de918f7581b5211f7c074d1f89f753aea8248af1": {
+   "name": "youtu",
+   "ref": "https://huggingface.co/tencent/Youtu-LLM-2B",
+   "first_build": "b7607",
+   "date": "2026-01-01",
+   "commit": "ced765be44ce173c374f295b3c6f4175f8fd109b",
+   "absent_in": []
+  },
+  "b3d1dd861f1d4c5c0d2569ce36baf3f90fe8a102db3de50dd71ff860d91be3df": {
+   "name": "jina-v2-de",
+   "ref": "https://huggingface.co/aari1995/German_Semantic_V3",
+   "first_build": "b7605",
+   "date": "2026-01-01",
+   "commit": "d0a6a314702c8f84dd30a54a98f6b8d9810b02e6",
+   "absent_in": []
+  },
+  "16389f0a1f51ee53e562ffd51c371dc508639ab0e4261502071836e50e223e91": {
+   "name": "solar-open",
+   "ref": "https://huggingface.co/upstage/Solar-Open-100B",
+   "first_build": "b7603",
+   "date": "2026-01-01",
+   "commit": "f4f501925418ae38bb1e2d8c5e054c436686a782",
+   "absent_in": []
+  },
+  "a0b64b4385f123663873756336c085744376d015ff328bb1d901598f63c44152": {
+   "name": "modern-bert",
+   "ref": "https://huggingface.co/answerdotai/ModernBERT-base",
+   "first_build": "b7515",
+   "date": "2025-12-22",
+   "commit": "dfc959b886d2613a4d3f06d8f3523628c654e8a3",
+   "absent_in": []
+  },
+  "4a2e2abae11ca2b86d570fc5b44be4d5eb5e72cc8f22dd136a94b37da83ab665": {
+   "name": "kormo",
+   "ref": "https://huggingface.co/KORMo-Team/KORMo-tokenizer",
+   "first_build": "b7414",
+   "date": "2025-12-15",
+   "commit": "9d52f17ae33e8df958e20f3f1b13bfec53ab5a1d",
+   "absent_in": []
+  },
+  "49fc0303c9e0d2c2c565c510f64b2d9b271276acdcdadff733249eda9f7d59df": {
+   "name": "afmoe",
+   "ref": "https://huggingface.co/arcee-ai/Trinity-Tokenizer",
+   "first_build": "b7061",
+   "date": "2025-11-14",
+   "commit": "e1fcf8b09b8115156313c61bdd42186a7c7fb7be",
+   "absent_in": []
+  },
+  "f4f37b6c8eb9ea29b3eac6bb8c8487c5ab7885f8d8022e67edc1c68ce8403e95": {
+   "name": "minimax-m2",
+   "ref": "https://huggingface.co/MiniMaxAI/MiniMax-M2",
+   "first_build": "b6906",
+   "date": "2025-10-31",
+   "commit": "0de0a01576772032008a689afc4d7c80685074c4",
+   "absent_in": []
+  },
+  "53e325976a6e142379c19b09afcae354f2f496f147afa8f9e189a33fe4e3024e": {
+   "name": "granite-docling",
+   "ref": "https://huggingface.co/ibm-granite/granite-docling-258M",
+   "first_build": "b6692",
+   "date": "2025-10-05",
+   "commit": "ca71fb9b368e3db96e028f80c4c9df6b6b370edd",
+   "absent_in": []
+  },
+  "9b1be57e70d20d9501b2b3186e792d81181ae36ada3903c26f9fea418cf87206": {
+   "name": "bailingmoe2",
+   "ref": "https://huggingface.co/inclusionAI/Ling-mini-base-2.0",
+   "first_build": "b6483",
+   "date": "2025-09-16",
+   "commit": "6d758839ff741d4966ca92b7f801b7a8b5b96364",
+   "absent_in": []
+  },
+  "66b8d4e19ab16c3bfd89bce5d785fb7e0155e8648708a1f42077cb9fe002c273": {
+   "name": "grok-2",
+   "ref": "https://huggingface.co/alvarobartt/grok-2-tokenizer",
+   "first_build": "b6475",
+   "date": "2025-09-14",
+   "commit": "b8e09f08b9a91c0401bc67d17a17c90756420346",
+   "absent_in": []
+  },
+  "9ca2dd618e8afaf09731a7cf6e2105b373ba6a1821559f258b272fe83e6eb902": {
+   "name": "glm4",
+   "ref": "https://huggingface.co/zai-org/GLM-4.5-Air",
+   "first_build": "b6085",
+   "date": "2025-08-04",
+   "commit": "ef0144c087b33e5b8da42d529ac71aaf05cb49df",
+   "absent_in": []
+  },
+  "a1e163ecab2e718a4c829d1148b6e86824ec36163bb71941c3dca9cd5ac25756": {
+   "name": "mellum",
+   "ref": "https://huggingface.co/JetBrains/Mellum-4b-base",
+   "first_build": "b6078",
+   "date": "2025-08-03",
+   "commit": "97366dc6abdd0bdc74260bd3c42bd06f0feb7428",
+   "absent_in": []
+  },
+  "d4540891389ea895b53b399da6ac824becc30f2fba0e9ddbb98f92e55ca0e97c": {
+   "name": "qwen2",
+   "ref": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B",
+   "first_build": "b6063",
+   "date": "2025-08-02",
+   "commit": "339bd0268c498c89529cd0e90c44883c211e3745",
+   "absent_in": []
+  },
+  "bba3b3366b646dbdded5dbc42d59598b849371afc42f7beafa914afaa5b70aa6": {
+   "name": "hunyuan-dense",
+   "ref": "https://huggingface.co/tencent/Hunyuan-4B-Instruct",
+   "first_build": "b6058",
+   "date": "2025-08-01",
+   "commit": "0f5ccd6fd1a1f709010312933db0316867cc30b6",
+   "absent_in": []
+  },
+  "2085e1638f6c377a0aa4ead21b27bb4cb941bf800df86ed391011769c1758dfb": {
+   "name": "exaone4",
+   "ref": "https://huggingface.co/LGAI-EXAONE/EXAONE-4.0-32B",
+   "first_build": "b5932",
+   "date": "2025-07-18",
+   "commit": "e0cb5c5cb8a61ac232130cf6bf878035f93824d9",
+   "absent_in": []
+  },
+  "81212dc7cdb7e0c1074ca62c5aeab0d43c9f52b8a737be7b12a777c953027890": {
+   "name": "kimi-k2",
+   "ref": "https://huggingface.co/moonshotai/Kimi-K2-Base",
+   "first_build": "b5902",
+   "date": "2025-07-15",
+   "commit": "4a4f426944e79b79e389f9ed7b34831cb9b637ad",
+   "absent_in": []
+  },
+  "169bf0296a13c4d9b7672313f749eb36501d931022de052aad6e36f2bf34dd51": {
+   "name": "lfm2",
+   "ref": "https://huggingface.co/LiquidAI/LFM2.5-350M",
+   "first_build": "b5873",
+   "date": "2025-07-11",
+   "commit": "f5e96b368f1acc7f53c390001b936517c4d18999",
+   "absent_in": []
+  },
+  "f6791d196f87ce6b56a7d234be618e0d58f8cda3549416635b2bebcd22cd95c4": {
+   "name": "midm-2.0",
+   "ref": "https://huggingface.co/K-intelligence/Midm-2.0-Base-Instruct",
+   "first_build": "b5869",
+   "date": "2025-07-11",
+   "commit": "576c82eda210ca0111c04f5256bf77897a4d4cc4",
+   "absent_in": []
+  },
+  "b0a6b1c0bd5998ebd9df08611efde34a4ff03faed45ae09c43e6b31ebd4b94cf": {
+   "name": "a.x-4.0",
+   "ref": "https://huggingface.co/skt/A.X-4.0",
+   "first_build": "b5853",
+   "date": "2025-07-09",
+   "commit": "ffd59e7d18a76459d5c31ba97073c7c9d73cb752",
+   "absent_in": []
+  },
+  "a6b57017d60e6edb4d88ecc2845188e0eb333a70357e45dcc9b53964a73bbae6": {
+   "name": "falcon-h1",
+   "ref": "https://huggingface.co/tiiuae/Falcon-H1-0.5B-Base",
+   "first_build": "b5851",
+   "date": "2025-07-09",
+   "commit": "04655063c47af6cbced295c8c7ad369402b15300",
+   "absent_in": []
+  },
+  "60476e1243776c4fb1b993dbd7a5f15ac22f83c80afdf425fa5ae01c8d44ef86": {
+   "name": "falcon-h1",
+   "ref": "https://huggingface.co/tiiuae/Falcon-H1-1B-Base",
+   "first_build": "b5851",
+   "date": "2025-07-09",
+   "commit": "04655063c47af6cbced295c8c7ad369402b15300",
+   "absent_in": []
+  },
+  "48f8e02c0359c0bbdd82f26909171fac1c18a457bb47573ed1fe3bbb2c1cfd4b": {
+   "name": "falcon-h1",
+   "ref": "https://huggingface.co/tiiuae/Falcon-H1-34B-Base",
+   "first_build": "b5851",
+   "date": "2025-07-09",
+   "commit": "04655063c47af6cbced295c8c7ad369402b15300",
+   "absent_in": []
+  },
+  "3eda48b4c4dc7de733d1a8b3e3b4a85243dbbf704da2ee9d42c6beced8897896": {
+   "name": "falcon-h1",
+   "ref": "https://huggingface.co/tiiuae/Falcon-H1-7B-Base",
+   "first_build": "b5851",
+   "date": "2025-07-09",
+   "commit": "04655063c47af6cbced295c8c7ad369402b15300",
+   "absent_in": []
+  },
+  "7e57df22b1fe23a7b1e1c7f3dc4e3f96d43a4eb0836d0c6bdc3436d7b2f1c664": {
+   "name": "hunyuan",
+   "ref": "https://huggingface.co/tencent/Hunyuan-A13B-Instruct",
+   "first_build": "b5843",
+   "date": "2025-07-08",
+   "commit": "8f22dc0a53338c629c1ef8fa878d8e39bfe627c9",
+   "absent_in": []
+  },
+  "d5f1dd6f980fec569fb218a81a7658ac45fc56b38c5a0adeb1c232fbe04ef5ec": {
+   "name": "seed-coder",
+   "ref": "https://huggingface.co/ByteDance-Seed/Seed-Coder-8B-Base",
+   "first_build": "b5341",
+   "date": "2025-05-10",
+   "commit": "d2a4ef05c60506ee48e7375eb36f2257de7ab0d2",
+   "absent_in": []
+  },
+  "0e9433cbbb161f89e264eb32e8e64bfe69e834973ffca5d41d3948a604a3e2a3": {
+   "name": "pixtral",
+   "ref": "https://huggingface.co/mistral-community/pixtral-12b",
+   "first_build": "b5173",
+   "date": "2025-04-23",
+   "commit": "ecda2ec4b347031a9b8a89ee2efc664ce63f599c",
+   "absent_in": []
+  },
+  "a1336059768a55c99a734006ffb02203cd450fed003e9a71886c88acf24fdbc2": {
+   "name": "glm4",
+   "ref": "https://huggingface.co/THUDM/glm-4-9b-hf",
+   "first_build": "b5115",
+   "date": "2025-04-11",
+   "commit": "06bb53ad9b6e6d92b6ab6979927530080b1c990c",
+   "absent_in": []
+  },
+  "d353350c764d8c3b39c763113960e4fb4919bea5fbf208a0e3b22e8469dc7406": {
+   "name": "llama4",
+   "ref": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+   "first_build": "b5074",
+   "date": "2025-04-07",
+   "commit": "1466621e738779eefe1bb672e17dc55d63d166bb",
+   "absent_in": []
+  },
+  "96a5f08be6259352137b512d4157e333e21df7edd3fcd152990608735a65b224": {
+   "name": "bailingmoe",
+   "ref": "https://huggingface.co/inclusionAI/Ling-lite",
+   "first_build": "b5002",
+   "date": "2025-03-30",
+   "commit": "2c3f8b850a4a6cff0f5dda2135c03fc81d33ed8b",
+   "absent_in": []
+  },
+  "1994ffd01900cfb37395608534236ecd63f2bd5995d6cb1004dda1af50240f15": {
+   "name": "trillion",
+   "ref": "https://huggingface.co/trillionlabs/Trillion-7B-preview",
+   "first_build": "b5001",
+   "date": "2025-03-30",
+   "commit": "b3de7cac732e7dc0e10e1bb07502a500b0ee9022",
+   "absent_in": []
+  },
+  "7dec86086fcc38b66b7bc1575a160ae21cf705be7718b9d5598190d7c12db76f": {
+   "name": "superbpe",
+   "ref": "https://huggingface.co/UW/OLMo2-8B-SuperBPE-t180k",
+   "first_build": "b4948",
+   "date": "2025-03-24",
+   "commit": "00d53800e00bb22a26bf710fa6bd1150e412cc1d",
+   "absent_in": []
+  },
+  "ccc2ef013c104be7bae2965776d611e1d7a8a2a9c547dd93a682c9a9fc80352e": {
+   "name": "gpt-4o",
+   "ref": "https://huggingface.co/Xenova/gpt-4o",
+   "first_build": "b4792",
+   "date": "2025-02-28",
+   "commit": "c43a3e7996e585e2addde1e44057a4f3cdbadef8",
+   "absent_in": []
+  },
+  "81d72c7348a9f0ebe86f23298d37debe0a5e71149e29bd283904c02262b27516": {
+   "name": "chatglm-bpe",
+   "ref": "https://huggingface.co/THUDM/glm-4-9b-chat",
+   "first_build": "b4613",
+   "date": "2025-02-02",
+   "commit": "0cec062a638700495673f5494d200b74340538be",
+   "absent_in": []
+  },
+  "b3f499bb4255f8ca19fccd664443283318f2fd2414d5e0b040fbdd0cc195d6c5": {
+   "name": "deepseek-r1-qwen",
+   "ref": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+   "first_build": "b4514",
+   "date": "2025-01-20",
+   "commit": "ec7f3ac9ab33e46b136eb5ab6a76c4d81f57c7f1",
+   "absent_in": []
+  },
+  "877081d19cf6996e2c4ff0e1236341e9b7bde288f5311a56a937f0afbbb3aeb5": {
+   "name": "deepseek-v3",
+   "ref": "https://huggingface.co/deepseek-ai/DeepSeek-V3",
+   "first_build": "b4417",
+   "date": "2025-01-04",
+   "commit": "9394bbd484f802ce80d2858033583af3ef700d25",
+   "absent_in": []
+  },
+  "d4c8f286ea6b520b3d495c4455483cfa2302c0cfcd4be05d781b6a8a0a7cdaf1": {
+   "name": "megrez",
+   "ref": "https://huggingface.co/Infinigence/Megrez-3B-Instruct",
+   "first_build": "b4381",
+   "date": "2024-12-23",
+   "commit": "b92a14a841fb4dfaf27b29d982ec8ba5289a3bff",
+   "absent_in": []
+  },
+  "9d032fcbd5501f4a38150912590928bfb36091efb5df11b8e2124b0390e3fb1e": {
+   "name": "falcon3",
+   "ref": "https://huggingface.co/tiiuae/Falcon3-7B-Base",
+   "first_build": "b4376",
+   "date": "2024-12-22",
+   "commit": "7ae33a616f44ecc081f3dcb589be20962d1d4a92",
+   "absent_in": [
+    [
+     "b4341",
+     "b4351"
+    ]
+   ]
+  },
+  "ad851be1dba641f2e3711822f816db2c265f788b37c63b4e1aeacb9ee92de8eb": {
+   "name": "gigachat",
+   "ref": "https://huggingface.co/ai-sage/GigaChat-20B-A3B-instruct",
+   "first_build": "b4333",
+   "date": "2024-12-15",
+   "commit": "a0974156f334acf8af5858d7ede5ab7d7490d415",
+   "absent_in": []
+  },
+  "8b5a93ed704057481f240da0be7e7dca721d7f8f4755263b6807227a2cbeae65": {
+   "name": "roberta-bpe",
+   "ref": "https://huggingface.co/sentence-transformers/stsb-roberta-base",
+   "first_build": "b4279",
+   "date": "2024-12-07",
+   "commit": "784a14aa496a66cc43e76014a1bf4333b4a2a55a",
+   "absent_in": []
+  },
+  "1431a23e583c97432bc230bff598d103ddb5a1f89960c8f1d1051aaa944d0b35": {
+   "name": "minerva-7b",
+   "ref": "https://huggingface.co/sapienzanlp/Minerva-7B-base-v1.0",
+   "first_build": "b4272",
+   "date": "2024-12-05",
+   "commit": "6fe624783166e7355cec915de0094e63cd3558eb",
+   "absent_in": []
+  },
+  "8e62295832751ca1e8f92f2226f403dea30dc5165e448b5bfa05af5340c64ec7": {
+   "name": "bert-bge-large",
+   "ref": "https://huggingface.co/BAAI/bge-large-zh-v1.5",
+   "first_build": "b3975",
+   "date": "2024-10-25",
+   "commit": "bc5ba007b2c83ac95875e68724dabfc12159fc61",
+   "absent_in": []
+  },
+  "c7699093ba4255a91e702aa38a596aa81669f3525dae06c2953267dde580f448": {
+   "name": "jina-v1-en",
+   "ref": "https://huggingface.co/jinaai/jina-reranker-v1-tiny-en",
+   "first_build": "b3841",
+   "date": "2024-09-29",
+   "commit": "f4d2b8846a6b34419ff9e9491aee6cd95e444bfc",
+   "absent_in": []
+  },
+  "60824e3c0d9401f89943cbb2fff727f0e2d4c545ba4df2d6e4f09a6db0f5b450": {
+   "name": "chameleon",
+   "ref": "https://huggingface.co/facebook/chameleon-7b",
+   "first_build": "b3834",
+   "date": "2024-09-28",
+   "commit": "9a913110cf471a8287ac06c43cbe307d3cf6df99",
+   "absent_in": []
+  },
+  "fcace8b9cac38ce847670c970cd5892031a753a1ef381abd1d9af00f713da085": {
+   "name": "phi-2",
+   "ref": "https://huggingface.co/microsoft/phi-2",
+   "first_build": "b3743",
+   "date": "2024-09-12",
+   "commit": "c837981bba7cf6839b69d32b25552ce685936b14",
+   "absent_in": []
+  },
+  "4e2b24cc4770243d65a2c9ec19770a72f08cffc161adbb73fcbb6b7dd45a0aae": {
+   "name": "exaone",
+   "ref": "https://huggingface.co/LGAI-EXAONE/EXAONE-3.0-7.8B-Instruct",
+   "first_build": "b3595",
+   "date": "2024-08-16",
+   "commit": "c679e0cb5c378bfb63643c44a453345ba8b90126",
+   "absent_in": []
+  },
+  "bc01ce58980e1db43859146dc51b1758b3b88729b217a74792e9f8d43e479d21": {
+   "name": "gpt3-finnish",
+   "ref": "https://huggingface.co/TurkuNLP/gpt3-finnish-small",
+   "first_build": "b3587",
+   "date": "2024-08-15",
+   "commit": "6bda7ce6c3a9284fcbb70c1ace4107db8eb63e5c",
+   "absent_in": []
+  },
+  "3c30d3ad1d6b64202cd222813e7736c2db6e1bd6d67197090fc1211fbc612ae7": {
+   "name": "bloom",
+   "ref": "https://huggingface.co/bigscience/bloom",
+   "first_build": "b3587",
+   "date": "2024-08-15",
+   "commit": "6bda7ce6c3a9284fcbb70c1ace4107db8eb63e5c",
+   "absent_in": []
+  },
+  "7b3e7548e4308f52a76e8229e4e6cc831195d0d1df43aed21ac6c93da05fec5f": {
+   "name": "codeshell",
+   "ref": "https://huggingface.co/WisdomShell/CodeShell-7B",
+   "first_build": "b3441",
+   "date": "2024-07-22",
+   "commit": "081fe431aa8fb6307145c4feb3eed4f48cab19f8",
+   "absent_in": []
+  },
+  "855059429035d75a914d1eda9f10a876752e281a054a7a3d421ef0533e5b6249": {
+   "name": "smollm",
+   "ref": "https://huggingface.co/HuggingFaceTB/SmolLM-135M",
+   "first_build": "b3440",
+   "date": "2024-07-22",
+   "commit": "d94c6e0ccbd29ee1ba4f44e9caa8682ad94df9fa",
+   "absent_in": []
+  },
+  "63b97e4253352e6f357cc59ea5b583e3a680eaeaf2632188c2b952de2588485e": {
+   "name": "tekken",
+   "ref": "https://huggingface.co/mistralai/Mistral-Nemo-Base-2407",
+   "first_build": "b3426",
+   "date": "2024-07-20",
+   "commit": "940362224d20e35f13aa5fd34a0d937ae57bdf7d",
+   "absent_in": []
+  },
+  "b6e8e1518dc4305be2fe39c313ed643381c4da5db34a98f6a04c093f8afbe99b": {
+   "name": "chatglm-bpe",
+   "ref": "https://huggingface.co/THUDM/glm-4-9b-chat",
+   "first_build": "b3333",
+   "date": "2024-07-07",
+   "commit": "905942abdba5ba0b28a1b0805e51e4f818c54bc9",
+   "absent_in": []
+  },
+  "b53802fb28e26d645c3a310b34bfe07da813026ec7c7716883404d5e0f8b1901": {
+   "name": "jais",
+   "ref": "https://huggingface.co/core42/jais-13b",
+   "first_build": "b3282",
+   "date": "2024-07-02",
+   "commit": "968967376dc2c018d29f897c4883d335bbf384fb",
+   "absent_in": []
+  },
+  "7fc505bd3104ca1083b150b17d088b59534ede9bde81f0dd2090967d7fe52cee": {
+   "name": "viking",
+   "ref": "https://huggingface.co/LumiOpen/Viking-7B",
+   "first_build": "b3248",
+   "date": "2024-06-27",
+   "commit": "f675b20a3b7f878bf3be766b9a737e2c8321ff0d",
+   "absent_in": []
+  },
+  "c7ea5862a53e4272c035c8238367063e2b270d51faa48c0f09e9d5b54746c360": {
+   "name": "poro-chat",
+   "ref": "https://huggingface.co/LumiOpen/Poro-34B-chat",
+   "first_build": "b3146",
+   "date": "2024-06-14",
+   "commit": "41b9260f18eb7f325c952006ac46afc1d0d8ad2f",
+   "absent_in": []
+  },
+  "7967bfa498ade6b757b064f31e964dddbb80f8f9a4d68d4ba7998fcf281c531a": {
+   "name": "jina-v2-code",
+   "ref": "https://huggingface.co/jinaai/jina-embeddings-v2-base-code",
+   "first_build": "b3130",
+   "date": "2024-06-11",
+   "commit": "f5d7b268ec4bf8628aa6ccc9f6631d0230dde76f",
+   "absent_in": []
+  },
+  "c136ed14d01c2745d4f60a9596ae66800e2b61fa45643e72436041855ad4089d": {
+   "name": "smaug-bpe",
+   "ref": "https://huggingface.co/abacusai/Smaug-Llama-3-70B-Instruct",
+   "first_build": "b3001",
+   "date": "2024-05-26",
+   "commit": "c429b33beb35f13934a4dfbe0c138d30b45e5d54",
+   "absent_in": []
+  },
+  "32d85c31273f8019248f2559fed492d929ea28b17e51d81d3bb36fff23ca72b3": {
+   "name": "domyn-edge",
+   "ref": "https://huggingface.co/domyn/Domyn-Edge-Teacher-IF",
+   "first_build": "b2933",
+   "date": "2024-05-19",
+   "commit": "6aade19ee74b896c59929676629340b36be3e22c",
+   "absent_in": []
+  },
+  "27949a2493fc4a9f53f5b9b029c82689cfbe5d3a1929bb25e043089e28466de6": {
+   "name": "jina-v2-de",
+   "ref": "https://huggingface.co/jinaai/jina-embeddings-v2-base-de",
+   "first_build": "b2845",
+   "date": "2024-05-11",
+   "commit": "b83cc3f5b303ff30c52874b2d5864dc6385ebf9f",
+   "absent_in": []
+  },
+  "171aeeedd6fb548d418a7461d053f11b6f1f1fc9b387bd66640d28a4b9f5c643": {
+   "name": "jina-v2-es",
+   "ref": "https://huggingface.co/jinaai/jina-embeddings-v2-base-es",
+   "first_build": "b2845",
+   "date": "2024-05-11",
+   "commit": "b83cc3f5b303ff30c52874b2d5864dc6385ebf9f",
+   "absent_in": []
+  },
+  "e636dc30a262dcc0d8c323492e32ae2b70728f4df7dfe9737d9f920a282b8aea": {
+   "name": "qwen2",
+   "ref": "https://huggingface.co/Qwen/Qwen1.5-7B",
+   "first_build": "b2813",
+   "date": "2024-05-08",
+   "commit": "229ffff872f8ad0d21c997d18ee7a23692ae60a0",
+   "absent_in": []
+  },
+  "a8594e3edff7c29c003940395316294b2c623e09894deebbc65f33f1515df79e": {
+   "name": "dbrx",
+   "ref": "https://huggingface.co/databricks/dbrx-base",
+   "first_build": "b2811",
+   "date": "2024-05-08",
+   "commit": "4cd621c26de2095cd7c4464bdec5fe2e696ef3f3",
+   "absent_in": []
+  },
+  "9c2227e4dd922002fb81bde4fc02b0483ca4f12911410dee2255e4987644e3f8": {
+   "name": "command-r",
+   "ref": "https://huggingface.co/CohereForAI/c4ai-command-r-v01",
+   "first_build": "b2791",
+   "date": "2024-05-05",
+   "commit": "889bdd76866ea31a7625ec2dcea63ff469f3e981",
+   "absent_in": []
+  },
+  "6221ad2852e85ce96f791f476e0b390cf9b474c9e3d1362f53a24a06dc8220ff": {
+   "name": "refact",
+   "ref": "https://huggingface.co/smallcloudai/Refact-1_6-base",
+   "first_build": "b2785",
+   "date": "2024-05-04",
+   "commit": "92139b90af4841d7fd060b526bdd443b621770ff",
+   "absent_in": []
+  },
+  "b6dc8df998e1cfbdc4eac8243701a65afe638679230920b50d6f17d81c098166": {
+   "name": "olmo",
+   "ref": "https://huggingface.co/allenai/OLMo-1.7-7B-hf",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  },
+  "8aeee3860c56296a157a1fe2fad249ec40aa59b1bb5709f4ade11c4e6fe652ed": {
+   "name": "falcon",
+   "ref": "https://huggingface.co/tiiuae/falcon-7b",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  },
+  "3ce83efda5659b07b1ad37ca97ca5797ea4285d9b9ab0dc679e4a720c9da7454": {
+   "name": "gpt-2",
+   "ref": "https://huggingface.co/openai-community/gpt2",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  },
+  "35d91631860c815f952d711435f48d356ebac988362536bed955d43bfa436e34": {
+   "name": "starcoder",
+   "ref": "https://huggingface.co/bigcode/starcoder2-3b",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  },
+  "347715f544604f9118bb75ed199f68779f423cabb20db6de6f31b908d04d7821": {
+   "name": "deepseek-coder",
+   "ref": "https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-base",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  },
+  "0ef9807a4087ebef797fc749390439009c3b9eda9ad1a097abbe738f486c01e5": {
+   "name": "llama-bpe",
+   "ref": "https://huggingface.co/meta-llama/Meta-Llama-3-8B",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  },
+  "0876d13b50744004aa9aeae05e7b0647eac9d801b5ba4668afc01e709c15e19f": {
+   "name": "jina-v2-en",
+   "ref": "https://huggingface.co/jinaai/jina-embeddings-v2-base-en",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  },
+  "049ecf7629871e3041641907f3de7c733e4dbfdc736f57d882ba0b0845599754": {
+   "name": "deepseek-llm",
+   "ref": "https://huggingface.co/deepseek-ai/deepseek-llm-7b-base",
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "absent_in": []
+  }
+ },
+ "names": {
+  "raon": {
+   "first_build": null,
+   "date": "2026-11-25",
+   "commit": "5a09582d80600fb5b0a8966e870061bddc8a3732",
+   "ollama": null,
+   "llama_cpp_python": null,
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "domyn-edge": {
+   "first_build": "b12568",
+   "date": "2026-11-20",
+   "commit": "55d323507de290f5baacf56082b087a6bccfc7d9",
+   "ollama": {
+    "version": "0.40.18",
+    "date": "2026-11-24",
+    "how": "pinned llama.cpp b12651"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.38",
+    "date": "2026-11-23",
+    "bundled_build": "b12651"
+   },
+   "same_handling_as": [
+    "qwen2",
+    "deepseek-r1-qwen",
+    "kormo",
+    "f2llmv2"
+   ],
+   "absent_in": []
+  },
+  "zonos3": {
+   "first_build": "b12424",
+   "date": "2026-11-15",
+   "commit": "7ae3c6b231e38057e825ff257bb734e456633d9a",
+   "ollama": {
+    "version": "0.40.18",
+    "date": "2026-11-24",
+    "how": "pinned llama.cpp b12651"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.38",
+    "date": "2026-11-23",
+    "bundled_build": "b12651"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "inkling2": {
+   "first_build": "b12406",
+   "date": "2026-11-14",
+   "commit": "5c008e00085f4d3e394f9a1be649284999de1326",
+   "ollama": {
+    "version": "0.40.18",
+    "date": "2026-11-24",
+    "how": "pinned llama.cpp b12651"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.38",
+    "date": "2026-11-23",
+    "bundled_build": "b12651"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "tekken-num3": {
+   "first_build": "b11998",
+   "date": "2026-10-29",
+   "commit": "78feec062d50ec9e8940244cac918ac4480b60cb",
+   "ollama": {
+    "version": "0.40.15",
+    "date": "2026-11-05",
+    "how": "pinned llama.cpp b12111"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.37",
+    "date": "2026-11-15",
+    "bundled_build": "b12387"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "soprano": {
+   "first_build": "b11850",
+   "date": "2026-10-23",
+   "commit": "9ae73e68f5a78933c0d988bbd17bf4647ad6a0b2",
+   "ollama": {
+    "version": "0.40.12",
+    "date": "2026-10-27",
+    "how": "pinned llama.cpp b11901"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.37",
+    "date": "2026-11-15",
+    "bundled_build": "b12387"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "nemotron-3.5-embed": {
+   "first_build": "b11833",
+   "date": "2026-10-23",
+   "commit": "f9599d0cc89978b7594d05283ae4243e32bbc9e6",
+   "ollama": {
+    "version": "0.40.11",
+    "date": "2026-10-23",
+    "how": "pinned llama.cpp b11845"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.37",
+    "date": "2026-11-15",
+    "bundled_build": "b12387"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "domyn-small": {
+   "first_build": "b11819",
+   "date": "2026-10-22",
+   "commit": "0693dbfb915f33233818373b5f6969396658d02c",
+   "ollama": {
+    "version": "0.40.11",
+    "date": "2026-10-23",
+    "how": "pinned llama.cpp b11845"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.37",
+    "date": "2026-11-15",
+    "bundled_build": "b12387"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "flint": {
+   "first_build": "b11803",
+   "date": "2026-10-21",
+   "commit": "a37cc46104eb50900d5ab4a9ba02a0abdac039db",
+   "ollama": {
+    "version": "0.40.9",
+    "date": "2026-10-22",
+    "how": "pinned llama.cpp b11803"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.37",
+    "date": "2026-11-15",
+    "bundled_build": "b12387"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "k2-horizon": {
+   "first_build": "b11454",
+   "date": "2026-10-06",
+   "commit": "4625240437c6821ee5c2da99e12d4817c6a8f07f",
+   "ollama": {
+    "version": "0.40.4",
+    "date": "2026-10-13",
+    "how": "pinned llama.cpp b11521"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.37",
+    "date": "2026-11-15",
+    "bundled_build": "b12387"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "mmbert": {
+   "first_build": "b11361",
+   "date": "2026-10-02",
+   "commit": "a4cb4c61fd9d9c2066c7c1747821d3d65b8943bd",
+   "ollama": {
+    "version": "0.40.4",
+    "date": "2026-10-13",
+    "how": "pinned llama.cpp b11521"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.37",
+    "date": "2026-11-15",
+    "bundled_build": "b12387"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "glm5": {
+   "first_build": "b11279",
+   "date": "2026-09-30",
+   "commit": "649dcb1036fd47d01a83b56c5e35913e65c277ba",
+   "ollama": {
+    "version": "0.40.0",
+    "date": "2026-10-06",
+    "how": "pinned llama.cpp b11351"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.36",
+    "date": "2026-10-01",
+    "bundled_build": "b11312"
+   },
+   "same_handling_as": [
+    "glm4"
+   ],
+   "absent_in": []
+  },
+  "ufakzeka": {
+   "first_build": "b11034",
+   "date": "2026-09-18",
+   "commit": "dc85f89c7ee2150c408dea82aeebc799b99ad0cc",
+   "ollama": {
+    "version": "0.34.4",
+    "date": "2026-09-23",
+    "how": "pinned llama.cpp b11081"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.36",
+    "date": "2026-10-01",
+    "bundled_build": "b11312"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "spark2_5": {
+   "first_build": "b10828",
+   "date": "2026-09-06",
+   "commit": "3ad1ba7336986d98592d3e28cafd1a406715351f",
+   "ollama": {
+    "version": "0.34.1",
+    "date": "2026-09-15",
+    "how": "pinned llama.cpp b10864"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.36",
+    "date": "2026-10-01",
+    "bundled_build": "b11312"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "hy_v4": {
+   "first_build": "b10813",
+   "date": "2026-09-04",
+   "commit": "49c0dc82b849344f945b14ab997386bd793369ae",
+   "ollama": {
+    "version": "0.34.1",
+    "date": "2026-09-15",
+    "how": "pinned llama.cpp b10864"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.36",
+    "date": "2026-10-01",
+    "bundled_build": "b11312"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "laguna": {
+   "first_build": "b10087",
+   "date": "2026-07-22",
+   "commit": "1f66c3ce1c26c95db3fadb734086c7d9fba23bb9",
+   "ollama": {
+    "version": "0.32.3",
+    "date": "2026-07-23",
+    "how": "pinned llama.cpp b10091"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.35",
+    "date": "2026-08-17",
+    "bundled_build": "b10454"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "cohere2moe": {
+   "first_build": "b9630",
+   "date": "2026-06-14",
+   "commit": "8ed274ef46e2e6c073e5400af4286f53547c003e",
+   "ollama": {
+    "version": "0.30.10",
+    "date": "2026-06-17",
+    "how": "pinned llama.cpp b9672"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.30",
+    "date": "2026-06-16",
+    "bundled_build": "b9665"
+   },
+   "same_handling_as": [
+    "tiny_aya"
+   ],
+   "absent_in": []
+  },
+  "mellum2": {
+   "first_build": "b9482",
+   "date": "2026-06-02",
+   "commit": "4fb16eccce5e451b40014355f97374d692480a4d",
+   "ollama": {
+    "version": "0.30.4",
+    "date": "2026-06-03",
+    "how": "pinned llama.cpp b9493"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.26",
+    "date": "2026-06-05",
+    "bundled_build": "b9518"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "granite-embed-multi-97m": {
+   "first_build": "b9481",
+   "date": "2026-06-02",
+   "commit": "bfb4308b058b334c6e68085c661ec9eb7e3d59f4",
+   "ollama": {
+    "version": "0.30.4",
+    "date": "2026-06-03",
+    "how": "pinned llama.cpp b9493"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.26",
+    "date": "2026-06-05",
+    "bundled_build": "b9518"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "granite-embed-multi-311m": {
+   "first_build": "b9481",
+   "date": "2026-06-02",
+   "commit": "bfb4308b058b334c6e68085c661ec9eb7e3d59f4",
+   "ollama": {
+    "version": "0.30.4",
+    "date": "2026-06-03",
+    "how": "pinned llama.cpp b9493"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.26",
+    "date": "2026-06-05",
+    "bundled_build": "b9518"
+   },
+   "same_handling_as": [
+    "gemma4"
+   ],
+   "absent_in": []
+  },
+  "whitespace": {
+   "first_build": "b9442",
+   "date": "2026-05-31",
+   "commit": "d4c8e2c29ce2fb9a251a0a4a16d6c857b4f70f8c",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.24",
+    "date": "2026-06-01",
+    "bundled_build": "b9445"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "minicpm5": {
+   "first_build": "b9354",
+   "date": "2026-05-27",
+   "commit": "9777256c3130fa3201327bfab44bae187f7caea2",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.24",
+    "date": "2026-06-01",
+    "bundled_build": "b9445"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "talkie": {
+   "first_build": "b9341",
+   "date": "2026-05-26",
+   "commit": "c9d98295a3a371c5a9277b54be493ec74317b387",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.24",
+    "date": "2026-06-01",
+    "bundled_build": "b9445"
+   },
+   "same_handling_as": [
+    "gpt-4o",
+    "llama4",
+    "kanana2"
+   ],
+   "absent_in": []
+  },
+  "sarvam-moe": {
+   "first_build": "b9093",
+   "date": "2026-05-09",
+   "commit": "1e5ad35d560b90a8ac447d149c8f8447ae1fcaa0",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.23",
+    "date": "2026-05-11",
+    "bundled_build": "b9102"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "gemma4": {
+   "first_build": "b8648",
+   "date": "2026-04-03",
+   "commit": "b069b10ab48f25ba119e59d0b8bf35d4f06e093f",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.21",
+    "date": "2026-04-27",
+    "bundled_build": "b8941"
+   },
+   "same_handling_as": [
+    "granite-embed-multi-311m"
+   ],
+   "absent_in": []
+  },
+  "f2llmv2": {
+   "first_build": "b8526",
+   "date": "2026-03-25",
+   "commit": "80322ebdaf8ab41fe3e66a17d7a4ec9360c54eac",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.19",
+    "date": "2026-03-25",
+    "bundled_build": "b8531"
+   },
+   "same_handling_as": [
+    "qwen2",
+    "deepseek-r1-qwen",
+    "kormo",
+    "domyn-edge"
+   ],
+   "absent_in": []
+  },
+  "jina-v5-nano": {
+   "first_build": "b8161",
+   "date": "2026-02-26",
+   "commit": "66287bdaaca3042bd4df5fc8f7bd4d58bfcd208c",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [
+    "llama3",
+    "llama-v3",
+    "llama-bpe",
+    "falcon3",
+    "falcon-h1",
+    "midm-2.0"
+   ],
+   "absent_in": []
+  },
+  "kanana2": {
+   "first_build": "b8128",
+   "date": "2026-02-22",
+   "commit": "ae2368e74eb2c280629ce6cf80edb88d72d23495",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [
+    "gpt-4o",
+    "llama4",
+    "talkie"
+   ],
+   "absent_in": []
+  },
+  "jais-2": {
+   "first_build": "b8106",
+   "date": "2026-02-19",
+   "commit": "2bf318fd2f690f12ba0ee87ac63157f5b9300886",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "joyai-llm": {
+   "first_build": "b8077",
+   "date": "2026-02-16",
+   "commit": "05fa625eac5bbdbe88b43f857156c35501421d6e",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "tiny_aya": {
+   "first_build": "b8073",
+   "date": "2026-02-16",
+   "commit": "5f28c53d11210f3521328d6dac620c4b6ae0044b",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [
+    "cohere2moe"
+   ],
+   "absent_in": []
+  },
+  "qwen35": {
+   "first_build": "b7990",
+   "date": "2026-02-10",
+   "commit": "fc0fe4004985d6749a7a05e250d161f9dbe41d65",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "exaone-moe": {
+   "first_build": "b7727",
+   "date": "2026-01-13",
+   "commit": "60591f01d433f3fc7603d5273fbe361bd05a3507",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "youtu": {
+   "first_build": "b7607",
+   "date": "2026-01-01",
+   "commit": "ced765be44ce173c374f295b3c6f4175f8fd109b",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "solar-open": {
+   "first_build": "b7603",
+   "date": "2026-01-01",
+   "commit": "f4f501925418ae38bb1e2d8c5e054c436686a782",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "modern-bert": {
+   "first_build": "b7515",
+   "date": "2025-12-22",
+   "commit": "dfc959b886d2613a4d3f06d8f3523628c654e8a3",
+   "ollama": {
+    "version": "0.30.0",
+    "date": "2026-06-01",
+    "how": "pinned llama.cpp b9452"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-es",
+    "jina-de",
+    "gigachat",
+    "jina-v2-es",
+    "jina-v2-de",
+    "a.x-4.0",
+    "mellum"
+   ],
+   "absent_in": []
+  },
+  "kormo": {
+   "first_build": "b7414",
+   "date": "2025-12-15",
+   "commit": "9d52f17ae33e8df958e20f3f1b13bfec53ab5a1d",
+   "ollama": {
+    "version": "0.13.5",
+    "date": "2025-12-18",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [
+    "qwen2",
+    "deepseek-r1-qwen",
+    "f2llmv2",
+    "domyn-edge"
+   ],
+   "absent_in": []
+  },
+  "afmoe": {
+   "first_build": "b7061",
+   "date": "2025-11-14",
+   "commit": "e1fcf8b09b8115156313c61bdd42186a7c7fb7be",
+   "ollama": {
+    "version": "0.13.2",
+    "date": "2025-12-08",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "minimax-m2": {
+   "first_build": "b6906",
+   "date": "2025-10-31",
+   "commit": "0de0a01576772032008a689afc4d7c80685074c4",
+   "ollama": {
+    "version": "0.13.2",
+    "date": "2025-12-08",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "bailingmoe2": {
+   "first_build": "b6810",
+   "date": "2025-10-20",
+   "commit": "84bf3c677857279037adf67cdcfd89eaa4ca9281",
+   "ollama": {
+    "version": "0.12.11",
+    "date": "2025-11-13",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [
+    "bailingmoe",
+    "llada-moe"
+   ],
+   "absent_in": []
+  },
+  "granite-docling": {
+   "first_build": "b6692",
+   "date": "2025-10-05",
+   "commit": "ca71fb9b368e3db96e028f80c4c9df6b6b370edd",
+   "ollama": {
+    "version": "0.12.6",
+    "date": "2025-10-16",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "llada-moe": {
+   "first_build": "b6483",
+   "date": "2025-09-16",
+   "commit": "6d758839ff741d4966ca92b7f801b7a8b5b96364",
+   "ollama": {
+    "version": "0.12.4",
+    "date": "2025-10-09",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [
+    "bailingmoe",
+    "bailingmoe2"
+   ],
+   "absent_in": []
+  },
+  "grok-2": {
+   "first_build": "b6475",
+   "date": "2025-09-14",
+   "commit": "b8e09f08b9a91c0401bc67d17a17c90756420346",
+   "ollama": {
+    "version": "0.12.4",
+    "date": "2025-10-09",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.17",
+    "date": "2026-03-23",
+    "bundled_build": "b8475"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "mellum": {
+   "first_build": "b6078",
+   "date": "2025-08-03",
+   "commit": "97366dc6abdd0bdc74260bd3c42bd06f0feb7428",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.15",
+    "date": "2025-08-07",
+    "bundled_build": "b6109"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-es",
+    "jina-de",
+    "gigachat",
+    "jina-v2-es",
+    "jina-v2-de",
+    "a.x-4.0",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "hunyuan-dense": {
+   "first_build": "b6058",
+   "date": "2025-08-01",
+   "commit": "0f5ccd6fd1a1f709010312933db0316867cc30b6",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.15",
+    "date": "2025-08-07",
+    "bundled_build": "b6109"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "exaone4": {
+   "first_build": "b5932",
+   "date": "2025-07-18",
+   "commit": "e0cb5c5cb8a61ac232130cf6bf878035f93824d9",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.15",
+    "date": "2025-08-07",
+    "bundled_build": "b6109"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "kimi-k2": {
+   "first_build": "b5902",
+   "date": "2025-07-15",
+   "commit": "4a4f426944e79b79e389f9ed7b34831cb9b637ad",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.14",
+    "date": "2025-07-18",
+    "bundled_build": "b5904"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "lfm2": {
+   "first_build": "b5873",
+   "date": "2025-07-11",
+   "commit": "f5e96b368f1acc7f53c390001b936517c4d18999",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.13",
+    "date": "2025-07-15",
+    "bundled_build": "b5897"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "midm-2.0": {
+   "first_build": "b5869",
+   "date": "2025-07-11",
+   "commit": "576c82eda210ca0111c04f5256bf77897a4d4cc4",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.13",
+    "date": "2025-07-15",
+    "bundled_build": "b5897"
+   },
+   "same_handling_as": [
+    "llama3",
+    "llama-v3",
+    "llama-bpe",
+    "falcon3",
+    "falcon-h1",
+    "jina-v5-nano"
+   ],
+   "absent_in": []
+  },
+  "a.x-4.0": {
+   "first_build": "b5853",
+   "date": "2025-07-09",
+   "commit": "ffd59e7d18a76459d5c31ba97073c7c9d73cb752",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.13",
+    "date": "2025-07-15",
+    "bundled_build": "b5897"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-es",
+    "jina-de",
+    "gigachat",
+    "jina-v2-es",
+    "jina-v2-de",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "falcon-h1": {
+   "first_build": "b5851",
+   "date": "2025-07-09",
+   "commit": "04655063c47af6cbced295c8c7ad369402b15300",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.13",
+    "date": "2025-07-15",
+    "bundled_build": "b5897"
+   },
+   "same_handling_as": [
+    "llama3",
+    "llama-v3",
+    "llama-bpe",
+    "falcon3",
+    "midm-2.0",
+    "jina-v5-nano"
+   ],
+   "absent_in": []
+  },
+  "hunyuan": {
+   "first_build": "b5843",
+   "date": "2025-07-08",
+   "commit": "8f22dc0a53338c629c1ef8fa878d8e39bfe627c9",
+   "ollama": {
+    "version": "0.11.5",
+    "date": "2025-08-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.13",
+    "date": "2025-07-15",
+    "bundled_build": "b5897"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "seed-coder": {
+   "first_build": "b5341",
+   "date": "2025-05-10",
+   "commit": "d2a4ef05c60506ee48e7375eb36f2257de7ab0d2",
+   "ollama": {
+    "version": "0.7.0",
+    "date": "2025-05-14",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.10",
+    "date": "2025-07-03",
+    "bundled_build": "b5760"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "pixtral": {
+   "first_build": "b5173",
+   "date": "2025-04-23",
+   "commit": "ecda2ec4b347031a9b8a89ee2efc664ce63f599c",
+   "ollama": {
+    "version": "0.6.8",
+    "date": "2025-05-03",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.9",
+    "date": "2025-05-08",
+    "bundled_build": "b5308"
+   },
+   "same_handling_as": [
+    "tekken"
+   ],
+   "absent_in": []
+  },
+  "glm4": {
+   "first_build": "b5115",
+   "date": "2025-04-11",
+   "commit": "06bb53ad9b6e6d92b6ab6979927530080b1c990c",
+   "ollama": {
+    "version": "0.6.6",
+    "date": "2025-04-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.9",
+    "date": "2025-05-08",
+    "bundled_build": "b5308"
+   },
+   "same_handling_as": [
+    "glm5"
+   ],
+   "absent_in": []
+  },
+  "llama4": {
+   "first_build": "b5074",
+   "date": "2025-04-07",
+   "commit": "1466621e738779eefe1bb672e17dc55d63d166bb",
+   "ollama": {
+    "version": "0.6.6",
+    "date": "2025-04-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.9",
+    "date": "2025-05-08",
+    "bundled_build": "b5308"
+   },
+   "same_handling_as": [
+    "gpt-4o",
+    "kanana2",
+    "talkie"
+   ],
+   "absent_in": []
+  },
+  "bailingmoe": {
+   "first_build": "b5002",
+   "date": "2025-03-30",
+   "commit": "2c3f8b850a4a6cff0f5dda2135c03fc81d33ed8b",
+   "ollama": {
+    "version": "0.6.6",
+    "date": "2025-04-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.9",
+    "date": "2025-05-08",
+    "bundled_build": "b5308"
+   },
+   "same_handling_as": [
+    "bailingmoe2",
+    "llada-moe"
+   ],
+   "absent_in": []
+  },
+  "trillion": {
+   "first_build": "b5001",
+   "date": "2025-03-30",
+   "commit": "b3de7cac732e7dc0e10e1bb07502a500b0ee9022",
+   "ollama": {
+    "version": "0.6.6",
+    "date": "2025-04-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.9",
+    "date": "2025-05-08",
+    "bundled_build": "b5308"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "superbpe": {
+   "first_build": "b4948",
+   "date": "2025-03-24",
+   "commit": "00d53800e00bb22a26bf710fa6bd1150e412cc1d",
+   "ollama": {
+    "version": "0.6.6",
+    "date": "2025-04-19",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.9",
+    "date": "2025-05-08",
+    "bundled_build": "b5308"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "gpt-4o": {
+   "first_build": "b4792",
+   "date": "2025-02-28",
+   "commit": "c43a3e7996e585e2addde1e44057a4f3cdbadef8",
+   "ollama": {
+    "version": "0.5.13",
+    "date": "2025-03-04",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.8",
+    "date": "2025-03-12",
+    "bundled_build": "b4875"
+   },
+   "same_handling_as": [
+    "llama4",
+    "kanana2",
+    "talkie"
+   ],
+   "absent_in": []
+  },
+  "deepseek-r1-qwen": {
+   "first_build": "b4514",
+   "date": "2025-01-20",
+   "commit": "ec7f3ac9ab33e46b136eb5ab6a76c4d81f57c7f1",
+   "ollama": {
+    "version": "0.5.13",
+    "date": "2025-03-04",
+    "how": "vendored source"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.7",
+    "date": "2025-01-29",
+    "bundled_build": "b4576"
+   },
+   "same_handling_as": [
+    "qwen2",
+    "kormo",
+    "f2llmv2",
+    "domyn-edge"
+   ],
+   "absent_in": []
+  },
+  "deepseek-v3": {
+   "first_build": "b4417",
+   "date": "2025-01-04",
+   "commit": "9394bbd484f802ce80d2858033583af3ef700d25",
+   "ollama": {
+    "version": "0.5.5",
+    "date": "2025-01-11",
+    "how": "pinned llama.cpp b4419"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.6",
+    "date": "2025-01-08",
+    "bundled_build": "b4447"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "megrez": {
+   "first_build": "b4381",
+   "date": "2024-12-23",
+   "commit": "b92a14a841fb4dfaf27b29d982ec8ba5289a3bff",
+   "ollama": {
+    "version": "0.5.5",
+    "date": "2025-01-11",
+    "how": "pinned llama.cpp b4419"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.6",
+    "date": "2025-01-08",
+    "bundled_build": "b4447"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "falcon3": {
+   "first_build": "b4376",
+   "date": "2024-12-22",
+   "commit": "7ae33a616f44ecc081f3dcb589be20962d1d4a92",
+   "ollama": {
+    "version": "0.5.5",
+    "date": "2025-01-11",
+    "how": "pinned llama.cpp b4419"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.6",
+    "date": "2025-01-08",
+    "bundled_build": "b4447"
+   },
+   "same_handling_as": [
+    "llama3",
+    "llama-v3",
+    "llama-bpe",
+    "falcon-h1",
+    "midm-2.0",
+    "jina-v5-nano"
+   ],
+   "absent_in": [
+    [
+     "b4341",
+     "b4351"
+    ]
+   ]
+  },
+  "roberta-bpe": {
+   "first_build": "b4362",
+   "date": "2024-12-19",
+   "commit": "2fffc52b50992ac5bc64db19d33c39cbc06f52cf",
+   "ollama": {
+    "version": "0.5.5",
+    "date": "2025-01-11",
+    "how": "pinned llama.cpp b4419"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.6",
+    "date": "2025-01-08",
+    "bundled_build": "b4447"
+   },
+   "same_handling_as": [
+    "jina-v1-en",
+    "jina-v2-code"
+   ],
+   "absent_in": []
+  },
+  "gigachat": {
+   "first_build": "b4333",
+   "date": "2024-12-15",
+   "commit": "a0974156f334acf8af5858d7ede5ab7d7490d415",
+   "ollama": {
+    "version": "0.5.5",
+    "date": "2025-01-11",
+    "how": "pinned llama.cpp b4419"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.6",
+    "date": "2025-01-08",
+    "bundled_build": "b4447"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-es",
+    "jina-de",
+    "jina-v2-es",
+    "jina-v2-de",
+    "a.x-4.0",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "minerva-7b": {
+   "first_build": "b4272",
+   "date": "2024-12-05",
+   "commit": "6fe624783166e7355cec915de0094e63cd3558eb",
+   "ollama": {
+    "version": "0.5.3",
+    "date": "2024-12-17",
+    "how": "pinned llama.cpp b4327"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.3",
+    "date": "2024-12-09",
+    "bundled_build": "b4291"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "jina-v1-en": {
+   "first_build": "b3841",
+   "date": "2024-09-29",
+   "commit": "f4d2b8846a6b34419ff9e9491aee6cd95e444bfc",
+   "ollama": {
+    "version": "0.3.14",
+    "date": "2024-10-17",
+    "how": "pinned llama.cpp b3861"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.1",
+    "date": "2024-09-29",
+    "bundled_build": "b3848"
+   },
+   "same_handling_as": [
+    "jina-v2-code",
+    "roberta-bpe"
+   ],
+   "absent_in": []
+  },
+  "chameleon": {
+   "first_build": "b3834",
+   "date": "2024-09-28",
+   "commit": "9a913110cf471a8287ac06c43cbe307d3cf6df99",
+   "ollama": {
+    "version": "0.3.14",
+    "date": "2024-10-17",
+    "how": "pinned llama.cpp b3861"
+   },
+   "llama_cpp_python": {
+    "version": "0.3.1",
+    "date": "2024-09-29",
+    "bundled_build": "b3848"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "exaone": {
+   "first_build": "b3595",
+   "date": "2024-08-16",
+   "commit": "c679e0cb5c378bfb63643c44a453345ba8b90126",
+   "ollama": {
+    "version": "0.3.10",
+    "date": "2024-09-07",
+    "how": "pinned llama.cpp b3661"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.89",
+    "date": "2024-08-19",
+    "bundled_build": "b3604"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "gpt3-finnish": {
+   "first_build": "b3587",
+   "date": "2024-08-15",
+   "commit": "6bda7ce6c3a9284fcbb70c1ace4107db8eb63e5c",
+   "ollama": {
+    "version": "0.3.10",
+    "date": "2024-09-07",
+    "how": "pinned llama.cpp b3661"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.89",
+    "date": "2024-08-19",
+    "bundled_build": "b3604"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "bloom": {
+   "first_build": "b3587",
+   "date": "2024-08-15",
+   "commit": "6bda7ce6c3a9284fcbb70c1ace4107db8eb63e5c",
+   "ollama": {
+    "version": "0.3.10",
+    "date": "2024-09-07",
+    "how": "pinned llama.cpp b3661"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.89",
+    "date": "2024-08-19",
+    "bundled_build": "b3604"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "codeshell": {
+   "first_build": "b3441",
+   "date": "2024-07-22",
+   "commit": "081fe431aa8fb6307145c4feb3eed4f48cab19f8",
+   "ollama": {
+    "version": "0.3.1",
+    "date": "2024-07-31",
+    "how": "pinned llama.cpp b3485"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.83",
+    "date": "2024-07-22",
+    "bundled_build": "b3441"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "smollm": {
+   "first_build": "b3440",
+   "date": "2024-07-22",
+   "commit": "d94c6e0ccbd29ee1ba4f44e9caa8682ad94df9fa",
+   "ollama": {
+    "version": "0.2.8",
+    "date": "2024-07-22",
+    "how": "pinned llama.cpp b3440"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.83",
+    "date": "2024-07-22",
+    "bundled_build": "b3441"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "tekken": {
+   "first_build": "b3426",
+   "date": "2024-07-20",
+   "commit": "940362224d20e35f13aa5fd34a0d937ae57bdf7d",
+   "ollama": {
+    "version": "0.2.8",
+    "date": "2024-07-22",
+    "how": "pinned llama.cpp b3440"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.83",
+    "date": "2024-07-22",
+    "bundled_build": "b3441"
+   },
+   "same_handling_as": [
+    "pixtral"
+   ],
+   "absent_in": []
+  },
+  "chatglm-bpe": {
+   "first_build": "b3333",
+   "date": "2024-07-07",
+   "commit": "905942abdba5ba0b28a1b0805e51e4f818c54bc9",
+   "ollama": {
+    "version": "0.2.0",
+    "date": "2024-07-07",
+    "how": "pinned llama.cpp b3334"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.82",
+    "date": "2024-07-09",
+    "bundled_build": "b3347"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "phi-2": {
+   "first_build": "b3324",
+   "date": "2024-07-05",
+   "commit": "213701b51a17175d0d326b566efc03f30ec7fbe6",
+   "ollama": {
+    "version": "0.2.0",
+    "date": "2024-07-07",
+    "how": "pinned llama.cpp b3334"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.82",
+    "date": "2024-07-09",
+    "bundled_build": "b3347"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "jina-es",
+    "jina-de",
+    "gigachat",
+    "jina-v2-es",
+    "jina-v2-de",
+    "a.x-4.0",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "jais": {
+   "first_build": "b3282",
+   "date": "2024-07-02",
+   "commit": "968967376dc2c018d29f897c4883d335bbf384fb",
+   "ollama": {
+    "version": "0.2.0",
+    "date": "2024-07-07",
+    "how": "pinned llama.cpp b3334"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.81",
+    "date": "2024-07-02",
+    "bundled_build": "b3282"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "viking": {
+   "first_build": "b3248",
+   "date": "2024-06-27",
+   "commit": "f675b20a3b7f878bf3be766b9a737e2c8321ff0d",
+   "ollama": {
+    "version": "0.2.0",
+    "date": "2024-07-07",
+    "how": "pinned llama.cpp b3334"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.80",
+    "date": "2024-07-02",
+    "bundled_build": "b3280"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "poro-chat": {
+   "first_build": "b3146",
+   "date": "2024-06-14",
+   "commit": "41b9260f18eb7f325c952006ac46afc1d0d8ad2f",
+   "ollama": {
+    "version": "0.1.45",
+    "date": "2024-06-20",
+    "how": "pinned llama.cpp b3171"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.79",
+    "date": "2024-06-19",
+    "bundled_build": "b3184"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "jina-v2-code": {
+   "first_build": "b3130",
+   "date": "2024-06-11",
+   "commit": "f5d7b268ec4bf8628aa6ccc9f6631d0230dde76f",
+   "ollama": {
+    "version": "0.1.45",
+    "date": "2024-06-20",
+    "how": "pinned llama.cpp b3171"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.78",
+    "date": "2024-06-10",
+    "bundled_build": "b3092"
+   },
+   "same_handling_as": [
+    "jina-v1-en",
+    "roberta-bpe"
+   ],
+   "absent_in": []
+  },
+  "smaug-bpe": {
+   "first_build": "b3001",
+   "date": "2024-05-26",
+   "commit": "c429b33beb35f13934a4dfbe0c138d30b45e5d54",
+   "ollama": {
+    "version": "0.1.40",
+    "date": "2024-06-01",
+    "how": "pinned llama.cpp b3051"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.77",
+    "date": "2024-06-04",
+    "bundled_build": "b3078"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "stablelm2": {
+   "first_build": "b2933",
+   "date": "2024-05-19",
+   "commit": "6aade19ee74b896c59929676629340b36be3e22c",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.76",
+    "date": "2024-05-24",
+    "bundled_build": "b2986"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "jina-v2-es": {
+   "first_build": "b2867",
+   "date": "2024-05-13",
+   "commit": "9aa672490c848e45eaa704a554e0f1f6df995fc8",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.75",
+    "date": "2024-05-16",
+    "bundled_build": "b2894"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-es",
+    "jina-de",
+    "gigachat",
+    "jina-v2-de",
+    "a.x-4.0",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "jina-v2-de": {
+   "first_build": "b2867",
+   "date": "2024-05-13",
+   "commit": "9aa672490c848e45eaa704a554e0f1f6df995fc8",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.75",
+    "date": "2024-05-16",
+    "bundled_build": "b2894"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-es",
+    "jina-de",
+    "gigachat",
+    "jina-v2-es",
+    "a.x-4.0",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "jina-es": {
+   "first_build": "b2845",
+   "date": "2024-05-11",
+   "commit": "b83cc3f5b303ff30c52874b2d5864dc6385ebf9f",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.74",
+    "date": "2024-05-12",
+    "bundled_build": "b2860"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-de",
+    "gigachat",
+    "jina-v2-es",
+    "jina-v2-de",
+    "a.x-4.0",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "jina-de": {
+   "first_build": "b2845",
+   "date": "2024-05-11",
+   "commit": "b83cc3f5b303ff30c52874b2d5864dc6385ebf9f",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.74",
+    "date": "2024-05-12",
+    "bundled_build": "b2860"
+   },
+   "same_handling_as": [
+    "gpt-2",
+    "phi-2",
+    "jina-es",
+    "gigachat",
+    "jina-v2-es",
+    "jina-v2-de",
+    "a.x-4.0",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "qwen2": {
+   "first_build": "b2813",
+   "date": "2024-05-08",
+   "commit": "229ffff872f8ad0d21c997d18ee7a23692ae60a0",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.71",
+    "date": "2024-05-09",
+    "bundled_build": "b2815"
+   },
+   "same_handling_as": [
+    "deepseek-r1-qwen",
+    "kormo",
+    "f2llmv2",
+    "domyn-edge"
+   ],
+   "absent_in": []
+  },
+  "dbrx": {
+   "first_build": "b2811",
+   "date": "2024-05-08",
+   "commit": "4cd621c26de2095cd7c4464bdec5fe2e696ef3f3",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.71",
+    "date": "2024-05-09",
+    "bundled_build": "b2815"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "olmo": {
+   "first_build": "b2803",
+   "date": "2024-05-07",
+   "commit": "b6aa6702030320a3d5fbc2508307af0d7c947e40",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.70",
+    "date": "2024-05-08",
+    "bundled_build": "b2806"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "command-r": {
+   "first_build": "b2791",
+   "date": "2024-05-05",
+   "commit": "889bdd76866ea31a7625ec2dcea63ff469f3e981",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.70",
+    "date": "2024-05-08",
+    "bundled_build": "b2806"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "refact": {
+   "first_build": "b2785",
+   "date": "2024-05-04",
+   "commit": "92139b90af4841d7fd060b526bdd443b621770ff",
+   "ollama": {
+    "version": "0.1.39",
+    "date": "2024-05-28",
+    "how": "pinned llama.cpp b2986"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.70",
+    "date": "2024-05-08",
+    "bundled_build": "b2806"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "starcoder": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "mpt": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "llama3": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [
+    "llama-v3",
+    "llama-bpe",
+    "falcon3",
+    "falcon-h1",
+    "midm-2.0",
+    "jina-v5-nano"
+   ],
+   "absent_in": []
+  },
+  "llama-v3": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [
+    "llama3",
+    "llama-bpe",
+    "falcon3",
+    "falcon-h1",
+    "midm-2.0",
+    "jina-v5-nano"
+   ],
+   "absent_in": []
+  },
+  "llama-bpe": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [
+    "llama3",
+    "llama-v3",
+    "falcon3",
+    "falcon-h1",
+    "midm-2.0",
+    "jina-v5-nano"
+   ],
+   "absent_in": []
+  },
+  "gpt-2": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [
+    "phi-2",
+    "jina-es",
+    "jina-de",
+    "gigachat",
+    "jina-v2-es",
+    "jina-v2-de",
+    "a.x-4.0",
+    "mellum",
+    "modern-bert"
+   ],
+   "absent_in": []
+  },
+  "falcon": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "default": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "deepseek-llm": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  },
+  "deepseek-coder": {
+   "first_build": "b2761",
+   "date": "2024-04-29",
+   "commit": "f4ab2a41476600a98067a9474ea8f9e6db41bcfa",
+   "ollama": {
+    "version": "0.1.33",
+    "date": "2024-05-02",
+    "how": "pinned llama.cpp b2769"
+   },
+   "llama_cpp_python": {
+    "version": "0.2.66",
+    "date": "2024-04-30",
+    "bundled_build": "b2769"
+   },
+   "same_handling_as": [],
+   "absent_in": []
+  }
+ },
+ "shared_chkhsh": {
+  "0876d13b50744004aa9aeae05e7b0647eac9d801b5ba4668afc01e709c15e19f": [
+   {
+    "name": "bert-bge",
+    "ref": "https://huggingface.co/BAAI/bge-small-en-v1.5"
+   },
+   {
+    "name": "jina-v2-en",
+    "ref": "https://huggingface.co/jinaai/jina-embeddings-v2-base-en"
+   }
+  ],
+  "b6dc8df998e1cfbdc4eac8243701a65afe638679230920b50d6f17d81c098166": [
+   {
+    "name": "mpt",
+    "ref": "https://huggingface.co/mosaicml/mpt-7b"
+   },
+   {
+    "name": "olmo",
+    "ref": "https://huggingface.co/allenai/OLMo-1.7-7B-hf"
+   }
+  ],
+  "32d85c31273f8019248f2559fed492d929ea28b17e51d81d3bb36fff23ca72b3": [
+   {
+    "name": "stablelm2",
+    "ref": "https://huggingface.co/stabilityai/stablelm-2-zephyr-1_6b"
+   },
+   {
+    "name": "domyn-edge",
+    "ref": "https://huggingface.co/domyn/Domyn-Edge-Teacher-IF"
+   }
+  ]
+ },
+ "ollama_releases": [
+  {
+   "version": "0.0.1",
+   "date": "2023-07-08",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.2",
+   "date": "2023-07-11",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.3",
+   "date": "2023-07-11",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.4",
+   "date": "2023-07-13",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.5",
+   "date": "2023-07-13",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.6",
+   "date": "2023-07-18",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.7",
+   "date": "2023-07-19",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.8",
+   "date": "2023-07-19",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.9",
+   "date": "2023-07-20",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.10",
+   "date": "2023-07-20",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.11",
+   "date": "2023-07-21",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.12",
+   "date": "2023-07-26",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.13",
+   "date": "2023-08-03",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.14",
+   "date": "2023-08-10",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.15",
+   "date": "2023-08-17",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.16",
+   "date": "2023-08-26",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.17",
+   "date": "2023-08-30",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.18",
+   "date": "2023-09-06",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.19",
+   "date": "2023-09-11",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.20",
+   "date": "2023-09-22",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.0.21",
+   "date": "2023-09-23",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.0",
+   "date": "2023-09-25",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.1",
+   "date": "2023-10-02",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.2",
+   "date": "2023-10-13",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.3",
+   "date": "2023-10-13",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.4",
+   "date": "2023-10-23",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.5",
+   "date": "2023-10-24",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.6",
+   "date": "2023-10-27",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.7",
+   "date": "2023-10-28",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.8",
+   "date": "2023-11-04",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.9",
+   "date": "2023-11-10",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.10",
+   "date": "2023-11-17",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.11",
+   "date": "2023-11-21",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.12",
+   "date": "2023-11-26",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.13",
+   "date": "2023-12-01",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.14",
+   "date": "2023-12-10",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.15",
+   "date": "2023-12-12",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.16",
+   "date": "2023-12-14",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.17",
+   "date": "2023-12-18",
+   "bundled_build": null,
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.18",
+   "date": "2024-01-05",
+   "bundled_build": "b1662",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.19",
+   "date": "2024-01-09",
+   "bundled_build": "b1662",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.20",
+   "date": "2024-01-11",
+   "bundled_build": "b1662",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.21",
+   "date": "2024-01-25",
+   "bundled_build": "b1964",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.22",
+   "date": "2024-01-26",
+   "bundled_build": "b1964",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.23",
+   "date": "2024-02-02",
+   "bundled_build": "b1999",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.24",
+   "date": "2024-02-08",
+   "bundled_build": "b2081",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.25",
+   "date": "2024-02-15",
+   "bundled_build": "b2144",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.26",
+   "date": "2024-02-21",
+   "bundled_build": "b2223",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.27",
+   "date": "2024-02-22",
+   "bundled_build": "b2248",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.28",
+   "date": "2024-03-01",
+   "bundled_build": "b2308",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.29",
+   "date": "2024-03-14",
+   "bundled_build": "b2356",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.30",
+   "date": "2024-03-27",
+   "bundled_build": "b2527",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.31",
+   "date": "2024-04-04",
+   "bundled_build": "b2527",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.32",
+   "date": "2024-04-16",
+   "bundled_build": "b2679",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.33",
+   "date": "2024-05-02",
+   "bundled_build": "b2769",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.34",
+   "date": "2024-05-07",
+   "bundled_build": "b2769",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.35",
+   "date": "2024-05-10",
+   "bundled_build": "b2769",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.36",
+   "date": "2024-05-11",
+   "bundled_build": "b2769",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.37",
+   "date": "2024-05-11",
+   "bundled_build": "b2769",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.38",
+   "date": "2024-05-15",
+   "bundled_build": "b2769",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.39",
+   "date": "2024-05-28",
+   "bundled_build": "b2986",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.40",
+   "date": "2024-06-01",
+   "bundled_build": "b3051",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.41",
+   "date": "2024-06-02",
+   "bundled_build": "b3051",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.42",
+   "date": "2024-06-07",
+   "bundled_build": "b3051",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.43",
+   "date": "2024-06-11",
+   "bundled_build": "b3051",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.44",
+   "date": "2024-06-13",
+   "bundled_build": "b3051",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.45",
+   "date": "2024-06-20",
+   "bundled_build": "b3171",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.46",
+   "date": "2024-06-25",
+   "bundled_build": "b3171",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.47",
+   "date": "2024-06-27",
+   "bundled_build": "b3171",
+   "vendored_source": false
+  },
+  {
+   "version": "0.1.48",
+   "date": "2024-06-29",
+   "bundled_build": "b3171",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.0",
+   "date": "2024-07-07",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.1",
+   "date": "2024-07-09",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.2",
+   "date": "2024-07-12",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.3",
+   "date": "2024-07-13",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.4",
+   "date": "2024-07-13",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.5",
+   "date": "2024-07-13",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.6",
+   "date": "2024-07-18",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.7",
+   "date": "2024-07-18",
+   "bundled_build": "b3334",
+   "vendored_source": false
+  },
+  {
+   "version": "0.2.8",
+   "date": "2024-07-22",
+   "bundled_build": "b3440",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.0",
+   "date": "2024-07-25",
+   "bundled_build": "b3440",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.1",
+   "date": "2024-07-31",
+   "bundled_build": "b3485",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.2",
+   "date": "2024-07-31",
+   "bundled_build": "b3485",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.3",
+   "date": "2024-08-01",
+   "bundled_build": "b3485",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.4",
+   "date": "2024-08-07",
+   "bundled_build": "b3535",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.5",
+   "date": "2024-08-11",
+   "bundled_build": "b3535",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.6",
+   "date": "2024-08-13",
+   "bundled_build": "b3535",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.7",
+   "date": "2024-08-25",
+   "bundled_build": "b3535",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.8",
+   "date": "2024-08-27",
+   "bundled_build": "b3535",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.9",
+   "date": "2024-08-31",
+   "bundled_build": "b3535",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.10",
+   "date": "2024-09-07",
+   "bundled_build": "b3661",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.11",
+   "date": "2024-09-18",
+   "bundled_build": "b3661",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.12",
+   "date": "2024-09-24",
+   "bundled_build": "b3661",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.13",
+   "date": "2024-10-10",
+   "bundled_build": "b3661",
+   "vendored_source": false
+  },
+  {
+   "version": "0.3.14",
+   "date": "2024-10-17",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.0",
+   "date": "2024-11-05",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.1",
+   "date": "2024-11-08",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.2",
+   "date": "2024-11-15",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.3",
+   "date": "2024-11-21",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.4",
+   "date": "2024-11-23",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.5",
+   "date": "2024-11-25",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.6",
+   "date": "2024-11-27",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.4.7",
+   "date": "2024-11-30",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.0",
+   "date": "2024-12-05",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.1",
+   "date": "2024-12-06",
+   "bundled_build": "b3861",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.2",
+   "date": "2024-12-13",
+   "bundled_build": "b4260",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.3",
+   "date": "2024-12-17",
+   "bundled_build": "b4327",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.4",
+   "date": "2024-12-17",
+   "bundled_build": "b4327",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.5",
+   "date": "2025-01-11",
+   "bundled_build": "b4419",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.6",
+   "date": "2025-01-15",
+   "bundled_build": "b4419",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.7",
+   "date": "2025-01-16",
+   "bundled_build": "b4419",
+   "vendored_source": false
+  },
+  {
+   "version": "0.5.8",
+   "date": "2025-02-10",
+   "bundled_build": "b4419",
+   "vendored_source": true
+  },
+  {
+   "version": "0.5.9",
+   "date": "2025-02-13",
+   "bundled_build": "b4419",
+   "vendored_source": true
+  },
+  {
+   "version": "0.5.10",
+   "date": "2025-02-14",
+   "bundled_build": "b4419",
+   "vendored_source": true
+  },
+  {
+   "version": "0.5.11",
+   "date": "2025-02-14",
+   "bundled_build": "b4419",
+   "vendored_source": true
+  },
+  {
+   "version": "0.5.12",
+   "date": "2025-02-24",
+   "bundled_build": "b4419",
+   "vendored_source": true
+  },
+  {
+   "version": "0.5.13",
+   "date": "2025-03-04",
+   "bundled_build": "b4778",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.0",
+   "date": "2025-03-11",
+   "bundled_build": "b4778",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.1",
+   "date": "2025-03-14",
+   "bundled_build": "b4778",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.2",
+   "date": "2025-03-17",
+   "bundled_build": "b4778",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.3",
+   "date": "2025-03-26",
+   "bundled_build": "b4778",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.4",
+   "date": "2025-04-02",
+   "bundled_build": "b4778",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.5",
+   "date": "2025-04-05",
+   "bundled_build": "b4778",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.6",
+   "date": "2025-04-19",
+   "bundled_build": "b5125",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.7",
+   "date": "2025-05-01",
+   "bundled_build": "b5162",
+   "vendored_source": true
+  },
+  {
+   "version": "0.6.8",
+   "date": "2025-05-03",
+   "bundled_build": "b5237",
+   "vendored_source": true
+  },
+  {
+   "version": "0.7.0",
+   "date": "2025-05-14",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.7.1",
+   "date": "2025-05-23",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.8.0",
+   "date": "2025-05-27",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.9.0",
+   "date": "2025-05-29",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.9.1",
+   "date": "2025-06-14",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.9.2",
+   "date": "2025-06-18",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.9.3",
+   "date": "2025-06-26",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.9.4",
+   "date": "2025-06-30",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.9.5",
+   "date": "2025-07-01",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.9.6",
+   "date": "2025-07-07",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.10.0",
+   "date": "2025-07-30",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.10.1",
+   "date": "2025-07-30",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.0",
+   "date": "2025-08-05",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.1",
+   "date": "2025-08-05",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.2",
+   "date": "2025-08-05",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.3",
+   "date": "2025-08-06",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.4",
+   "date": "2025-08-07",
+   "bundled_build": "b5359",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.5",
+   "date": "2025-08-19",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.6",
+   "date": "2025-08-20",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.7",
+   "date": "2025-08-22",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.8",
+   "date": "2025-08-28",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.9",
+   "date": "2025-09-02",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.10",
+   "date": "2025-09-04",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.11.11",
+   "date": "2025-09-12",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.0",
+   "date": "2025-09-18",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.1",
+   "date": "2025-09-23",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.2",
+   "date": "2025-09-24",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.3",
+   "date": "2025-09-26",
+   "bundled_build": "b6121",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.4",
+   "date": "2025-10-09",
+   "bundled_build": "b6646",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.5",
+   "date": "2025-10-10",
+   "bundled_build": "b6646",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.6",
+   "date": "2025-10-16",
+   "bundled_build": "b6752",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.7",
+   "date": "2025-10-29",
+   "bundled_build": "b6752",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.8",
+   "date": "2025-10-30",
+   "bundled_build": "b6752",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.9",
+   "date": "2025-10-31",
+   "bundled_build": "b6752",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.10",
+   "date": "2025-11-05",
+   "bundled_build": "b6752",
+   "vendored_source": true
+  },
+  {
+   "version": "0.12.11",
+   "date": "2025-11-13",
+   "bundled_build": "b6840",
+   "vendored_source": true
+  },
+  {
+   "version": "0.13.0",
+   "date": "2025-11-19",
+   "bundled_build": "b6840",
+   "vendored_source": true
+  },
+  {
+   "version": "0.13.1",
+   "date": "2025-12-02",
+   "bundled_build": "b6840",
+   "vendored_source": true
+  },
+  {
+   "version": "0.13.2",
+   "date": "2025-12-08",
+   "bundled_build": "b7209",
+   "vendored_source": true
+  },
+  {
+   "version": "0.13.3",
+   "date": "2025-12-12",
+   "bundled_build": "b7345",
+   "vendored_source": true
+  },
+  {
+   "version": "0.13.4",
+   "date": "2025-12-16",
+   "bundled_build": "b7345",
+   "vendored_source": true
+  },
+  {
+   "version": "0.13.5",
+   "date": "2025-12-18",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.14.0",
+   "date": "2026-01-13",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.14.1",
+   "date": "2026-01-14",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.14.2",
+   "date": "2026-01-16",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.14.3",
+   "date": "2026-01-20",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.15.0",
+   "date": "2026-01-24",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.15.1",
+   "date": "2026-01-25",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.15.2",
+   "date": "2026-01-26",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.15.3",
+   "date": "2026-01-31",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.15.4",
+   "date": "2026-02-01",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.15.5",
+   "date": "2026-02-06",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.15.6",
+   "date": "2026-02-07",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.16.0",
+   "date": "2026-02-12",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.16.1",
+   "date": "2026-02-12",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.16.2",
+   "date": "2026-02-14",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.16.3",
+   "date": "2026-02-19",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.0",
+   "date": "2026-02-22",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.1",
+   "date": "2026-02-25",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.2",
+   "date": "2026-02-26",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.3",
+   "date": "2026-02-27",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.4",
+   "date": "2026-02-27",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.5",
+   "date": "2026-03-02",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.6",
+   "date": "2026-03-04",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.17.7",
+   "date": "2026-03-06",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.18.0",
+   "date": "2026-03-13",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.18.1",
+   "date": "2026-03-16",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.18.2",
+   "date": "2026-03-18",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.18.3",
+   "date": "2026-03-25",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.19.0",
+   "date": "2026-03-29",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.0",
+   "date": "2026-04-02",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.1",
+   "date": "2026-04-04",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.2",
+   "date": "2026-04-04",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.3",
+   "date": "2026-04-07",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.4",
+   "date": "2026-04-07",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.5",
+   "date": "2026-04-09",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.6",
+   "date": "2026-04-11",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.20.7",
+   "date": "2026-04-13",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.21.0",
+   "date": "2026-04-17",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.21.1",
+   "date": "2026-04-21",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.21.2",
+   "date": "2026-04-23",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.22.0",
+   "date": "2026-04-28",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.22.1",
+   "date": "2026-04-30",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.23.0",
+   "date": "2026-05-03",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.23.1",
+   "date": "2026-05-05",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.23.2",
+   "date": "2026-05-07",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.23.3",
+   "date": "2026-05-11",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.23.4",
+   "date": "2026-05-12",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.24.0",
+   "date": "2026-05-14",
+   "bundled_build": "b7437",
+   "vendored_source": true
+  },
+  {
+   "version": "0.30.0",
+   "date": "2026-06-01",
+   "bundled_build": "b9452",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.1",
+   "date": "2026-06-02",
+   "bundled_build": "b9479",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.2",
+   "date": "2026-06-02",
+   "bundled_build": "b9479",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.3",
+   "date": "2026-06-03",
+   "bundled_build": "b9479",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.4",
+   "date": "2026-06-03",
+   "bundled_build": "b9493",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.5",
+   "date": "2026-06-04",
+   "bundled_build": "b9509",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.6",
+   "date": "2026-06-05",
+   "bundled_build": "b9509",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.7",
+   "date": "2026-06-07",
+   "bundled_build": "b9509",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.8",
+   "date": "2026-06-12",
+   "bundled_build": "b9509",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.9",
+   "date": "2026-06-16",
+   "bundled_build": "b9626",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.10",
+   "date": "2026-06-17",
+   "bundled_build": "b9672",
+   "vendored_source": false
+  },
+  {
+   "version": "0.30.11",
+   "date": "2026-06-26",
+   "bundled_build": "b9781",
+   "vendored_source": false
+  },
+  {
+   "version": "0.31.0",
+   "date": "2026-06-29",
+   "bundled_build": "b9840",
+   "vendored_source": false
+  },
+  {
+   "version": "0.31.1",
+   "date": "2026-06-30",
+   "bundled_build": "b9840",
+   "vendored_source": false
+  },
+  {
+   "version": "0.31.2",
+   "date": "2026-07-07",
+   "bundled_build": "b9888",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.0",
+   "date": "2026-07-13",
+   "bundled_build": "b9888",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.1",
+   "date": "2026-07-15",
+   "bundled_build": "b9888",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.2",
+   "date": "2026-07-21",
+   "bundled_build": "b10069",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.3",
+   "date": "2026-07-23",
+   "bundled_build": "b10091",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.4",
+   "date": "2026-07-25",
+   "bundled_build": "b10091",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.5",
+   "date": "2026-07-27",
+   "bundled_build": "b10091",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.6",
+   "date": "2026-08-04",
+   "bundled_build": "b10242",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.7",
+   "date": "2026-08-10",
+   "bundled_build": "b10242",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.8",
+   "date": "2026-08-10",
+   "bundled_build": "b10353",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.9",
+   "date": "2026-08-11",
+   "bundled_build": "b10353",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.10",
+   "date": "2026-08-12",
+   "bundled_build": "b10380",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.11",
+   "date": "2026-08-13",
+   "bundled_build": "b10380",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.12",
+   "date": "2026-08-14",
+   "bundled_build": "b10380",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.13",
+   "date": "2026-08-14",
+   "bundled_build": "b10380",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.14",
+   "date": "2026-08-15",
+   "bundled_build": "b10434",
+   "vendored_source": false
+  },
+  {
+   "version": "0.32.15",
+   "date": "2026-08-19",
+   "bundled_build": "b10488",
+   "vendored_source": false
+  },
+  {
+   "version": "0.33.0",
+   "date": "2026-08-25",
+   "bundled_build": "b10488",
+   "vendored_source": false
+  },
+  {
+   "version": "0.33.1",
+   "date": "2026-08-26",
+   "bundled_build": "b10630",
+   "vendored_source": false
+  },
+  {
+   "version": "0.33.2",
+   "date": "2026-08-28",
+   "bundled_build": "b10630",
+   "vendored_source": false
+  },
+  {
+   "version": "0.33.3",
+   "date": "2026-09-02",
+   "bundled_build": "b10760",
+   "vendored_source": false
+  },
+  {
+   "version": "0.34.0",
+   "date": "2026-09-09",
+   "bundled_build": "b10760",
+   "vendored_source": false
+  },
+  {
+   "version": "0.34.1",
+   "date": "2026-09-15",
+   "bundled_build": "b10864",
+   "vendored_source": false
+  },
+  {
+   "version": "0.34.2",
+   "date": "2026-09-17",
+   "bundled_build": "b10969",
+   "vendored_source": false
+  },
+  {
+   "version": "0.34.3",
+   "date": "2026-09-19",
+   "bundled_build": "b10969",
+   "vendored_source": false
+  },
+  {
+   "version": "0.34.4",
+   "date": "2026-09-23",
+   "bundled_build": "b11081",
+   "vendored_source": false
+  },
+  {
+   "version": "0.35.0",
+   "date": "2026-09-28",
+   "bundled_build": "b11081",
+   "vendored_source": false
+  },
+  {
+   "version": "0.35.1",
+   "date": "2026-10-02",
+   "bundled_build": "b11232",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.0",
+   "date": "2026-10-06",
+   "bundled_build": "b11351",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.1",
+   "date": "2026-10-07",
+   "bundled_build": "b11351",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.2",
+   "date": "2026-10-08",
+   "bundled_build": "b11351",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.3",
+   "date": "2026-10-09",
+   "bundled_build": "b11351",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.4",
+   "date": "2026-10-13",
+   "bundled_build": "b11521",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.5",
+   "date": "2026-10-15",
+   "bundled_build": "b11669",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.6",
+   "date": "2026-10-16",
+   "bundled_build": "b11669",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.7",
+   "date": "2026-10-20",
+   "bundled_build": "b11738",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.8",
+   "date": "2026-10-21",
+   "bundled_build": "b11738",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.9",
+   "date": "2026-10-22",
+   "bundled_build": "b11803",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.10",
+   "date": "2026-10-23",
+   "bundled_build": "b11803",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.11",
+   "date": "2026-10-23",
+   "bundled_build": "b11845",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.12",
+   "date": "2026-10-27",
+   "bundled_build": "b11901",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.13",
+   "date": "2026-10-28",
+   "bundled_build": "b11963",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.14",
+   "date": "2026-11-03",
+   "bundled_build": "b11963",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.15",
+   "date": "2026-11-05",
+   "bundled_build": "b12111",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.16",
+   "date": "2026-11-08",
+   "bundled_build": "b12177",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.17",
+   "date": "2026-11-21",
+   "bundled_build": "b12257",
+   "vendored_source": false
+  },
+  {
+   "version": "0.40.18",
+   "date": "2026-11-24",
+   "bundled_build": "b12651",
+   "vendored_source": false
+  }
+ ],
+ "llama_cpp_python_releases": [
+  {
+   "version": "0.1.29",
+   "date": "2023-04-10",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.30",
+   "date": "2023-04-10",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.31",
+   "date": "2023-04-10",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.32",
+   "date": "2023-04-10",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.33",
+   "date": "2023-04-13",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.34",
+   "date": "2023-04-16",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.35",
+   "date": "2023-04-20",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.36",
+   "date": "2023-04-21",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.37",
+   "date": "2023-04-25",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.38",
+   "date": "2023-04-25",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.39",
+   "date": "2023-04-28",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.40",
+   "date": "2023-05-01",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.41",
+   "date": "2023-05-02",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.42",
+   "date": "2023-05-04",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.43",
+   "date": "2023-05-05",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.44",
+   "date": "2023-05-07",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.45",
+   "date": "2023-05-08",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.46",
+   "date": "2023-05-08",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.47",
+   "date": "2023-05-08",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.48",
+   "date": "2023-05-08",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.49",
+   "date": "2023-05-12",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.50",
+   "date": "2023-05-14",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.51",
+   "date": "2023-05-19",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.52",
+   "date": "2023-05-20",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.53",
+   "date": "2023-05-21",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.54",
+   "date": "2023-05-23",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.55",
+   "date": "2023-05-26",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.56",
+   "date": "2023-05-30",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.57",
+   "date": "2023-06-01",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.59",
+   "date": "2023-06-08",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.60",
+   "date": "2023-06-09",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.61",
+   "date": "2023-06-10",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.62",
+   "date": "2023-06-10",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.63",
+   "date": "2023-06-15",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.64",
+   "date": "2023-06-18",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.65",
+   "date": "2023-06-20",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.66",
+   "date": "2023-06-26",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.67",
+   "date": "2023-06-29",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.68",
+   "date": "2023-07-05",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.69",
+   "date": "2023-07-09",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.70",
+   "date": "2023-07-09",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.71",
+   "date": "2023-07-14",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.72",
+   "date": "2023-07-15",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.73",
+   "date": "2023-07-18",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.74",
+   "date": "2023-07-20",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.75",
+   "date": "2023-07-21",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.76",
+   "date": "2023-07-24",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.77",
+   "date": "2023-07-24",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.78",
+   "date": "2023-08-18",
+   "bundled_build": null
+  },
+  {
+   "version": "0.1.79",
+   "date": "2023-08-25",
+   "bundled_build": "b1069"
+  },
+  {
+   "version": "0.1.80",
+   "date": "2023-08-27",
+   "bundled_build": "b1083"
+  },
+  {
+   "version": "0.1.81",
+   "date": "2023-08-27",
+   "bundled_build": "b1095"
+  },
+  {
+   "version": "0.1.82",
+   "date": "2023-08-28",
+   "bundled_build": "b1103"
+  },
+  {
+   "version": "0.1.83",
+   "date": "2023-08-29",
+   "bundled_build": "b1119"
+  },
+  {
+   "version": "0.1.84",
+   "date": "2023-09-09",
+   "bundled_build": "b1204"
+  },
+  {
+   "version": "0.1.85",
+   "date": "2023-09-12",
+   "bundled_build": "b1215"
+  },
+  {
+   "version": "0.2.0",
+   "date": "2023-09-12",
+   "bundled_build": "b1215"
+  },
+  {
+   "version": "0.2.1",
+   "date": "2023-09-13",
+   "bundled_build": "b1215"
+  },
+  {
+   "version": "0.2.2",
+   "date": "2023-09-13",
+   "bundled_build": "b1215"
+  },
+  {
+   "version": "0.2.3",
+   "date": "2023-09-13",
+   "bundled_build": "b1221"
+  },
+  {
+   "version": "0.2.4",
+   "date": "2023-09-14",
+   "bundled_build": "b1221"
+  },
+  {
+   "version": "0.2.5",
+   "date": "2023-09-14",
+   "bundled_build": "b1221"
+  },
+  {
+   "version": "0.2.6",
+   "date": "2023-09-15",
+   "bundled_build": "b1226"
+  },
+  {
+   "version": "0.2.7",
+   "date": "2023-09-25",
+   "bundled_build": "b1269"
+  },
+  {
+   "version": "0.2.8",
+   "date": "2023-09-30",
+   "bundled_build": "b1298"
+  },
+  {
+   "version": "0.2.9",
+   "date": "2023-09-30",
+   "bundled_build": "b1298"
+  },
+  {
+   "version": "0.2.10",
+   "date": "2023-09-30",
+   "bundled_build": "b1298"
+  },
+  {
+   "version": "0.2.11",
+   "date": "2023-09-30",
+   "bundled_build": "b1298"
+  },
+  {
+   "version": "0.2.12",
+   "date": "2023-11-01",
+   "bundled_build": "b1457"
+  },
+  {
+   "version": "0.2.13",
+   "date": "2023-11-02",
+   "bundled_build": "b1476"
+  },
+  {
+   "version": "0.2.14",
+   "date": "2023-11-06",
+   "bundled_build": "b1492"
+  },
+  {
+   "version": "0.2.15",
+   "date": "2023-11-08",
+   "bundled_build": "b1497"
+  },
+  {
+   "version": "0.2.16",
+   "date": "2023-11-10",
+   "bundled_build": "b1500"
+  },
+  {
+   "version": "0.2.17",
+   "date": "2023-11-10",
+   "bundled_build": "b1502"
+  },
+  {
+   "version": "0.2.18",
+   "date": "2023-11-14",
+   "bundled_build": "b1516"
+  },
+  {
+   "version": "0.2.19",
+   "date": "2023-11-21",
+   "bundled_build": "b1547"
+  },
+  {
+   "version": "0.2.20",
+   "date": "2023-11-28",
+   "bundled_build": "b1573"
+  },
+  {
+   "version": "0.2.21",
+   "date": "2023-11-28",
+   "bundled_build": "b1575"
+  },
+  {
+   "version": "0.2.22",
+   "date": "2023-12-11",
+   "bundled_build": "b1621"
+  },
+  {
+   "version": "0.2.23",
+   "date": "2023-12-14",
+   "bundled_build": "b1634"
+  },
+  {
+   "version": "0.2.24",
+   "date": "2023-12-18",
+   "bundled_build": "b1660"
+  },
+  {
+   "version": "0.2.25",
+   "date": "2023-12-22",
+   "bundled_build": "b1691"
+  },
+  {
+   "version": "0.2.26",
+   "date": "2023-12-27",
+   "bundled_build": "b1708"
+  },
+  {
+   "version": "0.2.27",
+   "date": "2024-01-04",
+   "bundled_build": "b1768"
+  },
+  {
+   "version": "0.2.28",
+   "date": "2024-01-10",
+   "bundled_build": "b1804"
+  },
+  {
+   "version": "0.2.29",
+   "date": "2024-01-15",
+   "bundled_build": "b1878"
+  },
+  {
+   "version": "0.2.30",
+   "date": "2024-01-19",
+   "bundled_build": "b1893"
+  },
+  {
+   "version": "0.2.31",
+   "date": "2024-01-19",
+   "bundled_build": "b1893"
+  },
+  {
+   "version": "0.2.32",
+   "date": "2024-01-22",
+   "bundled_build": "b1893"
+  },
+  {
+   "version": "0.2.33",
+   "date": "2024-01-25",
+   "bundled_build": "b1966"
+  },
+  {
+   "version": "0.2.34",
+   "date": "2024-01-27",
+   "bundled_build": "b1988"
+  },
+  {
+   "version": "0.2.35",
+   "date": "2024-01-29",
+   "bundled_build": "b1999"
+  },
+  {
+   "version": "0.2.36",
+   "date": "2024-01-29",
+   "bundled_build": "b2005"
+  },
+  {
+   "version": "0.2.37",
+   "date": "2024-01-30",
+   "bundled_build": "b2022"
+  },
+  {
+   "version": "0.2.38",
+   "date": "2024-01-31",
+   "bundled_build": "b2037"
+  },
+  {
+   "version": "0.2.39",
+   "date": "2024-02-06",
+   "bundled_build": "b2082"
+  },
+  {
+   "version": "0.2.40",
+   "date": "2024-02-12",
+   "bundled_build": "b2128"
+  },
+  {
+   "version": "0.2.41",
+   "date": "2024-02-13",
+   "bundled_build": "b2135"
+  },
+  {
+   "version": "0.2.42",
+   "date": "2024-02-13",
+   "bundled_build": "b2144"
+  },
+  {
+   "version": "0.2.43",
+   "date": "2024-02-14",
+   "bundled_build": "b2144"
+  },
+  {
+   "version": "0.2.44",
+   "date": "2024-02-16",
+   "bundled_build": "b2144"
+  },
+  {
+   "version": "0.2.45",
+   "date": "2024-02-21",
+   "bundled_build": "b2230"
+  },
+  {
+   "version": "0.2.46",
+   "date": "2024-02-21",
+   "bundled_build": "b2231"
+  },
+  {
+   "version": "0.2.47",
+   "date": "2024-02-22",
+   "bundled_build": "b2234"
+  },
+  {
+   "version": "0.2.48",
+   "date": "2024-02-23",
+   "bundled_build": "b2249"
+  },
+  {
+   "version": "0.2.49",
+   "date": "2024-02-23",
+   "bundled_build": "b2249"
+  },
+  {
+   "version": "0.2.50",
+   "date": "2024-02-23",
+   "bundled_build": "b2249"
+  },
+  {
+   "version": "0.2.51",
+   "date": "2024-02-26",
+   "bundled_build": "b2267"
+  },
+  {
+   "version": "0.2.52",
+   "date": "2024-02-26",
+   "bundled_build": "b2275"
+  },
+  {
+   "version": "0.2.53",
+   "date": "2024-02-28",
+   "bundled_build": "b2282"
+  },
+  {
+   "version": "0.2.54",
+   "date": "2024-03-01",
+   "bundled_build": "b2306"
+  },
+  {
+   "version": "0.2.55",
+   "date": "2024-03-03",
+   "bundled_build": "b2321"
+  },
+  {
+   "version": "0.2.56",
+   "date": "2024-03-09",
+   "bundled_build": "b2366"
+  },
+  {
+   "version": "0.2.57",
+   "date": "2024-03-18",
+   "bundled_build": "b2456"
+  },
+  {
+   "version": "0.2.58",
+   "date": "2024-04-01",
+   "bundled_build": "b2578"
+  },
+  {
+   "version": "0.2.59",
+   "date": "2024-04-03",
+   "bundled_build": "b2590"
+  },
+  {
+   "version": "0.2.60",
+   "date": "2024-04-06",
+   "bundled_build": "b2615"
+  },
+  {
+   "version": "0.2.61",
+   "date": "2024-04-10",
+   "bundled_build": "b2638"
+  },
+  {
+   "version": "0.2.62",
+   "date": "2024-04-18",
+   "bundled_build": "b2690"
+  },
+  {
+   "version": "0.2.63",
+   "date": "2024-04-20",
+   "bundled_build": "b2699"
+  },
+  {
+   "version": "0.2.64",
+   "date": "2024-04-23",
+   "bundled_build": "b2716"
+  },
+  {
+   "version": "0.2.65",
+   "date": "2024-04-26",
+   "bundled_build": "b2737"
+  },
+  {
+   "version": "0.2.66",
+   "date": "2024-04-30",
+   "bundled_build": "b2769"
+  },
+  {
+   "version": "0.2.67",
+   "date": "2024-04-30",
+   "bundled_build": "b2769"
+  },
+  {
+   "version": "0.2.68",
+   "date": "2024-04-30",
+   "bundled_build": "b2773"
+  },
+  {
+   "version": "0.2.69",
+   "date": "2024-05-02",
+   "bundled_build": "b2781"
+  },
+  {
+   "version": "0.2.70",
+   "date": "2024-05-08",
+   "bundled_build": "b2806"
+  },
+  {
+   "version": "0.2.71",
+   "date": "2024-05-09",
+   "bundled_build": "b2815"
+  },
+  {
+   "version": "0.2.72",
+   "date": "2024-05-10",
+   "bundled_build": "b2815"
+  },
+  {
+   "version": "0.2.73",
+   "date": "2024-05-10",
+   "bundled_build": "b2840"
+  },
+  {
+   "version": "0.2.74",
+   "date": "2024-05-12",
+   "bundled_build": "b2860"
+  },
+  {
+   "version": "0.2.75",
+   "date": "2024-05-16",
+   "bundled_build": "b2894"
+  },
+  {
+   "version": "0.2.76",
+   "date": "2024-05-24",
+   "bundled_build": "b2986"
+  },
+  {
+   "version": "0.2.77",
+   "date": "2024-06-04",
+   "bundled_build": "b3078"
+  },
+  {
+   "version": "0.2.78",
+   "date": "2024-06-10",
+   "bundled_build": "b3092"
+  },
+  {
+   "version": "0.2.79",
+   "date": "2024-06-19",
+   "bundled_build": "b3184"
+  },
+  {
+   "version": "0.2.80",
+   "date": "2024-07-02",
+   "bundled_build": "b3280"
+  },
+  {
+   "version": "0.2.81",
+   "date": "2024-07-02",
+   "bundled_build": "b3282"
+  },
+  {
+   "version": "0.2.82",
+   "date": "2024-07-09",
+   "bundled_build": "b3347"
+  },
+  {
+   "version": "0.2.83",
+   "date": "2024-07-22",
+   "bundled_build": "b3441"
+  },
+  {
+   "version": "0.2.84",
+   "date": "2024-07-28",
+   "bundled_build": "b3484"
+  },
+  {
+   "version": "0.2.85",
+   "date": "2024-07-31",
+   "bundled_build": "b3496"
+  },
+  {
+   "version": "0.2.86",
+   "date": "2024-08-07",
+   "bundled_build": "b3537"
+  },
+  {
+   "version": "0.2.87",
+   "date": "2024-08-07",
+   "bundled_build": "b3541"
+  },
+  {
+   "version": "0.2.88",
+   "date": "2024-08-13",
+   "bundled_build": "b3579"
+  },
+  {
+   "version": "0.2.89",
+   "date": "2024-08-19",
+   "bundled_build": "b3604"
+  },
+  {
+   "version": "0.2.90",
+   "date": "2024-08-29",
+   "bundled_build": "b3639"
+  },
+  {
+   "version": "0.3.0",
+   "date": "2024-09-25",
+   "bundled_build": "b3825"
+  },
+  {
+   "version": "0.3.1",
+   "date": "2024-09-29",
+   "bundled_build": "b3848"
+  },
+  {
+   "version": "0.3.2",
+   "date": "2024-11-16",
+   "bundled_build": "b4094"
+  },
+  {
+   "version": "0.3.3",
+   "date": "2024-12-09",
+   "bundled_build": "b4291"
+  },
+  {
+   "version": "0.3.4",
+   "date": "2024-12-09",
+   "bundled_build": "b4291"
+  },
+  {
+   "version": "0.3.5",
+   "date": "2024-12-09",
+   "bundled_build": "b4295"
+  },
+  {
+   "version": "0.3.6",
+   "date": "2025-01-08",
+   "bundled_build": "b4447"
+  },
+  {
+   "version": "0.3.7",
+   "date": "2025-01-29",
+   "bundled_build": "b4576"
+  },
+  {
+   "version": "0.3.8",
+   "date": "2025-03-12",
+   "bundled_build": "b4875"
+  },
+  {
+   "version": "0.3.9",
+   "date": "2025-05-08",
+   "bundled_build": "b5308"
+  },
+  {
+   "version": "0.3.10",
+   "date": "2025-07-03",
+   "bundled_build": "b5760"
+  },
+  {
+   "version": "0.3.11",
+   "date": "2025-07-05",
+   "bundled_build": "b5760"
+  },
+  {
+   "version": "0.3.12",
+   "date": "2025-07-06",
+   "bundled_build": "b5833"
+  },
+  {
+   "version": "0.3.13",
+   "date": "2025-07-15",
+   "bundled_build": "b5897"
+  },
+  {
+   "version": "0.3.14",
+   "date": "2025-07-18",
+   "bundled_build": "b5904"
+  },
+  {
+   "version": "0.3.15",
+   "date": "2025-08-07",
+   "bundled_build": "b6109"
+  },
+  {
+   "version": "0.3.16",
+   "date": "2025-08-15",
+   "bundled_build": "b6153"
+  },
+  {
+   "version": "0.3.17",
+   "date": "2026-03-23",
+   "bundled_build": "b8475"
+  },
+  {
+   "version": "0.3.18",
+   "date": "2026-03-24",
+   "bundled_build": "b8475"
+  },
+  {
+   "version": "0.3.19",
+   "date": "2026-03-25",
+   "bundled_build": "b8531"
+  },
+  {
+   "version": "0.3.20",
+   "date": "2026-04-03",
+   "bundled_build": "b8643"
+  },
+  {
+   "version": "0.3.21",
+   "date": "2026-04-27",
+   "bundled_build": "b8941"
+  },
+  {
+   "version": "0.3.22",
+   "date": "2026-05-02",
+   "bundled_build": "b9006"
+  },
+  {
+   "version": "0.3.23",
+   "date": "2026-05-11",
+   "bundled_build": "b9102"
+  },
+  {
+   "version": "0.3.24",
+   "date": "2026-06-01",
+   "bundled_build": "b9445"
+  },
+  {
+   "version": "0.3.25",
+   "date": "2026-06-02",
+   "bundled_build": "b9466"
+  },
+  {
+   "version": "0.3.26",
+   "date": "2026-06-05",
+   "bundled_build": "b9518"
+  },
+  {
+   "version": "0.3.27",
+   "date": "2026-06-07",
+   "bundled_build": "b9547"
+  },
+  {
+   "version": "0.3.28",
+   "date": "2026-06-07",
+   "bundled_build": "b9553"
+  },
+  {
+   "version": "0.3.29",
+   "date": "2026-06-13",
+   "bundled_build": "b9625"
+  },
+  {
+   "version": "0.3.30",
+   "date": "2026-06-16",
+   "bundled_build": "b9665"
+  },
+  {
+   "version": "0.3.31",
+   "date": "2026-06-20",
+   "bundled_build": "b9733"
+  },
+  {
+   "version": "0.3.32",
+   "date": "2026-06-29",
+   "bundled_build": "b9837"
+  },
+  {
+   "version": "0.3.33",
+   "date": "2026-07-05",
+   "bundled_build": "b9874"
+  },
+  {
+   "version": "0.3.34",
+   "date": "2026-07-12",
+   "bundled_build": "b9976"
+  },
+  {
+   "version": "0.3.35",
+   "date": "2026-08-17",
+   "bundled_build": "b10454"
+  },
+  {
+   "version": "0.3.36",
+   "date": "2026-10-01",
+   "bundled_build": "b11312"
+  },
+  {
+   "version": "0.3.37",
+   "date": "2026-11-15",
+   "bundled_build": "b12387"
+  },
+  {
+   "version": "0.3.38",
+   "date": "2026-11-23",
+   "bundled_build": "b12651"
+  }
+ ]
+}
