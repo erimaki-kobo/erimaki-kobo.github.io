@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do I need to redownload this GGUF? Version check</title>
+<meta name="description" content="Paste a Hugging Face repo and your file&#x27;s sha256 (or pick the file): see which upload you have and whether later re-uploads changed weights or only metadata.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/gguf-redownload-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Do I need to redownload this GGUF? Version check">
+<meta property="og:description" content="Paste a Hugging Face repo and your file&#x27;s sha256 (or pick the file): see which upload you have and whether later re-uploads changed weights or only metadata.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/gguf-redownload-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/gguf-redownload-check/#article", "headline": "Do I need to redownload my GGUF? Check which upload you have and what changed", "description": "Paste a Hugging Face repo and your file's sha256 (or pick the file): see which upload you have and whether later re-uploads changed weights or only metadata.", "url": "https://erimaki-kobo.github.io/en/gguf-redownload-check/", "datePublished": "2026-11-26", "dateModified": "2026-11-26", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/en/"}, "about": ["GGUF", "Hugging Face Hub", "llama.cpp", "Ollama"]}, {"@type": "WebApplication", "@id": "https://erimaki-kobo.github.io/en/gguf-redownload-check/#tool", "name": "GGUF redownload check", "url": "https://erimaki-kobo.github.io/en/gguf-redownload-check/#check", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Lists every upload of a GGUF file on the Hugging Face Hub, finds yours by sha256 or by its header, and tells whether the newer uploads changed weights or only metadata, with the gguf-new-metadata command to patch metadata-only changes."}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/gguf-redownload-check/#faq", "mainEntity": [{"@type": "Question", "name": "Why do GGUF files on Hugging Face get re-uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "Most often to fix the chat template or tokenizer settings after a llama.cpp fix, and sometimes to re-quantize with a new importance matrix or after a conversion bug. In the 68 re-uploads we checked, 28 changed only metadata, 25 changed tensor data with the same layout and 13 changed the tensors themselves."}}, {"@type": "Question", "name": "How do I find the sha256 of my GGUF?", "acceptedAnswer": {"@type": "Answer", "text": "Hugging Face cache: the file name under blobs/ is the sha256. Ollama: ollama show --modelfile prints FROM .../blobs/sha256-<hash>. Any other copy: sha256sum model.gguf. Or pick the file in the tool, which compares its header without hashing it."}}, {"@type": "Question", "name": "Can I fix a chat template without downloading the GGUF again?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, when only metadata changed. gguf-new-metadata (pip install gguf) writes a copy with a new chat template, pre-tokenizer, special token ids, name or description; gguf-set-metadata changes a number or a boolean in place."}}, {"@type": "Question", "name": "Does Ollama update a model pulled from hf.co automatically?", "acceptedAnswer": {"@type": "Answer", "text": "No. ollama pull hf.co/<repo>:<quant> again fetches the current file; until then Ollama keeps the blob it downloaded."}}, {"@type": "Question", "name": "Why does gguf-set-metadata set my boolean to True when I type false?", "acceptedAnswer": {"@type": "Answer", "text": "It converts the text with numpy's bool, and any non-empty string is True. Pass an empty string ('') to set False. Checked with gguf 0.19.0."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "GGUF redownload check", "item": "https://erimaki-kobo.github.io/en/gguf-redownload-check/"}]}]}</script>
+<style>:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+pre code{padding:0;background:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin:16px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;color:var(--mut);margin-bottom:2px}
+input,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);font:inherit}
+textarea{min-height:64px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;margin-bottom:10px}
+button{font:inherit;padding:9px 18px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
+@media (prefers-color-scheme:dark){button{color:#10201d}}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw.wide{width:min(1080px,calc(100vw - 32px));margin-left:calc((100% - min(1080px,calc(100vw - 32px)))/2)}
+.s{display:inline-block;font-weight:700;font-size:.8rem;white-space:nowrap}
+.s.y{color:var(--ok)}.s.n{color:var(--bad)}
+.verdict{font-weight:700;padding:10px 12px;border-radius:8px;border:1px solid var(--line);margin:12px 0}
+.v-ok{border-color:var(--ok);color:var(--ok)}.v-load{border-color:var(--warn);color:var(--warn)}.v-bad{border-color:var(--bad);color:var(--bad)}
+.verdict span{display:block;font-weight:400;color:var(--fg);margin-top:4px}
+.note{font-size:.86rem;color:var(--mut)}
+#status{color:var(--bad);font-size:.88rem}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+#sv{min-width:760px}
+#sv td:first-child{width:34%}
+ul.st{margin:0;padding-left:1.1em}ul.st li{margin:.15em 0}
+code.fn{font-size:.78em;word-break:break-all}
+#vt{min-width:760px}#vt tr.hit{outline:2px solid var(--acc)}
+select{width:100%;padding:8px;font:inherit;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg);margin-bottom:8px}
+.row input{flex:1;min-width:220px}
+#res .s,#vt .s{font-size:.8em}</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>Do I need to redownload my GGUF? Check which upload you have and what changed</h1>
+<p class="lede"><strong>Redownload only if the tensors changed. If a re-upload changed only metadata (usually the chat template), patch your copy with <code>gguf-new-metadata</code> instead.</strong> The check below lists every upload of a file on the Hugging Face Hub, finds yours by sha256 or by reading its header, and compares the two files directly: metadata keys, tensor names, types and shapes, and sampled tensor bytes. In the 68 re-uploads we checked across 23 popular repositories, 28 changed only metadata (17 of them only the chat template), 25 re-quantized the same tensors 13 added, removed or re-typed tensors, and in 2 we found no difference in the metadata or the sampled bytes.</p>
+<p class="meta">Published 2026-11-26 &middot; Survey run 2026-11-26 (UTC) &middot; runs in your browser against the public Hugging Face API</p>
+
+<h2 id="check">Which upload do I have, and what changed since?</h2>
+<div class="card">
+<label for="repo">Hugging Face repository or file URL</label>
+<div class="row"><input id="repo" placeholder="bartowski/Meta-Llama-3.1-8B-Instruct-GGUF" autocomplete="off" spellcheck="false"><button id="load" type="button">Load files</button></div>
+<div id="step2" hidden>
+<label for="files">File</label><select id="files"></select>
+<p class="note">Then give one of these (the first one you fill in is used):</p>
+<div class="grid">
+<div><label for="sha">sha256 of your file</label><input id="sha" placeholder="431354b8f6066accf13219106f1956ecf9a212089dea1fd18b416454f28ba421" autocomplete="off" spellcheck="false"></div>
+<div><label for="local">or your file (only its header is read)</label><input id="local" type="file" accept=".gguf"></div>
+<div><label for="olltag">or the Ollama tag you pulled</label><input id="olltag" placeholder="Q4_K_M" autocomplete="off"></div>
+</div>
+<div class="row"><button id="go" type="button">Check</button></div>
+</div>
+<p id="status" role="status" class="note"></p>
+<div id="res" aria-live="polite"></div>
+<div id="vlist"></div>
+</div>
+<p class="note">Your file never leaves your computer: the browser reads the first megabytes of it locally. The page talks only to huggingface.co (public repositories; gated ones need a login this page does not have). Reading a header downloads 1 to 20 MB per version, because the vocabulary is stored there.</p>
+
+<h2 id="sha256">Where do I find the sha256 of my GGUF?</h2>
+<div class="tw"><table>
+<thead><tr><th>Where your copy came from</th><th>How to get the sha256</th></tr></thead>
+<tbody>
+<tr><td><code>huggingface-cli download</code>, <code>hf_hub_download</code>, <code>llama-cpp-python</code> <code>from_pretrained</code></td><td>The cache keeps each file under <code>~/.cache/huggingface/hub/models--ORG--REPO/blobs/</code> named by its sha256; <code>snapshots/&lt;commit&gt;/</code> links to it. <code>ls -l ~/.cache/huggingface/hub/models--*/snapshots/*/*.gguf</code> shows which blob each file points to.</td></tr>
+<tr><td>Ollama (<code>ollama pull hf.co/REPO:QUANT</code>)</td><td><code>ollama show --modelfile hf.co/REPO:QUANT</code> prints <code>FROM .../blobs/sha256-&lt;hash&gt;</code>. The Hugging Face registry serves the GGUF file as that blob, so the hash is the file's sha256 (we checked: the registry's model layer for bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M has the sha256 of the newest <code>Q4_K_M.gguf</code>). Or type the tag in the tool to see what a new pull would get.</td></tr>
+<tr><td>LM Studio, a browser download, anything else</td><td><code>sha256sum model.gguf</code> (macOS: <code>shasum -a 256</code>, Windows: <code>certutil -hashfile model.gguf SHA256</code>), or pick the file in the tool: it matches the header and the size without hashing gigabytes.</td></tr>
+</tbody></table></div>
+
+<h2 id="survey">What did re-uploads change in popular GGUF repositories?</h2>
+<p><strong>Of the 40 most downloaded GGUF repositories on the Hub (2026-11-26), 13 had replaced the file we checked at least once; 27 never had.</strong> We added 17 older, widely used repositories, of which 7 had never replaced the file. For each, we took one file (Q4_K_M where there is one), read every upload's header, and compared each upload with the one before. "Metadata only" means the same tensor names, types and shapes and identical first 4 KiB in all 16 sampled tensors.</p>
+<div class="tw wide"><table id="sv">
+<thead><tr><th>Repository and file</th><th>Uploads</th><th>Each re-upload, newest first</th></tr></thead>
+<tbody>
+<tr><td><a href="https://huggingface.co/unsloth/gemma-3-12b-it-GGUF">unsloth/gemma-3-12b-it-GGUF</a><br><code class="fn">gemma-3-12b-it-Q4_K_M.gguf</code><br><a href="?repo=unsloth/gemma-3-12b-it-GGUF&amp;file=gemma-3-12b-it-Q4_K_M.gguf">check</a></td><td>10</td><td><ul class="st"><li>2025-05-09 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 1 of 16 sampled tensors differ</span></li><li>2025-05-09 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 14 of 16 sampled tensors differ</span></li><li>2025-04-25 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-04-24 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-04-23 <span class="s n">tensors changed</span> <span class="meta">chat_template; 1 re-typed</span></li><li>2025-04-21 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-04-21 <span class="s n">tensors changed</span> <span class="meta">1 re-typed</span></li><li>2025-04-21 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 14 of 16 sampled tensors differ</span></li><li>2025-04-12 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 14 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF">unsloth/gemma-4-26B-A4B-it-GGUF</a><br><code class="fn">gemma-4-26B-A4B-it-UD-Q4_K_M.gguf</code><br><a href="?repo=unsloth/gemma-4-26B-A4B-it-GGUF&amp;file=gemma-4-26B-A4B-it-UD-Q4_K_M.gguf">check</a></td><td>8</td><td><ul class="st"><li>2026-07-17 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2026-05-04 <span class="s n">tensors changed</span> <span class="meta">chat_template; 1 re-typed</span></li><li>2026-04-11 <span class="s n">weights changed</span> <span class="meta">chat_template; 3 of 16 sampled tensors differ</span></li><li>2026-04-08 <span class="s n">weights changed</span> <span class="meta">3 of 16 sampled tensors differ</span></li><li>2026-04-08 <span class="s n">weights changed</span> <span class="meta">3 of 16 sampled tensors differ</span></li><li>2026-04-06 <span class="s y">metadata only</span> <span class="meta">add_bos_token</span></li><li>2026-04-04 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 3 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Qwen3-30B-A3B-GGUF">unsloth/Qwen3-30B-A3B-GGUF</a><br><code class="fn">Qwen3-30B-A3B-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Qwen3-30B-A3B-GGUF&amp;file=Qwen3-30B-A3B-Q4_K_M.gguf">check</a></td><td>7</td><td><ul class="st"><li>2025-05-13 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-05-09 <span class="s n">weights changed</span> <span class="meta">chat_template; 15 of 16 sampled tensors differ</span></li><li>2025-05-02 <span class="s">no visible change</span> <span class="meta"></span></li><li>2025-04-30 <span class="s y">metadata only</span> <span class="meta">bos_token_id, padding_token_id</span></li><li>2025-04-29 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-04-29 <span class="s n">weights changed</span> <span class="meta">model.*, chat_template, bos_token_id, padding_token_id; 11 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Qwen3-8B-GGUF">unsloth/Qwen3-8B-GGUF</a><br><code class="fn">Qwen3-8B-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Qwen3-8B-GGUF&amp;file=Qwen3-8B-Q4_K_M.gguf">check</a></td><td>6</td><td><ul class="st"><li>2025-05-13 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-05-09 <span class="s n">weights changed</span> <span class="meta">chat_template; 11 of 16 sampled tensors differ</span></li><li>2025-04-29 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-04-29 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-04-29 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 3 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF">bartowski/Meta-Llama-3.1-8B-Instruct-GGUF</a><br><code class="fn">Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf</code><br><a href="?repo=bartowski/Meta-Llama-3.1-8B-Instruct-GGUF&amp;file=Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf">check</a></td><td>5</td><td><ul class="st"><li>2024-07-30 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2024-07-28 <span class="s n">tensors changed</span> <span class="meta">chat_template; 1 added</span></li><li>2024-07-24 <span class="s n">weights changed</span> <span class="meta">pre smaug-bpe to llama-bpe; 9 of 16 sampled tensors differ</span></li><li>2024-07-23 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 9 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Llama-3.2-3B-Instruct-GGUF">unsloth/Llama-3.2-3B-Instruct-GGUF</a><br><code class="fn">Llama-3.2-3B-Instruct-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Llama-3.2-3B-Instruct-GGUF&amp;file=Llama-3.2-3B-Instruct-Q4_K_M.gguf">check</a></td><td>5</td><td><ul class="st"><li>2025-05-09 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 12 of 16 sampled tensors differ</span></li><li>2025-04-26 <span class="s n">weights changed</span> <span class="meta">10 of 16 sampled tensors differ</span></li><li>2025-04-24 <span class="s n">tensors changed</span> <span class="meta">add_bos_token; 26 re-typed</span></li><li>2024-09-26 <span class="s y">metadata only</span> <span class="meta">merges</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF">unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF</a><br><code class="fn">Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF&amp;file=Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf">check</a></td><td>5</td><td><ul class="st"><li>2025-08-26 <span class="s n">weights changed</span> <span class="meta">chat_template; 9 of 16 sampled tensors differ</span></li><li>2025-06-23 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-06-23 <span class="s n">weights changed</span> <span class="meta">chat_template; 9 of 16 sampled tensors differ</span></li><li>2025-06-21 <span class="s n">weights changed</span> <span class="meta">chat_template, add_sep_token; 13 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/gemma-4-12b-it-GGUF">unsloth/gemma-4-12b-it-GGUF</a><br><code class="fn">gemma-4-12b-it-Q4_K_M.gguf</code><br><a href="?repo=unsloth/gemma-4-12b-it-GGUF&amp;file=gemma-4-12b-it-Q4_K_M.gguf">check</a></td><td>5</td><td><ul class="st"><li>2026-07-17 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2026-06-04 <span class="s y">metadata only</span> <span class="meta">model.*</span></li><li>2026-06-04 <span class="s n">weights changed</span> <span class="meta">16 of 16 sampled tensors differ</span></li><li>2026-06-03 <span class="s y">metadata only</span> <span class="meta">suppress_tokens</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/handy-computer/Qwen3-ASR-1.7B-gguf">handy-computer/Qwen3-ASR-1.7B-gguf</a><br><code class="fn">Qwen3-ASR-1.7B-Q4_K_M.gguf</code><br><a href="?repo=handy-computer/Qwen3-ASR-1.7B-gguf&amp;file=Qwen3-ASR-1.7B-Q4_K_M.gguf">check</a></td><td>4</td><td><ul class="st"><li>2026-06-28 <span class="s">no visible change</span> <span class="meta"></span></li><li>2026-06-27 <span class="s y">metadata only</span> <span class="meta">general/quantize keys only</span></li><li>2026-04-21 <span class="s n">tensors changed</span> <span class="meta">52 re-typed</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/handy-computer/parakeet-unified-en-0.6b-gguf">handy-computer/parakeet-unified-en-0.6b-gguf</a><br><code class="fn">parakeet-unified-en-0.6b-Q4_K_M.gguf</code><br><a href="?repo=handy-computer/parakeet-unified-en-0.6b-gguf&amp;file=parakeet-unified-en-0.6b-Q4_K_M.gguf">check</a></td><td>4</td><td><ul class="st"><li>2026-06-28 <span class="s y">metadata only</span> <span class="meta">model.*</span></li><li>2026-06-27 <span class="s y">metadata only</span> <span class="meta">general/quantize keys only</span></li><li>2026-06-16 <span class="s y">metadata only</span> <span class="meta">model.*</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/gpt-oss-20b-GGUF">unsloth/gpt-oss-20b-GGUF</a><br><code class="fn">gpt-oss-20b-Q4_K_M.gguf</code><br><a href="?repo=unsloth/gpt-oss-20b-GGUF&amp;file=gpt-oss-20b-Q4_K_M.gguf">check</a></td><td>4</td><td><ul class="st"><li>2025-08-08 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-08-08 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li><li>2025-08-07 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF">lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF</a><br><code class="fn">Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf</code><br><a href="?repo=lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF&amp;file=Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf">check</a></td><td>3</td><td><ul class="st"><li>2024-07-28 <span class="s n">tensors changed</span> <span class="meta">chat_template, pre smaug-bpe to llama-bpe; 1 added</span></li><li>2024-07-23 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 9 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B-GGUF">ornith-ai/Ornith-1.5-35B-A3B-GGUF</a><br><code class="fn">Ornith-1.5-35B-Q4_K_M.gguf</code><br><a href="?repo=ornith-ai/Ornith-1.5-35B-A3B-GGUF&amp;file=Ornith-1.5-35B-Q4_K_M.gguf">check</a></td><td>3</td><td><ul class="st"><li>2026-08-24 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 1 of 16 sampled tensors differ</span></li><li>2026-08-19 <span class="s n">weights changed</span> <span class="meta">add_bos_token; 16 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/peculiar-ragdoll/Tiel-Coder-35B-A3B-GGUF-MTP">peculiar-ragdoll/Tiel-Coder-35B-A3B-GGUF-MTP</a><br><code class="fn">Tiel-Coder-35B-A3B-MTP-UD-IQ4_XS.gguf</code><br><a href="?repo=peculiar-ragdoll/Tiel-Coder-35B-A3B-GGUF-MTP&amp;file=Tiel-Coder-35B-A3B-MTP-UD-IQ4_XS.gguf">check</a></td><td>3</td><td><ul class="st"><li>2026-09-10 <span class="s n">tensors changed</span> <span class="meta">chat_template; 3 re-typed</span></li><li>2026-08-24 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/GLM-4.7-Flash-GGUF">unsloth/GLM-4.7-Flash-GGUF</a><br><code class="fn">GLM-4.7-Flash-Q4_K_M.gguf</code><br><a href="?repo=unsloth/GLM-4.7-Flash-GGUF&amp;file=GLM-4.7-Flash-Q4_K_M.gguf">check</a></td><td>3</td><td><ul class="st"><li>2026-02-12 <span class="s n">weights changed</span> <span class="meta">general/quantize keys only; 7 of 16 sampled tensors differ</span></li><li>2026-01-21 <span class="s n">weights changed</span> <span class="meta">model.*; 10 of 16 sampled tensors differ</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF">ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF</a><br><code class="fn">DeepSeek-V4.1-Flash-Engram-IQ4_NL.gguf</code><br><a href="?repo=ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF&amp;file=DeepSeek-V4.1-Flash-Engram-IQ4_NL.gguf">check</a></td><td>2</td><td><ul class="st"><li>2026-10-27 <span class="s n">tensors changed</span> <span class="meta">split.count, split.no, split.tensors.count; 1 added, 2 removed</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/bartowski/Qwen2.5-Coder-7B-Instruct-GGUF">bartowski/Qwen2.5-Coder-7B-Instruct-GGUF</a><br><code class="fn">Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf</code><br><a href="?repo=bartowski/Qwen2.5-Coder-7B-Instruct-GGUF&amp;file=Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf">check</a></td><td>2</td><td><ul class="st"><li>2024-09-19 <span class="s y">metadata only</span> <span class="meta">model.*, chat_template</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/ornith-ai/Ornith-1.5-9B-GGUF">ornith-ai/Ornith-1.5-9B-GGUF</a><br><code class="fn">Ornith-1.5-9B-Q4_K_M.gguf</code><br><a href="?repo=ornith-ai/Ornith-1.5-9B-GGUF&amp;file=Ornith-1.5-9B-Q4_K_M.gguf">check</a></td><td>2</td><td><ul class="st"><li>2026-08-24 <span class="s n">tensors changed</span> <span class="meta">model.*, add_bos_token; 15 added</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/pnnbao-ump/VieNeu-TTS-v3-Turbo">pnnbao-ump/VieNeu-TTS-v3-Turbo</a><br><code class="fn">gguf/vieneu-v3-turbo-bf16.gguf</code><br><a href="?repo=pnnbao-ump/VieNeu-TTS-v3-Turbo&amp;file=gguf/vieneu-v3-turbo-bf16.gguf">check</a></td><td>2</td><td><ul class="st"><li>2026-09-23 <span class="s n">tensors changed</span> <span class="meta">model.*; 374 re-typed</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Inkling-2-Mini-GGUF">unsloth/Inkling-2-Mini-GGUF</a><br><code class="fn">Inkling-2-Mini-UD-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Inkling-2-Mini-GGUF&amp;file=Inkling-2-Mini-UD-Q4_K_M.gguf">check</a></td><td>2</td><td><ul class="st"><li>2026-11-23 <span class="s n">tensors changed</span> <span class="meta">model.*; 156 added, 146 removed</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Qwen3.5-9B-GGUF">unsloth/Qwen3.5-9B-GGUF</a><br><code class="fn">Qwen3.5-9B-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Qwen3.5-9B-GGUF&amp;file=Qwen3.5-9B-Q4_K_M.gguf">check</a></td><td>2</td><td><ul class="st"><li>2026-03-02 <span class="s y">metadata only</span> <span class="meta">chat_template</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">unsloth/Qwen3.8-27B-GGUF</a><br><code class="fn">Qwen3.8-27B-UD-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Qwen3.8-27B-GGUF&amp;file=Qwen3.8-27B-UD-Q4_K_M.gguf">check</a></td><td>2</td><td><ul class="st"><li>2026-11-11 <span class="s n">tensors changed</span> <span class="meta">general/quantize keys only; 41 re-typed</span></li></ul></td></tr>
+<tr><td><a href="https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF">unsloth/Qwen3.8-Flash-Next-GGUF</a><br><code class="fn">MTP/mtp-Qwen3.8-Flash-Next-Q4_K_M.gguf</code><br><a href="?repo=unsloth/Qwen3.8-Flash-Next-GGUF&amp;file=MTP/mtp-Qwen3.8-Flash-Next-Q4_K_M.gguf">check</a></td><td>2</td><td><ul class="st"><li>2026-10-05 <span class="s y">metadata only</span> <span class="meta">model.*</span></li></ul></td></tr>
+</tbody></table></div>
+<p class="note">At most the 10 most recent uploads of each file were read. Never replaced: <code>DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF</code>, <code>DavidAU/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NEO-CODER-MAX-MTP-GGUF</code>, <code>DeepBeepMeep/MiniMax-H3</code>, <code>ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF</code>, <code>JonathanColetti/Qwen3.8-27B-Uncensored-GGUF</code>, <code>Qwen/Qwen3-VL-8B-Instruct-GGUF</code>, <code>SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF</code>, <code>Serveurperso/ACE-Step-1.5-GGUF</code>, <code>Serveurperso/YuE2-GGUF</code>, <code>agentionai/Qwen3.8-Flash-Next-Gyro-GGUF</code>, <code>audio-cpp/audio.cpp-gguf</code>, <code>byteshape/Qwen3.8-27B-GGUF</code>, <code>cdiamond/Qwen3.8-27B-iMatrix-NVFP4-MTP-GGUF</code>, <code>farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit</code>, <code>handy-computer/parakeet-ultra-gguf</code>, <code>huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF</code>, <code>huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF</code>, <code>migtissera/Tess-4.5-27B-GGUF</code>, <code>mixedbread-ai/mxbai-embed-large-v1</code>, <code>ornith-ai/Ornith-1.0-9B-GGUF</code>, <code>peasantsmith/GLM-5.3-Flash-Maya-GGUF</code>, <code>prism-ml/Ternary-Bonsai-2-2B-gguf</code>, <code>prism-ml/Ternary-Bonsai-2-9B-gguf</code>, <code>unsloth/MiniMax-H3-GGUF</code>, <code>unsloth/Qwen-Image-2.1-Turbo-GGUF</code>, <code>unsloth/Qwen3.6-35B-A3B-GGUF</code>, <code>unsloth/Qwen3.6-35B-A3B-MTP-GGUF</code>, <code>Qwen/Qwen2.5-7B-Instruct-GGUF</code>, <code>TheBloke/Mistral-7B-Instruct-v0.2-GGUF</code>, <code>bartowski/google_gemma-3-12b-it-GGUF</code>, <code>ggml-org/gpt-oss-20b-GGUF</code>, <code>unsloth/DeepSeek-R1-Distill-Qwen-7B-GGUF</code>, <code>unsloth/Qwen3.5-4B-GGUF</code>, <code>unsloth/phi-4-GGUF</code>.</p>
+
+<h2 id="example">Example: Llama 3.1 8B Instruct Q4_K_M, uploaded 5 times</h2>
+<p>bartowski's Q4_K_M file was uploaded 5 times in July 2024. Comparing each upload with the previous one:</p>
+<ol reversed>
+<li>2024-07-30: only the chat template changed; the sampled tensor bytes are identical. A file from the previous upload can be patched with <code>gguf-new-metadata --chat-template-file</code>. This matches the answer in <a href="https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/discussions/6">discussion #6</a>, "Why were the quants updated 3 hours ago?".</li>
+<li>2024-07-28: a tensor was added (rope_freqs.weight) and the template changed. Redownload.</li>
+<li>2024-07-24: the pre-tokenizer changed (smaug-bpe to llama-bpe) and the tensor bytes differ. Redownload.</li>
+<li>2024-07-23: importance-matrix keys were added and the tensor bytes differ: re-quantized with an importance matrix. Redownload.</li>
+</ol>
+
+<h2 id="patch">How do I patch a metadata-only change?</h2>
+<p><strong>When the tool says "metadata only", it prints the command.</strong> The tools come with <code>pip install gguf</code>:</p>
+<div class="tw"><table>
+<thead><tr><th>Changed key</th><th>Command</th></tr></thead>
+<tbody>
+<tr><td><code>tokenizer.chat_template</code></td><td><code>gguf-new-metadata old.gguf fixed.gguf --chat-template-file chat_template.jinja</code> (the tool can download the new template)</td></tr>
+<tr><td><code>tokenizer.ggml.pre</code></td><td><code>--pre-tokenizer NAME</code> (see the <a href="/en/llama-cpp-pre-tokenizer-lookup/">pre-tokenizer lookup</a>)</td></tr>
+<tr><td><code>tokenizer.ggml.bos_token_id</code>, <code>eos_token_id</code>, ...</td><td><code>--special-token-by-id eos 106</code></td></tr>
+<tr><td><code>general.name</code>, <code>general.description</code></td><td><code>--general-name</code>, <code>--general-description</code></td></tr>
+<tr><td>a key that was removed</td><td><code>--remove-metadata KEY</code></td></tr>
+<tr><td>a number or a boolean, e.g. <code>tokenizer.ggml.add_bos_token</code></td><td><code>gguf-set-metadata fixed.gguf KEY VALUE</code> (in place). <strong>For False pass an empty string, <code>''</code></strong>: the text <code>false</code> becomes True, because the value goes through numpy's bool. We hit this with gguf 0.19.0.</td></tr>
+</tbody></table></div>
+<p>Other changed keys (a new array, a new architecture parameter) cannot be set with these tools; redownload, or keep your file if the key does not matter to you. A patched file has the same metadata as the new upload but a different sha256, because the keys are written in another order; pick it in the tool to confirm that nothing else differs. We tested the round trip on small generated GGUF files: after patching, the header comparison showed no difference.</p>
+
+<h2 id="how">How does the check work?</h2>
+<ul>
+<li><strong>History</strong>: <code>POST /api/models/REPO/paths-info/REV</code> gives the file's sha256 and the last commit that changed it; asking again at that commit's parent gives the upload before, and so on. One request per upload.</li>
+<li><strong>Headers</strong>: HTTP range requests on <code>/resolve/COMMIT/FILE</code>, parsed in the page (GGUF versions 2 and 3): every metadata key, and every tensor's name, type, shape and offset. Arrays such as the vocabulary are compared by a hash of their bytes.</li>
+<li><strong>Tensor bytes</strong>: when the tensors have the same names, types and shapes, the first 4 KiB of 16 tensors (always the first and the last) are compared, each at its own offset. This catches re-quantization, but it is a sample: a change outside the sampled bytes shows as "no visible change".</li>
+<li><strong>Your file</strong>: a sha256 is matched against the uploads' sha256; a picked file is matched by its header bytes and its size.</li>
+</ul>
+
+<h2 id="limits">What it does not do</h2>
+<ul>
+<li>Gated and private repositories (the page has no Hugging Face login).</li>
+<li>Split files (<code>-00001-of-0000N</code>): it checks the part you pick; the header is in the first part.</li>
+<li>Renamed files: a new file name has its own history. Repositories whose history was squashed show only the uploads that remain.</li>
+<li>It does not say whether a new upload is better, only what changed.</li>
+</ul>
+
+<h2 id="faq">Questions</h2>
+<dl>
+<dt>Why do GGUF files on Hugging Face get re-uploaded?</dt><dd>Most often to fix the chat template or tokenizer settings after a llama.cpp fix, and sometimes to re-quantize with a new importance matrix or after a conversion bug. In the 68 re-uploads we checked, 28 changed only metadata, 25 changed tensor data with the same layout and 13 changed the tensors themselves.</dd>
+<dt>How do I find the sha256 of my GGUF?</dt><dd>Hugging Face cache: the file name under blobs/ is the sha256. Ollama: ollama show --modelfile prints FROM .../blobs/sha256-&lt;hash&gt;. Any other copy: sha256sum model.gguf. Or pick the file in the tool, which compares its header without hashing it.</dd>
+<dt>Can I fix a chat template without downloading the GGUF again?</dt><dd>Yes, when only metadata changed. gguf-new-metadata (pip install gguf) writes a copy with a new chat template, pre-tokenizer, special token ids, name or description; gguf-set-metadata changes a number or a boolean in place.</dd>
+<dt>Does Ollama update a model pulled from hf.co automatically?</dt><dd>No. ollama pull hf.co/&lt;repo&gt;:&lt;quant&gt; again fetches the current file; until then Ollama keeps the blob it downloaded.</dd>
+<dt>Why does gguf-set-metadata set my boolean to True when I type false?</dt><dd>It converts the text with numpy&#x27;s bool, and any non-empty string is True. Pass an empty string (&#x27;&#x27;) to set False. Checked with gguf 0.19.0.</dd>
+</dl>
+
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/en/llama-cpp-pre-tokenizer-lookup/">"unknown pre-tokenizer type" and "BPE pre-tokenizer was not recognized": which llama.cpp build fixes it</a></li>
+<li><a href="/en/gguf-arch-min-build-lookup/">"unknown model architecture": which llama.cpp build and Ollama version a GGUF needs</a></li>
+<li><a href="/en/generation-stop-tokens-check/">Model does not stop generating: which token each engine stops on</a></li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Hugging Face Hub API: <a href="https://huggingface.co/docs/hub/api">Hub API endpoints</a>, <a href="https://huggingface.co/docs/huggingface_hub/guides/manage-cache">cache layout (blobs named by sha256)</a>, <a href="https://huggingface.co/docs/hub/ollama">using Ollama with Hub GGUF files</a></li>
+<li>GGUF: <a href="https://github.com/ggml-org/ggml/blob/master/docs/gguf.md">file format specification</a>; gguf-py <a href="https://github.com/ggml-org/llama.cpp/blob/master/gguf-py/gguf/scripts/gguf_new_metadata.py">gguf_new_metadata.py</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/gguf-py/gguf/scripts/gguf_set_metadata.py">gguf_set_metadata.py</a>, <a href="https://pypi.org/project/gguf/">gguf on PyPI</a></li>
+<li>Re-upload questions: <a href="https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/discussions/6">bartowski Llama 3.1 discussion #6</a>, and the repositories in the survey table</li>
+</ul>
+</main>
+<script>
+// GGUF file history on the Hugging Face Hub, read in the browser.
+// - versions(repo, path): every version of one file (commit, date, title, sha256, size), newest first,
+//   walking lastCommit through /api/models/{repo}/paths-info/{rev} (one request per version).
+// - header(src): parse a GGUF header (metadata and tensor infos) from a URL (HTTP range) or a File.
+// - diff(a, b): what changed between two headers.
+// - sameData(srcA, hA, srcB, hB, n): compare n sampled 4 KiB ranges of tensor data at the same offsets.
+// No dependencies. Exposes window.GH.
+(function () {
+  const HF = "https://huggingface.co";
+  const TYPES = ["u8", "i8", "u16", "i16", "u32", "i32", "f32", "bool", "str", "arr", "u64", "i64", "f64"];
+  const SIZE = { 0: 1, 1: 1, 2: 2, 3: 2, 4: 4, 5: 4, 6: 4, 7: 1, 10: 8, 11: 8, 12: 8 };
+  const GGML = { 0: "F32", 1: "F16", 2: "Q4_0", 3: "Q4_1", 6: "Q5_0", 7: "Q5_1", 8: "Q8_0", 9: "Q8_1", 10: "Q2_K", 11: "Q3_K", 12: "Q4_K", 13: "Q5_K", 14: "Q6_K", 15: "Q8_K", 16: "IQ2_XXS", 17: "IQ2_XS", 18: "IQ3_XXS", 19: "IQ1_S", 20: "IQ4_NL", 21: "IQ3_S", 22: "IQ2_S", 23: "IQ4_XS", 24: "I8", 25: "I16", 26: "I32", 27: "I64", 28: "F64", 29: "IQ1_M", 30: "BF16", 34: "TQ1_0", 35: "TQ2_0", 39: "MXFP4" };
+  const enc = new TextEncoder(), dec = new TextDecoder();
+
+  async function sha256hex(u8) {
+    const d = await crypto.subtle.digest("SHA-256", u8);
+    return [...new Uint8Array(d)].map(x => x.toString(16).padStart(2, "0")).join("");
+  }
+  function fileUrl(repo, rev, path) {
+    return HF + "/" + repo + "/resolve/" + rev + "/" + path.split("/").map(encodeURIComponent).join("/");
+  }
+  // reader over a URL (range requests) or a File (slice)
+  function source(src) {
+    if (typeof src === "string") {
+      return async (a, b) => {
+        const r = await fetch(src, { headers: { Range: "bytes=" + a + "-" + (b - 1) } });
+        if (r.status !== 206 && r.status !== 200) throw new Error("HTTP " + r.status + " reading " + src);
+        const buf = new Uint8Array(await r.arrayBuffer());
+        return r.status === 200 ? buf.slice(a, b) : buf;
+      };
+    }
+    return async (a, b) => new Uint8Array(await src.slice(a, b).arrayBuffer());
+  }
+
+  async function header(src, opt = {}) {
+    const read = source(src);
+    let buf = await read(0, opt.first || 1 << 21);
+    let pos = 0;
+    async function need(n) {
+      while (pos + n > buf.length) {
+        const more = await read(buf.length, buf.length * 2);
+        if (!more.length) throw new Error("file ends inside the header");
+        const nb = new Uint8Array(buf.length + more.length); nb.set(buf); nb.set(more, buf.length); buf = nb;
+      }
+    }
+    const dv = () => new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
+    async function u32() { await need(4); const v = dv().getUint32(pos, true); pos += 4; return v; }
+    async function u64() { await need(8); const v = dv().getBigUint64(pos, true); pos += 8; return Number(v); }
+    async function str() { const n = await u64(); await need(n); const s = dec.decode(buf.subarray(pos, pos + n)); pos += n; return s; }
+    async function scalar(t) {
+      const n = SIZE[t]; await need(n); const d = dv(); let v;
+      switch (t) {
+        case 0: v = d.getUint8(pos); break; case 1: v = d.getInt8(pos); break; case 2: v = d.getUint16(pos, true); break;
+        case 3: v = d.getInt16(pos, true); break; case 4: v = d.getUint32(pos, true); break; case 5: v = d.getInt32(pos, true); break;
+        case 6: v = d.getFloat32(pos, true); break; case 7: v = d.getUint8(pos) !== 0; break; case 10: v = Number(d.getBigUint64(pos, true)); break;
+        case 11: v = Number(d.getBigInt64(pos, true)); break; case 12: v = d.getFloat64(pos, true); break;
+      }
+      pos += n; return v;
+    }
+    await need(24);
+    const magic = dec.decode(buf.subarray(0, 4));
+    if (magic !== "GGUF") throw new Error("not a GGUF file (magic " + JSON.stringify(magic) + ")");
+    pos = 4;
+    const version = await u32(), nt = await u64(), nkv = await u64();
+    const kv = {};
+    for (let i = 0; i < nkv; i++) {
+      const key = await str();
+      const t = await u32();
+      const start = pos;
+      let e;
+      if (t === 8) { const v = await str(); e = { type: "str", value: v }; }
+      else if (t === 9) {
+        const at = await u32(), n = await u64();
+        if (at === 8) { for (let j = 0; j < n; j++) await str(); }
+        else { await need(SIZE[at] * n); pos += SIZE[at] * n; }
+        e = { type: "arr[" + TYPES[at] + "]", n, digest: (await sha256hex(buf.slice(start, pos))).slice(0, 16) };
+        if (n <= 16 && at !== 8) { /* keep small numeric arrays readable */
+          const vals = []; const d = dv(); let p = start + 12;
+          for (let j = 0; j < n; j++) { vals.push(at === 6 ? d.getFloat32(p, true) : at === 5 ? d.getInt32(p, true) : at === 4 ? d.getUint32(p, true) : at === 7 ? d.getUint8(p) !== 0 : d.getUint8(p)); p += SIZE[at]; }
+          e.value = vals;
+        }
+      } else e = { type: TYPES[t], value: await scalar(t) };
+      kv[key] = e;
+    }
+    const tensors = [];
+    for (let i = 0; i < nt; i++) {
+      const name = await str(); const nd = await u32(); const dims = [];
+      for (let j = 0; j < nd; j++) dims.push(await u64());
+      const type = await u32(); const off = await u64();
+      tensors.push({ name, dims, type: GGML[type] || String(type), off });
+    }
+    const align = kv["general.alignment"] ? kv["general.alignment"].value : 32;
+    const dataStart = Math.ceil(pos / align) * align;
+    return { version, kv, tensors, dataStart, headerBytes: pos, fingerprint: await sha256hex(buf.slice(0, pos)) };
+  }
+
+  function show(e) {
+    if (!e) return null;
+    if ("value" in e) { const s = typeof e.value === "string" ? e.value : JSON.stringify(e.value); return s; }
+    return e.type + " x" + e.n + " #" + e.digest;
+  }
+  function diff(a, b) {
+    const keys = [...new Set([...Object.keys(a.kv), ...Object.keys(b.kv)])].sort();
+    const kv = [];
+    for (const k of keys) {
+      const x = show(a.kv[k]), y = show(b.kv[k]);
+      if (x !== y) kv.push({ key: k, old: x, new: y, kind: x === null ? "added" : y === null ? "removed" : "changed" });
+    }
+    const ta = new Map(a.tensors.map(t => [t.name, t])), tb = new Map(b.tensors.map(t => [t.name, t]));
+    const tensors = { added: [], removed: [], type: [], shape: [], moved: 0 };
+    for (const [n, t] of tb) {
+      const o = ta.get(n);
+      if (!o) { tensors.added.push(n); continue; }
+      if (o.type !== t.type) tensors.type.push({ name: n, old: o.type, new: t.type });
+      if (o.dims.join("x") !== t.dims.join("x")) tensors.shape.push({ name: n, old: o.dims.join("x"), new: t.dims.join("x") });
+      if (o.off !== t.off) tensors.moved++;
+    }
+    for (const n of ta.keys()) if (!tb.has(n)) tensors.removed.push(n);
+    const layoutSame = !tensors.added.length && !tensors.removed.length && !tensors.type.length && !tensors.shape.length;
+    return { kv, tensors, layoutSame };
+  }
+
+  // same tensors (names, types, shapes): compare the first 4 KiB of n tensors, each at its own offset in each file.
+  // Picks are spread over the tensor list and always include the first and last tensor.
+  async function sameData(srcA, hA, srcB, hB, n = 16) {
+    const ra = source(srcA), rb = source(srcB);
+    const tb = new Map(hB.tensors.map(t => [t.name, t]));
+    const T = hA.tensors.filter(t => tb.has(t.name));
+    const idx = new Set([0, T.length - 1]);
+    for (let i = 0; idx.size < Math.min(n, T.length) && i < n * 4; i++) idx.add(Math.floor((i + 0.5) * T.length / n) % T.length);
+    const out = [];
+    await Promise.all([...idx].sort((x, y) => x - y).map(async i => {
+      const t = T[i], u = tb.get(t.name);
+      const [x, y] = await Promise.all([ra(hA.dataStart + t.off, hA.dataStart + t.off + 4096), rb(hB.dataStart + u.off, hB.dataStart + u.off + 4096)]);
+      let same = x.length === y.length;
+      for (let k = 0; same && k < x.length; k++) if (x[k] !== y[k]) same = false;
+      out.push({ name: t.name, same });
+    }));
+    return out;
+  }
+
+  async function info(repo, rev, path) {
+    const r = await fetch(HF + "/api/models/" + repo + "/paths-info/" + encodeURIComponent(rev), {
+      method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "paths=" + encodeURIComponent(path) + "&expand=true" });
+    if (!r.ok) throw new Error("HTTP " + r.status + " for paths-info " + repo + "@" + rev);
+    const j = await r.json();
+    return j.find(x => x.path === path) || null;
+  }
+  // commits on main, oldest last; fetched page by page as needed
+  function commitList(repo) {
+    const list = []; let next = HF + "/api/models/" + repo + "/commits/main?limit=100", done = false;
+    return {
+      async parentOf(id) {
+        for (;;) {
+          const i = list.findIndex(c => c.id === id);
+          if (i >= 0 && i + 1 < list.length) return list[i + 1];
+          if (i >= 0 && done) return null;
+          if (done) return null;
+          const r = await fetch(next);
+          if (!r.ok) throw new Error("HTTP " + r.status + " for commits of " + repo);
+          list.push(...await r.json());
+          const m = /<([^>]+)>;\s*rel="next"/.exec(r.headers.get("link") || "");
+          if (m) next = m[1]; else done = true;
+        }
+      }, list };
+  }
+  async function versions(repo, path, max = 40) {
+    const out = [];
+    let cur = await info(repo, "main", path);
+    if (!cur) throw new Error(path + " is not in " + repo + " (main)");
+    const cl = commitList(repo);
+    while (cur && out.length < max) {
+      const lc = cur.lastCommit;
+      out.push({ commit: lc.id, date: lc.date, title: lc.title, sha256: cur.lfs ? cur.lfs.oid : null, size: cur.size });
+      const parent = await cl.parentOf(lc.id);
+      if (!parent) break;
+      cur = await info(repo, parent.id, path);
+    }
+    return out;
+  }
+  async function ollamaDigest(repo, tag) {
+    const r = await fetch(HF + "/v2/" + repo + "/manifests/" + encodeURIComponent(tag), { headers: { Accept: "application/vnd.docker.distribution.manifest.v2+json" } });
+    if (!r.ok) return null;
+    const j = await r.json();
+    const l = (j.layers || []).find(x => x.mediaType === "application/vnd.ollama.image.model");
+    return l ? { digest: l.digest.replace(/^sha256:/, ""), size: l.size } : null;
+  }
+  window.GH = { header, diff, sameData, versions, info, fileUrl, ollamaDigest, sha256hex };
+})();
+// UI for the GGUF redownload check. Needs window.GH (ggufhist.js).
+(function () {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]));
+  const HF = "https://huggingface.co";
+  let ST = null; // {repo, path, versions, headers:{commit:header}}
+  const status = t => { $("status").textContent = t; };
+  function parseRepo(s) {
+    s = s.trim();
+    let m = /huggingface\.co\/([^\/\s]+\/[^\/\s?#]+)(?:\/(?:blob|resolve|tree)\/[^\/]+\/([^\s?#]+))?/.exec(s);
+    if (m) return { repo: m[1], path: m[2] ? decodeURIComponent(m[2]) : null };
+    m = /^(?:hf\.co\/)?([^\/\s:]+\/[^\/\s:]+)(?::([^\s]+))?$/.exec(s);
+    if (m) return { repo: m[1], tag: m[2] || null };
+    return null;
+  }
+  async function listFiles(repo) {
+    const r = await fetch(HF + "/api/models/" + repo);
+    if (r.status === 401 || r.status === 403) throw new Error("This repository is gated or private; the check only works on public repositories.");
+    if (!r.ok) throw new Error("HTTP " + r.status + ": repository " + repo + " not found");
+    const j = await r.json();
+    return (j.siblings || []).map(s => s.rfilename).filter(f => /\.gguf$/i.test(f));
+  }
+  async function loadRepo() {
+    const p = parseRepo($("repo").value);
+    $("res").innerHTML = ""; $("files").innerHTML = "";
+    if (!p) { status("Enter a repository like bartowski/Meta-Llama-3.1-8B-Instruct-GGUF or a Hugging Face URL."); return; }
+    status("Listing files...");
+    try {
+      const files = await listFiles(p.repo);
+      if (!files.length) { status("No .gguf files in " + p.repo + "."); return; }
+      const sel = $("files");
+      for (const f of files) { const o = document.createElement("option"); o.value = o.textContent = f; sel.appendChild(o); }
+      let want = p.path;
+      if (!want && p.tag) want = files.find(f => f.toUpperCase().includes(p.tag.toUpperCase()) && !/-0000[2-9]-of-/.test(f));
+      if (want && files.includes(want)) sel.value = want;
+      if (p.tag) $("olltag").value = p.tag;
+      $("step2").hidden = false;
+      status(files.length + " GGUF files. Pick yours, then say what you have.");
+      ST = { repo: p.repo };
+    } catch (e) { status(String(e.message || e)); }
+  }
+  function fmtSize(n) { return n == null ? "" : (n / 1e9).toFixed(2) + " GB"; }
+  function cmdsFor(d) {
+    // commands that turn the old file's metadata into the new one, when only metadata changed
+    const lines = [], cannot = [];
+    for (const k of d.kv) {
+      if (k.key === "tokenizer.chat_template") lines.push("--chat-template-file chat_template.jinja");
+      else if (k.key === "tokenizer.ggml.pre" && k.kind === "changed") lines.push("--pre-tokenizer " + k.new);
+      else if (k.key === "general.name" && k.new != null) lines.push("--general-name " + JSON.stringify(k.new));
+      else if (k.key === "general.description" && k.new != null) lines.push("--general-description " + JSON.stringify(k.new));
+      else if (/^tokenizer\.ggml\.(.+)_token_id$/.test(k.key) && k.new != null) lines.push("--special-token-by-id " + /^tokenizer\.ggml\.(.+)_token_id$/.exec(k.key)[1] + " " + k.new);
+      else if (k.kind === "removed") lines.push("--remove-metadata " + k.key);
+      else cannot.push(k);
+    }
+    const set = [];
+    for (const k of cannot.slice()) {
+      if (k.kind === "changed" && /^(true|false|-?\d+(\.\d+)?(e-?\d+)?)$/.test(String(k.new)) && /^(true|false|-?\d+(\.\d+)?(e-?\d+)?)$/.test(String(k.old))) {
+        set.push("gguf-set-metadata --force fixed.gguf " + k.key + " " + (k.new === "false" ? "''" : k.new));
+        cannot.splice(cannot.indexOf(k), 1);
+      }
+    }
+    return { lines, set, cannot };
+  }
+  function kvTable(d) {
+    if (!d.kv.length) return "<p>No metadata keys changed.</p>";
+    return '<div class="tw"><table><thead><tr><th>Key</th><th>Your file</th><th>Newest file</th></tr></thead><tbody>' +
+      d.kv.map(k => {
+        const cut = v => v == null ? "<em>absent</em>" : (k.key === "tokenizer.chat_template" ? (v.length + " characters") : esc(String(v).length > 120 ? String(v).slice(0, 120) + "..." : v));
+        return "<tr><td><code>" + esc(k.key) + "</code></td><td>" + cut(k.old) + "</td><td>" + cut(k.new) + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+  }
+  function tensorLine(t) {
+    const p = [];
+    if (t.added.length) p.push(t.added.length + " tensors added (" + t.added.slice(0, 3).map(esc).join(", ") + (t.added.length > 3 ? ", ..." : "") + ")");
+    if (t.removed.length) p.push(t.removed.length + " removed");
+    if (t.type.length) p.push(t.type.length + " changed quantization type (e.g. " + esc(t.type[0].name) + " " + t.type[0].old + " to " + t.type[0].new + ")");
+    if (t.shape.length) p.push(t.shape.length + " changed shape");
+    if (!p.length && t.moved) p.push(t.moved + " tensors moved inside the file");
+    return p.join("; ");
+  }
+  async function hdr(commit) {
+    ST.headers = ST.headers || {};
+    if (!ST.headers[commit]) ST.headers[commit] = await GH.header(GH.fileUrl(ST.repo, commit, ST.path));
+    return ST.headers[commit];
+  }
+  async function classify(oldC, newC, oldSrc, oldH) {
+    const a = oldH || await hdr(oldC), b = await hdr(newC);
+    const d = GH.diff(a, b);
+    let same = null, n = 0, differ = [];
+    if (d.layoutSame) {
+      const r = await GH.sameData(oldSrc || GH.fileUrl(ST.repo, oldC, ST.path), a, GH.fileUrl(ST.repo, newC, ST.path), b, 16);
+      n = r.length; same = r.filter(x => x.same).length; differ = r.filter(x => !x.same).map(x => x.name);
+    }
+    return { d, same, n, differ, kind: !d.layoutSame ? "tensors" : same < n ? "weights" : d.kv.length ? "metadata" : "none" };
+  }
+  function verdictHtml(c, yours, latest) {
+    const when = "between your version (" + yours.date.slice(0, 10) + ") and the newest (" + latest.date.slice(0, 10) + ")";
+    if (c.kind === "none") return '<div class="verdict v-ok">No difference found ' + when + '.<span>The metadata is identical and all ' + c.n + ' sampled tensors start with the same bytes, but the sha256 differs, so something changed outside the sampled bytes. If you want to be sure, redownload.</span></div>';
+    if (c.kind === "metadata") {
+      const k = cmdsFor(c.d);
+      let h = '<div class="verdict v-load">Only metadata changed ' + when + '. You can patch your file instead of downloading ' + fmtSize(latest.size) + ".<span>The tensors have the same names, types and shapes, and the first 4 KiB of all " + c.n + " sampled tensors are identical.</span></div>" + kvTable(c.d);
+      if (!k.cannot.length) {
+        h += "<p><strong>Patch</strong> (pip install gguf; writes a new file, then edits it in place):</p><pre><code>gguf-new-metadata --force your.gguf fixed.gguf " + esc(k.lines.join(" ")) + (k.set.length ? "\n" + esc(k.set.join("\n")) : "") + "</code></pre>";
+        if (c.d.kv.some(x => x.key === "tokenizer.chat_template")) h += '<p><button type="button" id="tpl">Download the new chat template as chat_template.jinja</button></p>';
+        h += '<p class="note">The patched file has the same metadata as the newest one but not the same sha256, because the keys are written in another order. Check the result with this tool by picking the patched file.</p>';
+      } else {
+        h += "<p>These keys cannot be set with the gguf tools: " + k.cannot.map(x => "<code>" + esc(x.key) + "</code>").join(", ") + ". Redownload, or keep your file if those keys do not matter to you.</p>";
+      }
+      return h;
+    }
+    if (c.kind === "weights") return '<div class="verdict v-bad">The weights changed ' + when + '. Redownload.<span>The tensors have the same names, types and shapes, but ' + (c.n - c.same) + " of " + c.n + " sampled tensors have different bytes (" + c.differ.slice(0, 3).map(esc).join(", ") + (c.differ.length > 3 ? ", ..." : "") + "): the file was quantized again, for example with a new importance matrix.</span></div>" + kvTable(c.d);
+    return '<div class="verdict v-bad">The tensors changed ' + when + ". Redownload.<span>" + tensorLine(c.d.tensors) + ".</span></div>" + kvTable(c.d);
+  }
+  function versionTable(v, mark) {
+    return '<div class="tw"><table id="vt"><thead><tr><th>#</th><th>Uploaded (UTC)</th><th>Commit</th><th>sha256</th><th>Size</th><th>What changed from the previous</th></tr></thead><tbody>' +
+      v.map((x, i) => '<tr id="v-' + x.commit.slice(0, 8) + '"' + (x.commit === mark ? ' class="hit"' : "") + "><td>" + (v.length - i) + (x.commit === mark ? " <strong>yours</strong>" : "") + (i === 0 ? " <strong>newest</strong>" : "") + "</td><td>" + x.date.slice(0, 16).replace("T", " ") + '</td><td><a href="' + HF + "/" + ST.repo + "/commit/" + x.commit + '">' + x.commit.slice(0, 8) + "</a> " + esc(x.title) + "</td><td><code>" + (x.sha256 || "").slice(0, 12) + "</code></td><td>" + fmtSize(x.size) + '</td><td class="why" data-i="' + i + '">' + (i === v.length - 1 ? "first upload" : '<span class="meta">-</span>') + "</td></tr>").join("") + "</tbody></table></div>";
+  }
+  async function check() {
+    if (!ST) { await loadRepo(); if (!ST) return; }
+    ST.path = $("files").value;
+    const res = $("res"); res.innerHTML = "";
+    try {
+      status("Reading the history of " + ST.path + "...");
+      const v = await GH.versions(ST.repo, ST.path, 60);
+      ST.versions = v; ST.headers = {};
+      const latest = v[0];
+      let yours = null, how = "", oldSrc = null, oldH = null;
+      let sha = $("sha").value.trim().toLowerCase().replace(/^sha256[-:]/, "");
+      const m = /[0-9a-f]{64}/.exec(sha); sha = m ? m[0] : "";
+      const file = $("local").files[0];
+      const tag = $("olltag").value.trim();
+      if (sha) { yours = v.find(x => x.sha256 === sha); how = "sha256"; }
+      else if (tag && !file) {
+        status("Asking the Hugging Face registry what Ollama gets for " + tag + "...");
+        const od = await GH.ollamaDigest(ST.repo, tag);
+        if (!od) throw new Error("No Ollama manifest for " + ST.repo + ":" + tag + ".");
+        res.innerHTML = '<p>Ollama pulls <code>hf.co/' + esc(ST.repo) + ":" + esc(tag) + "</code> as the file with sha256 <code>" + od.digest.slice(0, 12) + "...</code>" + (od.digest === latest.sha256 ? " (the newest version of " + esc(ST.path) + ")." : ".") + " Compare it with your copy: <code>ollama show --modelfile hf.co/" + esc(ST.repo) + ":" + esc(tag) + "</code> prints <code>FROM .../blobs/sha256-...</code>. Paste that hash above.</p>";
+        status(""); $("vlist").innerHTML = versionTable(v, null); return;
+      } else if (file) {
+        how = "header";
+        status("Reading the header of your file...");
+        oldH = await GH.header(file); oldSrc = file;
+        for (const x of v) {
+          status("Comparing with version " + x.date.slice(0, 10) + "...");
+          const h = await hdr(x.commit);
+          if (h.fingerprint === oldH.fingerprint && x.size === file.size) { yours = x; break; }
+        }
+        if (!yours) {
+          const c = await classify(null, latest.commit, file, oldH);
+          res.innerHTML = '<div class="verdict v-load">Your file matches none of the ' + v.length + " uploaded versions exactly.<span>It may have been patched, converted by you, or come from another repository. Compared with the newest version:</span></div>" + verdictHtml(c, { date: "unknown" }, latest).replace(/^<div[^>]*>.*?<\/div>/, "");
+          $("vlist").innerHTML = versionTable(v, null); status(""); return;
+        }
+      } else { status("Paste a sha256, pick your file, or give your Ollama tag."); $("vlist").innerHTML = versionTable(v, null); return; }
+      $("vlist").innerHTML = versionTable(v, yours && yours.commit);
+      if (!yours) {
+        res.innerHTML = '<div class="verdict v-bad">This sha256 is not any version of ' + esc(ST.path) + " in " + esc(ST.repo) + ".<span>Check the repository and file name. Ollama and the Hugging Face cache name the blob by this sha256; LM Studio and others keep the file, so run <code>sha256sum</code> on it, or pick the file below.</span></div>";
+        status(""); return;
+      }
+      if (yours.commit === latest.commit) {
+        res.innerHTML = '<div class="verdict v-ok">You have the newest version (' + latest.date.slice(0, 10) + ").<span>" + (v.length > 1 ? "The file was uploaded " + v.length + " times; yours is the last." : "The file was never replaced.") + "</span></div>";
+        status(""); return;
+      }
+      const behind = v.indexOf(yours);
+      status("Comparing your version with the newest...");
+      const c = await classify(yours.commit, latest.commit, how === "header" ? oldSrc : null, how === "header" ? oldH : null);
+      res.innerHTML = "<p>Your version is " + behind + " upload" + (behind > 1 ? "s" : "") + " behind (matched by " + (how === "sha256" ? "sha256" : "header and size") + ").</p>" + verdictHtml(c, yours, latest) + '<p><button type="button" id="each">Explain each re-upload</button></p>';
+      const tb = $("tpl"); if (tb) tb.onclick = async () => {
+        const h = await hdr(latest.commit);
+        const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([h.kv["tokenizer.chat_template"].value], { type: "text/plain" })); a.download = "chat_template.jinja"; a.click();
+      };
+      $("each").onclick = explainEach;
+      status("");
+    } catch (e) { status(String(e.message || e)); }
+  }
+  async function explainEach() {
+    const v = ST.versions;
+    for (let i = 0; i < v.length - 1; i++) {
+      const cell = document.querySelector('td.why[data-i="' + i + '"]');
+      cell.textContent = "reading...";
+      try {
+        const c = await classify(v[i + 1].commit, v[i].commit);
+        const keys = c.d.kv.map(k => k.key.replace(/^tokenizer\.ggml\./, "").replace(/^tokenizer\./, "")).slice(0, 4).join(", ");
+        cell.innerHTML = (c.kind === "metadata" ? '<span class="s y">metadata</span> ' : c.kind === "none" ? '<span class="s">no visible change</span> ' : '<span class="s n">' + (c.kind === "weights" ? "weights" : "tensors") + "</span> ") + esc(keys || "") + (c.kind === "tensors" ? " " + esc(tensorLine(c.d.tensors).replace(/\(.*?\)/g, "")) : "");
+      } catch (e) { cell.textContent = String(e.message || e); }
+      delete ST.headers[v[i].commit];
+    }
+  }
+  $("load").addEventListener("click", loadRepo);
+  $("repo").addEventListener("keydown", e => { if (e.key === "Enter") loadRepo(); });
+  $("go").addEventListener("click", check);
+  const q = new URLSearchParams(location.search);
+  if (q.get("repo")) { $("repo").value = q.get("repo"); loadRepo().then(() => { if (q.get("file")) $("files").value = q.get("file"); if (q.get("sha")) { $("sha").value = q.get("sha"); check(); } }); }
+})();
+</script>
+</body>
+</html>
