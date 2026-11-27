@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disable thinking per request: vLLM, Ollama, llama.cpp, SGLang</title>
+<meta name="description" content="The field that turns thinking off in vLLM, Ollama /v1, llama-server and SGLang, by version, which ones (think, top_k, min_p) are silently dropped, and a checker.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Disable thinking per request: Ollama, llama-server, vLLM, SGLang">
+<meta property="og:description" content="The field that turns thinking off on each OpenAI-compatible server, the versions where it started working, the fields that are silently ignored, and a checker script.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [
+{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/#article", "headline": "How to turn thinking off per request on Ollama, llama-server, vLLM and SGLang, and check that it worked", "description": "Which request field turns thinking off on each OpenAI-compatible server, by version; which fields are silently dropped; and a script that checks a running server.", "url": "https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/", "datePublished": "2026-11-27", "dateModified": "2026-11-27", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/"},
+{"@type": "SoftwareSourceCode", "@id": "https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/#code", "name": "thinkcheck.py", "description": "Sends pairs of requests to any OpenAI-compatible chat completions endpoint and reports whether each way of turning thinking off, and each sampling field (top_k, min_p, seed, repetition penalties), worked, was silently ignored, or was rejected.", "programmingLanguage": "Python", "url": "https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/thinkcheck.py", "version": "1.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true},
+{"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/#faq", "mainEntity": [
+{"@type": "Question", "name": "How do I disable thinking on Ollama's OpenAI-compatible /v1/chat/completions?", "acceptedAnswer": {"@type": "Answer", "text": "Send \"reasoning_effort\": \"none\" (Ollama 0.12.4 or later). The think field and chat_template_kwargs are Ollama-native or vLLM-style fields; the /v1/chat/completions handler does not read them and drops them without an error. On the native /api/chat endpoint, send \"think\": false. GPT-OSS cannot turn thinking off; Ollama maps none to low for it."}},
+{"@type": "Question", "name": "Why does vLLM keep thinking when I send reasoning_effort none?", "acceptedAnswer": {"@type": "Answer", "text": "Before v0.22.0, vLLM passed reasoning_effort to the chat template only as a template variable. Qwen3 templates read enable_thinking, not reasoning_effort, so the model kept thinking. v0.18.0 to v0.21.x accept \"none\" and ignore it for Qwen3; v0.17.1 and older reject it with a validation error. From v0.22.0, \"none\" also sets enable_thinking to false. On any version, chat_template_kwargs {\"enable_thinking\": false} works for Qwen3."}},
+{"@type": "Question", "name": "Does llama-server accept enable_thinking as a string?", "acceptedAnswer": {"@type": "Answer", "text": "No. Since build b6394 a string such as \"false\" returns HTTP 400 \"invalid type for enable_thinking (expected boolean, got string)\". In b6393 and older the string was accepted and the Qwen3 template kept thinking on, because the template checks enable_thinking is false and the string \"false\" is not false. Send a JSON boolean."}},
+{"@type": "Question", "name": "Are top_k and min_p ignored by Ollama's OpenAI API?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Ollama's /v1/chat/completions reads temperature, top_p, seed, stop, max_tokens, frequency_penalty and presence_penalty, and drops top_k, min_p and repeat_penalty without an error. Use the native /api/chat with options, or set them in the Modelfile. llama-server, vLLM and SGLang accept top_k and min_p on their OpenAI endpoints."}},
+{"@type": "Question", "name": "Does include_reasoning false stop the model from thinking?", "acceptedAnswer": {"@type": "Answer", "text": "No. vLLM's include_reasoning: false and SGLang's separate_reasoning: false only change what is returned. The model still generates the thinking tokens, so latency and token use stay the same. To stop thinking, change the prompt with the template switch; to cap it, use a thinking budget."}}
+]},
+{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "Disable thinking per request", "item": "https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/"}]}
+]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em;overflow-wrap:anywhere}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch;overflow-wrap:break-word}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw table{min-width:720px}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+td.ok{box-shadow:inset 3px 0 var(--ok)}td.bad{box-shadow:inset 3px 0 var(--bad)}td.warn{box-shadow:inset 3px 0 var(--warn)}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>How to turn thinking off per request on Ollama, llama-server, vLLM and SGLang, and check that it worked</h1>
+
+<p class="lede"><strong>There is no field that works everywhere, and every one of these servers drops a field it does not know without an error.</strong> On Ollama's <code>/v1/chat/completions</code> only <code>"reasoning_effort": "none"</code> works (0.12.4 and later). <code>think</code> and <code>chat_template_kwargs</code> are silently dropped there. On llama-server, vLLM and SGLang, <code>"chat_template_kwargs": {"enable_thinking": false}</code> works for Qwen3-style templates. <code>"reasoning_effort": "none"</code> works only from llama.cpp b10121, vLLM v0.22.0 and SGLang v0.5.10. Older vLLM is the worst case: v0.18.0&ndash;v0.21.x accept <code>"none"</code> and keep thinking. Sampling fields fail the same quiet way: Ollama's OpenAI endpoint drops <code>top_k</code>, <code>min_p</code> and <code>repeat_penalty</code>. vLLM and SGLang spell the penalty <code>repetition_penalty</code> and ignore llama.cpp's <code>repeat_penalty</code>. <a href="thinkcheck.py">thinkcheck.py</a> sends paired requests to your own server and tells you which fields worked, which were ignored and which were rejected.</p>
+<p class="meta">Published 2026-11-27 &middot; Source read at Ollama v0.40.18 (tag 2026-11-23), llama.cpp b12809 (2026-11-27), vLLM v0.34.0 (PyPI 2026-11-16) and SGLang v0.5.23 (PyPI 2026-10-30); &ldquo;since&rdquo; versions found by reading every release tag. llama-server measured at b6393, b10108 and b12809 on CPU. Ollama, vLLM and SGLang are from the source, not run &middot; Tool version 1.0 (Python 3.8+, standard library only)</p>
+
+<h2 id="answer">Which field turns thinking off on each server?</h2>
+<p>All rows are per request on the OpenAI-compatible <code>/v1/chat/completions</code> endpoint, for a model whose template reads <code>enable_thinking</code> (Qwen3, Qwen3.5/3.6, GLM-4.5 and later, Nemotron 3). &ldquo;Ignored&rdquo; means HTTP 200 and the model still thinks.</p>
+<div class="tw"><table>
+<thead><tr><th>Field sent</th><th>Ollama /v1 (v0.40.18)</th><th>llama-server (b12809)</th><th>vLLM (v0.34.0)</th><th>SGLang (v0.5.23)</th></tr></thead>
+<tbody>
+<tr><td><code>"chat_template_kwargs": {"enable_thinking": false}</code></td><td class="bad">ignored (field not read)</td><td class="ok">works since b5780 (measured)</td><td class="ok">works since v0.5.1</td><td class="ok">works since v0.4.7</td></tr>
+<tr><td><code>"chat_template_kwargs": {"enable_thinking": "false"}</code> (string)</td><td class="bad">ignored</td><td class="warn">HTTP 400 since b6394; b6393 and older: accepted, <strong>still thinks</strong> (measured)</td><td class="bad">accepted, still thinks (the template tests <code>is false</code>)</td><td class="bad">same as vLLM</td></tr>
+<tr><td><code>"reasoning_effort": "none"</code></td><td class="ok">works since v0.12.4; v0.11.5&ndash;v0.12.3: HTTP 400 for non-GPT-OSS models</td><td class="ok">works since b10121 (measured); b10108 and older: ignored (measured)</td><td class="ok">works since v0.22.0; v0.18.0&ndash;v0.21.x: <strong>accepted and ignored</strong>; v0.17.1 and older: HTTP 400</td><td class="ok">works since v0.5.10; v0.5.1&ndash;v0.5.9: rejected (only low/medium/high)</td></tr>
+<tr><td><code>"think": false</code></td><td class="bad">ignored on /v1/chat/completions (works on native <code>/api/chat</code> since v0.9.0, and on <code>/v1/responses</code>)</td><td class="bad">ignored (measured)</td><td class="bad">ignored</td><td class="bad">ignored</td></tr>
+<tr><td><code>"enable_thinking": false</code> (top level)</td><td class="bad">ignored</td><td class="bad">ignored (measured)</td><td class="bad">ignored</td><td class="bad">ignored</td></tr>
+<tr><td><code>"chat_template_kwargs": {"thinking": false}</code></td><td class="bad">ignored</td><td class="warn">only for templates that read <code>thinking</code> (DeepSeek V3.1, Kimi K2); ignored for Qwen3 (measured)</td><td class="warn">same; keys the template does not read are dropped</td><td class="warn">same</td></tr>
+</tbody></table></div>
+<p class="note">Model limits come first: Qwen3-2507 &ldquo;Thinking&rdquo; and Qwen3-VL &ldquo;Thinking&rdquo; templates always open a think block, so no field turns them off; use the matching Instruct model. GPT-OSS cannot stop reasoning either: Ollama maps <code>"none"</code> to <code>"low"</code> for it, per its OpenAI compatibility page. SGLang v0.5.23 also accepts a top-level <code>"thinking": {"type": "disabled"}</code>, which sets both <code>thinking</code> and <code>enable_thinking</code> in the template arguments unless the request sets them. The <code>/no_think</code> suffix is a prompt convention of the original Qwen3 hybrid models, not a server feature: the model may or may not follow it.</p>
+
+<h3>Why the string <code>"false"</code> fails</h3>
+<p>Qwen3's template tests <code>enable_thinking is defined and enable_thinking is false</code>. The string <code>"false"</code> is defined but is not <code>false</code>, so the template takes the thinking branch. We rendered the template through <code>/apply-template</code> on three llama-server builds with a toy model that carries the real Qwen3 template. b6393 returned the thinking prompt for the string. b10108 and b12809 return HTTP 400 <code>invalid type for "enable_thinking" (expected boolean, got string)</code>. vLLM and SGLang pass the value to Jinja as it is, so a string there silently keeps thinking on. This bites clients that build JSON by hand or from environment variables.</p>
+
+<h3>Why vLLM v0.18&ndash;v0.21 keep thinking with <code>reasoning_effort: "none"</code></h3>
+<p>vLLM v0.18.0 added <code>"none"</code> to the allowed values (PR #36238) but passed it to the chat template only as the variable <code>reasoning_effort</code>. Qwen3 templates never read that variable, so the model thought as usual and the request still returned 200. v0.22.0 (PR #43401) also sets <code>enable_thinking</code> to <code>reasoning_effort != "none"</code>, unless the request already sets <code>enable_thinking</code> in <code>chat_template_kwargs</code>. If you cannot upgrade, send the <code>chat_template_kwargs</code> form; it works on every version since v0.5.1.</p>
+
+<h2 id="sampling">Which sampling fields are silently ignored?</h2>
+<p>Ollama's <code>/v1/chat/completions</code> ignores <code>top_k</code>, <code>min_p</code> and both repetition-penalty spellings. Each of the other three servers ignores the repetition-penalty spelling of the others. None of the four rejects a field it does not know.</p>
+<div class="tw"><table>
+<thead><tr><th>Field</th><th>Ollama /v1</th><th>llama-server</th><th>vLLM</th><th>SGLang</th></tr></thead>
+<tbody>
+<tr><td><code>top_k</code></td><td class="bad">ignored</td><td class="ok">works (measured)</td><td class="ok">works</td><td class="ok">works</td></tr>
+<tr><td><code>min_p</code></td><td class="bad">ignored</td><td class="ok">works (measured)</td><td class="ok">works</td><td class="ok">works</td></tr>
+<tr><td><code>repeat_penalty</code> (llama.cpp / Ollama spelling)</td><td class="bad">ignored</td><td class="ok">works</td><td class="bad">ignored</td><td class="bad">ignored</td></tr>
+<tr><td><code>repetition_penalty</code> (HF / vLLM spelling)</td><td class="bad">ignored</td><td class="bad">ignored</td><td class="ok">works</td><td class="ok">works</td></tr>
+<tr><td><code>frequency_penalty</code>, <code>presence_penalty</code></td><td class="ok">works</td><td class="ok">works</td><td class="ok">works</td><td class="ok">works</td></tr>
+<tr><td><code>seed</code></td><td class="ok">works</td><td class="ok">works (measured)</td><td class="ok">works</td><td class="ok">works</td></tr>
+<tr><td>a misspelled or unknown field</td><td class="bad">dropped, no error, no log</td><td class="bad">dropped, no error (measured)</td><td class="bad">dropped; logged at WARNING v0.6.5&ndash;v0.17.1, only at DEBUG since v0.18.0</td><td class="bad">dropped, no error</td></tr>
+</tbody></table></div>
+<p>Ollama's OpenAI handler copies only <code>temperature</code>, <code>top_p</code>, <code>seed</code>, <code>stop</code>, <code>max_tokens</code>, <code>frequency_penalty</code>, <code>presence_penalty</code> and <code>response_format</code> into the model options. Go's JSON decoder drops everything else. To set <code>top_k</code>, <code>min_p</code> or <code>repeat_penalty</code> on Ollama, call the native <code>/api/chat</code> with <code>"options"</code>, or put <code>PARAMETER</code> lines in the Modelfile. In vLLM, run with <code>VLLM_LOGGING_LEVEL=DEBUG</code> to see the line &ldquo;The following fields were present in the request but ignored&rdquo;.</p>
+
+<h2 id="where">Where does the thinking come back, and does hiding it save tokens?</h2>
+<p>A client that reads the wrong field sees no thinking and concludes it is off while the server is still generating it. Check <code>usage.completion_tokens</code>, not only the text.</p>
+<ul>
+<li><strong>Ollama /v1</strong>: <code>message.reasoning</code> (since v0.11.0). The native API uses <code>message.thinking</code>.</li>
+<li><strong>llama-server</strong>: <code>message.reasoning_content</code> with the default <code>--reasoning-format</code>. With <code>"reasoning_format": "none"</code> the <code>&lt;think&gt;</code> block stays in <code>content</code>. We forced a think block with a grammar while sending <code>enable_thinking: false</code>; the server then left it in <code>content</code>, not in <code>reasoning_content</code>.</li>
+<li><strong>vLLM</strong>: <code>message.reasoning</code>. v0.12.0&ndash;v0.15.1 sent both <code>reasoning</code> and <code>reasoning_content</code>; v0.16.0 removed <code>reasoning_content</code> (PR #33402), and older clients that read only it see nothing. Without <code>--reasoning-parser</code> the think block stays in <code>content</code>.</li>
+<li><strong>SGLang</strong>: <code>message.reasoning_content</code>, only when the server runs with <code>--reasoning-parser</code> and the request keeps <code>separate_reasoning: true</code>.</li>
+</ul>
+<p><strong>Hiding is not stopping.</strong> vLLM's <code>include_reasoning: false</code> (v0.10.1+), SGLang's <code>separate_reasoning: false</code> and llama-server's <code>reasoning_format: "none"</code> only change the response. The tokens are still generated. To cap thinking without turning it off, use a budget. llama-server takes <code>thinking_budget_tokens</code> per request since b8287 and <code>reasoning_budget_tokens</code> since b9982, or <code>--reasoning-budget</code> at start-up. vLLM takes <code>thinking_token_budget</code> since v0.19.0; it needs a reasoning parser or <code>--reasoning-config</code> to know where thinking ends.</p>
+
+<h2 id="check">How do I check my own server?</h2>
+<pre><code>curl -O https://erimaki-kobo.github.io/en/disable-thinking-request-field-check/thinkcheck.py
+python thinkcheck.py --base-url http://localhost:11434/v1 --model qwen3:0.6b
+python thinkcheck.py --base-url http://localhost:8000/v1 --model Qwen/Qwen3-0.6B --json result.json</code></pre>
+<p>It sends a baseline request, then the same request with each thinking switch, at temperature 0. A switch &ldquo;worked&rdquo; if the baseline thought and the switched request did not (it looks in <code>reasoning_content</code>, <code>reasoning</code>, <code>reasoning_text</code> and for a non-empty <code>&lt;think&gt;</code> block in <code>content</code>). For sampling it compares three samples at temperature 1.5 with and without <code>top_k: 1</code> and <code>min_p: 1.0</code>. Identical samples mean the field worked; different samples mean it was dropped. It also repeats a seed, compares the three penalty spellings at temperature 0, and sends one unknown field to see whether the server is strict. About 24 short requests in total; it uses the first switch that worked in the sampling checks so thinking does not eat <code>max_tokens</code>. Use <code>--extra '{"key": ...}'</code> for fields your proxy needs and <code>--api-key</code> for a hosted endpoint.</p>
+<p>Output against llama-server b12809 with the toy model (random weights, so it never thinks on its own and the thinking rows say &ldquo;can't tell&rdquo;; a toy over 151,936 tokens also never repeats, so the penalty rows show no effect):</p>
+<pre><code>Sampling fields (temperature 1.5, 3 samples each; also sent: nothing)
+field                                   status  verdict
+unknown field (erimaki_unknown_canary)  200     accepted and ignored (typos are silently dropped)
+top_k: 1                                200     worked (3 samples identical)
+min_p: 1.0                              200     worked (3 samples identical)
+seed                                    200     worked (same seed repeats, other seed differs)</code></pre>
+<p>The thinking verdicts were tested against a replay server that follows the Ollama v0.40.18, vLLM v0.21 and vLLM v0.17.1 rules above (<a href="repro/mock_engine.py">repro/mock_engine.py</a>). It reported <code>reasoning_effort: "none"</code> as the only working switch for Ollama /v1, <code>enable_thinking</code> as the only one for vLLM v0.21, and a 400 for <code>"none"</code> on v0.17.1.</p>
+
+<h2 id="method">How this was measured</h2>
+<ul>
+<li><strong>llama-server</strong>: built from source on CPU at b6393, b10108 and b12809. <a href="repro/make_toy_qwen3.py">make_toy_qwen3.py</a> writes a 2-layer random-weight Qwen3 GGUF with the real Qwen2 vocabulary plus Qwen3's four added tokens and the real Qwen3-0.6B template, both from llama.cpp's <code>models/</code> folder. <a href="repro/render_matrix.py">render_matrix.py</a> posts each request body to <code>/apply-template</code>, which uses the same request parsing as chat completions. A body &ldquo;turns thinking off&rdquo; when the rendered prompt ends with the empty <code>&lt;think&gt;&lt;/think&gt;</code> block. Results: <a href="repro/results.jsonl">results.jsonl</a> (21 rows). <a href="repro/run.sh">run.sh</a> repeats it for any build in a few minutes.</li>
+<li><strong>First versions</strong>: found by binary search over every release tag (8,832 llama.cpp tags, 226 vLLM, 168 SGLang, all Ollama releases), reading the request-parsing file at each tag. Dates are PyPI upload dates for vLLM and SGLang and tag commit dates for llama.cpp and Ollama.</li>
+<li><strong>Not run</strong>: Ollama, vLLM and SGLang were not started; their rows come from the request models and handlers at the tags named. LM Studio is closed source and not covered (see lmstudio-bug-tracker #1990 for <code>enableThinking</code> being ignored on its OpenAI endpoint).</li>
+</ul>
+
+<h2 id="faq">FAQ</h2>
+<dl>
+<dt>How do I disable thinking on Ollama's OpenAI-compatible endpoint?</dt>
+<dd>Send <code>"reasoning_effort": "none"</code> (or <code>"reasoning": {"effort": "none"}</code>) on Ollama 0.12.4 or later. With the OpenAI Python client that is <code>reasoning_effort="none"</code>; no <code>extra_body</code> is needed. On the native API, send <code>"think": false</code>.</dd>
+<dt>I set <code>--default-chat-template-kwargs '{"thinking": false}'</code> on vLLM and Qwen3 still thinks.</dt>
+<dd>Qwen3 reads <code>enable_thinking</code>; <code>thinking</code> is the key for DeepSeek V3.1 and Kimi K2 templates. vLLM keeps only the keys the template reads (since v0.11.0) and drops the rest without a warning. A request-level <code>chat_template_kwargs</code> overrides the server default.</dd>
+<dt>Why does vLLM keep thinking when I send <code>reasoning_effort: "none"</code>?</dt>
+<dd>On v0.18.0&ndash;v0.21.x it reaches the template only as a variable that Qwen3 does not read. Upgrade to v0.22.0 or send <code>chat_template_kwargs: {"enable_thinking": false}</code>.</dd>
+<dt>Does llama-server accept <code>enable_thinking</code> as a string?</dt>
+<dd>No. Since b6394 the string returns HTTP 400; in b6393 and older it was accepted and the model kept thinking. Send a JSON boolean.</dd>
+<dt>Are <code>top_k</code> and <code>min_p</code> ignored by Ollama's OpenAI API?</dt>
+<dd>Yes, without an error. Use the native <code>/api/chat</code> with <code>"options"</code>, or the Modelfile.</dd>
+<dt>Does <code>reasoning_effort: "low"</code> shorten Qwen3's thinking?</dt>
+<dd>No. Qwen3 templates have no effort levels; on llama-server, vLLM v0.22.0+ and SGLang a value other than <code>"none"</code> turns thinking on and nothing else. On Ollama, a non-thinking model returns 400 &ldquo;does not support thinking&rdquo; for such a value on <code>/v1/chat/completions</code>. Use a thinking budget to shorten it.</dd>
+<dt>Does <code>include_reasoning: false</code> make responses faster?</dt>
+<dd>No. It removes the reasoning from the response; the model still generates it.</dd>
+<dt>Why does SGLang return the thinking inside <code>content</code>?</dt>
+<dd>The server was started without <code>--reasoning-parser</code>, or the request sent <code>separate_reasoning: false</code>.</dd>
+</dl>
+
+<h2 id="limits">Limitations</h2>
+<ul>
+<li>Only llama-server was run, on a random-weight toy model. The rows for Ollama, vLLM and SGLang are read from the source; a real model run on those servers (ours or yours with <code>thinkcheck.py</code>) may show template-specific behaviour we did not see.</li>
+<li>Streaming responses are not checked. Thinking can be parsed differently in <code>delta</code> chunks.</li>
+<li>The table covers templates that read <code>enable_thinking</code>. Models with their own switch (GPT-OSS effort levels, DeepSeek V3.1 <code>thinking</code>, Gemma 4, which is off by default) need their own key.</li>
+<li>The penalty check needs a model that repeats when asked to; on a model that never repeats, every spelling shows &ldquo;no effect seen&rdquo;.</li>
+</ul>
+
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/en/tool-call-parser-conformance-check/">vLLM tool parsers: where tool calls inside thinking end up</a></li>
+<li><a href="/en/vllm-removed-flags-lookup/">vLLM and SGLang flags and request fields removed by version</a></li>
+<li><a href="/en/generation-stop-tokens-check/">Model does not stop generating: which token each engine stops on</a></li>
+<li><a href="/en/context-overflow-error-status-check/">What each engine returns when the prompt exceeds the context</a></li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Ollama <a href="https://github.com/ollama/ollama/blob/main/openai/openai.go">openai/openai.go</a>, <a href="https://github.com/ollama/ollama/blob/main/middleware/openai.go">middleware/openai.go</a>, <a href="https://github.com/ollama/ollama/blob/main/server/routes.go">server/routes.go</a>, <a href="https://docs.ollama.com/api/openai-compatibility">OpenAI compatibility docs</a></li>
+<li>llama.cpp <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/server/server-common.cpp">tools/server/server-common.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/common/arg.cpp">common/arg.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/models/templates/Qwen-Qwen3-0.6B.jinja">models/templates/Qwen-Qwen3-0.6B.jinja</a>; PRs <a href="https://github.com/ggml-org/llama.cpp/pull/13196">#13196</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/15404">#15404</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/20297">#20297</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/23116">#23116</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/26045">#26045</a></li>
+<li>vLLM <a href="https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/openai/chat_completion/protocol.py">chat_completion/protocol.py</a>, <a href="https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/serve/engine/protocol.py">serve/engine/protocol.py</a>, <a href="https://github.com/vllm-project/vllm/blob/main/vllm/renderers/hf.py">renderers/hf.py</a>, <a href="https://docs.vllm.ai/en/latest/features/reasoning_outputs.html">reasoning outputs docs</a>; PRs <a href="https://github.com/vllm-project/vllm/pull/33402">#33402</a>, <a href="https://github.com/vllm-project/vllm/pull/36238">#36238</a>, <a href="https://github.com/vllm-project/vllm/pull/43401">#43401</a></li>
+<li>SGLang <a href="https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/entrypoints/openai/protocol.py">entrypoints/openai/protocol.py</a>, <a href="https://github.com/sgl-project/sglang/blob/main/python/sglang/srt/entrypoints/openai/serving_chat.py">serving_chat.py</a>; PR <a href="https://github.com/sgl-project/sglang/pull/20556">#20556</a></li>
+<li>Reports: <a href="https://github.com/tidyverse/ellmer/issues/940">ellmer #940</a>, <a href="https://github.com/vllm-project/vllm/issues/35574">vLLM #35574</a>, <a href="https://discuss.vllm.ai/t/thinking-token-limit-setting/2400">discuss.vllm.ai 2400</a>, <a href="https://discuss.vllm.ai/t/how-to-disable-thinking-for-different-model/1499">1499</a>, <a href="https://github.com/QwenLM/Qwen3/discussions/1300">Qwen3 discussion #1300</a>, <a href="https://github.com/lmstudio-ai/lmstudio-bug-tracker/issues/1990">lmstudio-bug-tracker #1990</a></li>
+</ul>
+</main>
+</body>
+</html>

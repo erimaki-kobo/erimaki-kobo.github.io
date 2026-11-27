@@ -1,0 +1,21 @@
+{"build": "b12809", "case": "none", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b12809", "case": "ctk enable_thinking false", "status": 200, "thinking_off": true, "tail": ">assistant\n<think>\n\n</think>\n\n"}
+{"build": "b12809", "case": "ctk enable_thinking \"false\" (string)", "status": 400, "error": "{\"error\":{\"code\":400,\"message\":\"invalid type for \\\"enable_thinking\\\" (expected boolean, got string)\",\"type\":\"invalid_request_error\"}}"}
+{"build": "b12809", "case": "ctk thinking false", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b12809", "case": "reasoning_effort none", "status": 200, "thinking_off": true, "tail": ">assistant\n<think>\n\n</think>\n\n"}
+{"build": "b12809", "case": "think false", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b12809", "case": "enable_thinking false (top level)", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b6393", "case": "none", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b6393", "case": "ctk enable_thinking false", "status": 200, "thinking_off": true, "tail": ">assistant\n<think>\n\n</think>\n\n"}
+{"build": "b6393", "case": "ctk enable_thinking \"false\" (string)", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b6393", "case": "ctk thinking false", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b6393", "case": "reasoning_effort none", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b6393", "case": "think false", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b6393", "case": "enable_thinking false (top level)", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b10108", "case": "none", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b10108", "case": "ctk enable_thinking false", "status": 200, "thinking_off": true, "tail": ">assistant\n<think>\n\n</think>\n\n"}
+{"build": "b10108", "case": "ctk enable_thinking \"false\" (string)", "status": 400, "error": "{\"error\":{\"code\":400,\"message\":\"invalid type for \\\"enable_thinking\\\" (expected boolean, got string)\",\"type\":\"invalid_request_error\"}}"}
+{"build": "b10108", "case": "ctk thinking false", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b10108", "case": "reasoning_effort none", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b10108", "case": "think false", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}
+{"build": "b10108", "case": "enable_thinking false (top level)", "status": 200, "thinking_off": false, "tail": "m_end|>\n<|im_start|>assistant\n"}

@@ -1,0 +1,103 @@
+{
+ "thinkcheck": "1.0",
+ "base_url": "http://localhost:8091/v1",
+ "model": "toy",
+ "thinking": [
+  {
+   "field": "(none, baseline)",
+   "status": 200,
+   "thinking": false,
+   "where": "",
+   "completion_tokens": 32,
+   "verdict": "no thinking seen"
+  },
+  {
+   "field": "chat_template_kwargs: {\"enable_thinking\": false}",
+   "status": 200,
+   "thinking": false,
+   "where": "",
+   "completion_tokens": 32,
+   "verdict": "can't tell (baseline does not think)"
+  },
+  {
+   "field": "chat_template_kwargs: {\"thinking\": false}",
+   "status": 200,
+   "thinking": false,
+   "where": "",
+   "completion_tokens": 32,
+   "verdict": "can't tell (baseline does not think)"
+  },
+  {
+   "field": "reasoning_effort: \"none\"",
+   "status": 200,
+   "thinking": false,
+   "where": "",
+   "completion_tokens": 32,
+   "verdict": "can't tell (baseline does not think)"
+  },
+  {
+   "field": "think: false",
+   "status": 200,
+   "thinking": false,
+   "where": "",
+   "completion_tokens": 32,
+   "verdict": "can't tell (baseline does not think)"
+  },
+  {
+   "field": "enable_thinking: false (top level)",
+   "status": 200,
+   "thinking": false,
+   "where": "",
+   "completion_tokens": 32,
+   "verdict": "can't tell (baseline does not think)"
+  },
+  {
+   "field": "\"/no_think\" at the end of the prompt",
+   "status": 200,
+   "thinking": false,
+   "where": "",
+   "completion_tokens": 32,
+   "verdict": "can't tell (baseline does not think)"
+  }
+ ],
+ "sampling_extra": {},
+ "sampling": [
+  {
+   "field": "unknown field (erimaki_unknown_canary)",
+   "status": 200,
+   "verdict": "accepted and ignored (typos are silently dropped)"
+  },
+  {
+   "field": "top_k: 1",
+   "status": 200,
+   "verdict": "worked (3 samples identical)"
+  },
+  {
+   "field": "min_p: 1.0",
+   "status": 200,
+   "verdict": "worked (3 samples identical)"
+  },
+  {
+   "field": "seed",
+   "status": 200,
+   "verdict": "worked (same seed repeats, other seed differs)"
+  },
+  {
+   "field": "repeat_penalty: 2.0",
+   "status": 200,
+   "verdict": "no effect seen (identical at temperature 0: ignored, or nothing repeated to penalize)"
+  },
+  {
+   "field": "repetition_penalty: 2.0",
+   "status": 200,
+   "verdict": "no effect seen (identical at temperature 0: ignored, or nothing repeated to penalize)"
+  },
+  {
+   "field": "frequency_penalty: 2.0",
+   "status": 200,
+   "verdict": "no effect seen (identical at temperature 0: ignored, or nothing repeated to penalize)"
+  }
+ ],
+ "requests": 24,
+ "seconds": 2.1
+}

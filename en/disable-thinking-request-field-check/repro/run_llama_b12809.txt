@@ -1,0 +1,23 @@
+thinkcheck 1.0  http://localhost:8091/v1/chat/completions  model=toy
+
+Turning thinking off (temperature 0, max_tokens 32)
+field                                             status  where  completion_tokens  verdict                             
+(none, baseline)                                  200            32                 no thinking seen                    
+chat_template_kwargs: {"enable_thinking": false}  200            32                 can't tell (baseline does not think)
+chat_template_kwargs: {"thinking": false}         200            32                 can't tell (baseline does not think)
+reasoning_effort: "none"                          200            32                 can't tell (baseline does not think)
+think: false                                      200            32                 can't tell (baseline does not think)
+enable_thinking: false (top level)                200            32                 can't tell (baseline does not think)
+"/no_think" at the end of the prompt              200            32                 can't tell (baseline does not think)
+
+Sampling fields (temperature 1.5, 3 samples each; also sent: nothing)
+field                                   status  verdict                                                                              
+unknown field (erimaki_unknown_canary)  200     accepted and ignored (typos are silently dropped)                                    
+top_k: 1                                200     worked (3 samples identical)                                                         
+min_p: 1.0                              200     worked (3 samples identical)                                                         
+seed                                    200     worked (same seed repeats, other seed differs)                                       
+repeat_penalty: 2.0                     200     no effect seen (identical at temperature 0: ignored, or nothing repeated to penalize)
+repetition_penalty: 2.0                 200     no effect seen (identical at temperature 0: ignored, or nothing repeated to penalize)
+frequency_penalty: 2.0                  200     no effect seen (identical at temperature 0: ignored, or nothing repeated to penalize)
+
+24 requests, 2.1 s

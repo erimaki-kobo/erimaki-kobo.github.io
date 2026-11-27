@@ -24,6 +24,11 @@ a{color:var(--acc)}
 <h1>Answers for LLM inference engineers</h1>
 <p>Each page answers one question people who run inference servers keep asking, with a tool, a table or a test you can use, and the primary sources behind it.</p>
 <article class="card">
+<h2><a href="disable-thinking-request-field-check/">Turn thinking off per request: which field works on Ollama, llama-server, vLLM and SGLang</a></h2>
+<p>The request field that stops thinking on each OpenAI-compatible server and the version where it started working (<code>reasoning_effort: "none"</code> was silently ignored by vLLM v0.18&ndash;v0.21), the fields each one drops without an error (<code>think</code>, <code>top_k</code>, <code>min_p</code> on Ollama's /v1), and a script that checks your own server.</p>
+<p class="meta">Published 2026-11-27</p>
+</article>
+<article class="card">
 <h2><a href="gguf-redownload-check/">Do I need to redownload my GGUF? Check which upload you have and what changed</a></h2>
 <p>Paste a Hugging Face repository and your file's sha256, pick the file, or give your Ollama tag: see which upload you have and whether later re-uploads changed the tensors or only metadata, with the <code>gguf-new-metadata</code> command to patch a template fix. With a survey of 68 re-uploads in 23 popular repositories.</p>
 <p class="meta">Published 2026-11-26</p>
