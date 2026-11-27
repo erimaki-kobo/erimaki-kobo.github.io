@@ -1,12 +1,30 @@
 {
- "as_of": "2026-11-24",
- "llama_cpp_head": "b12682",
+ "as_of": "2026-11-27",
+ "llama_cpp_head": "b12804",
  "ollama_latest": {
   "tag": "v0.40.18",
   "date": "2026-11-24",
   "pinned_build": "b12651"
  },
  "architectures": [
+  {
+   "architecture": "raon1",
+   "llama_cpp_first_build": "b12758",
+   "llama_cpp_first_build_date": "2026-11-25",
+   "llama_cpp_commit": "5a09582d80600fb5b0a8966e870061bddc8a3732",
+   "ollama_first_release_bundled_llama_cpp": null,
+   "ollama_own_engine": null,
+   "vllm_gguf_plugin_tested": false
+  },
+  {
+   "architecture": "hy_v4_flash",
+   "llama_cpp_first_build": "b12755",
+   "llama_cpp_first_build_date": "2026-11-25",
+   "llama_cpp_commit": "c943331339fb503503b21cc490f08d986bfdb1cf",
+   "ollama_first_release_bundled_llama_cpp": null,
+   "ollama_own_engine": null,
+   "vllm_gguf_plugin_tested": false
+  },
   {
    "architecture": "moshi",
    "llama_cpp_first_build": "b12619",
