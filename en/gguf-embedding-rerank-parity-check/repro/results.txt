@@ -1,0 +1,353 @@
+===== out/ce.b12816.txt
+gguf: arch=bert pooling_type=(not set) cls tensors=['cls.output.bias', 'cls.output.weight']
+ ! GGUF: BERT classifier with cls.output.* but no cls.weight. If the original is a BertForSequenceClassification (it has bert.pooler.dense), the pooler was dropped: llama.cpp #33109, fixed in the converter from b12818.
+
+reference: sentence-transformers CrossEncoder, raw logits
+server: http://127.0.0.1:18090 api=/v1/rerank
+
+pair   reference      server
+   1     0.21152     -1.1822
+   2     0.20851      -1.193
+   3     0.21070     -1.1817
+   4     0.21174     -1.2012
+   5     0.21156     -1.1995
+   6     0.21155     -1.1821
+   7     0.20949     -1.1933
+   8     0.21115     -1.1823
+   9     0.21232     -1.2003
+  10     0.21275     -1.2022
+
+rank agreement per query (Spearman): -0.700, -0.600
+server score matches the reference variant: no pooler, token_type_ids=0
+
+verdict: MISMATCH
+ - The pooler was dropped (llama.cpp #33109, fixed in the converter from b12818) and the document got token_type_ids = 0. Reconvert with b12818 or later; the segment-id part remains in current llama.cpp.
+===== out/ce.current.txt
+gguf: arch=bert pooling_type=(not set) cls tensors=['cls.bias', 'cls.output.bias', 'cls.output.weight', 'cls.weight'] classifier.activation=tanh
+reference: sentence-transformers CrossEncoder, raw logits
+server: http://127.0.0.1:18090 api=/v1/rerank
+
+pair   reference      server
+   1     0.21152     0.21511
+   2     0.20851     0.21275
+   3     0.21070     0.21442
+   4     0.21174     0.21556
+   5     0.21156     0.21556
+   6     0.21155     0.21553
+   7     0.20949     0.21395
+   8     0.21115     0.21527
+   9     0.21232     0.21618
+  10     0.21275     0.21701
+
+rank agreement per query (Spearman): 0.900, 1.000
+server score matches the reference variant: token_type_ids=0
+
+verdict: MISMATCH
+ - The server feeds token_type_ids = 0 for the document. llama.cpp's BERT path passes zeros for every token, so a cross-encoder trained with segment B embeddings gets slightly different scores.
+===== out/cls-norm.pool-mean.txt
+gguf: arch=bert pooling_type=cls cls tensors=none
+reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  0.504198    1.0000  server pools with mean (model: cls)
+    2  0.514411    1.0000  server pools with mean (model: cls)
+    3  0.548649    1.0000  server pools with mean (model: cls)
+    4  0.573227    1.0000  server pools with mean (model: cls)
+    5  0.611687    1.0000  server pools with mean (model: cls)
+    6  0.532640    1.0000  server pools with mean (model: cls)
+ long         -         -  error: HTTP 500 from /v1/embeddings: {"error":{"code":500,"message":"input (785 tokens) is too large to process. increase the physical batch size (current batch size: 
+
+verdict: MISMATCH
+ - Pooling differs. llama.cpp: the GGUF's <arch>.pooling_type wins unless you pass --pooling {mean,cls,last}; a GGUF converted from a folder without modules.json / 1_Pooling has no pooling_type. Ollama uses the GGUF's value. TEI: --pooling. vLLM: --pooler-config '{"seq_pooling_type": "MEAN"}'.
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.
+===== out/cls-norm.raw.txt
+gguf: arch=bert pooling_type=cls cls tensors=none
+reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    8.0000  
+    2  1.000000    8.0000  
+    3  1.000000    8.0000  
+    4  1.000000    8.0000  
+    5  1.000000    8.0000  
+    6  1.000000    8.0000  
+ long         -         -  error: HTTP 500 from /v1/embeddings: {"error":{"code":500,"message":"input (785 tokens) is too large to process. increase the physical batch size (current batch size: 
+
+verdict: MATCH (worst cosine 1.000000) - with notes:
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.
+ - Vectors are not unit length but the model ends with Normalize. llama-server normalizes /v1/embeddings by default (--embd-normalize 2), but Ollama's legacy /api/embeddings and llama-server with --embd-normalize -1 return raw vectors. Cosine is unaffected; dot product and L2 distance are not.
+===== out/cls-norm.txt
+gguf: arch=bert pooling_type=cls cls tensors=none
+reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long         -         -  error: HTTP 500 from /v1/embeddings: {"error":{"code":500,"message":"input (785 tokens) is too large to process. increase the physical batch size (current batch size: 
+
+verdict: MATCH (worst cosine 1.000000) - with notes:
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.
+===== out/cls-norm.ub128.txt
+gguf: arch=bert pooling_type=cls cls tensors=none
+reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long         -         -  error: HTTP 500 from /v1/embeddings: {"error":{"code":500,"message":"input (785 tokens) is too large to process. increase the physical batch size (current batch size: 
+
+verdict: MATCH (worst cosine 1.000000) - with notes:
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.
+===== out/mean-norm.txt
+gguf: arch=bert pooling_type=mean cls tensors=none
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=128, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long  0.998473    1.0000  server reads 218 tokens, sentence-transformers cuts at 128
+
+verdict: MISMATCH
+ - The server embedded more tokens than sentence-transformers does. sentence-transformers cuts at max_seq_length; llama.cpp has no max_seq_length (it uses the whole input up to -ub / n_ctx), Ollama cuts at the GGUF context_length (or num_ctx). Cut the text to max_seq_length tokens before sending, or raise max_seq_length in sentence-transformers if the model was trained for it.
+===== out/mean-prompt.txt
+gguf: arch=bert pooling_type=mean cls tensors=none
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default='query: '
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  0.978105    1.0000  server sees no prefix (reference: 'query: ')
+    2  0.985756    1.0000  server sees no prefix (reference: 'query: ')
+    3  0.989971    1.0000  server sees no prefix (reference: 'query: ')
+    4  0.990513    1.0000  server sees no prefix (reference: 'query: ')
+    5  0.992266    1.0000  server sees no prefix (reference: 'query: ')
+    6  0.988473    1.0000  server sees no prefix (reference: 'query: ')
+ long         -         -  error: HTTP 500 from /v1/embeddings: {"error":{"code":500,"message":"input (785 tokens) is too large to process. increase the physical batch size (current batch size: 
+
+verdict: MISMATCH
+ - The prefix differs. sentence-transformers applies default_prompt_name from config_sentence_transformers.json on every encode(); llama.cpp, Ollama and vLLM's /v1/embeddings never add it, TEI only with --default-prompt-name. Put the prefix in the text yourself (e.g. 'search_query: ', 'query: ') or pass prompt='' to sentence-transformers.
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.
+===== out/no-st-files.txt
+gguf: arch=bert pooling_type=(not set) cls tensors=none
+ ! GGUF: no pooling_type. llama-server falls back to pooling 'none' (/v1/embeddings then refuses with 'Pooling type none is not OAI compatible'); pass --pooling explicitly or reconvert from a folder that has modules.json and 1_Pooling/.
+
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    2         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    3         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    4         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    5         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    6         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+ long         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+
+verdict: MISMATCH
+ - The GGUF has no pooling_type, so llama-server runs with pooling 'none' and /v1/embeddings refuses it ('Pooling type none is not OAI compatible'). This happens when the folder you converted had no modules.json / 1_Pooling/config.json. Start llama-server with --pooling set to the model's pooling (sentence-transformers says it above), or reconvert from the full model folder.
+===== out/qwen3.as-llm.txt
+gguf: arch=qwen3 pooling_type=(not set) cls tensors=none
+ ! GGUF: no cls.weight / cls.output.weight, so there is no classifier: /v1/rerank returns softmax(hidden)[0] (tiny numbers such as 4.5e-23 on a real model) that also change with the other documents in the request.
+ ! GGUF: a Qwen3 model without pooling_type rank. The converter only treats Qwen3 as a reranker when the folder's README.md contains '# Qwen3-Reranker', the folder or _name_or_path contains 'qwen3-reranker', or the architecture is *ForSequenceClassification.
+
+reference: Qwen3-Reranker recipe (P(yes) at the last token)
+server: http://127.0.0.1:18090 api=/v1/rerank
+
+pair   reference      server
+   1     0.00673    0.011629
+   2     0.00272    0.010734
+   3     0.00464   0.0066811
+   4     0.01153    0.012166
+   5     0.00456   0.0074915
+   6     0.00355    0.026544
+   7     0.00114     0.01414
+   8     0.00231   0.0051819
+   9     0.00748   0.0018031
+  10     0.00270    0.004284
+
+rank agreement per query (Spearman): 0.600, -0.400
+
+verdict: MISMATCH
+ - The order differs and no known variant explains it: check the GGUF has cls.* tensors and pooling_type = rank, that -ub covers query + document, and that the KV cache is not quantized (-ctk/-ctv q4_0 hurts rerankers).
+===== out/qwen3.reranker.txt
+gguf: arch=qwen3 pooling_type=rank cls tensors=['cls.output.weight'] rerank template=yes
+reference: Qwen3-Reranker recipe (P(yes) at the last token)
+server: http://127.0.0.1:18090 api=/v1/rerank
+
+pair   reference      server
+   1     0.00673   0.0067284
+   2     0.00272   0.0027158
+   3     0.00464   0.0046363
+   4     0.01153    0.011536
+   5     0.00456   0.0045591
+   6     0.00355   0.0035495
+   7     0.00114   0.0011412
+   8     0.00231   0.0023097
+   9     0.00748   0.0074811
+  10     0.00270   0.0026985
+
+rank agreement per query (Spearman): 1.000, 1.000
+server returns the same score as the reference
+
+verdict: MATCH
+===== out_mock/ollama-legacy.cls.txt
+reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18101 api=ollama-legacy
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    8.0000  
+    2  1.000000    8.0000  
+    3  1.000000    8.0000  
+    4  1.000000    8.0000  
+    5  1.000000    8.0000  
+    6  1.000000    8.0000  
+ long  1.000000    8.0000  
+
+verdict: MATCH (worst cosine 1.000000) - with notes:
+ - Vectors are not unit length but the model ends with Normalize. llama-server normalizes /v1/embeddings by default (--embd-normalize 2), but Ollama's legacy /api/embeddings and llama-server with --embd-normalize -1 return raw vectors. Cosine is unaffected; dot product and L2 distance are not.
+===== out_mock/ollama.mean-norm.txt
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=128, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18100 api=ollama
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long  0.998473    1.0000  server reads 218 tokens, sentence-transformers cuts at 128
+
+verdict: MISMATCH
+ - The server embedded more tokens than sentence-transformers does. sentence-transformers cuts at max_seq_length; llama.cpp has no max_seq_length (it uses the whole input up to -ub / n_ctx), Ollama cuts at the GGUF context_length (or num_ctx). Cut the text to max_seq_length tokens before sending, or raise max_seq_length in sentence-transformers if the model was trained for it.
+===== out_mock/ollama.mean-prompt.txt
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default='query: '
+server: http://127.0.0.1:18102 api=ollama
+
+ text    cosine  |server|  diagnosis
+    1  0.978105    1.0000  server sees no prefix (reference: 'query: ')
+    2  0.985756    1.0000  server sees no prefix (reference: 'query: ')
+    3  0.989971    1.0000  server sees no prefix (reference: 'query: ')
+    4  0.990513    1.0000  server sees no prefix (reference: 'query: ')
+    5  0.992266    1.0000  server sees no prefix (reference: 'query: ')
+    6  0.988473    1.0000  server sees no prefix (reference: 'query: ')
+ long  0.999979    1.0000  
+
+verdict: MISMATCH
+ - The prefix differs. sentence-transformers applies default_prompt_name from config_sentence_transformers.json on every encode(); llama.cpp, Ollama and vLLM's /v1/embeddings never add it, TEI only with --default-prompt-name. Put the prefix in the text yourself (e.g. 'search_query: ', 'query: ') or pass prompt='' to sentence-transformers.
+===== out_mock/tei.ce.txt
+reference: sentence-transformers CrossEncoder, raw logits
+server: http://127.0.0.1:18107 api=tei /rerank
+
+pair   reference      server
+   1     0.21152     0.21152
+   2     0.20851     0.20851
+   3     0.21070      0.2107
+   4     0.21174     0.21174
+   5     0.21156     0.21156
+   6     0.21155     0.21155
+   7     0.20949     0.20949
+   8     0.21115     0.21115
+   9     0.21232     0.21232
+  10     0.21275     0.21275
+
+rank agreement per query (Spearman): 1.000, 1.000
+server returns the same score as the reference (raw logit)
+
+verdict: MATCH
+===== out_mock/tei.mean-norm.txt
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=128, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18103 api=tei
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long  1.000000    1.0000  
+
+verdict: MATCH (worst cosine 1.000000)
+===== out_mock/tei.mean-prompt.txt
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default='query: '
+server: http://127.0.0.1:18104 api=tei
+
+ text    cosine  |server|  diagnosis
+    1  0.978105    1.0000  server sees no prefix (reference: 'query: ')
+    2  0.985756    1.0000  server sees no prefix (reference: 'query: ')
+    3  0.989971    1.0000  server sees no prefix (reference: 'query: ')
+    4  0.990513    1.0000  server sees no prefix (reference: 'query: ')
+    5  0.992266    1.0000  server sees no prefix (reference: 'query: ')
+    6  0.988473    1.0000  server sees no prefix (reference: 'query: ')
+ long  0.999979    1.0000  
+
+verdict: MISMATCH
+ - The prefix differs. sentence-transformers applies default_prompt_name from config_sentence_transformers.json on every encode(); llama.cpp, Ollama and vLLM's /v1/embeddings never add it, TEI only with --default-prompt-name. Put the prefix in the text yourself (e.g. 'search_query: ', 'query: ') or pass prompt='' to sentence-transformers.
+===== out_mock/vllm.ce.txt
+reference: sentence-transformers CrossEncoder, raw logits
+server: http://127.0.0.1:18108 api=/v1/rerank
+
+pair   reference      server
+   1     0.21152     0.55268
+   2     0.20851     0.55194
+   3     0.21070     0.55248
+   4     0.21174     0.55274
+   5     0.21156     0.55269
+   6     0.21155     0.55269
+   7     0.20949     0.55218
+   8     0.21115     0.55259
+   9     0.21232     0.55288
+  10     0.21275     0.55299
+
+rank agreement per query (Spearman): 1.000, 1.000
+server score matches the reference variant: sigmoid
+
+verdict: SAME RANKING, DIFFERENT SCALE
+ - The server applies a sigmoid (TEI without raw_scores, vLLM for 1-label cross-encoders). Ranking is unchanged; compare against CrossEncoder.predict() with its default activation, or ask for raw scores.
+===== out_mock/vllm.cls-norm.txt
+reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18105 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long         -         -  error: HTTP 400 from /v1/embeddings: {"error": {"message": "This model's maximum context length is 512 tokens. However, you requested 785 tokens in the input for embed
+
+verdict: MATCH (worst cosine 1.000000) - with notes:
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.
+===== out_mock/vllm.mean-norm.txt
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=128, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18106 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long         -         -  error: HTTP 400 from /v1/embeddings: {"error": {"message": "This model's maximum context length is 128 tokens. However, you requested 218 tokens in the input for embed
+
+verdict: MATCH (worst cosine 1.000000) - with notes:
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.

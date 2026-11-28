@@ -1,0 +1,14 @@
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default='query: '
+server: http://127.0.0.1:18104 api=tei
+
+ text    cosine  |server|  diagnosis
+    1  0.978105    1.0000  server sees no prefix (reference: 'query: ')
+    2  0.985756    1.0000  server sees no prefix (reference: 'query: ')
+    3  0.989971    1.0000  server sees no prefix (reference: 'query: ')
+    4  0.990513    1.0000  server sees no prefix (reference: 'query: ')
+    5  0.992266    1.0000  server sees no prefix (reference: 'query: ')
+    6  0.988473    1.0000  server sees no prefix (reference: 'query: ')
+ long  0.999979    1.0000  
+
+verdict: MISMATCH
+ - The prefix differs. sentence-transformers applies default_prompt_name from config_sentence_transformers.json on every encode(); llama.cpp, Ollama and vLLM's /v1/embeddings never add it, TEI only with --default-prompt-name. Put the prefix in the text yourself (e.g. 'search_query: ', 'query: ') or pass prompt='' to sentence-transformers.

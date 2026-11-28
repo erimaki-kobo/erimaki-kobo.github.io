@@ -1,0 +1,21 @@
+gguf: arch=bert pooling_type=(not set) cls tensors=['cls.bias', 'cls.output.bias', 'cls.output.weight', 'cls.weight'] classifier.activation=tanh
+reference: sentence-transformers CrossEncoder, raw logits
+server: http://127.0.0.1:18090 api=/v1/rerank
+
+pair   reference      server
+   1     0.21152     0.21511
+   2     0.20851     0.21275
+   3     0.21070     0.21442
+   4     0.21174     0.21556
+   5     0.21156     0.21556
+   6     0.21155     0.21553
+   7     0.20949     0.21395
+   8     0.21115     0.21527
+   9     0.21232     0.21618
+  10     0.21275     0.21701
+
+rank agreement per query (Spearman): 0.900, 1.000
+server score matches the reference variant: token_type_ids=0
+
+verdict: MISMATCH
+ - The server feeds token_type_ids = 0 for the document. llama.cpp's BERT path passes zeros for every token, so a cross-encoder trained with segment B embeddings gets slightly different scores.

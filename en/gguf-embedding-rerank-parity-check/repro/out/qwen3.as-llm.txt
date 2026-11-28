@@ -1,0 +1,23 @@
+gguf: arch=qwen3 pooling_type=(not set) cls tensors=none
+ ! GGUF: no cls.weight / cls.output.weight, so there is no classifier: /v1/rerank returns softmax(hidden)[0] (tiny numbers such as 4.5e-23 on a real model) that also change with the other documents in the request.
+ ! GGUF: a Qwen3 model without pooling_type rank. The converter only treats Qwen3 as a reranker when the folder's README.md contains '# Qwen3-Reranker', the folder or _name_or_path contains 'qwen3-reranker', or the architecture is *ForSequenceClassification.
+
+reference: Qwen3-Reranker recipe (P(yes) at the last token)
+server: http://127.0.0.1:18090 api=/v1/rerank
+
+pair   reference      server
+   1     0.00673    0.011629
+   2     0.00272    0.010734
+   3     0.00464   0.0066811
+   4     0.01153    0.012166
+   5     0.00456   0.0074915
+   6     0.00355    0.026544
+   7     0.00114     0.01414
+   8     0.00231   0.0051819
+   9     0.00748   0.0018031
+  10     0.00270    0.004284
+
+rank agreement per query (Spearman): 0.600, -0.400
+
+verdict: MISMATCH
+ - The order differs and no known variant explains it: check the GGUF has cls.* tensors and pooling_type = rank, that -ub covers query + document, and that the KV cache is not quantized (-ctk/-ctv q4_0 hurts rerankers).

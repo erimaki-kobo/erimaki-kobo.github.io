@@ -1,0 +1,14 @@
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=128, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18106 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  1.000000    1.0000  
+    2  1.000000    1.0000  
+    3  1.000000    1.0000  
+    4  1.000000    1.0000  
+    5  1.000000    1.0000  
+    6  1.000000    1.0000  
+ long         -         -  error: HTTP 400 from /v1/embeddings: {"error": {"message": "This model's maximum context length is 128 tokens. However, you requested 218 tokens in the input for embed
+
+verdict: MATCH (worst cosine 1.000000) - with notes:
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.

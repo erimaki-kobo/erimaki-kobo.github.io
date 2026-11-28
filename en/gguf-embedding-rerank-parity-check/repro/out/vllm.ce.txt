@@ -1,0 +1,20 @@
+reference: sentence-transformers CrossEncoder, raw logits
+server: http://127.0.0.1:18108 api=/v1/rerank
+
+pair   reference      server
+   1     0.21152     0.55268
+   2     0.20851     0.55194
+   3     0.21070     0.55248
+   4     0.21174     0.55274
+   5     0.21156     0.55269
+   6     0.21155     0.55269
+   7     0.20949     0.55218
+   8     0.21115     0.55259
+   9     0.21232     0.55288
+  10     0.21275     0.55299
+
+rank agreement per query (Spearman): 1.000, 1.000
+server score matches the reference variant: sigmoid
+
+verdict: SAME RANKING, DIFFERENT SCALE
+ - The server applies a sigmoid (TEI without raw_scores, vLLM for 1-label cross-encoders). Ranking is unchanged; compare against CrossEncoder.predict() with its default activation, or ask for raw scores.

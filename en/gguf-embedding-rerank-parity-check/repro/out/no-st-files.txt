@@ -1,0 +1,17 @@
+gguf: arch=bert pooling_type=(not set) cls tensors=none
+ ! GGUF: no pooling_type. llama-server falls back to pooling 'none' (/v1/embeddings then refuses with 'Pooling type none is not OAI compatible'); pass --pooling explicitly or reconvert from a folder that has modules.json and 1_Pooling/.
+
+reference: sentence-transformers, pooling=mean, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    2         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    3         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    4         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    5         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+    6         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+ long         -         -  error: HTTP 400 from /v1/embeddings: {"error":{"code":400,"message":"Pooling type 'none' is not OAI compatible. Please use a different pooling type","type":"invalid_re
+
+verdict: MISMATCH
+ - The GGUF has no pooling_type, so llama-server runs with pooling 'none' and /v1/embeddings refuses it ('Pooling type none is not OAI compatible'). This happens when the folder you converted had no modules.json / 1_Pooling/config.json. Start llama-server with --pooling set to the model's pooling (sentence-transformers says it above), or reconvert from the full model folder.

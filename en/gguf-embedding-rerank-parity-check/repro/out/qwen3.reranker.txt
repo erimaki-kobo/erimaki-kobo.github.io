@@ -1,0 +1,20 @@
+gguf: arch=qwen3 pooling_type=rank cls tensors=['cls.output.weight'] rerank template=yes
+reference: Qwen3-Reranker recipe (P(yes) at the last token)
+server: http://127.0.0.1:18090 api=/v1/rerank
+
+pair   reference      server
+   1     0.00673   0.0067284
+   2     0.00272   0.0027158
+   3     0.00464   0.0046363
+   4     0.01153    0.011536
+   5     0.00456   0.0045591
+   6     0.00355   0.0035495
+   7     0.00114   0.0011412
+   8     0.00231   0.0023097
+   9     0.00748   0.0074811
+  10     0.00270   0.0026985
+
+rank agreement per query (Spearman): 1.000, 1.000
+server returns the same score as the reference
+
+verdict: MATCH

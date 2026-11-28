@@ -1,0 +1,19 @@
+reference: sentence-transformers CrossEncoder, raw logits
+server: http://127.0.0.1:18107 api=tei /rerank
+
+pair   reference      server
+   1     0.21152     0.21152
+   2     0.20851     0.20851
+   3     0.21070      0.2107
+   4     0.21174     0.21174
+   5     0.21156     0.21156
+   6     0.21155     0.21155
+   7     0.20949     0.20949
+   8     0.21115     0.21115
+   9     0.21232     0.21232
+  10     0.21275     0.21275
+
+rank agreement per query (Spearman): 1.000, 1.000
+server returns the same score as the reference (raw logit)
+
+verdict: MATCH

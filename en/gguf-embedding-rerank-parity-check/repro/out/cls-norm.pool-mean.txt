@@ -1,0 +1,16 @@
+gguf: arch=bert pooling_type=cls cls tensors=none
+reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, max_position_embeddings=512, prompt applied by default=''
+server: http://127.0.0.1:18090 api=openai
+
+ text    cosine  |server|  diagnosis
+    1  0.504198    1.0000  server pools with mean (model: cls)
+    2  0.514411    1.0000  server pools with mean (model: cls)
+    3  0.548649    1.0000  server pools with mean (model: cls)
+    4  0.573227    1.0000  server pools with mean (model: cls)
+    5  0.611687    1.0000  server pools with mean (model: cls)
+    6  0.532640    1.0000  server pools with mean (model: cls)
+ long         -         -  error: HTTP 500 from /v1/embeddings: {"error":{"code":500,"message":"input (785 tokens) is too large to process. increase the physical batch size (current batch size: 
+
+verdict: MISMATCH
+ - Pooling differs. llama.cpp: the GGUF's <arch>.pooling_type wins unless you pass --pooling {mean,cls,last}; a GGUF converted from a folder without modules.json / 1_Pooling has no pooling_type. Ollama uses the GGUF's value. TEI: --pooling. vLLM: --pooler-config '{"seq_pooling_type": "MEAN"}'.
+ - The server refused the long input instead of truncating it. llama-server: 'input (N tokens) is too large to process. increase the physical batch size' means the text is longer than -ub (default 512): raise -ub and -b, or cut the text. vLLM refuses inputs over max_model_len unless truncate_prompt_tokens is set; TEI refuses with --auto-truncate false.

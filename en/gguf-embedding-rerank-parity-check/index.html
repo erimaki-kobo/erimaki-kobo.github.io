@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llama.cpp Embeddings Differ from sentence-transformers? Causes</title>
+<meta name="description" content="Same model, different vectors? Pooling, prompt prefix, truncation and missing reranker heads, measured on llama-server, with a script that names the cause.">
+<link rel="canonical" href="https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="llama.cpp / Ollama embeddings or rerank scores differ from sentence-transformers: find the cause">
+<meta property="og:description" content="Same model, different vectors? Pooling, prompt prefix, truncation and missing reranker heads, measured on llama-server, with a script that names the cause.">
+<meta property="og:url" content="https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "TechArticle", "@id": "https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/#article", "headline": "llama.cpp / Ollama embeddings or rerank scores differ from sentence-transformers: find the cause", "description": "Same model, different vectors? Pooling, prompt prefix, truncation and missing reranker heads, measured on llama-server, with a script that names the cause.", "url": "https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/", "datePublished": "2026-11-28", "dateModified": "2026-11-28", "inLanguage": "en", "author": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "publisher": {"@type": "Organization", "name": "Erimaki Kobo", "url": "https://erimaki-kobo.github.io/"}, "mainEntityOfPage": "https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/"}, {"@type": "SoftwareSourceCode", "@id": "https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/#code", "name": "embedcheck.py", "description": "Sends the same texts to an embedding or rerank server (llama-server, Ollama, TEI, vLLM) and to the original model in sentence-transformers, reports cosine or score agreement per input, and names the cause of a mismatch.", "programmingLanguage": "Python", "url": "https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/embedcheck.py", "version": "1.0", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true}, {"@type": "FAQPage", "@id": "https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/#faq", "mainEntity": [{"@type": "Question", "name": "Why are llama.cpp embeddings different from sentence-transformers?", "acceptedAnswer": {"@type": "Answer", "text": "On an F32 GGUF of the same model, llama-server reproduced sentence-transformers to a cosine of 1.000000 in our runs. When they differ, the cause is almost always one of four settings: a different pooling (the GGUF's pooling_type or a --pooling flag), a prompt prefix that sentence-transformers adds automatically from default_prompt_name, a different truncation length (sentence-transformers cuts at max_seq_length, llama.cpp does not), or quantization. embedcheck.py tells you which."}}, {"@type": "Question", "name": "Why do Ollama embeddings not match Hugging Face cosine similarity?", "acceptedAnswer": {"@type": "Answer", "text": "Ollama's /api/embed and /v1/embeddings L2-normalize and truncate to the GGUF context_length (or num_ctx), not to the model's max_seq_length, and never add the model's query or document prefix. Texts longer than max_seq_length and models with a default prompt (E5-style \"query: \") differ from sentence-transformers. The legacy /api/embeddings returns unnormalized vectors."}}, {"@type": "Question", "name": "Why does llama-server /v1/rerank return wrong or tiny scores (like 4.5e-23)?", "acceptedAnswer": {"@type": "Answer", "text": "The GGUF has no classifier head. A Qwen3-Reranker converted as a plain Qwen3 model has no cls.output.weight and no rank pooling; llama-server then returns softmax over the last hidden state, which is tiny on a real model and changes with the other documents in the request. The converter treats Qwen3 as a reranker only if README.md contains '# Qwen3-Reranker', the folder or _name_or_path contains 'qwen3-reranker', or the architecture is *ForSequenceClassification."}}, {"@type": "Question", "name": "Why does a cross-encoder GGUF rank documents differently from CrossEncoder.predict?", "acceptedAnswer": {"@type": "Answer", "text": "Until 2026-11-27 llama.cpp's converter dropped the BERT pooler (dense + tanh), so BertForSequenceClassification models such as cross-encoder/ms-marco-MiniLM-L-12-v2 scored the raw [CLS] vector (llama.cpp #33109). PR #33122 fixed the converter; the first build with it is b12818. Reconvert. Separately, llama.cpp still feeds token_type_ids = 0 for the document, so scores of segment-trained cross-encoders are still slightly off in b12826."}}, {"@type": "Question", "name": "Is llama-server's rerank score a probability?", "acceptedAnswer": {"@type": "Answer", "text": "For Qwen3-Reranker GGUFs, yes: llama.cpp applies a softmax to the yes/no head, which equals P(yes) from the model card recipe (measured equal). For BERT cross-encoders it returns the raw logit; TEI and vLLM apply a sigmoid by default, so the numbers differ but the order is the same."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Answers for LLM inference engineers", "item": "https://erimaki-kobo.github.io/en/"}, {"@type": "ListItem", "position": 2, "name": "Embedding and reranker parity check", "item": "https://erimaki-kobo.github.io/en/gguf-embedding-rerank-parity-check/"}]}]}</script>
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1c1a;--mut:#62605a;--line:#dcd9d1;--card:#fff;--acc:#0b6b5d;--warn:#a4500a;--bad:#a12a2a;--ok:#1d6b34;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--fg:#eceae4;--mut:#a3a097;--line:#35332e;--card:#1e1e1b;--acc:#58c2b0;--warn:#e0a060;--bad:#ef8a8a;--ok:#7fd096;--code:#262521}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.65rem;line-height:1.25;margin:.2em 0 .4em;overflow-wrap:anywhere}
+h2{font-size:1.25rem;margin:2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:1.05rem;margin:1.4em 0 .3em}
+a{color:var(--acc)}
+p,li,dd{max-width:72ch;overflow-wrap:break-word}
+.lede{font-size:1.05rem}
+.meta{color:var(--mut);font-size:.85rem}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border-radius:4px}
+code{padding:.1em .35em;overflow-wrap:anywhere}
+pre{padding:12px;overflow-x:auto;line-height:1.45}
+pre code{padding:0;background:none}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.8rem}
+.tw{overflow-x:auto}
+.tw table{min-width:720px}
+.note{font-size:.88rem;color:var(--mut)}
+dt{font-weight:600;margin-top:.8em}dd{margin:0}
+td.ok{box-shadow:inset 3px 0 var(--ok)}td.bad{box-shadow:inset 3px 0 var(--bad)}td.warn{box-shadow:inset 3px 0 var(--warn)}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<p class="meta"><a href="/en/">Answers for LLM inference engineers</a></p>
+<h1>Embeddings or rerank scores from llama.cpp or Ollama don't match sentence-transformers? Find the cause</h1>
+<p class="lede"><strong>A correct GGUF served by llama-server gives the same vectors as sentence-transformers.</strong> We measured a cosine of
+1.000000 on F32 GGUFs. When the numbers differ, the engine is usually computing something else. It may pool differently, skip the
+<code>query: </code> prefix that sentence-transformers adds on its own, or read more tokens than the model's <code>max_seq_length</code>.
+For rerankers, the GGUF may have lost part of the model. BERT cross-encoders converted before llama.cpp b12818 have no pooler
+(<a href="https://github.com/ggml-org/llama.cpp/issues/33109">#33109</a>). Qwen3-Reranker GGUFs converted as a plain LLM have no head at all and return meaningless scores.
+<a href="embedcheck.py">embedcheck.py</a> sends the same inputs to your server and to the original model, and names the cause.</p>
+<p class="meta">Published 2026-11-28 &middot; llama-server measured at b12826 (2026-11-27) on CPU, with GGUFs converted by b12826 and by
+b12816 (the last build before the pooler fix). The models were small random-weight checkpoints with the real BERT (bge) and Qwen2 vocabularies.
+References came from sentence-transformers 6.3.0 and transformers 5.24.1. Ollama v0.40.19, TEI v1.10.0 and vLLM v0.34.0 were read from source,
+not run &middot; Tool version 1.0 (Python 3.9+, needs sentence-transformers and requests)</p>
+
+<h2 id="answer">The six causes, and what each engine does</h2>
+<p>Each row is a setting where an engine can quietly compute something different from <code>SentenceTransformer.encode()</code> or
+<code>CrossEncoder.predict()</code>. None of them raises an error. The only exceptions are the long-input refusals and llama-server's
+<code>Pooling type 'none'</code> 400.</p>
+<div class="tw"><table>
+<thead><tr><th>Setting</th><th>sentence-transformers</th><th>llama-server (b12826)</th><th>Ollama (v0.40.19)</th><th>TEI (v1.10.0)</th><th>vLLM (v0.34.0)</th></tr></thead>
+<tbody>
+<tr><td>Pooling</td><td>1_Pooling/config.json</td><td class="warn">GGUF <code>pooling_type</code>, set by the converter from 1_Pooling. <code>--pooling</code> overrides it. No pooling_type: <code>/v1/embeddings</code> answers 400 <em>Pooling type 'none' is not OAI compatible</em> (measured)</td><td>GGUF <code>pooling_type</code></td><td>1_Pooling. If it is missing on a BERT: CLS with a warning. <code>--pooling</code> overrides it</td><td>1_Pooling via modules.json. <code>--pooler-config</code> overrides it</td></tr>
+<tr><td>Prompt prefix (<code>query: </code>, <code>search_query: </code>)</td><td>adds <code>default_prompt_name</code> from config_sentence_transformers.json on every <code>encode()</code></td><td class="bad">never</td><td class="bad">never</td><td class="warn">only with <code>--default-prompt-name</code> or <code>prompt_name</code> in the request</td><td class="warn">only on the Cohere-style <code>/v2/embed</code> with <code>input_type</code>. Never on <code>/v1/embeddings</code></td></tr>
+<tr><td>Long input</td><td>cut at <code>max_seq_length</code></td><td class="bad">no cut. Over <code>-ub</code> (default 512): HTTP 500 <em>input (N tokens) is too large to process. increase the physical batch size</em> (measured)</td><td class="bad">cut at the GGUF <code>context_length</code> (= max_position_embeddings) or <code>num_ctx</code>, not max_seq_length. <code>"truncate": false</code> gives a 400 instead</td><td class="ok">cut at <code>max_seq_length</code> (<code>--auto-truncate</code>, default true)</td><td class="warn">refused over <code>max_model_len</code> (= max_seq_length) unless <code>truncate_prompt_tokens</code> is set</td></tr>
+<tr><td>Normalization</td><td>only if the model has a Normalize module</td><td><code>/v1/embeddings</code>: L2 by default (<code>--embd-normalize 2</code>). <code>-1</code> returns raw vectors (measured)</td><td><code>/api/embed</code> and <code>/v1/embeddings</code>: always L2. Legacy <code>/api/embeddings</code>: raw</td><td><code>normalize</code> defaults to true</td><td>follows the Normalize module</td></tr>
+<tr><td>Cross-encoder segment ids</td><td>query 0, document 1</td><td class="bad">0 for every token (<code>type_row0</code> in src/models/bert.cpp). Scores shift slightly (measured)</td><td>no rerank endpoint</td><td>passes them</td><td>passes them</td></tr>
+<tr><td>Rerank score scale</td><td><code>predict()</code>: sigmoid for 1 label (use <code>activation_fn=Identity()</code> for logits)</td><td>raw logit for BERT. P(yes) for Qwen3-Reranker</td><td>&ndash;</td><td>sigmoid unless <code>"raw_scores": true</code></td><td>sigmoid for 1 label unless <code>use_activation: false</code></td></tr>
+</tbody></table></div>
+<p class="note">A different scale (raw logit vs sigmoid) does not change the ranking, so it is not a bug. Normalization does not change cosine,
+but it does change dot-product and L2 scores. Everything else in the table changes the vectors themselves.</p>
+
+<h2 id="measured">What we measured on llama-server</h2>
+<p>Each row is one run of <code>embedcheck.py</code> against llama-server b12826 on CPU, using F32 GGUFs. We used six short texts (English,
+Japanese, code, emoji) and one long text of 1.5&times; max_seq_length. For rerankers we used 2 queries &times; 5 documents. The weights are
+random, so absolute cosines here are not those of a trained model. A trained model's vectors are more spread out, so the same mistake
+usually costs more. Whether a setting matches does not depend on the weights.</p>
+<div class="tw"><table>
+<thead><tr><th>Case</th><th>Server flags</th><th>Result</th><th>Cause found by the checker</th></tr></thead>
+<tbody>
+<tr><td>CLS + Normalize (bge-style)</td><td><code>--embedding</code></td><td class="ok n">cos 1.000000 &times; 6</td><td>match. The long text (785 tokens): HTTP 500, too large for <code>-ub</code> 512</td></tr>
+<tr><td>same GGUF</td><td><code>--embedding --pooling mean</code></td><td class="bad n">cos 0.504&ndash;0.612</td><td>server pools with mean (model: cls)</td></tr>
+<tr><td>mean + Normalize, max_seq_length 128</td><td><code>--embedding</code></td><td class="warn n">short 1.000000. Long 0.998473</td><td>server reads 218 tokens, sentence-transformers cuts at 128</td></tr>
+<tr><td>mean, default prompt <code>query: </code> (E5-style)</td><td><code>--embedding</code></td><td class="bad n">cos 0.978&ndash;0.992</td><td>server sees no prefix (reference: 'query: ')</td></tr>
+<tr><td>converted from a folder without modules.json</td><td><code>--embedding</code></td><td class="bad">HTTP 400 on every input</td><td>GGUF has no pooling_type. <em>Pooling type 'none' is not OAI compatible</em></td></tr>
+<tr><td>CLS + Normalize</td><td><code>--embedding --embd-normalize -1</code></td><td class="ok n">cos 1.000000, |v| = 8.0</td><td>match, with a note that the vectors are not unit length</td></tr>
+<tr><td>BERT cross-encoder, converted by <b>b12816</b></td><td><code>--reranking</code></td><td class="bad n">Spearman &minus;0.70, &minus;0.60</td><td>scores equal the head applied to raw [CLS] with segment ids 0: the pooler was dropped (#33109)</td></tr>
+<tr><td>same checkpoint, converted by <b>b12826</b></td><td><code>--reranking</code></td><td class="warn n">Spearman 0.90, 1.00</td><td>scores equal the model run with token_type_ids = 0 (pooler fixed, segment ids still 0)</td></tr>
+<tr><td>Qwen3-Reranker-style, converted with a README saying <code># Qwen3-Reranker</code></td><td><code>--reranking</code></td><td class="ok n">equal to P(yes), Spearman 1.00, 1.00</td><td>match</td></tr>
+<tr><td>same weights, converted from a folder named <code>toy-model</code> with no README</td><td><code>--reranking --pooling rank</code></td><td class="bad n">Spearman 0.60, &minus;0.40</td><td>no cls.output.weight. Score = softmax(last hidden)[0]. Document 2 scored 0.00486 alone and 0.01073 next to document 1</td></tr>
+</tbody></table></div>
+<p class="note">How to reproduce: <code>repro/make_toys.py</code> builds the checkpoints, <code>repro/run_matrix.sh</code> starts llama-server for each case
+(a few seconds each), and <code>repro/run_mock.sh</code> runs the checker against a replay server that answers in Ollama, TEI and vLLM format.
+The full outputs are in <code>repro/out/</code>.</p>
+
+<h2 id="check">Check your own server</h2>
+<pre><code>pip install sentence-transformers requests gguf
+# llama-server
+llama-server -m bge-small-en-v1.5-f16.gguf --embedding --port 8080
+python embedcheck.py embed --model BAAI/bge-small-en-v1.5 --url http://127.0.0.1:8080 --gguf bge-small-en-v1.5-f16.gguf
+# Ollama (name the model as Ollama knows it)
+python embedcheck.py embed --model nomic-ai/nomic-embed-text-v1.5 --url http://127.0.0.1:11434 --api ollama --served-model nomic-embed-text --trust-remote-code
+# TEI / vLLM rerankers
+python embedcheck.py rerank --model BAAI/bge-reranker-base --url http://127.0.0.1:8080 --api tei
+python embedcheck.py rerank --model Qwen/Qwen3-Reranker-0.6B --kind qwen3 --url http://127.0.0.1:8080 --gguf qwen3-reranker-0.6b-q8_0.gguf</code></pre>
+<p>Example: llama-server started with the wrong pooling.</p>
+<pre><code>reference: sentence-transformers, pooling=cls, normalize=True, max_seq_length=512, ...
+ text    cosine  |server|  diagnosis
+    1  0.504198    1.0000  server pools with mean (model: cls)
+    ...
+verdict: MISMATCH
+ - Pooling differs. llama.cpp: the GGUF's &lt;arch&gt;.pooling_type wins unless you pass --pooling ...</code></pre>
+<p>Exit status 0 means it matches (notes such as &ldquo;not normalized&rdquo; or &ldquo;refused the long input&rdquo; are printed but do not fail).
+Exit 1 means a mismatch, and 2 means the server could not be reached. <code>--gguf</code> also reads the GGUF header. It flags a missing
+pooling_type, a reranker with no <code>cls.*</code> tensors, a Qwen3 GGUF without rank pooling, and a BERT classifier without
+<code>cls.weight</code> (the dropped pooler). How close is close enough: F32/F16 GGUFs land above 0.999. Q8_0 usually lands above 0.99.
+Below that, with no pooling, prefix or truncation explanation, suspect the conversion.</p>
+
+<h2 id="fixes">Fixes</h2>
+<dl>
+<dt>Pooling</dt><dd>Start llama-server with <code>--pooling cls|mean|last</code> matching the model's 1_Pooling/config.json. Or reconvert from the full
+model folder: <code>convert_hf_to_gguf.py</code> reads modules.json and 1_Pooling to set pooling_type, and a bare folder (only config.json and
+weights) gives a GGUF without one.</dd>
+<dt>Prefix</dt><dd>Add the prefix to the text yourself: <code>search_query: </code> / <code>search_document: </code> for nomic-embed, <code>query: </code> /
+<code>passage: </code> for E5, the instruction for Qwen3-Embedding. Or tell sentence-transformers not to add it (<code>prompt=""</code>) when you compare.</dd>
+<dt>Truncation</dt><dd>Cut inputs to <code>max_seq_length</code> tokens before sending (all-MiniLM-L6-v2: 256, although its GGUF says 512). For
+llama-server, raise <code>-ub</code> and <code>-b</code> together to accept longer inputs up to the model's context.</dd>
+<dt>Cross-encoder pooler</dt><dd>Reconvert BertForSequenceClassification checkpoints with llama.cpp b12818 or later
+(<a href="https://github.com/ggml-org/llama.cpp/pull/33122">PR #33122</a>, merged 2026-11-27). <code>--gguf</code> shows <code>cls.weight</code> and <code>classifier.activation=tanh</code> on a good one.</dd>
+<dt>Qwen3-Reranker head</dt><dd>Convert from a folder whose README.md starts with <code># Qwen3-Reranker</code>, or whose name contains <code>qwen3-reranker</code>
+(support since b6578, <a href="https://github.com/ggml-org/llama.cpp/pull/15824">PR #15824</a>). Check that the GGUF lists <code>cls.output.weight</code> and pooling_type rank. On vLLM,
+the original checkpoint needs <code>--hf_overrides '{"architectures": ["Qwen3ForSequenceClassification"], "classifier_from_token": ["no", "yes"], "is_original_qwen3_reranker": true}'</code>
+and the reranker chat template.</dd>
+<dt>Quantized KV cache</dt><dd>Don't use <code>-ctk q4_0 -ctv q4_0</code> for rerankers. In <a href="https://github.com/ggml-org/llama.cpp/issues/16407">#16407</a> ggerganov
+advised against it for reranking, and against q8_0 too.</dd>
+</dl>
+
+<h2 id="issues">Known reports</h2>
+<div class="tw"><table>
+<thead><tr><th>Report</th><th>Model</th><th>Cause</th><th>Status (2026-11-28)</th></tr></thead>
+<tbody>
+<tr><td><a href="https://github.com/ggml-org/llama.cpp/issues/33109">llama.cpp #33109</a></td><td>cross-encoder/ms-marco-MiniLM-L-12-v2: transformers +8.50, llama.cpp &minus;0.026 on the same pair</td><td>pooler dropped by the converter. Segment ids 0</td><td>closed by <a href="https://github.com/ggml-org/llama.cpp/pull/33122">#33122</a> (b12818). Segment ids unchanged</td></tr>
+<tr><td><a href="https://github.com/ggml-org/llama.cpp/issues/16407">llama.cpp #16407</a></td><td>Qwen3-Reranker, bge, mxbai: near-random order</td><td>quantized KV cache, a bad community GGUF, raw vs normalized scores</td><td>no single fix recorded. The ggml-org Q8_0 GGUF gave sensible scores</td></tr>
+<tr><td><a href="https://github.com/ggml-org/llama.cpp/issues/5783">llama.cpp #5783</a></td><td>GritLM embeddings differ from the reference</td><td>the pooling default was part of it</td><td>no merged fix seen</td></tr>
+<tr><td><a href="https://huggingface.co/Voodisss/Qwen3-Reranker-0.6B-GGUF-llama_cpp">Voodisss/Qwen3-Reranker-0.6B-GGUF</a></td><td>community Qwen3-Reranker GGUFs score ~4.5e-23</td><td>no cls.output.weight</td><td>explained on that model card</td></tr>
+</tbody></table></div>
+
+<h2 id="faq">FAQ</h2>
+<h3>Why are llama.cpp embeddings different from sentence-transformers?</h3>
+<p>On an F32 GGUF of the same model, llama-server reproduced sentence-transformers to a cosine of 1.000000 in our runs. When they differ, the cause is almost always one of four settings: a different pooling (the GGUF's pooling_type or a --pooling flag), a prompt prefix that sentence-transformers adds automatically from default_prompt_name, a different truncation length (sentence-transformers cuts at max_seq_length, llama.cpp does not), or quantization. embedcheck.py tells you which.</p>
+<h3>Why do Ollama embeddings not match Hugging Face cosine similarity?</h3>
+<p>Ollama's /api/embed and /v1/embeddings L2-normalize and truncate to the GGUF context_length (or num_ctx), not to the model's max_seq_length, and never add the model's query or document prefix. Texts longer than max_seq_length and models with a default prompt (E5-style "query: ") differ from sentence-transformers. The legacy /api/embeddings returns unnormalized vectors.</p>
+<h3>Why does llama-server /v1/rerank return wrong or tiny scores (like 4.5e-23)?</h3>
+<p>The GGUF has no classifier head. A Qwen3-Reranker converted as a plain Qwen3 model has no cls.output.weight and no rank pooling; llama-server then returns softmax over the last hidden state, which is tiny on a real model and changes with the other documents in the request. The converter treats Qwen3 as a reranker only if README.md contains '# Qwen3-Reranker', the folder or _name_or_path contains 'qwen3-reranker', or the architecture is *ForSequenceClassification.</p>
+<h3>Why does a cross-encoder GGUF rank documents differently from CrossEncoder.predict?</h3>
+<p>Until 2026-11-27 llama.cpp's converter dropped the BERT pooler (dense + tanh), so BertForSequenceClassification models such as cross-encoder/ms-marco-MiniLM-L-12-v2 scored the raw [CLS] vector (llama.cpp #33109). PR #33122 fixed the converter; the first build with it is b12818. Reconvert. Separately, llama.cpp still feeds token_type_ids = 0 for the document, so scores of segment-trained cross-encoders are still slightly off in b12826.</p>
+<h3>Is llama-server's rerank score a probability?</h3>
+<p>For Qwen3-Reranker GGUFs, yes: llama.cpp applies a softmax to the yes/no head, which equals P(yes) from the model card recipe (measured equal). For BERT cross-encoders it returns the raw logit; TEI and vLLM apply a sigmoid by default, so the numbers differ but the order is the same.</p>
+
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/en/engine-logprob-parity-check/">How far vLLM and llama.cpp logprobs may differ from Transformers</a></li>
+<li><a href="/en/llama-cpp-pre-tokenizer-lookup/">llama.cpp pre-tokenizer lookup (chkhsh, unknown pre-tokenizer type)</a></li>
+<li><a href="/en/gguf-redownload-check/">Do I need to redownload this GGUF?</a></li>
+<li><a href="/en/context-overflow-error-status-check/">What each engine returns when the input is too long</a></li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>llama.cpp b12826: <a href="https://github.com/ggml-org/llama.cpp/blob/b12826/conversion/bert.py">conversion/bert.py</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/b12826/conversion/qwen.py">conversion/qwen.py</a> (Qwen3Model._is_qwen3_reranker), <a href="https://github.com/ggml-org/llama.cpp/blob/b12826/conversion/base.py">conversion/base.py</a> (_try_set_pooling_type), <a href="https://github.com/ggml-org/llama.cpp/blob/b12826/src/llama-graph.cpp">src/llama-graph.cpp</a> (LLAMA_POOLING_TYPE_RANK), <a href="https://github.com/ggml-org/llama.cpp/blob/b12826/src/models/bert.cpp">src/models/bert.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/b12826/tools/server/server-context.cpp">tools/server/server-context.cpp</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/b12826/tools/server/server-common.cpp">server-common.cpp</a> (format_prompt_rerank). PRs <a href="https://github.com/ggml-org/llama.cpp/pull/33122">#33122</a>, <a href="https://github.com/ggml-org/llama.cpp/pull/15824">#15824</a></li>
+<li>Ollama v0.40.19: <a href="https://github.com/ollama/ollama/blob/v0.40.19/server/routes.go">server/routes.go</a> (EmbedHandler, EmbeddingsHandler)</li>
+<li>TEI v1.10.0: <a href="https://github.com/huggingface/text-embeddings-inference/blob/v1.10.0/router/src/lib.rs">router/src/lib.rs</a>, <a href="https://github.com/huggingface/text-embeddings-inference/blob/v1.10.0/router/src/http/types.rs">router/src/http/types.rs</a>, <a href="https://github.com/huggingface/text-embeddings-inference/blob/v1.10.0/core/src/infer.rs">core/src/infer.rs</a></li>
+<li>vLLM v0.34.0: <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/transformers_utils/config.py">transformers_utils/config.py</a> (get_pooling_config), <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/config/model.py">config/model.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/model_executor/layers/pooler/activations.py">layers/pooler/activations.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/vllm/entrypoints/pooling/embed/io_processor.py">entrypoints/pooling/embed/io_processor.py</a>, <a href="https://github.com/vllm-project/vllm/blob/v0.34.0/examples/pooling/score/qwen3_reranker_online.py">examples/pooling/score/qwen3_reranker_online.py</a></li>
+<li>Reports: <a href="https://github.com/ggml-org/llama.cpp/issues/33109">llama.cpp #33109</a>, <a href="https://github.com/ggml-org/llama.cpp/issues/16407">#16407</a>, <a href="https://github.com/ggml-org/llama.cpp/issues/5783">#5783</a>, <a href="https://huggingface.co/Voodisss/Qwen3-Reranker-0.6B-GGUF-llama_cpp">Voodisss/Qwen3-Reranker-0.6B-GGUF-llama_cpp</a></li>
+</ul>
+</main>
+</body>
+</html>
