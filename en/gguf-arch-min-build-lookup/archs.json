@@ -1,10 +1,10 @@
 {
  "as_of": "2026-11-27",
- "llama_cpp_head": "b12804",
+ "llama_cpp_head": "b12823",
  "ollama_latest": {
-  "tag": "v0.40.18",
-  "date": "2026-11-24",
-  "pinned_build": "b12651"
+  "tag": "v0.40.19",
+  "date": "2026-11-26",
+  "pinned_build": "b12734"
  },
  "architectures": [
   {
@@ -4155,6 +4155,13 @@
    "date": "2026-11-24",
    "llama_cpp_build": "b12651",
    "pin": "b12651",
+   "pin_is_exact_tag": true
+  },
+  {
+   "release": "v0.40.19",
+   "date": "2026-11-26",
+   "llama_cpp_build": "b12734",
+   "pin": "b12734",
    "pin_is_exact_tag": true
   }
  ]
